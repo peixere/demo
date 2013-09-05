@@ -14,5 +14,5 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/tomcat-coyote.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>
