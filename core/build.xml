@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<project name="main" basedir="." default="all">
+    <target name="all" depends="build"> 
+    </target> 
+    <target name="build"> 
+        <ant antfile="build.xml" dir="../cn.gotom.commons" />
+        <ant antfile="build.xml" dir="../cn.gotom.comm.serial" />
+        <ant antfile="build.xml" dir="../cn.gotom.comm.usbhid" />
+        <ant antfile="build.xml" dir="../cn.gotom.dao" />
+        <ant antfile="build.xml" dir="../cn.gotom.pojos" />
+        <ant antfile="build.xml" dir="../cn.gotom.service" />
+        <ant antfile="build.xml" dir="../cn.gotom.action" />
+    </target>
+</project>
