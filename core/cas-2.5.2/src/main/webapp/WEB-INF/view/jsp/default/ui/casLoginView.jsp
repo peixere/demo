@@ -69,6 +69,7 @@
                     </div>
             </form:form>
           </div>
+          <!-- 
             <div id="sidebar">
 				<div class="sidebar-content">
                 <p class="fl-panel fl-note fl-bevel-white fl-font-size-80"><spring:message code="screen.welcome.security" /></p>
@@ -138,4 +139,5 @@
                 </div>
 				</div>
             </div>
+             -->
 <jsp:directive.include file="includes/bottom.jsp" />
