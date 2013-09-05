@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="main" basedir="." default="all">
+
+	<target name="all" depends="clean,init,compile,jar" />
+	<path id="lib">
+		<fileset dir="../cn.gotom.web/webroot/WEB-INF/lib">
+			<include name="**/**.jar" />
+		</fileset>		
+	</path>
+
+	<target name="init">
+		<property name="dirs.base" value="${basedir}" />
+		<property name="targetdir" value="${dirs.base}/bin" />
+		<property name="src" value="${dirs.base}/src/main/java" />
+		<property name="outputjar" value="../cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.comm.usbhid.jar" />
+		<mkdir dir="${targetdir}" />
+	</target>
+	<target name="compile" depends="init">
+		<mkdir dir="${targetdir}" />
+		<javac classpathref="lib" destdir="${targetdir}" encoding="UTF-8" optimize="off" debug="on" failonerror="false"
+			includeantruntime="on" srcdir="${src}" />
+	</target>
+
+	<target name="jar">
+		<jar destfile="${outputjar}" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="cn.gotom.comm.serial.SerialDemo" />
+				<attribute name="Class-Path"
+					value=". hidapi-1.1.jar log4j-1.2.17.jar cn.gotom.commons.jar" />
+			</manifest>
+			<fileset dir="${targetdir}" />
+		</jar>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${targetdir}" />
+	</target>
+</project>
