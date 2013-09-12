@@ -37,5 +37,9 @@ public interface UniversalService {
 	Object persist(Object value);
 
 	void saveAll(Collection<?> entitys);
+	
+	List<?> execute(String sql);
+	
+	int executeUpdate(String sql);
 
 }

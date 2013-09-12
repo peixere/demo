@@ -87,4 +87,16 @@ public class UniversalServiceImpl implements UniversalService
 	{
 		dao.saveAll(entitys);
 	}
+
+	@Override
+	public List<?> execute(String sql)
+	{
+		return dao.execute(sql);
+	}
+
+	@Override
+	public int executeUpdate(String sql)
+	{
+		return dao.executeUpdate(sql);
+	}
 }

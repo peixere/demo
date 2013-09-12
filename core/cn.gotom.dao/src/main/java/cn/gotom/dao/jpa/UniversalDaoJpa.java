@@ -176,7 +176,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		return find(clazz, -1, -1);
 	}
 
-	public Field findField(Class<?> clazz, String name)
+	protected Field findField(Class<?> clazz, String name)
 	{
 		Field field = null;
 		Class<?> superclass = clazz;
@@ -193,5 +193,17 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 			superclass = superclass.getSuperclass();
 		}
 		return field;
+	}
+
+	@Override
+	public List<?> execute(String sql)
+	{
+		return this.getEntityManager().createNativeQuery(sql).getResultList();
+	}
+	
+	@Override
+	public int executeUpdate(String sql)
+	{
+		return this.getEntityManager().createNativeQuery(sql).executeUpdate();
 	}
 }
