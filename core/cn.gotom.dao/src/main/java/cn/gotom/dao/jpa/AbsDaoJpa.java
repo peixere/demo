@@ -16,12 +16,12 @@ import com.google.inject.Provider;
 abstract class AbsDaoJpa
 {
 	protected final Logger log = Logger.getLogger(getClass());
-	
+
 	protected final String ArgsPrefix = "arg";
 
 	@Inject
 	protected Provider<EntityManager> provider;
-		
+
 	public AbsDaoJpa()
 	{
 
@@ -30,6 +30,11 @@ abstract class AbsDaoJpa
 	protected EntityManager getEntityManager()
 	{
 		return provider.get();
+	}
+
+	protected java.sql.Connection getConnection()
+	{
+		return provider.get().unwrap(java.sql.Connection.class);
 	}
 
 	protected Object getSingleResult(String jpql, Object... values)
