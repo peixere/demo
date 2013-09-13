@@ -21,13 +21,20 @@ public class GuicePersistFilter implements Filter
 
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
-		Enumeration<String> names = filterConfig.getInitParameterNames();
-		while (names.hasMoreElements())
+		try
 		{
-			log.info(filterConfig.getInitParameter(names.nextElement()));
+			Enumeration<String> names = filterConfig.getInitParameterNames();
+			while (names.hasMoreElements())
+			{
+				log.info(filterConfig.getInitParameter(names.nextElement()));
+			}
+			this.manager.startService();
+			log.info("=========== startService ===========");
 		}
-		this.manager.startService();
-		log.info("=========== startService ===========");
+		catch (Exception ex)
+		{
+			log.error("程序启动异常", ex);
+		}
 	}
 
 	public void destroy()

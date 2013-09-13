@@ -29,7 +29,7 @@ public class AppAction implements ServletRequestAware
 
 	private String parentId;
 
-	@Action(value = "/menu", results = { @Result(name = "success", type = "json") })
+	@Action(value = "/main", results = { @Result(name = "success", type = "json") })
 	public String execute()
 	{
 		String username = request.getRemoteUser();
