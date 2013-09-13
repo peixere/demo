@@ -89,9 +89,9 @@ public class UniversalServiceImpl implements UniversalService
 	}
 
 	@Override
-	public List<?> execute(String sql)
+	public <T> List<T> query(Class<T> clazz, String sql)
 	{
-		return dao.execute(sql);
+		return dao.query(clazz, sql);
 	}
 
 	@Override

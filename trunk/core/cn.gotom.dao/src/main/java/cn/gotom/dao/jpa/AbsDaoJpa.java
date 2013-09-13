@@ -32,11 +32,6 @@ abstract class AbsDaoJpa
 		return provider.get();
 	}
 
-	protected java.sql.Connection getConnection()
-	{
-		return provider.get().unwrap(java.sql.Connection.class);
-	}
-
 	protected Object getSingleResult(String jpql, Object... values)
 	{
 		Query q = getEntityManager().createQuery(jpql);
