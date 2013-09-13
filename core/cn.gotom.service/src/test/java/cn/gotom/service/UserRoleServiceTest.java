@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import cn.gotom.dao.JdbcUtils;
 import cn.gotom.injector.CorePersistService;
 import cn.gotom.injector.InjectorUtils;
+import cn.gotom.pojos.Resource;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
@@ -93,6 +94,8 @@ public class UserRoleServiceTest extends TestCase
 		AuthService authService = injector.getInstance(AuthService.class);
 		Assert.assertNotNull(authService);
 		UserService userDao = injector.getInstance(UserService.class);
+		String sql = "select  t.id, t.text, t.component, " + " t.description, t.type, t.iconCls, t.sort " + " from resource t where t.parent_id is null";
+		userDao.query(Resource.class, sql);
 		userDao.removeAll();
 		for (User user : userList)
 		{
