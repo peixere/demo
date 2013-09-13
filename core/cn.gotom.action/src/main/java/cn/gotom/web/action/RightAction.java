@@ -6,6 +6,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Resource;
 import cn.gotom.service.RightService;
 import cn.gotom.util.StringUtils;
 
@@ -35,14 +36,14 @@ public class RightAction
 		return "success";
 	}
 
-	private List<?> menuList;
+	private List<Resource> menuList;
 
-	public List<?> getMenuList()
+	public List<Resource> getMenuList()
 	{
 		return menuList;
 	}
 
-	public void setMenuList(List<?> menuList)
+	public void setMenuList(List<Resource> menuList)
 	{
 		this.menuList = menuList;
 	}
@@ -50,16 +51,20 @@ public class RightAction
 	@Action(value = "/menu", results = { @Result(name = "success", type = "json") })
 	public String menu()
 	{
-		String sql = "";
+		String sql = "select  t.id, t.text as name, t.component, t.description, t.type, t.iconCls as icon, t.sort from resource t";
 		if (StringUtils.isNullOrEmpty(id))
 		{
-			sql = "select  t.id, t.text, t.component, " + " t.description, t.type, t.iconCls, t.sort " + " from resource t where t.parent_id is null";
+			sql += " where t.parent_id is null";
 		}
 		else
 		{
-			sql = "select  t.id, t.text, t.component, " + " t.description, t.type, t.iconCls, t.sort,t.leaf " + " from resource t where t.parent_id = '" + id + "'";
+			sql += " where t.parent_id = '" + id + "'";
 		}
-		menuList = rightService.execute(sql);
+		menuList = rightService.query(Resource.class, sql);
+		for (Resource r : menuList)
+		{
+			r.getId();
+		}
 		return "success";
 	}
 }
