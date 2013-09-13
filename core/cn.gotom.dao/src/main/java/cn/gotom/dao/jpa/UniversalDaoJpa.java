@@ -2,12 +2,18 @@ package cn.gotom.dao.jpa;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Query;
 
+import org.hibernate.transform.Transformers;
+
+import cn.gotom.dao.JdbcUtils;
 import cn.gotom.dao.UniversalDao;
 import cn.gotom.service.Parameter;
 
@@ -196,14 +202,32 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	}
 
 	@Override
-	public List<?> execute(String sql)
+	public <T> List<T> query(Class<T> clazz, String sql)
 	{
-		return this.getEntityManager().createNativeQuery(sql).getResultList();
+		List<T> eList = null;
+		try
+		{
+			eList = JdbcUtils.toList(clazz, query(sql));
+		}
+		catch (SQLException ex)
+		{
+			log.error("初始化连接错误", ex);
+			eList = new ArrayList<T>();
+		}
+		return eList;
 	}
-	
+
 	@Override
 	public int executeUpdate(String sql)
 	{
 		return this.getEntityManager().createNativeQuery(sql).executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Map<String, Object>> query(String sql)
+	{
+		Query query = this.getEntityManager().createNativeQuery(sql);
+		query.unwrap(org.hibernate.SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		return query.getResultList();
 	}
 }

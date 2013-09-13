@@ -106,9 +106,77 @@ public class JdbcUtils
 		return map;
 	}
 
-	public static <T> List<T> resultSetToList(Class<T> cls, ResultSet rs) throws SQLException
+	public static <T> List<T> toList(Class<T> cls, List<Map<String, Object>> mapList) throws SQLException
 	{
 		List<T> eList = new ArrayList<T>();
+		if (mapList == null)
+		{
+			return eList;
+		}
+		for (Map<String, Object> map : mapList)
+		{
+			T entity = toEntity(cls, map);
+			if (entity != null)
+			{
+				eList.add(entity);
+			}
+		}
+		return eList;
+	}
+
+	public static <T> T toEntity(Class<T> cls, Map<String, Object> map) throws SQLException
+	{
+		T entity = null;
+		try
+		{
+			entity = cls.newInstance();
+		}
+		catch (Exception e)
+		{
+			throw new SQLException(e.getMessage(), e.fillInStackTrace());
+		}
+		PropertyDescriptor[] ps = null;
+		try
+		{
+			ps = Introspector.getBeanInfo(entity.getClass()).getPropertyDescriptors();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		for (String column : map.keySet())
+		{
+			Object value = map.get(column);
+			if (value != null && ps != null)
+			{
+				for (PropertyDescriptor pd : ps)
+				{
+					if (pd.getName().equals(column) && pd.getWriteMethod() != null)
+					{
+						try
+						{
+							pd.getWriteMethod().invoke(entity, value);
+						}
+						catch (Exception ex)
+						{
+							log.error("", ex);
+						}
+					}
+				}
+			}
+		}
+		return entity;
+
+	}
+
+	public static <T> List<T> toList(Class<T> cls, ResultSet rs) throws SQLException
+	{
+		List<T> eList = new ArrayList<T>();
+		if (rs == null)
+		{
+			return eList;
+		}
 		ResultSetMetaData rsmd = rs.getMetaData();
 		while (rs.next())
 		{

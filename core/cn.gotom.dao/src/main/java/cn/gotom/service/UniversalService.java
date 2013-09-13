@@ -14,7 +14,8 @@ import com.google.inject.ImplementedBy;
  * @author <a href="mailto:peixere@qq.com">裴绍国</a>
  */
 @ImplementedBy(UniversalServiceImpl.class)
-public interface UniversalService {
+public interface UniversalService
+{
 
 	boolean exist(Class<?> clazz, Serializable id);
 
@@ -37,9 +38,9 @@ public interface UniversalService {
 	Object persist(Object value);
 
 	void saveAll(Collection<?> entitys);
-	
-	List<?> execute(String sql);
-	
+
+	<T> List<T> query(Class<T> clazz, String sql);
+
 	int executeUpdate(String sql);
 
 }
