@@ -5,7 +5,7 @@
 * A sample portal layout application class.
 */
 
-var appURL = "main.json";
+var appURL = "menu";
 
 var model = Ext.define("TreeModel", {// 定义树节点数据模型
 	extend : "Ext.data.Model",
@@ -13,7 +13,7 @@ var model = Ext.define("TreeModel", {// 定义树节点数据模型
 		name : "id",
 		type : "string"
 	}, {
-		name : "text",
+		name : "name",
 		type : "string"
 	}, {
 		name : "iconCls",
@@ -71,7 +71,7 @@ Ext.onReady(function(){
 			if (node.data.type === 'URL') {// 判断资源类型
 				var panel = Ext.create('Ext.panel.Panel', {
 					id : node.data.id,
-					title : node.data.text,
+					title : node.data.name,
 					closable : true,
 					iconCls : 'icon-activity',
 					html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>'
@@ -81,7 +81,7 @@ Ext.onReady(function(){
 			} else if (node.data.type === 'COMPONENT') {
 				var panel = Ext.create(node.data.component, {
 					id : node.data.id,
-					title : node.data.text,
+					title : node.data.name,
 					closable : true,
 					iconCls : 'icon-activity'
 				});
@@ -91,10 +91,11 @@ Ext.onReady(function(){
 		}
 	}
 
-	function addTree(data) {
+	function addTree(res) {
+		var data = res.menuList;
 		for (var i = 0; i < data.length; i++) {
 			navPanel.add(Ext.create("Ext.tree.Panel", {
-				title : data[i].text,
+				title : data[i].name,
 				iconCls : data[i].iconCls,
 				// useArrows: true,
 				autoScroll : true,
