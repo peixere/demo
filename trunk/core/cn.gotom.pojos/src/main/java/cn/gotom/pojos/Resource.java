@@ -12,7 +12,7 @@ public class Resource {
 	
 	private String type;
 
-	private String icon;
+	private String iconCls;
 	
 	private Integer sort;
 
@@ -64,12 +64,14 @@ public class Resource {
 		this.type = type;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getIconCls()
+	{
+		return iconCls;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setIconCls(String iconCls)
+	{
+		this.iconCls = iconCls;
 	}
 
 }
