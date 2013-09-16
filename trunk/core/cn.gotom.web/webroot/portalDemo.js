@@ -5,7 +5,7 @@
 * A sample portal layout application class.
 */
 
-var appURL = "menu";
+var menuUrl = "menu";
 
 var model = Ext.define("TreeModel", {// 定义树节点数据模型
 	extend : "Ext.data.Model",
@@ -13,7 +13,7 @@ var model = Ext.define("TreeModel", {// 定义树节点数据模型
 		name : "id",
 		type : "string"
 	}, {
-		name : "name",
+		name : "text",
 		type : "string"
 	}, {
 		name : "iconCls",
@@ -34,7 +34,7 @@ var createStore = function(id) {// 创建树面板数据源
 		model : model,
 		proxy : {
 			type : "ajax", // 获取方式
-			url : appURL + "?action=node" // 获取树节点的地址
+			url : menuUrl // 获取树节点的地址
 		},
 		clearOnLoad : true,
 		nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
@@ -49,7 +49,7 @@ Ext.onReady(function(){
 
 	titlePanel.setLoading(titlePanel.id+' Loading...');
 	Ext.defer(function() {
-		titlePanel.update("测试")
+		titlePanel.update("测试");
 		titlePanel.setLoading(false);
 	}, 2000);
 
@@ -71,7 +71,7 @@ Ext.onReady(function(){
 			if (node.data.type === 'URL') {// 判断资源类型
 				var panel = Ext.create('Ext.panel.Panel', {
 					id : node.data.id,
-					title : node.data.name,
+					title : node.data.text,
 					closable : true,
 					iconCls : 'icon-activity',
 					html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>'
@@ -81,7 +81,7 @@ Ext.onReady(function(){
 			} else if (node.data.type === 'COMPONENT') {
 				var panel = Ext.create(node.data.component, {
 					id : node.data.id,
-					title : node.data.name,
+					title : node.data.text,
 					closable : true,
 					iconCls : 'icon-activity'
 				});
@@ -91,11 +91,11 @@ Ext.onReady(function(){
 		}
 	}
 
-	function addTree(res) {
-		var data = res.menuList;
+	function addTree(data) {
+		//var data = res.menuList;
 		for (var i = 0; i < data.length; i++) {
 			navPanel.add(Ext.create("Ext.tree.Panel", {
-				title : data[i].name,
+				title : data[i].text,
 				iconCls : data[i].iconCls,
 				// useArrows: true,
 				autoScroll : true,
@@ -123,35 +123,12 @@ Ext.onReady(function(){
 		}
 	}
 	ajax({
-		url : appURL, // 获取面板的地址
+		url : menuUrl, // 获取面板的地址
 		params : {
 			action : "list"
 		},
 		callback : addTree
 	});
-	/*
-	navPanel.setLoading(navPanel.id+' Loading...');
-	Ext.defer(function() {
-		var navigation = Ext.create('Ext.tree.Panel', {
-			title:'Navigation',
-			autoScroll: true,
-			border: false,
-			iconCls: 'nav',
-			html : 'Navigation'
-		});
-
-		var settings = Ext.create('Ext.tree.Panel', {
-			title:'Settings',
-			autoScroll: true,
-			border: false,
-			iconCls: 'settings',
-		});
-		navPanel.add(navigation);
-		navPanel.add(settings);
-		portal.addNavItem('baidu','nav','');
-		navPanel.setLoading(false);
-	}, 2000);
-	*/
 	
 	tabPanel.setLoading(navPanel.id+' Loading...');
 	Ext.defer(function() {
