@@ -22,7 +22,26 @@ var ajax = function(config) {// 封装、简化AJAX
 	});
 	return false;
 };
-
+var model = Ext.define("TreeModel", {// 定义树节点数据模型
+	extend : "Ext.data.Model",
+	fields : [{
+		name : "id",
+		type : "string"
+	}, {
+		name : "text",
+		type : "string"
+	}, {
+		name : "iconCls",
+		type : "string"
+	}, {
+		name : "leaf",
+		type : "boolean"
+	}, {
+		name : 'type'
+	}, {
+		name : 'component'
+	}]
+});
 Ext.define('Ext.app.Portal',
 {
 	extend: 'Ext.container.Viewport',

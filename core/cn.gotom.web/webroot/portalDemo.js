@@ -7,27 +7,6 @@
 
 var menuUrl = "menu";
 
-var model = Ext.define("TreeModel", {// 定义树节点数据模型
-	extend : "Ext.data.Model",
-	fields : [{
-		name : "id",
-		type : "string"
-	}, {
-		name : "text",
-		type : "string"
-	}, {
-		name : "iconCls",
-		type : "string"
-	}, {
-		name : "leaf",
-		type : "boolean"
-	}, {
-		name : 'type'
-	}, {
-		name : 'component'
-	}]
-});
-
 var createStore = function(id) {// 创建树面板数据源
 	return Ext.create("Ext.data.TreeStore", {
 		defaultRootId : id, // 默认的根节点id
@@ -122,30 +101,18 @@ Ext.onReady(function(){
 			navPanel.doLayout();
 		}
 	}
-	ajax({
-		url : menuUrl, // 获取面板的地址
-		params : {
-			action : "list"
-		},
-		callback : addTree
-	});
-	
-	tabPanel.setLoading(navPanel.id+' Loading...');
+	navPanel.setLoading(navPanel.id+' Loading...');
 	Ext.defer(function() {
-		var panela = Ext.create('Ext.panel.Panel', {
-			xtype: 'panel',
-			closable: true,
-			title: '动态页A',
-			html : 'ssssssssssss',	
-		});	
-		var panelb = Ext.create('Ext.panel.Panel', {
-			xtype: 'panel',
-			closable: true,
-			title: '动态页B',
-			html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>',
-		});		
-		tabPanel.add(panela);
-		tabPanel.add(panelb);
+		ajax({
+			url : menuUrl,
+			callback : addTree
+		});
+		navPanel.setLoading(false);
+	},1000);
+
+	
+	tabPanel.setLoading(tabPanel.id+' Loading...');
+	Ext.defer(function() {
 		var portalPanel =  portal.getPortalPanel();
 		var portalcolumn = Ext.create('Ext.app.PortalColumn',
 		{
