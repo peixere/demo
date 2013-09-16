@@ -4,9 +4,11 @@
     <target name="all" depends="build"> 
     </target> 
     <target name="build"> 
+        <!-- 
         <ant antfile="build.xml" dir="../cn.gotom.commons" />
         <ant antfile="build.xml" dir="../cn.gotom.comm.serial" />
         <ant antfile="build.xml" dir="../cn.gotom.comm.usbhid" />
+         -->
         <ant antfile="build.xml" dir="../cn.gotom.dao" />
         <ant antfile="build.xml" dir="../cn.gotom.pojos" />
         <ant antfile="build.xml" dir="../cn.gotom.service" />
