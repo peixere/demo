@@ -9,11 +9,13 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
@@ -232,58 +234,57 @@ public class JdbcUtils
 		return eList;
 	}
 
-	//
-	// private static <T> void setProperty(ResultSet rs, T entity, String column, Object value)
-	// {
-	// try
-	// {
-	// if (value != null)
-	// {
-	// Class<?> type = PropertyUtils.getPropertyType(entity, column);
-	// if (value instanceof Date)
-	// {
-	// BeanUtils.setProperty(entity, column, rs.getDate(column));
-	// }
-	// else if (type != null)
-	// {
-	// if (type.equals(value.getClass()))
-	// {
-	// BeanUtils.setProperty(entity, column, value);
-	// }
-	// else if (type.equals(Integer.TYPE) || type.equals(Integer.class))
-	// {
-	// BeanUtils.setProperty(entity, column, rs.getInt(column));
-	// }
-	// else if (type.equals(Long.TYPE) || type.equals(Long.class))
-	// {
-	// BeanUtils.setProperty(entity, column, rs.getLong(column));
-	// }
-	// else if (type.equals(Float.TYPE) || type.equals(Float.class))
-	// {
-	// BeanUtils.setProperty(entity, column, rs.getFloat(column));
-	// }
-	// else if (type.equals(Double.TYPE) || type.equals(Double.class))
-	// {
-	// BeanUtils.setProperty(entity, column, rs.getDouble(column));
-	// }
-	// else
-	// {
-	// log.warn("Data type is invalid {" + column + "=" + value + "} " + type.toString() + " != " + value.getClass().toString());
-	// BeanUtils.setProperty(entity, column, rs.getString(column));
-	// }
-	// }
-	// else
-	// {
-	// log.warn(entity.getClass().getName() + " not found column=" + column);
-	// }
-	// }
-	// }
-	// catch (Exception e)
-	// {
-	// log.error("{" + column + "=" + value + "} Exception： " + e.getMessage());
-	// e.printStackTrace();
-	// }
-	// }
+	public static <T> void setProperty(ResultSet rs, T entity, String column, Object value)
+	{
+		try
+		{
+			if (value != null)
+			{
+				Class<?> type = PropertyUtils.getPropertyType(entity, column);
+				if (value instanceof Date)
+				{
+					BeanUtils.setProperty(entity, column, rs.getDate(column));
+				}
+				else if (type != null)
+				{
+					if (type.equals(value.getClass()))
+					{
+						BeanUtils.setProperty(entity, column, value);
+					}
+					else if (type.equals(Integer.TYPE) || type.equals(Integer.class))
+					{
+						BeanUtils.setProperty(entity, column, rs.getInt(column));
+					}
+					else if (type.equals(Long.TYPE) || type.equals(Long.class))
+					{
+						BeanUtils.setProperty(entity, column, rs.getLong(column));
+					}
+					else if (type.equals(Float.TYPE) || type.equals(Float.class))
+					{
+						BeanUtils.setProperty(entity, column, rs.getFloat(column));
+					}
+					else if (type.equals(Double.TYPE) || type.equals(Double.class))
+					{
+						BeanUtils.setProperty(entity, column, rs.getDouble(column));
+					}
+					else
+					{
+						log.warn("Data type is invalid {" + column + "=" + value + "} " + type.toString() + " != " + value.getClass().toString());
+						BeanUtils.setProperty(entity, column, rs.getString(column));
+					}
+				}
+				else
+				{
+					log.warn(entity.getClass().getName() + " not found column=" + column);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			log.error("{" + column + "=" + value + "} Exception： " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public static synchronized Connection createConnection(JdbcConfig JdbcConfig) throws SQLException
 	{
