@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class JdbcUtils
@@ -30,7 +31,7 @@ public class JdbcUtils
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			log.warn(ex.getMessage());
 		}
 	}
 
