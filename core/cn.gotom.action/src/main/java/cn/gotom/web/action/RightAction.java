@@ -57,7 +57,7 @@ public class RightAction
 		List<Resource> menuList = rightService.query(Resource.class, sql);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
+		//response.setCharacterEncoding("utf-8");
 		response.getWriter().println(JSONArray.fromObject(menuList).toString());
 		response.getWriter().flush();
 		response.getWriter().close();

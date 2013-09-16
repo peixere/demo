@@ -11,6 +11,9 @@ import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class CharacterFilter implements Filter
 {
 	protected final Logger log = Logger.getLogger(getClass());
