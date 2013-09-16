@@ -1,7 +1,13 @@
 package cn.gotom.web.action;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -36,22 +42,10 @@ public class RightAction
 		return "success";
 	}
 
-	private List<Resource> menuList;
-
-	public List<Resource> getMenuList()
-	{
-		return menuList;
-	}
-
-	public void setMenuList(List<Resource> menuList)
-	{
-		this.menuList = menuList;
-	}
-
 	@Action(value = "/menu", results = { @Result(name = "success", type = "json") })
-	public String menu()
+	public void menu() throws IOException
 	{
-		String sql = "select  t.id, t.text as name, t.component, t.description, t.type, t.iconCls as icon, t.sort from resource t";
+		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
 		if (StringUtils.isNullOrEmpty(id))
 		{
 			sql += " where t.parent_id is null";
@@ -60,11 +54,12 @@ public class RightAction
 		{
 			sql += " where t.parent_id = '" + id + "'";
 		}
-		menuList = rightService.query(Resource.class, sql);
-		for (Resource r : menuList)
-		{
-			r.getId();
-		}
-		return "success";
+		List<Resource> menuList = rightService.query(Resource.class, sql);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().println(JSONArray.fromObject(menuList).toString());
+		response.getWriter().flush();
+		response.getWriter().close();
 	}
 }
