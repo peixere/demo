@@ -121,6 +121,7 @@ Ext.onReady(function(){
 				title : '新闻动态',
 				height : 150,	
 				tools: portal.getTools(),
+				html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>',
 				listeners: {
 					'close': Ext.bind(portal.onPortletClose, portal)
 				}
