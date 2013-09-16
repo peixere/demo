@@ -11,8 +11,6 @@ import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.dao.JdbcUtils;
-
 public class CharacterFilter implements Filter
 {
 	protected final Logger log = Logger.getLogger(getClass());
@@ -34,7 +32,7 @@ public class CharacterFilter implements Filter
 	public void destroy()
 	{
 		log.info("destroy");
-		JdbcUtils.close();
+		
 	}
 
 	@Override
@@ -51,15 +49,7 @@ public class CharacterFilter implements Filter
 				response.setCharacterEncoding(this.encoding);
 			}
 		}
-		try
-		{
-			JdbcUtils.currentConnection();
-			filterChain.doFilter(request, response);
-		}
-		finally
-		{
-			JdbcUtils.closeCurrent();
-		}
+		filterChain.doFilter(request, response);
 	}
 
 	@Override
