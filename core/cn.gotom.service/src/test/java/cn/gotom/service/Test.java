@@ -18,7 +18,7 @@ public class Test
 		Resource res = new Resource();
 		res.setId(1);
 		res.setComponent("com");
-		res.setName("名称");
+		res.setText("名称");
 		res.setDescription("des");
 		res.setSort(1);
 		resList.add(res);
