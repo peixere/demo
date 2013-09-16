@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 public class JdbcUtils
@@ -81,11 +82,6 @@ public class JdbcUtils
 		}
 	}
 
-	public static void close()
-	{
-
-	}
-
 	public static Map<String, Vector<String>> toMap(ResultSet rs) throws SQLException
 	{
 		ResultSetMetaData rsmd = rs.getMetaData();
@@ -148,26 +144,52 @@ public class JdbcUtils
 		for (String column : map.keySet())
 		{
 			Object value = map.get(column);
-			if (value != null && ps != null)
+			invoke(entity, ps, column, value);
+		}
+		return entity;
+
+	}
+
+	private static <T> void invoke(T entity, PropertyDescriptor[] ps, String column, Object value)
+	{
+		if (value != null && ps != null)
+		{
+			for (PropertyDescriptor pd : ps)
 			{
-				for (PropertyDescriptor pd : ps)
+				if (pd.getName().equals(column) && pd.getWriteMethod() != null)
 				{
-					if (pd.getName().equals(column) && pd.getWriteMethod() != null)
+					try
 					{
-						try
+						pd.getWriteMethod().invoke(entity, value);
+					}
+					catch (Exception ex)
+					{
+						if (!invokeByEntityPropertyType(entity, column, value, pd))
 						{
-							pd.getWriteMethod().invoke(entity, value);
-						}
-						catch (Exception ex)
-						{
-							log.error("", ex);
+							log.warn(ex.getMessage());
 						}
 					}
 				}
 			}
 		}
-		return entity;
+	}
 
+	private static <T> boolean invokeByEntityPropertyType(T entity, String column, Object value, PropertyDescriptor pd)
+	{
+		try
+		{
+			Class<?> type = PropertyUtils.getPropertyType(entity, column);
+			if (type.equals(Boolean.class))
+			{
+				pd.getWriteMethod().invoke(entity, Boolean.parseBoolean(value.toString()));
+			}
+			return true;
+		}
+		catch (Exception ex)
+		{
+			log.warn(ex.getMessage());
+			return false;
+		}
 	}
 
 	public static <T> List<T> toList(Class<T> cls, ResultSet rs) throws SQLException
@@ -178,6 +200,15 @@ public class JdbcUtils
 			return eList;
 		}
 		ResultSetMetaData rsmd = rs.getMetaData();
+		PropertyDescriptor[] ps = null;
+		try
+		{
+			ps = Introspector.getBeanInfo(cls).getPropertyDescriptors();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		while (rs.next())
 		{
 			T entity = null;
@@ -189,37 +220,11 @@ public class JdbcUtils
 			{
 				throw new SQLException(e.getMessage(), e.fillInStackTrace());
 			}
-			PropertyDescriptor[] ps = null;
-			try
-			{
-				ps = Introspector.getBeanInfo(entity.getClass()).getPropertyDescriptors();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
 			for (int i = 0; i < rsmd.getColumnCount(); i++)
 			{
 				String column = rsmd.getColumnName(i + 1);
 				Object value = rs.getObject(column);
-				if (value != null && ps != null)
-				{
-					for (PropertyDescriptor pd : ps)
-					{
-						if (pd.getName().equals(column) && pd.getWriteMethod() != null)
-						{
-							try
-							{
-								pd.getWriteMethod().invoke(entity, value);
-							}
-							catch (Exception ex)
-							{
-								log.error("", ex);
-							}
-						}
-					}
-				}
-				// setProperty(rs, entity, column, value);
+				invoke(entity, ps, column, value);
 			}
 			eList.add(entity);
 
