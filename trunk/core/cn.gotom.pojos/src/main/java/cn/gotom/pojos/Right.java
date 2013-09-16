@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 /**
  * 
- * 功能信息表
+ * 功能菜单资源信息表
  * 
  * @author peixere@qq.com
  * 
