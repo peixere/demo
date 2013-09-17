@@ -5,31 +5,22 @@
 	version="3.0" metadata-complete="true">
 	<display-name>core</display-name>
 	<description>core</description>
-	<context-param>
-		<param-name>casServerLoginUrl</param-name>
-		<param-value>http://localhost:8080/cas/login</param-value>
-	</context-param>
+	<!-- cas config -->
 	<context-param>
 		<param-name>serverName</param-name>
 		<param-value>http://localhost:8080</param-value>
 	</context-param>
 	<context-param>
+		<param-name>casServerLoginUrl</param-name>
+		<param-value>http://localhost:8080/cas/login</param-value>
+	</context-param>
+	<context-param>
 		<param-name>casServerUrlPrefix</param-name>
 		<param-value>http://localhost:8080/cas</param-value>
-	</context-param>	
+	</context-param>
 	<filter>
 		<filter-name>CASFilter</filter-name>
 		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
-		<!-- 
-		<init-param>
-			<param-name>casServerLoginUrl</param-name>
-			<param-value>http://localhost:8080/cas/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
-		</init-param>
-		 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>CASFilter</filter-name>
@@ -38,16 +29,6 @@
 	<filter>
 		<filter-name>CASValidationFilter</filter-name>
 		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
-		<!-- 
-		<init-param>
-			<param-name>casServerUrlPrefix</param-name>
-			<param-value>http://localhost:8080/cas</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
-		</init-param>
-		 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>CASValidationFilter</filter-name>
@@ -61,7 +42,7 @@
 		<filter-name>CASHttpServletRequestWrapperFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	<!-- cas config end -->
 	<listener>
 		<listener-class>cn.gotom.servlet.GuiceListener</listener-class>
 	</listener>
