@@ -21,11 +21,8 @@ public class CoreServletModule extends ServletModule
 		characterParams.put("forceEncoding", "true");
 		filter("/*").through(CharacterFilter.class, characterParams);
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("coffee", "Espresso");
-		params.put("site", "google.com");		
-		filter("/*").through(AuthFilter.class, params);
+		filter("/*").through(StrutsPrepareAndExecuteFilter.class);	
+		filter("/*").through(AuthFilter.class);
 		bind(WebSocket.class).in(Singleton.class);
 		serve("/websocket.do").with(WebSocket.class);
 	}
