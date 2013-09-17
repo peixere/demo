@@ -25,7 +25,7 @@ Ext.onReady(function(){
 	var titlePanel = portal.getTitlePanel();
 	var navPanel = portal.getNavPanel();
 	var tabPanel = portal.getTabPanel();
-
+	var htmlStr = '<div id="logoPanel">管理平台</div><div id="userPanel">欢迎您：<a href="#">管理员</a>      <a href="#">注销</a></div>';
 	titlePanel.setLoading(titlePanel.id+' Loading...');
 	Ext.defer(function() {
 		var iconPanel = Ext.create("Ext.panel.Panel", {
@@ -33,19 +33,11 @@ Ext.onReady(function(){
         	split : false,
 			id : 'iconPanel',
 			region : 'center',
-			html : '管理平台',
-			bodyStyle:'line-height:60px;padding-left:20px;font-size:22px;background-image: url(icons/fam/topbg.jpg) !important;',
-		});
-		var userPanel = Ext.create("Ext.panel.Panel", {
-			border: false,
-        	split : false,
-			html : '<dev id="userPanel">欢迎您：<a href="#">管理员</a>      <a href="#">注销</a><div>',
-			region : 'east',
-			width: 150,
+			html : htmlStr,
 			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;',
-		});		
-		titlePanel.add(userPanel);
+		});
 		titlePanel.add(iconPanel);
+		//titlePanel.update(htmlStr);
 		titlePanel.setLoading(false);
 	}, 2000);
 

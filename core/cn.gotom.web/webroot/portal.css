@@ -10,9 +10,21 @@
     color: white;
     text-shadow: none;
 }
+#logoPanel{
+	float:left;
+	line-height:60px;
+	padding-left:20px;
+	font-size:28px;
+	color:white; 
+}
 #userPanel{
-	line-height : 60px;
-	padding-left:20px;	
+	float:right;
+	width:300px;
+	line-height:60px;
+	font-size:12px;
+	padding-right:20px;
+	text-align: right;
+	color: red;
 }
 #userPanel a{
 	color: red;
@@ -23,7 +35,7 @@
 	text-decoration:underline;
 }
 #userPanel a:hover {
-	color: black;
+	color: #FF3300;
 	text-decoration:none;
 }
 #app-msg {
