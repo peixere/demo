@@ -113,7 +113,7 @@ Ext.define('Ext.app.Portal',
 			id : 'title',
 			height : 60,
 			region : 'north',
-			border: true,
+			border: false,
 			split : false,
             layout: {
                 type: 'border'
