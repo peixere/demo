@@ -10,16 +10,19 @@
     color: white;
     text-shadow: none;
 }
-
-a{
+#userPanel{
+	line-height : 60px;
+	padding-left:20px;	
+}
+#userPanel a{
 	color: red;
 	text-decoration: none;
 }
-a:active{
+#userPanel a:active{
 	color:white; 
 	text-decoration:underline;
 }
-a:hover {
+#userPanel a:hover {
 	color: black;
 	text-decoration:none;
 }

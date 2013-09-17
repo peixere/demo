@@ -32,20 +32,18 @@ Ext.onReady(function(){
 			border: false,
         	split : false,
 			id : 'iconPanel',
-			html : '<div style="line-height : 60px;padding-left:20px;font-size:28px;color:#000000;">管理平台</div>',
 			region : 'center',
-			//bodyStyle : 'backgroud-color:#FFFFFF;line-height : 60px;padding-left:20px;font-size:28px;color:#000000;',
+			html : '管理平台',
+			bodyStyle:'line-height:60px;padding-left:20px;font-size:22px;background-image: url(icons/fam/topbg.jpg) !important;',
 		});
 		var userPanel = Ext.create("Ext.panel.Panel", {
 			border: false,
         	split : false,
-			id : 'userPanel',
-			html : '<a href="#">管理员</a>      <a href="#">注销</a>',
+			html : '<dev id="userPanel">欢迎您：<a href="#">管理员</a>      <a href="#">注销</a><div>',
 			region : 'east',
 			width: 150,
-			bodyStyle : 'backgroud-color:#FFFFFF;line-height : 60px;padding-left:20px;font-size:13px;color:#000000;',
+			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;',
 		});		
-		//titlePanel.update("测试");
 		titlePanel.add(userPanel);
 		titlePanel.add(iconPanel);
 		titlePanel.setLoading(false);
