@@ -5,7 +5,7 @@
 * A sample portal layout application class.
 */
 
-var menuUrl = "menu";
+var menuUrl = "menu.do";
 
 var createStore = function(id) {// 创建树面板数据源
 	return Ext.create("Ext.data.TreeStore", {
@@ -25,9 +25,11 @@ Ext.onReady(function(){
 	var titlePanel = portal.getTitlePanel();
 	var navPanel = portal.getNavPanel();
 	var tabPanel = portal.getTabPanel();
-	var htmlStr = '<div id="logoPanel">管理平台</div><div id="userPanel">欢迎您：<a href="#">管理员</a>      <a href="#">注销</a></div>';
 	titlePanel.setLoading(titlePanel.id+' Loading...');
-	Ext.defer(function() {
+	function callbackTitle(data) {
+		var htmlStr = '<div id="logoPanel">管理平台</div>';
+		htmlStr += '<div id="userPanel">欢迎您：<a href="#">'+data.username+'</a>　　';
+		htmlStr += '<a href="'+data.casServerLogoutUrl+'">注销</a></div>';
 		var iconPanel = Ext.create("Ext.panel.Panel", {
 			border: false,
         	split : false,
@@ -38,7 +40,13 @@ Ext.onReady(function(){
 		});
 		titlePanel.add(iconPanel);
 		//titlePanel.update(htmlStr);
-		titlePanel.setLoading(false);
+		titlePanel.setLoading(false);		
+	}
+	Ext.defer(function() {
+		ajax({
+			url : 'main.do',
+			callback : callbackTitle
+		});
 	}, 2000);
 
 	function itemClick(view, node) {
