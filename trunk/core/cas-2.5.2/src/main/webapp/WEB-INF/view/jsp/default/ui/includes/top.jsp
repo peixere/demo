@@ -47,7 +47,7 @@
     <div class="flc-screenNavigator-view-container">
         <div class="fl-screenNavigator-view">
             <div id="header" class="flc-screenNavigator-navbar fl-navbar fl-table">
-				<h1 id="company-name">Gotom.cn</h1>
+				<!--h1 id="company-name">Gotom.cn</h1-->
                 <h1 id="app-name" class="fl-table-cell">用户验证服务中心</h1>
             </div>		
             <div id="content" class="fl-screenNavigator-scroll-container">
