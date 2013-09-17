@@ -11,6 +11,7 @@
 
 <constant name="struts.i18n.encoding" value="UTF-8"/>
  -->
+<constant name="struts.action.extension" value="do" />
 <constant name="struts.convention.result.path" value="/"/>
 <constant name="struts.convention.action.includeJars" value=".*?/*.action.*?jar(!/)?"/>
 </struts>
