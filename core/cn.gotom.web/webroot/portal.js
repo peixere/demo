@@ -112,15 +112,12 @@ Ext.define('Ext.app.Portal',
 		var titlePanel = Ext.create("Ext.panel.Panel", {
 			id : 'title',
 			height : 60,
-			html : 'title',
 			region : 'north',
 			border: false,
 			split : false,
-			bodyStyle : 'backgroud-color:#FFFFFF;line-height : 60px;padding-left:20px;font-size:28px;color:#000000;font-family:宋体;font-weight:bolder;' + 'background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(153,187, 232, 0.4) ), color-stop(50%, rgba(153, 187, 232, 1) ),color-stop(0%, rgba(153, 187, 232, 0.4) ) )',
-			listeners : 
-				{
-					//afterrender : Ext.bind(this.onloadTitle, this)
-				},
+            layout: {
+                type: 'border'
+            },
 		});
 
 		var navPanel = Ext.create("Ext.panel.Panel", {
