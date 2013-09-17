@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script> 
+<script type="text/javascript">  
+function alt() {  
+	//alert($("#jsonform").serialize()); 
+	$.post("welcome/json", $("#jsonform").serialize(),
+		function(json){alert(json.userName);}
+	);  
+};   
+function altTest() {   
+	$.post("welcome/json", $("#jsonform").serialize(),
+			function(json){alert(json.message);}
+		);  
+};
+</script> 
+</head>  
+<body> 
+<button id="a" onclick="alt();">点我-Default</button> 
+<button id="b" onclick="altTest();">点我-Test</button>
+<form id="jsonform" name="jsonform" action="">
+<input name="userName" value="用户名" />
+<input name="message" value="信息" />
+</form>
+</body>
+</html>
