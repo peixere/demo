@@ -17,14 +17,29 @@
 	<context-param>
 		<param-name>casServerLogoutUrl</param-name>
 		<param-value>http://localhost:8080/cas/logout</param-value>
-	</context-param>	
+	</context-param>
 	<context-param>
 		<param-name>casServerUrlPrefix</param-name>
 		<param-value>http://localhost:8080/cas</param-value>
 	</context-param>
+
+	<listener>
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+		<!-- 用于单点退出，该过滤器用于实现单点登出功能，可选配置 -->
+	</listener>
+	<filter>
+		<filter-name>SingleSignOutFilter</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+		<!-- 该过滤器用于实现单点登出功能，可选配置。 -->
+	</filter>
+	<filter-mapping>
+		<filter-name>SingleSignOutFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<filter>
 		<filter-name>CASFilter</filter-name>
 		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+		<!-- 该过滤器负责用户的认证工作，必配 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>CASFilter</filter-name>
@@ -33,6 +48,7 @@
 	<filter>
 		<filter-name>CASValidationFilter</filter-name>
 		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+		<!-- 该过滤器负责对Ticket的校验工作，必配 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>CASValidationFilter</filter-name>
@@ -41,6 +57,7 @@
 	<filter>
 		<filter-name>CASHttpServletRequestWrapperFilter</filter-name>
 		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+		<!--该过滤器负责实现HttpServletRequest请求的包裹，比如允许开发者通过HttpServletRequest的getRemoteUser()方法获得SSO登录用户的登录名，可选配置。 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>CASHttpServletRequestWrapperFilter</filter-name>
