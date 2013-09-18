@@ -23,14 +23,15 @@
 		<param-value>http://localhost:8080/cas</param-value>
 	</context-param>
 
+	<!-- 用于单点退出，该过滤器用于实现单点登出功能，可选配置-->
 	<listener>
 		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-		<!-- 用于单点退出，该过滤器用于实现单点登出功能，可选配置 -->
 	</listener>
+	 
 	<filter>
 		<filter-name>SingleSignOutFilter</filter-name>
 		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
-		<!-- 该过滤器用于实现单点登出功能，可选配置。 -->
+		<!-- 该过滤器用于实现单点登出功能，必配 -->
 	</filter>
 	<filter-mapping>
 		<filter-name>SingleSignOutFilter</filter-name>
