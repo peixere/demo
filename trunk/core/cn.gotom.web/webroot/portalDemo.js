@@ -22,10 +22,10 @@ var createStore = function(id) {// 创建树面板数据源
 
 Ext.onReady(function(){
 	var portal = Ext.create('Ext.app.Portal');
-	var titlePanel = portal.getTitlePanel();
+	var HeaderPanel = portal.getHeaderPanel();
 	var navPanel = portal.getNavPanel();
 	var tabPanel = portal.getTabPanel();
-	titlePanel.setLoading(titlePanel.id+' Loading...');
+	HeaderPanel.setLoading(HeaderPanel.id+' Loading...');
 	function callbackTitle(data) {
 		var htmlStr = '<div id="logoPanel">管理平台</div>';
 		htmlStr += '<div id="userPanel">欢迎您：<a href="#">'+data.username+'</a>　　';
@@ -38,9 +38,9 @@ Ext.onReady(function(){
 			html : htmlStr,
 			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;',
 		});
-		titlePanel.add(iconPanel);
-		//titlePanel.update(htmlStr);
-		titlePanel.setLoading(false);		
+		HeaderPanel.add(iconPanel);
+		//HeaderPanel.update(htmlStr);
+		HeaderPanel.setLoading(false);		
 	}
 	Ext.defer(function() {
 		ajax({
