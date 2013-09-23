@@ -36,21 +36,21 @@ public class CorePersistModule extends PrivateModule
 		bind(UrlMatcher.class).to(AntUrlPathMatcher.class).asEagerSingleton();
 		expose(UrlMatcher.class);	
 
-		bind(RoleService.class).to(RoleServiceImpl.class).asEagerSingleton();
-		expose(RoleService.class);
+//		bind(RoleService.class).to(RoleServiceImpl.class).asEagerSingleton();
+//		expose(RoleService.class);
 //		bind(UserService.class).to(UserServiceImpl.class).asEagerSingleton();
 //		expose(UserService.class);
-		bind(RightService.class).to(RightServiceImpl.class).asEagerSingleton();
-		expose(RightService.class);
-		bind(CustomService.class).to(CustomServiceImpl.class).asEagerSingleton();
-		expose(CustomService.class);
-		bind(AuthService.class).to(AuthServiceImpl.class).asEagerSingleton();
-		expose(AuthService.class);
+//		bind(RightService.class).to(RightServiceImpl.class).asEagerSingleton();
+//		expose(RightService.class);
+//		bind(CustomService.class).to(CustomServiceImpl.class).asEagerSingleton();
+//		expose(CustomService.class);
+//		bind(AuthService.class).to(AuthServiceImpl.class).asEagerSingleton();
+//		expose(AuthService.class);
 		bind(DataInitializeService.class).asEagerSingleton();
 		expose(DataInitializeService.class);	
 		
-		bind(ResourceConfigService.class).to(ResourceConfigServiceImpl.class).asEagerSingleton();
-		expose(ResourceConfigService.class);
+//		bind(ResourceConfigService.class).to(ResourceConfigServiceImpl.class).asEagerSingleton();
+//		expose(ResourceConfigService.class);
 		bind(UniversalDaoJpa.class).asEagerSingleton();
 		expose(UniversalDaoJpa.class);
 	}
