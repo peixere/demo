@@ -1,5 +1,7 @@
 package cn.gotom.dao;
 
+import javax.persistence.EntityManager;
+
 /**
  * 
  * Persistence 生命周期管理
@@ -16,5 +18,7 @@ public interface PersistenceLifeCycle
 	public abstract void beginUnitOfWork();
 
 	public abstract void endUnitOfWork();
+	
+	public abstract EntityManager get();
 
 }
