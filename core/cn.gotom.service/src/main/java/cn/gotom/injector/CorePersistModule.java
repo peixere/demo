@@ -2,18 +2,17 @@ package cn.gotom.injector;
 
 import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.dao.jpa.UniversalDaoJpa;
-import cn.gotom.service.AuthService;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.DataInitializeService;
+import cn.gotom.service.AuthService;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
-import cn.gotom.service.UserService;
+import cn.gotom.service.impl.AuthServiceImpl;
 import cn.gotom.service.impl.CustomServiceImpl;
 import cn.gotom.service.impl.ResourceConfigServiceImpl;
 import cn.gotom.service.impl.RightServiceImpl;
 import cn.gotom.service.impl.RoleServiceImpl;
-import cn.gotom.service.impl.UserServiceImpl;
 import cn.gotom.util.AntUrlPathMatcher;
 import cn.gotom.util.UrlMatcher;
 
@@ -39,13 +38,13 @@ public class CorePersistModule extends PrivateModule
 
 		bind(RoleService.class).to(RoleServiceImpl.class).asEagerSingleton();
 		expose(RoleService.class);
-		bind(UserService.class).to(UserServiceImpl.class).asEagerSingleton();
-		expose(UserService.class);
+//		bind(UserService.class).to(UserServiceImpl.class).asEagerSingleton();
+//		expose(UserService.class);
 		bind(RightService.class).to(RightServiceImpl.class).asEagerSingleton();
 		expose(RightService.class);
 		bind(CustomService.class).to(CustomServiceImpl.class).asEagerSingleton();
 		expose(CustomService.class);
-		bind(AuthService.class).asEagerSingleton();
+		bind(AuthService.class).to(AuthServiceImpl.class).asEagerSingleton();
 		expose(AuthService.class);
 		bind(DataInitializeService.class).asEagerSingleton();
 		expose(DataInitializeService.class);	

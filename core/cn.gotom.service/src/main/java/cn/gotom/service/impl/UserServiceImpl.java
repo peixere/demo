@@ -2,19 +2,37 @@ package cn.gotom.service.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.dao.jpa.GenericDaoJpa;
+import cn.gotom.injector.CoreAnnotation;
 import cn.gotom.pojos.User;
 import cn.gotom.pojos.UserCustom;
 import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
 public class UserServiceImpl extends GenericDaoJpa<User, String> implements UserService
 {
 	public UserServiceImpl()
 	{
 		super(User.class);
+	}
+
+	@Inject
+	@CoreAnnotation
+	protected PersistenceLifeCycle persistenceLifeCycle;
+
+	protected EntityManager getEntityManager()
+	{
+		EntityManager em = super.getEntityManager();
+		em = persistenceLifeCycle.get();
+		return em;
 	}
 
 	@Override
