@@ -20,7 +20,7 @@ abstract class AbsDaoJpa
 	protected final String ArgsPrefix = "arg";
 
 	@Inject
-	protected Provider<EntityManager> provider;
+	private Provider<EntityManager> provider;
 
 	public AbsDaoJpa()
 	{
