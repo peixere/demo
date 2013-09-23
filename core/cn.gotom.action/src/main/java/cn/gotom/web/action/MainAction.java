@@ -18,7 +18,7 @@ import cn.gotom.util.StringUtils;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
-public class AppAction extends JsonAction
+public class MainAction extends JsonAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
