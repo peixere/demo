@@ -68,7 +68,8 @@ Ext.define('Ext.app.Portal',
 
 	getNavPanel:function()
 	{
-		return this.items.get(1);
+		//return this.items.get(1);
+		return this.items.get(1).items.get(0);
 	},
 
 	addNavItem:function(titles,icon,htmlStr)
@@ -85,7 +86,8 @@ Ext.define('Ext.app.Portal',
 
 	getTabPanel:function()
 	{
-		return this.items.get(3);
+		//return this.items.get(3);
+		return this.items.get(1).items.get(2);
 	},
 
 	getPortalPanel:function()
@@ -118,7 +120,7 @@ Ext.define('Ext.app.Portal',
 		});
 
 		var navPanel = Ext.create("Ext.panel.Panel", {
-			id:'navPanel',
+			id:'app-options',
 			title : "系统菜单",
 			region: 'west',
 			animCollapse: true,
@@ -160,13 +162,17 @@ Ext.define('Ext.app.Portal',
 
 		Ext.apply(this, 
 		{
-			id: 'app-viewport',
-			title: "Viewport",
+            id: 'app-viewport',
             layout: {
                 type: 'border',
                 padding: '0 5 5 5' // pad the layout from the window edges
             },
-			items: [titlePanel,navPanel,tabPanel],
+			items: [titlePanel,{
+                xtype: 'container',
+                region: 'center',
+                layout: 'border',
+                items: [navPanel,tabPanel]}
+			],
 			listeners : {
 				afterrender : function() {
 					Ext.getBody().mask('正在加载系统....');

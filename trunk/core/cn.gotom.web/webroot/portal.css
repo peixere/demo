@@ -1,5 +1,5 @@
 #app-header {
-    color: #596F8F;
+    'color: #596F8F;
     font-size: 22px;
     font-weight: 200;
     'padding: 8px 15px;
@@ -10,34 +10,7 @@
     color: white;
     text-shadow: none;
 }
-#logoPanel{
-	float:left;
-	line-height:60px;
-	padding-left:20px;
-	font-size:28px;
-	color:white; 
-}
-#userPanel{
-	float:right;
-	width:300px;
-	line-height:60px;
-	font-size:12px;
-	padding-right:20px;
-	text-align: right;
-	color: red;
-}
-#userPanel a{
-	color: red;
-	text-decoration: none;
-}
-#userPanel a:active{
-	color:white; 
-	text-decoration:underline;
-}
-#userPanel a:hover {
-	color: white;
-	text-decoration:none;
-}
+
 #app-msg {
     background: #D1DDEF;
     border: 1px solid #ACC3E4;
@@ -311,4 +284,37 @@
 .x-message-box .icon-saving {
     background:transparent url(icons/fam/download.gif) no-repeat bottom left;
     height:46px;
+}
+
+#logoPanel{
+	float:left;
+	line-height:60px;
+	padding-left:20px;
+	font-size:28px;
+	color:white; 
+}
+
+#userPanel{
+	float:right;
+	width:300px;
+	line-height:60px;
+	font-size:12px;
+	padding-right:20px;
+	text-align: right;
+	color: red;
+}
+
+#userPanel a{
+	color: red;
+	text-decoration: none;
+}
+
+#userPanel a:active{
+	color:white; 
+	text-decoration:underline;
+}
+
+#userPanel a:hover {
+	color: white;
+	text-decoration:none;
 }
