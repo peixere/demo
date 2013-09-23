@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import cn.gotom.service.DataInitializeService;
-import cn.gotom.service.IAuthService;
+import cn.gotom.service.AuthService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -26,7 +26,7 @@ public class AuthFilter implements Filter
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
-	protected IAuthService authService;
+	protected AuthService authService;
 
 	@Inject
 	protected DataInitializeService dataInitializeService;
