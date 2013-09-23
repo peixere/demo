@@ -22,7 +22,7 @@ Ext.define('Ext.app.PortalPanel', {
     manageHeight: false,
 
     initComponent : function() {
-        var me = this;
+        //var me = this;
 
         // Implement a Container beforeLayout call from the layout to this Container
         this.layout = {
