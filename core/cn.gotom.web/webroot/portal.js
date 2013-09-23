@@ -178,7 +178,7 @@ Ext.define('Ext.app.Portal',
 					Ext.getBody().mask('正在加载系统....');
 					Ext.defer(function() {
 						Ext.getBody().unmask();
-					}, 0000);					
+					}, 500);					
 				}
 			},
 		});
