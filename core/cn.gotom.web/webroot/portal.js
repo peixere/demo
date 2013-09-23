@@ -61,7 +61,7 @@ Ext.define('Ext.app.Portal',
 		}];
 	},
 
-	getTitlePanel:function()
+	getHeaderPanel:function()
 	{
 		return this.items.get(0);
 	},
@@ -111,7 +111,7 @@ Ext.define('Ext.app.Portal',
 
 	initComponent: function()
 	{
-		var titlePanel = Ext.create("Ext.panel.Panel", {
+		var HeaderPanel = Ext.create("Ext.panel.Panel", {
 			id: 'app-header',
 			height : 60,
 			region : 'north',
@@ -165,22 +165,15 @@ Ext.define('Ext.app.Portal',
             id: 'app-viewport',
             layout: {
                 type: 'border',
-                padding: '0 5 5 5' // pad the layout from the window edges
+                padding: '0 5 5 5',
             },
-			items: [titlePanel,{
+            bodyStyle:'background-color:red;background-image: url(icons/fam/topbg.jpg) !important;',
+			items: [HeaderPanel,{
                 xtype: 'container',
                 region: 'center',
                 layout: 'border',
                 items: [navPanel,tabPanel]}
 			],
-			listeners : {
-				afterrender : function() {
-					Ext.getBody().mask('正在加载系统....');
-					Ext.defer(function() {
-						Ext.getBody().unmask();
-					}, 500);					
-				}
-			},
 		});
 		this.callParent(arguments);
 	},
