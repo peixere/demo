@@ -2,7 +2,6 @@ package cn.gotom.service.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import cn.gotom.dao.PersistenceLifeCycle;
@@ -25,14 +24,9 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	}
 
 	@Inject
-	@CoreAnnotation
-	protected PersistenceLifeCycle persistenceLifeCycle;
-
-	protected EntityManager getEntityManager()
+	public void setPersistenceLifeCycle(@CoreAnnotation PersistenceLifeCycle persistenceLifeCycle)
 	{
-		EntityManager em = super.getEntityManager();
-		em = persistenceLifeCycle.get();
-		return em;
+		super.setPersistenceLifeCycle(persistenceLifeCycle);
 	}
 
 	@Override
