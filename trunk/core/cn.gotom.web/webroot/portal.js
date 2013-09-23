@@ -167,7 +167,6 @@ Ext.define('Ext.app.Portal',
                 type: 'border',
                 padding: '0 5 5 5',
             },
-            bodyStyle:'background-color:red;background-image: url(icons/fam/topbg.jpg) !important;',
 			items: [HeaderPanel,{
                 xtype: 'container',
                 region: 'center',
