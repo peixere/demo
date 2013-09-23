@@ -297,21 +297,21 @@
 #userPanel{
 	float:right;
 	width:300px;
-	line-height:80px;
+	line-height:85px;
 	font-size:12px;
 	padding-right:20px;
 	text-align: right;
-	'color: red;
+	color: red;
 }
 
 #userPanel a{
-	'color: red;
-	text-decoration: none;
+	color: red;
+	text-decoration:none;
 }
 
 #userPanel a:active{
 	color:white; 
-	text-decoration:underline;
+	'text-decoration:underline;
 }
 
 #userPanel a:hover {
