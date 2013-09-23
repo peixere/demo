@@ -25,7 +25,7 @@
     function getCookieValue(name){
         var cookies = document.cookie.split('; '),
             i = cookies.length,
-            cookie, value;
+            cookie, value = '';
 
         while(i--) {
            cookie = cookies[i].split('=');
@@ -48,7 +48,7 @@
         i = 3,
         neptunePath;
 
-    rtl = rtl && rtl.toString() === 'true'
+    rtl = rtl && rtl.toString() === 'true';
 
     while (i--) {
         path = path.substring(0, path.lastIndexOf('/'));
