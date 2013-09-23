@@ -110,14 +110,11 @@ Ext.define('Ext.app.Portal',
 	initComponent: function()
 	{
 		var titlePanel = Ext.create("Ext.panel.Panel", {
-			id : 'title',
+			id: 'app-header',
 			height : 60,
 			region : 'north',
 			border: false,
-			split : false,
-            layout: {
-                type: 'border'
-            },
+        	split : false,
 		});
 
 		var navPanel = Ext.create("Ext.panel.Panel", {
@@ -163,15 +160,12 @@ Ext.define('Ext.app.Portal',
 
 		Ext.apply(this, 
 		{
+			id: 'app-viewport',
 			title: "Viewport",
             layout: {
                 type: 'border',
                 padding: '0 5 5 5' // pad the layout from the window edges
             },
-			defaults: {
-				bodyStyle: "background-color: #FFFFFF;",
-				frame: true
-			},
 			items: [titlePanel,navPanel,tabPanel],
 			listeners : {
 				afterrender : function() {
