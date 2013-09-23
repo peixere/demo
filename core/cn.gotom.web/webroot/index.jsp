@@ -5,9 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- <x-bootstrap> -->
     <script type="text/javascript" src="ext4/shared/include-ext.js?theme=access"></script>
-    <script type="text/javascript" src="ext4/shared/options-toolbar.js"></script>
-    
+    <script type="text/javascript" src="ext4/shared/options-toolbar.js"></script>    
     <!-- </x-bootstrap> --> 	
+    
 	<!-- 
     <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
     <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-zh_CN.js"></script>
