@@ -5,7 +5,7 @@
 * A sample portal layout application class.
 */
 
-var menuUrl = "menu.do";
+var mainUrl = "main.do";
 
 var createStore = function(id) {// 创建树面板数据源
 	return Ext.create("Ext.data.TreeStore", {
@@ -13,7 +13,7 @@ var createStore = function(id) {// 创建树面板数据源
 		model : model,
 		proxy : {
 			type : "ajax", // 获取方式
-			url : menuUrl // 获取树节点的地址
+			url : mainUrl+'?action=menu', // 获取树节点的地址
 		},
 		clearOnLoad : true,
 		nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
@@ -27,7 +27,8 @@ Ext.onReady(function(){
 	var tabPanel = portal.getTabPanel();
 	HeaderPanel.setLoading(HeaderPanel.id+' Loading...');
 	function callbackTitle(data) {
-		var htmlStr = '<div id="logoPanel">管理平台</div>';
+		document.title = data.title;
+		var htmlStr = '<div id="logoPanel">'+data.title+'</div>';
 		htmlStr += '<div id="userPanel">欢迎您：<a href="#">'+data.username+'</a>　　';
 		htmlStr += '<a href="'+data.casServerLogoutUrl+'">注销</a></div>';
 		var iconPanel = Ext.create("Ext.panel.Panel", {
@@ -44,7 +45,7 @@ Ext.onReady(function(){
 	}
 	Ext.defer(function() {
 		ajax({
-			url : 'main.do',
+			url : mainUrl,
 			callback : callbackTitle
 		});
 	}, 2000);
@@ -121,7 +122,7 @@ Ext.onReady(function(){
 	navPanel.setLoading(navPanel.id+' Loading...');
 	Ext.defer(function() {
 		ajax({
-			url : menuUrl,
+			url : mainUrl+'?action=menu',
 			callback : addTree
 		});
 		navPanel.setLoading(false);
