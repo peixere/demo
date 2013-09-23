@@ -4,15 +4,12 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.dao.jpa.GenericDaoJpa;
-import cn.gotom.injector.CoreAnnotation;
 import cn.gotom.pojos.User;
 import cn.gotom.pojos.UserCustom;
 import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -21,12 +18,6 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	public UserServiceImpl()
 	{
 		super(User.class);
-	}
-
-	@Inject
-	public void setPersistenceLifeCycle(@CoreAnnotation PersistenceLifeCycle persistenceLifeCycle)
-	{
-		super.setPersistenceLifeCycle(persistenceLifeCycle);
 	}
 
 	@Override

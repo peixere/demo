@@ -95,7 +95,7 @@ public class UserRoleServiceTest extends TestCase
 //		Assert.assertNotNull(authService);
 		UserService userDao = injector.getInstance(UserService.class);
 		String sql = "select  t.id, t.text, t.component, " + " t.description, t.type, t.iconCls, t.sort " + " from resource t where t.parent_id is null";
-		userDao.query(Resource.class, sql);
+		//userDao.query(Resource.class, sql);
 		userDao.removeAll();
 		for (User user : userList)
 		{
