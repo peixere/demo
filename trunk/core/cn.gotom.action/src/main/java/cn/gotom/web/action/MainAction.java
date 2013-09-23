@@ -11,7 +11,7 @@ import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.Resource;
 import cn.gotom.pojos.Right;
-import cn.gotom.service.IAuthService;
+import cn.gotom.service.AuthService;
 import cn.gotom.service.RightService;
 import cn.gotom.util.StringUtils;
 
@@ -23,7 +23,7 @@ public class MainAction extends JsonAction
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
-	private IAuthService authService;
+	private AuthService authService;
 
 	@Inject
 	private RightService rightService;
