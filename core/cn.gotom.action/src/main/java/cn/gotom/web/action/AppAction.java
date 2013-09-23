@@ -1,51 +1,90 @@
 package cn.gotom.web.action;
 
+import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
+import cn.gotom.pojos.Resource;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
+import cn.gotom.service.RightService;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
-public class AppAction implements ServletRequestAware
+public class AppAction // implements ServletRequestAware
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
 	private AuthService authService;
 
-	private HttpServletRequest request;
+	@Inject
+	private RightService rightService;
 
 	private List<Right> rightList;
 
-	private String parentId;
-	
+	private String id;
+
 	private String username;
-	
+
+	private String action;
+
 	private String casServerLogoutUrl;
 
+	private String title;
+
 	@Action(value = "/main", results = { @Result(name = "success", type = "json") })
-	public String execute()
+	public void execute() throws IOException
 	{
-		username = request.getRemoteUser();
-		casServerLogoutUrl = request.getServletContext().getInitParameter("casServerLogoutUrl");
-		//rightList = authService.findRightList(username,parentId);
-		return "success";
+		if (action == null)
+		{
+			main();
+		}
+		else
+		{
+			menu();
+		}
 	}
-	
-	@Override
-	public void setServletRequest(HttpServletRequest arg0)
+
+	private void main() throws IOException
 	{
-		request = arg0;
+		username = ServletActionContext.getRequest().getRemoteUser();
+		this.setTitle("统合管理平台");
+		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
+		rightList = authService.findRightList(username, id);
+		ServletActionContext.getResponse().setContentType("text/html");
+		ServletActionContext.getResponse().getWriter().println(JSONObject.fromObject(this).toString());
+		ServletActionContext.getResponse().getWriter().flush();
+		ServletActionContext.getResponse().getWriter().close();
+	}
+
+	private void menu() throws IOException
+	{
+		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
+		if (StringUtils.isNullOrEmpty(id))
+		{
+			sql += " where t.parent_id is null";
+		}
+		else
+		{
+			sql += " where t.parent_id = '" + id + "'";
+		}
+		List<Resource> menuList = rightService.query(Resource.class, sql);
+
+		ServletActionContext.getResponse().setContentType("text/html");
+		ServletActionContext.getResponse().getWriter().println(JSONArray.fromObject(menuList).toString());
+		ServletActionContext.getResponse().getWriter().flush();
+		ServletActionContext.getResponse().getWriter().close();
 	}
 
 	public List<Right> getRightList()
@@ -58,14 +97,14 @@ public class AppAction implements ServletRequestAware
 		this.rightList = rightList;
 	}
 
-	public String getParentId()
+	public String getId()
 	{
-		return parentId;
+		return id;
 	}
 
-	public void setParentId(String parentId)
+	public void setId(String id)
 	{
-		this.parentId = parentId;
+		this.id = id;
 	}
 
 	public String getUsername()
@@ -86,6 +125,26 @@ public class AppAction implements ServletRequestAware
 	public void setCasServerLogoutUrl(String casServerLogoutUrl)
 	{
 		this.casServerLogoutUrl = casServerLogoutUrl;
+	}
+
+	public String getAction()
+	{
+		return action;
+	}
+
+	public void setAction(String action)
+	{
+		this.action = action;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
+		this.title = title;
 	}
 
 }
