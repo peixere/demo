@@ -3,8 +3,7 @@ package cn.gotom.web.action;
 import java.io.IOException;
 import java.util.List;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import net.sf.json.JSON;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -62,8 +61,9 @@ public class AppAction // implements ServletRequestAware
 		this.setTitle("统合管理平台");
 		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
 		rightList = authService.findRightList(username, id);
-		ServletActionContext.getResponse().setContentType("text/html");
-		ServletActionContext.getResponse().getWriter().println(JSONObject.fromObject(this).toString());
+		//ServletActionContext.getResponse().setContentType("text/html");
+		JSON json = net.sf.json.JSONSerializer.toJSON(this);
+		ServletActionContext.getResponse().getWriter().println(json.toString());
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
 	}
@@ -80,9 +80,9 @@ public class AppAction // implements ServletRequestAware
 			sql += " where t.parent_id = '" + id + "'";
 		}
 		List<Resource> menuList = rightService.query(Resource.class, sql);
-
-		ServletActionContext.getResponse().setContentType("text/html");
-		ServletActionContext.getResponse().getWriter().println(JSONArray.fromObject(menuList).toString());
+		JSON json = net.sf.json.JSONSerializer.toJSON(menuList);
+		//ServletActionContext.getResponse().setContentType("text/html");
+		ServletActionContext.getResponse().getWriter().println(json.toString());
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
 	}
