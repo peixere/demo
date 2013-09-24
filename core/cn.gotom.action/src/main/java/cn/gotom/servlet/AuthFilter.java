@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.service.DataInitializeService;
 import cn.gotom.service.AuthService;
+import cn.gotom.service.DataInitializeService;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
