@@ -24,7 +24,7 @@ public class ResourceConfig extends SuperEntity implements Serializable
 	@Column(unique = true, nullable = false, length = 50)
 	private String name;
 
-	@Column(name = "resValue", nullable = false, length = 200)
+	@Column(name = "res_value", nullable = false, length = 200)
 	private String resValue;
 
 	public String getName()
