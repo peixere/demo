@@ -13,6 +13,7 @@
 		<class>cn.gotom.pojos.Custom</class>
 		<class>cn.gotom.pojos.UserCustom</class>
 		<class>cn.gotom.pojos.Organization</class>
+		<class>cn.gotom.pojos.OptionsConfig</class>		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
