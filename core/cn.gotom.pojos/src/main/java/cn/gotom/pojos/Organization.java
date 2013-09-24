@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 /**
  * 
  * 组织架构
@@ -32,6 +33,9 @@ public class Organization extends SuperEntity implements Serializable
 	@Column(name = "parent_id", nullable = true, columnDefinition = "char(36)", length = 36)
 	private String parentId;
 
+	@Column(name = "code", nullable = false, length = 50)
+	private String code;
+
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
@@ -45,7 +49,7 @@ public class Organization extends SuperEntity implements Serializable
 	@ManyToMany
 	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "org_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
 	private java.util.List<User> users;
-	
+
 	public String getParentId()
 	{
 		return parentId;
@@ -54,6 +58,16 @@ public class Organization extends SuperEntity implements Serializable
 	public void setParentId(String parentId)
 	{
 		this.parentId = parentId;
+	}
+
+	public String getCode()
+	{
+		return code;
+	}
+
+	public void setCode(String code)
+	{
+		this.code = code;
 	}
 
 	public String getName()
@@ -75,7 +89,6 @@ public class Organization extends SuperEntity implements Serializable
 	{
 		this.sort = sort;
 	}
-
 
 	public Custom getCustom()
 	{
