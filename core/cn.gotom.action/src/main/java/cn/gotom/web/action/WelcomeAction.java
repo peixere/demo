@@ -22,9 +22,6 @@ public class WelcomeAction
 	@Action(value = "/welcome", results = { @Result(name = "success", location = "/WEB-INF/jsp/welcome.jsp") })
 	public String execute()
 	{
-		System.out.println(JSONCleaner.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-		System.out.println(JSONCleaner.class.getResource("/"));
-		System.out.println(JSONCleaner.class.getResource(""));
 		User user = userService.getByUsername(User.admin);
 		message = user.getUsername() + "欢迎 " + userName + " !";
 		return "success";

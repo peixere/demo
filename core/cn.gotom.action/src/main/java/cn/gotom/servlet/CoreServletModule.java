@@ -15,11 +15,11 @@ public class CoreServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		filter("/*").through(CorePersistFilter.class);
 		Map<String, String> characterParams = new HashMap<String, String>();
 		characterParams.put("encoding", "utf-8");
 		characterParams.put("forceEncoding", "true");
 		filter("/*").through(CharacterFilter.class, characterParams);
+		filter("/*").through(CorePersistFilter.class);
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);	
 		filter("/*").through(AuthFilter.class);
