@@ -41,13 +41,10 @@ public class CharacterFilter implements Filter
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException
 	{
-		if (this.encoding != null)
+		if (this.encoding != null && (this.forceEncoding || request.getCharacterEncoding() == null))
 		{
-			if (this.forceEncoding || request.getCharacterEncoding() == null)
-			{
-				request.setCharacterEncoding(this.encoding);
-			}
-			if (this.forceEncoding || response.getCharacterEncoding() == null)
+			request.setCharacterEncoding(this.encoding);
+			if (this.forceEncoding)
 			{
 				response.setCharacterEncoding(this.encoding);
 			}
