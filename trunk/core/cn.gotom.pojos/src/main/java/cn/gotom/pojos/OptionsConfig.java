@@ -24,8 +24,8 @@ public class OptionsConfig extends SuperEntity implements Serializable
 	@Column(nullable = false, length = 100)
 	private String name;
 
-	@Column(name = "optionName", nullable = false, length = 100)
-	private String optionName;
+	@Column(name = "option_code", nullable = false, length = 100)
+	private String optionCode;
 
 	@Column(name = "option_value", nullable = false, length = 100)
 	private String optionValue;
@@ -40,14 +40,14 @@ public class OptionsConfig extends SuperEntity implements Serializable
 		this.name = name;
 	}
 
-	public String getOptionName()
+	public String getOptionCode()
 	{
-		return optionName;
+		return optionCode;
 	}
 
-	public void setOptionName(String optionName)
+	public void setOptionCode(String optionCode)
 	{
-		this.optionName = optionName;
+		this.optionCode = optionCode;
 	}
 
 	public String getOptionValue()
