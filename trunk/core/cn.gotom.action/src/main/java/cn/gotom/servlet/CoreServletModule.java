@@ -12,7 +12,6 @@ public class CoreServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		filter("/*").through(CharacterFilter.class);
 		filter("/*").through(CorePersistFilter.class);
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);	
