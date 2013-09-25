@@ -1,9 +1,7 @@
 package cn.gotom.servlet;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -12,8 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import cn.gotom.service.AuthService;
 import cn.gotom.service.DataInitializeService;
 
@@ -21,9 +17,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AuthFilter implements Filter
+public class AuthFilter extends AbstractConfigurationFilter
 {
-	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
 	protected AuthService authService;
@@ -33,12 +28,6 @@ public class AuthFilter implements Filter
 
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
-		Enumeration<String> names = filterConfig.getInitParameterNames();
-		while (names.hasMoreElements())
-		{
-			String key = names.nextElement();
-			log.info(key + "=" + filterConfig.getInitParameter(key));
-		}
 		dataInitializeService.init();
 	}
 

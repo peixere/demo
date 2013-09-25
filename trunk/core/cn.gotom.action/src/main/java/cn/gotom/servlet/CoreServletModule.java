@@ -1,8 +1,5 @@
 package cn.gotom.servlet;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 
 import cn.gotom.servlet.websocket.WebSocket;
@@ -15,10 +12,7 @@ public class CoreServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		Map<String, String> characterParams = new HashMap<String, String>();
-		characterParams.put("encoding", "utf-8");
-		characterParams.put("forceEncoding", "true");
-		filter("/*").through(CharacterFilter.class, characterParams);
+		filter("/*").through(CharacterFilter.class);
 		filter("/*").through(CorePersistFilter.class);
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);	
