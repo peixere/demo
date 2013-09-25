@@ -87,7 +87,14 @@ public abstract class Converter
 	@Description("16进制字符串转为byte数组 fe f0 ff")
 	public static byte[] toBytes(String hexString)
 	{
-		String[] tmps = hexString.split(" ");
+		hexString = hexString.replaceAll("0x", "");
+		hexString = hexString.replaceAll(" ", "");
+		// String[] tmps = hexString.split(" ");
+		String[] tmps = new String[hexString.length() / 2];
+		for (int i = 0; i < tmps.length; i++)
+		{
+			tmps[i] = hexString.substring(i * 2, i * 2 + 2);
+		}
 		ByteList list = new ByteList();
 		for (String tmp : tmps)
 		{
