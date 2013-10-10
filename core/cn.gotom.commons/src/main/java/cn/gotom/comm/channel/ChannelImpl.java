@@ -117,20 +117,26 @@ public abstract class ChannelImpl implements Channel
 		catch (PortUnreachableException ex)
 		{
 			// UDP目标未打开
-			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：PortUnreachableException " + ex.getMessage());
+			// log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：PortUnreachableException " + ex.getMessage());
 		}
 		catch (SocketTimeoutException ex)
 		{
-			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
+			// log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
 		}
 		catch (java.net.SocketException ex)
 		{
-			log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
-			close();
+			if (receiveTimer != null)
+			{
+				log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
+				close();
+			}
 		}
 		catch (Throwable ex)
 		{
-			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
+			if (receiveTimer != null)
+			{
+				log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
+			}
 		}
 	}
 
@@ -182,6 +188,7 @@ public abstract class ChannelImpl implements Channel
 			{
 				receiveTimer.cancel();
 			}
+			receiveTimer = null;
 			if (in != null)
 			{
 				in.close();
