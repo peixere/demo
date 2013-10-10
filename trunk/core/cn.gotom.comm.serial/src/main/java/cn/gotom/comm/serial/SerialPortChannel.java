@@ -19,6 +19,7 @@ import cn.gotom.comm.channel.ChannelType;
 import cn.gotom.comm.channel.ChannelTypeEnum;
 import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.State;
+import cn.gotom.util.Converter;
 import cn.gotom.util.SystemType;
 
 @Description("串口")
@@ -210,4 +211,29 @@ public class SerialPortChannel extends GnuSerialChannel implements CommPortOwner
 			}
 		}
 	};
+
+	@Override
+	public void setParameters(String... params)
+	{
+		String portName = params[0];
+		int baudRate = Converter.parseInt(params[1]);
+		int flowControlIn = Converter.parseInt(params[2]);
+		int flowControlOut = Converter.parseInt(params[3]);
+		int databits = Converter.parseInt(params[4]);
+		int stopbits = Converter.parseInt(params[5]);
+		int parity = Converter.parseInt(params[6]);
+		parameters.setPortName(portName);
+		if (baudRate > 0)
+			parameters.setBaudRate(baudRate);
+		if (flowControlIn > 0)
+			parameters.setFlowControlIn(flowControlIn);
+		if (flowControlOut > 0)
+			parameters.setFlowControlOut(flowControlOut);
+		if (flowControlOut > 0)
+			parameters.setDatabits(databits);
+		if (stopbits > 0)
+			parameters.setStopbits(stopbits);
+		if (parity > 0)
+			parameters.setParity(parity);
+	}
 }
