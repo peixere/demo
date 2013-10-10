@@ -37,7 +37,7 @@ public abstract class ChannelImpl implements Channel
 
 	protected State state = State.Close;
 
-	private Timer timer;
+	private Timer receiveTimer;
 
 	protected ChannelImpl()
 	{
@@ -75,11 +75,11 @@ public abstract class ChannelImpl implements Channel
 	@Override
 	public void connect() throws IOException
 	{
-		if (timer != null)
+		if (receiveTimer != null)
 		{
-			timer.cancel();
+			receiveTimer.cancel();
 		}
-		timer = new Timer();
+		receiveTimer = new Timer("Timer  Receive");
 		TimerTask task = new TimerTask()
 		{
 			@Override
@@ -88,7 +88,7 @@ public abstract class ChannelImpl implements Channel
 				receive();
 			}
 		};
-		timer.schedule(task, 1000, 1);
+		receiveTimer.schedule(task, 1000, 1);
 	}
 
 	protected void receive()
@@ -178,9 +178,9 @@ public abstract class ChannelImpl implements Channel
 	{
 		try
 		{
-			if (timer != null)
+			if (receiveTimer != null)
 			{
-				timer.cancel();
+				receiveTimer.cancel();
 			}
 			if (in != null)
 			{
