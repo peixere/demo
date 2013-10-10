@@ -7,7 +7,6 @@ import java.net.InetSocketAddress;
 
 import cn.gotom.annotation.Description;
 import cn.gotom.commons.Listener;
-import cn.gotom.util.Converter;
 
 @Description("UDP")
 @ChannelType(ChannelTypeEnum.UDP)
@@ -78,7 +77,7 @@ public class UdpChannel extends ChannelImpl
 	{
 		try
 		{
-			log.debug(">>" + Converter.toHexString(bytes));
+			onMessageListener(bytes,true);
 			DatagramPacket dp = new DatagramPacket(bytes, bytes.length, new InetSocketAddress(parameters.getAddress(), parameters.getPort()));
 			socket.send(dp);
 		}

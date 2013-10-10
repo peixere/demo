@@ -33,7 +33,11 @@ public abstract class ChannelImpl implements Channel
 	@Description("接收数据监听器")
 	protected final ListenerManager<byte[]> receiveListener = new ListenerManager<byte[]>();
 
+	@Description("状态监听器")
 	protected final ListenerManager<State> stateListeners = new ListenerManager<State>();
+
+	@Description("报文监听器")
+	protected Listener<String> messageListener;
 
 	protected State state = State.Close;
 
@@ -43,6 +47,18 @@ public abstract class ChannelImpl implements Channel
 	{
 		this.setParameters(new Parameters());
 		log.debug("new ChannelImpl()");
+	}
+
+	@Override
+	public Listener<String> getMessageListener()
+	{
+		return messageListener;
+	}
+
+	@Override
+	public void setMessageListener(Listener<String> messageListener)
+	{
+		this.messageListener = messageListener;
 	}
 
 	@Override
@@ -94,6 +110,16 @@ public abstract class ChannelImpl implements Channel
 		receiveTimer.schedule(task, 1000, 1);
 	}
 
+	protected void onMessageListener(byte[] buffer, boolean send)
+	{
+		String hexString = (send ? ">>" : "<<") + Converter.toHexString(buffer);
+		log.debug(hexString);
+		if (this.messageListener != null)
+		{
+			messageListener.onListener(this, hexString);
+		}
+	}
+
 	protected void receive()
 	{
 		try
@@ -107,7 +133,7 @@ public abstract class ChannelImpl implements Channel
 					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
 					if (receiveListener != null)
 					{
-						log.debug("<<" + Converter.toHexString(buffer));
+						onMessageListener(buffer,false);
 						receiveListener.post(this, buffer);
 					}
 					else
@@ -165,7 +191,7 @@ public abstract class ChannelImpl implements Channel
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		log.debug(">>" + Converter.toHexString(bytes));
+		onMessageListener(bytes, true);
 		out.write(bytes);
 	}
 
