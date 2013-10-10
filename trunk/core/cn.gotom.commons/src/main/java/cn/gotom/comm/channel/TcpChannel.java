@@ -123,6 +123,10 @@ public class TcpChannel extends ChannelImpl
 			}
 		};
 		channel.addReceiveListener(l);
+		while (true)
+		{
+			channel.write(new byte[] { 0, 1, 2, 3 });
+		}
 	}
 
 }
