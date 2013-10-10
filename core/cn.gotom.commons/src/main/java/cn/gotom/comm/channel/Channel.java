@@ -11,7 +11,7 @@ public interface Channel extends java.io.Serializable
 
 	@Description("获取通道参数")
 	Parameters getParameters();
-	
+
 	@Description("设置通道参数")
 	void setParameters(Parameters parameters);
 
@@ -38,11 +38,17 @@ public interface Channel extends java.io.Serializable
 	@Description("关闭")
 	void close();
 
-	@Description("添加通道事件监")
+	@Description("添加通道事件")
 	void addStateListener(Listener<State> stateListener);
 
-	@Description("删除通道事件监")
+	@Description("删除通道事件")
 	void removeStateListener(Listener<State> stateListener);
+
+	@Description("获取报文监听器")
+	Listener<String> getMessageListener();
+
+	@Description("设置报文监听器")
+	void setMessageListener(Listener<String> messageListener);
 
 	State getState();
 
