@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import cn.gotom.comm.channel.ChannelImpl;
 import cn.gotom.comm.channel.State;
+import cn.gotom.util.Converter;
 
 import com.codeminders.hidapi.ClassPathLibraryLoader;
 import com.codeminders.hidapi.HIDDevice;
@@ -113,6 +114,7 @@ public class HIDChannel extends ChannelImpl
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
+		log.debug(">>" + Converter.toHexString(bytes));
 		hd.write(bytes);
 	}
 
