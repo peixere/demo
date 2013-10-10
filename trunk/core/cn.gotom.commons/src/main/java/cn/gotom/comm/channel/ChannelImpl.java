@@ -104,7 +104,7 @@ public abstract class ChannelImpl implements Channel
 					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
 					if (receiveListener != null)
 					{
-						log.info(Converter.toHexString(buffer));
+						log.debug(Converter.toHexString(buffer));
 						receiveListener.post(this, buffer);
 					}
 					else
@@ -117,11 +117,11 @@ public abstract class ChannelImpl implements Channel
 		catch (PortUnreachableException ex)
 		{
 			// UDP目标未打开
-			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：" + ex.getMessage());
+			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：PortUnreachableException " + ex.getMessage());
 		}
 		catch (SocketTimeoutException ex)
 		{
-			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：" + ex.getMessage());
+			log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
 		}
 		catch (java.net.SocketException ex)
 		{
