@@ -116,4 +116,12 @@ public class TcpChannel extends ChannelImpl
 		};
 		channel.addReceiveListener(l);
 	}
+
+	@Override
+	public void setParameters(String... parameters)
+	{
+		String host = parameters[0];
+		int port = Integer.parseInt(parameters[1]);
+		this.parameters = new Parameters(host, port);		
+	}
 }

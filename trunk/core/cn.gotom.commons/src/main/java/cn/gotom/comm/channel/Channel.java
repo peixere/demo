@@ -9,7 +9,14 @@ import cn.gotom.commons.Listener;
 public interface Channel extends java.io.Serializable
 {
 
+	@Description("获取通道参数")
+	Parameters getParameters();
+	
+	@Description("设置通道参数")
 	void setParameters(Parameters parameters);
+
+	@Description("设置通道参数")
+	void setParameters(String... parameters);
 
 	@Description("通道Id")
 	String getId();

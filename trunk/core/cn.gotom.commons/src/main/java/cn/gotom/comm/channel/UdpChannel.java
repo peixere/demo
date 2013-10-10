@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
-import java.net.SocketException;
 
 import cn.gotom.annotation.Description;
 import cn.gotom.commons.Listener;
@@ -19,7 +18,7 @@ public class UdpChannel extends ChannelImpl
 	private static final long serialVersionUID = 1L;
 	protected DatagramSocket socket;
 
-	public UdpChannel() throws SocketException
+	public UdpChannel()
 	{
 		super();
 	}
@@ -119,6 +118,15 @@ public class UdpChannel extends ChannelImpl
 		return this.parameters.toUdpString();
 	}
 
+	@Override
+	public void setParameters(String... parameters)
+	{
+		String host = parameters[0];
+		int port = Integer.parseInt(parameters[1]);
+		int localPort = Integer.parseInt(parameters[2]);
+		this.parameters = new Parameters(host, port, localPort);
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
 		final Channel channel = new UdpChannel("127.0.0.1", 40001, 40002);
@@ -142,4 +150,5 @@ public class UdpChannel extends ChannelImpl
 		};
 		channel.addReceiveListener(l);
 	}
+
 }

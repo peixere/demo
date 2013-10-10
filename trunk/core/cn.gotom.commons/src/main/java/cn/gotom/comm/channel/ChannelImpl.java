@@ -41,6 +41,7 @@ public abstract class ChannelImpl implements Channel
 
 	protected ChannelImpl()
 	{
+		this.setParameters(new Parameters());
 		log.debug("new ChannelImpl()");
 	}
 
@@ -199,6 +200,7 @@ public abstract class ChannelImpl implements Channel
 		}
 	}
 
+	@Override
 	public Parameters getParameters()
 	{
 		return parameters;
