@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +24,7 @@ import cn.gotom.util.Converter;
 public class MainActivity extends Activity
 {
 	protected final Logger log = Logger.getLogger(MainActivity.class);
+	private final LogConfigurator logConfigurator = new LogConfigurator();
 	private Channel channel;
 	final Listener<byte[]> receiveListener = new Listener<byte[]>()
 	{
@@ -56,22 +58,30 @@ public class MainActivity extends Activity
 		}
 	};
 
+	public MainActivity()
+	{
+		super();
+		Log.d("MainActivity", "new MainActivity()");
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		final LogConfigurator logConfigurator = new LogConfigurator();
+		setContentView(R.layout.activity_main);
 		final String filename = Environment.getExternalStorageDirectory() + File.separator + this.getPackageName() + ".log";
 		logConfigurator.setFileName(filename);
 		logConfigurator.setRootLevel(Level.DEBUG);
 		logConfigurator.setLevel("org.apache", Level.ERROR);
 		logConfigurator.configure();
-
-		setContentView(R.layout.activity_main);
-		channel = new TcpChannel("192.168.0.110", 4001);
-		channel.addReceiveListener(receiveListener);
-		channel.addStateListener(stateListener);
-
+		if (channel != null)
+		{
+			channel = new TcpChannel("192.168.0.110", 4001);
+			channel.addReceiveListener(receiveListener);
+			channel.addStateListener(stateListener);
+		}
+		//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		log.debug("onCreate");
 		Button conn = (Button) this.findViewById(R.id.buttonConn);
 		conn.setOnClickListener(new OnClickListener()
 		{
