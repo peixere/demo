@@ -65,10 +65,13 @@ public abstract class ChannelImpl implements Channel
 
 	protected void onState(State state)
 	{
-		this.state = state;
-		if (stateListeners != null)
+		if (this.state != state)
 		{
-			stateListeners.post(this, state);
+			this.state = state;
+			if (stateListeners != null)
+			{
+				stateListeners.post(this, state);
+			}
 		}
 	}
 
@@ -79,7 +82,7 @@ public abstract class ChannelImpl implements Channel
 		{
 			receiveTimer.cancel();
 		}
-		receiveTimer = new Timer("Timer  Receive");
+		receiveTimer = new Timer("Timer Receive");
 		TimerTask task = new TimerTask()
 		{
 			@Override
@@ -125,7 +128,7 @@ public abstract class ChannelImpl implements Channel
 		}
 		catch (java.net.SocketException ex)
 		{
-			if (receiveTimer != null)
+			if (State.Close != this.getState())
 			{
 				log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
 				close();
@@ -133,7 +136,7 @@ public abstract class ChannelImpl implements Channel
 		}
 		catch (Throwable ex)
 		{
-			if (receiveTimer != null)
+			if (State.Close != this.getState())
 			{
 				log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
 			}
