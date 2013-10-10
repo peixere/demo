@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -26,25 +27,33 @@ public class MainActivity extends Activity
 	protected final Logger log = Logger.getLogger(MainActivity.class);
 	private final LogConfigurator logConfigurator = new LogConfigurator();
 	private Channel channel;
+	private final Handler refresh = new Handler();
 	final Listener<byte[]> receiveListener = new Listener<byte[]>()
 	{
 
 		@Override
-		public void onListener(Object arg0, byte[] bytes)
+		public void onListener(Object arg0, final byte[] bytes)
 		{
-			try
+			log.debug(Converter.toHexString(bytes));
+			refresh.post(new Runnable()
 			{
-				log.debug(Converter.toHexString(bytes));
-				EditText textView = (EditText) findViewById(R.id.editTextReceive);
-				String text = textView.getText().toString();
-				text += "\n" + Converter.toHexString(bytes);
-				textView.setText(text);
-			}
-			catch (Exception ex)
-			{
-				log.error(ex.getMessage());
-				ex.printStackTrace();
-			}
+				@Override
+				public void run()
+				{
+					try
+					{
+						EditText textView = (EditText) findViewById(R.id.editTextReceive);
+						String text = textView.getText().toString();
+						text += "\n" + Converter.toHexString(bytes);
+						textView.setText(text);
+					}
+					catch (Exception ex)
+					{
+						log.error(ex.getMessage());
+						ex.printStackTrace();
+					}
+				}
+			});
 		}
 	};
 
@@ -101,6 +110,10 @@ public class MainActivity extends Activity
 				sendOnClick(v);
 			}
 		});
+
+		EditText sendTextView = (EditText) this.findViewById(R.id.editTextSend);
+		byte[] buffer = new byte[] { 0x01, 0x03, 0x02, 0x11, 0x00, 0x06, (byte) 0x94, 0x75 };
+		sendTextView.setText(Converter.toHexString(buffer));
 	}
 
 	@Override
