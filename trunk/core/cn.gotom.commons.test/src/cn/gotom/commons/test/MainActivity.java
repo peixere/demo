@@ -34,7 +34,6 @@ public class MainActivity extends Activity
 		@Override
 		public void onListener(Object arg0, final byte[] bytes)
 		{
-			log.debug(Converter.toHexString(bytes));
 			refresh.post(new Runnable()
 			{
 				@Override
