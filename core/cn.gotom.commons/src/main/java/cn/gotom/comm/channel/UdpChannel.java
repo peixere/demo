@@ -126,7 +126,7 @@ public class UdpChannel extends ChannelImpl
 		int localPort = Integer.parseInt(parameters[2]);
 		this.parameters = new Parameters(host, port, localPort);
 	}
-	
+
 	public static void main(String[] args) throws Exception
 	{
 		final Channel channel = new UdpChannel("127.0.0.1", 40001, 40002);
