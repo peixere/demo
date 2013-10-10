@@ -74,7 +74,7 @@ public class MainActivity extends Activity
 		logConfigurator.setRootLevel(Level.DEBUG);
 		logConfigurator.setLevel("org.apache", Level.ERROR);
 		logConfigurator.configure();
-		if (channel != null)
+		if (channel == null)
 		{
 			channel = new TcpChannel("192.168.0.110", 4001);
 			channel.addReceiveListener(receiveListener);
@@ -147,6 +147,7 @@ public class MainActivity extends Activity
 		catch (Exception e)
 		{
 			log.error(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -162,6 +163,7 @@ public class MainActivity extends Activity
 		catch (Exception e)
 		{
 			log.error(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }
