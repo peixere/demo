@@ -80,7 +80,7 @@ public class MainActivity extends Activity
 			channel.addReceiveListener(receiveListener);
 			channel.addStateListener(stateListener);
 		}
-		//this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		// this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		log.debug("onCreate");
 		Button conn = (Button) this.findViewById(R.id.buttonConn);
 		conn.setOnClickListener(new OnClickListener()
@@ -124,7 +124,7 @@ public class MainActivity extends Activity
 		}
 		catch (Exception ex)
 		{
-			log.error(ex.getMessage());
+			log.error(ex.getMessage(), ex);
 		}
 	}
 
@@ -146,8 +146,7 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			log.error(e.getMessage());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -162,8 +161,7 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			log.error(e.getMessage());
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 }
