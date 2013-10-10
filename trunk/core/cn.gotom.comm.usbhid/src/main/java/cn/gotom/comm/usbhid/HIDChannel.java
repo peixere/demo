@@ -26,6 +26,19 @@ public class HIDChannel extends ChannelImpl
 		System.out.println("ClassPathLibraryLoader.loadNativeHIDLibrary()");
 	}
 
+	public HIDChannel()
+	{
+		super();
+	}
+
+	public HIDChannel(int hidVID, int hidPID)
+	{
+		super();
+		this.parameters.setHidVID(hidVID);
+		this.parameters.setHidPID(hidPID);
+		log.debug("new HIDChannel()");
+	}
+
 	@Override
 	public String getId()
 	{
@@ -101,5 +114,14 @@ public class HIDChannel extends ChannelImpl
 	public void write(byte[] bytes) throws IOException
 	{
 		hd.write(bytes);
+	}
+
+	@Override
+	public void setParameters(String... parameters)
+	{
+		int hidVID = Integer.parseInt(parameters[0]);
+		int hidPID = Integer.parseInt(parameters[1]);
+		this.parameters.setHidVID(hidVID);
+		this.parameters.setHidPID(hidPID);
 	}
 }
