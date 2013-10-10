@@ -36,6 +36,8 @@ public class User extends SuperEntity implements Serializable
 	private String username;
 
 	@Column(nullable = true, length = 100)
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "organization_id", referencedColumnName = "id")	
 	private String organization = "";
 
 	/**
