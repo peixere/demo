@@ -93,6 +93,14 @@ public class TcpChannel extends ChannelImpl
 		return this.parameters.toTcpString();
 	}
 
+	@Override
+	public void setParameters(String... parameters)
+	{
+		String host = parameters[0];
+		int port = Integer.parseInt(parameters[1]);
+		this.parameters = new Parameters(host, port);
+	}
+
 	public static void main(String[] args) throws Exception
 	{
 		final Channel channel = new TcpChannel("127.0.0.1", 8090);
@@ -117,11 +125,4 @@ public class TcpChannel extends ChannelImpl
 		channel.addReceiveListener(l);
 	}
 
-	@Override
-	public void setParameters(String... parameters)
-	{
-		String host = parameters[0];
-		int port = Integer.parseInt(parameters[1]);
-		this.parameters = new Parameters(host, port);		
-	}
 }
