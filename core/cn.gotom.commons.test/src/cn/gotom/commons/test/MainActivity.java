@@ -10,7 +10,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import cn.gotom.comm.channel.Channel;
+import cn.gotom.comm.channel.State;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.logging.log4j.LogConfigurator;
@@ -26,46 +30,72 @@ public class MainActivity extends Activity
 		@Override
 		public void onListener(Object arg0, byte[] bytes)
 		{
-			log.error(Converter.toHexString(bytes));
+			try
+			{
+				log.debug(Converter.toHexString(bytes));
+				EditText textView = (EditText) findViewById(R.id.editTextReceive);
+				String text = textView.getText().toString();
+				text += "\n" + Converter.toHexString(bytes);
+				textView.setText(text);
+			}
+			catch (Exception ex)
+			{
+				log.error(ex.getMessage());
+				ex.printStackTrace();
+			}
 		}
 	};
 
-	private void sendOnClick(View v)
+	final Listener<State> stateListener = new Listener<State>()
 	{
-		try
-		{
-			log.error("channel.connect()");
-			channel.connect();
-			channel.write(new byte[] { 0x01, 0x03, 0x02, 0x11, 0x00, 0x06, (byte) 0x94, 0x75 });
 
-		}
-		catch (Exception e)
+		@Override
+		public void onListener(Object arg0, State state)
 		{
-			log.error(e.getMessage());
+			log.debug(state);
 		}
-	}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		final LogConfigurator logConfigurator = new LogConfigurator();
-		String filename = Environment.getExternalStorageDirectory() + File.separator + "log.log";
+		final String filename = Environment.getExternalStorageDirectory() + File.separator + this.getPackageName() + ".log";
 		logConfigurator.setFileName(filename);
 		logConfigurator.setRootLevel(Level.DEBUG);
 		logConfigurator.setLevel("org.apache", Level.ERROR);
 		logConfigurator.configure();
-		log.debug(filename);
 
 		setContentView(R.layout.activity_main);
 		channel = new TcpChannel("192.168.0.110", 4001);
 		channel.addReceiveListener(receiveListener);
+		channel.addStateListener(stateListener);
+
+		Button conn = (Button) this.findViewById(R.id.buttonConn);
+		conn.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				connOnClick(v);
+			}
+		});
+
+		Button buttonSend = (Button) this.findViewById(R.id.buttonSend);
+		buttonSend.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				sendOnClick(v);
+			}
+		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -85,6 +115,43 @@ public class MainActivity extends Activity
 		catch (Exception ex)
 		{
 			log.error(ex.getMessage());
+		}
+	}
+
+	private void connOnClick(View v)
+	{
+		try
+		{
+			if (channel != null)
+			{
+				channel.close();
+			}
+			log.debug("channel.connect()");
+			EditText addressView = (EditText) this.findViewById(R.id.textAddress);
+			String address = addressView.getText().toString();
+			EditText portView = (EditText) this.findViewById(R.id.textPort);
+			String port = portView.getText().toString();
+			channel.setParameters(address, port);
+			channel.connect();
+		}
+		catch (Exception e)
+		{
+			log.error(e.getMessage());
+		}
+	}
+
+	private void sendOnClick(View v)
+	{
+		try
+		{
+			EditText sendTextView = (EditText) this.findViewById(R.id.editTextSend);
+			byte[] buffer = new byte[] { 0x01, 0x03, 0x02, 0x11, 0x00, 0x06, (byte) 0x94, 0x75 };
+			buffer = Converter.toBytes(sendTextView.getText().toString());
+			channel.write(buffer);
+		}
+		catch (Exception e)
+		{
+			log.error(e.getMessage());
 		}
 	}
 }
