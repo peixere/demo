@@ -107,7 +107,7 @@ public abstract class ChannelImpl implements Channel
 					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
 					if (receiveListener != null)
 					{
-						log.debug(Converter.toHexString(buffer));
+						log.debug("<<" + Converter.toHexString(buffer));
 						receiveListener.post(this, buffer);
 					}
 					else
@@ -165,6 +165,7 @@ public abstract class ChannelImpl implements Channel
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
+		log.debug(">>" + Converter.toHexString(bytes));
 		out.write(bytes);
 	}
 
