@@ -43,7 +43,7 @@ public class MainActivity extends Activity
 					{
 						EditText textView = (EditText) findViewById(R.id.editTextReceive);
 						String text = textView.getText().toString();
-						text += "\n" + Converter.toHexString(bytes);
+						text += (text.trim().length() > 0 ? "\n" : "") + Converter.toHexString(bytes);
 						textView.setText(text);
 					}
 					catch (Exception ex)
