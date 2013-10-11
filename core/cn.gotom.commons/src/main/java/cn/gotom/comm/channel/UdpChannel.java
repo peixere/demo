@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 
 import cn.gotom.annotation.Description;
-import cn.gotom.commons.Listener;
 
 @Description("UDP")
 @ChannelType(ChannelTypeEnum.UDP)
@@ -130,26 +129,7 @@ public class UdpChannel extends ChannelImpl
 
 	public static void main(String[] args) throws Exception
 	{
-		final Channel channel = new UdpChannel("127.0.0.1", 40001, 40002);
-		channel.connect();
-		Listener<byte[]> l = new Listener<byte[]>()
-		{
-			@Override
-			public void onListener(Object sender, byte[] buffer)
-			{
-				String info = new String(buffer, 0, buffer.length);
-				System.out.println(sender.getClass().getName() + " << " + info);
-				try
-				{
-					channel.write(("" + System.currentTimeMillis()).getBytes());
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		};
-		channel.addReceiveListener(l);
+		Channel channel = new UdpChannel("127.0.0.1", 40001, 40002);
+		ChannelTest.start(channel);
 	}
-
 }

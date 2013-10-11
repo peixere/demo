@@ -7,7 +7,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import cn.gotom.annotation.Description;
-import cn.gotom.commons.Listener;
 
 @Description("TCP/IP客户端")
 @ChannelType(ChannelTypeEnum.TCP)
@@ -103,30 +102,8 @@ public class TcpChannel extends ChannelImpl
 
 	public static void main(String[] args) throws Exception
 	{
-		final Channel channel = new TcpChannel("127.0.0.1", 8090);
-		channel.connect();
-		Listener<byte[]> l = new Listener<byte[]>()
-		{
-			@Override
-			public void onListener(Object sender, byte[] buffer)
-			{
-				String info = new String(buffer, 0, buffer.length);
-				System.out.println(sender.getClass().getName() + " << " + info);
-				try
-				{
-					channel.write(("" + System.currentTimeMillis()).getBytes());
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		};
-		channel.addReceiveListener(l);
-		while (true)
-		{
-			channel.write(new byte[] { 0, 1, 2, 3 });
-		}
+		Channel channel = new TcpChannel("127.0.0.1", 8090);
+		ChannelTest.start(channel);
 	}
 
 }

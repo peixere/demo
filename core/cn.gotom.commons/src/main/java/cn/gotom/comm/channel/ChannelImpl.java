@@ -133,7 +133,7 @@ public abstract class ChannelImpl implements Channel
 					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
 					if (receiveListener != null)
 					{
-						onMessageListener(buffer,false);
+						onMessageListener(buffer, false);
 						receiveListener.post(this, buffer);
 					}
 					else
@@ -156,7 +156,8 @@ public abstract class ChannelImpl implements Channel
 		{
 			if (State.Close != this.getState())
 			{
-				log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
+				if (!ex.getMessage().equalsIgnoreCase("Socket Closed"))
+					log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
 				close();
 			}
 		}
@@ -247,5 +248,40 @@ public abstract class ChannelImpl implements Channel
 	public void setParameters(Parameters parameters)
 	{
 		this.parameters = parameters;
+	}
+
+	/**
+	 * 通道测试，收到ff后退出程序
+	 * 
+	 * @param channel
+	 * @throws Exception
+	 */
+	public static void test(final Channel channel) throws Exception
+	{
+		Listener<String> l = new Listener<String>()
+		{
+			@Override
+			public void onListener(Object sender, String buffer)
+			{
+				if (buffer.equalsIgnoreCase("<< ff"))
+				{
+					channel.close();
+				}
+			}
+		};
+		channel.setMessageListener(l);
+		channel.connect();
+		while (channel.connected())
+		{
+			try
+			{
+				channel.write(("" + System.currentTimeMillis()).getBytes());
+				Thread.sleep(2000);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }
