@@ -30,7 +30,7 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/ezmorph-1.0.4.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/gotom/core/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-1.1.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-adapters-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-api-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
