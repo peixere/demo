@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -48,9 +46,8 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "resource", nullable = false, length = 300)
 	private String resource;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "app_id", referencedColumnName = "id")
-	private App app;
+	@Column(name = "app_code", nullable = true, length = 100)
+	private String appCode;
 
 	@ManyToMany()
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "right_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
@@ -130,14 +127,14 @@ public class Right extends SuperEntity implements Serializable
 		this.resource = resource;
 	}
 
-	public App getApp()
+	public String getAppCode()
 	{
-		return app;
+		return appCode;
 	}
 
-	public void setApp(App app)
+	public void setAppCode(String appCode)
 	{
-		this.app = app;
+		this.appCode = appCode;
 	}
 
 	public java.util.List<Role> getRoles()
