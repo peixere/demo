@@ -3,7 +3,10 @@
 
 	<target name="all" depends="clean,init,compile,jar" />
 	<path id="lib">
-		<fileset dir="../cn.gotom.web/webroot/WEB-INF/lib">
+		<fileset dir="../build">
+			<include name="**/**.jar" />
+		</fileset>	
+		<fileset dir="./lib">
 			<include name="**/**.jar" />
 		</fileset>		
 	</path>
@@ -12,7 +15,7 @@
 		<property name="dirs.base" value="${basedir}" />
 		<property name="targetdir" value="${dirs.base}/bin" />
 		<property name="src" value="${dirs.base}/src/main/java" />
-		<property name="outputjar" value="../cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.comm.usbhid.jar" />
+		<property name="outputjar" value="../build/cn.gotom.comm.usbhid.jar" />
 		<mkdir dir="${targetdir}" />
 	</target>
 	<target name="compile" depends="init">
