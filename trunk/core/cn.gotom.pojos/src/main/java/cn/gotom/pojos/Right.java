@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -40,11 +42,15 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "type", nullable = true, length = 50)
 	private String type;
 
-	@Column(name = "value",nullable = false, length = 300)
+	@Column(name = "value", nullable = false, length = 300)
 	private String value;
 
 	@Column(name = "resource", nullable = false, length = 300)
 	private String resource;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "app_id", referencedColumnName = "id")
+	private App app;
 
 	@ManyToMany()
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "right_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
@@ -122,6 +128,16 @@ public class Right extends SuperEntity implements Serializable
 	public void setResource(String resource)
 	{
 		this.resource = resource;
+	}
+
+	public App getApp()
+	{
+		return app;
+	}
+
+	public void setApp(App app)
+	{
+		this.app = app;
 	}
 
 	public java.util.List<Role> getRoles()
