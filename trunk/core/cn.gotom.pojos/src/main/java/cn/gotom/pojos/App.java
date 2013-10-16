@@ -23,11 +23,23 @@ public class App extends SuperEntity implements Serializable
 
 	public static final String local = "local";
 
+	/**
+	 * 接入应用的唯一编码
+	 */
 	@Column(unique = true, name = "app_code", nullable = false, length = 100)
 	private String appCode;
 
+	/**
+	 * 应用名称
+	 */
 	@Column(nullable = false, length = 100)
 	private String name;
+
+	/**
+	 * 接入应用servletPath前的域名和应用目录部份 如：http://localhost:8080/app
+	 */
+	@Column(name = "context_path", nullable = false, length = 200)
+	private String contextPath;
 
 	@Column(unique = true, nullable = false, length = 200)
 	private String description;
@@ -50,6 +62,16 @@ public class App extends SuperEntity implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getContextPath()
+	{
+		return contextPath;
+	}
+
+	public void setContextPath(String contextPath)
+	{
+		this.contextPath = contextPath;
 	}
 
 	public String getDescription()
