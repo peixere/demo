@@ -7,12 +7,13 @@ import cn.gotom.service.impl.AuthServiceImpl;
 
 import com.google.inject.ImplementedBy;
 
-
 @ImplementedBy(AuthServiceImpl.class)
 public interface AuthService
 {
 
 	public abstract boolean isAuth(String username, String url);
+
+	public abstract boolean isAuth(String appCode, String username, String url);
 
 	/**
 	 * 
