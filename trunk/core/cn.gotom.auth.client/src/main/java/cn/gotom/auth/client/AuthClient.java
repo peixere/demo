@@ -2,6 +2,7 @@ package cn.gotom.auth.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
@@ -59,7 +60,19 @@ public class AuthClient
 		return authenticated;
 	}
 
-	private String getStringFromHttp(HttpEntity entity)
+	public static String convertStreamToString(InputStream is) throws Exception
+	{
+		BufferedReader in = new BufferedReader(new InputStreamReader(is, "utf-8"));
+		StringBuffer buffer = new StringBuffer();
+		String line = "";
+		while ((line = in.readLine()) != null)
+		{
+			buffer.append(line).append("\n");
+		}
+		return buffer.toString();
+	}
+
+	public static String getStringFromHttp(HttpEntity entity)
 	{
 		StringBuffer buffer = new StringBuffer();
 		try
@@ -79,6 +92,7 @@ public class AuthClient
 		}
 		return buffer.toString();
 	}
+
 	public static void main(String[] args)
 	{
 		Authenticated request = new Authenticated();
