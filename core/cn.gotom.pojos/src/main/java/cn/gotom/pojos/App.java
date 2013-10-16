@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class App extends SuperEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-
+	public static final String local = "local";
 	@Column(unique = true, nullable = false, length = 100)
 	private String name;
 
