@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.pojos.App;
 import cn.gotom.pojos.ResourceConfig;
 import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
@@ -38,11 +39,19 @@ public class AuthServiceImpl implements AuthService
 	@Inject
 	private ResourceConfigService resourceConfigService;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.gotom.service.IAuthService#isAuth(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public boolean isAuth(String username, String url)
+	{
+		return isAuth(username, App.local, url);
+	}
+
+	@Override
+	public boolean isAuth(String appCode, String username, String url)
 	{
 		ResourceConfig rc = resourceConfigService.getByName(ResourceName.everyone_can_access);
 		if (rc == null)
@@ -57,10 +66,10 @@ public class AuthServiceImpl implements AuthService
 			return true;
 		}
 		User user = userService.get("username", username);
-		return isAuth(user, url);
+		return isAuth(appCode, user, url);
 	}
 
-	private boolean isAuth(User user, String url)
+	private boolean isAuth(String appCode, User user, String url)
 	{
 		if (user == null)
 		{
@@ -69,6 +78,10 @@ public class AuthServiceImpl implements AuthService
 		else if (User.admin.equals(user.getUsername()))
 		{
 			return true;
+		}
+		if (StringUtils.isNullOrEmpty(appCode))
+		{
+			appCode = "";
 		}
 		if (user.getRoles() == null || user.getRoles().size() == 0)
 		{
@@ -86,7 +99,7 @@ public class AuthServiceImpl implements AuthService
 				{
 					for (Right right : role.getRights())
 					{
-						if (StringUtils.isNotEmpty(right.getResource()))
+						if (StringUtils.isNotEmpty(right.getResource()) && appCode.equals(right.getAppCode()))
 						{
 							String[] resource = right.getResource().trim().replace("；", ";").split(";");
 							for (String pattern : resource)
@@ -104,7 +117,9 @@ public class AuthServiceImpl implements AuthService
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cn.gotom.service.IAuthService#findRightList(java.lang.String, java.lang.String)
 	 */
 	@Override
