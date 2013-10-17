@@ -35,7 +35,6 @@ public class AuthServiceAction extends JsonAction
 			JsonConfig jsonConfig = new JsonConfig();
 			jsonConfig.setRootClass(Authenticated.class);
 			Authenticated authenticated = (Authenticated) JSONSerializer.toJava(json, jsonConfig);
-			
 		}
 		catch (Exception e)
 		{

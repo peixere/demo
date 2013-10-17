@@ -43,7 +43,11 @@ public class AuthFilter extends AbstractConfigurationFilter
 			final HttpServletRequest request = (HttpServletRequest) sRequest;
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
 			String url = UrlUtils.buildUrl(request);
-			if (authService.isAuth(request.getRemoteUser(), url))
+			if (url.equals("/authService.do"))
+			{
+				filterChain.doFilter(sRequest, sResponse);
+			}
+			else if (authService.isAuth(request.getRemoteUser(), url))
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
