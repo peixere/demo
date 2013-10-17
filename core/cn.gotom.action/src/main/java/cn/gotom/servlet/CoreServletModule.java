@@ -17,7 +17,7 @@ public class CoreServletModule extends ServletModule
 	{
 		filter("/*").through(CorePersistFilter.class);
 		bind(AuthenticatedService.class).in(Singleton.class);
-		filter("/AuthenticatedService").through(AuthenticatedService.class);
+		filter("/authService").through(AuthenticatedService.class);
 
 		/*** cas ***/
 		bind(org.jasig.cas.client.authentication.AuthenticationFilter.class).in(Singleton.class);
