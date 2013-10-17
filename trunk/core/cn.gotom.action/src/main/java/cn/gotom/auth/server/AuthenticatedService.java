@@ -34,7 +34,6 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		{
 			String jsonString = AuthenticatedClient.convertStreamToString(request.getInputStream());
 			authenticated = AuthenticatedClient.fromJsonString(jsonString);
-			log.debug(authenticated);
 			AuthService authService = InjectorUtils.getInstance(AuthService.class);
 			boolean success = authService.isAuth(authenticated.getAppCode(), authenticated.getUsername(), authenticated.getUrl());
 			authenticated.setResponse(success ? 200 : 403);
