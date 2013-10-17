@@ -9,6 +9,8 @@ public class Authenticated
 	private String url;
 
 	private int response;
+	
+	private String message;
 
 	public String getUsername()
 	{
@@ -48,5 +50,15 @@ public class Authenticated
 	public void setResponse(int response)
 	{
 		this.response = response;
+	}
+
+	public String getMessage()
+	{
+		return message;
+	}
+
+	public void setMessage(String message)
+	{
+		this.message = message;
 	}
 }
