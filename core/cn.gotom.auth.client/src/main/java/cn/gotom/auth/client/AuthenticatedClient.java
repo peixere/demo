@@ -101,15 +101,18 @@ public class AuthenticatedClient
 	public static void main(String[] args)
 	{
 		int i = 1000;
+		long time = System.currentTimeMillis();
 		while (i-- > 0)
 		{
 			Authenticated request = new Authenticated();
 			request.setAppCode("appCode");
 			request.setUsername("admin");
-			request.setUrl("http://localhost:8080/authService.do");
+			request.setUrl("/authService.do" + i);
 			AuthenticatedClient ac = new AuthenticatedClient();
 			request = ac.auth("http://localhost:8080/AuthenticatedService", request);
-			System.out.println(request);
+			//System.out.println(request);
 		}
+		time = System.currentTimeMillis() - time;
+		System.out.println(time);
 	}
 }
