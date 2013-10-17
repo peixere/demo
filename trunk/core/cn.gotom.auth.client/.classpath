@@ -7,7 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.service"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.commons.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/httpclient-4.3.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/httpclient-cache-4.3.1.jar"/>
