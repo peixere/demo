@@ -1,11 +1,15 @@
 package cn.gotom.auth.client;
 
-
 public class AuthenticatedResponse extends AuthenticatedRequest
 {
 	private int status;
 
 	private String message;
+
+	public AuthenticatedResponse()
+	{
+
+	}
 
 	public AuthenticatedResponse(AuthenticatedRequest request)
 	{
