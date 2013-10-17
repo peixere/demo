@@ -8,14 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
-
 import org.apache.log4j.Logger;
 
-import cn.gotom.auth.client.AuthenticatedClient;
 import cn.gotom.auth.client.Authenticated;
+import cn.gotom.auth.client.AuthenticatedClient;
 import cn.gotom.injector.InjectorUtils;
 import cn.gotom.service.AuthService;
 import cn.gotom.servlet.AbstractConfigurationFilter;
@@ -37,11 +33,8 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		try
 		{
 			String jsonString = AuthenticatedClient.convertStreamToString(request.getInputStream());
-			JSON json = JSONSerializer.toJSON(jsonString);
-			log.debug(jsonString);
-			JsonConfig jsonConfig = new JsonConfig();
-			jsonConfig.setRootClass(Authenticated.class);
-			authenticated = (Authenticated) JSONSerializer.toJava(json, jsonConfig);
+			authenticated = AuthenticatedClient.fromJsonString(jsonString);
+			log.debug(authenticated);
 			AuthService authService = InjectorUtils.getInstance(AuthService.class);
 			boolean success = authService.isAuth(authenticated.getAppCode(), authenticated.getUsername(), authenticated.getUrl());
 			authenticated.setResponse(success ? 200 : 403);
@@ -52,8 +45,7 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		}
 		finally
 		{
-			JSON json = net.sf.json.JSONSerializer.toJSON(authenticated);
-			response.getWriter().println(json.toString());
+			response.getWriter().println(authenticated.toString());
 			response.getWriter().flush();
 			response.getWriter().close();
 		}
