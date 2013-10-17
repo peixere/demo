@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.gotom.servlet.AbstractConfigurationFilter;
 import cn.gotom.servlet.UrlUtils;
 
-public class AuthClientFilter extends AbstractConfigurationFilter
+public class AuthenticatedClientFilter extends AbstractConfigurationFilter
 {
 
 	private String appCode;
@@ -42,7 +42,7 @@ public class AuthClientFilter extends AbstractConfigurationFilter
 			authenticated.setAppCode(appCode);
 			authenticated.setUrl(url);
 			authenticated.setUsername(request.getRemoteUser());
-			AuthClient authClient = new AuthClient();
+			AuthenticatedClient authClient = new AuthenticatedClient();
 			authenticated = authClient.auth(this.authServiceUrl, authenticated);
 			if (authenticated.getResponse() == 200)
 			{
