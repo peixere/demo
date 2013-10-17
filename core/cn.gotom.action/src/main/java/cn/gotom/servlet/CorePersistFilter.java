@@ -1,7 +1,7 @@
 package cn.gotom.servlet;
 
-import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.injector.CoreAnnotation;
+import cn.gotom.injector.CorePersistence;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -11,7 +11,7 @@ public class CorePersistFilter extends GuicePersistFilter
 {
 
 	@Inject
-	public CorePersistFilter(@CoreAnnotation PersistenceLifeCycle manager)
+	public CorePersistFilter(@CoreAnnotation CorePersistence manager)
 	{
 		this.manager = manager;
 	}
