@@ -32,17 +32,12 @@ public class AuthenticatedClient
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try
 		{
-			JSON json = JSONSerializer.toJSON(request);
-			StringEntity entity = new StringEntity(json.toString());
+			StringEntity entity = new StringEntity(request.toString());
 			HttpPost httppost = new HttpPost(authServiceUrl);
 			httppost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httppost);
 			String jsonString = getStringFromHttp(response.getEntity());
-			json = JSONSerializer.toJSON(jsonString);
-			// authenticated = (Authenticated) JSONSerializer.toJava(json);
-			JsonConfig jsonConfig = new JsonConfig();
-			jsonConfig.setRootClass(Authenticated.class);
-			authenticated = (Authenticated) JSONSerializer.toJava(json, jsonConfig);
+			authenticated = fromJsonString(jsonString);
 		}
 		catch (UnsupportedEncodingException e)
 		{
@@ -57,6 +52,16 @@ public class AuthenticatedClient
 			e.printStackTrace();
 		}
 
+		return authenticated;
+	}
+
+	public static Authenticated fromJsonString(String jsonString)
+	{
+		Authenticated authenticated;
+		JSON json = JSONSerializer.toJSON(jsonString);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setRootClass(Authenticated.class);
+		authenticated = (Authenticated) JSONSerializer.toJava(json, jsonConfig);
 		return authenticated;
 	}
 
@@ -95,11 +100,16 @@ public class AuthenticatedClient
 
 	public static void main(String[] args)
 	{
-		Authenticated request = new Authenticated();
-		request.setAppCode("appCode");
-		request.setUsername("admin");
-		request.setUrl("http://localhost:8080/authService.do");
-		AuthenticatedClient ac = new AuthenticatedClient();
-		request = ac.auth("http://localhost:8080/AuthenticatedService", request);
+		int i = 1000;
+		while (i-- > 0)
+		{
+			Authenticated request = new Authenticated();
+			request.setAppCode("appCode");
+			request.setUsername("admin");
+			request.setUrl("http://localhost:8080/authService.do");
+			AuthenticatedClient ac = new AuthenticatedClient();
+			request = ac.auth("http://localhost:8080/AuthenticatedService", request);
+			System.out.println(request);
+		}
 	}
 }

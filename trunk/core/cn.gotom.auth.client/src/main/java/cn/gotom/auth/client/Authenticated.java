@@ -1,5 +1,7 @@
 package cn.gotom.auth.client;
 
+import net.sf.json.JSONSerializer;
+
 public class Authenticated
 {
 	private String username;
@@ -9,7 +11,7 @@ public class Authenticated
 	private String url;
 
 	private int response;
-	
+
 	private String message;
 
 	public String getUsername()
@@ -60,5 +62,10 @@ public class Authenticated
 	public void setMessage(String message)
 	{
 		this.message = message;
+	}
+
+	public String toString()
+	{
+		return JSONSerializer.toJSON(this).toString();
 	}
 }
