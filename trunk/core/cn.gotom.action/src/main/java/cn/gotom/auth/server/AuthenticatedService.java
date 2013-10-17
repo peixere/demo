@@ -13,9 +13,10 @@ import org.apache.log4j.Logger;
 import cn.gotom.auth.client.AuthenticatedClient;
 import cn.gotom.auth.client.AuthenticatedRequest;
 import cn.gotom.auth.client.AuthenticatedResponse;
-import cn.gotom.injector.InjectorUtils;
 import cn.gotom.service.AuthService;
 import cn.gotom.servlet.AbstractConfigurationFilter;
+
+import com.google.inject.Inject;
 
 public class AuthenticatedService extends AbstractConfigurationFilter
 {
@@ -26,7 +27,9 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 	{
 
 	}
-
+	@Inject
+	protected AuthService authService;
+	
 	@Override
 	public void doFilter(ServletRequest sRequest, ServletResponse sResponse, FilterChain arg2) throws IOException, ServletException
 	{
@@ -36,7 +39,6 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		{
 			String jsonString = AuthenticatedClient.convertStreamToString(sRequest.getInputStream());
 			request = AuthenticatedClient.fromJsonString(AuthenticatedRequest.class, jsonString);
-			AuthService authService = InjectorUtils.getInstance(AuthService.class);
 			boolean success = authService.isAuth(request.getAppCode(), request.getUsername(), request.getUrl());
 			response.setStatus(success ? 200 : 403);
 		}
