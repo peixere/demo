@@ -100,6 +100,6 @@ public class AuthenticatedClient
 		request.setUsername("admin");
 		request.setUrl("http://localhost:8080/authService.do");
 		AuthenticatedClient ac = new AuthenticatedClient();
-		request = ac.auth("http://localhost:8080/authServiceServlet", request);
+		request = ac.auth("http://localhost:8080/AuthenticatedService", request);
 	}
 }
