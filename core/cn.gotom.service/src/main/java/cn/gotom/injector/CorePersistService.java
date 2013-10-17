@@ -1,7 +1,5 @@
 package cn.gotom.injector;
 
-import cn.gotom.dao.PersistenceLifeCycle;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -11,7 +9,7 @@ public class CorePersistService
 
 	@Inject
 	@CoreAnnotation
-	PersistenceLifeCycle manager;
+	CorePersistence manager;
 
 	public void start()
 	{

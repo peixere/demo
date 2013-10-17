@@ -1,6 +1,5 @@
 package cn.gotom.injector;
 
-import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.dao.jpa.UniversalDaoJpa;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.ResourceConfigService;
@@ -28,8 +27,8 @@ public class CorePersistModule extends PrivateModule
 	protected void configure()
 	{
 		install(new JpaPersistModule("AppEntityManager"));
-		bind(PersistenceLifeCycle.class).annotatedWith(CoreAnnotation.class).to(CorePersistence.class);
-		expose(PersistenceLifeCycle.class).annotatedWith(CoreAnnotation.class);
+		bind(CorePersistence.class).annotatedWith(CoreAnnotation.class).to(CorePersistence.class);
+		expose(CorePersistence.class).annotatedWith(CoreAnnotation.class);
 		bind(CorePersistService.class).asEagerSingleton();
 		expose(CorePersistService.class);
 		bind(UrlMatcher.class).to(AntUrlPathMatcher.class).asEagerSingleton();
