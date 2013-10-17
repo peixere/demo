@@ -17,7 +17,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AuthFilter extends AbstractConfigurationFilter
+public class AuthenticatedFilter extends AbstractConfigurationFilter
 {
 
 	@Inject
@@ -43,11 +43,7 @@ public class AuthFilter extends AbstractConfigurationFilter
 			final HttpServletRequest request = (HttpServletRequest) sRequest;
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
 			String url = UrlUtils.buildUrl(request);
-			if (url.equals("/authService.do"))
-			{
-				filterChain.doFilter(sRequest, sResponse);
-			}
-			else if (authService.isAuth(request.getRemoteUser(), url))
+			if (authService.isAuth(request.getRemoteUser(), url))
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
