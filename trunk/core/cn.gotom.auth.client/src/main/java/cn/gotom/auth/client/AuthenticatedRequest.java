@@ -2,17 +2,13 @@ package cn.gotom.auth.client;
 
 import net.sf.json.JSONSerializer;
 
-public class Authenticated
+public class AuthenticatedRequest
 {
 	private String username;
 
 	private String appCode;
 
 	private String url;
-
-	private int response;
-
-	private String message;
 
 	public String getUsername()
 	{
@@ -42,26 +38,6 @@ public class Authenticated
 	public void setUrl(String url)
 	{
 		this.url = url;
-	}
-
-	public int getResponse()
-	{
-		return response;
-	}
-
-	public void setResponse(int response)
-	{
-		this.response = response;
-	}
-
-	public String getMessage()
-	{
-		return message;
-	}
-
-	public void setMessage(String message)
-	{
-		this.message = message;
 	}
 
 	public String toString()

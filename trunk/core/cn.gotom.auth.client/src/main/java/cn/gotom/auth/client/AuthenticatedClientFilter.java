@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.servlet.AbstractConfigurationFilter;
 import cn.gotom.servlet.UrlUtils;
@@ -35,22 +34,21 @@ public class AuthenticatedClientFilter extends AbstractConfigurationFilter
 	{
 		try
 		{
-			final HttpServletRequest request = (HttpServletRequest) sRequest;
-			final HttpServletResponse response = (HttpServletResponse) sResponse;
-			String url = UrlUtils.buildUrl(request);
-			Authenticated authenticated = new Authenticated();
-			authenticated.setAppCode(appCode);
-			authenticated.setUrl(url);
-			authenticated.setUsername(request.getRemoteUser());
+			final HttpServletRequest httpRequest = (HttpServletRequest) sRequest;
+			String url = UrlUtils.buildUrl(httpRequest);
+			AuthenticatedRequest request = new AuthenticatedRequest();
+			request.setAppCode(appCode);
+			request.setUrl(url);
+			request.setUsername(httpRequest.getRemoteUser());
 			AuthenticatedClient authClient = new AuthenticatedClient();
-			authenticated = authClient.auth(this.authServiceUrl, authenticated);
-			if (authenticated.getResponse() == 200)
+			AuthenticatedResponse response = authClient.auth(this.authServiceUrl, request);
+			if (response.getStatus() == 200)
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
 			else
 			{
-				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
+				httpRequest.getRequestDispatcher("/final/403.jsp").forward(sRequest, sResponse);
 			}
 		}
 		finally

@@ -26,18 +26,18 @@ public class AuthenticatedClient
 
 	}
 
-	public Authenticated auth(String authServiceUrl, Authenticated request)
+	public AuthenticatedResponse auth(String authServiceUrl, AuthenticatedRequest request)
 	{
-		Authenticated authenticated = new Authenticated();
+		AuthenticatedResponse response = new AuthenticatedResponse(request);
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try
 		{
 			StringEntity entity = new StringEntity(request.toString());
 			HttpPost httppost = new HttpPost(authServiceUrl);
 			httppost.setEntity(entity);
-			HttpResponse response = httpclient.execute(httppost);
-			String jsonString = getStringFromHttp(response.getEntity());
-			authenticated = fromJsonString(jsonString);
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			String jsonString = getStringFromHttp(httpResponse.getEntity());
+			response = fromJsonString(AuthenticatedResponse.class, jsonString);
 		}
 		catch (UnsupportedEncodingException e)
 		{
@@ -51,18 +51,16 @@ public class AuthenticatedClient
 		{
 			e.printStackTrace();
 		}
-
-		return authenticated;
+		return response;
 	}
 
-	public static Authenticated fromJsonString(String jsonString)
+	@SuppressWarnings("unchecked")
+	public static <T> T fromJsonString(Class<T> clazz, String jsonString)
 	{
-		Authenticated authenticated;
 		JSON json = JSONSerializer.toJSON(jsonString);
 		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setRootClass(Authenticated.class);
-		authenticated = (Authenticated) JSONSerializer.toJava(json, jsonConfig);
-		return authenticated;
+		jsonConfig.setRootClass(clazz);
+		return (T) JSONSerializer.toJava(json, jsonConfig);
 	}
 
 	public static String convertStreamToString(InputStream is) throws Exception
@@ -104,13 +102,13 @@ public class AuthenticatedClient
 		long time = System.currentTimeMillis();
 		while (i-- > 0)
 		{
-			Authenticated request = new Authenticated();
+			AuthenticatedRequest request = new AuthenticatedRequest();
 			request.setAppCode("appCode");
 			request.setUsername("admins");
 			request.setUrl("/authService.do" + i);
 			AuthenticatedClient ac = new AuthenticatedClient();
-			request = ac.auth("http://localhost:8080/AuthenticatedService", request);
-			;
+			AuthenticatedResponse response = ac.auth("http://localhost:8080/AuthenticatedService", request);
+			response.getStatus();
 		}
 		time = System.currentTimeMillis() - time;
 		System.out.println(time);
