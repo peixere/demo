@@ -5,8 +5,6 @@ import javax.servlet.FilterConfig;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.util.StringUtils;
-
 public abstract class AbstractConfigurationFilter implements Filter
 {
 	protected final Logger log = Logger.getLogger(getClass());
@@ -15,7 +13,7 @@ public abstract class AbstractConfigurationFilter implements Filter
 	{
 		String value = filterConfig.getInitParameter(propertyName);
 
-		if (StringUtils.isNotEmpty(value))
+		if (value != null && value.trim().length() > 0)
 		{
 			return value;
 		}
