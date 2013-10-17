@@ -18,10 +18,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-public class AuthClient
+public class AuthenticatedClient
 {
 
-	public AuthClient()
+	public AuthenticatedClient()
 	{
 
 	}
@@ -99,7 +99,7 @@ public class AuthClient
 		request.setAppCode("appCode");
 		request.setUsername("admin");
 		request.setUrl("http://localhost:8080/authService.do");
-		AuthClient ac = new AuthClient();
+		AuthenticatedClient ac = new AuthenticatedClient();
 		request = ac.auth("http://localhost:8080/authServiceServlet", request);
 	}
 }
