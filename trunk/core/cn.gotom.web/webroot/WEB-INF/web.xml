@@ -41,6 +41,7 @@
 		<param-value>http://localhost:8080/cas</param-value>
 	</context-param>
 	
+	<!-- 
 	<filter>
 		<filter-name>AuthenticatedService</filter-name>
 		<filter-class>cn.gotom.auth.server.AuthenticatedService</filter-class>
@@ -49,7 +50,7 @@
 		<filter-name>AuthenticatedService</filter-name>
 		<url-pattern>/AuthenticatedService</url-pattern>
 	</filter-mapping>
-	
+	 -->
 	<description>用于单点退出，该过滤器用于实现单点登出功能，可选配置</description>
 	<listener>
 		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
@@ -65,6 +66,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!-- 
 	<description>该过滤器负责用户的认证工作，必配 </description>
 	<filter>
 		<filter-name>CASFilter</filter-name>
@@ -95,6 +97,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	-->
 	<!-- cas config end -->
 	<listener>
 		<listener-class>cn.gotom.servlet.GuiceListener</listener-class>
