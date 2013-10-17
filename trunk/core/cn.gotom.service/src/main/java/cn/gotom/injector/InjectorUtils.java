@@ -36,7 +36,12 @@ public class InjectorUtils
 			}
 		}
 		injector = Guice.createInjector(moduleList);
-		//log.debug("createInjector：" + injector);
+		// log.debug("createInjector：" + injector);
+	}
+
+	public static <T> T getInstance(Class<T> clazz)
+	{
+		return injector.getInstance(clazz);
 	}
 
 	public static Injector getInjector()
