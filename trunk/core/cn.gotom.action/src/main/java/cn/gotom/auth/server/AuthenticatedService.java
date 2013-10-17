@@ -10,8 +10,9 @@ import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.auth.client.Authenticated;
 import cn.gotom.auth.client.AuthenticatedClient;
+import cn.gotom.auth.client.AuthenticatedRequest;
+import cn.gotom.auth.client.AuthenticatedResponse;
 import cn.gotom.injector.InjectorUtils;
 import cn.gotom.service.AuthService;
 import cn.gotom.servlet.AbstractConfigurationFilter;
@@ -27,26 +28,27 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain arg2) throws IOException, ServletException
+	public void doFilter(ServletRequest sRequest, ServletResponse sResponse, FilterChain arg2) throws IOException, ServletException
 	{
-		Authenticated authenticated = new Authenticated();
+		AuthenticatedRequest request = new AuthenticatedRequest();
+		AuthenticatedResponse response = new AuthenticatedResponse(request);
 		try
 		{
-			String jsonString = AuthenticatedClient.convertStreamToString(request.getInputStream());
-			authenticated = AuthenticatedClient.fromJsonString(jsonString);
+			String jsonString = AuthenticatedClient.convertStreamToString(sRequest.getInputStream());
+			request = AuthenticatedClient.fromJsonString(AuthenticatedRequest.class, jsonString);
 			AuthService authService = InjectorUtils.getInstance(AuthService.class);
-			boolean success = authService.isAuth(authenticated.getAppCode(), authenticated.getUsername(), authenticated.getUrl());
-			authenticated.setResponse(success ? 200 : 403);
+			boolean success = authService.isAuth(request.getAppCode(), request.getUsername(), request.getUrl());
+			response.setStatus(success ? 200 : 403);
 		}
 		catch (Exception e)
 		{
-			authenticated.setMessage(e.getMessage());
+			response.setMessage(e.getMessage());
 		}
 		finally
 		{
-			response.getWriter().println(authenticated.toString());
-			response.getWriter().flush();
-			response.getWriter().close();
+			sResponse.getWriter().println(response.toString());
+			sResponse.getWriter().flush();
+			sResponse.getWriter().close();
 		}
 	}
 
