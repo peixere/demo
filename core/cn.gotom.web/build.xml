@@ -7,6 +7,7 @@
         <ant antfile="build.xml" dir="../cn.gotom.dao" />
         <ant antfile="build.xml" dir="../cn.gotom.pojos" />
         <ant antfile="build.xml" dir="../cn.gotom.service" />
+        <ant antfile="build.xml" dir="../cn.gotom.auch.client" />
         <ant antfile="build.xml" dir="../cn.gotom.action" />
     </target>
 </project>
