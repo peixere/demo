@@ -8,7 +8,7 @@ import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
 
 @Singleton
-class CorePersistence implements PersistenceLifeCycle
+public class CorePersistence implements PersistenceLifeCycle
 {
 
 	private final UnitOfWork unitOfWork;
