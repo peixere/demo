@@ -106,11 +106,11 @@ public class AuthenticatedClient
 		{
 			Authenticated request = new Authenticated();
 			request.setAppCode("appCode");
-			request.setUsername("admin");
+			request.setUsername("admins");
 			request.setUrl("/authService.do" + i);
 			AuthenticatedClient ac = new AuthenticatedClient();
 			request = ac.auth("http://localhost:8080/AuthenticatedService", request);
-			//System.out.println(request);
+			;
 		}
 		time = System.currentTimeMillis() - time;
 		System.out.println(time);
