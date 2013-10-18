@@ -7,11 +7,10 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>cn.gotom.pojos.SuperEntity</class>
 		<class>cn.gotom.pojos.ResourceConfig</class>
+		<class>cn.gotom.pojos.App</class>
 		<class>cn.gotom.pojos.Right</class>
 		<class>cn.gotom.pojos.Role</class>
 		<class>cn.gotom.pojos.User</class>
-		<class>cn.gotom.pojos.Custom</class>
-		<class>cn.gotom.pojos.UserCustom</class>
 		<class>cn.gotom.pojos.Organization</class>
 		<class>cn.gotom.pojos.OptionsConfig</class>		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
