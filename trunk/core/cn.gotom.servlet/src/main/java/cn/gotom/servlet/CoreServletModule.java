@@ -15,11 +15,40 @@ public class CoreServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		//filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
+		configureGuicePersistServlets();
+		configureAuthServiceServlets();
+		configureCasServlets();
+		configureStrutsServlets();
+		configureWebSocketServlets();
+	}
+
+	protected void configureGuicePersistServlets()
+	{
+		// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
 		filter("/*").through(GuicePersistFilter.class);
+	}
+
+	protected void configureAuthServiceServlets()
+	{
 		bind(AuthenticatedService.class).in(Singleton.class);
 		filter("/authService").through(AuthenticatedService.class);
+	}
 
+	protected void configureStrutsServlets()
+	{
+		filter("/*").through(AuthenticatedFilter.class);
+		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
+		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
+	}
+
+	protected void configureWebSocketServlets()
+	{
+		bind(WebSocket.class).in(Singleton.class);
+		serve("/websocket.do").with(WebSocket.class);
+	}
+
+	protected void configureCasServlets()
+	{
 		/*** cas ***/
 		bind(org.jasig.cas.client.authentication.AuthenticationFilter.class).in(Singleton.class);
 		filter("/*").through(org.jasig.cas.client.authentication.AuthenticationFilter.class);
@@ -28,11 +57,5 @@ public class CoreServletModule extends ServletModule
 		bind(HttpServletRequestWrapperFilter.class).in(Singleton.class);
 		filter("/*").through(HttpServletRequestWrapperFilter.class);
 		/*** cas ***/
-
-		filter("/*").through(AuthenticatedFilter.class);
-		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
-		bind(WebSocket.class).in(Singleton.class);
-		serve("/websocket.do").with(WebSocket.class);
 	}
 }
