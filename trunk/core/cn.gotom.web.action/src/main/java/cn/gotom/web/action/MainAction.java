@@ -13,6 +13,7 @@ import cn.gotom.pojos.Resource;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.RightService;
+import cn.gotom.servlet.JsonAction;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
