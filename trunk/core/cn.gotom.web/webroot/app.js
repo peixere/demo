@@ -70,7 +70,7 @@ Ext.onReady(function(){
 					id : node.data.id,
 					title : node.data.text,
 					closable : true,
-					//iconCls : 'icon-activity',
+					iconCls : 'icon-activity',
 					html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>'
 				});
 				tabPanel.add(panel);
@@ -80,7 +80,7 @@ Ext.onReady(function(){
 					id : node.data.id,
 					title : node.data.text,
 					closable : true,
-					//iconCls : 'icon-activity'
+					iconCls : 'icon-activity'
 				});
 				tabPanel.add(panel);
 				tabPanel.setActiveTab(panel);
