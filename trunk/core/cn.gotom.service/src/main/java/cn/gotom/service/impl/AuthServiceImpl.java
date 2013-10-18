@@ -12,12 +12,12 @@ import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthService;
+import cn.gotom.service.IUrlMatcher;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
 import cn.gotom.util.StringUtils;
-import cn.gotom.util.UrlMatcher;
 
 import com.google.inject.Inject;
 
@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthService
 	private RightService rightService;
 
 	@Inject
-	private UrlMatcher urlMatcher;
+	private IUrlMatcher urlMatcher;
 
 	@Inject
 	private ResourceConfigService resourceConfigService;
