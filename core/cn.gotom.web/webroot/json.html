@@ -7,12 +7,12 @@
 <script type="text/javascript">  
 function alt() {  
 	//alert($("#jsonform").serialize()); 
-	$.post("welcome/json.do", $("#jsonform").serialize(),
+	$.post("/ems/welcome/json.do", $("#jsonform").serialize(),
 		function(json){alert(json.userName);}
 	);  
 };   
 function altTest() {   
-	$.post("welcome/json.do", $("#jsonform").serialize(),
+	$.post("/ems/welcome/json.do", $("#jsonform").serialize(),
 			function(json){alert(json.message);}
 		);  
 };
