@@ -13,7 +13,7 @@ public interface AuthService
 
 	public abstract boolean isAuth(String username, String url);
 
-	public abstract boolean isAuth(String appCode, String username, String url);
+	public abstract boolean isAuth(String username, String url, String appCode);
 
 	/**
 	 * 
