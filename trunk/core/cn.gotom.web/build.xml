@@ -8,6 +8,7 @@
         <ant antfile="build.xml" dir="../cn.gotom.pojos" />
         <ant antfile="build.xml" dir="../cn.gotom.service" />
         <ant antfile="build.xml" dir="../cn.gotom.auth.client" />
-        <ant antfile="build.xml" dir="../cn.gotom.action" />
+        <ant antfile="build.xml" dir="../cn.gotom.servlet" />
+        <ant antfile="build.xml" dir="../cn.gotom.web.action" />
     </target>
 </project>
