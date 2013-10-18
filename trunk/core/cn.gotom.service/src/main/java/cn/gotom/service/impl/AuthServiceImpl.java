@@ -47,11 +47,11 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public boolean isAuth(String username, String url)
 	{
-		return isAuth(username, App.local, url);
+		return isAuth(username, url, App.local);
 	}
 
 	@Override
-	public boolean isAuth(String appCode, String username, String url)
+	public boolean isAuth(String username, String url, String appCode)
 	{
 		ResourceConfig rc = resourceConfigService.getByName(ResourceName.everyone_can_access);
 		if (rc == null)
@@ -66,10 +66,10 @@ public class AuthServiceImpl implements AuthService
 			return true;
 		}
 		User user = userService.get("username", username);
-		return isAuth(appCode, user, url);
+		return isAuth(user, url, appCode);
 	}
 
-	private boolean isAuth(String appCode, User user, String url)
+	private boolean isAuth(User user, String url, String appCode)
 	{
 		if (user == null)
 		{
