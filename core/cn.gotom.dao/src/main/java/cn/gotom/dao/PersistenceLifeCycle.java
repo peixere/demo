@@ -1,5 +1,7 @@
 package cn.gotom.dao;
 
+import com.google.inject.ImplementedBy;
+
 /**
  * 
  * Persistence 生命周期管理
@@ -7,6 +9,7 @@ package cn.gotom.dao;
  * @author peixere@qq.com
  * 
  */
+@ImplementedBy(Persistence.class)
 public interface PersistenceLifeCycle
 {
 	public abstract void startService();
