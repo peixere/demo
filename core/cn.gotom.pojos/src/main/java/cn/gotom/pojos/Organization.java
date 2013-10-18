@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -41,10 +39,6 @@ public class Organization extends SuperEntity implements Serializable
 
 	@Column(name = "sort", nullable = false)
 	private int sort;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "custom_id", referencedColumnName = "id")
-	private Custom custom;
 
 	@ManyToMany
 	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "org_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
@@ -88,16 +82,6 @@ public class Organization extends SuperEntity implements Serializable
 	public void setSort(int sort)
 	{
 		this.sort = sort;
-	}
-
-	public Custom getCustom()
-	{
-		return custom;
-	}
-
-	public void setCustom(Custom custom)
-	{
-		this.custom = custom;
 	}
 
 	public java.util.List<User> getUsers()

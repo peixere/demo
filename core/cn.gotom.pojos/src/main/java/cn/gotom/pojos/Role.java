@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,10 +29,6 @@ public class Role extends SuperEntity implements Serializable
 
 	@Column(nullable = false)
 	private int sort;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "custom_id", referencedColumnName = "id")
-	private Custom custom;
 	
 	@ManyToMany
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "role_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "right_id", nullable = false) })
@@ -86,15 +80,5 @@ public class Role extends SuperEntity implements Serializable
 	public void setUsers(java.util.List<User> users)
 	{
 		this.users = users;
-	}
-
-	public Custom getCustom()
-	{
-		return custom;
-	}
-
-	public void setCustom(Custom custom)
-	{
-		this.custom = custom;
 	}
 }
