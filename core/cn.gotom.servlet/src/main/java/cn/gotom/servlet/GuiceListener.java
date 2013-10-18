@@ -34,7 +34,7 @@ public class GuiceListener extends GuiceServletContextListener
 		return injector;
 	}
 
-	public List<Module> createPersistModules()
+	public List<Module> createModules()
 	{
 		List<Module> moduleList = new ArrayList<Module>();
 		moduleList.add(new CorePersistModule());
@@ -45,6 +45,6 @@ public class GuiceListener extends GuiceServletContextListener
 
 	private Injector createInjector()
 	{
-		return Guice.createInjector(createPersistModules());
+		return Guice.createInjector(createModules());
 	}
 }
