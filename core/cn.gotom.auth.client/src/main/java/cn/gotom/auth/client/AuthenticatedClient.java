@@ -36,8 +36,16 @@ public class AuthenticatedClient
 			HttpPost httppost = new HttpPost(authServiceUrl);
 			httppost.setEntity(entity);
 			HttpResponse httpResponse = httpclient.execute(httppost);
-			String jsonString = getStringFromHttp(httpResponse.getEntity());
-			response = fromJsonString(AuthenticatedResponse.class, jsonString);
+			if (httpResponse.getStatusLine().getStatusCode() == 200)
+			{
+				String jsonString = getStringFromHttp(httpResponse.getEntity());
+				response = fromJsonString(AuthenticatedResponse.class, jsonString);
+			}
+			else
+			{
+				response.setStatus(httpResponse.getStatusLine().getStatusCode());
+				response.setMessage(httpResponse.getStatusLine().toString());
+			}
 		}
 		catch (UnsupportedEncodingException e)
 		{
