@@ -1,9 +1,17 @@
 package cn.gotom.servlet;
 
-import cn.gotom.injector.InjectorUtils;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import cn.gotom.injector.CorePersistModule;
+
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.struts2.Struts2GuicePluginModule;
 
 /**
  * 
@@ -12,9 +20,31 @@ import com.google.inject.servlet.GuiceServletContextListener;
  */
 public class GuiceListener extends GuiceServletContextListener
 {
+	protected final Logger log = Logger.getLogger(GuiceListener.class);
+
+	protected static Injector injector;
+
 	@Override
 	public Injector getInjector()
 	{
-		return InjectorUtils.getInjector();
+		if (injector == null)
+		{
+			injector = createInjector();
+		}
+		return injector;
+	}
+
+	public List<Module> createPersistModules()
+	{
+		List<Module> moduleList = new ArrayList<Module>();
+		moduleList.add(new CorePersistModule());
+		moduleList.add(new CoreServletModule());
+		moduleList.add(new Struts2GuicePluginModule());
+		return moduleList;
+	}
+
+	private Injector createInjector()
+	{
+		return Guice.createInjector(createPersistModules());
 	}
 }
