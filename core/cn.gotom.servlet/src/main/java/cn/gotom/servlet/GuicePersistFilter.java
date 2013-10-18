@@ -10,9 +10,17 @@ import javax.servlet.ServletResponse;
 
 import cn.gotom.dao.PersistenceLifeCycle;
 
+import com.google.inject.Inject;
+
 public class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
+
+	@Inject
+	public GuicePersistFilter(PersistenceLifeCycle manager)
+	{
+		this.manager = manager;
+	}
 
 	public void init(FilterConfig filterConfig) throws ServletException
 	{

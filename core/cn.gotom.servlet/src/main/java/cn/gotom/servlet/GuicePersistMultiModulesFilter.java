@@ -7,13 +7,14 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class CorePersistFilter extends GuicePersistFilter
+public class GuicePersistMultiModulesFilter extends GuicePersistFilter
 {
 
 	@Inject
-	public CorePersistFilter(@CoreAnnotation CorePersistence manager)
+	public GuicePersistMultiModulesFilter(@CoreAnnotation CorePersistence manager)
 	{
-		this.manager = manager;
+		super(manager);
+		// this.manager = manager;
 	}
 
 }
