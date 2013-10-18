@@ -76,7 +76,7 @@ public class MainAction extends JsonAction
 		List<Resource> menuList = rightService.query(Resource.class, sql);
 		for (Resource resource : menuList)
 		{
-			if (resource.getLeaf() && resource.getType().equals("URL"))
+			if (resource.isLeaf() && resource.getType().equals("URL"))
 			{
 
 			}
