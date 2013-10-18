@@ -44,6 +44,7 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		}
 		catch (Exception e)
 		{
+			response.setStatus(505);
 			response.setMessage(e.getMessage());
 		}
 		finally
