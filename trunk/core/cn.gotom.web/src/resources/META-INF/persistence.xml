@@ -11,17 +11,15 @@
 		<class>cn.gotom.pojos.Right</class>
 		<class>cn.gotom.pojos.Role</class>
 		<class>cn.gotom.pojos.User</class>
-		<class>cn.gotom.pojos.Custom</class>
-		<class>cn.gotom.pojos.UserCustom</class>
 		<class>cn.gotom.pojos.Organization</class>
-		<class>cn.gotom.pojos.OptionsConfig</class>
+		<class>cn.gotom.pojos.OptionsConfig</class>		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/auth?Unicode=true&amp;characterEncoding=utf8" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/extdemo?Unicode=true&amp;characterEncoding=utf8" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="" />
 
