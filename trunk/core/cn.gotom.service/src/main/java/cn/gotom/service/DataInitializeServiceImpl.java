@@ -1,7 +1,5 @@
 package cn.gotom.service;
 
-import cn.gotom.pojos.User;
-
 import com.google.inject.Inject;
 
 public class DataInitializeServiceImpl implements DataInitializeService
@@ -9,13 +7,9 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	@Inject
 	private UserService userService;
 
-	@Inject
-	private CustomService customService;
-
 	public void init()
 	{
 		initUser();
-		initCustom();
 	}
 
 	private void initUser()
@@ -23,9 +17,4 @@ public class DataInitializeServiceImpl implements DataInitializeService
 		userService.init();
 	}
 	
-	private void initCustom()
-	{
-		User user = userService.getByUsername(User.admin);
-		customService.init(user);
-	}
 }
