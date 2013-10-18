@@ -16,8 +16,9 @@ public class CoreServletModule extends ServletModule
 	protected void configureServlets()
 	{
 		configureGuicePersistServlets();
-		configureAuthServiceServlets();
+		configureRemoteAuthServiceServlets();
 		configureCasServlets();
+		configureAuthenticatedServlets();
 		configureStrutsServlets();
 		configureWebSocketServlets();
 	}
@@ -28,10 +29,14 @@ public class CoreServletModule extends ServletModule
 		filter("/*").through(GuicePersistFilter.class);
 	}
 
-	protected void configureAuthServiceServlets()
+	protected void configureRemoteAuthServiceServlets()
 	{
 		bind(AuthenticatedService.class).in(Singleton.class);
 		filter("/authService").through(AuthenticatedService.class);
+	}
+
+	protected void configureAuthenticatedServlets()
+	{
 		filter("/*").through(AuthenticatedFilter.class);
 	}
 
