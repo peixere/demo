@@ -50,7 +50,7 @@ public class Right extends SuperEntity implements Serializable
 	 * 关联app
 	 */
 	@Column(name = "app_code", nullable = true, length = 100)
-	private String appCode = App.local;
+	private String appCode = App.ROOT;
 
 	@ManyToMany()
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "right_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
