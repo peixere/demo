@@ -24,11 +24,6 @@
 
 	<target name="jar">
 		<jar destfile="${outputjar}" filesetmanifest="mergewithoutmain">
-			<manifest>
-				<attribute name="Main-Class" value="cn.gotom.comm.serial.SerialDemo" />
-				<attribute name="Class-Path"
-					value=". RXTXcomm.jar javax.comm-3.0.jar log4j-1.2.17.jar cn.gotom.commons.jar" />
-			</manifest>
 			<fileset dir="${targetdir}" />
 		</jar>
 	</target>
