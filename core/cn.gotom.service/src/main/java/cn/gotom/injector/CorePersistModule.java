@@ -1,16 +1,16 @@
 package cn.gotom.injector;
 
 import cn.gotom.dao.jpa.UniversalDaoJpa;
+import cn.gotom.service.IUrlMatcher;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
+import cn.gotom.service.impl.IAntUrlPathMatcher;
 import cn.gotom.service.impl.ResourceConfigServiceImpl;
 import cn.gotom.service.impl.RightServiceImpl;
 import cn.gotom.service.impl.RoleServiceImpl;
 import cn.gotom.service.impl.UserServiceImpl;
-import cn.gotom.util.AntUrlPathMatcher;
-import cn.gotom.util.UrlMatcher;
 
 import com.google.inject.PrivateModule;
 import com.google.inject.persist.jpa.JpaPersistModule;
@@ -24,13 +24,14 @@ public class CorePersistModule extends PrivateModule
 	@Override
 	protected void configure()
 	{
+		//new JpaPersistModule("AppEntityManager")
 		install(new JpaPersistModule("AppEntityManager"));
 		bind(CorePersistence.class).annotatedWith(CoreAnnotation.class).to(CorePersistence.class);
 		expose(CorePersistence.class).annotatedWith(CoreAnnotation.class);
 		bind(CorePersistService.class).asEagerSingleton();
 		expose(CorePersistService.class);
-		bind(UrlMatcher.class).to(AntUrlPathMatcher.class).asEagerSingleton();
-		expose(UrlMatcher.class);
+		bind(IUrlMatcher.class).to(IAntUrlPathMatcher.class).asEagerSingleton();
+		expose(IUrlMatcher.class);
 
 		bind(UniversalDaoJpa.class).asEagerSingleton();
 		expose(UniversalDaoJpa.class);
