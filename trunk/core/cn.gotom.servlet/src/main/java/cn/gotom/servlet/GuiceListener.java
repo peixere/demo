@@ -20,7 +20,7 @@ import com.google.inject.struts2.Struts2GuicePluginModule;
  */
 public class GuiceListener extends GuiceServletContextListener
 {
-	protected final Logger log = Logger.getLogger(GuiceListener.class);
+	protected final Logger log = Logger.getLogger(this.getClass());
 
 	protected static Injector injector;
 
