@@ -48,7 +48,8 @@ public class AuthenticatedClientFilter extends AbstractConfigurationFilter
 			}
 			else
 			{
-				httpRequest.getRequestDispatcher("/final/403.jsp").forward(sRequest, sResponse);
+				sResponse.getWriter().println(response);
+				sResponse.getWriter().flush();
 			}
 		}
 		finally
