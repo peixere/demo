@@ -3,7 +3,7 @@ package cn.gotom.pojos;
 public class Resource
 {
 
-	private int id;
+	private Integer id;
 
 	private String text;
 
@@ -15,16 +15,16 @@ public class Resource
 
 	private String iconCls;
 
-	private int sort;
+	private Integer sort;
 
-	private boolean leaf;
+	private Boolean leaf;
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -79,24 +79,24 @@ public class Resource
 		this.iconCls = iconCls;
 	}
 
-	public int getSort()
+	public Integer getSort()
 	{
 		return sort;
 	}
 
-	public void setSort(int sort)
+	public void setSort(Integer sort)
 	{
 		this.sort = sort;
 	}
 
-	public boolean isLeaf()
+	public Boolean getLeaf()
 	{
 		return leaf;
 	}
 
-	public void setLeaf(boolean leaf)
+	public void setLeaf(Boolean leaf)
 	{
 		this.leaf = leaf;
 	}
-	
+
 }
