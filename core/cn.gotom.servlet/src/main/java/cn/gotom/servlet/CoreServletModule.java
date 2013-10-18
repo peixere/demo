@@ -1,32 +1,17 @@
 package cn.gotom.servlet;
 
-import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
-import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
-import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
-
 import cn.gotom.auth.server.AuthenticatedService;
 import cn.gotom.servlet.websocket.WebSocket;
 
 import com.google.inject.Singleton;
-import com.google.inject.servlet.ServletModule;
 
-public class CoreServletModule extends ServletModule
+public class CoreServletModule extends AbsServletModule
 {
 	@Override
 	protected void configureServlets()
 	{
-		configureGuicePersistServlets();
-		configureRemoteAuthServiceServlets();
-		configureCasServlets();
-		configureAuthenticatedServlets();
-		configureStrutsServlets();
+		super.configureServlets();
 		configureWebSocketServlets();
-	}
-
-	protected void configureGuicePersistServlets()
-	{
-		// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
-		filter("/*").through(GuicePersistFilter.class);
 	}
 
 	protected void configureRemoteAuthServiceServlets()
@@ -40,27 +25,9 @@ public class CoreServletModule extends ServletModule
 		filter("/*").through(AuthenticatedFilter.class);
 	}
 
-	protected void configureStrutsServlets()
-	{
-		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
-	}
-
 	protected void configureWebSocketServlets()
 	{
 		bind(WebSocket.class).in(Singleton.class);
 		serve("/websocket.do").with(WebSocket.class);
-	}
-
-	protected void configureCasServlets()
-	{
-		/*** cas ***/
-		bind(org.jasig.cas.client.authentication.AuthenticationFilter.class).in(Singleton.class);
-		filter("/*").through(org.jasig.cas.client.authentication.AuthenticationFilter.class);
-		bind(Cas20ProxyReceivingTicketValidationFilter.class).in(Singleton.class);
-		filter("/*").through(Cas20ProxyReceivingTicketValidationFilter.class);
-		bind(HttpServletRequestWrapperFilter.class).in(Singleton.class);
-		filter("/*").through(HttpServletRequestWrapperFilter.class);
-		/*** cas ***/
 	}
 }
