@@ -15,7 +15,8 @@ public class CoreServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		filter("/*").through(CorePersistFilter.class);
+		//filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
+		filter("/*").through(GuicePersistFilter.class);
 		bind(AuthenticatedService.class).in(Singleton.class);
 		filter("/authService").through(AuthenticatedService.class);
 
