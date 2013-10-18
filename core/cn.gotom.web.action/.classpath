@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.dao"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.pojos"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.service"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/catalina.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-persist-3.0.jar" sourcepath="D:/Program Files/eclipse/guice-3.0-src.zip"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-servlet-3.0.jar" sourcepath="D:/Program Files/eclipse/guice-3.0-src.zip"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-struts2-plugin-3.0.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/struts2-convention-plugin-2.3.1.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/struts2-core-2.3.1.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/struts2-json-plugin-2.3.1.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/xwork-core-2.3.1.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.commons.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.auth.client"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
