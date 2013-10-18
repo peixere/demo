@@ -75,13 +75,6 @@ public class MainAction extends JsonAction
 			sql += " where t.parent_id = '" + id + "'";
 		}
 		List<Resource> menuList = rightService.query(Resource.class, sql);
-		for (Resource resource : menuList)
-		{
-			if (resource.isLeaf() && resource.getType().equals("URL"))
-			{
-
-			}
-		}
 		toJSON(menuList);
 	}
 
