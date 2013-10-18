@@ -9,14 +9,15 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
 import cn.gotom.dao.JdbcUtils;
-import cn.gotom.injector.CorePersistService;
-import cn.gotom.injector.InjectorUtils;
+import cn.gotom.dao.Persistence;
 import cn.gotom.pojos.Resource;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class UserRoleServiceTest extends TestCase
 {
@@ -32,8 +33,8 @@ public class UserRoleServiceTest extends TestCase
 			System.out.println("------------------- setUp -----------------------");
 			userList();
 			roleList();
-			injector = InjectorUtils.getInjector();
-			injector.getInstance(CorePersistService.class).start();
+			injector = Guice.createInjector(new JpaPersistModule("AppEntityManager"));
+			injector.getInstance(Persistence.class).startService();
 		}
 		catch (Exception ex)
 		{
@@ -44,7 +45,7 @@ public class UserRoleServiceTest extends TestCase
 	@Override
 	public void tearDown()
 	{
-		injector.getInstance(CorePersistService.class).stop();
+		injector.getInstance(Persistence.class).stopService();
 		JdbcUtils.closeCurrent();
 		System.out.println("------------------- tearDown -----------------------");
 	}
