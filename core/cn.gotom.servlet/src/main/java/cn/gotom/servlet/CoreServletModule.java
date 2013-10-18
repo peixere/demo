@@ -32,11 +32,11 @@ public class CoreServletModule extends ServletModule
 	{
 		bind(AuthenticatedService.class).in(Singleton.class);
 		filter("/authService").through(AuthenticatedService.class);
+		filter("/*").through(AuthenticatedFilter.class);
 	}
 
 	protected void configureStrutsServlets()
 	{
-		filter("/*").through(AuthenticatedFilter.class);
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
 	}
