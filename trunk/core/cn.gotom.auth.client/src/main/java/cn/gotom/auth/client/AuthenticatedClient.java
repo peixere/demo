@@ -107,7 +107,7 @@ public class AuthenticatedClient
 			request.setUsername("admins");
 			request.setUrl("/authService.do" + i);
 			AuthenticatedClient ac = new AuthenticatedClient();
-			AuthenticatedResponse response = ac.auth("http://localhost:8080/AuthenticatedService", request);
+			AuthenticatedResponse response = ac.auth("http://localhost:8080/authService", request);
 			response.getStatus();
 		}
 		time = System.currentTimeMillis() - time;
