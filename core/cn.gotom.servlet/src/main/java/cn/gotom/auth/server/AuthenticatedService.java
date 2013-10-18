@@ -48,6 +48,7 @@ public class AuthenticatedService extends AbstractConfigurationFilter
 		}
 		finally
 		{
+			log.debug(response);
 			sResponse.getWriter().println(response.toString());
 			sResponse.getWriter().flush();
 			sResponse.getWriter().close();
