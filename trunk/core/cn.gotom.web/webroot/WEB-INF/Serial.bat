@@ -1,4 +1,4 @@
 @echo off
-echo Æô¶¯´®¿Ú²âÊÔ³ÌĞò
+echo å¯åŠ¨ä¸²å£æµ‹è¯•ç¨‹åº
 java -jar -Xmn64m -Xms128m -Xmx256m ./lib/cn.gotom.comm.serial.jar
 #start javaw -jar -Xmn64m -Xms128m -Xmx256m ./lib/cn.gotom.comm.serial.jar
