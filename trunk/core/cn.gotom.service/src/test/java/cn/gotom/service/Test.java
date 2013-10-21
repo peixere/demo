@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.json.JSONArray;
-import cn.gotom.pojos.Resource;
+import cn.gotom.pojos.Menu;
 
 public class Test
 {
@@ -14,8 +14,8 @@ public class Test
 	 */
 	public static void main(String[] args)
 	{
-		List<Resource> resList = new ArrayList<Resource>();
-		Resource res = new Resource();
+		List<Menu> resList = new ArrayList<Menu>();
+		Menu res = new Menu();
 		res.setId(1);
 		res.setComponent("com");
 		res.setText("名称");

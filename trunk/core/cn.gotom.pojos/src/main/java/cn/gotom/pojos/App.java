@@ -21,7 +21,7 @@ public class App extends SuperEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	public static final String local = "local";
+	public static final String ROOT = "ROOT";
 
 	/**
 	 * 接入应用的唯一编码
