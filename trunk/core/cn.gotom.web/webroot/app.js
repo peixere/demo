@@ -28,7 +28,7 @@ Ext.onReady(function(){
 	HeaderPanel.setLoading(HeaderPanel.id+' Loading...');
 	function callbackTitle(data) {
 		document.title = data.title;
-		var htmlStr = '<div class="logoPanel">'+data.title+'</div>';
+		var htmlStr = '<div class="logoPanel">　'+data.title+'</div>';
 		htmlStr += '<div class="userPanel">';
 		htmlStr += '欢迎您：<a href="#">'+data.username+'</a>　　';
 		htmlStr += '<a href="'+data.casServerLogoutUrl+'">注销</a>';
