@@ -71,7 +71,7 @@ Ext.onReady(function(){
 					title : node.data.text,
 					closable : true,
 					//iconCls : 'icon-activity',
-					html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>'
+					html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>'
 				});
 				tabPanel.add(panel);
 				tabPanel.setActiveTab(panel);
@@ -139,7 +139,7 @@ Ext.onReady(function(){
 				title : '新闻动态',
 				height : 150,	
 				tools: portal.getTools(),
-				html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>',
+				html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>',
 				listeners: {
 					'close': Ext.bind(portal.onPortletClose, portal)
 				}
