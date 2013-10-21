@@ -12,7 +12,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cn.gotom.pojos.Resource;
+import cn.gotom.pojos.Menu;
 import cn.gotom.service.RightService;
 import cn.gotom.util.StringUtils;
 
@@ -54,7 +54,7 @@ public class RightAction
 		{
 			sql += " where t.parent_id = '" + id + "'";
 		}
-		List<Resource> menuList = rightService.query(Resource.class, sql);
+		List<Menu> menuList = rightService.query(Menu.class, sql);
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html");
 		//response.setCharacterEncoding("utf-8");

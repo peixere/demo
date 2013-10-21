@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService
 	@Override
 	public boolean isAuth(String username, String url)
 	{
-		return isAuth(username, url, App.local);
+		return isAuth(username, url, App.ROOT);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package cn.gotom.pojos;
 
-public class Resource
+public class Menu
 {
 
 	private Integer id;
