@@ -13,7 +13,7 @@ var createStore = function(id) {// 创建树面板数据源
 		model : model,
 		proxy : {
 			type : "ajax", // 获取方式
-			url : mainUrl+'?action=menu', // 获取树节点的地址
+			url : mainUrl+'?action=menu' // 获取树节点的地址
 		},
 		clearOnLoad : true,
 		nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
@@ -37,7 +37,7 @@ Ext.onReady(function(){
 			id : 'iconPanel',
 			region : 'center',
 			html : htmlStr,
-			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;',
+			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;'
 		});
 		HeaderPanel.add(iconPanel);
 		//HeaderPanel.update(htmlStr);
@@ -79,7 +79,7 @@ Ext.onReady(function(){
 				var panel = Ext.create(node.data.component, {
 					id : node.data.id,
 					title : node.data.text,
-					closable : true,
+					closable : true
 					//iconCls : 'icon-activity'
 				});
 				tabPanel.add(panel);
