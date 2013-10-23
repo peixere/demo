@@ -43,9 +43,9 @@ Ext.onReady(function(){
 		split : true,
 		items: [portalPanel]
 	});	
-	portal.getCenterPanel().add(tabPanel);
-	var HeaderPanel = portal.getHeaderPanel();
-	var navPanel = portal.getNavPanel();
+	portal.getContent().add(tabPanel);
+	var HeaderPanel = portal.header;
+	var navPanel = portal.menus;
 	//var tabPanel = portal.getTabPanel();
 	HeaderPanel.setLoading(HeaderPanel.id+' Loading...');
 	function callbackTitle(data) {
