@@ -15,22 +15,17 @@
 	<p style="text-align: center; margin-top: 20px">
 		<img src="${ctx}/resources/icons/fam/505.png"/>
 	</p>
-<p align="center">
-	
-	<%
+<p>
+		<%
+		
+		Exception exception = null;
 		if (request.getAttribute("java.lang.Throwable") != null)
 		{
 			exception = ((Exception) request.getAttribute("java.lang.Throwable"));
 		}
 		if (exception != null)
 		{
-	%>
-	<textarea rows="" cols="" style="width:800px;height:600px">
-	<%
 			exception.printStackTrace(new java.io.PrintWriter(out));
-	%>
-	</textarea>
-	<%
 		}
 	%>
 	
