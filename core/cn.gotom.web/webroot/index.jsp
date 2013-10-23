@@ -9,9 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" href="resources/portal.css">
 	<script type="text/javascript">
-	<!--
-	var ctx = '${ctx}';
-	-->
+	var ctx = '${ctx}';	
 	</script>
     <!-- <x-bootstrap> -->
     <script type="text/javascript" src="ext4/shared/include-ext.js?theme=access"></script>

@@ -5,8 +5,7 @@
 * A sample portal layout application class.
 */
 
-var mainUrl = ctx+"/main.do";
-
+var mainUrl = "main.do";
 var createStore = function(id) {// 创建树面板数据源
 	return Ext.create("Ext.data.TreeStore", {
 		defaultRootId : id, // 默认的根节点id
