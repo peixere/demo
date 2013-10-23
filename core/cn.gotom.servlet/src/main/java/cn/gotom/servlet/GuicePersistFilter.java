@@ -7,8 +7,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.dao.PersistenceLifeCycle;
 
@@ -48,18 +46,18 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 
 	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
 	{
-		final HttpServletRequest request = (HttpServletRequest) sRequest;
-		final HttpServletResponse response = (HttpServletResponse) sResponse;
+		// final HttpServletRequest request = (HttpServletRequest) sRequest;
+		// final HttpServletResponse response = (HttpServletResponse) sResponse;
 		try
 		{
 			this.manager.beginUnitOfWork();
 			filterChain.doFilter(sRequest, sResponse);
 		}
-		catch (Exception ex)
-		{
-			request.setAttribute("error", ex);
-			request.getRequestDispatcher("/final/505.jsp").forward(request, response);
-		}
+//		catch (Exception ex)
+//		{
+//			request.setAttribute("error", ex);
+//			request.getRequestDispatcher("/final/505.jsp").forward(request, response);
+//		}
 		finally
 		{
 			this.manager.endUnitOfWork();
