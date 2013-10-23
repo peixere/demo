@@ -53,13 +53,13 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.beginUnitOfWork();
-			filterChain.doFilter(sRequest, sResponse);
+			filterChain.doFilter(request, response);
 		}
-		catch (Exception ex)
-		{
-			request.setAttribute("java.lang.Throwable", ex);
-			request.getRequestDispatcher("/final/500.jsp").forward(request, response);
-		}
+//		catch (Exception ex)
+//		{
+//			request.setAttribute("java.lang.Throwable", ex);
+//			request.getRequestDispatcher("/final/500.jsp").forward(request, response);
+//		}
 		finally
 		{
 			this.manager.endUnitOfWork();
