@@ -20,7 +20,7 @@ var createStore = function(id) {// 创建树面板数据源
 };
 
 Ext.onReady(function(){
-	var portal = Ext.create('Ext.app.Portal');
+	var portal = Ext.create('Ext.app.PortalViewport');
 	var HeaderPanel = portal.getHeaderPanel();
 	var navPanel = portal.getNavPanel();
 	var tabPanel = portal.getTabPanel();
