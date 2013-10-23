@@ -50,15 +50,6 @@ Ext.onReady(function()
 	]
     });
     portal.setContent(tabPanel);
-    var myPanel = Ext.create("Ext.panel.Panel",
-    {
-	id : 'app-headers',
-	height : 90,
-	region : 'north',
-	border : false,
-	split : false
-    });
-    portal.setContent(myPanel);
     var HeaderPanel = portal.header;
     var navPanel = portal.menus;
     // var tabPanel = portal.getTabPanel();
