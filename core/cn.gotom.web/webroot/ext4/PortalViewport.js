@@ -42,7 +42,7 @@ var model = Ext.define("TreeModel", {// 定义树节点数据模型
 		name : 'component'
 	}]
 });
-Ext.define('Ext.app.Portal',
+Ext.define('Ext.app.PortalViewport',
 {
 	extend: 'Ext.container.Viewport',
 	requires: ['Ext.app.PortalPanel', 'Ext.app.PortalColumn', 'Ext.app.GridPortlet', 'Ext.app.ChartPortlet'],
