@@ -10,7 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="resources/portal.css">
 	<script type="text/javascript">
 	<!--
-	var ctx = ${ctx};
+	var ctx = '${ctx}';
 	-->
 	</script>
     <!-- <x-bootstrap> -->
