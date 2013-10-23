@@ -32,7 +32,7 @@ Ext.onReady(function()
 	items : [ portalPanel
 	]
     });
-    portal.setContent(tabPanel);
+    portal.setContent(tabPanel);   
     portal.header.setLoading(portal.header.id + ' Loading...');
     function callbackTitle(data)
     {
