@@ -6,7 +6,7 @@
  */
 
 //@require @packageOverrides
-Ext.define('Ext.app.PortalViewport',
+Ext.define('Ext.app.portal',
 {
 	extend: 'Ext.container.Viewport',
 	requires: ['Ext.app.PortalPanel', 'Ext.app.PortalColumn', 'Ext.app.GridPortlet', 'Ext.app.ChartPortlet'],
@@ -48,16 +48,9 @@ Ext.define('Ext.app.PortalViewport',
 		});
 	},
 
-	getTabPanel:function()
+	getCenterPanel:function()
 	{
-		//return this.items.get(3);
-		return this.items.get(1).items.get(2);
-	},
-
-	getPortalPanel:function()
-	{
-		var portal = this.getTabPanel().items.get(0);
-		return portal;
+		return this.items.get(1);
 	},
 
     onPortletClose: function(portlet) 
@@ -72,7 +65,7 @@ Ext.define('Ext.app.PortalViewport',
 			portal.setLoading(false);
 		}, 2000);
 	},
-
+	
 	initComponent: function()
 	{
 		var HeaderPanel = Ext.create("Ext.panel.Panel", {
@@ -101,28 +94,7 @@ Ext.define('Ext.app.PortalViewport',
 				//afterrender : Ext.bind(this.onloadNavPanel, this)
 			}
 		});
-
-		var portal = Ext.create("Ext.app.PortalPanel", 
-		{
-			id: 'app-portal',
-			xtype: 'portalpanel',
-			region: 'center',
-			title : "平台首页",
-			layout : 'column'
-		});
-
-		var tabPanel = Ext.create('Ext.tab.Panel', {
-			id:'tabPanel',
-			region : 'center',
-			activeTab : 0,
-			enableTabScroll : true,
-			animScroll : true,
-			border : true,
-			autoScroll : true,
-			split : true,
-			items: [portal]
-		});
-
+		
 		Ext.apply(this, 
 		{
             id: 'app-viewport',
@@ -134,7 +106,7 @@ Ext.define('Ext.app.PortalViewport',
                 xtype: 'container',
                 region: 'center',
                 layout: 'border',
-                items: [navPanel,tabPanel]}
+                items: [navPanel]}
 			]
 		});
 		this.callParent(arguments);

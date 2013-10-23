@@ -20,10 +20,33 @@ var createStore = function(id) {// 创建树面板数据源
 };
 
 Ext.onReady(function(){
-	var portal = Ext.create('Ext.app.PortalViewport');
+	
+	var portal = Ext.create('Ext.app.portal');
+	
+	var portalPanel = Ext.create("Ext.app.PortalPanel", 
+	{
+		id: 'app-portal',
+		xtype: 'portalpanel',
+		region: 'center',
+		title : "平台首页",
+		layout : 'column'
+	});
+
+	var tabPanel = Ext.create('Ext.tab.Panel', {
+		id:'tabPanel',
+		region : 'center',
+		activeTab : 0,
+		enableTabScroll : true,
+		animScroll : true,
+		border : true,
+		autoScroll : true,
+		split : true,
+		items: [portalPanel]
+	});	
+	portal.getCenterPanel().add(tabPanel);
 	var HeaderPanel = portal.getHeaderPanel();
 	var navPanel = portal.getNavPanel();
-	var tabPanel = portal.getTabPanel();
+	//var tabPanel = portal.getTabPanel();
 	HeaderPanel.setLoading(HeaderPanel.id+' Loading...');
 	function callbackTitle(data) {
 		document.title = data.title;
@@ -133,7 +156,7 @@ Ext.onReady(function(){
 	
 	tabPanel.setLoading(tabPanel.id+' Loading...');
 	Ext.defer(function() {
-		var portalPanel =  portal.getPortalPanel();
+		//var portalPanel =  portal.getPortalPanel();
 		var portalcolumn = Ext.create('Ext.app.PortalColumn',
 		{
 			columnWidth : 0.7,
