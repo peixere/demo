@@ -9,9 +9,7 @@ var mainUrl = "main.do";
 
 Ext.onReady(function()
 {
-
     var portal = Ext.create('Ext.app.portal');
-
     var portalPanel = Ext.create("Ext.app.PortalPanel",
     {
 	id : 'app-portal',
@@ -35,10 +33,7 @@ Ext.onReady(function()
 	]
     });
     portal.setContent(tabPanel);
-    var HeaderPanel = portal.header;
-    var navPanel = portal.menus;
-    // var tabPanel = portal.getTabPanel();
-    HeaderPanel.setLoading(HeaderPanel.id + ' Loading...');
+    portal.header.setLoading(portal.header.id + ' Loading...');
     function callbackTitle(data)
     {
 	document.title = data.title;
@@ -56,9 +51,9 @@ Ext.onReady(function()
 	    html : htmlStr,
 	    bodyStyle : 'background-image: url(resources/icons/fam/topbg.jpg) !important;'
 	});
-	HeaderPanel.add(iconPanel);
+	portal.header.add(iconPanel);
 	// HeaderPanel.update(htmlStr);
-	HeaderPanel.setLoading(false);
+	portal.header.setLoading(false);
     }
     Ext.defer(function()
     {
@@ -120,7 +115,7 @@ Ext.onReady(function()
 	// var data = res.menuList;
 	for (var i = 0; i < data.length; i++)
 	{
-	    navPanel.add(Ext.create("Ext.tree.Panel",
+	    portal.menus.add(Ext.create("Ext.tree.Panel",
 	    {
 		// treeCls:'treeCls',
 		title : data[i].text,
@@ -156,7 +151,7 @@ Ext.onReady(function()
 	    navPanel.doLayout();
 	}
     }
-    navPanel.setLoading(navPanel.id + ' Loading...');
+    portal.menus.setLoading(portal.menus.id + ' Loading...');
     Ext.defer(function()
     {
 	ajax(
@@ -164,7 +159,7 @@ Ext.onReady(function()
 	    url : mainUrl + '?action=menu',
 	    callback : addTree
 	});
-	navPanel.setLoading(false);
+	portal.menus.setLoading(false);
     }, 1000);
 
     tabPanel.setLoading(tabPanel.id + ' Loading...');
