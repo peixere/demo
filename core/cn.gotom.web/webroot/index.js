@@ -117,7 +117,6 @@ Ext.onReady(function()
 	{
 	    portal.menus.add(Ext.create("Ext.tree.Panel",
 	    {
-		// treeCls:'treeCls',
 		title : data[i].text,
 		iconCls : data[i].iconCls,
 		// useArrows: true,
@@ -148,7 +147,7 @@ Ext.onReady(function()
 		    }
 		}
 	    }));
-	    navPanel.doLayout();
+	    portal.menus.doLayout();
 	}
     }
     portal.menus.setLoading(portal.menus.id + ' Loading...');
