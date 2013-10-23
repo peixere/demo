@@ -7,6 +7,7 @@
 <head>
 	<title>业务基础平台</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="resources/favicon.ico" />
 	<link type="text/css" rel="stylesheet" href="resources/portal.css">
 	<script type="text/javascript">
 	var ctx = '${ctx}';	
