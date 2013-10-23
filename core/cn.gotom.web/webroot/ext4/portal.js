@@ -43,7 +43,6 @@ Ext.define('Ext.app.portal',
 	    portal.setLoading(false);
 	}, 2000);
     },
-    
 
     setContent : function(content)
     {
@@ -52,7 +51,6 @@ Ext.define('Ext.app.portal',
 	    return this.items.get(1).add(content);
 	}
     },
-
     header : Ext.create("Ext.panel.Panel",
     {
 	id : 'app-header',
@@ -81,18 +79,6 @@ Ext.define('Ext.app.portal',
 	// afterrender : Ext.bind(this.onLoadMenus, this)
 	}
     }),
-    
-    getCenter : function(){
-	var content = Ext.create("Ext.panel.Panel",
-		{
-		    xtype : 'container',
-		    region : 'center',
-		    layout : 'border',
-		    items : [ this.menus
-		    ]
-		});
-	return content;
-    },
 
     initComponent : function()
     {
@@ -104,7 +90,14 @@ Ext.define('Ext.app.portal',
 		type : 'border',
 		padding : '0 5 5 5'
 	    },
-	    items : [ this.header, this.getCenter()]
+	    items : [ this.header, {
+		    xtype : 'container',
+		    region : 'center',
+		    layout : 'border',
+		    items : [ this.menus,this.content
+		    ]
+		}
+	    ]
 	});
 	this.callParent(arguments);
     }
