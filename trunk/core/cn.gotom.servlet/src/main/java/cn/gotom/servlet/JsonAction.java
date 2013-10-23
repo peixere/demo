@@ -11,7 +11,8 @@ public abstract class JsonAction
 	public void toJSON(Object value) throws IOException
 	{
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
-		// ServletActionContext.getResponse().setContentType("text/html");
+		String encoing = ServletActionContext.getRequest().getCharacterEncoding();
+		ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
 		ServletActionContext.getResponse().getWriter().println(json.toString());
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
