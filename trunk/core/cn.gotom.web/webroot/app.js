@@ -94,6 +94,7 @@ Ext.onReady(function(){
 		//var data = res.menuList;
 		for (var i = 0; i < data.length; i++) {
 			navPanel.add(Ext.create("Ext.tree.Panel", {
+				//treeCls:'treeCls',
 				title : data[i].text,
 				iconCls : data[i].iconCls,
 				// useArrows: true,

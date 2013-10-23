@@ -318,3 +318,6 @@
 	color: white;
 	text-decoration:none;
 }
+.tree-panel{
+	cursor:pointer;
+}
