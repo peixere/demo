@@ -1,6 +1,6 @@
 /**
  * author 裴绍国
- * @class Ext.app.Portal
+ * @class Ext.app.PortalViewport
  * @extends Object
  * A sample portal layout application class.
  */
