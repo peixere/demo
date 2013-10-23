@@ -37,8 +37,8 @@
         return value;
     }
 
-    var scriptEls = document.getElementsByTagName('script'),
-        path = scriptEls[scriptEls.length - 1].src,
+    var scriptEls = document.getElementsByTagName('script');
+    var path = scriptEls[scriptEls.length - 1].src,
         rtl = getQueryParam('rtl'),
         theme = getQueryParam('theme') || 'neptune',
         includeCSS = !hasOption('nocss', path),
