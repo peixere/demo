@@ -82,7 +82,7 @@ Ext.define('Ext.app.portal',
 	}
     }),
     
-    getContent : function(){
+    getCenter : function(){
 	var content = Ext.create("Ext.panel.Panel",
 		{
 		    xtype : 'container',
@@ -104,7 +104,7 @@ Ext.define('Ext.app.portal',
 		type : 'border',
 		padding : '0 5 5 5'
 	    },
-	    items : [ this.header, this.getContent()]
+	    items : [ this.header, this.getCenter()]
 	});
 	this.callParent(arguments);
     }
