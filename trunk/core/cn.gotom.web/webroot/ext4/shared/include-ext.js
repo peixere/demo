@@ -49,11 +49,11 @@
         neptunePath;
 
     rtl = rtl && rtl.toString() === 'true';
-
+    
     while (i--) {
         path = path.substring(0, path.lastIndexOf('/'));
     }
-        
+    
     if (theme && theme !== 'classic') {
         suffix.push(theme);
     }
@@ -62,7 +62,6 @@
     } 
 
     suffix = (suffix.length) ? ('-' + suffix.join('-')) : '';
-	//alert(path);
     //path = 'http://cdn.sencha.com/ext/gpl/4.2.1';
     path = '/ext';
     if (includeCSS) {
