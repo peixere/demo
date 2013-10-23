@@ -97,7 +97,7 @@
 		<location>/final/403.jsp</location>
 	</error-page>
 	<error-page>
-		<error-code>505</error-code>
-		<location>/final/505.jsp</location>
+		<error-code>500</error-code>
+		<location>/final/500.jsp</location>
 	</error-page>	
 </web-app>
