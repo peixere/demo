@@ -12,7 +12,7 @@
     <!-- </x-bootstrap> --> 	
 
 	<script type="text/javascript" src="ext4/portal.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="index.js"></script>
 </head>
 <body>
 <span id="app-msg" style="display:none;"></span>

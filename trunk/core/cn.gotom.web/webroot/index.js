@@ -39,7 +39,7 @@ Ext.onReady(function(){
 			id : 'iconPanel',
 			region : 'center',
 			html : htmlStr,
-			bodyStyle:'background-image: url(icons/fam/topbg.jpg) !important;'
+			bodyStyle:'background-image: url(resources/icons/fam/topbg.jpg) !important;'
 		});
 		HeaderPanel.add(iconPanel);
 		//HeaderPanel.update(htmlStr);
