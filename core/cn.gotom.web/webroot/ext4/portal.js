@@ -113,7 +113,7 @@ Ext.define('Ext.app.Portal',
 	{
 		var HeaderPanel = Ext.create("Ext.panel.Panel", {
 			id: 'app-header',
-			height : 60,
+			//height : 60,
 			region : 'north',
 			border: false,
         	split : false
