@@ -25,34 +25,6 @@ Ext.define('Ext.app.portal',
 		}];
 	},
 
-	getHeaderPanel:function()
-	{
-		return this.items.get(0);
-	},
-
-	getNavPanel:function()
-	{
-		//return this.items.get(1);
-		return this.items.get(1).items.get(0);
-	},
-
-	addNavItem:function(titles,icon,htmlStr)
-	{
-		var panel = this.getNavPanel();
-		panel.add({
-			title:titles,
-			autoScroll: true,
-			border: false,
-			iconCls: icon,
-			html:htmlStr
-		});
-	},
-
-	getCenterPanel:function()
-	{
-		return this.items.get(1);
-	},
-
     onPortletClose: function(portlet) 
 	{
         alert('"' + portlet.title + '" was removed');
@@ -66,35 +38,40 @@ Ext.define('Ext.app.portal',
 		}, 2000);
 	},
 	
-	initComponent: function()
+	getContent:function()
 	{
-		var HeaderPanel = Ext.create("Ext.panel.Panel", {
-			id: 'app-header',
-			region : 'north',
-			border: false,
-        	split : false
-		});
+		return this.items.get(1);
+	},
+	
+	header : Ext.create("Ext.panel.Panel", {
+		id: 'app-header',
+		region : 'north',
+		border: false,
+    	split : false
+	}),
+	
+	menus : Ext.create("Ext.panel.Panel", {
+		id:'app-options',
+		title : "系统菜单",
+		region: 'west',
+		animCollapse: true,
+		width: 200,
+		minWidth: 150,
+		maxWidth: 400,
+		split: true,
+		collapsible: true,
+		layout:{
+			type: 'accordion',
+			animate: true
+		},
+		listeners : 
+		{
+			//afterrender : Ext.bind(this.onLoadMenus, this)
+		}
+	}),
 
-		var navPanel = Ext.create("Ext.panel.Panel", {
-			id:'app-options',
-			title : "系统菜单",
-			region: 'west',
-			animCollapse: true,
-			width: 200,
-			minWidth: 150,
-			maxWidth: 400,
-			split: true,
-			collapsible: true,
-			layout:{
-				type: 'accordion',
-				animate: true
-			},
-			listeners : 
-			{
-				//afterrender : Ext.bind(this.onloadNavPanel, this)
-			}
-		});
-		
+	initComponent: function()
+	{	
 		Ext.apply(this, 
 		{
             id: 'app-viewport',
@@ -102,11 +79,11 @@ Ext.define('Ext.app.portal',
                 type: 'border',
                 padding: '0 5 5 5'
             },
-			items: [HeaderPanel,{
+			items: [this.header,{
                 xtype: 'container',
                 region: 'center',
                 layout: 'border',
-                items: [navPanel]}
+                items: [this.menus]}
 			]
 		});
 		this.callParent(arguments);
