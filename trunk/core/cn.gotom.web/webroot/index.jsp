@@ -17,8 +17,9 @@
     <script type="text/javascript" src="ext4/shared/options-toolbar.js"></script>    
     <!-- </x-bootstrap> --> 	
 
+	<script type="text/javascript" src="ext4/commons.js"></script>
 	<script type="text/javascript" src="ext4/PortalViewport.js"></script>
-	<script type="text/javascript" src="index.js"></script>
+	
 </head>
 <body>
 <span id="app-msg" style="display:none;"></span>
