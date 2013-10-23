@@ -32,7 +32,7 @@ public class User extends SuperEntity implements Serializable
 	@Column(nullable = false, length = 50)
 	private String password;
 
-	@Column(unique = true, nullable = false, length = 100)
+	@Column(unique = true, nullable = false, length = 100,updatable = true)
 	private String username;
 
 	@Column(nullable = true, length = 100)
