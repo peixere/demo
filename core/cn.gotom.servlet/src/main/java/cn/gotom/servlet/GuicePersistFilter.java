@@ -58,7 +58,7 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		catch (Exception ex)
 		{
 			request.setAttribute("java.lang.Throwable", ex);
-			request.getRequestDispatcher("/final/505.jsp").forward(request, response);
+			request.getRequestDispatcher("/final/500.jsp").forward(request, response);
 		}
 		finally
 		{
