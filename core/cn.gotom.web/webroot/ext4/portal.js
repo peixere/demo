@@ -82,16 +82,20 @@ Ext.define('Ext.app.portal',
 	}
     }),
     
+    getContent : function(){
+	var content = Ext.create("Ext.panel.Panel",
+		{
+		    xtype : 'container',
+		    region : 'center',
+		    layout : 'border',
+		    items : [ this.menus
+		    ]
+		});
+	return content;
+    },
+
     initComponent : function()
     {
-	var content = Ext.create("Ext.panel.Panel",
-	{
-	    xtype : 'container',
-	    region : 'center',
-	    layout : 'border',
-	    items : [ this.menus
-	    ]
-	});
 	Ext.apply(this,
 	{
 	    id : 'app-viewport',
@@ -100,7 +104,7 @@ Ext.define('Ext.app.portal',
 		type : 'border',
 		padding : '0 5 5 5'
 	    },
-	    items : [ this.header, content]
+	    items : [ this.header, this.getContent()]
 	});
 	this.callParent(arguments);
     }
