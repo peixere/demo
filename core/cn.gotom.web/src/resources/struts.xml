@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+    <!-- 
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.convention.classes.reload" value="false" />
 	<constant name="struts.convention.action.suffix" value="Controller" />
@@ -8,6 +9,7 @@
 	<constant name="struts.convention.default.parent.package"
 		value="rest-default" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
+	 -->
 	<constant name="struts.action.extension" value="do" />
 	<!-- 结果资源的路径 -->
 	<constant name="struts.convention.result.path" value="/" />
