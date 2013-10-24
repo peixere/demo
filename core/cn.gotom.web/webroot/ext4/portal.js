@@ -1,7 +1,7 @@
 /**
  * author 裴绍国
  * 
- * @class Ext.app.PortalViewport
+ * @class Ext.app.portal
  * @extends Object A sample portal layout application class.
  */
 
@@ -62,7 +62,7 @@ Ext.define('Ext.app.portal',
     menus : Ext.create("Ext.panel.Panel",
     {
 	id : 'app-options',
-	title : "系统菜单",
+	title : '系统菜单',
 	region : 'west',
 	animCollapse : true,
 	width : 200,
