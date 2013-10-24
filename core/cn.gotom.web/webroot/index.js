@@ -90,7 +90,7 @@ Ext.onReady(function()
 		    title : node.data.text,
 		    closable : true,
 		    // iconCls : 'icon-activity',
-		    html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>'
+		    html : '<iframe width="100%" height="100%" frameborder="0" src="'+node.data.component+'"></iframe>'
 		});
 		tabPanel.add(panel);
 		tabPanel.setActiveTab(panel);
