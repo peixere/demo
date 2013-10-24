@@ -17,11 +17,18 @@
     -->
     <!-- <x-bootstrap> -->
     <script type="text/javascript" src="ext4/shared/include-ext.js?theme=access"></script>
-    <script type="text/javascript" src="ext4/shared/options-toolbar.js"></script>    
+    
     <!-- </x-bootstrap> --> 	
 	<script type="text/javascript" src="ext4/commons.js"></script>
-	<script type="text/javascript" src="ext4/PortalView.js"></script>	
-	<script type="text/javascript" src="index.js"></script>		
+	<script type="text/javascript" src="ext4/TreeView.js"></script>
+	<script type="text/javascript">
+	Ext.onReady(function()
+		{
+		    var portal = Ext.create('TreeView');
+		    portal.loadTree('main.do?action=menu', '');
+		    portal.content.update('htmlssssssssssssssssss');
+		});	
+	</script>		
 </head>
 <body>
 </body>

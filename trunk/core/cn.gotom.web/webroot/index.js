@@ -9,7 +9,7 @@ var mainUrl = "main.do";
 
 Ext.onReady(function()
 {
-    var portal = Ext.create('Ext.app.portal');
+    var portal = Ext.create('PortalView');
     var portalPanel = Ext.create("Ext.app.PortalPanel",
     {
 	id : 'app-portal',
