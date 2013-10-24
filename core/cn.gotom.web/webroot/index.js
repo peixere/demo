@@ -129,18 +129,6 @@ Ext.onReady(function()
 		store : createStore(mainUrl + '?action=menu', data[i].id),
 		listeners :
 		{
-		    afterlayout : function()
-		    {
-			if (this.getView().el)
-			{
-			    var el = this.getView().el;
-			    var table = el.down("table.x-grid-table");
-			    if (table)
-			    {
-				table.setWidth(el.getWidth());
-			    }
-			}
-		    },
 		    itemclick : function(view, node)
 		    {
 			itemClick(view, node);
