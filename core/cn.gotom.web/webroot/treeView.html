@@ -38,7 +38,24 @@
 	    id : 'Menu',
 	    items : [
 	    {
+			text : '查看',
+			iconCls : 'icon-note',
+			handler : function(node, e)
+			{
+			    alert(selectNode.data.text);
+			}
+	    },
+	    {
 			text : '修改',
+			iconCls : 'icon-edit',
+			handler : function(node, e)
+			{
+			    alert(selectNode.data.text);
+			}
+    	},
+	    {
+			text : '删除',
+			iconCls : 'icon-del',
 			handler : function(node, e)
 			{
 			    alert(selectNode.data.text);
