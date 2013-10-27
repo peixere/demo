@@ -25,8 +25,9 @@ Ext.define('Ext.app.Portal',
 	id : 'app-portal',
 	autoScroll : true,
 	border : true,
-	title : '内容页',
-	region : 'center'
+	//title : '内容页',
+	//layout:'fit',
+	region : 'center'	
     }),
 
     center : Ext.create("Ext.panel.Panel",
