@@ -23,46 +23,78 @@
 <script type="text/javascript" src="ext4/commons.js"></script>
 <script type="text/javascript" src="ext4/portal.js"></script>
 <script type="text/javascript">
-
     Ext.onReady(function()
     {
 	var portal = Ext.create('Portal');
 	function menuClick(view, node)
 	{
 	    //alert(view.id + node.data.text);
-		portal.content.setTitle(node.data.text);
-		portal.content.update(node.data.text);	    
+	    portal.content.setTitle(node.data.text);
+	    portal.content.update(node.data.text);
 	}
+	var selectNode = null;
+	var contextmenu = Ext.create("Ext.menu.Menu",
+	{
+	    id : 'Menu',
+	    items : [
+	    {
+			text : '修改',
+			handler : function(node, e)
+			{
+			    alert(selectNode.data.text);
+			}
+	    }
+	    ]
+	});
 
 	function loadTree(url, title)
 	{
-	    var tree = Ext.create("Ext.tree.Panel",
-	    {
-		id : 'tree',
-		title : title,
-		region : 'west',
-		width : 250,
-		minWidth : 100,
-		maxWidth : 400,
-		height : 200,
-		split : true,
-		stateful : true,
-		collapsible : true,
-		rootVisible : false,
-		store : createStore(url, ''),
-		listeners :
-		{
-		    itemclick : function(view, node)
-		    {
-			menuClick(view, node);
-		    }
+	    var tree = Ext.create("Ext.tree.TreePanel",
+	    {            
+			id : 'tree',
+			title : title,
+			region : 'west',
+			width : 250,
+			minWidth : 100,
+			maxWidth : 400,
+			height : 200,
+			animate:true,  
+            border:false,  
+            bodyborder:false,  
+            lines:true, 			
+			split : true,
+			stateful : true,
+            collapsible:true,  
+            frame:false,  
+            enableDD:true,  
+            autoScroll:true,  
+            autoHeight:false,
+			rootVisible : false,
+			store : createStore(url, ''),
+			listeners :
+			{
+			    render : function()
+			    {
+					Ext.getBody().on("contextmenu", Ext.emptyFn, null,
+					{
+					    preventDefault : true
+					});
+				},
+			    itemclick : function(view, node)
+			    {
+					menuClick(view, node);
+			    },				
+			    itemcontextmenu : function(grid, record, item, index, event)
+			    {
+					selectNode = record;
+					contextmenu.showAt(event.getXY());
+					//alert(record.data.text);
+			    }
 		}
 	    });
-
 	    portal.center.add(tree);
 	    portal.center.doLayout();
 	}
-	;
 	loadTree('main.do?action=menu', '菜单管理');
 	portal.content.setTitle('内容');
 	portal.content.update('htmlssssssssssssssssss');
