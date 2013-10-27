@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>index</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="resources/favicon.ico" />
-	<link type="text/css" rel="stylesheet" href="resources/portal.css">
-	<script type="text/javascript">
-	//var ctx = "";	
-	</script>
-    <!-- 
+<title>index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="resources/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="resources/portal.css">
+<script type="text/javascript">
+    //var ctx = "";
+</script>
+<!-- 
 	<link type="text/css" rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/css/ext-all.css">
     <link type="text/css" rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/ext-theme-access/ext-theme-access-all.css">
     
     <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
     <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-zh_CN.js"></script>
     -->
-    <!-- <x-bootstrap> -->
-    <script type="text/javascript" src="ext4/shared/include-ext.js?theme=access"></script>
-    
-    <!-- </x-bootstrap> --> 	
-	<script type="text/javascript" src="ext4/commons.js"></script>
-	<script type="text/javascript" src="ext4/TreeView.js"></script>
-	<script type="text/javascript">
-	Ext.onReady(function()
+<!-- <x-bootstrap> -->
+<script type="text/javascript"
+	src="ext4/shared/include-ext.js?theme=access"></script>
+
+<!-- </x-bootstrap> -->
+<script type="text/javascript" src="ext4/commons.js"></script>
+<script type="text/javascript" src="ext4/TreeView.js"></script>
+<script type="text/javascript">
+
+    Ext.onReady(function()
+    {
+	var portal = Ext.create('TreeView');
+	function menuClick(view, node)
+	{
+	    //alert(view.id + node.data.text);
+		portal.content.setTitle(node.data.text);
+		portal.content.update(node.data.text);	    
+	}
+
+	function loadTree(url, title)
+	{
+	    var tree = Ext.create("Ext.tree.Panel",
+	    {
+		id : 'tree',
+		title : title,
+		region : 'west',
+		width : 250,
+		minWidth : 100,
+		maxWidth : 400,
+		height : 200,
+		split : true,
+		stateful : true,
+		collapsible : true,
+		rootVisible : false,
+		store : createStore(url, ''),
+		listeners :
 		{
-		    var portal = Ext.create('TreeView');
-		    portal.loadTree('main.do?action=menu', '');
-		    portal.content.update('htmlssssssssssssssssss');
-		});	
-	</script>		
+		    itemclick : function(view, node)
+		    {
+			menuClick(view, node);
+		    }
+		}
+	    });
+
+	    portal.center.add(tree);
+	    portal.center.doLayout();
+	}
+	;
+	loadTree('main.do?action=menu', '菜单管理');
+	portal.content.setTitle('内容');
+	portal.content.update('htmlssssssssssssssssss');
+    });
+</script>
 </head>
 <body>
 </body>

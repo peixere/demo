@@ -19,7 +19,13 @@
 
 	<script type="text/javascript" src="ext4/commons.js"></script>
 	<script type="text/javascript" src="ext4/portal.js"></script>
-	<script type="text/javascript" src="index.js"></script>	
+	<script type="text/javascript">
+	Ext.onReady(function()
+		{
+		    var portal = Ext.create('PortalView');
+		    portal.load('main.do');
+		});
+	</script>	
 	
 </head>
 <body>

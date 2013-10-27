@@ -8,26 +8,10 @@
 Ext.define('Ext.app.TreeView',
 {
     extend : 'Ext.container.Viewport',
-    alias: 'TreeView',
+    alias : 'TreeView',
     requires : [ 'Ext.app.PortalPanel', 'Ext.app.PortalColumn', 'Ext.app.GridPortlet', 'Ext.app.ChartPortlet'
     ],
-    loadTree : function(url)
-    {
-	var tree = Ext.create("Ext.tree.Panel",
-	{
-	    region : 'west',
-	    width : 250,
-	    minWidth : 100,
-	    maxWidth : 400,
-	    height : 200,
-	    split : true,
-	    stateful : true,
-	    collapsible : true,
-	    rootVisible : false,
-	    store : createStore(url, '')
-	});
-	this.center.add(tree);
-    },
+
     header : Ext.create("Ext.panel.Panel",
     {
 	id : 'app-header',
@@ -41,8 +25,8 @@ Ext.define('Ext.app.TreeView',
 	id : 'app-portal',
 	autoScroll : true,
 	border : true,
-	region : 'center',
-	title : '内容页'
+	title : '内容页',
+	region : 'center'
     }),
 
     center : Ext.create("Ext.panel.Panel",
@@ -51,6 +35,7 @@ Ext.define('Ext.app.TreeView',
 	region : 'center',
 	layout : 'border'
     }),
+
     initComponent : function()
     {
 	Ext.apply(this,
