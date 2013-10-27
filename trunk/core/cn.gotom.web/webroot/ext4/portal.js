@@ -5,10 +5,10 @@
  * @extends Object A sample portal layout application class.
  */
 
-Ext.define('Ext.app.TreeView',
+Ext.define('Ext.app.Portal',
 {
     extend : 'Ext.container.Viewport',
-    alias : 'TreeView',
+    alias : 'Portal',
     requires : [ 'Ext.app.PortalPanel', 'Ext.app.PortalColumn', 'Ext.app.GridPortlet', 'Ext.app.ChartPortlet'
     ],
 
