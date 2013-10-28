@@ -41,7 +41,7 @@ public abstract class SuperEntity implements Serializable
 	private Date dateUpdate = new Date();
 
 	@Transient
-	private boolean checked;
+	private boolean selected;
 
 	public String getId()
 	{
@@ -83,14 +83,14 @@ public abstract class SuperEntity implements Serializable
 		this.dateUpdate = dateUpdate;
 	}
 
-	public boolean isChecked()
+	public boolean isSelected()
 	{
-		return checked;
+		return selected;
 	}
 
-	public void setChecked(boolean checked)
+	public void setSelected(boolean selected)
 	{
-		this.checked = checked;
+		this.selected = selected;
 	}
 
 	/**

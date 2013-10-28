@@ -44,7 +44,7 @@ public class Right extends SuperEntity implements Serializable
 	private String component;
 
 	@Column()
-	private Boolean leaf;
+	private boolean leaf;
 
 	@Column(name = "resource", nullable = false, length = 300)
 	private String resource;
@@ -128,12 +128,12 @@ public class Right extends SuperEntity implements Serializable
 		return resource;
 	}
 
-	public Boolean getLeaf()
+	public boolean getLeaf()
 	{
 		return leaf;
 	}
 
-	public void setLeaf(Boolean leaf)
+	public void setLeaf(boolean leaf)
 	{
 		this.leaf = leaf;
 	}
