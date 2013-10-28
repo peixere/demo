@@ -28,8 +28,8 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "parent_id", nullable = true, columnDefinition = "char(36)", length = 36)
 	private String parentId;
 
-	@Column(name = "name", nullable = false, length = 50)
-	private String name;
+	@Column(name = "text", nullable = false, length = 50)
+	private String text;
 
 	@Column(name = "sort", nullable = false)
 	private int sort;
@@ -40,8 +40,11 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "type", nullable = true, length = 50)
 	private String type;
 
-	@Column(name = "value", nullable = false, length = 300)
-	private String value;
+	@Column(name = "component", nullable = false, length = 300)
+	private String component;
+
+	@Column()
+	private Boolean leaf;
 
 	@Column(name = "resource", nullable = false, length = 300)
 	private String resource;
@@ -70,14 +73,14 @@ public class Right extends SuperEntity implements Serializable
 		this.parentId = parentId;
 	}
 
-	public String getName()
+	public String getText()
 	{
-		return name;
+		return text;
 	}
 
-	public void setName(String name)
+	public void setText(String text)
 	{
-		this.name = name;
+		this.text = text;
 	}
 
 	public int getSort()
@@ -110,19 +113,29 @@ public class Right extends SuperEntity implements Serializable
 		this.type = type;
 	}
 
-	public String getValue()
+	public String getComponent()
 	{
-		return value;
+		return component;
 	}
 
-	public void setValue(String value)
+	public void setComponent(String component)
 	{
-		this.value = value;
+		this.component = component;
 	}
 
 	public String getResource()
 	{
 		return resource;
+	}
+
+	public Boolean getLeaf()
+	{
+		return leaf;
+	}
+
+	public void setLeaf(Boolean leaf)
+	{
+		this.leaf = leaf;
 	}
 
 	public void setResource(String resource)
