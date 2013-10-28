@@ -263,6 +263,7 @@ Ext.require([
 	    //alert(view.id + node.data.text);
 	    //portal.content.setTitle(node.data.text);
 	    form.setTitle(node.data.text);
+	    tree.root.reload();
 	    //portal.content.update(node.data.text);
 	}
 	var selectNode = null;
@@ -297,12 +298,10 @@ Ext.require([
 	    ]
 	});
 
-	function loadTree(url, title)
-	{
 	    var tree = Ext.create("Ext.tree.TreePanel",
 	    {            
 			id : 'tree',
-			title : title,
+			title : '菜单管理',
 			region : 'west',
 			width : 250,
 			minWidth : 100,
@@ -320,7 +319,7 @@ Ext.require([
             autoScroll:true,  
             autoHeight:false,
 			rootVisible : false,
-			store : createStore(url, ''),
+			store : createStore('main.do?action=menu', ''),
 			listeners :
 			{
 			    render : function()
@@ -344,8 +343,8 @@ Ext.require([
 	    });
 	    portal.center.add(tree);
 	    portal.center.doLayout();
-	}
-	loadTree('main.do?action=menu', '菜单管理');
+	
+	//loadTree('main.do?action=menu', '菜单管理');
 	//portal.content.setTitle('内容');
 	portal.content.add(form);
 	
