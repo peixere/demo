@@ -9,7 +9,6 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cn.gotom.pojos.Menu;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.RightService;
@@ -74,7 +73,7 @@ public class MainAction extends JsonAction
 		{
 			sql += " where t.parent_id = '" + id + "'";
 		}
-		List<Menu> menuList = rightService.query(Menu.class, sql);
+		List<Right> menuList = rightService.query(Right.class, sql);
 		toJSON(menuList);
 	}
 

@@ -181,9 +181,13 @@ public class JdbcUtils
 		try
 		{
 			Class<?> type = PropertyUtils.getPropertyType(entity, column);
-			if (type.equals(Boolean.class))
+			if (type.equals(Boolean.class) || type.equals(boolean.class))
 			{
 				pd.getWriteMethod().invoke(entity, Boolean.parseBoolean(value.toString()));
+			}
+			else if (type.equals(String.class))
+			{
+				pd.getWriteMethod().invoke(entity, value.toString());
 			}
 			return true;
 		}
