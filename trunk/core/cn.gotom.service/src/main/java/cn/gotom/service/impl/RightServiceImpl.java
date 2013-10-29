@@ -1,6 +1,5 @@
 package cn.gotom.service.impl;
 
-
 import java.util.List;
 
 import javax.persistence.Query;
@@ -30,13 +29,44 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 		StringBuffer jpql = new StringBuffer();
 		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
 		jpql.append(" where 1 = 1");
-		jpql.append(" and p.parentId = :parentId");
+		if (!StringUtils.isNullOrEmpty(parentId))
+		{
+			jpql.append(" and p.parentId = :parentId");
+		}
+		else
+		{
+			jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0'");
+		}
 		jpql.append(" order by sort");
 		Query q = getEntityManager().createQuery(jpql.toString());
-		q.setParameter("parentId", parentId);
+		if (!StringUtils.isNullOrEmpty(parentId))
+		{
+			q.setParameter("parentId", parentId);
+		}
 		@SuppressWarnings("unchecked")
 		List<Right> list = q.getResultList();
 		return list;
+	}
+
+	@Override
+	public List<Right> loadTree()
+	{
+		List<Right> list = findByParentId(null);
+		for (Right r : list)
+		{
+			loadTreeCallback(r);
+		}
+		return list;
+	}
+
+	private void loadTreeCallback(Right right)
+	{
+		List<Right> list = findByParentId(right.getId());
+		right.setChildren(list);
+		for (Right r : list)
+		{
+			loadTreeCallback(r);
+		}
 	}
 
 }

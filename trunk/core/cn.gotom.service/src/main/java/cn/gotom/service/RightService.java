@@ -12,4 +12,6 @@ import com.google.inject.ImplementedBy;
 public interface RightService extends GenericService<Right, String>
 {
 	List<Right> findByParentId(String parentId);
+
+	List<Right> loadTree();
 }
