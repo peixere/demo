@@ -74,7 +74,24 @@ public class MainAction extends JsonAction
 			sql += " where t.parent_id = '" + id + "'";
 		}
 		List<Right> menuList = rightService.query(Right.class, sql);
-		toJSON(menuList);
+		for (Right r : menuList)
+		{
+			r.setExpanded(true);
+			loadChildrencallback(r);
+		}
+		this.toJSON(menuList);
+	}
+
+	private void loadChildrencallback(Right right)
+	{
+		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
+		sql += " where t.parent_id = '" + right.getId() + "'";
+		List<Right> menuList = rightService.query(Right.class, sql);
+		right.setChildren(menuList);
+		for (Right r : menuList)
+		{
+			loadChildrencallback(r);
+		}
 	}
 
 	public List<Right> getRightList()
