@@ -66,19 +66,18 @@ var RightTreeModel = Ext.define("RightTreeModel",
 });
 
 var RightTreeStore = function(url, pid)
-{// 创建树面板数据源
+{
     return Ext.create("Ext.data.TreeStore",
     {
-	defaultRootId : pid, // 默认的根节点id
+	defaultRootId : pid,
 	model : RightTreeModel,
 	proxy :
 	{
-	    type : "ajax", // 获取方式
+	    type : "ajax",
 	    url : url
-	// 获取树节点的地址
 	},
 	clearOnLoad : true,
-	nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
+	nodeParam : "id"
     });
 };
 function getQueryParam(name)
