@@ -62,6 +62,8 @@ public class MainAction extends JsonAction
 		toJSON(this);
 	}
 
+	private boolean hashRight = true;
+
 	private void menu() throws IOException
 	{
 		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
@@ -79,6 +81,11 @@ public class MainAction extends JsonAction
 			r.setExpanded(true);
 			loadChildrencallback(r);
 		}
+		if (rightService.findAll().size() == 0)
+		{
+			hashRight = false;
+			rightService.saveAll(menuList);
+		}
 		this.toJSON(menuList);
 	}
 
@@ -87,6 +94,10 @@ public class MainAction extends JsonAction
 		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
 		sql += " where t.parent_id = '" + right.getId() + "'";
 		List<Right> menuList = rightService.query(Right.class, sql);
+		if (!hashRight)
+		{
+			rightService.saveAll(menuList);
+		}
 		right.setChildren(menuList);
 		for (Right r : menuList)
 		{
