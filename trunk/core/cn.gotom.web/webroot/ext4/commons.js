@@ -8,7 +8,9 @@ Ext.Loader.setConfig(
 {
     enabled : true
 });
+
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
+
 function ajax(config)
 {
     Ext.Ajax.request(
@@ -31,6 +33,7 @@ function ajax(config)
     });
     return false;
 };
+
 var TreeModel = Ext.define("TreeModel",
 {
     extend : "Ext.data.Model",
@@ -92,6 +95,7 @@ function getQueryParam(name)
     var match = regex.exec(location.search) || regex.exec(path);
     return match && decodeURIComponent(match[1]);
 }
+
 function addQueryParam(url, name, value)
 {
     var path = url;
@@ -108,3 +112,4 @@ function addQueryParam(url, name, value)
     }
     return path;
 }
+

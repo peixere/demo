@@ -24,16 +24,11 @@ Ext.define('Ext.app.RightWindow',
 	    anchor : '100%',
 	    labelWidth : 100
 	},
-
-	reader : new Ext.data.JsonReader(
-	{
-	    successProperty : 'success',
-	}),
 	items : [
 	{
 	    xtype : 'hiddenfield',
 	    anchor : '100%',
-	    name : 'id',
+	    name : 'id'
 	},
 	{
 	    xtype : 'textfield',
@@ -250,7 +245,7 @@ Ext.onReady(function()
 	{
 	    xtype : 'gridcolumn',
 	    dataIndex : 'iconCls',
-	    text : '使用样式',
+	    text : '使用样式'
 	},
 	{
 	    xtype : 'gridcolumn',
