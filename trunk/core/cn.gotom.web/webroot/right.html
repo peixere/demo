@@ -16,7 +16,7 @@
 <script type="text/javascript" src="ext4/shared/include-ext.js?theme=classic"></script>
 
 <!-- </x-bootstrap> -->
-
+<script type="text/javascript" src="right.js"></script>
 <script type="text/javascript"> 
 	Ext.Loader.setConfig(
 	{
@@ -104,7 +104,7 @@
 		//var view = Ext.create('Ext.app.ListView');
 		//view.header.setTitle('菜单管理');
 		//view.center.setTitle('菜单列表');
-		var treeStore = RightTreeStore('core/rightTree', '');
+		var treeStore = RightTreeStore('/core/rightTree.do', '');
 		var selectedNode = null;
 		var tree = Ext.create('Ext.tree.Panel', {
 		        //title: '菜单列表',
@@ -158,144 +158,66 @@
 		                  }
 		              ]		        
 		});
-		function getAllRoot(tree){
-		    var rootNode = tree.getRootNode();//获取根节点
-		    findchildnode(rootNode); //开始递归
-		    var nodevalue= temp.join(",");
-		    //alert(nodevalue);
-		    return nodevalue;
-		}
-		var temp = [];
-		//获取所有的子节点  
-		function findchildnode(node){
-		    var childnodes = node.childNodes;
-		    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
-		        var nd = this;
-			    if(nd.data.checked){
-			        temp.push(nd.data.id);
-			    }
-		        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
-		            findchildnode(nd); //如果存在子节点 递归
-		        }  
-		    });
-		}
-
-		function findSelectedNode(node){
-		    var childnodes = node.childNodes;
-		    var selected = null;
-		    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
-		        var nd = this;
-			    if(nd.data.checked){
-					selected = nd;
-					return selected;
-			    }else
-		        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
-		            findchildnode(nd); //如果存在子节点 递归
-		        }  
-		    });
-		    return selected;
-		}
-		var form = Ext.create('Ext.form.Panel', {
-            region: 'center',
-	        //padding: 20,
-	        bodyPadding: 10,
-	        defaults: {
-	            labelAlign: 'right',
-	            anchor: '100%',
-	            labelWidth: 100
-	        },  
-
-	        findchildnode : function(data){
-	            
-	        },
-            items: [
-                    {
-                        xtype: 'hiddenfield',
-                        anchor: '100%',
-                        name : 'id',
-                    },                    
-                    {
-	                	xtype : 'textfield',
-						anchor : '100%',
-						allowBlank: false,
-						msgTarget : 'side',						
-						name : 'text',
-						fieldLabel : '菜单名称'
-				    },
-				    {
-					xtype : 'textfield',
-					anchor : '100%',
-					name : 'iconCls',
-					fieldLabel : '图标样式'
-				    },
-				    {
-						xtype : 'textfield',
-						anchor : '100%',
-						allowBlank: false,
-						name : 'resource',
-						msgTarget : 'side',
-						fieldLabel : '菜单资源'
-				    }
-				    ]
-	});
-	var btnsave =
-	{
-	    xtype : 'button',
-	    border : true,
-	    iconCls : 'icon-save',
-	    text : '保存',
-	    handler : function(button, e)
-	    {
-		if (form.isValid())
-		{
-		    Ext.Msg.alert('信息提示', '添加时出现异常！');
-		}
-	    }
-	};
-	var btnClose =
-	{
-	    xtype : 'button',
-	    border : true,
-	    iconCls : 'icon-cancel',
-	    text : '关闭',
-	    handler : function(button, e)
-	    {
-		formwin.hide();
-	    }
-	};
-	var formwin = Ext.create('Ext.window.Window',
-	{
-	    height : 250,
-	    width : 400,
-	    layout :
-	    {
-		type : 'border'
-	    },
-	    title : '菜单编辑',
-	    titleCollapse : false,
-	    modal : true,
-	    items : [ form
-	    ],
-	    buttons : [ btnsave, btnClose
-	    ]
-	});
+	function getAllRoot(tree){
+	    var rootNode = tree.getRootNode();//获取根节点
+	    findchildnode(rootNode); //开始递归
+	    var nodevalue= temp.join(",");
+	    //alert(nodevalue);
+	    return nodevalue;
+	}
+	var temp = [];
+	//获取所有的子节点  
+	function findchildnode(node){
+	    var childnodes = node.childNodes;
+	    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
+	        var nd = this;
+		    if(nd.data.checked){
+		        temp.push(nd.data.id);
+		    }
+	        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
+	            findchildnode(nd); //如果存在子节点 递归
+	        }  
+	    });
+	}
+	function findSelectedNode(tree){
+	    selectedNode = '';
+	    findSelectedNodeCallback(tree.getRootNode());
+	    return selectedNode;
+	}
+	
+	function findSelectedNodeCallback(node){
+	    var childnodes = node.childNodes;
+	    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
+	        var nd = this;
+		    if(nd.data.checked){
+				selectedNode = nd;
+				return;
+		    }else
+	        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
+	            findSelectedNodeCallback(nd);
+	        }  
+	    });
+	}
+	var formwin;
 	var btnView =
 	{
 	    xtype : 'button',
 	    border : true,
-	    iconCls : 'icon-view',
-	    text : '查看',
+	    iconCls : 'icon-edit',
+	    text : '修改',
 	    handler : function(button, e)
 	    {
-			var node = findSelectedNode(tree.getRootNode());
+			if(!formwin)
+			    formwin = Ext.create('Ext.app.RightWindow');
 			formwin.show();
+			var node = findSelectedNode(tree);
 			var data = Ext.create('RightTreeModel', {
 	                        'text'    : node.data.text,
 	                        'resource'    : node.data.resource,
 	                        'iconCls': node.data.iconCls,
 	                        'component' : node.data.component
 	                    });
-			form.loadRecord(data);			
+			formwin.form.loadRecord(data);			
 		
 		//var selected = tree;
 		//Ext.Msg.alert(button.text,treeid);
