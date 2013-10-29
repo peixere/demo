@@ -127,7 +127,7 @@ Ext.onReady(function()
 		{
 		    loadingText : "正在加载..."
 		},
-		store : RightTreeStore('core/rightTree.do', data[i].id),
+		store : RightTreeStore('main.do?action=menu', data[i].id),
 		listeners :
 		{
 		    itemclick : function(view, node)
