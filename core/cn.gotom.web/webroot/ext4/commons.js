@@ -11,7 +11,7 @@ Ext.Loader.setConfig(
     enabled : true
 });
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
-//Ext.Loader.setPath('Ext.ux', 'ext4/ux');
+// Ext.Loader.setPath('Ext.ux', 'ext4/ux');
 var ajax = function(config)
 {// 封装、简化AJAX
     Ext.Ajax.request(
@@ -81,3 +81,27 @@ var RightTreeStore = function(url, pid)
 	nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
     });
 };
+function getQueryParam(name)
+{
+    var regex = RegExp('[?&]' + name + '=([^&]*)');
+    var scriptEls = document.getElementsByTagName('script');
+    var path = scriptEls[scriptEls.length - 1].src;
+    var match = regex.exec(location.search) || regex.exec(path);
+    return match && decodeURIComponent(match[1]);
+}
+function addQueryParam(url, name, value)
+{
+    var path = url;
+    if (value != null && value.length > 0)
+    {
+	if (url.indexOf('?') >= 0)
+	{
+	    path = url + '&' + name + '=' + value;
+	}
+	else
+	{
+	    path = url + '?' + name + '=' + value;
+	}
+    }
+    return path;
+}
