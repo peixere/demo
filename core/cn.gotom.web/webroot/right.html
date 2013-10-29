@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="resources/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="resources/portal.css">
+<!-- 
+	<link type="text/css" rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/css/ext-all.css">
+    <link type="text/css" rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/ext-theme-access/ext-theme-access-all.css">
+    
+    <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
+    <script type="text/javascript" src="http://cdn.sencha.com/ext/gpl/4.2.1/locale/ext-lang-zh_CN.js"></script>
+    -->
+<!-- <x-bootstrap> -->
+<script type="text/javascript" src="ext4/shared/include-ext.js?theme=classic"></script>
+
+<!-- </x-bootstrap> -->
+<script type="text/javascript" src="ext4/commons.js"></script>
+<script type="text/javascript"> 
+    Ext.onReady(function()
+    {
+		var view = Ext.create("Ext.container.Viewport", {
+	            layout: "border"
+		});
+
+		//var view = Ext.create('Ext.app.ListView');
+		//view.header.setTitle('菜单管理');
+		//view.center.setTitle('菜单列表');
+		var treeStore = RightTreeStore('main.do?action=menu', '');
+		var tree = Ext.create('Ext.tree.Panel', {
+		        //title: '菜单列表',
+		        region : 'center',
+		        //renderTo: Ext.getBody(),
+		        //collapsible: true,
+		        useArrows: true,
+		        rootVisible: false,
+		        store: treeStore,
+		        multiSelect: true,
+		        columns: [
+							{
+							    xtype: 'checkcolumn',
+							    align: 'center',
+							    dataIndex: 'selected',
+							    width: 30,
+							    text: '选择',
+							    handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+						                    Ext.Msg.alert('Editing completed task', record.text);
+						                }
+							},		                  
+		                  {
+		                      xtype: 'treecolumn',
+		                      dataIndex: 'text',
+		                      text: '菜单名称',
+		                      flex: 1,
+					    		handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+				                    Ext.Msg.alert('Editing completed task', record.text);
+				                }		                      
+		                  },
+		                  {
+		                      xtype: 'gridcolumn',
+		                      dataIndex: 'iconCls',
+		                      text: '使用样式'
+		                  },
+		                  {
+		                      xtype: 'gridcolumn',
+		                      dataIndex: 'component',
+		                      text: '控件或连接'
+		                  },
+		                  {
+		                      xtype: 'gridcolumn',
+		                      dataIndex: 'resource',
+		                      text: '数据资源'
+		                  }
+		              ]		        
+		});
+		var btnView = 
+		{
+            xtype: 'button',
+            border : true,
+            iconCls : 'icon-view',
+            text: '查看',
+            handler : function(button,e)
+            {
+        		var selected = tree;
+        		Ext.Msg.alert(button.text,selected);
+            }
+        };
+    	var header = 
+	    {
+			id : 'app-header',
+			xtype: 'toolbar',
+			region : 'north',
+			border : false,
+			split : false,
+            layout: {
+                align: 'stretchmax',
+                type: 'hbox'
+            },
+            items: [btnView]			
+	    };		
+		view.add(header);
+		view.add(tree);
+    });
+</script>
+</head>
+<body>
+</body>
+</html>
