@@ -1,8 +1,6 @@
 /**
  * author 裴绍国
  * 
- * @class Ext.app.Portal
- * @extends Object A sample portal layout application class.
  */
 
 // @require @packageOverrides
@@ -11,24 +9,30 @@ Ext.Loader.setConfig(
     enabled : true
 });
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
-// Ext.Loader.setPath('Ext.ux', 'ext4/ux');
-var ajax = function(config)
-{// 封装、简化AJAX
+function ajax(config)
+{
     Ext.Ajax.request(
     {
-	url : config.url, // 请求地址
-	params : config.params, // 请求参数
-	method : 'post', // 方法
+	url : config.url,
+	params : config.params,
+	method : 'post',
 
 	callback : function(options, success, response)
 	{
-	    config.callback(Ext.JSON.decode(response.responseText));// 调用回调函数
+	    if (success)
+	    {
+		config.callback(Ext.JSON.decode(response.responseText));// 调用回调函数
+	    }
+	    else
+	    {
+		Ext.Msg.alert('信息提示', response.responseText);
+	    }
 	}
     });
     return false;
 };
-var RightTreeModel = Ext.define("RightTreeModel",
-{// 定义树节点数据模型
+var TreeModel = Ext.define("TreeModel",
+{
     extend : "Ext.data.Model",
     fields : [
     {
@@ -65,12 +69,12 @@ var RightTreeModel = Ext.define("RightTreeModel",
     ]
 });
 
-var RightTreeStore = function(url, pid)
+function treeStore(url, pid)
 {
     return Ext.create("Ext.data.TreeStore",
     {
 	defaultRootId : pid,
-	model : RightTreeModel,
+	model : TreeModel,
 	proxy :
 	{
 	    type : "ajax",

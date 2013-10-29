@@ -127,7 +127,7 @@ Ext.onReady(function()
 		{
 		    loadingText : "正在加载..."
 		},
-		store : RightTreeStore('main.do?action=menu', data[i].id),
+		store : treeStore('main.do?action=menu', data[i].id),
 		listeners :
 		{
 		    itemclick : function(view, node)
@@ -148,7 +148,7 @@ Ext.onReady(function()
 	    callback : addTree
 	});
 	portal.menus.setLoading(false);
-    }, 1000);
+    }, 100);
 
     tabPanel.setLoading(tabPanel.id + ' Loading...');
     Ext.defer(function()
