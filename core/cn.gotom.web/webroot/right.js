@@ -100,11 +100,6 @@ Ext.define('Ext.app.RightWindow',
 
 });
 
-Ext.Loader.setConfig(
-{
-    enabled : true
-});
-
 var RightTreeModel = Ext.define("RightTreeModel",
 {// 定义树节点数据模型
     extend : "Ext.data.Model",
@@ -147,22 +142,47 @@ var RightTreeModel = Ext.define("RightTreeModel",
     }
     ]
 });
-var RightTreeStore = function(url, pid)
-{// 创建树面板数据源
+
+function rightTreeStore(url, pid)
+{
     return Ext.create("Ext.data.TreeStore",
     {
-	defaultRootId : pid, // 默认的根节点id
+	defaultRootId : pid,
 	model : RightTreeModel,
 	proxy :
 	{
-	    type : "ajax", // 获取方式
+	    type : "ajax",
 	    url : url
-	// 获取树节点的地址
 	},
 	clearOnLoad : true,
-	nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
+	nodeParam : "id"
     });
 };
+
+function findSelectedNode(tree)
+{
+    var selectedNode = '';
+    findSelectedNodeCallback(tree.getRootNode());
+    return selectedNode;
+    function findSelectedNodeCallback(node)
+    {
+	var childnodes = node.childNodes;
+	Ext.each(childnodes, function()
+	{ // 从节点中取出子节点依次遍历
+	    var nd = this;
+	    if (nd.data.checked)
+	    {
+		selectedNode = nd;
+		return;
+	    }
+	    else if (nd.hasChildNodes())
+	    { // 判断子节点下是否存在子节点
+		findSelectedNodeCallback(nd);
+	    }
+	});
+    }    
+}
+
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
 Ext.onReady(function()
 {
@@ -174,8 +194,6 @@ Ext.onReady(function()
     // var view = Ext.create('Ext.app.ListView');
     // view.header.setTitle('菜单管理');
     // view.center.setTitle('菜单列表');
-    var treeStore = RightTreeStore('/core/rightTree.do', '');
-    var selectedNode = null;
     var tree = Ext.create('Ext.tree.Panel',
     {
 	// title: '菜单列表',
@@ -192,7 +210,7 @@ Ext.onReady(function()
 	autoScroll : true,
 	autoHeight : false,
 	rootVisible : false,
-	store : treeStore,
+	store : rightTreeStore('/core/rightTree.do', ''),
 	// multiSelect: true,
 	tbar : [
 	{
@@ -227,7 +245,6 @@ Ext.onReady(function()
 		    formwin = Ext.create('Ext.app.RightWindow');
 		formwin.show();
 		formwin.form.loadRecord(record);
-		Ext.Msg.alert('Editing completed task', record.data.text);
 	    }
 	},
 	{
@@ -247,57 +264,34 @@ Ext.onReady(function()
 	}
 	]
     });
-    var temp = [];
-    function getAllRoot(tree)
+
+    function getTreeChecked(tree)
     {
+	var temp = [];
 	var rootNode = tree.getRootNode();// 获取根节点
 	findchildnode(rootNode); // 开始递归
 	var nodevalue = temp.join(",");
-	// alert(nodevalue);
 	return nodevalue;
+	function findchildnode(node)
+	{
+	    var childnodes = node.childNodes;
+	    Ext.each(childnodes, function()
+	    { // 从节点中取出子节点依次遍历
+		var nd = this;
+		if (nd.data.checked)
+		{
+		    temp.push(nd.data.id);
+		}
+		if (nd.hasChildNodes())
+		{ // 判断子节点下是否存在子节点
+		    findchildnode(nd); // 如果存在子节点 递归
+		}
+	    });
+	};	
     }
 
     // 获取所有的子节点
-    function findchildnode(node)
-    {
-	var childnodes = node.childNodes;
-	Ext.each(childnodes, function()
-	{ // 从节点中取出子节点依次遍历
-	    var nd = this;
-	    if (nd.data.checked)
-	    {
-		temp.push(nd.data.id);
-	    }
-	    if (nd.hasChildNodes())
-	    { // 判断子节点下是否存在子节点
-		findchildnode(nd); // 如果存在子节点 递归
-	    }
-	});
-    }
-    function findSelectedNode(tree)
-    {
-	selectedNode = '';
-	findSelectedNodeCallback(tree.getRootNode());
-	return selectedNode;
-    }
 
-    function findSelectedNodeCallback(node)
-    {
-	var childnodes = node.childNodes;
-	Ext.each(childnodes, function()
-	{ // 从节点中取出子节点依次遍历
-	    var nd = this;
-	    if (nd.data.checked)
-	    {
-		selectedNode = nd;
-		return;
-	    }
-	    else if (nd.hasChildNodes())
-	    { // 判断子节点下是否存在子节点
-		findSelectedNodeCallback(nd);
-	    }
-	});
-    }
     var formwin = null;
     function handleredit(button, e)
     {

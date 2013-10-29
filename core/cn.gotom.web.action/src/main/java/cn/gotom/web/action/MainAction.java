@@ -89,7 +89,14 @@ public class MainAction extends JsonAction
 		}
 		else
 		{
-			menuList = rightService.loadTree();
+			if (StringUtils.isNullOrEmpty(id))
+			{
+				menuList = rightService.findByParentId(id);
+			}
+			else
+			{
+				menuList = rightService.loadTreeByParentId(id);
+			}
 		}
 		this.toJSON(menuList);
 	}

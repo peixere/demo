@@ -58,7 +58,17 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 		}
 		return list;
 	}
-
+	@Override
+	public List<Right> loadTreeByParentId(String parentId)
+	{
+		List<Right> list = findByParentId(parentId);
+		for (Right r : list)
+		{
+			loadTreeCallback(r);
+		}
+		return list;
+	}
+	
 	private void loadTreeCallback(Right right)
 	{
 		List<Right> list = findByParentId(right.getId());
