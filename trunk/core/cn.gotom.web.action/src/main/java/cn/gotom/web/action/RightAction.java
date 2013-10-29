@@ -10,7 +10,6 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.RightService;
 import cn.gotom.servlet.JsonAction;
-import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
@@ -41,36 +40,14 @@ public class RightAction extends JsonAction
 	@Action(value = "/core/rightTree", results = { @Result(name = "success", type = "json") })
 	public void tree() throws IOException
 	{
-		// if(rightService.findAll().size() == 0){
-		//
-		// }
-		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
-		if (StringUtils.isNullOrEmpty(id))
-		{
-			sql += " where t.parent_id is null";
-		}
-		else
-		{
-			sql += " where t.parent_id = '" + id + "'";
-		}
-		List<Right> menuList = rightService.query(Right.class, sql);
-		for (Right r : menuList)
-		{
-			r.setExpanded(true);
-			loadChildrencallback(r);
-		}
+		List<Right> menuList = rightService.loadTree();
 		this.toJSON(menuList);
 	}
 
-	private void loadChildrencallback(Right right)
+	@Action(value = "/core/rightload", results = { @Result(name = "success", type = "json") })
+	public void load() throws IOException
 	{
-		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
-		sql += " where t.parent_id = '" + right.getId() + "'";
-		List<Right> menuList = rightService.query(Right.class, sql);
-		right.setChildren(menuList);
-		for (Right r : menuList)
-		{
-			loadChildrencallback(r);
-		}
+		Right right = rightService.get(id);
+		this.toJSON(right);
 	}
 }
