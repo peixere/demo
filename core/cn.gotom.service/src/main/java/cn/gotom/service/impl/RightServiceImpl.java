@@ -35,7 +35,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 		}
 		else
 		{
-			jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0'");
+			jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0')");
 		}
 		jpql.append(" order by sort");
 		Query q = getEntityManager().createQuery(jpql.toString());
