@@ -84,13 +84,14 @@ Ext.onReady(function()
 	{// 判断是否是根节点
 	    if (node.data.type === 'URL')
 	    {// 判断资源类型
+		var url = addQueryParam(node.data.component,'theme',getQueryParam('theme'));
 		var panel = Ext.create('Ext.panel.Panel',
 		{
 		    id : node.data.id,
 		    title : node.data.text,
 		    closable : true,
 		    // iconCls : 'icon-activity',
-		    html : '<iframe width="100%" height="100%" frameborder="0" src="'+node.data.component+'"></iframe>'
+		    html : '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>'
 		});
 		tabPanel.add(panel);
 		tabPanel.setActiveTab(panel);
@@ -126,7 +127,7 @@ Ext.onReady(function()
 		{
 		    loadingText : "正在加载..."
 		},
-		store : RightTreeStore(mainUrl + '?action=menu', data[i].id),
+		store : RightTreeStore('core/rightTree.do', data[i].id),
 		listeners :
 		{
 		    itemclick : function(view, node)
