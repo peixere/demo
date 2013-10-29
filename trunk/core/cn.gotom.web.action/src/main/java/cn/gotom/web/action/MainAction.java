@@ -2,6 +2,7 @@ package cn.gotom.web.action;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -75,15 +76,20 @@ public class MainAction extends JsonAction
 		{
 			sql += " where t.parent_id = '" + id + "'";
 		}
-		List<Right> menuList = rightService.query(Right.class, sql);
-		for (Right r : menuList)
-		{
-			r.setExpanded(true);
-			loadChildrencallback(r);
-		}
+		List<Right> menuList = null;
 		if (rightService.findAll().size() == 0)
 		{
 			hasRight = false;
+			menuList = rightService.query(Right.class, sql);
+			for (Right r : menuList)
+			{
+				r.setExpanded(true);
+				loadChildrencallback(r);
+			}			
+		}
+		else
+		{
+			menuList = rightService.loadTree();
 		}
 		this.toJSON(menuList);
 	}
@@ -95,7 +101,7 @@ public class MainAction extends JsonAction
 		List<Right> menuList = rightService.query(Right.class, sql);
 		if (!hasRight)
 		{
-			right.setId(StringUtils.randomUUID32());
+			right.setId(UUID.randomUUID().toString());
 			rightService.save(right);
 		}
 		right.setChildren(menuList);
