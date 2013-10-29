@@ -16,8 +16,85 @@
 <script type="text/javascript" src="ext4/shared/include-ext.js?theme=classic"></script>
 
 <!-- </x-bootstrap> -->
-<script type="text/javascript" src="ext4/commons.js"></script>
+
 <script type="text/javascript"> 
+	Ext.Loader.setConfig(
+	{
+	    enabled : true
+	});
+	var ajax = function(config)
+	{// 封装、简化AJAX
+	    Ext.Ajax.request(
+	    {
+		url : config.url, // 请求地址
+		params : config.params, // 请求参数
+		method : 'post', // 方法
+
+		callback : function(options, success, response)
+		{
+		    config.callback(Ext.JSON.decode(response.responseText));// 调用回调函数
+		}
+	    });
+	    return false;
+	};
+	var RightTreeModel = Ext.define("RightTreeModel",
+	{// 定义树节点数据模型
+	    extend : "Ext.data.Model",
+	    fields : [
+	    {
+		name : "id",
+		type : "string"
+	    },
+	    {
+		name : 'sort',
+		type : 'int'
+	    },
+	    {
+		name : "text",
+		type : "string"
+	    },
+	    {
+		name : "iconCls",
+		type : "string"
+	    },
+	    {
+		name : "leaf",
+		type : "boolean"
+	    },
+	    {
+		name : 'type'
+	    },
+	    {
+		name : 'resource',
+		type : 'string'
+	    },
+	    {
+		name : 'component',
+		type : "string"
+	    },{
+		name : 'checked',
+		type : "boolean"
+	    }
+	    ]
+	});
+
+	var RightTreeStore = function(url, pid)
+	{// 创建树面板数据源
+	    return Ext.create("Ext.data.TreeStore",
+	    {
+		defaultRootId : pid, // 默认的根节点id
+		model : RightTreeModel,
+		proxy :
+		{
+		    type : "ajax", // 获取方式
+		    url : url
+		// 获取树节点的地址
+		},
+		clearOnLoad : true,
+		nodeParam : "id"// 设置传递给后台的参数名,值是树节点的id属性
+	    });
+	};	
+	Ext.Loader.setPath('Ext.app', 'ext4/classes');
     Ext.onReady(function()
     {
 		var view = Ext.create("Ext.container.Viewport", {
@@ -27,27 +104,34 @@
 		//var view = Ext.create('Ext.app.ListView');
 		//view.header.setTitle('菜单管理');
 		//view.center.setTitle('菜单列表');
-		var treeStore = RightTreeStore('main.do?action=menu', '');
+		var treeStore = RightTreeStore('core/rightTree', '');
+		var selectedNode = null;
 		var tree = Ext.create('Ext.tree.Panel', {
 		        //title: '菜单列表',
 		        region : 'center',
-		        //renderTo: Ext.getBody(),
-		        //collapsible: true,
-		        useArrows: true,
-		        rootVisible: false,
+				animate:true,  
+	            border:false,  
+	            bodyborder:false,  
+	            lines:true, 			
+				split : true,
+				stateful : true,
+	            //collapsible:true,  
+	            frame:false,  
+	            enableDD:true,  
+	            autoScroll:true,  
+	            autoHeight:false,
+				rootVisible : false,
 		        store: treeStore,
-		        multiSelect: true,
-		        columns: [
-							{
-							    xtype: 'checkcolumn',
-							    align: 'center',
-							    dataIndex: 'selected',
-							    width: 30,
-							    text: '选择',
-							    handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-						                    Ext.Msg.alert('Editing completed task', record.text);
-						                }
-							},		                  
+		        //multiSelect: true,
+		        listeners :
+				{
+				    itemclick : function(view, node)
+				    {	
+						selectedNode = node;
+						//Ext.Msg.alert('选中菜单',node.data.checked);
+				    }	
+				},
+		        columns: [		                  
 		                  {
 		                      xtype: 'treecolumn',
 		                      dataIndex: 'text',
@@ -74,33 +158,166 @@
 		                  }
 		              ]		        
 		});
-		var btnView = 
-		{
-            xtype: 'button',
-            border : true,
-            iconCls : 'icon-view',
-            text: '查看',
-            handler : function(button,e)
-            {
-        		var selected = tree;
-        		Ext.Msg.alert(button.text,selected);
-            }
-        };
-    	var header = 
+		function getAllRoot(tree){
+		    var rootNode = tree.getRootNode();//获取根节点
+		    findchildnode(rootNode); //开始递归
+		    var nodevalue= temp.join(",");
+		    //alert(nodevalue);
+		    return nodevalue;
+		}
+		var temp = [];
+		//获取所有的子节点  
+		function findchildnode(node){
+		    var childnodes = node.childNodes;
+		    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
+		        var nd = this;
+			    if(nd.data.checked){
+			        temp.push(nd.data.id);
+			    }
+		        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
+		            findchildnode(nd); //如果存在子节点 递归
+		        }  
+		    });
+		}
+
+		function findSelectedNode(node){
+		    var childnodes = node.childNodes;
+		    var selected = null;
+		    Ext.each(childnodes, function (){ //从节点中取出子节点依次遍历
+		        var nd = this;
+			    if(nd.data.checked){
+					selected = nd;
+					return selected;
+			    }else
+		        if(nd.hasChildNodes()){ //判断子节点下是否存在子节点
+		            findchildnode(nd); //如果存在子节点 递归
+		        }  
+		    });
+		    return selected;
+		}
+		var form = Ext.create('Ext.form.Panel', {
+            region: 'center',
+	        //padding: 20,
+	        bodyPadding: 10,
+	        defaults: {
+	            labelAlign: 'right',
+	            anchor: '100%',
+	            labelWidth: 100
+	        },  
+
+	        findchildnode : function(data){
+	            
+	        },
+            items: [
+                    {
+                        xtype: 'hiddenfield',
+                        anchor: '100%',
+                        name : 'id',
+                    },                    
+                    {
+	                	xtype : 'textfield',
+						anchor : '100%',
+						allowBlank: false,
+						msgTarget : 'side',						
+						name : 'text',
+						fieldLabel : '菜单名称'
+				    },
+				    {
+					xtype : 'textfield',
+					anchor : '100%',
+					name : 'iconCls',
+					fieldLabel : '图标样式'
+				    },
+				    {
+						xtype : 'textfield',
+						anchor : '100%',
+						allowBlank: false,
+						name : 'resource',
+						msgTarget : 'side',
+						fieldLabel : '菜单资源'
+				    }
+				    ]
+	});
+	var btnsave =
+	{
+	    xtype : 'button',
+	    border : true,
+	    iconCls : 'icon-save',
+	    text : '保存',
+	    handler : function(button, e)
 	    {
-			id : 'app-header',
-			xtype: 'toolbar',
-			region : 'north',
-			border : false,
-			split : false,
-            layout: {
-                align: 'stretchmax',
-                type: 'hbox'
-            },
-            items: [btnView]			
-	    };		
-		view.add(header);
-		view.add(tree);
+		if (form.isValid())
+		{
+		    Ext.Msg.alert('信息提示', '添加时出现异常！');
+		}
+	    }
+	};
+	var btnClose =
+	{
+	    xtype : 'button',
+	    border : true,
+	    iconCls : 'icon-cancel',
+	    text : '关闭',
+	    handler : function(button, e)
+	    {
+		formwin.hide();
+	    }
+	};
+	var formwin = Ext.create('Ext.window.Window',
+	{
+	    height : 250,
+	    width : 400,
+	    layout :
+	    {
+		type : 'border'
+	    },
+	    title : '菜单编辑',
+	    titleCollapse : false,
+	    modal : true,
+	    items : [ form
+	    ],
+	    buttons : [ btnsave, btnClose
+	    ]
+	});
+	var btnView =
+	{
+	    xtype : 'button',
+	    border : true,
+	    iconCls : 'icon-view',
+	    text : '查看',
+	    handler : function(button, e)
+	    {
+			var node = findSelectedNode(tree.getRootNode());
+			formwin.show();
+			var data = Ext.create('RightTreeModel', {
+	                        'text'    : node.data.text,
+	                        'resource'    : node.data.resource,
+	                        'iconCls': node.data.iconCls,
+	                        'component' : node.data.component
+	                    });
+			form.loadRecord(data);			
+		
+		//var selected = tree;
+		//Ext.Msg.alert(button.text,treeid);
+	    }
+	};
+	var header =
+	{
+	    id : 'app-header',
+	    xtype : 'toolbar',
+	    region : 'north',
+	    border : false,
+	    split : false,
+	    layout :
+	    {
+		align : 'stretchmax',
+		type : 'hbox'
+	    },
+	    items : [ btnView
+	    ]
+	};
+	view.add(header);
+	view.add(tree);
     });
 </script>
 </head>

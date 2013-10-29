@@ -11,7 +11,7 @@ Ext.Loader.setConfig(
     enabled : true
 });
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
-Ext.Loader.setPath('Ext.ux', 'ext4/ux');
+//Ext.Loader.setPath('Ext.ux', 'ext4/ux');
 var ajax = function(config)
 {// 封装、简化AJAX
     Ext.Ajax.request(
