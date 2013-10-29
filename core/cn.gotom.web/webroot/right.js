@@ -47,6 +47,12 @@ Ext.define('Ext.app.RightWindow',
 	{
 	    xtype : 'textfield',
 	    anchor : '100%',
+	    name : 'component',
+	    fieldLabel : '连接或控件'
+	},	
+	{
+	    xtype : 'textfield',
+	    anchor : '100%',
 	    allowBlank : false,
 	    name : 'resource',
 	    msgTarget : 'side',
@@ -154,7 +160,7 @@ function rightTreeStore(url, pid)
     });
 };
 
-function findSelectedNode(tree)
+function getSelectedNode(tree)
 {
     var selectedNode = '';
     findSelectedNodeCallback(tree.getRootNode());
@@ -186,9 +192,6 @@ Ext.onReady(function()
 	layout : "border"
     });
 
-    // var view = Ext.create('Ext.app.ListView');
-    // view.header.setTitle('菜单管理');
-    // view.center.setTitle('菜单列表');
     var tree = Ext.create('Ext.tree.Panel',
     {
 	// title: '菜单列表',
@@ -236,10 +239,7 @@ Ext.onReady(function()
 	    icon : 'resources/icons/fam/edit.png',
 	    handler : function(grid, rowIndex, colIndex, actionItem, event, record, row)
 	    {
-		if (!formwin)
-		    formwin = Ext.create('Ext.app.RightWindow');
-		formwin.show();
-		formwin.form.loadRecord(record);
+		showform(record);
 	    }
 	},
 	{
@@ -290,32 +290,15 @@ Ext.onReady(function()
     var formwin = null;
     function handleredit(button, e)
     {
+	showform(getSelectedNode(tree));
+    }
+    
+    function showform(record)
+    {
 	if (!formwin)
 	    formwin = Ext.create('Ext.app.RightWindow');
 	formwin.show();
-	var node = findSelectedNode(tree);
-	formwin.form.loadRecord(node);
-	Ext.Ajax.request(
-	{
-	    url : 'core/rightload.do?id=' + node.data.id, // 请求地址
-	    method : 'post', // 方法
-	    callback : function(options, success, response)
-	    {
-		formwin.form.getForm().load(Ext.JSON.decode(response.responseText));
-	    }
-	});
-
-	formwin.form.getForm().load(
-	{
-	    url : 'core/rightload.do?id=' + node.data.id
-	});
-	// var data = Ext.create('RightTreeModel', {
-	// 'text' : node.data.text,
-	// 'resource' : node.data.resource,
-	// 'iconCls': node.data.iconCls,
-	// 'component' : node.data.component
-	// });
-	formwin.form.loadRecord(data);
+	formwin.form.loadRecord(record);
     }
     view.add(tree);
 });
