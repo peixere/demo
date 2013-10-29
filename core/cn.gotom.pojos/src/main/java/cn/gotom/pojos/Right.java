@@ -41,13 +41,13 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "type", nullable = true, length = 50)
 	private String type;
 
-	@Column(name = "component", nullable = false, length = 300)
+	@Column(name = "component", length = 300)
 	private String component;
 
 	@Column()
 	private boolean leaf;
 
-	@Column(name = "resource", nullable = false, length = 300)
+	@Column(name = "resource", length = 300)
 	private String resource;
 
 	/**
