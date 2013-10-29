@@ -3,7 +3,7 @@ Ext.define('Ext.app.RightWindow',
     extend : 'Ext.window.Window',
     requires : [ 'Ext.form.*', 'Ext.data.*', 'Ext.tip.QuickTipManager'
     ],
-    height : 250,
+    height : 300,
     width : 400,
     title : '菜单编辑',
     titleCollapse : false,
@@ -28,7 +28,20 @@ Ext.define('Ext.app.RightWindow',
 	{
 	    xtype : 'hiddenfield',
 	    anchor : '100%',
+	    fieldLabel : '菜单标识',
 	    name : 'id'
+	},
+	{
+	    xtype : 'hiddenfield',
+	    anchor : '100%',
+	    fieldLabel : '父节点标识',
+	    name : 'parentId'
+	},
+	{
+	    xtype : 'hiddenfield',
+	    anchor : '100%',
+	    fieldLabel : '所属应用',
+	    name : 'appCode'
 	},
 	{
 	    xtype : 'textfield',
@@ -49,9 +62,15 @@ Ext.define('Ext.app.RightWindow',
 	    anchor : '100%',
 	    name : 'component',
 	    fieldLabel : '连接或控件'
+	},
+	{
+	    xtype : 'numberfield',
+	    anchor : '100%',
+	    fieldLabel : '排列顺序',
+	    name : 'sort'
 	},	
 	{
-	    xtype : 'textfield',
+	    xtype : 'textareafield',
 	    anchor : '100%',
 	    allowBlank : false,
 	    name : 'resource',
@@ -60,6 +79,13 @@ Ext.define('Ext.app.RightWindow',
 	}
 	]
     }),
+    handlersave : function(button, e)
+    {
+	if (this.form.isValid())
+	{
+	    Ext.Msg.alert('信息提示', '添加时出现异常！');
+	}
+    },
     initComponent : function()
     {
 	var me = this;
@@ -71,10 +97,7 @@ Ext.define('Ext.app.RightWindow',
 	    text : '保存',
 	    handler : function(button, e)
 	    {
-		if (form.isValid())
-		{
-		    Ext.Msg.alert('信息提示', '添加时出现异常！');
-		}
+		me.handlersave(button, e);
 	    }
 	};
 	var btnClose =
@@ -177,11 +200,37 @@ function getSelectedNode(tree)
 		return;
 	    }
 	    else if (nd.hasChildNodes())
-	    { // 判断子节点下是否存在子节点
+	    {
 		findSelectedNodeCallback(nd);
 	    }
 	});
-    }    
+    }
+}
+
+function getAllChecked(tree)
+{
+    var temp = [];
+    var rootNode = tree.getRootNode();// 获取根节点
+    findchildnode(rootNode); // 开始递归
+    var nodevalue = temp.join(",");
+    return nodevalue;
+    function findchildnode(node)
+    {
+	var childnodes = node.childNodes;
+	Ext.each(childnodes, function()
+	{ // 从节点中取出子节点依次遍历
+	    var nd = this;
+	    if (nd.data.checked)
+	    {
+		temp.push(nd.data.id);
+	    }
+	    if (nd.hasChildNodes())
+	    { // 判断子节点下是否存在子节点
+		findchildnode(nd); // 如果存在子节点 递归
+	    }
+	});
+    }
+    ;
 }
 
 Ext.Loader.setPath('Ext.app', 'ext4/classes');
@@ -220,6 +269,16 @@ Ext.onReady(function()
 	    {
 		handleredit(button, e);
 	    }
+	},
+	{
+	    xtype : 'button',
+	    border : true,
+	    iconCls : 'icon-del',
+	    text : '删除',
+	    handler : function(button, e)
+	    {
+		handlerdel(button, e);
+	    }
 	}
 	],
 	columns : [
@@ -230,17 +289,6 @@ Ext.onReady(function()
 	    sortable : false,
 	    flex : 1,
 	    menuDisabled : true
-	},
-	{
-	    xtype : 'actioncolumn',
-	    menuDisabled : true,
-	    align : 'center',
-	    text : '修改',
-	    icon : 'resources/icons/fam/edit.png',
-	    handler : function(grid, rowIndex, colIndex, actionItem, event, record, row)
-	    {
-		showform(record);
-	    }
 	},
 	{
 	    xtype : 'gridcolumn',
@@ -256,49 +304,42 @@ Ext.onReady(function()
 	    xtype : 'gridcolumn',
 	    dataIndex : 'resource',
 	    text : '数据资源'
+	},
+	{
+	    xtype : 'actioncolumn',
+	    menuDisabled : true,
+	    align : 'center',
+	    text : '修改',
+	    width : 40,
+	    iconCls : 'icon-edit',// 'resources/icons/fam/edit.png',
+	    handler : function(grid, rowIndex, colIndex, actionItem, event, record, row)
+	    {
+		showform(record);
+	    }
 	}
 	]
     });
-
-    function getTreeChecked(tree)
-    {
-	var temp = [];
-	var rootNode = tree.getRootNode();// 获取根节点
-	findchildnode(rootNode); // 开始递归
-	var nodevalue = temp.join(",");
-	return nodevalue;
-	function findchildnode(node)
-	{
-	    var childnodes = node.childNodes;
-	    Ext.each(childnodes, function()
-	    { // 从节点中取出子节点依次遍历
-		var nd = this;
-		if (nd.data.checked)
-		{
-		    temp.push(nd.data.id);
-		}
-		if (nd.hasChildNodes())
-		{ // 判断子节点下是否存在子节点
-		    findchildnode(nd); // 如果存在子节点 递归
-		}
-	    });
-	};	
-    }
-
-    // 获取所有的子节点
 
     var formwin = null;
     function handleredit(button, e)
     {
 	showform(getSelectedNode(tree));
     }
-    
+
+    function handlerdel(button, e)
+    {
+	Ext.Msg.alert('选中项', getAllChecked(tree));
+    }
+
     function showform(record)
     {
-	if (!formwin)
-	    formwin = Ext.create('Ext.app.RightWindow');
-	formwin.show();
-	formwin.form.loadRecord(record);
+	if (record != null && record != '')
+	{
+	    if (!formwin)
+		formwin = Ext.create('Ext.app.RightWindow');
+	    formwin.show();
+	    formwin.form.loadRecord(record);
+	}
     }
     view.add(tree);
 });
