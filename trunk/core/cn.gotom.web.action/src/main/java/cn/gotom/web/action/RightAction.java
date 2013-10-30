@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
@@ -17,39 +19,36 @@ import cn.gotom.servlet.JsonAction;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
+// @Namespaces(value = {@Namespace(value="/p")})
+@Namespace(value = "/p")
 @Action(value = "/right", results = { @Result(name = "success", type = "json") })
-public class RightAction
+public class RightAction extends Right
 {
-	protected final Logger log = Logger.getLogger(getClass());
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	private String id;
+	protected final Logger log = Logger.getLogger(getClass());
 
 	private boolean success;
 
 	@Inject
 	private RightService rightService;
 
-	public String execute() throws IOException
+	public void execute() throws IOException
 	{
-		return "success";
+		Right right = rightService.get(this.getId());
+		JsonAction.writerToJSON(right);
 	}
 
-	@Action(value = "/core/rightTree", results = { @Result(name = "success", type = "json") })
 	public void tree() throws IOException
 	{
 		List<Right> menuList = rightService.loadTree();
 		JsonAction.writerToJSON(menuList);
 	}
 
-	@Action(value = "/core/rightload")
-	public void load() throws IOException
-	{
-		Right right = rightService.get(id);
-		JsonAction.writerToJSON(right);
-	}
-
-	@Action(value = "/core/right!save")
-	public void save() throws IOException
+	public String save() throws IOException
 	{
 		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 		for (String key : params.keySet())
@@ -59,17 +58,17 @@ public class RightAction
 				log.debug(key + "=" + v);
 			}
 		}
-		// JsonAction.writerToJSON(this);
-	}
-
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
+		Right right = new Right();
+		try
+		{
+			BeanUtils.copyProperties(right, params);
+			this.setSuccess(true);
+		}
+		catch (Exception e)
+		{
+			log.error(e.getMessage(), e);
+		}
+		return "success";
 	}
 
 	public boolean isSuccess()
