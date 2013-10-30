@@ -48,6 +48,11 @@ public class OrganizationAction
 	public void tree() throws IOException
 	{
 		List<Organization> menuList = service.loadTree();
+		if(menuList.size() == 0){
+			Organization o = new Organization();
+			o.setId(null);
+			menuList.add(o);
+		}
 		JsonAction.writerToJSON(menuList);
 	}
 
