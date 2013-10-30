@@ -23,7 +23,7 @@ function ajax(config)
 	{
 	    if (success)
 	    {
-		config.callback(Ext.JSON.decode(response.responseText));// 调用回调函数
+		config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数
 	    }
 	    else
 	    {

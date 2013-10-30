@@ -245,7 +245,17 @@ Ext.onReady(function()
 	    text : '刷新',
 	    handler : function(button, e)
 	    {
-		location.reload();
+		Ext.Msg.wait("正在执行......", "操作提示");
+		window.location.reload();
+	    }
+	},
+	{
+	    xtype : 'button',
+	    iconCls : 'icon-add',
+	    text : '添加',
+	    handler : function(button, e)
+	    {
+		handlernew(button, e);
 	    }
 	},
 	{
@@ -312,6 +322,40 @@ Ext.onReady(function()
 	showform(getSelectedNode(tree));
     }
 
+    function handlernew(button, e)
+    {
+	var p = getSelectedNode(tree);
+	var parentId = '';
+	if (!Ext.isEmpty(p, false))
+	{
+	    parentId = p.data.id;
+	    if (p.data.leaf)
+	    {
+		Ext.Msg.alert("操作提示", "请选择目录类型节点！");
+		return;
+	    }
+	}
+	var wait = Ext.Msg.wait("正在执行......", "操作提示");
+	Ext.Ajax.request(
+	{
+	    url : urlprefix + '!fresh.do',
+	    method : 'POST',
+	    success : function(response, options)
+	    {
+		var result = Ext.JSON.decode(response.responseText);
+		var data = Ext.create('RightModel');
+		result.parentId = parentId;
+		data.data = result;
+		wait.close();
+		showform(data);
+	    },
+	    failure : function(response, options)
+	    {
+		wait.close();
+		Ext.Msg.alert("操作提示", "操作失败");
+	    }
+	});
+    }
     function handlerdel(button, e)
     {
 	var ids = getAllChecked(tree);
@@ -359,12 +403,19 @@ Ext.onReady(function()
 	{
 	    if (!formwin)
 		formwin = Ext.create('Ext.app.RightWindow');
+	    formwin.form.getForm().reset();
 	    formwin.show();
 	    formwin.form.loadRecord(record);
 	}
 	else
 	{
-	    Ext.Msg.alert("操作提示", "请选择要修改的节点!");
+	    Ext.Msg.show(
+	    {
+		// width : 200
+		title : "操作提示",
+		msg : "请选择要修改的节点!",
+		icon : Ext.Msg.WARNING
+	    });
 	}
     }
     tree.expandAll();
