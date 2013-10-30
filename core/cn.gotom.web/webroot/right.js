@@ -100,7 +100,7 @@ Ext.define('Ext.app.RightWindow',
 		{
 		    me.form.submit(
 		    {
-			url : urlprefix+'!save.do',
+			url : urlprefix + '!save.do',
 			method : 'POST',
 			waitMsg : '正在保存数据，稍后...',
 			success : function(f, action)
@@ -208,7 +208,7 @@ function rightTreeStore(url, pid)
 	nodeParam : "id"
     });
 };
-var treeStore = rightTreeStore(urlprefix+'!tree.do', '');
+var treeStore = rightTreeStore(urlprefix + '!tree.do', '');
 Ext.onReady(function()
 {
     var view = Ext.create("Ext.container.Viewport",
@@ -314,14 +314,26 @@ Ext.onReady(function()
 
     function handlerdel(button, e)
     {
+	var ids = getAllChecked(tree);
+	if (ids.length == 0)
+	{
+	    Ext.Msg.show(
+	    {
+		//width : 200
+		title : "操作提示",
+		msg : "请选择要删除的节点!",
+		icon : Ext.Msg.WARNING
+	    });
+	    return;
+	}
 	Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
 	{
 	    if (button == "yes")
 	    {
-		var ids = getAllChecked(tree);
+		Ext.Msg.wait("正在执行......", "操作提示");
 		Ext.Ajax.request(
 		{
-		    url : urlprefix+'!remove.do',
+		    url : urlprefix + '!remove.do',
 		    method : 'POST',
 		    params :
 		    {
@@ -349,6 +361,10 @@ Ext.onReady(function()
 		formwin = Ext.create('Ext.app.RightWindow');
 	    formwin.show();
 	    formwin.form.loadRecord(record);
+	}
+	else
+	{
+	    Ext.Msg.alert("操作提示", "请选择要修改的节点!");
 	}
     }
     tree.expandAll();
