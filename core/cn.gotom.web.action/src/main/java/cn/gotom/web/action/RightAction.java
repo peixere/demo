@@ -22,14 +22,11 @@ import com.google.inject.Inject;
 // @Namespaces(value = {@Namespace(value="/p")})
 @Namespace(value = "/p")
 @Action(value = "/right", results = { @Result(name = "success", type = "json") })
-public class RightAction extends Right
+public class RightAction
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	protected final Logger log = Logger.getLogger(getClass());
+
+	private String id;
 
 	private boolean success;
 
@@ -48,27 +45,37 @@ public class RightAction extends Right
 		JsonAction.writerToJSON(menuList);
 	}
 
-	public String save() throws IOException
+	public String remove() 
 	{
-		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
-		for (String key : params.keySet())
-		{
-			for (String v : params.get(key))
-			{
-				log.debug(key + "=" + v);
-			}
-		}
-		Right right = new Right();
+		rightService.remove(getId());
+		return "success";
+	}
+	
+	public String save()
+	{
 		try
 		{
+			Right right = new Right();
+			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(right, params);
 			this.setSuccess(true);
+			rightService.save(right);
 		}
 		catch (Exception e)
 		{
 			log.error(e.getMessage(), e);
 		}
 		return "success";
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
 	}
 
 	public boolean isSuccess()
