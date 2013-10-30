@@ -150,6 +150,10 @@ var RightModel = Ext.define("RightModel",
 	type : "string"
     },
     {
+	name : "parentId",
+	type : "string"
+    },    
+    {
 	name : 'sort',
 	type : 'int'
     },
@@ -163,7 +167,8 @@ var RightModel = Ext.define("RightModel",
 	type : "boolean"
     },
     {
-	name : 'type'
+	name : 'type',
+	type : 'string'
     },
     {
 	name : 'resource',
@@ -177,6 +182,10 @@ var RightModel = Ext.define("RightModel",
 	name : "text",
 	type : "string"
     },
+    {
+	name : "appCode",
+	type : "string"
+    },    
     {
 	name : 'checked',
 	type : "boolean"
