@@ -19,6 +19,7 @@ import cn.gotom.util.StringUtils;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
+@Action(value = "/main", results = { @Result(name = "success", type = "json") })
 public class MainAction extends JsonAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
@@ -41,7 +42,6 @@ public class MainAction extends JsonAction
 
 	private String title;
 
-	@Action(value = "/main", results = { @Result(name = "success", type = "json") })
 	public void execute() throws IOException
 	{
 		if (action == null)
@@ -63,10 +63,26 @@ public class MainAction extends JsonAction
 		toJSON(this);
 	}
 
-	private boolean hasRight = true;
-
 	private void menu() throws IOException
 	{
+		List<Right> menuList = null;
+		if (StringUtils.isNullOrEmpty(id))
+		{
+			menuList = rightService.findByParentId(id);
+		}
+		else
+		{
+			menuList = rightService.loadTreeByParentId(id);
+		}
+		toJSON(menuList);
+		//resource();
+	}
+
+	private boolean hasRight = true;
+
+	private void resource() throws IOException
+	{
+		List<Right> menuList = null;
 		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
 		if (StringUtils.isNullOrEmpty(id))
 		{
@@ -76,7 +92,7 @@ public class MainAction extends JsonAction
 		{
 			sql += " where t.parent_id = '" + id + "'";
 		}
-		List<Right> menuList = null;
+
 		if (rightService.findAll().size() == 0)
 		{
 			hasRight = false;
@@ -85,7 +101,7 @@ public class MainAction extends JsonAction
 			{
 				r.setExpanded(true);
 				loadChildrencallback(r);
-			}			
+			}
 		}
 		else
 		{
