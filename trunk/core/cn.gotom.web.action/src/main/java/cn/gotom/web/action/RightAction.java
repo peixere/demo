@@ -14,6 +14,7 @@ import cn.gotom.servlet.JsonAction;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
+@Action(value = "/right", results = { @Result(name = "success", type = "json") })
 public class RightAction extends JsonAction
 {
 	private String id;
@@ -31,8 +32,7 @@ public class RightAction extends JsonAction
 	@Inject
 	private RightService rightService;
 
-	@Action(value = "/right", results = { @Result(name = "success", type = "json") })
-	public String json()
+	public String execute() throws IOException
 	{
 		return "success";
 	}
@@ -44,8 +44,14 @@ public class RightAction extends JsonAction
 		this.toJSON(menuList);
 	}
 
-	@Action(value = "/core/rightload", results = { @Result(name = "success", type = "json") })
+	@Action(value = "/core/rightload")
 	public void load() throws IOException
+	{
+		Right right = rightService.get(id);
+		this.toJSON(right);
+	}
+	@Action(value = "/core/right!save")
+	public void save() throws IOException
 	{
 		Right right = rightService.get(id);
 		this.toJSON(right);
