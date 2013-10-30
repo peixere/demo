@@ -314,7 +314,31 @@ Ext.onReady(function()
 
     function handlerdel(button, e)
     {
-	Ext.Msg.alert('选中项', getAllChecked(tree));
+	Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
+	{
+	    if (button == "yes")
+	    {
+		var ids = getAllChecked(tree);
+		Ext.Ajax.request(
+		{
+		    url : 'p/right!remove.do',
+		    method : 'POST',
+		    params :
+		    {
+			id : ids
+		    },
+		    success : function(response, options)
+		    {
+			alert(response);
+			window.location.reload();
+		    },
+		    failure : function(response, options)
+		    {
+			alert(response.responseText);
+		    }
+		});
+	    }
+	});
     }
 
     function showform(record)
