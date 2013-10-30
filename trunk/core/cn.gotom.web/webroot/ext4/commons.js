@@ -113,3 +113,53 @@ function addQueryParam(url, name, value)
     return path;
 }
 
+
+function getSelectedNode(tree)
+{
+    var selectedNode = '';
+    findSelectedNodeCallback(tree.getRootNode());
+    return selectedNode;
+    function findSelectedNodeCallback(node)
+    {
+	var childnodes = node.childNodes;
+	Ext.each(childnodes, function()
+	{ // 从节点中取出子节点依次遍历
+	    var nd = this;
+	    if (nd.data.checked)
+	    {
+		selectedNode = nd;
+		return;
+	    }
+	    else if (nd.hasChildNodes())
+	    {
+		findSelectedNodeCallback(nd);
+	    }
+	});
+    }
+}
+
+function getAllChecked(tree)
+{
+    var temp = [];
+    var rootNode = tree.getRootNode();// 获取根节点
+    findchildnode(rootNode); // 开始递归
+    var nodevalue = temp.join(",");
+    return nodevalue;
+    function findchildnode(node)
+    {
+	var childnodes = node.childNodes;
+	Ext.each(childnodes, function()
+	{
+	    var nd = this;
+	    if (nd.data.checked)
+	    {
+		temp.push(nd.data.id);
+	    }
+	    if (nd.hasChildNodes())
+	    {
+		findchildnode(nd);
+	    }
+	});
+    }
+    ;
+}

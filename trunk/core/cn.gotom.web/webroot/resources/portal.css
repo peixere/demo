@@ -116,6 +116,10 @@
 	background-image: url(icons/fam/refresh.gif) !important;
 }
 
+.icon-refresh-tb {
+	background-image: url(icons/fam/refresh-tb.gif) !important;
+}
+
 .icon-grid-list {
 	background-image:url(icons/fam/grid_list.png) !important;
 }
@@ -204,8 +208,8 @@
 	background-image: url(icons/fam/expand-all.gif) !important;
 }
 
-.icon-load-r{
-	background-image: url(icons/fam/load_r.png) !important;
+.icon-load{
+	background-image: url(icons/fam/load.png) !important;
 }
 
 .icon-yes{

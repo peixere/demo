@@ -68,7 +68,7 @@ Ext.define('Ext.app.RightWindow',
 	    anchor : '100%',
 	    fieldLabel : '排列顺序',
 	    name : 'sort'
-	},	
+	},
 	{
 	    xtype : 'textareafield',
 	    anchor : '100%',
@@ -183,57 +183,6 @@ function rightTreeStore(url, pid)
     });
 };
 
-function getSelectedNode(tree)
-{
-    var selectedNode = '';
-    findSelectedNodeCallback(tree.getRootNode());
-    return selectedNode;
-    function findSelectedNodeCallback(node)
-    {
-	var childnodes = node.childNodes;
-	Ext.each(childnodes, function()
-	{ // 从节点中取出子节点依次遍历
-	    var nd = this;
-	    if (nd.data.checked)
-	    {
-		selectedNode = nd;
-		return;
-	    }
-	    else if (nd.hasChildNodes())
-	    {
-		findSelectedNodeCallback(nd);
-	    }
-	});
-    }
-}
-
-function getAllChecked(tree)
-{
-    var temp = [];
-    var rootNode = tree.getRootNode();// 获取根节点
-    findchildnode(rootNode); // 开始递归
-    var nodevalue = temp.join(",");
-    return nodevalue;
-    function findchildnode(node)
-    {
-	var childnodes = node.childNodes;
-	Ext.each(childnodes, function()
-	{ // 从节点中取出子节点依次遍历
-	    var nd = this;
-	    if (nd.data.checked)
-	    {
-		temp.push(nd.data.id);
-	    }
-	    if (nd.hasChildNodes())
-	    { // 判断子节点下是否存在子节点
-		findchildnode(nd); // 如果存在子节点 递归
-	    }
-	});
-    }
-    ;
-}
-
-Ext.Loader.setPath('Ext.app', 'ext4/classes');
 Ext.onReady(function()
 {
     var view = Ext.create("Ext.container.Viewport",
@@ -241,6 +190,7 @@ Ext.onReady(function()
 	layout : "border"
     });
 
+    var treeStore = rightTreeStore('/core/rightTree.do', '');
     var tree = Ext.create('Ext.tree.Panel',
     {
 	// title: '菜单列表',
@@ -251,18 +201,26 @@ Ext.onReady(function()
 	lines : true,
 	split : true,
 	stateful : true,
-	// collapsible:true,
+	collapsible:false,
 	frame : false,
 	enableDD : true,
 	autoScroll : true,
 	autoHeight : false,
 	rootVisible : false,
-	store : rightTreeStore('/core/rightTree.do', ''),
-	// multiSelect: true,
+	store : treeStore,
+	multiSelect: false,
 	tbar : [
 	{
 	    xtype : 'button',
-	    border : true,
+	    iconCls : 'icon-refresh',
+	    text : '刷新',
+	    handler : function(button, e)
+	    {
+		handlerref(button, e);
+	    }
+	},
+	{
+	    xtype : 'button',
 	    iconCls : 'icon-edit',
 	    text : '修改',
 	    handler : function(button, e)
@@ -272,7 +230,6 @@ Ext.onReady(function()
 	},
 	{
 	    xtype : 'button',
-	    border : true,
 	    iconCls : 'icon-del',
 	    text : '删除',
 	    handler : function(button, e)
@@ -330,7 +287,12 @@ Ext.onReady(function()
     {
 	Ext.Msg.alert('选中项', getAllChecked(tree));
     }
-
+    
+    function handlerref(button, e)
+    {
+	treeStore.reload();
+    }
+    
     function showform(record)
     {
 	if (record != null && record != '')
