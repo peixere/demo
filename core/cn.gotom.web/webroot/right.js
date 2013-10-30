@@ -32,16 +32,22 @@ Ext.define('Ext.app.RightWindow',
 	    name : 'id'
 	},
 	{
-	    xtype : 'hiddenfield',
+	    xtype : 'textfield',
 	    anchor : '100%',
 	    fieldLabel : '父节点标识',
 	    name : 'parentId'
 	},
 	{
-	    xtype : 'hiddenfield',
+	    xtype : 'textfield',
 	    anchor : '100%',
 	    fieldLabel : '所属应用',
 	    name : 'appCode'
+	},
+	{
+	    xtype : 'textfield',
+	    anchor : '100%',
+	    fieldLabel : '版本号',
+	    name : 'versionNum'
 	},
 	{
 	    xtype : 'textfield',
@@ -79,26 +85,7 @@ Ext.define('Ext.app.RightWindow',
 	}
 	]
     }),
-    handlersave : function(button, e)
-    {
-	if (this.form.isValid())
-	{
-	    this.form.submit(
-	    {
-		url : "p/right!save.do",
-		method : 'POST',
-		success : function(f, action)
-		{
-		    Ext.Msg.alert('信息提示', action.result.rpackCode);
-		},
-		failure : function(f, action)
-		{
-		    Ext.Msg.alert('信息提示', '添加时出现异常！');
-		}
-	    });
 
-	}
-    },
     initComponent : function()
     {
 	var me = this;
@@ -110,7 +97,24 @@ Ext.define('Ext.app.RightWindow',
 	    text : '保存',
 	    handler : function(button, e)
 	    {
-		me.handlersave(button, e);
+		if (me.form.isValid())
+		{
+		    me.form.submit(
+		    {
+			url : "p/right!save.do",
+			method : 'POST',
+			waitMsg : '正在保存数据，稍后...',
+			success : function(f, action)
+			{
+			    Ext.Msg.alert('信息提示', '保存成功');
+			    me.close();
+			},
+			failure : function(f, action)
+			{
+			    Ext.Msg.alert('信息提示', '添加时出现异常！');
+			}
+		    });
+		}
 	    }
 	};
 	var btnClose =
@@ -137,7 +141,7 @@ Ext.define('Ext.app.RightWindow',
 
 });
 
-var RightTreeModel = Ext.define("RightTreeModel",
+var RightModel = Ext.define("RightModel",
 {// 定义树节点数据模型
     extend : "Ext.data.Model",
     fields : [
@@ -185,7 +189,7 @@ function rightTreeStore(url, pid)
     return Ext.create("Ext.data.TreeStore",
     {
 	defaultRootId : pid,
-	model : RightTreeModel,
+	model : RightModel,
 	proxy :
 	{
 	    type : "ajax",
