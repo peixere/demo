@@ -83,7 +83,20 @@ Ext.define('Ext.app.RightWindow',
     {
 	if (this.form.isValid())
 	{
-	    Ext.Msg.alert('信息提示', '添加时出现异常！');
+	    this.form.submit(
+	    {
+		url : "p/right!save.do",
+		method : 'POST',
+		success : function(f, action)
+		{
+		    Ext.Msg.alert('信息提示', action.result.rpackCode);
+		},
+		failure : function(f, action)
+		{
+		    Ext.Msg.alert('信息提示', '添加时出现异常！');
+		}
+	    });
+
 	}
     },
     initComponent : function()
@@ -190,7 +203,7 @@ Ext.onReady(function()
 	layout : "border"
     });
 
-    var treeStore = rightTreeStore('/core/rightTree.do', '');
+    var treeStore = rightTreeStore('p/right!tree.do', '');
     var tree = Ext.create('Ext.tree.Panel',
     {
 	// title: '菜单列表',
@@ -201,14 +214,14 @@ Ext.onReady(function()
 	lines : true,
 	split : true,
 	stateful : true,
-	collapsible:false,
+	collapsible : false,
 	frame : false,
 	enableDD : true,
 	autoScroll : true,
 	autoHeight : false,
 	rootVisible : false,
 	store : treeStore,
-	multiSelect: false,
+	multiSelect : false,
 	tbar : [
 	{
 	    xtype : 'button',
@@ -268,7 +281,7 @@ Ext.onReady(function()
 	    align : 'center',
 	    text : '修改',
 	    width : 40,
-	    iconCls : 'icon-edit',// 'resources/icons/fam/edit.png',
+	    iconCls : 'icon-edit',
 	    handler : function(grid, rowIndex, colIndex, actionItem, event, record, row)
 	    {
 		showform(record);
@@ -287,13 +300,13 @@ Ext.onReady(function()
     {
 	Ext.Msg.alert('选中项', getAllChecked(tree));
     }
-    
+
     function handlerref(button, e)
     {
 	treeStore.reload();
 	tree.expandAll();
     }
-    
+
     function showform(record)
     {
 	if (record != null && record != '')
