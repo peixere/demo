@@ -51,6 +51,7 @@ public class OrganizationAction
 		if(menuList.size() == 0){
 			Organization o = new Organization();
 			o.setText("能源管理委员会");
+			o.setCode("");
 			service.save(o);
 			menuList.add(o);
 		}
