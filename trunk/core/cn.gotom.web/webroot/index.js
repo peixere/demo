@@ -32,7 +32,7 @@ Ext.onReady(function()
 	items : [ portalPanel
 	]
     });
-    portal.setContent(tabPanel);   
+    portal.setContent(tabPanel);
     portal.header.setLoading(portal.header.id + ' Loading...');
     function callbackTitle(data)
     {
@@ -84,14 +84,14 @@ Ext.onReady(function()
 	{// 判断是否是根节点
 	    if (node.data.type === 'URL')
 	    {// 判断资源类型
-		var url = addQueryParam(node.data.component,'theme',getQueryParam('theme'));
+		var url = addQueryParam(node.data.component, 'theme', getQueryParam('theme'));
 		var panel = Ext.create('Ext.panel.Panel',
 		{
 		    id : node.data.id,
 		    title : node.data.text,
 		    closable : true,
 		    // iconCls : 'icon-activity',
-		    html : '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>'
+		    html : '<iframe width="100%" height="100%" frameborder="0" src="' + url + '"></iframe>'
 		});
 		tabPanel.add(panel);
 		tabPanel.setActiveTab(panel);

@@ -63,7 +63,7 @@
 
     suffix = (suffix.length) ? ('-' + suffix.join('-')) : '';
     path = 'http://cdn.sencha.com/ext/gpl/4.2.1';
-    //path = '/ext';
+    path = '/ext';
     if (includeCSS) {
         document.write('<link rel="stylesheet" type="text/css" href="' + path + '/resources/css/ext-all' + suffix + '-debug.css"/>');
     }

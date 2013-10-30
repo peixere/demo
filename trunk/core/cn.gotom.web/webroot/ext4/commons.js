@@ -113,7 +113,11 @@ function addQueryParam(url, name, value)
     return path;
 }
 
-
+/**
+ * 找树选中的节点
+ * @param tree
+ * @returns
+ */
 function getSelectedNode(tree)
 {
     var selectedNode = '';
@@ -138,6 +142,11 @@ function getSelectedNode(tree)
     }
 }
 
+/**
+ * 获取所有选中的节点ID
+ * @param tree
+ * @returns
+ */
 function getAllChecked(tree)
 {
     var temp = [];
