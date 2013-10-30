@@ -252,10 +252,19 @@ Ext.onReady(function()
 	{
 	    xtype : 'button',
 	    iconCls : 'icon-add',
-	    text : '添加',
+	    text : '目录',
 	    handler : function(button, e)
 	    {
-		handlernew(button, e);
+		handlernew(false);
+	    }
+	},
+	{
+	    xtype : 'button',
+	    iconCls : 'icon-add-p',
+	    text : '添加资源',
+	    handler : function(button, e)
+	    {
+		handlernew(true);
 	    }
 	},
 	{
@@ -322,7 +331,7 @@ Ext.onReady(function()
 	showform(getSelectedNode(tree));
     }
 
-    function handlernew(button, e)
+    function handlernew(left)
     {
 	var p = getSelectedNode(tree);
 	var parentId = '';
@@ -346,6 +355,7 @@ Ext.onReady(function()
 		var data = Ext.create('RightModel');
 		result.parentId = parentId;
 		data.data = result;
+		data.data.leaf = left;
 		wait.close();
 		showform(data);
 	    },
