@@ -3,7 +3,7 @@ Ext.define('Ext.app.RightWindow',
     extend : 'Ext.window.Window',
     requires : [ 'Ext.form.*', 'Ext.data.*', 'Ext.tip.QuickTipManager'
     ],
-    height : 320,
+    height : 360,
     width : 400,
     title : '菜单编辑',
     titleCollapse : false,
