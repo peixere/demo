@@ -61,7 +61,7 @@ public class RightAction
 			this.setSuccess(true);
 			for (String id : idarray)
 			{
-				if (rightService.findByParentId(id).size() > 0)
+				if (rightService.findByParentId(id).size() == 0)
 				{
 					rightService.remove(id);
 				}
