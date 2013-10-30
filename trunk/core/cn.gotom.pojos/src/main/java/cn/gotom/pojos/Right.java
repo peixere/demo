@@ -39,7 +39,7 @@ public class Right extends SuperEntity implements Serializable
 	private String iconCls;
 
 	@Column(name = "type", nullable = true, length = 50)
-	private String type;
+	private String type = "URL";
 
 	@Column(name = "component", length = 300)
 	private String component;
