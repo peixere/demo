@@ -252,7 +252,7 @@ Ext.onReady(function()
 	{
 	    xtype : 'button',
 	    iconCls : 'icon-add',
-	    text : '目录',
+	    text : '添加目录',
 	    handler : function(button, e)
 	    {
 		handlernew(false);
