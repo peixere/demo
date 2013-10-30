@@ -100,7 +100,7 @@ Ext.define('Ext.app.RightWindow',
 		{
 		    me.form.submit(
 		    {
-			url : "p/right!save.do",
+			url : urlprefix+'!save.do',
 			method : 'POST',
 			waitMsg : '正在保存数据，稍后...',
 			success : function(f, action)
@@ -111,7 +111,7 @@ Ext.define('Ext.app.RightWindow',
 			},
 			failure : function(f, action)
 			{
-			    Ext.Msg.alert('信息提示', '添加时出现异常！');
+			    Ext.Msg.alert('信息提示', '保存失败！');
 			}
 		    });
 		}
@@ -140,7 +140,7 @@ Ext.define('Ext.app.RightWindow',
     }
 
 });
-
+var urlprefix = 'p/right';
 var RightModel = Ext.define("RightModel",
 {// 定义树节点数据模型
     extend : "Ext.data.Model",
@@ -208,7 +208,7 @@ function rightTreeStore(url, pid)
 	nodeParam : "id"
     });
 };
-var treeStore = rightTreeStore('p/right!tree.do', '');
+var treeStore = rightTreeStore(urlprefix+'!tree.do', '');
 Ext.onReady(function()
 {
     var view = Ext.create("Ext.container.Viewport",
@@ -321,7 +321,7 @@ Ext.onReady(function()
 		var ids = getAllChecked(tree);
 		Ext.Ajax.request(
 		{
-		    url : 'p/right!remove.do',
+		    url : urlprefix+'!remove.do',
 		    method : 'POST',
 		    params :
 		    {
@@ -329,12 +329,12 @@ Ext.onReady(function()
 		    },
 		    success : function(response, options)
 		    {
-			alert(response);
+			Ext.Msg.alert("删除提示", "删除成功");
 			window.location.reload();
 		    },
 		    failure : function(response, options)
 		    {
-			alert(response.responseText);
+			Ext.Msg.alert("删除提示", "删除失败");
 		    }
 		});
 	    }
