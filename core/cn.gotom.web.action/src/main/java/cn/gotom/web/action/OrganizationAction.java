@@ -50,7 +50,8 @@ public class OrganizationAction
 		List<Organization> menuList = service.loadTree();
 		if(menuList.size() == 0){
 			Organization o = new Organization();
-			o.setId(null);
+			o.setText("能源管理委员会");
+			service.save(o);
 			menuList.add(o);
 		}
 		JsonAction.writerToJSON(menuList);

@@ -12,7 +12,6 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.RightService;
 import cn.gotom.servlet.JsonAction;
@@ -52,7 +51,8 @@ public class RightAction
 		List<Right> menuList = rightService.loadTree();
 		if(menuList.size() == 0){
 			Right o = new Right();
-			o.setId(null);
+			o.setText("系统管理");
+			rightService.save(o);
 			menuList.add(o);
 		}		
 		JsonAction.writerToJSON(menuList);
