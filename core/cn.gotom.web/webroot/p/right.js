@@ -123,14 +123,14 @@ Ext.define('Ext.app.RightWindow',
 		{
 		    me.form.submit(
 		    {
-			url : urlprefix + '!save.do',
+			url : actionUrl + '!save.do',
 			method : 'POST',
 			waitMsg : '正在保存数据，稍后...',
 			success : function(f, action)
 			{
 			    Ext.Msg.alert('信息提示', '保存成功');
 			    me.close();
-			    location.reload();
+			    window.location.reload();
 			},
 			failure : function(f, action)
 			{
@@ -163,7 +163,7 @@ Ext.define('Ext.app.RightWindow',
     }
 
 });
-var urlprefix = '../p/right';
+var actionUrl = '../p/right';
 var RightModel = Ext.define("RightModel",
 {// 定义树节点数据模型
     extend : "Ext.data.Model",
@@ -231,7 +231,7 @@ function rightTreeStore(url, pid)
 	nodeParam : "id"
     });
 };
-var treeStore = rightTreeStore(urlprefix + '!tree.do', '');
+var treeStore = rightTreeStore(actionUrl + '!tree.do', '');
 Ext.onReady(function()
 {
     var view = Ext.create("Ext.container.Viewport",
@@ -354,7 +354,7 @@ Ext.onReady(function()
 	showform(getSelectedNode(tree));
     }
 
-    function handlernew(left)
+    function handlernew(leaf)
     {
 	var p = getSelectedNode(tree);
 	var parentId = '';
@@ -370,7 +370,7 @@ Ext.onReady(function()
 	var wait = Ext.Msg.wait("正在执行......", "操作提示");
 	Ext.Ajax.request(
 	{
-	    url : urlprefix + '!fresh.do',
+	    url : actionUrl + '!fresh.do',
 	    method : 'POST',
 	    success : function(response, options)
 	    {
@@ -378,7 +378,7 @@ Ext.onReady(function()
 		var data = Ext.create('RightModel');
 		result.parentId = parentId;
 		data.data = result;
-		data.data.leaf = left;
+		data.data.leaf = leaf;
 		data.data.type = 'URL';
 		wait.close();
 		showform(data);
@@ -411,7 +411,7 @@ Ext.onReady(function()
 		Ext.Msg.wait("正在执行......", "操作提示");
 		Ext.Ajax.request(
 		{
-		    url : urlprefix + '!remove.do',
+		    url : actionUrl + '!remove.do',
 		    method : 'POST',
 		    params :
 		    {
@@ -436,7 +436,9 @@ Ext.onReady(function()
 	if (record != null && record != '')
 	{
 	    if (!formwin)
+	    {
 		formwin = Ext.create('Ext.app.RightWindow');
+	    }
 	    formwin.form.getForm().reset();
 	    formwin.show();
 	    formwin.form.loadRecord(record);

@@ -29,13 +29,7 @@ Ext.define('OrganizationWindow',
 	{
 	    xtype : 'hiddenfield',
 	    anchor : '100%',
-	    fieldLabel : '未节点',
-	    name : 'leaf'
-	},
-	{
-	    xtype : 'hiddenfield',
-	    anchor : '100%',
-	    fieldLabel : '菜单标识',
+	    fieldLabel : '节点标识',
 	    name : 'id'
 	},
 	{
@@ -45,10 +39,12 @@ Ext.define('OrganizationWindow',
 	    name : 'parentId'
 	},
 	{
-	    xtype : 'hiddenfield',
+	    allowBlank : false,
+	    msgTarget : 'side',	    
+	    xtype : 'textfield',
 	    anchor : '100%',
-	    fieldLabel : '所属应用',
-	    name : 'appCode'
+	    name : 'code',
+	    fieldLabel : '组织编码'
 	},
 	{
 	    xtype : 'textfield',
@@ -56,31 +52,13 @@ Ext.define('OrganizationWindow',
 	    allowBlank : false,
 	    msgTarget : 'side',
 	    name : 'text',
-	    fieldLabel : '菜单名称'
-	},
-	{
-	    xtype : 'textfield',
-	    anchor : '100%',
-	    name : 'iconCls',
-	    fieldLabel : '图标样式'
-	},
-	{
-	    xtype : 'textfield',
-	    anchor : '100%',
-	    name : 'component',
-	    fieldLabel : '连接或控件'
+	    fieldLabel : '组织名称'
 	},
 	{
 	    xtype : 'numberfield',
 	    anchor : '100%',
 	    fieldLabel : '排列顺序',
 	    name : 'sort'
-	},
-	{
-	    xtype : 'textareafield',
-	    anchor : '100%',
-	    name : 'resource',
-	    fieldLabel : '菜单资源'
 	}
 	]
     }),
@@ -321,7 +299,7 @@ Ext.onReady(function()
 	var wait = Ext.Msg.wait("正在执行......", "操作提示");
 	Ext.Ajax.request(
 	{
-	    url : urlprefix + '!fresh.do',
+	    url : urlprefix + '.do',
 	    method : 'POST',
 	    success : function(response, options)
 	    {
