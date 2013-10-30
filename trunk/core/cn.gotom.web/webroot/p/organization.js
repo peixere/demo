@@ -159,20 +159,12 @@ var MyTreeModel = Ext.define("MyTreeModel",
     },
 
     {
-	name : "iconCls",
+	name : "code",
 	type : "string"
     },
     {
 	name : "leaf",
 	type : "boolean"
-    },
-    {
-	name : 'type',
-	type : 'string'
-    },
-    {
-	name : 'resource',
-	type : 'string'
     },
     {
 	name : "text",
@@ -289,17 +281,7 @@ Ext.onReady(function()
 	},
 	{
 	    xtype : 'gridcolumn',
-	    dataIndex : 'iconCls',
-	    text : '使用样式'
-	},
-	{
-	    xtype : 'gridcolumn',
-	    dataIndex : 'component',
-	    text : '控件或连接'
-	},
-	{
-	    xtype : 'gridcolumn',
-	    dataIndex : 'resource',
+	    dataIndex : 'code',
 	    text : '数据资源'
 	},
 	{
@@ -404,7 +386,7 @@ Ext.onReady(function()
 	if (record != null && record != '')
 	{
 	    if (!formwin)
-		formwin = Ext.create('Ext.app.RightWindow');
+		formwin = Ext.create('OrganizationWindow');
 	    formwin.form.getForm().reset();
 	    formwin.show();
 	    formwin.form.loadRecord(record);
