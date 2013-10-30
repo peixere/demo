@@ -2,7 +2,10 @@ package cn.gotom.web.action;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -15,19 +18,13 @@ import com.google.inject.Inject;
 
 @ParentPackage("json-default")
 @Action(value = "/right", results = { @Result(name = "success", type = "json") })
-public class RightAction extends JsonAction
+public class RightAction
 {
+	protected final Logger log = Logger.getLogger(getClass());
+
 	private String id;
 
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
+	private boolean success;
 
 	@Inject
 	private RightService rightService;
@@ -41,19 +38,47 @@ public class RightAction extends JsonAction
 	public void tree() throws IOException
 	{
 		List<Right> menuList = rightService.loadTree();
-		this.toJSON(menuList);
+		JsonAction.writerToJSON(menuList);
 	}
 
 	@Action(value = "/core/rightload")
 	public void load() throws IOException
 	{
 		Right right = rightService.get(id);
-		this.toJSON(right);
+		JsonAction.writerToJSON(right);
 	}
+
 	@Action(value = "/core/right!save")
 	public void save() throws IOException
 	{
-		Right right = rightService.get(id);
-		this.toJSON(right);
+		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
+		for (String key : params.keySet())
+		{
+			for (String v : params.get(key))
+			{
+				log.debug(key + "=" + v);
+			}
+		}
+		// JsonAction.writerToJSON(this);
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
+	public boolean isSuccess()
+	{
+		return success;
+	}
+
+	public void setSuccess(boolean success)
+	{
+		this.success = success;
 	}
 }
