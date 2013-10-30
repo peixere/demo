@@ -17,7 +17,7 @@ Ext.define('Ext.app.RightWindow',
     {
 	region : 'center',
 	// padding: 20,
-	bodyPadding : 10,
+	bodyPadding : 20,
 	defaults :
 	{
 	    labelAlign : 'right',
@@ -32,22 +32,16 @@ Ext.define('Ext.app.RightWindow',
 	    name : 'id'
 	},
 	{
-	    xtype : 'textfield',
+	    xtype : 'hiddenfield',
 	    anchor : '100%',
 	    fieldLabel : '父节点标识',
 	    name : 'parentId'
 	},
 	{
-	    xtype : 'textfield',
+	    xtype : 'hiddenfield',
 	    anchor : '100%',
 	    fieldLabel : '所属应用',
 	    name : 'appCode'
-	},
-	{
-	    xtype : 'textfield',
-	    anchor : '100%',
-	    fieldLabel : '版本号',
-	    name : 'versionNum'
 	},
 	{
 	    xtype : 'textfield',
