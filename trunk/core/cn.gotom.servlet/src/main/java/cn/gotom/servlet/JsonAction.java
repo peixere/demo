@@ -17,4 +17,14 @@ public abstract class JsonAction
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
 	}
+	
+	public static void writerToJSON(Object value) throws IOException
+	{
+		JSON json = net.sf.json.JSONSerializer.toJSON(value);
+		String encoing = ServletActionContext.getRequest().getCharacterEncoding();
+		ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
+		ServletActionContext.getResponse().getWriter().println(json.toString());
+		ServletActionContext.getResponse().getWriter().flush();
+		ServletActionContext.getResponse().getWriter().close();
+	}
 }
