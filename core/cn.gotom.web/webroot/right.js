@@ -9,6 +9,7 @@ Ext.define('Ext.app.RightWindow',
     titleCollapse : false,
     closeAction : true,
     modal : true,
+    datalist : '',
     layout :
     {
 	type : 'border'
@@ -25,6 +26,12 @@ Ext.define('Ext.app.RightWindow',
 	    labelWidth : 100
 	},
 	items : [
+	{
+	    xtype : 'hiddenfield',
+	    anchor : '100%',
+	    fieldLabel : '未节点',
+	    name : 'leaf'
+	},
 	{
 	    xtype : 'hiddenfield',
 	    anchor : '100%',
@@ -72,9 +79,7 @@ Ext.define('Ext.app.RightWindow',
 	{
 	    xtype : 'textareafield',
 	    anchor : '100%',
-	    allowBlank : false,
 	    name : 'resource',
-	    msgTarget : 'side',
 	    fieldLabel : '菜单资源'
 	}
 	]
@@ -102,6 +107,7 @@ Ext.define('Ext.app.RightWindow',
 			{
 			    Ext.Msg.alert('信息提示', '保存成功');
 			    me.close();
+			    location.reload();
 			},
 			failure : function(f, action)
 			{
@@ -146,7 +152,7 @@ var RightModel = Ext.define("RightModel",
     {
 	name : "parentId",
 	type : "string"
-    },    
+    },
     {
 	name : 'sort',
 	type : 'int'
@@ -179,7 +185,7 @@ var RightModel = Ext.define("RightModel",
     {
 	name : "appCode",
 	type : "string"
-    },    
+    },
     {
 	name : 'checked',
 	type : "boolean"
@@ -202,7 +208,7 @@ function rightTreeStore(url, pid)
 	nodeParam : "id"
     });
 };
-
+var treeStore = rightTreeStore('p/right!tree.do', '');
 Ext.onReady(function()
 {
     var view = Ext.create("Ext.container.Viewport",
@@ -210,7 +216,6 @@ Ext.onReady(function()
 	layout : "border"
     });
 
-    var treeStore = rightTreeStore('p/right!tree.do', '');
     var tree = Ext.create('Ext.tree.Panel',
     {
 	// title: '菜单列表',
@@ -229,6 +234,10 @@ Ext.onReady(function()
 	rootVisible : false,
 	store : treeStore,
 	multiSelect : false,
+	root :
+	{
+	    expanded : true
+	},
 	tbar : [
 	{
 	    xtype : 'button',
@@ -236,7 +245,7 @@ Ext.onReady(function()
 	    text : '刷新',
 	    handler : function(button, e)
 	    {
-		handlerref(button, e);
+		location.reload();
 	    }
 	},
 	{
@@ -306,12 +315,6 @@ Ext.onReady(function()
     function handlerdel(button, e)
     {
 	Ext.Msg.alert('选中项', getAllChecked(tree));
-    }
-
-    function handlerref(button, e)
-    {
-	treeStore.reload();
-	tree.expandAll();
     }
 
     function showform(record)
