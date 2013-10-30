@@ -28,6 +28,8 @@ public class OrganizationAction
 
 	private String id;
 
+	private String parentId;
+
 	private boolean success;
 
 	@Inject
@@ -36,19 +38,19 @@ public class OrganizationAction
 	public void execute() throws IOException
 	{
 		Organization e = service.get(this.getId());
+		if (e == null)
+		{
+			e = new Organization();
+			e.setParentId(this.getParentId());
+		}
 		JsonAction.writerToJSON(e);
-	}
-
-	public void fresh() throws IOException
-	{
-		Organization o = new Organization();
-		JsonAction.writerToJSON(o);
 	}
 
 	public void tree() throws IOException
 	{
 		List<Organization> menuList = service.loadTree();
-		if(menuList.size() == 0){
+		if (menuList.size() == 0)
+		{
 			Organization o = new Organization();
 			o.setText("能源管理委员会");
 			o.setCode("");
@@ -116,4 +118,15 @@ public class OrganizationAction
 	{
 		this.success = success;
 	}
+
+	public String getParentId()
+	{
+		return parentId;
+	}
+
+	public void setParentId(String parentId)
+	{
+		this.parentId = parentId;
+	}
+
 }

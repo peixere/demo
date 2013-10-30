@@ -54,7 +54,7 @@ public class RightAction
 			o.setText("系统管理");
 			rightService.save(o);
 			menuList.add(o);
-		}		
+		}
 		JsonAction.writerToJSON(menuList);
 	}
 
