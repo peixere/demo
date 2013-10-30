@@ -291,6 +291,7 @@ Ext.onReady(function()
     function handlerref(button, e)
     {
 	treeStore.reload();
+	tree.expandAll();
     }
     
     function showform(record)
@@ -303,5 +304,6 @@ Ext.onReady(function()
 	    formwin.form.loadRecord(record);
 	}
     }
+    tree.expandAll();
     view.add(tree);
 });
