@@ -40,6 +40,12 @@ public class RightAction
 		JsonAction.writerToJSON(right);
 	}
 
+	public void fresh() throws IOException
+	{
+		Right right = new Right();
+		JsonAction.writerToJSON(right);
+	}
+
 	public void tree() throws IOException
 	{
 		List<Right> menuList = rightService.loadTree();
@@ -52,9 +58,17 @@ public class RightAction
 		if (StringUtils.isNotEmpty(ids))
 		{
 			String[] idarray = ids.split(",");
+			this.setSuccess(true);
 			for (String id : idarray)
 			{
-				rightService.remove(id);
+				if (rightService.findByParentId(id).size() > 0)
+				{
+					rightService.remove(id);
+				}
+				else
+				{
+					this.setSuccess(false);
+				}
 			}
 		}
 		return "success";
