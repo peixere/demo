@@ -319,7 +319,7 @@ Ext.onReady(function()
 	{
 	    Ext.Msg.show(
 	    {
-		//width : 200
+		// width : 200
 		title : "操作提示",
 		msg : "请选择要删除的节点!",
 		icon : Ext.Msg.WARNING
