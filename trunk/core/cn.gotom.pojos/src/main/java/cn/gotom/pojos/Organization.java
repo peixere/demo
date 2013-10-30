@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 
@@ -34,8 +35,8 @@ public class Organization extends SuperEntity implements Serializable
 	@Column(name = "code", nullable = false, length = 50)
 	private String code;
 
-	@Column(name = "name", nullable = false, length = 100)
-	private String name;
+	@Column(name = "text", nullable = false, length = 100)
+	private String text;
 
 	@Column(name = "sort", nullable = false)
 	private int sort;
@@ -43,6 +44,9 @@ public class Organization extends SuperEntity implements Serializable
 	@ManyToMany
 	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "org_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
 	private java.util.List<User> users;
+
+	@Transient
+	private java.util.List<Organization> children;
 
 	public String getParentId()
 	{
@@ -64,14 +68,14 @@ public class Organization extends SuperEntity implements Serializable
 		this.code = code;
 	}
 
-	public String getName()
+	public String getText()
 	{
-		return name;
+		return text;
 	}
 
-	public void setName(String name)
+	public void setText(String text)
 	{
-		this.name = name;
+		this.text = text;
 	}
 
 	public int getSort()
@@ -92,6 +96,16 @@ public class Organization extends SuperEntity implements Serializable
 	public void setUsers(java.util.List<User> users)
 	{
 		this.users = users;
+	}
+
+	public java.util.List<Organization> getChildren()
+	{
+		return children;
+	}
+
+	public void setChildren(java.util.List<Organization> children)
+	{
+		this.children = children;
 	}
 
 }
