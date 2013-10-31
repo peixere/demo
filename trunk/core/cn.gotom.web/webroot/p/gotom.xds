@@ -25,8 +25,7 @@
             "paths": [
                 "metadata/view/Portal",
                 "classes/view/override/Portal.js",
-                "classes/view/Portal.js",
-                "classes/view/Viewport.js"
+                "classes/view/Portal.js"
             ],
             "className": "Portal"
         },
@@ -118,14 +117,6 @@
             ],
             "className": "OrganizationModel"
         },
-        "c6def5d7-0035-4217-b71b-28de9284dc88": {
-            "paths": [
-                "metadata/view/OrgViewport",
-                "classes/view/override/OrgViewport.js",
-                "classes/view/OrgViewport.js"
-            ],
-            "className": "OrgViewport"
-        },
         "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0": {
             "paths": [
                 "metadata/view/OrganizationTree",
@@ -133,6 +124,39 @@
                 "classes/view/OrganizationTree.js"
             ],
             "className": "OrganizationTree"
+        },
+        "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d": {
+            "paths": [
+                "metadata/view/OrgViewport",
+                "classes/view/override/OrgViewport.js",
+                "classes/view/OrgViewport.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "OrgViewport"
+        },
+        "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89": {
+            "paths": [
+                "metadata/view/OrganizationTreeGrid",
+                "classes/view/override/OrganizationTreeGrid.js",
+                "classes/view/OrganizationTreeGrid.js"
+            ],
+            "className": "OrganizationTreeGrid"
+        },
+        "8b5b629a-7c35-4103-ad47-a13ab196e213": {
+            "paths": [
+                "metadata/view/OrganizationWindow",
+                "classes/view/override/OrganizationWindow.js",
+                "classes/view/OrganizationWindow.js"
+            ],
+            "className": "OrganizationWindow"
+        },
+        "6b7eab72-8ed2-4132-9442-201444cea2b0": {
+            "paths": [
+                "metadata/view/OrganizationForm",
+                "classes/view/override/OrganizationForm.js",
+                "classes/view/OrganizationForm.js"
+            ],
+            "className": "OrganizationForm"
         }
     },
     "viewOrderMap": {
@@ -144,9 +168,12 @@
             "f99c2676-b5b6-4021-b0ae-33546d412a7b",
             "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
             "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
+            "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
             "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
-            "c6def5d7-0035-4217-b71b-28de9284dc88",
-            "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0"
+            "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0",
+            "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
+            "8b5b629a-7c35-4103-ad47-a13ab196e213",
+            "6b7eab72-8ed2-4132-9442-201444cea2b0"
         ],
         "store": [
             "68ea48df-d289-4169-aecd-2a5d718a55a7",

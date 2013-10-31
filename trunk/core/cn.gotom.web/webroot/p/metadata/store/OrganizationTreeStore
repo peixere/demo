@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "model": "TreeModel",
+        "model": "OrganizationModel",
         "storeId": "OrganizationTreeStore",
         "designer|userClassName": "OrganizationTreeStore",
         "designer|userAlias": "OrganizationTreeStore",
@@ -22,7 +22,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "../p/right!tree.do"
+                "url": "../p/organization!tree.do"
             },
             "designerId": "ceaa342e-73a9-4d72-b111-3737add4cb67"
         }
