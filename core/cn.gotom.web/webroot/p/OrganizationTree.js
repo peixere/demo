@@ -41,6 +41,18 @@ Ext.application({
     autoCreateViewport: false,
     name: 'Gotom'
 });
+
+Ext.define('MyOrganizationPanel', {
+    extend: 'OrganizationPanel',
+    onOrganizationTreeItemClick: function(dataview, record, item, index, e, eOpts) {
+        var ContentPanel = Ext.getCmp('ContentPanel');
+        ContentPanel.setTitle('--'+record.data.text);
+        ContentPanel.update('<iframe width="100%" height="100%" frameborder="0" src="http://www.baidu.com"></iframe>');
+    }
+
+});
+
 Ext.onReady(function(){
-    Ext.create('Gotom.view.OrganizationView');
+    var view = Ext.create('Viewport');
+    view.add(Ext.create('MyOrganizationPanel'));
 });

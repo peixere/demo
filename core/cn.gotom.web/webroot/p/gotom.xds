@@ -2,7 +2,12 @@
     "name": "gotom",
     "settings": {
         "urlPrefix": "http://localhost:8080/p/",
-        "exportPath": ""
+        "exportPath": "",
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": true
     },
     "xdsVersion": "2.2.2",
     "xdsBuild": 991,
@@ -104,6 +109,22 @@
                 "classes/view/OrganizationPanel.js"
             ],
             "className": "OrganizationPanel"
+        },
+        "b8c562b6-aeba-48c3-86ff-2b4509c6d545": {
+            "paths": [
+                "metadata/model/OrganizationModel",
+                "classes/model/override/OrganizationModel.js",
+                "classes/model/OrganizationModel.js"
+            ],
+            "className": "OrganizationModel"
+        },
+        "c6def5d7-0035-4217-b71b-28de9284dc88": {
+            "paths": [
+                "metadata/view/OrgViewport",
+                "classes/view/override/OrgViewport.js",
+                "classes/view/OrgViewport.js"
+            ],
+            "className": "OrgViewport"
         }
     },
     "viewOrderMap": {
@@ -115,7 +136,8 @@
             "f99c2676-b5b6-4021-b0ae-33546d412a7b",
             "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
             "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
-            "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0"
+            "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
+            "c6def5d7-0035-4217-b71b-28de9284dc88"
         ],
         "store": [
             "68ea48df-d289-4169-aecd-2a5d718a55a7",
@@ -123,7 +145,8 @@
         ],
         "controller": [],
         "model": [
-            "6ee1468f-9e3f-4501-983e-34872958b5fd"
+            "6ee1468f-9e3f-4501-983e-34872958b5fd",
+            "b8c562b6-aeba-48c3-86ff-2b4509c6d545"
         ],
         "resource": [
             "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2"

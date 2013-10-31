@@ -8,7 +8,8 @@
     "userConfig": {
         "models": [
             "TreeModel",
-            "MyModel1"
+            "MyModel1",
+            "OrganizationModel"
         ],
         "stores": [
             "PortalTreeStore",
@@ -22,7 +23,8 @@
             "PortalTab",
             "PortalPanel",
             "OrganizationView",
-            "OrganizationPanel"
+            "OrganizationPanel",
+            "OrgViewport"
         ],
         "appFolder": "classes",
         "appProperty": "gotom",
