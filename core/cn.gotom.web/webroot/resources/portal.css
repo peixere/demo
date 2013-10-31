@@ -225,8 +225,13 @@
 }
 
 .icon-cancel{
-	background-image: url(icons/fam/cancel.png) !important;
+	background-image: url(icons/fam/cancel.gif) !important;
 }
+
+.icon-close{
+	background-image: url(icons/fam/cancel.gif) !important;
+}
+
 .icon-tip{
 	background-image: url(icons/fam/tip.png) !important;
 }
