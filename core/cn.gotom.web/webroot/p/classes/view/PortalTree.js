@@ -30,6 +30,7 @@ Ext.define('Gotom.view.PortalTree', {
     title: 'TreePanel',
     titleCollapse: false,
     columnLines: false,
+    store: 'PortalTreeStore',
     rootVisible: false,
 
     initComponent: function() {

@@ -6,11 +6,11 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Portal",
-        "designer|userAlias": "Portal",
+        "designer|userClassName": "OrganizationView",
+        "designer|initialView": true,
         "layout": "border"
     },
-    "designerId": "efe7f244-eb55-438d-821b-a238f19aa189",
+    "designerId": "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
     "cn": [
         {
             "type": "linkedinstance",
@@ -22,8 +22,8 @@
             "userConfig": {
                 "layout|region": "center"
             },
-            "designerId": "83c48406-90cf-4d5f-ba41-909794838e46",
-            "masterInstanceId": "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c"
+            "designerId": "d08b4508-d563-490c-957a-742a3d8f53d3",
+            "masterInstanceId": "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0"
         }
     ]
 }

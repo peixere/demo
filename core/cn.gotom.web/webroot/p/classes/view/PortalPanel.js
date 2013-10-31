@@ -45,7 +45,6 @@ Ext.define('Gotom.view.PortalPanel', {
                     xtype: 'PortalTree',
                     id: 'PortalTree',
                     title: 'treePanel',
-                    store: 'PortalTreeStore',
                     region: 'west',
                     split: true,
                     listeners: {

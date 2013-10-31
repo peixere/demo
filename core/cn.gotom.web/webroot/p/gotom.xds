@@ -20,8 +20,7 @@
             "paths": [
                 "metadata/view/Portal",
                 "classes/view/override/Portal.js",
-                "classes/view/Portal.js",
-                "classes/view/Viewport.js"
+                "classes/view/Portal.js"
             ],
             "className": "Portal"
         },
@@ -81,13 +80,30 @@
             ],
             "className": "PortalTreeStore"
         },
-        "4e602a23-242a-49bb-8981-9b682f1050fd": {
+        "24627296-f776-4b9b-8ff9-a32f299758f7": {
             "paths": [
-                "metadata/view/MyPanel1",
-                "classes/view/override/MyPanel1.js",
-                "classes/view/MyPanel1.js"
+                "metadata/store/OrganizationTreeStore",
+                "classes/store/override/OrganizationTreeStore.js",
+                "classes/store/OrganizationTreeStore.js"
             ],
-            "className": "MyPanel1"
+            "className": "OrganizationTreeStore"
+        },
+        "f55b9a72-ec2c-4ad1-9502-744db3d87be0": {
+            "paths": [
+                "metadata/view/OrganizationView",
+                "classes/view/override/OrganizationView.js",
+                "classes/view/OrganizationView.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "OrganizationView"
+        },
+        "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0": {
+            "paths": [
+                "metadata/view/OrganizationPanel",
+                "classes/view/override/OrganizationPanel.js",
+                "classes/view/OrganizationPanel.js"
+            ],
+            "className": "OrganizationPanel"
         }
     },
     "viewOrderMap": {
@@ -98,10 +114,12 @@
             "c3751397-361f-478a-a891-a74a80a33e0b",
             "f99c2676-b5b6-4021-b0ae-33546d412a7b",
             "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
-            "4e602a23-242a-49bb-8981-9b682f1050fd"
+            "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
+            "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0"
         ],
         "store": [
-            "68ea48df-d289-4169-aecd-2a5d718a55a7"
+            "68ea48df-d289-4169-aecd-2a5d718a55a7",
+            "24627296-f776-4b9b-8ff9-a32f299758f7"
         ],
         "controller": [],
         "model": [

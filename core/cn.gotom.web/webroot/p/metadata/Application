@@ -10,7 +10,8 @@
             "TreeModel"
         ],
         "stores": [
-            "PortalTreeStore"
+            "PortalTreeStore",
+            "OrganizationTreeStore"
         ],
         "views": [
             "Portal",
@@ -19,7 +20,8 @@
             "PortalFooter",
             "PortalTab",
             "PortalPanel",
-            "MyPanel1"
+            "OrganizationView",
+            "OrganizationPanel"
         ],
         "appFolder": "classes",
         "appProperty": "gotom",

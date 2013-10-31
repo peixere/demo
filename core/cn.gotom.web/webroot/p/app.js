@@ -23,7 +23,8 @@ Ext.application({
         'TreeModel'
     ],
     stores: [
-        'PortalTreeStore'
+        'PortalTreeStore',
+        'OrganizationTreeStore'
     ],
     views: [
         'Portal',
@@ -32,7 +33,8 @@ Ext.application({
         'PortalFooter',
         'PortalTab',
         'PortalPanel',
-        'MyPanel1'
+        'OrganizationView',
+        'OrganizationPanel'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',

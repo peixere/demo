@@ -42,7 +42,6 @@
             "userConfig": {
                 "id": "PortalTree",
                 "title": "treePanel",
-                "store": "PortalTreeStore",
                 "layout|region": "west",
                 "layout|split": true
             },
