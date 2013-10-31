@@ -1,6 +1,9 @@
 {
     "name": "gotom",
-    "settings": {},
+    "settings": {
+        "urlPrefix": "http://localhost:8080/p/",
+        "exportPath": ""
+    },
     "xdsVersion": "2.2.2",
     "xdsBuild": 991,
     "schemaVersion": 1,
@@ -77,6 +80,14 @@
                 "classes/store/PortalTreeStore.js"
             ],
             "className": "PortalTreeStore"
+        },
+        "4e602a23-242a-49bb-8981-9b682f1050fd": {
+            "paths": [
+                "metadata/view/MyPanel1",
+                "classes/view/override/MyPanel1.js",
+                "classes/view/MyPanel1.js"
+            ],
+            "className": "MyPanel1"
         }
     },
     "viewOrderMap": {
@@ -86,7 +97,8 @@
             "dc36f7e3-3276-4bb8-9479-e162c759d9d4",
             "c3751397-361f-478a-a891-a74a80a33e0b",
             "f99c2676-b5b6-4021-b0ae-33546d412a7b",
-            "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c"
+            "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
+            "4e602a23-242a-49bb-8981-9b682f1050fd"
         ],
         "store": [
             "68ea48df-d289-4169-aecd-2a5d718a55a7"
