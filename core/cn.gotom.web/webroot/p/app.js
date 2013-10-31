@@ -31,7 +31,8 @@ Ext.application({
         'PortalTree',
         'PortalFooter',
         'PortalTab',
-        'PortalPanel'
+        'PortalPanel',
+        'MyPanel1'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
