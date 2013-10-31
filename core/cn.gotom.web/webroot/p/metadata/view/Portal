@@ -1,0 +1,47 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Portal",
+        "designer|userAlias": "Portal",
+        "designer|initialView": true,
+        "layout": "border"
+    },
+    "designerId": "efe7f244-eb55-438d-821b-a238f19aa189",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "83c48406-90cf-4d5f-ba41-909794838e46",
+            "masterInstanceId": "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onViewportShow",
+                "implHandler": [
+                    "alert('ss');"
+                ],
+                "name": "show",
+                "scope": "me"
+            },
+            "designerId": "4e0d2256-be3a-4f82-b3ab-ff3157fdaefe"
+        }
+    ]
+}

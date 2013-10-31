@@ -1,0 +1,30 @@
+{
+    "type": "Ext.data.TreeStore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "TreeModel",
+        "storeId": "PortalTreeStore",
+        "designer|userClassName": "PortalTreeStore",
+        "designer|userAlias": "PortalTreeStore",
+        "nodeParam": "id"
+    },
+    "designerId": "68ea48df-d289-4169-aecd-2a5d718a55a7",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "http://localhost:8080/p/right!tree.do"
+            },
+            "designerId": "28748f8f-1774-43ec-a323-5cbbb059681f"
+        }
+    ]
+}
