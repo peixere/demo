@@ -17,6 +17,10 @@ Ext.define('Gotom.view.OrganizationPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.OrganizationPanel',
 
+    requires: [
+        'Gotom.view.OrganizationTree'
+    ],
+
     id: 'OrganizationPanel',
     layout: {
         type: 'border'
@@ -30,24 +34,9 @@ Ext.define('Gotom.view.OrganizationPanel', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'treepanel',
+                    xtype: 'OrganizationTree',
                     region: 'west',
                     split: true,
-                    id: 'OrganizationTree',
-                    maxWidth: 400,
-                    minWidth: 120,
-                    width: 150,
-                    autoScroll: true,
-                    bodyBorder: false,
-                    animCollapse: true,
-                    collapsed: false,
-                    collapsible: true,
-                    overlapHeader: false,
-                    title: '组织架构',
-                    titleCollapse: false,
-                    columnLines: false,
-                    store: 'OrganizationTreeStore',
-                    rootVisible: false,
                     listeners: {
                         itemclick: {
                             fn: me.onOrganizationTreeItemClick,
@@ -68,9 +57,7 @@ Ext.define('Gotom.view.OrganizationPanel', {
     },
 
     onOrganizationTreeItemClick: function(dataview, record, item, index, e, eOpts) {
-        var ContentPanel = Ext.getCmp('ContentPanel');
-        ContentPanel.setTitle(record.data.text);
-        ContentPanel.update('<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>');
+
     }
 
 });

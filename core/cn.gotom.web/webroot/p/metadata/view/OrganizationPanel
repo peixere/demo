@@ -19,7 +19,7 @@
     "designerId": "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
     "cn": [
         {
-            "type": "Ext.tree.Panel",
+            "type": "linkedinstance",
             "reference": {
                 "name": "items",
                 "type": "array"
@@ -27,25 +27,10 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "west",
-                "layout|split": true,
-                "id": "OrganizationTree",
-                "maxWidth": 400,
-                "minWidth": 120,
-                "width": 150,
-                "autoScroll": true,
-                "bodyBorder": false,
-                "animCollapse": true,
-                "collapsed": false,
-                "collapsible": true,
-                "overlapHeader": false,
-                "title": "组织架构",
-                "titleAlign": null,
-                "titleCollapse": false,
-                "columnLines": false,
-                "store": "OrganizationTreeStore",
-                "rootVisible": false
+                "layout|split": true
             },
-            "designerId": "c462a667-abf3-46d6-8df9-dc7fb9fcc7be",
+            "designerId": "1cee07b2-6b58-4693-ba4b-75d951f58bb1",
+            "masterInstanceId": "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0",
             "cn": [
                 {
                     "type": "basiceventbinding",
@@ -57,14 +42,12 @@
                     "userConfig": {
                         "fn": "onOrganizationTreeItemClick",
                         "implHandler": [
-                            "var ContentPanel = Ext.getCmp('ContentPanel');\r",
-                            "ContentPanel.setTitle(record.data.text);\r",
-                            "ContentPanel.update('<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"http://www.google.com.hk\"></iframe>');"
+                            ""
                         ],
                         "name": "itemclick",
                         "scope": "me"
                     },
-                    "designerId": "133bcc4b-deaa-4774-a675-d54675a2fff1"
+                    "designerId": "d3c2b11b-a5f4-4eef-9797-731cbc2730ab"
                 }
             ]
         },

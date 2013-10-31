@@ -23,7 +23,8 @@
             "PortalPanel",
             "OrganizationView",
             "OrganizationPanel",
-            "OrgViewport"
+            "OrgViewport",
+            "OrganizationTree"
         ],
         "appFolder": "classes",
         "appProperty": "gotom",
