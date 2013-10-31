@@ -126,32 +126,6 @@
                 "type": "string"
             },
             "designerId": "1d9576bf-d339-47f2-88f5-8a74c3fc2ae9"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "appCode",
-                "type": "string"
-            },
-            "designerId": "7ab7d7b4-0f6f-4407-8957-cd52289f0fb5"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "checked",
-                "type": "boolean"
-            },
-            "designerId": "23fa11d5-4e62-4f8e-b806-21f6910b20f1"
         }
     ]
 }

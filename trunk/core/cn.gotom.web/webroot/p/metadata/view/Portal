@@ -8,6 +8,7 @@
     "userConfig": {
         "designer|userClassName": "Portal",
         "designer|userAlias": "Portal",
+        "designer|initialView": true,
         "layout": "border"
     },
     "designerId": "efe7f244-eb55-438d-821b-a238f19aa189",
