@@ -1,0 +1,143 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PortalPanel",
+        "designer|userAlias": "PortalPanel",
+        "layout": "border",
+        "header": false,
+        "title": "PortalPanel"
+    },
+    "configAlternates": {
+        "mystore": "object"
+    },
+    "designerId": "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "header",
+                "title": "headerPanel",
+                "layout|region": "north"
+            },
+            "designerId": "b3e03c75-7467-4f33-9dbe-d18dbefe1188",
+            "masterInstanceId": "af6a7475-07fb-423e-9413-2d4bbaa1ba92"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "treePanel",
+                "title": "treePanel",
+                "store": "PortalTreeStore",
+                "layout|region": "west",
+                "layout|split": true
+            },
+            "configAlternates": {
+                "mystore": "object"
+            },
+            "designerId": "07151a67-72c2-4351-b20a-d2ee1bb765fe",
+            "masterInstanceId": "dc36f7e3-3276-4bb8-9479-e162c759d9d4",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTreelItemClick",
+                        "implHandler": [
+                            ""
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "designerId": "8afbd5a9-7808-4579-9559-467490ed17b2"
+                }
+            ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "title": "footerPanel",
+                "layout|region": "south"
+            },
+            "designerId": "3b749a81-13f3-4fc6-b9aa-ace93e1fb53d",
+            "masterInstanceId": "c3751397-361f-478a-a891-a74a80a33e0b"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "0dd6abf7-3144-4ec6-b1ff-01f7b7d8ceb8",
+            "masterInstanceId": "f99c2676-b5b6-4021-b0ae-33546d412a7b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getHeader",
+                "implHandler": [
+                    "    "
+                ]
+            },
+            "designerId": "dded4bd1-7589-4b0c-a6b7-49416b72d312"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getTreeStore",
+                "implHandler": [
+                    "\t    var jsonStore = Ext.create(\"Ext.data.TreeStore\",\r",
+                    "\t    {\r",
+                    "\t\t\tmodel : 'Gotom.model.TreeModel',\r",
+                    "\t\t\tproxy :\r",
+                    "\t\t\t{\r",
+                    "\t\t\t    type : \"ajax\",\r",
+                    "\t\t\t    url : 'http://localhost:8080/p/right!tree.do'\r",
+                    "\t\t\t},\r",
+                    "\t\t\tclearOnLoad : true,\r",
+                    "\t\t\tnodeParam : \"id\"\r",
+                    "\t    });\r",
+                    "\t    return jsonStore;"
+                ]
+            },
+            "designerId": "267da080-2c4a-4cf9-968c-a96c3c2f6e3a"
+        }
+    ]
+}

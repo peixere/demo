@@ -1,0 +1,29 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "TreeModel"
+        ],
+        "stores": [
+            "PortalTreeStore"
+        ],
+        "views": [
+            "Portal",
+            "PortalHeader",
+            "PortalTree",
+            "PortalFooter",
+            "PortalTab",
+            "PortalPanel"
+        ],
+        "appFolder": "classes",
+        "appProperty": "gotom",
+        "autoCreateViewport": true,
+        "name": "Gotom"
+    },
+    "designerId": "application"
+}

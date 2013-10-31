@@ -1,0 +1,27 @@
+{
+    "type": "Ext.tree.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 487,
+        "maxWidth": 400,
+        "minWidth": 120,
+        "width": 180,
+        "designer|userClassName": "PortalTree",
+        "designer|userAlias": "PortalTree",
+        "autoScroll": true,
+        "bodyBorder": false,
+        "animCollapse": true,
+        "collapsed": false,
+        "collapsible": true,
+        "overlapHeader": false,
+        "title": "TreePanel",
+        "titleCollapse": false,
+        "columnLines": false,
+        "rootVisible": false
+    },
+    "designerId": "dc36f7e3-3276-4bb8-9479-e162c759d9d4"
+}

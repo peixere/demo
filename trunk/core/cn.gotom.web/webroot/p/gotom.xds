@@ -1,0 +1,105 @@
+{
+    "name": "gotom",
+    "settings": {},
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 991,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "efe7f244-eb55-438d-821b-a238f19aa189": {
+            "paths": [
+                "metadata/view/Portal",
+                "classes/view/override/Portal.js",
+                "classes/view/Portal.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "Portal"
+        },
+        "af6a7475-07fb-423e-9413-2d4bbaa1ba92": {
+            "paths": [
+                "metadata/view/PortalHeader",
+                "classes/view/override/PortalHeader.js",
+                "classes/view/PortalHeader.js"
+            ],
+            "className": "PortalHeader"
+        },
+        "dc36f7e3-3276-4bb8-9479-e162c759d9d4": {
+            "paths": [
+                "metadata/view/PortalTree",
+                "classes/view/override/PortalTree.js",
+                "classes/view/PortalTree.js"
+            ],
+            "className": "PortalTree"
+        },
+        "c3751397-361f-478a-a891-a74a80a33e0b": {
+            "paths": [
+                "metadata/view/PortalFooter",
+                "classes/view/override/PortalFooter.js",
+                "classes/view/PortalFooter.js"
+            ],
+            "className": "PortalFooter"
+        },
+        "f99c2676-b5b6-4021-b0ae-33546d412a7b": {
+            "paths": [
+                "metadata/view/PortalTab",
+                "classes/view/override/PortalTab.js",
+                "classes/view/PortalTab.js"
+            ],
+            "className": "PortalTab"
+        },
+        "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c": {
+            "paths": [
+                "metadata/view/PortalPanel",
+                "classes/view/override/PortalPanel.js",
+                "classes/view/PortalPanel.js"
+            ],
+            "className": "PortalPanel"
+        },
+        "6ee1468f-9e3f-4501-983e-34872958b5fd": {
+            "paths": [
+                "metadata/model/TreeModel",
+                "classes/model/override/TreeModel.js",
+                "classes/model/TreeModel.js"
+            ],
+            "className": "TreeModel"
+        },
+        "68ea48df-d289-4169-aecd-2a5d718a55a7": {
+            "paths": [
+                "metadata/store/PortalTreeStore",
+                "classes/store/override/PortalTreeStore.js",
+                "classes/store/PortalTreeStore.js"
+            ],
+            "className": "PortalTreeStore"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "efe7f244-eb55-438d-821b-a238f19aa189",
+            "af6a7475-07fb-423e-9413-2d4bbaa1ba92",
+            "dc36f7e3-3276-4bb8-9479-e162c759d9d4",
+            "c3751397-361f-478a-a891-a74a80a33e0b",
+            "f99c2676-b5b6-4021-b0ae-33546d412a7b",
+            "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c"
+        ],
+        "store": [
+            "68ea48df-d289-4169-aecd-2a5d718a55a7"
+        ],
+        "controller": [],
+        "model": [
+            "6ee1468f-9e3f-4501-983e-34872958b5fd"
+        ],
+        "resource": [
+            "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
