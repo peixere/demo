@@ -52,14 +52,6 @@ Ext.define('Gotom.model.TreeModel', {
         {
             name: 'text',
             type: 'string'
-        },
-        {
-            name: 'appCode',
-            type: 'string'
-        },
-        {
-            name: 'checked',
-            type: 'boolean'
         }
     ]
 });

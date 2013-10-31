@@ -20,7 +20,8 @@
             "paths": [
                 "metadata/view/Portal",
                 "classes/view/override/Portal.js",
-                "classes/view/Portal.js"
+                "classes/view/Portal.js",
+                "classes/view/Viewport.js"
             ],
             "className": "Portal"
         },
@@ -92,8 +93,7 @@
             "paths": [
                 "metadata/view/OrganizationView",
                 "classes/view/override/OrganizationView.js",
-                "classes/view/OrganizationView.js",
-                "classes/view/Viewport.js"
+                "classes/view/OrganizationView.js"
             ],
             "className": "OrganizationView"
         },
