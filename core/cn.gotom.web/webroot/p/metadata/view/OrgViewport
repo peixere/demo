@@ -9,20 +9,5 @@
         "designer|userClassName": "OrgViewport",
         "layout": "border"
     },
-    "designerId": "c6def5d7-0035-4217-b71b-28de9284dc88",
-    "cn": [
-        {
-            "type": "Ext.panel.Panel",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|region": "center",
-                "title": "My Panel"
-            },
-            "designerId": "d59a860e-f102-4eea-8eb1-b806657ade4d"
-        }
-    ]
+    "designerId": "c6def5d7-0035-4217-b71b-28de9284dc88"
 }
