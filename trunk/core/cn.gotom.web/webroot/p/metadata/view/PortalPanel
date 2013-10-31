@@ -40,7 +40,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "id": "treePanel",
+                "id": "PortalTree",
                 "title": "treePanel",
                 "store": "PortalTreeStore",
                 "layout|region": "west",
@@ -62,7 +62,8 @@
                     "userConfig": {
                         "fn": "onTreelItemClick",
                         "implHandler": [
-                            ""
+                            "var tree = Ext.getCmp('PortalTree');\r",
+                            "tree.setTitle(record.data.text);"
                         ],
                         "name": "itemclick",
                         "scope": "me"

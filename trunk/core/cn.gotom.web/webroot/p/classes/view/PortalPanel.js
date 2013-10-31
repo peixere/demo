@@ -43,7 +43,7 @@ Ext.define('Gotom.view.PortalPanel', {
                 },
                 {
                     xtype: 'PortalTree',
-                    id: 'treePanel',
+                    id: 'PortalTree',
                     title: 'treePanel',
                     store: 'PortalTreeStore',
                     region: 'west',
@@ -71,7 +71,8 @@ Ext.define('Gotom.view.PortalPanel', {
     },
 
     onTreelItemClick: function(dataview, record, item, index, e, eOpts) {
-
+        var tree = Ext.getCmp('PortalTree');
+        tree.setTitle(record.data.text);
     },
 
     getHeader: function() {
