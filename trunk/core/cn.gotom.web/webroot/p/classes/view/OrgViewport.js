@@ -23,16 +23,6 @@ Ext.define('Gotom.view.OrgViewport', {
     initComponent: function() {
         var me = this;
 
-        Ext.applyIf(me, {
-            items: [
-                {
-                    xtype: 'panel',
-                    region: 'center',
-                    title: 'My Panel'
-                }
-            ]
-        });
-
         me.callParent(arguments);
     }
 
