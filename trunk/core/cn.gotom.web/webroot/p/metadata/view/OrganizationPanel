@@ -1,0 +1,86 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "OrganizationPanel",
+        "designer|userClassName": "OrganizationPanel",
+        "designer|userAlias": "OrganizationPanel",
+        "layout": "border",
+        "header": false,
+        "title": "PortalPanel"
+    },
+    "configAlternates": {
+        "mystore": "object"
+    },
+    "designerId": "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
+    "cn": [
+        {
+            "type": "Ext.tree.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "west",
+                "layout|split": true,
+                "id": "OrganizationTree",
+                "maxWidth": 400,
+                "minWidth": 120,
+                "width": 150,
+                "autoScroll": true,
+                "bodyBorder": false,
+                "animCollapse": true,
+                "collapsed": false,
+                "collapsible": true,
+                "overlapHeader": false,
+                "title": "组织架构",
+                "titleAlign": null,
+                "titleCollapse": false,
+                "columnLines": false,
+                "store": "OrganizationTreeStore",
+                "rootVisible": false
+            },
+            "designerId": "c462a667-abf3-46d6-8df9-dc7fb9fcc7be",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onOrganizationTreeItemClick",
+                        "implHandler": [
+                            "var ContentPanel = Ext.getCmp('ContentPanel');\r",
+                            "ContentPanel.setTitle(record.data.text);\r",
+                            "ContentPanel.update('<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"http://www.google.com.hk\"></iframe>');"
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "designerId": "133bcc4b-deaa-4774-a675-d54675a2fff1"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "ContentPanel",
+                "title": "ContentPanel"
+            },
+            "designerId": "efb51949-2ec0-4e79-8268-cd71c1c12d33"
+        }
+    ]
+}

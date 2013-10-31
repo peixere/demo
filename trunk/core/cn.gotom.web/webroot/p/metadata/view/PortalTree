@@ -21,6 +21,7 @@
         "title": "TreePanel",
         "titleCollapse": false,
         "columnLines": false,
+        "store": "PortalTreeStore",
         "rootVisible": false
     },
     "designerId": "dc36f7e3-3276-4bb8-9479-e162c759d9d4"
