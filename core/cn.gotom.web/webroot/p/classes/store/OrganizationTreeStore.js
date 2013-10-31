@@ -18,19 +18,19 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
     alias: 'store.OrganizationTreeStore',
 
     requires: [
-        'Gotom.model.TreeModel'
+        'Gotom.model.OrganizationModel'
     ],
 
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            model: 'Gotom.model.TreeModel',
+            model: 'Gotom.model.OrganizationModel',
             storeId: 'OrganizationTreeStore',
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../p/right!tree.do'
+                url: '../p/organization!tree.do'
             }
         }, cfg)]);
     }

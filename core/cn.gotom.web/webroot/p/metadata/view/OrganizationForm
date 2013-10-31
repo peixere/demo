@@ -1,0 +1,232 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "OrganizationForm",
+        "designer|userClassName": "OrganizationForm",
+        "designer|userAlias": "OrganizationForm",
+        "bodyPadding": 10,
+        "title": null
+    },
+    "designerId": "6b7eab72-8ed2-4132-9442-201444cea2b0",
+    "cn": [
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "id": "organization.id",
+                "fieldLabel": "标识",
+                "name": "organization.id"
+            },
+            "designerId": "7b5325df-b7c6-4e93-8e1e-ae369c69c4bf"
+        },
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "id": "organization.parentId",
+                "fieldLabel": "父节点",
+                "name": "parentId"
+            },
+            "designerId": "6ca4b11a-0d20-46f1-8cf5-67ecff455ffd"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "id": "code",
+                "fieldLabel": "组织编码",
+                "labelAlign": "right",
+                "labelWidth": 60,
+                "name": "code",
+                "invalidText": "组织编码不能为空",
+                "blankText": "组织编码不能为空！"
+            },
+            "designerId": "18e1550b-847e-479a-93c2-8bc1a9243969"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "id": "text",
+                "fieldLabel": "组织名称",
+                "labelAlign": "right",
+                "labelWidth": 60,
+                "name": "text",
+                "invalidText": "不能为空！",
+                "blankText": "不能为空！"
+            },
+            "designerId": "4e4ea5a0-809d-498a-a354-d23ca2677cc2"
+        },
+        {
+            "type": "Ext.form.field.Number",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "id": "sort",
+                "fieldLabel": "排列顺序",
+                "labelAlign": "right",
+                "labelWidth": 60,
+                "name": "sort",
+                "value": [
+                    "0"
+                ],
+                "maxLength": 6,
+                "maxLengthText": "最小值为能< {0}",
+                "size": 6,
+                "maxText": "最大值为能> {0}",
+                "maxValue": 10000,
+                "minText": "最小值为能< {0}",
+                "minValue": -10000
+            },
+            "designerId": "cf561266-cf45-4e59-a6cf-ac5f1e290b18"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "container|pack": "end",
+                "container|padding": 3,
+                "frame": false,
+                "shadowOffset": 10
+            },
+            "designerId": "272bbfc5-131b-4e75-9a0d-1675d7f654f8",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnSave",
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "79f4a14d-865e-4d9f-87f7-010e5276b486",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnSaveClick",
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "19b5baed-5314-4262-b316-98339b8a1aac"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnCancel",
+                        "iconCls": "icon-cacnel",
+                        "text": "取消"
+                    },
+                    "designerId": "6a71f3bb-c2b6-46f3-bdf5-1276af172881",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnCancelClick",
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "0f07b46d-a3b9-4a4d-9ac0-2ae42016f218"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindData",
+                "designer|params": [
+                    "id",
+                    "parentId"
+                ],
+                "implHandler": [
+                    "\tvar wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\");\r",
+                    "\tExt.Ajax.request(\r",
+                    "\t{\r",
+                    "\t    url : '../p/organization.do',\r",
+                    "\t    method : 'POST',\r",
+                    "\t    success : function(response, options)\r",
+                    "\t    {\r",
+                    "            var result = Ext.JSON.decode(response.responseText);\r",
+                    "            var data = Ext.create('MyTreeModel');\r",
+                    "            result.parentId = parentId;\r",
+                    "            data.data = result;\r",
+                    "            data.data.leaf = left;\r",
+                    "            wait.close();\r",
+                    "            showform(data);\r",
+                    "\t    },\r",
+                    "\t    failure : function(response, options)\r",
+                    "\t    {\r",
+                    "            wait.close();\r",
+                    "            Ext.Msg.alert(\"操作提示\", \"载入失败\");\r",
+                    "\t    }\r",
+                    "\t});"
+                ]
+            },
+            "designerId": "ab048c9b-c29c-47a3-9d64-df4bd0e5f16d"
+        }
+    ]
+}

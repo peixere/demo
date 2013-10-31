@@ -37,7 +37,8 @@ Ext.application({
         'OrganizationView',
         'OrganizationPanel',
         'OrgViewport',
-        'OrganizationTree'
+        'OrganizationWindow',
+        'OrganizationForm'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
