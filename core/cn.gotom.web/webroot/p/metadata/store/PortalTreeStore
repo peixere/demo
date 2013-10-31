@@ -22,7 +22,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "http://localhost:8080/p/right!tree.do"
+                "url": "/p/right!tree.do"
             },
             "designerId": "28748f8f-1774-43ec-a323-5cbbb059681f"
         }

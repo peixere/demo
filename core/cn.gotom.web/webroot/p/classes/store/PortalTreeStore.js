@@ -30,7 +30,7 @@ Ext.define('Gotom.store.PortalTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: 'http://localhost:8080/p/right!tree.do'
+                url: '/p/right!tree.do'
             }
         }, cfg)]);
     }
