@@ -20,7 +20,9 @@ Ext.Loader.setConfig({
 
 Ext.application({
     models: [
-        'TreeModel'
+        'TreeModel',
+        'MyModel1',
+        'OrganizationModel'
     ],
     stores: [
         'PortalTreeStore',
@@ -34,7 +36,8 @@ Ext.application({
         'PortalTab',
         'PortalPanel',
         'OrganizationView',
-        'OrganizationPanel'
+        'OrganizationPanel',
+        'OrgViewport'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
