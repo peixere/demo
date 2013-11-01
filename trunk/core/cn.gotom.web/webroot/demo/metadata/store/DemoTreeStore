@@ -28,6 +28,27 @@
                 "url": "../p/organization!tree.do"
             },
             "designerId": "de4d34ee-4b4f-4414-86b5-b7a14ea4f23b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": null
+            },
+            "designerId": "27f30e39-e68e-4ab5-9ec3-dca868176c23"
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "designerId": "53783589-c683-4d78-b484-04113ee98b5a"
         }
     ]
 }
