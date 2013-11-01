@@ -26,13 +26,14 @@ Ext.application({
         'OrganizationTreeStore'
     ],
     views: [
-        'OrganizationView',
-        'OrganizationPanel',
         'OrganizationCRUB',
-        'OrganizationWinForm'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
-    autoCreateViewport: true,
+    autoCreateViewport: false,
     name: 'Gotom'
+});
+Ext.onReady(function()
+{
+    Ext.create('Gotom.view.OrganizationCRUB');
 });
