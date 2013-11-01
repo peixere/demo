@@ -10,7 +10,7 @@
             "DemoModel"
         ],
         "stores": [
-            "TreeStore"
+            "DemoTreeStore"
         ],
         "views": [
             "DemoViewport",

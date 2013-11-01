@@ -23,7 +23,7 @@ Ext.application({
         'DemoModel'
     ],
     stores: [
-        'TreeStore'
+        'DemoTreeStore'
     ],
     views: [
         'DemoViewport',

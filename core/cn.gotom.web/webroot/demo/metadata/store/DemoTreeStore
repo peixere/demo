@@ -1,0 +1,33 @@
+{
+    "type": "Ext.data.TreeStore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "model": "DemoModel",
+        "storeId": "DemoTreeStore",
+        "designer|userClassName": "DemoTreeStore",
+        "designer|userAlias": "DemoTreeStore",
+        "defaultRootId": "",
+        "defaultRootText": "",
+        "nodeParam": "id"
+    },
+    "designerId": "c7ab7f9c-82c8-4300-919c-6d73092632f8",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "../p/organization!tree.do"
+            },
+            "designerId": "de4d34ee-4b4f-4414-86b5-b7a14ea4f23b"
+        }
+    ]
+}

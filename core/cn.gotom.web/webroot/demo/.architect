@@ -21,13 +21,13 @@
         },
         "054a8a6f-7b10-41a0-902d-6d16b3644105": {
             "id": "054a8a6f-7b10-41a0-902d-6d16b3644105",
+            "expanded": false,
             "cn": [
                 {
                     "id": "570bc2de-51e5-4a79-97b2-d578f05d3a7f"
                 },
                 {
                     "id": "25f336d1-3a04-4dc2-959b-9967c5e09315",
-                    "expanded": false,
                     "cn": [
                         {
                             "id": "917acd45-b9ce-41bc-b38a-483ac8673810",
@@ -74,7 +74,12 @@
                             ]
                         },
                         {
-                            "id": "c676849a-fb73-4470-b8b7-7902e337fb72"
+                            "id": "c676849a-fb73-4470-b8b7-7902e337fb72",
+                            "cn": [
+                                {
+                                    "id": "79a80153-dd4f-4d0a-809f-6fe438390e0e"
+                                }
+                            ]
                         },
                         {
                             "id": "6660abc8-d8ed-43a6-8d88-c44bca19c987"
@@ -124,18 +129,19 @@
             "1cbcceb2-2ce2-4ce6-ba40-e3880d0eeaae",
             "5c307e01-3d73-492a-a143-806196685107",
             "c7ab7f9c-82c8-4300-919c-6d73092632f8",
-            "1f066f0b-9447-42de-aaf8-f4381f248c8e"
+            "1f066f0b-9447-42de-aaf8-f4381f248c8e",
+            "054a8a6f-7b10-41a0-902d-6d16b3644105"
         ]
     },
     "canvasState": {
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "c7ab7f9c-82c8-4300-919c-6d73092632f8",
-        "selectedInstance": "c7ab7f9c-82c8-4300-919c-6d73092632f8"
+        "topInstance": "1f066f0b-9447-42de-aaf8-f4381f248c8e",
+        "selectedInstance": "1f066f0b-9447-42de-aaf8-f4381f248c8e"
     },
     "codeState": {
-        "topInstance": "c7ab7f9c-82c8-4300-919c-6d73092632f8"
+        "topInstance": "1f066f0b-9447-42de-aaf8-f4381f248c8e"
     },
     "editMode": "code"
 }

@@ -31,8 +31,8 @@ Ext.define('MyApp.view.DemoViewport', {
             items: [
                 {
                     xtype: 'DemoTreeGrid',
-                    region: 'center',
-                    store: 'TreeStore'
+                    store: 'DemoTreeStore',
+                    region: 'center'
                 }
             ],
             listeners: {
@@ -47,10 +47,10 @@ Ext.define('MyApp.view.DemoViewport', {
     },
 
     onViewportRender: function(component, eOpts) {
-        alert(id);
+
     },
 
-    loadData: function(id) {
+    loadTreeData: function(id) {
         var parentId = '0000';
         var wait = Ext.Msg.wait("正在载入......", "操作提示");
         Ext.Ajax.request(

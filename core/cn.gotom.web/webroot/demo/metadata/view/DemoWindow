@@ -71,6 +71,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnSaveClick",
+                                "implHandler": [
+                                    ""
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
@@ -102,7 +105,7 @@
                             "userConfig": {
                                 "fn": "onBtnCancelClick",
                                 "implHandler": [
-                                    "\tthis.close();"
+                                    "this.store.reload();"
                                 ],
                                 "name": "click",
                                 "scope": "me"

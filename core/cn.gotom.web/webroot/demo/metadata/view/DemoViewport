@@ -20,8 +20,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|region": "center",
-                "store": "TreeStore"
+                "store": "DemoTreeStore",
+                "layout|region": "center"
             },
             "designerId": "0413328f-02d1-4ed7-846d-2c4a89f3d932",
             "masterInstanceId": "1f066f0b-9447-42de-aaf8-f4381f248c8e"
@@ -34,7 +34,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "loadData",
+                "fn": "loadTreeData",
                 "designer|params": [
                     "id"
                 ],
@@ -75,7 +75,7 @@
             "userConfig": {
                 "fn": "onViewportRender",
                 "implHandler": [
-                    "alert(id);"
+                    ""
                 ],
                 "name": "render",
                 "scope": "me"
