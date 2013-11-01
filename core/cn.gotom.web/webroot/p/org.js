@@ -17,7 +17,6 @@
 Ext.Loader.setConfig({
     enabled: true
 });
-
 Ext.application({
     models: [
         'OrganizationModel'
