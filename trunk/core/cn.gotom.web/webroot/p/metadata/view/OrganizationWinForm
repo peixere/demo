@@ -188,7 +188,7 @@
                             "userConfig": {
                                 "layout|flex": null,
                                 "id": "btnCancel",
-                                "iconCls": "icon-cacnel",
+                                "iconCls": "icon-cancel",
                                 "text": "取消"
                             },
                             "designerId": "6413363c-bfed-4180-b736-bd501385b3d1",
