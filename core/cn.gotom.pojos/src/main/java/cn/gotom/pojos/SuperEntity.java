@@ -1,14 +1,13 @@
 package cn.gotom.pojos;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -25,23 +24,32 @@ public abstract class SuperEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	public static final SimpleDateFormat millisecondformat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+
 	@Id()
 	@Column(name = "id", nullable = false, columnDefinition = "char(36)", length = 36)
 	private String id = UUID.randomUUID().toString();
 
-	@Column(name = "version_num", nullable = false)
-	private long versionNum = System.currentTimeMillis();
+	@Column(name = "version_nom", nullable = false, columnDefinition = "char(18)", length = 18)
+	private String versionNow;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_create", updatable = false)
-	private Date dateCreate = new Date();
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_update", nullable = false)
-	private Date dateUpdate = new Date();
+	@Column(name = "version_create", nullable = false, columnDefinition = "char(18)", length = 18)
+	private String versionCreate;
 
 	@Transient
 	private boolean selected;
+
+	public SuperEntity()
+	{
+		try
+		{
+			versionCreate = versionNow = millisecondformat.format(new Date());
+		}
+		catch (Exception ex)
+		{
+			ex.getMessage();
+		}
+	}
 
 	public String getId()
 	{
@@ -53,37 +61,27 @@ public abstract class SuperEntity implements Serializable
 		this.id = id;
 	}
 
-	public long getVersionNum()
+	public String getVersionNow()
 	{
-		return versionNum;
+		return versionNow;
 	}
 
-	public void setVersionNum(long versionNum)
+	public void setVersionNow(String versionNow)
 	{
-		this.versionNum = versionNum;
+		this.versionNow = versionNow;
 	}
 
-	public Date getDateCreate()
+	public String getVersionCreate()
 	{
-		return dateCreate;
+		return versionCreate;
 	}
 
-	public void setDateCreate(Date dateCreate)
+	public void setVersionCreate(String versionCreate)
 	{
-		this.dateCreate = dateCreate;
+		this.versionCreate = versionCreate;
 	}
 
-	public Date getDateUpdate()
-	{
-		return dateUpdate;
-	}
-
-	public void setDateUpdate(Date dateUpdate)
-	{
-		this.dateUpdate = dateUpdate;
-	}
-
-	public boolean isSelected()
+	public boolean getSelected()
 	{
 		return selected;
 	}

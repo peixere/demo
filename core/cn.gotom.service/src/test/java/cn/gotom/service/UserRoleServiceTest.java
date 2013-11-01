@@ -18,6 +18,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
+@SuppressWarnings("deprecation")
 public class UserRoleServiceTest extends TestCase
 {
 
@@ -89,6 +90,7 @@ public class UserRoleServiceTest extends TestCase
 		return roleList;
 	}
 
+	@SuppressWarnings("unused")
 	public void testSaveUserRole()
 	{
 		AuthService authService = injector.getInstance(AuthService.class);
