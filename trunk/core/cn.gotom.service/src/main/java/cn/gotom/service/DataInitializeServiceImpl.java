@@ -39,13 +39,16 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	{
 		try
 		{
-			ResourceBundle bundle = ResourceBundle.getBundle("DefaultData", Locale.ROOT);
-			String rightString = bundle.getString("Right");
-			JSON json = JSONSerializer.toJSON(rightString);
-			JsonConfig jsonConfig = new JsonConfig();
-			jsonConfig.setRootClass(Right.class);
-			List<Right> rights = (List<Right>) JSONSerializer.toJava(json, jsonConfig);
-			rightService.saveAll(rights);
+			if (rightService.findAll().size() == 0)
+			{
+				ResourceBundle bundle = ResourceBundle.getBundle("DefaultData", Locale.ROOT);
+				String rightString = bundle.getString("Right");
+				JSON json = JSONSerializer.toJSON(rightString);
+				JsonConfig jsonConfig = new JsonConfig();
+				jsonConfig.setRootClass(Right.class);
+				List<Right> rights = (List<Right>) JSONSerializer.toJava(json, jsonConfig);
+				rightService.saveAll(rights);
+			}
 		}
 		catch (Exception ex)
 		{
