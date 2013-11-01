@@ -39,6 +39,10 @@ Ext.define('Gotom.view.OrganizationCRUB', {
         });
 
         me.callParent(arguments);
+    },
+
+    expandAll: function() {
+        Ext.getCmp('OrganizationTreeGrid').expandAll();
     }
 
 });

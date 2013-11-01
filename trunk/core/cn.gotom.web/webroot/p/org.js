@@ -20,5 +20,6 @@ Ext.application({
 });
 Ext.onReady(function()
 {
-    Ext.create('Gotom.view.OrganizationCRUB');
+    var crub = Ext.create('Gotom.view.OrganizationCRUB');
+    crub.expandAll();
 });
