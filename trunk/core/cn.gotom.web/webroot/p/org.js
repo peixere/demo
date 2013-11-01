@@ -20,27 +20,19 @@ Ext.Loader.setConfig({
 
 Ext.application({
     models: [
-        'TreeModel',
         'OrganizationModel'
     ],
     stores: [
-        'PortalTreeStore',
         'OrganizationTreeStore'
     ],
     views: [
-        'Portal',
-        'PortalHeader',
-        'PortalTree',
-        'PortalFooter',
-        'PortalTab',
-        'PortalPanel',
         'OrganizationView',
         'OrganizationPanel',
-        'OrgViewport',
-        'OrganizationWindow'
+        'OrganizationCRUB',
+        'OrganizationWinForm'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
-    autoCreateViewport: false,
+    autoCreateViewport: true,
     name: 'Gotom'
 });
