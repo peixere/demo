@@ -19,7 +19,8 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     requires: [
         'Gotom.view.OrganizationWinForm',
-        'Gotom.model.OrganizationModel'
+        'Gotom.model.OrganizationModel',
+        'Gotom.store.OrganizationTreeStore'
     ],
 
     title: '组织架构管理',
@@ -122,7 +123,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            this.openWinForm(record.data.id,'');
+            this.openForm(record.data.id,'');
         }
     },
 
@@ -136,7 +137,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     openWinForm: function(id, parentId) {
         var winform = Ext.create('Gotom.view.OrganizationWinForm');
-        winform.getForm().bindData(id,parentId)
+        winform.getForm().bindData(id,parentId);
         winform.show();
     }
 
