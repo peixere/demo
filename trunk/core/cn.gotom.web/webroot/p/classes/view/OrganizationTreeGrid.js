@@ -129,7 +129,52 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onBtnDelClick: function(button, e, eOpts) {
+        var selected = this.getSelectionModel().selected;
+        var selecteditems = selected.items;
 
+        if (selecteditems.items.length == 0)
+        {
+            Ext.Msg.show(
+            {
+                // width : 200
+                title : "操作提示",
+                msg : "请选择要删除的节点!",
+                icon : Ext.Msg.WARNING
+            });
+            return;
+        }
+        var ids = [];
+        Ext.each(selecteditems, function()
+        {
+            var nd = this;
+            ids.push(nd.data.id);
+        });
+        alert(ids);
+        Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
+        {
+            if (button == "yes")
+            {
+                Ext.Msg.wait("正在执行......", "操作提示");
+                Ext.Ajax.request(
+                {
+                    url : '../organization!remove.do',
+                    method : 'POST',
+                    params :
+                    {
+                        id : ids.join(",")
+                    },
+                    success : function(response, options)
+                    {
+                        Ext.Msg.alert("删除提示", "删除成功");
+                        window.location.reload();
+                    },
+                    failure : function(response, options)
+                    {
+                        Ext.Msg.alert("删除提示", "删除失败");
+                    }
+                });
+            }
+        });
     },
 
     onTreepanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
