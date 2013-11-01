@@ -20,6 +20,7 @@ public class Test
 	/**
 	 * @param args
 	 */
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
 		ResourceBundle bundle = ResourceBundle.getBundle("DefaultData", Locale.ROOT);
