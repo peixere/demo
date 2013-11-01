@@ -85,7 +85,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             anchor: '100%',
                             fieldLabel: '组织编码',
                             labelAlign: 'right',
-                            labelWidth: 60,
+                            labelWidth: 80,
                             name: 'code',
                             invalidText: '组织编码不能为空',
                             blankText: '组织编码不能为空！'
@@ -95,7 +95,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             anchor: '100%',
                             fieldLabel: '组织名称',
                             labelAlign: 'right',
-                            labelWidth: 60,
+                            labelWidth: 80,
                             name: 'text',
                             invalidText: '不能为空！',
                             blankText: '不能为空！'
@@ -105,7 +105,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             anchor: '100%',
                             fieldLabel: '排列顺序',
                             labelAlign: 'right',
-                            labelWidth: 60,
+                            labelWidth: 80,
                             name: 'sort',
                             value: 0,
                             maxLength: 6,
