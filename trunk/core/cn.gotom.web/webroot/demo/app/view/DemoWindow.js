@@ -88,7 +88,7 @@ Ext.define('MyApp.view.DemoWindow', {
     },
 
     onBtnCancelClick: function(button, e, eOpts) {
-        this.close();
+
     }
 
 });

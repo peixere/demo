@@ -43,11 +43,11 @@
         },
         "c7ab7f9c-82c8-4300-919c-6d73092632f8": {
             "paths": [
-                "metadata/store/TreeStore",
-                "app/store/override/TreeStore.js",
-                "app/store/TreeStore.js"
+                "metadata/store/DemoTreeStore",
+                "app/store/override/DemoTreeStore.js",
+                "app/store/DemoTreeStore.js"
             ],
-            "className": "TreeStore"
+            "className": "DemoTreeStore"
         },
         "1f066f0b-9447-42de-aaf8-f4381f248c8e": {
             "paths": [

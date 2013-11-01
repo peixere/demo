@@ -19,6 +19,7 @@ Ext.define('MyApp.view.DemoTreeGrid', {
 
     id: 'treeGridPanel',
     title: 'Demo',
+    rootVisible: false,
 
     initComponent: function() {
         var me = this;
@@ -60,7 +61,13 @@ Ext.define('MyApp.view.DemoTreeGrid', {
                         {
                             xtype: 'button',
                             id: 'btnEdit',
-                            text: '修改'
+                            text: '修改',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnEditClick,
+                                    scope: me
+                                }
+                            }
                         },
                         {
                             xtype: 'button',
@@ -79,6 +86,10 @@ Ext.define('MyApp.view.DemoTreeGrid', {
         var win = Ext.create('MyApp.view.DemoWindow');
         win.setTitle('ssss');
         win.show();
+    },
+
+    onBtnEditClick: function(button, e, eOpts) {
+        this.store.reload();
     }
 
 });

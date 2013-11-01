@@ -10,7 +10,8 @@
         "designer|userClassName": "DemoTreeGrid",
         "designer|userAlias": "DemoTreeGrid",
         "title": "Demo",
-        "store": null
+        "store": null,
+        "rootVisible": false
     },
     "designerId": "1f066f0b-9447-42de-aaf8-f4381f248c8e",
     "isBuiltIn": true,
@@ -113,7 +114,26 @@
                         "id": "btnEdit",
                         "text": "修改"
                     },
-                    "designerId": "c676849a-fb73-4470-b8b7-7902e337fb72"
+                    "designerId": "c676849a-fb73-4470-b8b7-7902e337fb72",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnEditClick",
+                                "implHandler": [
+                                    "this.store.reload();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "79a80153-dd4f-4d0a-809f-6fe438390e0e"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.button.Button",

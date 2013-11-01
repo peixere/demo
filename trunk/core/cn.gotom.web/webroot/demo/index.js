@@ -23,11 +23,12 @@ Ext.application({
         'DemoModel'
     ],
     stores: [
-        'TreeStore'
+        'DemoTreeStore'
     ],
     views: [
-        'DemoViewport',
-        'DemoWindow'
+            'DemoViewport',
+            'DemoWindow',
+            'DemoTreeGrid'
     ],
     autoCreateViewport: false,
     name: 'MyApp'
