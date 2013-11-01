@@ -17,6 +17,10 @@ Ext.define('Gotom.view.OrganizationForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.OrganizationForm',
 
+    requires: [
+        'Gotom.model.OrganizationModel'
+    ],
+
     id: 'OrganizationForm',
     bodyPadding: 10,
 
@@ -132,20 +136,25 @@ Ext.define('Gotom.view.OrganizationForm', {
     },
 
     bindData: function(id, parentId) {
+        var formPanel = this;
         var wait = Ext.Msg.wait("正在载入......", "操作提示");
         Ext.Ajax.request(
         {
             url : '../p/organization.do',
             method : 'POST',
+            params:{  
+                id:id,
+                parentId:parentId
+            },  
             success : function(response, options)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                var data = Ext.create('MyTreeModel');
+                var record = Ext.create('Gotom.model.OrganizationModel');
                 result.parentId = parentId;
-                data.data = result;
-                data.data.leaf = left;
+                record.data = result;
                 wait.close();
-                showform(data);
+                formPanel.getForm().reset();
+                formPanel.loadRecord(record);   
             },
             failure : function(response, options)
             {

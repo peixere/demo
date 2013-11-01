@@ -36,8 +36,8 @@ Ext.define('Gotom.view.OrganizationWindow', {
             items: [
                 {
                     xtype: 'OrganizationForm',
-                    region: 'center',
-                    bodyPadding: 20
+                    bodyPadding: 20,
+                    region: 'center'
                 }
             ]
         });

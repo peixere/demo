@@ -10,6 +10,8 @@
         "storeId": "PortalTreeStore",
         "designer|userClassName": "PortalTreeStore",
         "designer|userAlias": "PortalTreeStore",
+        "defaultRootId": "",
+        "defaultRootText": "",
         "nodeParam": "id"
     },
     "designerId": "68ea48df-d289-4169-aecd-2a5d718a55a7",
