@@ -148,12 +148,12 @@
                             "userConfig": {
                                 "fn": "onBtnEditClick",
                                 "implHandler": [
-                                    "    var selected = this.getSelectionModel().selected;\r",
-                                    "    var record = selected.items[0];\r",
-                                    "    if(!Ext.isEmpty(record))\r",
-                                    "    {\r",
-                                    "        this.openForm(record.data.id,'');\r",
-                                    "    }"
+                                    "var selected = this.getSelectionModel().selected;\r",
+                                    "var record = selected.items[0];\r",
+                                    "if(!Ext.isEmpty(record))\r",
+                                    "{\r",
+                                    "    this.openWinForm(record.data.id,'');\r",
+                                    "}"
                                 ],
                                 "name": "click",
                                 "scope": "me"
