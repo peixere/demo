@@ -1,0 +1,81 @@
+{
+    "name": "demo",
+    "settings": {
+        "exportPath": "http:/localhost:8080/ext/demo/",
+        "urlPrefix": ""
+    },
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 991,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "479da775-7570-479e-aa78-ccdf0275e382": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "1cbcceb2-2ce2-4ce6-ba40-e3880d0eeaae": {
+            "paths": [
+                "metadata/view/DemoViewport",
+                "app/view/override/DemoViewport.js",
+                "app/view/DemoViewport.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "DemoViewport"
+        },
+        "054a8a6f-7b10-41a0-902d-6d16b3644105": {
+            "paths": [
+                "metadata/view/DemoWindow",
+                "app/view/override/DemoWindow.js",
+                "app/view/DemoWindow.js"
+            ],
+            "className": "DemoWindow"
+        },
+        "5c307e01-3d73-492a-a143-806196685107": {
+            "paths": [
+                "metadata/model/DemoModel",
+                "app/model/override/DemoModel.js",
+                "app/model/DemoModel.js"
+            ],
+            "className": "DemoModel"
+        },
+        "c7ab7f9c-82c8-4300-919c-6d73092632f8": {
+            "paths": [
+                "metadata/store/TreeStore",
+                "app/store/override/TreeStore.js",
+                "app/store/TreeStore.js"
+            ],
+            "className": "TreeStore"
+        },
+        "1f066f0b-9447-42de-aaf8-f4381f248c8e": {
+            "paths": [
+                "metadata/view/DemoTreeGrid",
+                "app/view/override/DemoTreeGrid.js",
+                "app/view/DemoTreeGrid.js"
+            ],
+            "className": "DemoTreeGrid"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "1cbcceb2-2ce2-4ce6-ba40-e3880d0eeaae",
+            "054a8a6f-7b10-41a0-902d-6d16b3644105",
+            "1f066f0b-9447-42de-aaf8-f4381f248c8e"
+        ],
+        "store": [
+            "c7ab7f9c-82c8-4300-919c-6d73092632f8"
+        ],
+        "controller": [],
+        "model": [
+            "5c307e01-3d73-492a-a143-806196685107"
+        ],
+        "resource": [
+            "479da775-7570-479e-aa78-ccdf0275e382"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

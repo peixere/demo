@@ -2,12 +2,16 @@ Ext.require([ 'Ext.form.*', 'Ext.data.*', 'Ext.tip.QuickTipManager'
 ]);
 Ext.onReady(function()
 {
-    var treedata = treeStore('p/right!tree.do', '');// treeStore('p/organization!tree.do')
+    var treedata = treeStore('p/organization!tree.do', '');
     var portal = Ext.create('Portal');
     function menuClick(view, node)
     {
-	alert(node.data.text);
-	portal.content.update('<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>');
+	portal.content.setTitle(node.data.text);
+	var theme = getQueryParam('theme');	
+	var url = 'demo/index.html?id='+node.data.id;
+	url = addQueryParam(url,'theme',theme);
+	//alert(url);
+	portal.content.update('<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>');
     }
     
     var tree = Ext.create("Ext.tree.TreePanel",
