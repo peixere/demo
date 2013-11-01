@@ -57,7 +57,11 @@ public class RightAction
 		}
 		JsonAction.writerToJSON(menuList);
 	}
-
+	public void list() throws IOException
+	{
+		List<Right> list = rightService.findAll();
+		JsonAction.writerToJSON(list);
+	}
 	public String remove()
 	{
 		String ids = getId();
