@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "winforn": "OrganizationWindow",
         "designer|userClassName": "OrganizationTreeGrid",
         "designer|userAlias": "OrganizationTreeGrid",
         "requires": [
             "Gotom.view.OrganizationWindow",
-            "Gotom.view.OrganizationForm"
+            "Gotom.view.OrganizationForm",
+            "Gotom.model.OrganizationModel"
         ],
         "title": "组织架构管理",
         "store": "OrganizationTreeStore",
@@ -24,13 +24,6 @@
     "isBuiltIn": true,
     "iconCls": "icon-treegridpanel",
     "autoName": "TreeGrid",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "winforn",
-            "type": "string"
-        }
-    ],
     "cn": [
         {
             "type": "Ext.tree.View",
@@ -122,6 +115,18 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnNewClick",
+                                "implHandler": [
+                                    "var selected = this.getSelectionModel().selected;\r",
+                                    "var record = selected.items[0];\r",
+                                    "if(record)\r",
+                                    "{\r",
+                                    "    this.openForm('',record.data.parentId);\r",
+                                    "}\r",
+                                    "else\r",
+                                    "{\r",
+                                    "    this.openForm('','');\r",
+                                    "}"
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
@@ -153,6 +158,14 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnEditClick",
+                                "implHandler": [
+                                    "    var selected = this.getSelectionModel().selected;\r",
+                                    "    var record = selected.items[0];\r",
+                                    "    if(record)\r",
+                                    "    {\r",
+                                    "        this.openForm(record.data.id,'');\r",
+                                    "    }"
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
@@ -201,17 +214,35 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onTreepanelItemClick",
+                "fn": "onTreepanelItemDblClick",
                 "implHandler": [
-                    "var winform = Ext.create('Gotom.view.OrganizationWindow');\r",
-                    "//winform.getForm().bindData(record.getId()\r",
-                    "alert(record.data.parentId);\r",
-                    "winform.show();"
+                    "this.openForm(record.data.id,record.data.parentId);"
                 ],
-                "name": "itemclick",
+                "name": "itemdblclick",
                 "scope": "me"
             },
             "designerId": "d7885684-0056-47e5-b24d-f47f588ec13b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "openForm",
+                "designer|params": [
+                    "id",
+                    "parentId"
+                ],
+                "implHandler": [
+                    "var winform = Ext.create('Gotom.view.OrganizationWindow');\r",
+                    "winform.getForm().bindData(id,parentId)\r",
+                    "winform.show();"
+                ]
+            },
+            "designerId": "1b98a32d-2ffb-4442-9007-52c981b5abe3"
         }
     ]
 }

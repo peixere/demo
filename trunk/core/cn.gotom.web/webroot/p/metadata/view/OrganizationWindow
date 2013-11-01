@@ -24,8 +24,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|region": "center",
-                "bodyPadding": 20
+                "bodyPadding": 20,
+                "layout|region": "center"
             },
             "designerId": "2170011b-1b20-4cac-8862-4c22de702d68",
             "masterInstanceId": "6b7eab72-8ed2-4132-9442-201444cea2b0"

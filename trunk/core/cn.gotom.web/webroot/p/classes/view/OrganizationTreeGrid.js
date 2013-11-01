@@ -19,10 +19,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     requires: [
         'Gotom.view.OrganizationWindow',
-        'Gotom.view.OrganizationForm'
+        'Gotom.view.OrganizationForm',
+        'Gotom.model.OrganizationModel'
     ],
 
-    winforn: 'OrganizationWindow',
     title: '组织架构管理',
     store: 'OrganizationTreeStore',
     rootVisible: false,
@@ -100,8 +100,8 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 }
             ],
             listeners: {
-                itemclick: {
-                    fn: me.onTreepanelItemClick,
+                itemdblclick: {
+                    fn: me.onTreepanelItemDblClick,
                     scope: me
                 }
             }
@@ -111,21 +111,38 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onBtnNewClick: function(button, e, eOpts) {
-
+        var selected = this.getSelectionModel().selected;
+        var record = selected.items[0];
+        if(record)
+        {
+            this.openForm('',record.data.parentId);
+        }
+        else
+        {
+            this.openForm('','');
+        }
     },
 
     onBtnEditClick: function(button, e, eOpts) {
-
+        var selected = this.getSelectionModel().selected;
+        var record = selected.items[0];
+        if(record)
+        {
+            this.openForm(record.data.id,'');
+        }
     },
 
     onBtnDelClick: function(button, e, eOpts) {
 
     },
 
-    onTreepanelItemClick: function(dataview, record, item, index, e, eOpts) {
+    onTreepanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.openForm(record.data.id,record.data.parentId);
+    },
+
+    openForm: function(id, parentId) {
         var winform = Ext.create('Gotom.view.OrganizationWindow');
-        //winform.getForm().bindData(record.getId()
-        alert(record.data.parentId);
+        winform.getForm().bindData(id,parentId)
         winform.show();
     }
 

@@ -345,7 +345,12 @@ Ext.onReady(function()
 		showform(record);
 	    }
 	}
-	]
+	],
+        listeners: {
+            itemclick: function(dataview, record, item, index, e, eOpts) {
+                //alert(record.data.parentId);
+            }
+        }	
     });
 
     var formwin = null;

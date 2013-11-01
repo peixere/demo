@@ -27,6 +27,8 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
         me.callParent([Ext.apply({
             model: 'Gotom.model.OrganizationModel',
             storeId: 'OrganizationTreeStore',
+            defaultRootId: '',
+            defaultRootText: '',
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
