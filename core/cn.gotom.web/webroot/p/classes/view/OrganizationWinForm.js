@@ -144,7 +144,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                                 {
                                     xtype: 'button',
                                     id: 'btnCancel',
-                                    iconCls: 'icon-cacnel',
+                                    iconCls: 'icon-cancel',
                                     text: '取消',
                                     listeners: {
                                         click: {

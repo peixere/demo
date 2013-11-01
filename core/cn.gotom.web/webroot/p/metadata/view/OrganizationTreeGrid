@@ -85,7 +85,7 @@
                     "userConfig": {
                         "layout|flex": null,
                         "id": "btnNew",
-                        "iconCls": "icon-new",
+                        "iconCls": "icon-add",
                         "text": "新增"
                     },
                     "designerId": "23500a3e-030a-4af7-86ec-cd2209dd82b5",

@@ -60,7 +60,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         {
                             xtype: 'button',
                             id: 'btnNew',
-                            iconCls: 'icon-new',
+                            iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
                                 click: {
