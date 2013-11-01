@@ -37,6 +37,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
             columns: [
                 {
                     xtype: 'treecolumn',
+                    maxWidth: 200,
                     dataIndex: 'text',
                     text: '组织名称',
                     flex: 1
@@ -51,7 +52,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    id: 'OrganizationTreeGridTBar',
+                    id: 'treeGridTBar',
                     layout: {
                         padding: 3,
                         type: 'hbox'

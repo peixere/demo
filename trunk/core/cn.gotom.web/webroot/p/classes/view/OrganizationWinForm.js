@@ -122,6 +122,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             xtype: 'toolbar',
                             dock: 'bottom',
                             frame: false,
+                            id: 'toobar',
                             shadowOffset: 10,
                             layout: {
                                 pack: 'end',
