@@ -40,10 +40,6 @@ Ext.define('Gotom.model.OrganizationModel', {
         {
             name: 'text',
             type: 'string'
-        },
-        {
-            name: 'checked',
-            type: 'boolean'
         }
     ]
 });

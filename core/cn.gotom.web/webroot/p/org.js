@@ -15,7 +15,7 @@ Ext.application({
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
-    autoCreateViewport: true,
+    autoCreateViewport: false,
     name: 'Gotom'
 });
 Ext.onReady(function()

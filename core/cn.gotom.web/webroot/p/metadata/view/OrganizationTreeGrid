@@ -32,6 +32,9 @@
                 "type": "object"
             },
             "codeClass": null,
+            "userConfig": {
+                "id": null
+            },
             "designerId": "a7d5e040-30db-486d-8a2b-af5e65cfb5c0"
         },
         {
@@ -42,6 +45,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "maxWidth": 200,
                 "dataIndex": "text",
                 "text": "组织名称",
                 "flex": 1
@@ -71,7 +75,7 @@
             "userConfig": {
                 "dock": "top",
                 "container|padding": 3,
-                "id": "OrganizationTreeGridTBar"
+                "id": "treeGridTBar"
             },
             "designerId": "19ef81a6-62af-4b60-9364-0278c2875fe3",
             "cn": [

@@ -143,6 +143,7 @@
                         "container|pack": "end",
                         "container|padding": 3,
                         "frame": false,
+                        "id": "toobar",
                         "shadowOffset": 10
                     },
                     "designerId": "8e87d03c-79df-46a9-9911-2d1d59c87e42",
