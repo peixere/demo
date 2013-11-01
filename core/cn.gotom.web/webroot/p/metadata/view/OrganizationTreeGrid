@@ -9,7 +9,7 @@
         "designer|userClassName": "OrganizationTreeGrid",
         "designer|userAlias": "OrganizationTreeGrid",
         "requires": [
-            "Gotom.view.OrganizationWindow",
+            "Gotom.view.OrganizationWinForm",
             "Gotom.model.OrganizationModel"
         ],
         "title": "组织架构管理",
@@ -151,7 +151,7 @@
                                     "    var record = selected.items[0];\r",
                                     "    if(!Ext.isEmpty(record))\r",
                                     "    {\r",
-                                    "        this.openForm(record.data.id,'');\r",
+                                    "        this.openWinForm(record.data.id,'');\r",
                                     "    }"
                                 ],
                                 "name": "click",
@@ -185,6 +185,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnDelClick",
+                                "implHandler": [
+                                    ""
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
@@ -204,7 +207,7 @@
             "userConfig": {
                 "fn": "onTreepanelItemDblClick",
                 "implHandler": [
-                    "this.openForm(record.data.id,record.data.parentId);"
+                    "this.openWinForm(record.data.id,record.data.parentId);"
                 ],
                 "name": "itemdblclick",
                 "scope": "me"
@@ -225,7 +228,7 @@
                     "parentId"
                 ],
                 "implHandler": [
-                    "var winform = Ext.create('Gotom.view.OrganizationWindow');\r",
+                    "var winform = Ext.create('Gotom.view.OrganizationWinForm');\r",
                     "winform.getForm().bindData(id,parentId)\r",
                     "winform.show();"
                 ]

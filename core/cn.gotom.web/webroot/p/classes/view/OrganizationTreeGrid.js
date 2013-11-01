@@ -18,7 +18,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     alias: 'widget.OrganizationTreeGrid',
 
     requires: [
-        'Gotom.view.OrganizationWindow',
+        'Gotom.view.OrganizationWinForm',
         'Gotom.model.OrganizationModel'
     ],
 
@@ -135,7 +135,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     openWinForm: function(id, parentId) {
-        var winform = Ext.create('Gotom.view.OrganizationWindow');
+        var winform = Ext.create('Gotom.view.OrganizationWinForm');
         winform.getForm().bindData(id,parentId)
         winform.show();
     }

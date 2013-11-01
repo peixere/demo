@@ -36,8 +36,8 @@ Ext.application({
         'PortalPanel',
         'OrganizationView',
         'OrganizationPanel',
-        'OrgViewport',
-        'OrganizationWindow'
+        'OrganizationCRUB',
+        'OrganizationWinForm'
     ],
     appFolder: 'classes',
     appProperty: 'gotom',
