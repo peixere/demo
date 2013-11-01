@@ -123,7 +123,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            this.openForm(record.data.id,'');
+            this.openWinForm(record.data.id,'');
         }
     },
 
