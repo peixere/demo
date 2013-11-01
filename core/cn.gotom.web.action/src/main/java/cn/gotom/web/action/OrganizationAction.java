@@ -37,7 +37,15 @@ public class OrganizationAction
 
 	public void execute() throws IOException
 	{
-		Organization e = service.get(this.getId());
+		Organization e = null;
+		try
+		{
+			e = service.get(this.getId());
+		}
+		catch (Exception ex)
+		{
+			log.warn(ex.getMessage());
+		}
 		if (e == null)
 		{
 			e = new Organization();
