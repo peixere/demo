@@ -172,6 +172,28 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fn": "onBtnSaveClick",
+                                        "implHandler": [
+                                            "\r",
+                                            "\tif (this.getForm().isValid())\r",
+                                            "      {\r",
+                                            "          this.getForm().submit(\r",
+                                            "          {\r",
+                                            "              url : '../p/organization!save.do',\r",
+                                            "              method : 'POST',\r",
+                                            "              waitMsg : '正在保存数据，稍后...',\r",
+                                            "              success : function(f, action)\r",
+                                            "              {\r",
+                                            "                  Ext.Msg.alert('信息提示', '保存成功');\r",
+                                            "                  //me.close();\r",
+                                            "                  window.location.reload();\r",
+                                            "              },\r",
+                                            "\t\t\t  failure : function(f, action)\r",
+                                            "              {\r",
+                                            "                  Ext.Msg.alert('信息提示', '保存失败，服务器端程序出错！');\r",
+                                            "              }\r",
+                                            "    });\r",
+                                            "    }"
+                                        ],
                                         "name": "click",
                                         "scope": "me"
                                     },
@@ -203,6 +225,9 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fn": "onBtnCancelClick",
+                                        "implHandler": [
+                                            "\tthis.close();"
+                                        ],
                                         "name": "click",
                                         "scope": "me"
                                     },
