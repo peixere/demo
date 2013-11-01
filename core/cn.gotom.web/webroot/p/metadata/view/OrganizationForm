@@ -26,9 +26,9 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
-                "id": "organization.id",
+                "id": null,
                 "fieldLabel": "标识",
-                "name": "organization.id"
+                "name": "id"
             },
             "designerId": "7b5325df-b7c6-4e93-8e1e-ae369c69c4bf"
         },
@@ -41,7 +41,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
-                "id": "organization.parentId",
+                "id": null,
                 "fieldLabel": "父节点",
                 "name": "parentId"
             },
@@ -56,7 +56,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
-                "id": "code",
+                "id": null,
                 "fieldLabel": "组织编码",
                 "labelAlign": "right",
                 "labelWidth": 60,
@@ -75,11 +75,13 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
-                "id": "text",
+                "id": null,
+                "designer|displayName": null,
                 "fieldLabel": "组织名称",
                 "labelAlign": "right",
                 "labelWidth": 60,
                 "name": "text",
+                "inputId": null,
                 "invalidText": "不能为空！",
                 "blankText": "不能为空！"
             },
@@ -94,7 +96,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|anchor": "100%",
-                "id": "sort",
+                "id": null,
                 "fieldLabel": "排列顺序",
                 "labelAlign": "right",
                 "labelWidth": 60,

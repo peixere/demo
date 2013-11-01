@@ -116,16 +116,14 @@
                             "userConfig": {
                                 "fn": "onBtnNewClick",
                                 "implHandler": [
-                                    "var selected = this.getSelectionModel().selected;\r",
-                                    "var record = selected.items[0];\r",
-                                    "if(record)\r",
-                                    "{\r",
-                                    "    this.openForm('',record.data.parentId);\r",
-                                    "}\r",
-                                    "else\r",
-                                    "{\r",
-                                    "    this.openForm('','');\r",
-                                    "}"
+                                    "    var selected = this.getSelectionModel().selected;\r",
+                                    "    var record = selected.items[0];\r",
+                                    "\tvar pid = '';\r",
+                                    "    if(!Ext.isEmpty(record))\r",
+                                    "    {\r",
+                                    "        pid = record.data.id;\r",
+                                    "    }\r",
+                                    "\tthis.openForm('',pid);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -161,7 +159,7 @@
                                 "implHandler": [
                                     "    var selected = this.getSelectionModel().selected;\r",
                                     "    var record = selected.items[0];\r",
-                                    "    if(record)\r",
+                                    "    if(!Ext.isEmpty(record))\r",
                                     "    {\r",
                                     "        this.openForm(record.data.id,'');\r",
                                     "    }"
