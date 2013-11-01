@@ -14,6 +14,6 @@
  */
 
 Ext.define('Gotom.view.Viewport', {
-    extend: 'Gotom.view.OrgViewport',
+    extend: 'Gotom.view.OrganizationCRUB',
     renderTo: Ext.getBody()
 });

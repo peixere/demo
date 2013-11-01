@@ -127,12 +127,12 @@
         },
         "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d": {
             "paths": [
-                "metadata/view/OrgViewport",
-                "classes/view/override/OrgViewport.js",
-                "classes/view/OrgViewport.js",
+                "metadata/view/OrganizationCRUB",
+                "classes/view/override/OrganizationCRUB.js",
+                "classes/view/OrganizationCRUB.js",
                 "classes/view/Viewport.js"
             ],
-            "className": "OrgViewport"
+            "className": "OrganizationCRUB"
         },
         "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89": {
             "paths": [
@@ -144,11 +144,11 @@
         },
         "8b5b629a-7c35-4103-ad47-a13ab196e213": {
             "paths": [
-                "metadata/view/OrganizationWindow",
-                "classes/view/override/OrganizationWindow.js",
-                "classes/view/OrganizationWindow.js"
+                "metadata/view/OrganizationWinForm",
+                "classes/view/override/OrganizationWinForm.js",
+                "classes/view/OrganizationWinForm.js"
             ],
-            "className": "OrganizationWindow"
+            "className": "OrganizationWinForm"
         }
     },
     "viewOrderMap": {
