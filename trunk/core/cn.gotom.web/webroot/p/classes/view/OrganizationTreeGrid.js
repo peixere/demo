@@ -61,6 +61,18 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     items: [
                         {
                             xtype: 'button',
+                            id: 'btnRef',
+                            iconCls: 'icon-refresh',
+                            text: '刷新',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnRefClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
                             id: 'btnNew',
                             iconCls: 'icon-add',
                             text: '新增',
@@ -94,12 +106,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                                     scope: me
                                 }
                             }
-                        },
-                        {
-                            xtype: 'button',
-                            id: 'btnRef',
-                            iconCls: 'icon-refresh',
-                            text: '刷新'
                         }
                     ]
                 }
@@ -113,6 +119,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         });
 
         me.callParent(arguments);
+    },
+
+    onBtnRefClick: function(button, e, eOpts) {
+        window.location.reload();
     },
 
     onBtnNewClick: function(button, e, eOpts) {
