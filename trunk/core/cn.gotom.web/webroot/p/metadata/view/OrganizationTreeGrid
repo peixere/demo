@@ -114,7 +114,7 @@
                                     "    {\r",
                                     "        pid = record.data.id;\r",
                                     "    }\r",
-                                    "\tthis.openForm('',pid);"
+                                    "\tthis.openWinForm('',pid);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -205,7 +205,7 @@
             "userConfig": {
                 "fn": "onTreepanelItemDblClick",
                 "implHandler": [
-                    "this.openForm(record.data.id,record.data.parentId);"
+                    "this.openWinForm(record.data.id,record.data.parentId);"
                 ],
                 "name": "itemdblclick",
                 "scope": "me"
@@ -220,14 +220,14 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "openWindow",
+                "fn": "openWinForm",
                 "designer|params": [
                     "id",
                     "parentId"
                 ],
                 "implHandler": [
                     "var winform = Ext.create('Gotom.view.OrganizationWinForm');\r",
-                    "winform.getForm().bindData(id,parentId)\r",
+                    "winform.getForm().bindData(id,parentId);\r",
                     "winform.show();"
                 ]
             },
