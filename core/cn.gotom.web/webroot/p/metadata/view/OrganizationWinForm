@@ -76,7 +76,7 @@
                         "id": null,
                         "fieldLabel": "组织编码",
                         "labelAlign": "right",
-                        "labelWidth": 60,
+                        "labelWidth": 80,
                         "name": "code",
                         "invalidText": "组织编码不能为空",
                         "blankText": "组织编码不能为空！"
@@ -96,7 +96,7 @@
                         "designer|displayName": null,
                         "fieldLabel": "组织名称",
                         "labelAlign": "right",
-                        "labelWidth": 60,
+                        "labelWidth": 80,
                         "name": "text",
                         "inputId": null,
                         "invalidText": "不能为空！",
@@ -116,7 +116,7 @@
                         "id": null,
                         "fieldLabel": "排列顺序",
                         "labelAlign": "right",
-                        "labelWidth": 60,
+                        "labelWidth": 80,
                         "name": "sort",
                         "value": [
                             "0"
