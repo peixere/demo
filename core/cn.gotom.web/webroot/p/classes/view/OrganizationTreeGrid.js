@@ -19,7 +19,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     requires: [
         'Gotom.view.OrganizationWindow',
-        'Gotom.view.OrganizationForm',
         'Gotom.model.OrganizationModel'
     ],
 
@@ -47,9 +46,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     text: '组织编码'
                 }
             ],
-            selModel: Ext.create('Ext.selection.CheckboxModel', {
-
-            }),
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -118,7 +114,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         {
             pid = record.data.id;
         }
-        this.openForm('',pid);
+        this.openWinForm('',pid);
     },
 
     onBtnEditClick: function(button, e, eOpts) {
@@ -126,7 +122,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            this.openForm(record.data.id,'');
+            this.openWinForm(record.data.id,'');
         }
     },
 
@@ -135,10 +131,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onTreepanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
-        this.openForm(record.data.id,record.data.parentId);
+        this.openWinForm(record.data.id,record.data.parentId);
     },
 
-    openForm: function(id, parentId) {
+    openWinForm: function(id, parentId) {
         var winform = Ext.create('Gotom.view.OrganizationWindow');
         winform.getForm().bindData(id,parentId)
         winform.show();

@@ -10,7 +10,6 @@
         "designer|userAlias": "OrganizationTreeGrid",
         "requires": [
             "Gotom.view.OrganizationWindow",
-            "Gotom.view.OrganizationForm",
             "Gotom.model.OrganizationModel"
         ],
         "title": "组织架构管理",
@@ -60,15 +59,6 @@
                 "text": "组织编码"
             },
             "designerId": "b9a9249b-2add-4226-ab89-c5b2ee2d6cfa"
-        },
-        {
-            "type": "Ext.selection.CheckboxModel",
-            "reference": {
-                "name": "selModel",
-                "type": "object"
-            },
-            "codeClass": "Ext.selection.CheckboxModel",
-            "designerId": "269764ea-0d1f-4d0e-87dc-de17ac26bfc6"
         },
         {
             "type": "Ext.toolbar.Toolbar",
@@ -123,7 +113,7 @@
                                     "    {\r",
                                     "        pid = record.data.id;\r",
                                     "    }\r",
-                                    "\tthis.openForm('',pid);"
+                                    "\tthis.openWinForm('',pid);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -229,7 +219,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "openForm",
+                "fn": "openWinForm",
                 "designer|params": [
                     "id",
                     "parentId"

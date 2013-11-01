@@ -149,14 +149,6 @@
                 "classes/view/OrganizationWindow.js"
             ],
             "className": "OrganizationWindow"
-        },
-        "6b7eab72-8ed2-4132-9442-201444cea2b0": {
-            "paths": [
-                "metadata/view/OrganizationForm",
-                "classes/view/override/OrganizationForm.js",
-                "classes/view/OrganizationForm.js"
-            ],
-            "className": "OrganizationForm"
         }
     },
     "viewOrderMap": {
@@ -172,8 +164,7 @@
             "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
             "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0",
             "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
-            "8b5b629a-7c35-4103-ad47-a13ab196e213",
-            "6b7eab72-8ed2-4132-9442-201444cea2b0"
+            "8b5b629a-7c35-4103-ad47-a13ab196e213"
         ],
         "store": [
             "68ea48df-d289-4169-aecd-2a5d718a55a7",
