@@ -80,7 +80,7 @@ public class MainAction extends JsonAction
 
 	private boolean hasRight = true;
 
-	private void resource() throws IOException
+	public void resource() throws IOException
 	{
 		List<Right> menuList = null;
 		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
