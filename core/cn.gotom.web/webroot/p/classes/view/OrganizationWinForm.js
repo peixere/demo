@@ -166,10 +166,29 @@ Ext.define('Gotom.view.OrganizationWinForm', {
 
     onBtnSaveClick: function(button, e, eOpts) {
 
+        if (this.getForm().isValid())
+        {
+            this.getForm().submit(
+            {
+                url : '../p/organization!save.do',
+                method : 'POST',
+                waitMsg : '正在保存数据，稍后...',
+                success : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存成功');
+                    //me.close();
+                    window.location.reload();
+                },
+                failure : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存失败，服务器端程序出错！');
+                }
+            });
+        }
     },
 
     onBtnCancelClick: function(button, e, eOpts) {
-
+        this.close();
     },
 
     getForm: function() {
