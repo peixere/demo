@@ -23,6 +23,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         'Gotom.store.OrganizationTreeStore'
     ],
 
+    id: 'OrganizationTreeGrid',
     title: '组织架构管理',
     store: 'OrganizationTreeStore',
     rootVisible: false,
@@ -132,11 +133,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         var selected = this.getSelectionModel().selected;
         var selecteditems = selected.items;
 
-        if (selecteditems.items.length == 0)
+        if (selecteditems.length == 0)
         {
             Ext.Msg.show(
             {
-                // width : 200
                 title : "操作提示",
                 msg : "请选择要删除的节点!",
                 icon : Ext.Msg.WARNING
