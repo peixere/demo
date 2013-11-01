@@ -211,7 +211,6 @@
                                     "\t    var nd = this;\r",
                                     "\t    ids.push(nd.data.id);\r",
                                     "\t});\r",
-                                    "\talert(ids);\r",
                                     "\tExt.Msg.confirm(\"警告\", \"确定要删除吗？\", function(button)\r",
                                     "\t{\r",
                                     "\t    if (button == \"yes\")\r",
@@ -219,7 +218,7 @@
                                     "            Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
                                     "            Ext.Ajax.request(\r",
                                     "            {\r",
-                                    "                url : '../organization!remove.do',\r",
+                                    "                url : '../p/organization!remove.do',\r",
                                     "                method : 'POST',\r",
                                     "                params :\r",
                                     "                {\r",
@@ -244,6 +243,21 @@
                             "designerId": "81592f77-3457-414d-8dcc-7dc28c21861d"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnRef",
+                        "iconCls": "icon-refresh",
+                        "text": "刷新"
+                    },
+                    "designerId": "5a840eaa-4705-43a9-af78-c7359517e806"
                 }
             ]
         },

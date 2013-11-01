@@ -94,6 +94,12 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                                     scope: me
                                 }
                             }
+                        },
+                        {
+                            xtype: 'button',
+                            id: 'btnRef',
+                            iconCls: 'icon-refresh',
+                            text: '刷新'
                         }
                     ]
                 }
@@ -149,7 +155,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
             var nd = this;
             ids.push(nd.data.id);
         });
-        alert(ids);
         Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
         {
             if (button == "yes")
@@ -157,7 +162,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : '../organization!remove.do',
+                    url : '../p/organization!remove.do',
                     method : 'POST',
                     params :
                     {
