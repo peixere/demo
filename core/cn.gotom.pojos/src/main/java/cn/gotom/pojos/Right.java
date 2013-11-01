@@ -25,7 +25,7 @@ public class Right extends SuperEntity implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Column(name = "parent_id", nullable = true, columnDefinition = "char(36)", length = 36)
 	private String parentId;
 
