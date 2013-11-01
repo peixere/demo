@@ -32,21 +32,18 @@ Ext.define('Gotom.view.OrganizationForm', {
                 {
                     xtype: 'hiddenfield',
                     anchor: '100%',
-                    id: 'organization.id',
                     fieldLabel: '标识',
-                    name: 'organization.id'
+                    name: 'id'
                 },
                 {
                     xtype: 'hiddenfield',
                     anchor: '100%',
-                    id: 'organization.parentId',
                     fieldLabel: '父节点',
                     name: 'parentId'
                 },
                 {
                     xtype: 'textfield',
                     anchor: '100%',
-                    id: 'code',
                     fieldLabel: '组织编码',
                     labelAlign: 'right',
                     labelWidth: 60,
@@ -57,7 +54,6 @@ Ext.define('Gotom.view.OrganizationForm', {
                 {
                     xtype: 'textfield',
                     anchor: '100%',
-                    id: 'text',
                     fieldLabel: '组织名称',
                     labelAlign: 'right',
                     labelWidth: 60,
@@ -68,7 +64,6 @@ Ext.define('Gotom.view.OrganizationForm', {
                 {
                     xtype: 'numberfield',
                     anchor: '100%',
-                    id: 'sort',
                     fieldLabel: '排列顺序',
                     labelAlign: 'right',
                     labelWidth: 60,

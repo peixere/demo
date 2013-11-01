@@ -113,20 +113,18 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     onBtnNewClick: function(button, e, eOpts) {
         var selected = this.getSelectionModel().selected;
         var record = selected.items[0];
-        if(record)
+        var pid = '';
+        if(!Ext.isEmpty(record))
         {
-            this.openForm('',record.data.parentId);
+            pid = record.data.id;
         }
-        else
-        {
-            this.openForm('','');
-        }
+        this.openForm('',pid);
     },
 
     onBtnEditClick: function(button, e, eOpts) {
         var selected = this.getSelectionModel().selected;
         var record = selected.items[0];
-        if(record)
+        if(!Ext.isEmpty(record))
         {
             this.openForm(record.data.id,'');
         }
