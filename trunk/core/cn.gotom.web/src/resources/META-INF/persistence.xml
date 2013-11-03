@@ -13,6 +13,9 @@
 		<class>cn.gotom.pojos.User</class>
 		<class>cn.gotom.pojos.Organization</class>
 		<class>cn.gotom.pojos.OptionsConfig</class>		
+		<class>zhwedo.ems.pojos.BuildingFunction</class>
+		<class>zhwedo.ems.pojos.Building</class>
+		<class>zhwedo.ems.pojos.EnergyConsumption</class>		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
@@ -40,38 +43,4 @@
 			 -->
 		</properties>
 	</persistence-unit>
-	<persistence-unit name="auth2EntityManager"
-		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>cn.gotom.core.pojos.BaseEntity</class>
-		<class>cn.gotom.core.pojos.Right</class>
-		<class>cn.gotom.core.pojos.Role</class>
-		<class>cn.gotom.core.pojos.User</class>
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>
-
-		<properties>
-
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/auth?Unicode=true&amp;characterEncoding=utf8" />
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="" />
-
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.max_fetch_depth" value="5" />
-			<property name="hibernate.connection.pool_size" value="5" />
-
-			<!-- 
-			<property name="hibernate.c3p0.min_size" value="5" />
-			<property name="hibernate.c3p0.max_size" value="20" />
-			<property name="hibernate.c3p0.timeout" value="300" />
-			<property name="hibernate.c3p0.max_statements" value="50" />
-			<property name="hibernate.c3p0.idle_test_period" value="3000" />
-			<property name="hibernate.c3p0.testConnectionOnCheckout" value="true" />
-			<property name="eclipselink.ddl-generation.output-mode" value="both" />
-			 -->
-		</properties>
-	</persistence-unit>	
 </persistence>
