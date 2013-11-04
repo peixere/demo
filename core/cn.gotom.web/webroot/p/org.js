@@ -21,5 +21,5 @@ Ext.application({
 Ext.onReady(function()
 {
     var crub = Ext.create('Gotom.view.OrganizationCRUB');
-    crub.expandAll();
+    crub.getTreeGrid().expand(true);
 });
