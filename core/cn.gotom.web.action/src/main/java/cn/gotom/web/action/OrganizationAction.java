@@ -60,14 +60,18 @@ public class OrganizationAction
 		if (menuList.size() == 0)
 		{
 			Organization o = new Organization();
-			o.setText("能源管理委员会");
+			o.setText("国家能源委员会");
 			o.setCode("");
 			service.save(o);
 			menuList.add(o);
 		}
 		JsonAction.writerToJSON(menuList);
 	}
-
+	public void list() throws IOException
+	{
+		List<Organization> menuList = service.findAll();
+		JsonAction.writerToJSON(menuList);
+	}
 	public String remove()
 	{
 		String ids = getId();
