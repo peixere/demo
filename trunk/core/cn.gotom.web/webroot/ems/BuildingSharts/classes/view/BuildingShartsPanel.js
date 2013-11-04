@@ -97,8 +97,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
             proxy :
             {
                 type : "ajax",
-                //url : '/ems/buildingSharts!tree.do?action='+type
-                url : '/p/right!tree.do?action='+type
+                url : '../buildingSharts!tree.do?action='+type
+                //url : '/p/right!tree.do?action='+type
             },
             clearOnLoad : true,
             nodeParam : "id"

@@ -20,9 +20,6 @@ Ext.Loader.setConfig({
 
 Ext.application({
     id: 'BuildingSharts',
-    models: [
-        'TreeModel'
-    ],
     stores: [
         'TreeStore'
     ],

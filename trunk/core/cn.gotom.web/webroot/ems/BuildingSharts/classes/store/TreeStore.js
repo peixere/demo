@@ -16,16 +16,14 @@
 Ext.define('ems.store.TreeStore', {
     extend: 'Ext.data.TreeStore',
 
-    requires: [
-        'ems.model.TreeModel'
-    ],
-
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            model: 'ems.model.TreeModel',
             storeId: 'MyTreeStore',
+            defaultRootId: '',
+            defaultRootText: '',
+            nodeParam: 'id',
             proxy: {
                 type: 'ajax',
                 url: '../buildingSharts!tree.do'

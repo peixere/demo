@@ -38,14 +38,6 @@
             ],
             "className": "BuildingShartsTreePanel"
         },
-        "e63a243b-dc78-430d-85e6-abd5c1dac6d9": {
-            "paths": [
-                "metadata/model/TreeModel",
-                "classes/model/override/TreeModel.js",
-                "classes/model/TreeModel.js"
-            ],
-            "className": "TreeModel"
-        },
         "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
             "paths": [
                 "metadata/store/TreeStore",
@@ -65,9 +57,7 @@
             "6757a99e-9890-4c7f-8d45-0ca9304665e9"
         ],
         "controller": [],
-        "model": [
-            "e63a243b-dc78-430d-85e6-abd5c1dac6d9"
-        ],
+        "model": [],
         "resource": [
             "64f665e8-4c5d-46df-b8fd-7e7878f31cdb"
         ],

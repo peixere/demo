@@ -7,9 +7,6 @@
     "codeClass": null,
     "userConfig": {
         "id": "BuildingSharts",
-        "models": [
-            "TreeModel"
-        ],
         "stores": [
             "TreeStore"
         ],
