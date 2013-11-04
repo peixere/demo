@@ -45,10 +45,10 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			orderby = orderby + " p." + sort.getName() + " asc,";
 		}
-		Field versionNum = findField(clazz, "versionNum");
-		if (versionNum != null && versionNum.isAnnotationPresent(Column.class))
+		Field versionNow = findField(clazz, "versionNow");
+		if (versionNow != null && versionNow.isAnnotationPresent(Column.class))
 		{
-			orderby = orderby + " p." + versionNum.getName() + " desc,";
+			orderby = orderby + " p." + versionNow.getName() + " desc,";
 		}
 		if (orderby.endsWith(","))
 		{
