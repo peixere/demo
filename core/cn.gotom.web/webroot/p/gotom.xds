@@ -9,8 +9,8 @@
         "cacheBust": false,
         "buildShouldOverwriteIndex": true
     },
-    "xdsVersion": "2.2.2",
-    "xdsBuild": 991,
+    "xdsVersion": "2.2.3",
+    "xdsBuild": 1044,
     "schemaVersion": 1,
     "upgradeVersion": 210000000503,
     "framework": "ext42",
@@ -20,70 +20,6 @@
                 "metadata/resource/Library"
             ],
             "className": "Library"
-        },
-        "efe7f244-eb55-438d-821b-a238f19aa189": {
-            "paths": [
-                "metadata/view/Portal",
-                "classes/view/override/Portal.js",
-                "classes/view/Portal.js"
-            ],
-            "className": "Portal"
-        },
-        "af6a7475-07fb-423e-9413-2d4bbaa1ba92": {
-            "paths": [
-                "metadata/view/PortalHeader",
-                "classes/view/override/PortalHeader.js",
-                "classes/view/PortalHeader.js"
-            ],
-            "className": "PortalHeader"
-        },
-        "dc36f7e3-3276-4bb8-9479-e162c759d9d4": {
-            "paths": [
-                "metadata/view/PortalTree",
-                "classes/view/override/PortalTree.js",
-                "classes/view/PortalTree.js"
-            ],
-            "className": "PortalTree"
-        },
-        "c3751397-361f-478a-a891-a74a80a33e0b": {
-            "paths": [
-                "metadata/view/PortalFooter",
-                "classes/view/override/PortalFooter.js",
-                "classes/view/PortalFooter.js"
-            ],
-            "className": "PortalFooter"
-        },
-        "f99c2676-b5b6-4021-b0ae-33546d412a7b": {
-            "paths": [
-                "metadata/view/PortalTab",
-                "classes/view/override/PortalTab.js",
-                "classes/view/PortalTab.js"
-            ],
-            "className": "PortalTab"
-        },
-        "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c": {
-            "paths": [
-                "metadata/view/PortalPanel",
-                "classes/view/override/PortalPanel.js",
-                "classes/view/PortalPanel.js"
-            ],
-            "className": "PortalPanel"
-        },
-        "6ee1468f-9e3f-4501-983e-34872958b5fd": {
-            "paths": [
-                "metadata/model/TreeModel",
-                "classes/model/override/TreeModel.js",
-                "classes/model/TreeModel.js"
-            ],
-            "className": "TreeModel"
-        },
-        "68ea48df-d289-4169-aecd-2a5d718a55a7": {
-            "paths": [
-                "metadata/store/PortalTreeStore",
-                "classes/store/override/PortalTreeStore.js",
-                "classes/store/PortalTreeStore.js"
-            ],
-            "className": "PortalTreeStore"
         },
         "24627296-f776-4b9b-8ff9-a32f299758f7": {
             "paths": [
@@ -153,12 +89,6 @@
     },
     "viewOrderMap": {
         "view": [
-            "efe7f244-eb55-438d-821b-a238f19aa189",
-            "af6a7475-07fb-423e-9413-2d4bbaa1ba92",
-            "dc36f7e3-3276-4bb8-9479-e162c759d9d4",
-            "c3751397-361f-478a-a891-a74a80a33e0b",
-            "f99c2676-b5b6-4021-b0ae-33546d412a7b",
-            "93ae8aba-1f61-46a6-9aaf-f5af4d11eb7c",
             "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
             "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
             "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
@@ -167,12 +97,10 @@
             "8b5b629a-7c35-4103-ad47-a13ab196e213"
         ],
         "store": [
-            "68ea48df-d289-4169-aecd-2a5d718a55a7",
             "24627296-f776-4b9b-8ff9-a32f299758f7"
         ],
         "controller": [],
         "model": [
-            "6ee1468f-9e3f-4501-983e-34872958b5fd",
             "b8c562b6-aeba-48c3-86ff-2b4509c6d545"
         ],
         "resource": [

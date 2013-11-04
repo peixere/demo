@@ -100,7 +100,9 @@
                         "name": "text",
                         "inputId": null,
                         "invalidText": "不能为空！",
-                        "blankText": "不能为空！"
+                        "allowBlank": false,
+                        "blankText": "不能为空！",
+                        "minLength": 2
                     },
                     "designerId": "672acb2f-b727-42f7-ac3a-8512a720d5ea"
                 },
@@ -265,7 +267,7 @@
                             "    {\r",
                             "        var result = Ext.JSON.decode(response.responseText);\r",
                             "        var record = Ext.create('Gotom.model.OrganizationModel');\r",
-                            "        result.parentId = parentId;\r",
+                            "        //result.parentId = parentId;\r",
                             "        record.data = result;\r",
                             "        wait.close();\r",
                             "        formPanel.getForm().reset();\r",
