@@ -30,11 +30,11 @@ public abstract class SuperEntity implements Serializable
 	@Column(name = "id", nullable = false, columnDefinition = "char(36)", length = 36)
 	private String id = UUID.randomUUID().toString();
 
-	@Column(name = "version_nom", columnDefinition = "char(18)", length = 18)
-	private String versionNow;
+	@Column(name = "version_nom")
+	private long versionNow;
 
-	@Column(name = "version_create", columnDefinition = "char(18)", length = 18)
-	private String versionCreate;
+	@Column(name = "version_create")
+	private long versionCreate;
 
 	@Transient
 	private boolean selected;
@@ -43,7 +43,7 @@ public abstract class SuperEntity implements Serializable
 	{
 		try
 		{
-			versionCreate = versionNow = millisecondformat.format(new Date());
+			versionCreate = versionNow = Long.parseLong(millisecondformat.format(new Date()));
 		}
 		catch (Exception ex)
 		{
@@ -61,22 +61,22 @@ public abstract class SuperEntity implements Serializable
 		this.id = id;
 	}
 
-	public String getVersionNow()
+	public long getVersionNow()
 	{
 		return versionNow;
 	}
 
-	public void setVersionNow(String versionNow)
+	public void setVersionNow(long versionNow)
 	{
 		this.versionNow = versionNow;
 	}
 
-	public String getVersionCreate()
+	public long getVersionCreate()
 	{
 		return versionCreate;
 	}
 
-	public void setVersionCreate(String versionCreate)
+	public void setVersionCreate(long versionCreate)
 	{
 		this.versionCreate = versionCreate;
 	}
