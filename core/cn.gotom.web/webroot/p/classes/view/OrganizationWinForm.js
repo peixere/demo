@@ -113,10 +113,10 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             maxLength: 6,
                             maxLengthText: '最小值为能< {0}',
                             size: 6,
-                            maxText: '最大值为能> {0}',
-                            maxValue: 10000,
-                            minText: '最小值为能< {0}',
-                            minValue: -10000
+                            maxText: '最大值为> {0}',
+                            maxValue: 1000000,
+                            minText: '最小值为< {0}',
+                            minValue: -1000000
                         }
                     ],
                     dockedItems: [
