@@ -1,4 +1,4 @@
-package cn.gotom.servlet;
+package cn.gotom.vo;
 
 public class TreeModel
 {
@@ -8,6 +8,7 @@ public class TreeModel
 	private String iconCls;
 	private boolean leaf;
 	private String type;
+	private boolean expand;
 	public String getId()
 	{
 		return id;
@@ -55,6 +56,14 @@ public class TreeModel
 	public void setType(String type)
 	{
 		this.type = type;
+	}
+	public boolean isExpand()
+	{
+		return expand;
+	}
+	public void setExpand(boolean expand)
+	{
+		this.expand = expand;
 	}
 	
 	
