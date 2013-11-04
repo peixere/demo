@@ -1,0 +1,174 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "BuildingShartsPanel",
+        "designer|userClassName": "BuildingShartsPanel",
+        "designer|userAlias": "BuildingShartsPanel",
+        "requires": [
+            "ems.view.BuildingShartsTreePanel"
+        ],
+        "layout": "border",
+        "title": null
+    },
+    "designerId": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "store": "TreeStore",
+                "layout|region": "west",
+                "layout|split": true
+            },
+            "designerId": "55247c1b-2994-4895-bfa3-fd167437f2a9",
+            "masterInstanceId": "dd9564ab-66c0-4229-91f5-c8471a74eb8b"
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "CenterPanel",
+                "layout": "border",
+                "title": null
+            },
+            "designerId": "cf165709-b3ee-4dc7-ba4a-18f6210c6eb2",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "north",
+                        "height": 93,
+                        "id": "FormPanel",
+                        "bodyPadding": 10,
+                        "collapsed": false,
+                        "collapsible": true,
+                        "header": false,
+                        "title": "查询条件",
+                        "titleCollapse": false
+                    },
+                    "designerId": "49d0d5f9-a2b6-49f6-b68a-6a86d823ee60",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "id": "toolbar"
+                            },
+                            "designerId": "d498bc09-ce48-473d-aebf-33348b1bb928",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "id": "btnSearch",
+                                        "iconCls": "icon-search",
+                                        "text": "查询"
+                                    },
+                                    "designerId": "31c268d3-e3c8-47c8-8825-cf1b781619b6"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "id": "ContentPanel",
+                        "title": null
+                    },
+                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b"
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onBuildingShartsTreePanelItemClick",
+                "designer|params": [
+                    "dataview",
+                    "record",
+                    "item",
+                    "index",
+                    "e",
+                    "eOpts"
+                ],
+                "implHandler": [
+                    "alert('');"
+                ]
+            },
+            "designerId": "99c33ff8-dbe5-4ac5-a526-c23ae68b8b38"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getTreeStore",
+                "designer|params": [
+                    "id",
+                    "type",
+                    "treeModel"
+                ],
+                "implHandler": [
+                    "return Ext.create(\"Ext.data.TreeStore\",\r",
+                    "    {\r",
+                    "\tdefaultRootId : id,\r",
+                    "\tmodel : treeModel,\r",
+                    "\tproxy :\r",
+                    "\t{\r",
+                    "\t    type : \"ajax\",\r",
+                    "\t    //url : '/ems/buildingSharts!tree.do?action='+type\r",
+                    "        url : '/p/right!tree.do?action='+type\r",
+                    "\t},\r",
+                    "\tclearOnLoad : true,\r",
+                    "\tnodeParam : \"id\"\r",
+                    "    });"
+                ]
+            },
+            "designerId": "5cd78dab-1ef7-4f1c-a9b4-301a2391f9ce"
+        }
+    ]
+}

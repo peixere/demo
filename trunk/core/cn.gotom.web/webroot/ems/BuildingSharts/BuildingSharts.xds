@@ -1,0 +1,78 @@
+{
+    "name": "BuildingSharts",
+    "settings": {},
+    "xdsVersion": "2.2.3",
+    "xdsBuild": 1044,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "64f665e8-4c5d-46df-b8fd-7e7878f31cdb": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "8984df7f-0808-4ae8-9597-f164846211a6": {
+            "paths": [
+                "metadata/view/BuildingShartsViewport",
+                "classes/view/override/BuildingShartsViewport.js",
+                "classes/view/BuildingShartsViewport.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "BuildingShartsViewport"
+        },
+        "bcffa829-619f-4e3e-8cae-6eb69c607a5e": {
+            "paths": [
+                "metadata/view/BuildingShartsPanel",
+                "classes/view/override/BuildingShartsPanel.js",
+                "classes/view/BuildingShartsPanel.js"
+            ],
+            "className": "BuildingShartsPanel"
+        },
+        "dd9564ab-66c0-4229-91f5-c8471a74eb8b": {
+            "paths": [
+                "metadata/view/BuildingShartsTreePanel",
+                "classes/view/override/BuildingShartsTreePanel.js",
+                "classes/view/BuildingShartsTreePanel.js"
+            ],
+            "className": "BuildingShartsTreePanel"
+        },
+        "e63a243b-dc78-430d-85e6-abd5c1dac6d9": {
+            "paths": [
+                "metadata/model/TreeModel",
+                "classes/model/override/TreeModel.js",
+                "classes/model/TreeModel.js"
+            ],
+            "className": "TreeModel"
+        },
+        "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
+            "paths": [
+                "metadata/store/TreeStore",
+                "classes/store/override/TreeStore.js",
+                "classes/store/TreeStore.js"
+            ],
+            "className": "TreeStore"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "8984df7f-0808-4ae8-9597-f164846211a6",
+            "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+            "dd9564ab-66c0-4229-91f5-c8471a74eb8b"
+        ],
+        "store": [
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+        ],
+        "controller": [],
+        "model": [
+            "e63a243b-dc78-430d-85e6-abd5c1dac6d9"
+        ],
+        "resource": [
+            "64f665e8-4c5d-46df-b8fd-7e7878f31cdb"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
