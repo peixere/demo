@@ -2,7 +2,7 @@
     "expandedState": {
         "data": true,
         "model": true,
-        "component": false,
+        "component": true,
         "controller": true,
         "resource": false,
         "f55b9a72-ec2c-4ad1-9502-744db3d87be0": {
@@ -16,7 +16,6 @@
         },
         "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d": {
             "id": "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
-            "expanded": false,
             "cn": [
                 {
                     "id": "eaaf4215-5755-4870-b9d6-1261636805d7"
@@ -49,7 +48,6 @@
         },
         "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89": {
             "id": "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
-            "expanded": false,
             "cn": [
                 {
                     "id": "a7d5e040-30db-486d-8a2b-af5e65cfb5c0"
@@ -111,6 +109,7 @@
             "cn": [
                 {
                     "id": "4f9211b8-43cc-462a-b821-724798964e2f",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "b03f7846-a48c-48e4-b212-1c8386ade108"
@@ -198,18 +197,19 @@
         "openTabs": [
             "b8c562b6-aeba-48c3-86ff-2b4509c6d545",
             "8b5b629a-7c35-4103-ad47-a13ab196e213",
-            "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89"
+            "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
+            "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d"
         ]
     },
     "canvasState": {
-        "topInstance": "8b5b629a-7c35-4103-ad47-a13ab196e213"
+        "topInstance": "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d"
     },
     "inspectorState": {
-        "topInstance": "8b5b629a-7c35-4103-ad47-a13ab196e213",
-        "selectedInstance": "6be7f5c1-275d-40ef-990b-c97ffc7b873b"
+        "topInstance": "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
+        "selectedInstance": "f83584e9-d310-486c-8dcd-154d651e9a8b"
     },
     "codeState": {
-        "topInstance": null
+        "topInstance": "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d"
     },
-    "editMode": "design"
+    "editMode": "code"
 }
