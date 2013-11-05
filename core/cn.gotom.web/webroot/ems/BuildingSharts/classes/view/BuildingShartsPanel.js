@@ -169,13 +169,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                             xtype: 'panel',
                             region: 'center',
                             html: '<div id="heightchartcontainer" style="min-width: 310px; width: 100%;height: 100%; margin: 0 auto"></div>',
-                            id: 'ContentPanel',
-                            listeners: {
-                                resize: {
-                                    fn: me.onContentPanelResize,
-                                    scope: me
-                                }
-                            }
+                            id: 'ContentPanel'
                         }
                     ]
                 }
@@ -252,11 +246,6 @@ Ext.define('ems.view.BuildingShartsPanel', {
     onFormPanelAfterLayout: function(container, layout, eOpts) {
         Ext.getCmp('startDate').setValue(new Date());
         Ext.getCmp('endDate').setValue(new Date());
-    },
-
-    onContentPanelResize: function(component, width, height, oldWidth, oldHeight, eOpts) {
-        var heightchartcontainer = $('heightchartcontainer');
-        //Ext.Msg.alert('',heightchartcontainer.hight());
     }
 
 });
