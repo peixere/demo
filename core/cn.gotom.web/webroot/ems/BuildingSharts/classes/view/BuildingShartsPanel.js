@@ -61,8 +61,11 @@ Ext.define('ems.view.BuildingShartsPanel', {
                         {
                             xtype: 'form',
                             region: 'north',
-                            height: 93,
+                            height: 101,
                             id: 'FormPanel',
+                            layout: {
+                                type: 'absolute'
+                            },
                             bodyPadding: 10,
                             collapsed: false,
                             collapsible: true,
@@ -77,6 +80,18 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     items: [
                                         {
                                             xtype: 'button',
+                                            id: 'btnRed',
+                                            iconCls: 'icon-refresh',
+                                            text: '刷新',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnRedClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'button',
                                             id: 'btnSearch',
                                             iconCls: 'icon-search',
                                             text: '查询'
@@ -87,12 +102,43 @@ Ext.define('ems.view.BuildingShartsPanel', {
                             items: [
                                 {
                                     xtype: 'textfield',
-                                    anchor: '100%',
+                                    x: 10,
+                                    y: 10,
                                     id: 'id',
-                                    fieldLabel: '标识',
+                                    width: 380,
+                                    fieldLabel: '建筑标识',
+                                    labelAlign: 'right',
+                                    labelWidth: 80,
                                     name: 'id'
+                                },
+                                {
+                                    xtype: 'datefield',
+                                    x: 10,
+                                    y: 40,
+                                    id: 'startDate',
+                                    width: 220,
+                                    fieldLabel: '查询时间',
+                                    labelAlign: 'right',
+                                    labelWidth: 80
+                                },
+                                {
+                                    xtype: 'datefield',
+                                    x: 230,
+                                    y: 40,
+                                    id: 'endDate',
+                                    width: 160,
+                                    fieldLabel: '至',
+                                    labelAlign: 'right',
+                                    labelSeparator: ' ',
+                                    labelWidth: 20
                                 }
-                            ]
+                            ],
+                            listeners: {
+                                afterlayout: {
+                                    fn: me.onFormPanelAfterLayout,
+                                    scope: me
+                                }
+                            }
                         },
                         {
                             xtype: 'panel',
@@ -110,6 +156,15 @@ Ext.define('ems.view.BuildingShartsPanel', {
     onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
         Ext.getCmp('id').setValue(record.data.text);
+    },
+
+    onBtnRedClick: function(button, e, eOpts) {
+        window.location.reload();
+    },
+
+    onFormPanelAfterLayout: function(container, layout, eOpts) {
+        Ext.getCmp('startDate').setValue(new Date());
+        Ext.getCmp('endDate').setValue(new Date());
     }
 
 });

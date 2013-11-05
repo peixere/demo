@@ -90,8 +90,10 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "north",
-                        "height": 93,
+                        "designer|snapToGrid": 10,
+                        "height": 101,
                         "id": "FormPanel",
+                        "layout": "absolute",
                         "bodyPadding": 10,
                         "collapsed": false,
                         "collapsible": true,
@@ -123,6 +125,40 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "layout|flex": null,
+                                        "id": "btnRed",
+                                        "iconCls": "icon-refresh",
+                                        "text": "刷新"
+                                    },
+                                    "designerId": "5215666d-2344-42ed-8d40-e94b6c20a3aa",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnRedClick",
+                                                "implHandler": [
+                                                    "window.location.reload();"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "edd13c11-6fa7-4273-8b30-000eed873896"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
                                         "border": null,
                                         "id": "btnSearch",
                                         "iconCls": "icon-search",
@@ -140,12 +176,73 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "layout|anchor": "100%",
+                                "layout|anchor": null,
+                                "layout|x": 10,
+                                "layout|y": 10,
                                 "id": "id",
-                                "fieldLabel": "标识",
+                                "width": 380,
+                                "fieldLabel": "建筑标识",
+                                "labelAlign": "right",
+                                "labelWidth": 80,
                                 "name": "id"
                             },
                             "designerId": "231dd8b0-07f6-4720-8a39-36c29e574f4a"
+                        },
+                        {
+                            "type": "Ext.form.field.Date",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": null,
+                                "layout|x": 10,
+                                "layout|y": 40,
+                                "id": "startDate",
+                                "width": 220,
+                                "fieldLabel": "查询时间",
+                                "labelAlign": "right",
+                                "labelWidth": 80
+                            },
+                            "designerId": "4d74e755-54af-4704-90c4-e61f52664dcc"
+                        },
+                        {
+                            "type": "Ext.form.field.Date",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 230,
+                                "layout|y": 40,
+                                "id": "endDate",
+                                "width": 160,
+                                "fieldLabel": "至",
+                                "labelAlign": "right",
+                                "labelSeparator": " ",
+                                "labelWidth": 20
+                            },
+                            "designerId": "09d66b1f-e789-44cd-87a7-1b449e1bc912"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onFormPanelAfterLayout",
+                                "implHandler": [
+                                    "Ext.getCmp('startDate').setValue(new Date());\r",
+                                    "Ext.getCmp('endDate').setValue(new Date());"
+                                ],
+                                "name": "afterlayout",
+                                "scope": "me"
+                            },
+                            "designerId": "800a7a55-967d-474c-b1b2-6dd98fa9751b"
                         }
                     ]
                 },
