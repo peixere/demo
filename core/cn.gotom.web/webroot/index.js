@@ -62,7 +62,7 @@ Ext.onReady(function()
 	    url : mainUrl,
 	    callback : callbackTitle
 	});
-    }, 2000);
+    }, 100);
 
     function itemClick(view, node)
     {
@@ -226,5 +226,5 @@ Ext.onReady(function()
 	});
 	portalPanel.add(portalcolumn2);
 	tabPanel.setLoading(false);
-    }, 2000);
+    }, 100);
 });
