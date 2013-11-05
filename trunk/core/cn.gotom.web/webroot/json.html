@@ -6,7 +6,7 @@
 <script type="text/javascript" src="resources/jquery/jquery-1.10.1.min.js"></script> 
 <script type="text/javascript">  
 function alt() {  
-	//alert($("#jsonform").serialize()); 
+	alert($("#jsonform").serialize()); 
 	$.post("welcome/json.do", $("#jsonform").serialize(),
 		function(json){alert(json.userName);}
 	);  
