@@ -30,9 +30,9 @@
 		            },	                    
 			        series: []
 			    };			    
-			options.title.text = '测试标题';
-			options.subtitle.text = '测试富标题';
-		    var seriesList = data.series;
+			options.title.text = data.chart.title;
+			options.subtitle.text = data.chart.subtitle;
+		    var seriesList = data.chart.series;
 		    $.each(seriesList, function (i, serie) {
 				options.series.push({
 		            data: [],
