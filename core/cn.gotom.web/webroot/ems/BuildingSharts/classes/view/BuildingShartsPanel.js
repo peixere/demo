@@ -198,14 +198,14 @@ Ext.define('ems.view.BuildingShartsPanel', {
 
     onBtnSearchClick: function(button, e, eOpts) {
         var me = this;
-        var heightchartcontainer = $('#heightchartcontainer');
-        var id = Ext.getCmp('id').getValue();
-        var name = Ext.getCmp('name').getValue();
-        var startDate = Ext.getCmp('startDate').getValue();
-        var endDate = Ext.getCmp('endDate').getValue();
-        var formdata = 'id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
-        var html = '<iframe width="100%" height="100%" frameborder="0" src="chart.html?'+formdata+'"></iframe>';
-        html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
+        //var heightchartcontainer = $('#heightchartcontainer');
+        //var id = Ext.getCmp('id').getValue();
+        //var name = Ext.getCmp('name').getValue();
+        //var startDate = Ext.getCmp('startDate').getValue();
+        //var endDate = Ext.getCmp('endDate').getValue();
+        //var formdata = 'id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
+        //var html = '<iframe width="100%" height="100%" frameborder="0" src="chart.html?'+formdata+'"></iframe>';
+        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
         Ext.getCmp('ContentPanel').update(html);
         var form = Ext.getCmp('FormPanel');
         if (form.isValid())
