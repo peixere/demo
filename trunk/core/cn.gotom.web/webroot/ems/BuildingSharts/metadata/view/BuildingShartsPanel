@@ -25,7 +25,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "store": "TreeStore",
+                "store": "BuildingShartsTreeStore",
                 "layout|region": "west",
                 "layout|split": true
             },
@@ -114,61 +114,6 @@
                     "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b"
                 }
             ]
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onBuildingShartsTreePanelItemClick",
-                "designer|params": [
-                    "dataview",
-                    "record",
-                    "item",
-                    "index",
-                    "e",
-                    "eOpts"
-                ],
-                "implHandler": [
-                    "alert('');"
-                ]
-            },
-            "designerId": "99c33ff8-dbe5-4ac5-a526-c23ae68b8b38"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "getTreeStore",
-                "designer|params": [
-                    "id",
-                    "type",
-                    "treeModel"
-                ],
-                "implHandler": [
-                    "return Ext.create(\"Ext.data.TreeStore\",\r",
-                    "{\r",
-                    "    defaultRootId : id,\r",
-                    "    model : treeModel,\r",
-                    "    proxy :\r",
-                    "    {\r",
-                    "        type : \"ajax\",\r",
-                    "        url : '../buildingSharts!tree.do?action='+type\r",
-                    "        //url : '/p/right!tree.do?action='+type\r",
-                    "    },\r",
-                    "    clearOnLoad : true,\r",
-                    "    nodeParam : \"id\"\r",
-                    "});"
-                ]
-            },
-            "designerId": "5cd78dab-1ef7-4f1c-a9b4-301a2391f9ce"
         }
     ]
 }

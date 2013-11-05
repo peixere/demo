@@ -33,7 +33,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
             items: [
                 {
                     xtype: 'BuildingShartsTreePanel',
-                    store: 'TreeStore',
+                    store: 'BuildingShartsTreeStore',
                     region: 'west',
                     split: true
                 },
@@ -83,26 +83,6 @@ Ext.define('ems.view.BuildingShartsPanel', {
         });
 
         me.callParent(arguments);
-    },
-
-    onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
-        alert('');
-    },
-
-    getTreeStore: function(id, type, treeModel) {
-        return Ext.create("Ext.data.TreeStore",
-        {
-            defaultRootId : id,
-            model : treeModel,
-            proxy :
-            {
-                type : "ajax",
-                url : '../buildingSharts!tree.do?action='+type
-                //url : '/p/right!tree.do?action='+type
-            },
-            clearOnLoad : true,
-            nodeParam : "id"
-        });
     }
 
 });
