@@ -30,14 +30,6 @@
             ],
             "className": "BuildingShartsPanel"
         },
-        "dd9564ab-66c0-4229-91f5-c8471a74eb8b": {
-            "paths": [
-                "metadata/view/BuildingShartsTreePanel",
-                "classes/view/override/BuildingShartsTreePanel.js",
-                "classes/view/BuildingShartsTreePanel.js"
-            ],
-            "className": "BuildingShartsTreePanel"
-        },
         "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
             "paths": [
                 "metadata/store/BuildingShartsTreeStore",
@@ -50,8 +42,7 @@
     "viewOrderMap": {
         "view": [
             "8984df7f-0808-4ae8-9597-f164846211a6",
-            "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
-            "dd9564ab-66c0-4229-91f5-c8471a74eb8b"
+            "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
         ],
         "store": [
             "6757a99e-9890-4c7f-8d45-0ca9304665e9"

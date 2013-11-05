@@ -9,28 +9,53 @@
         "id": "BuildingShartsPanel",
         "designer|userClassName": "BuildingShartsPanel",
         "designer|userAlias": "BuildingShartsPanel",
-        "requires": [
-            "ems.view.BuildingShartsTreePanel"
-        ],
         "layout": "border",
         "title": null
     },
     "designerId": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
     "cn": [
         {
-            "type": "linkedinstance",
+            "type": "Ext.tree.Panel",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "store": "BuildingShartsTreeStore",
                 "layout|region": "west",
-                "layout|split": true
+                "layout|split": true,
+                "id": "BuildingShartsTreePanel",
+                "maxWidth": 400,
+                "minWidth": 100,
+                "width": 150,
+                "designer|createAlias": "",
+                "collapsed": false,
+                "collapsible": true,
+                "title": "建筑能耗报表",
+                "store": "BuildingShartsTreeStore",
+                "rootVisible": false
             },
-            "designerId": "55247c1b-2994-4895-bfa3-fd167437f2a9",
-            "masterInstanceId": "dd9564ab-66c0-4229-91f5-c8471a74eb8b"
+            "designerId": "badc1417-4791-427d-9680-ced1b69cf6bd",
+            "cn": [
+                {
+                    "type": "Ext.tree.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "071f1b78-e6e2-4cf7-bbb8-f851e951ccff"
+                },
+                {
+                    "type": "Ext.selection.RowModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.RowModel",
+                    "designerId": "0efacbdb-4b62-4bfd-b082-f8e09620e2c2"
+                }
+            ]
         },
         {
             "type": "Ext.panel.Panel",
