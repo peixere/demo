@@ -22,7 +22,7 @@ public abstract class ContextUtils
 		ServletActionContext.getResponse().getWriter().close();
 	}
 
-	public static void printParameters() throws IOException
+	public static void printParameters()
 	{
 		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 		for (String key : params.keySet())
