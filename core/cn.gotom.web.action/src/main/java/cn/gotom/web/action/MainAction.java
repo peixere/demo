@@ -13,14 +13,14 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.RightService;
-import cn.gotom.servlet.JsonAction;
+import cn.gotom.servlet.ContextUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
 @Action(value = "/main", results = { @Result(name = "success", type = "json") })
-public class MainAction extends JsonAction
+public class MainAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -60,7 +60,7 @@ public class MainAction extends JsonAction
 		this.setTitle("统合管理平台");
 		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
 		rightList = authService.findRightList(username, id);
-		toJSON(this);
+		ContextUtils.writerToJSON(this);
 	}
 
 	private void menu() throws IOException
@@ -74,7 +74,7 @@ public class MainAction extends JsonAction
 		{
 			menuList = rightService.loadTreeByParentId(id);
 		}
-		toJSON(menuList);
+		ContextUtils.writerToJSON(menuList);
 		//resource();
 	}
 
@@ -114,7 +114,7 @@ public class MainAction extends JsonAction
 				menuList = rightService.loadTreeByParentId(id);
 			}
 		}
-		this.toJSON(menuList);
+		ContextUtils.writerToJSON(menuList);
 	}
 
 	private void loadChildrencallback(Right right)
