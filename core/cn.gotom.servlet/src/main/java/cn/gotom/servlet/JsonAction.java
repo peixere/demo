@@ -1,6 +1,7 @@
 package cn.gotom.servlet;
 
 import java.io.IOException;
+import java.util.Map;
 
 import net.sf.json.JSON;
 
@@ -17,7 +18,7 @@ public abstract class JsonAction
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
 	}
-	
+
 	public static void writerToJSON(Object value) throws IOException
 	{
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
@@ -26,5 +27,18 @@ public abstract class JsonAction
 		ServletActionContext.getResponse().getWriter().println(json.toString());
 		ServletActionContext.getResponse().getWriter().flush();
 		ServletActionContext.getResponse().getWriter().close();
+	}
+
+	public static void printParameters() throws IOException
+	{
+		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
+		for (String key : params.keySet())
+		{
+			String[] values = params.get(key);
+			for (String value : values)
+			{
+				System.out.println(key + "=" + value);
+			}
+		}
 	}
 }
