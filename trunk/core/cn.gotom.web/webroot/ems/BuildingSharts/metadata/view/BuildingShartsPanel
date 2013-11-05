@@ -208,15 +208,53 @@
                                             "userConfig": {
                                                 "fn": "onBtnSearchClick",
                                                 "implHandler": [
+                                                    "var heightchartcontainer = $('#heightchartcontainer');\r",
                                                     "var id = Ext.getCmp('id').getValue();\r",
                                                     "var name = Ext.getCmp('name').getValue();\r",
                                                     "var startDate = Ext.getCmp('startDate').getValue();\r",
                                                     "var endDate = Ext.getCmp('endDate').getValue();\r",
                                                     "var url = 'chart.html?id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;\r",
-                                                    "alert(url);\r",
-                                                    "var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"'+url+'\"></iframe>';\r",
+                                                    "//alert(url);\r",
+                                                    "var html = '<div id=\"heightchartcontainer\" width=\"100%\" height=\"100\"></div>';\r",
+                                                    "//var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"'+url+'\"></iframe>';\r",
                                                     "Ext.getCmp('ContentPanel').update(html);\r",
-                                                    ""
+                                                    "$.post('/ems/buildingSharts.do', function(data) {\r",
+                                                    "\t\t\t    var options = {\r",
+                                                    "\t\t\t\t        chart: {\r",
+                                                    "\t\t\t\t            renderTo: 'heightchartcontainer',\r",
+                                                    "\t\t\t\t            type: 'line'\r",
+                                                    "\t\t\t\t        },\r",
+                                                    "\t\t\t            title: {\r",
+                                                    "\t\t\t                text: '测试报表'\r",
+                                                    "\t\t\t            },\r",
+                                                    "\t\t\t            subtitle: {\r",
+                                                    "\t\t\t                text: 'Irregular time data in Highcharts JS'\r",
+                                                    "\t\t\t            },\t\t\r",
+                                                    "\t\t\t            xAxis: {\r",
+                                                    "\t\t\t                type: 'data'\r",
+                                                    "\t\t\t            },\r",
+                                                    "\t\t\t            yAxis: {\r",
+                                                    "\t\t\t                title: {\r",
+                                                    "\t\t\t                    text: 'Snow depth (m)'\r",
+                                                    "\t\t\t                }\r",
+                                                    "\t\t\t            },\t                    \r",
+                                                    "\t\t\t\t        series: []\r",
+                                                    "\t\t\t\t    };\t\t\t    \r",
+                                                    "\t\t\t\toptions.title.text = '测试标题';\r",
+                                                    "\t\t\t\toptions.subtitle.text = '测试富标题';\r",
+                                                    "\t\t\t    var seriesList = data.series;\r",
+                                                    "\t\t\t    $.each(seriesList, function (i, serie) {\r",
+                                                    "\t\t\t\t\toptions.series.push({\r",
+                                                    "\t\t\t            data: [],\r",
+                                                    "\t\t\t            name: serie.name\r",
+                                                    "\t\t\t        });\r",
+                                                    "\t\t\t\t   \tvar plist = serie.data;\r",
+                                                    "\t\t\t\t\t$.each(plist, function (j, p){\r",
+                                                    "\t\t\t\t\t    options.series[i].data.push([p.x,p.y]); \r",
+                                                    "\t\t\t\t\t})\t\r",
+                                                    "\t\t\t    })\r",
+                                                    "\t\t\t    var chart = new Highcharts.Chart(options);\r",
+                                                    "\t\t    });"
                                                 ],
                                                 "name": "click",
                                                 "scope": "me"
@@ -330,12 +368,32 @@
                     "userConfig": {
                         "layout|region": "center",
                         "html": [
-                            "<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"chart.html\"></iframe>"
+                            "<div id=\"heightchartcontainer\" style=\"min-width: 310px; width: 100%;height: 100%; margin: 0 auto\"></div>"
                         ],
                         "id": "ContentPanel",
                         "title": null
                     },
-                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b"
+                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onContentPanelResize",
+                                "implHandler": [
+                                    "var heightchartcontainer = $('heightchartcontainer');\r",
+                                    "//Ext.Msg.alert('',heightchartcontainer.hight());"
+                                ],
+                                "name": "resize",
+                                "scope": "me"
+                            },
+                            "designerId": "43f20160-8411-4bf9-b622-db739d718a1f"
+                        }
+                    ]
                 }
             ]
         }

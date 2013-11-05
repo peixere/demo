@@ -168,8 +168,14 @@ Ext.define('ems.view.BuildingShartsPanel', {
                         {
                             xtype: 'panel',
                             region: 'center',
-                            html: '<iframe width="100%" height="100%" frameborder="0" src="chart.html"></iframe>',
-                            id: 'ContentPanel'
+                            html: '<div id="heightchartcontainer" style="min-width: 310px; width: 100%;height: 100%; margin: 0 auto"></div>',
+                            id: 'ContentPanel',
+                            listeners: {
+                                resize: {
+                                    fn: me.onContentPanelResize,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -194,20 +200,63 @@ Ext.define('ems.view.BuildingShartsPanel', {
     },
 
     onBtnSearchClick: function(button, e, eOpts) {
+        var heightchartcontainer = $('#heightchartcontainer');
         var id = Ext.getCmp('id').getValue();
         var name = Ext.getCmp('name').getValue();
         var startDate = Ext.getCmp('startDate').getValue();
         var endDate = Ext.getCmp('endDate').getValue();
         var url = 'chart.html?id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
-        alert(url);
-        var html = '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>';
+        //alert(url);
+        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
+        //var html = '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>';
         Ext.getCmp('ContentPanel').update(html);
-
+        $.post('/ems/buildingSharts.do', function(data) {
+            var options = {
+                chart: {
+                    renderTo: 'heightchartcontainer',
+                    type: 'line'
+                },
+                title: {
+                    text: '测试报表'
+                },
+                subtitle: {
+                    text: 'Irregular time data in Highcharts JS'
+                },		
+                xAxis: {
+                    type: 'data'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Snow depth (m)'
+                    }
+                },	                    
+                series: []
+            };			    
+            options.title.text = '测试标题';
+            options.subtitle.text = '测试富标题';
+            var seriesList = data.series;
+            $.each(seriesList, function (i, serie) {
+                options.series.push({
+                    data: [],
+                    name: serie.name
+                });
+                var plist = serie.data;
+                $.each(plist, function (j, p){
+                    options.series[i].data.push([p.x,p.y]); 
+                })	
+            })
+            var chart = new Highcharts.Chart(options);
+        });
     },
 
     onFormPanelAfterLayout: function(container, layout, eOpts) {
         Ext.getCmp('startDate').setValue(new Date());
         Ext.getCmp('endDate').setValue(new Date());
+    },
+
+    onContentPanelResize: function(component, width, height, oldWidth, oldHeight, eOpts) {
+        var heightchartcontainer = $('heightchartcontainer');
+        //Ext.Msg.alert('',heightchartcontainer.hight());
     }
 
 });
