@@ -194,6 +194,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
     },
 
     onBtnSearchClick: function(button, e, eOpts) {
+        var me = this;
         var heightchartcontainer = $('#heightchartcontainer');
         var id = Ext.getCmp('id').getValue();
         var name = Ext.getCmp('name').getValue();
@@ -203,48 +204,67 @@ Ext.define('ems.view.BuildingShartsPanel', {
         var html = '<iframe width="100%" height="100%" frameborder="0" src="chart.html?'+formdata+'"></iframe>';
         html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
         Ext.getCmp('ContentPanel').update(html);
-        $.post('/ems/buildingSharts.do',formdata, function(data) {
-            var options = {
-                chart: {
-                    renderTo: 'heightchartcontainer',
-                    type: 'line'
+        var form = Ext.getCmp('FormPanel');
+        if (form.isValid())
+        {
+            form.submit({
+                url : '/ems/buildingSharts.do',
+                method : 'POST',
+                waitMsg : '正在生成报表，稍后...',
+                success : function(f, action)
+                {
+                    var result = Ext.JSON.decode(action.response.responseText);
+                    me.showHighcharts(result.chart);
                 },
-                title: {
-                    text: '测试报表'
-                },
-                subtitle: {
-                    text: 'Irregular time data in Highcharts JS'
-                },		
-                xAxis: {
-                    type: 'data'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Snow depth (m)'
-                    }
-                },	                    
-                series: []
-            };			    
-            options.title.text = data.chart.title;
-            options.subtitle.text = data.chart.subtitle;
-            var seriesList = data.chart.series;
-            $.each(seriesList, function (i, serie) {
-                options.series.push({
-                    data: [],
-                    name: serie.name
-                });
-                var plist = serie.data;
-                $.each(plist, function (j, p){
-                    options.series[i].data.push([p.x,p.y]); 
-                })	
-            })
-            var chart = new Highcharts.Chart(options);
-        });
+                failure : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '服务器端程序出错！');
+                }
+            });
+        }
     },
 
     onFormPanelAfterLayout: function(container, layout, eOpts) {
         Ext.getCmp('startDate').setValue(new Date());
         Ext.getCmp('endDate').setValue(new Date());
+    },
+
+    showHighcharts: function(chartdata) {
+        var options = {
+            chart: {
+                renderTo: 'heightchartcontainer',
+                type: 'line'
+            },
+            title: {
+                text: '测试报表'
+            },
+            subtitle: {
+                text: 'Irregular time data in Highcharts JS'
+            },		
+            xAxis: {
+                type: 'data'
+            },
+            yAxis: {
+                title: {
+                    text: 'Snow depth (m)'
+                }
+            },	                    
+            series: []
+        };			    
+        options.title.text = chartdata.title;
+        options.subtitle.text = chartdata.subtitle;
+        var seriesList = chartdata.series;
+        $.each(seriesList, function (i, serie) {
+            options.series.push({
+                data: [],
+                name: serie.name
+            });
+            var plist = serie.data;
+            $.each(plist, function (j, p){
+                options.series[i].data.push([p.x,p.y]); 
+            })	
+        })
+        var chart = new Highcharts.Chart(options);
     }
 
 });
