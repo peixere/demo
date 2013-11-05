@@ -199,12 +199,11 @@ Ext.define('ems.view.BuildingShartsPanel', {
         var name = Ext.getCmp('name').getValue();
         var startDate = Ext.getCmp('startDate').getValue();
         var endDate = Ext.getCmp('endDate').getValue();
-        var url = 'chart.html?id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
-        //alert(url);
-        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
-        //var html = '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>';
+        var formdata = 'id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
+        var html = '<iframe width="100%" height="100%" frameborder="0" src="chart.html?'+formdata+'"></iframe>';
+        html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
         Ext.getCmp('ContentPanel').update(html);
-        $.post('/ems/buildingSharts.do', function(data) {
+        $.post('/ems/buildingSharts.do',formdata, function(data) {
             var options = {
                 chart: {
                     renderTo: 'heightchartcontainer',
@@ -226,9 +225,9 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 },	                    
                 series: []
             };			    
-            options.title.text = '测试标题';
-            options.subtitle.text = '测试富标题';
-            var seriesList = data.series;
+            options.title.text = data.chart.title;
+            options.subtitle.text = data.chart.subtitle;
+            var seriesList = data.chart.series;
             $.each(seriesList, function (i, serie) {
                 options.series.push({
                     data: [],
