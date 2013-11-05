@@ -63,6 +63,37 @@
                         "scope": "me"
                     },
                     "designerId": "53b267d8-afa4-4d3b-b7ef-17849b064f4c"
+                },
+                {
+                    "type": "Ext.panel.Tool",
+                    "reference": {
+                        "name": "tools",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "type": "refresh"
+                    },
+                    "designerId": "b3f2bbf9-f2ba-485d-9cbf-2ce894717b97",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onToolClick",
+                                "implHandler": [
+                                    "Ext.getCmp('BuildingShartsTreePanel').getStore().reload();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "101ec687-0395-4a02-84c6-48214cd3ff4b"
+                        }
+                    ]
                 }
             ]
         },
@@ -255,6 +286,9 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "center",
+                        "html": [
+                            "<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"chart.html\"></iframe>"
+                        ],
                         "id": "ContentPanel",
                         "title": null
                     },
