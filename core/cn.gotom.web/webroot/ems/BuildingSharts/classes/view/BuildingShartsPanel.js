@@ -17,10 +17,6 @@ Ext.define('ems.view.BuildingShartsPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.BuildingShartsPanel',
 
-    requires: [
-        'ems.view.BuildingShartsTreePanel'
-    ],
-
     id: 'BuildingShartsPanel',
     layout: {
         type: 'border'
@@ -32,10 +28,24 @@ Ext.define('ems.view.BuildingShartsPanel', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'BuildingShartsTreePanel',
-                    store: 'BuildingShartsTreeStore',
+                    xtype: 'treepanel',
                     region: 'west',
-                    split: true
+                    split: true,
+                    id: 'BuildingShartsTreePanel',
+                    maxWidth: 400,
+                    minWidth: 100,
+                    width: 150,
+                    collapsed: false,
+                    collapsible: true,
+                    title: '建筑能耗报表',
+                    store: 'BuildingShartsTreeStore',
+                    rootVisible: false,
+                    viewConfig: {
+
+                    },
+                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                    })
                 },
                 {
                     xtype: 'panel',

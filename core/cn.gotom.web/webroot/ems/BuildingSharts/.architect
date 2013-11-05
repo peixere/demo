@@ -18,7 +18,15 @@
             "id": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
             "cn": [
                 {
-                    "id": "55247c1b-2994-4895-bfa3-fd167437f2a9"
+                    "id": "badc1417-4791-427d-9680-ced1b69cf6bd",
+                    "cn": [
+                        {
+                            "id": "071f1b78-e6e2-4cf7-bbb8-f851e951ccff"
+                        },
+                        {
+                            "id": "0efacbdb-4b62-4bfd-b082-f8e09620e2c2"
+                        }
+                    ]
                 },
                 {
                     "id": "cf165709-b3ee-4dc7-ba4a-18f6210c6eb2",
@@ -46,18 +54,6 @@
                 }
             ]
         },
-        "dd9564ab-66c0-4229-91f5-c8471a74eb8b": {
-            "id": "dd9564ab-66c0-4229-91f5-c8471a74eb8b",
-            "expanded": false,
-            "cn": [
-                {
-                    "id": "1821ecdd-36a4-44a4-8d95-6c137450478d"
-                },
-                {
-                    "id": "4bad7818-957e-4931-a37d-6789b61b700d"
-                }
-            ]
-        },
         "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
             "id": "6757a99e-9890-4c7f-8d45-0ca9304665e9",
             "expanded": false,
@@ -76,7 +72,6 @@
             "8984df7f-0808-4ae8-9597-f164846211a6",
             "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
             "64f665e8-4c5d-46df-b8fd-7e7878f31cdb",
-            "dd9564ab-66c0-4229-91f5-c8471a74eb8b",
             "6757a99e-9890-4c7f-8d45-0ca9304665e9"
         ]
     },
@@ -84,11 +79,11 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "6757a99e-9890-4c7f-8d45-0ca9304665e9",
-        "selectedInstance": "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+        "selectedInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
     },
     "codeState": {
-        "topInstance": "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
     },
     "editMode": "code"
 }

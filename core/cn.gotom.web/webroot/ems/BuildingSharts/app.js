@@ -25,8 +25,7 @@ Ext.application({
     ],
     views: [
         'BuildingShartsViewport',
-        'BuildingShartsPanel',
-        'BuildingShartsTreePanel'
+        'BuildingShartsPanel'
     ],
     appFolder: 'classes',
     appProperty: 'BuildingSharts',
