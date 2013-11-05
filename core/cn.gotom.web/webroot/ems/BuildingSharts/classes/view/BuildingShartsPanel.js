@@ -106,7 +106,13 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                             xtype: 'button',
                                             id: 'btnSearch',
                                             iconCls: 'icon-search',
-                                            text: '查询'
+                                            text: '查询',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnSearchClick,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 }
@@ -143,6 +149,13 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     labelAlign: 'right',
                                     labelSeparator: ' ',
                                     labelWidth: 20
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    x: 417,
+                                    y: 13,
+                                    id: 'id',
+                                    fieldLabel: 'Label'
                                 }
                             ],
                             listeners: {
@@ -169,6 +182,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
     onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
         Ext.getCmp('name').setValue(record.data.text);
+        Ext.getCmp('id').setValue(record.data.id);
     },
 
     onToolClick: function(tool, e, eOpts) {
@@ -177,6 +191,18 @@ Ext.define('ems.view.BuildingShartsPanel', {
 
     onBtnRedClick: function(button, e, eOpts) {
         window.location.reload();
+    },
+
+    onBtnSearchClick: function(button, e, eOpts) {
+        var id = Ext.getCmp('id').getValue();
+        var name = Ext.getCmp('name').getValue();
+        var startDate = Ext.getCmp('startDate').getValue();
+        var endDate = Ext.getCmp('endDate').getValue();
+        var url = 'chart.html?id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
+        alert(url);
+        var html = '<iframe width="100%" height="100%" frameborder="0" src="'+url+'"></iframe>';
+        Ext.getCmp('ContentPanel').update(html);
+
     },
 
     onFormPanelAfterLayout: function(container, layout, eOpts) {
