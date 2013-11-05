@@ -43,9 +43,12 @@ Ext.define('ems.view.BuildingShartsPanel', {
                     viewConfig: {
 
                     },
-                    selModel: Ext.create('Ext.selection.RowModel', {
-
-                    })
+                    listeners: {
+                        itemclick: {
+                            fn: me.onBuildingShartsTreePanelItemClick,
+                            scope: me
+                        }
+                    }
                 },
                 {
                     xtype: 'panel',
@@ -80,6 +83,15 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                         }
                                     ]
                                 }
+                            ],
+                            items: [
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    id: 'id',
+                                    fieldLabel: '标识',
+                                    name: 'id'
+                                }
                             ]
                         },
                         {
@@ -93,6 +105,11 @@ Ext.define('ems.view.BuildingShartsPanel', {
         });
 
         me.callParent(arguments);
+    },
+
+    onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
+
+        Ext.getCmp('id').setValue(record.data.text);
     }
 
 });

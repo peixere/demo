@@ -47,13 +47,22 @@
                     "designerId": "071f1b78-e6e2-4cf7-bbb8-f851e951ccff"
                 },
                 {
-                    "type": "Ext.selection.RowModel",
+                    "type": "basiceventbinding",
                     "reference": {
-                        "name": "selModel",
-                        "type": "object"
+                        "name": "listeners",
+                        "type": "array"
                     },
-                    "codeClass": "Ext.selection.RowModel",
-                    "designerId": "0efacbdb-4b62-4bfd-b082-f8e09620e2c2"
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onBuildingShartsTreePanelItemClick",
+                        "implHandler": [
+                            "\r",
+                            "Ext.getCmp('id').setValue(record.data.text);"
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "designerId": "53b267d8-afa4-4d3b-b7ef-17849b064f4c"
                 }
             ]
         },
@@ -114,6 +123,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "layout|flex": null,
+                                        "border": null,
                                         "id": "btnSearch",
                                         "iconCls": "icon-search",
                                         "text": "查询"
@@ -121,6 +131,21 @@
                                     "designerId": "31c268d3-e3c8-47c8-8825-cf1b781619b6"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": "id",
+                                "fieldLabel": "标识",
+                                "name": "id"
+                            },
+                            "designerId": "231dd8b0-07f6-4720-8a39-36c29e574f4a"
                         }
                     ]
                 },
