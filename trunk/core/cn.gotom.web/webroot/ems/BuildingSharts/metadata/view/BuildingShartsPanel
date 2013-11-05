@@ -262,7 +262,7 @@
                                 "fieldLabel": "建筑标识",
                                 "labelAlign": "right",
                                 "labelWidth": 80,
-                                "name": "id"
+                                "name": "name"
                             },
                             "designerId": "231dd8b0-07f6-4720-8a39-36c29e574f4a"
                         },
@@ -281,7 +281,8 @@
                                 "width": 220,
                                 "fieldLabel": "查询时间",
                                 "labelAlign": "right",
-                                "labelWidth": 80
+                                "labelWidth": 80,
+                                "name": "startDate"
                             },
                             "designerId": "4d74e755-54af-4704-90c4-e61f52664dcc"
                         },
@@ -300,7 +301,8 @@
                                 "fieldLabel": "至",
                                 "labelAlign": "right",
                                 "labelSeparator": " ",
-                                "labelWidth": 20
+                                "labelWidth": 20,
+                                "name": "endDate"
                             },
                             "designerId": "09d66b1f-e789-44cd-87a7-1b449e1bc912"
                         },
@@ -333,7 +335,8 @@
                                 "layout|x": 417,
                                 "layout|y": 13,
                                 "id": "id",
-                                "fieldLabel": "Label"
+                                "fieldLabel": "Label",
+                                "name": "id"
                             },
                             "designerId": "57e7bd34-f26c-4b0e-8237-e4e6f9cdc25b"
                         }
