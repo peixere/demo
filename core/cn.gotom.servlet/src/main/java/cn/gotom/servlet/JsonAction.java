@@ -5,10 +5,13 @@ import java.util.Map;
 
 import net.sf.json.JSON;
 
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 public abstract class JsonAction
 {
+	private static final Logger log = Logger.getLogger(JsonAction.class);
+
 	public void toJSON(Object value) throws IOException
 	{
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
@@ -37,7 +40,7 @@ public abstract class JsonAction
 			String[] values = params.get(key);
 			for (String value : values)
 			{
-				System.out.println(key + "=" + value);
+				log.debug(key + "=" + value);
 			}
 		}
 	}
