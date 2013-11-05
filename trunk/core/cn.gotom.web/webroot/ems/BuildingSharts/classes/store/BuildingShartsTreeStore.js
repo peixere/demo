@@ -21,14 +21,24 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            storeId: 'MyTreeStore',
+            storeId: 'BuildingShartsTreeStore',
             defaultRootId: '',
             defaultRootText: '',
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
                 url: '../buildingSharts!tree.do'
-            }
+            },
+            fields: [
+                {
+                    name: 'type',
+                    type: 'string'
+                },
+                {
+                    name: 'text',
+                    type: 'string'
+                }
+            ]
         }, cfg)]);
     }
 });
