@@ -116,7 +116,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     xtype: 'textfield',
                                     x: 10,
                                     y: 10,
-                                    id: 'id',
+                                    id: 'name',
                                     width: 380,
                                     fieldLabel: '建筑标识',
                                     labelAlign: 'right',
@@ -168,7 +168,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
 
     onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
-        Ext.getCmp('id').setValue(record.data.text);
+        Ext.getCmp('name').setValue(record.data.text);
     },
 
     onToolClick: function(tool, e, eOpts) {
