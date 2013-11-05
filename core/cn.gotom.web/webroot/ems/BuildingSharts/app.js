@@ -21,7 +21,7 @@ Ext.Loader.setConfig({
 Ext.application({
     id: 'BuildingSharts',
     stores: [
-        'TreeStore'
+        'BuildingShartsTreeStore'
     ],
     views: [
         'BuildingShartsViewport',

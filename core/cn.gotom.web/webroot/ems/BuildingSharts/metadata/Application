@@ -8,7 +8,7 @@
     "userConfig": {
         "id": "BuildingSharts",
         "stores": [
-            "TreeStore"
+            "BuildingShartsTreeStore"
         ],
         "views": [
             "BuildingShartsViewport",
