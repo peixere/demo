@@ -7,6 +7,11 @@ public class ChartSerie
 	private String name;
 	private List<ChartSeriePoint> data;
 
+	public ChartSerie()
+	{
+		
+	}
+
 	public String getName()
 	{
 		return name;
