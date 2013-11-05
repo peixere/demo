@@ -8,29 +8,28 @@
 		<script src="../../resources/highcharts/3.0.7/highcharts.js"></script>
 		<script src="../../resources/highcharts/3.0.7/modules/exporting.js"></script>
 		<script type="text/javascript">	
-		$(document).ready(function() {
-		    var options = {
-		        chart: {
-		            renderTo: 'container',
-		            type: 'line'
-		        },
-	            title: {
-	                text: '测试报表'
-	            },
-	            subtitle: {
-	                text: 'Irregular time data in Highcharts JS'
-	            },		
-	            xAxis: {
-	                type: 'data'
-	            },
-	            yAxis: {
-	                title: {
-	                    text: 'Snow depth (m)'
-	                }
-	            },	                    
-		        series: []
-		    };
 		    $.post('/ems/buildingSharts.do', function(data) {
+			    var options = {
+				        chart: {
+				            renderTo: 'container',
+				            type: 'line'
+				        },
+			            title: {
+			                text: '测试报表'
+			            },
+			            subtitle: {
+			                text: 'Irregular time data in Highcharts JS'
+			            },		
+			            xAxis: {
+			                type: 'data'
+			            },
+			            yAxis: {
+			                title: {
+			                    text: 'Snow depth (m)'
+			                }
+			            },	                    
+				        series: []
+				    };			    
 				options.title.text = '测试标题';
 				options.subtitle.text = '测试富标题';
 			    var seriesList = data.series;
@@ -45,8 +44,7 @@
 					})	
 			    })
 			    var chart = new Highcharts.Chart(options);
-		    });
-		});		    
+		    });    
 		</script>
 	</head>
 	<body>
