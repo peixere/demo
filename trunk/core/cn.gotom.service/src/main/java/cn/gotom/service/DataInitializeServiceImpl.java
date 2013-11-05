@@ -31,7 +31,7 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	public void init()
 	{
 		initUser();
-		initData();
+		defalutData();
 	}
 
 	private void initUser()
@@ -40,7 +40,7 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	}
 
 	@SuppressWarnings("unchecked")
-	private void initData()
+	private void defalutData()
 	{
 		try
 		{
