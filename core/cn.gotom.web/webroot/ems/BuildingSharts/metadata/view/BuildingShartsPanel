@@ -57,7 +57,7 @@
                         "fn": "onBuildingShartsTreePanelItemClick",
                         "implHandler": [
                             "\r",
-                            "Ext.getCmp('id').setValue(record.data.text);"
+                            "Ext.getCmp('name').setValue(record.data.text);"
                         ],
                         "name": "itemclick",
                         "scope": "me"
@@ -210,7 +210,7 @@
                                 "layout|anchor": null,
                                 "layout|x": 10,
                                 "layout|y": 10,
-                                "id": "id",
+                                "id": "name",
                                 "width": 380,
                                 "fieldLabel": "建筑标识",
                                 "labelAlign": "right",
