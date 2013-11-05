@@ -83,7 +83,12 @@
                             ]
                         },
                         {
-                            "id": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b"
+                            "id": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
+                            "cn": [
+                                {
+                                    "id": "43f20160-8411-4bf9-b622-db739d718a1f"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -120,7 +125,7 @@
         ]
     },
     "canvasState": {
-        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+        "topInstance": null
     },
     "inspectorState": {
         "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
