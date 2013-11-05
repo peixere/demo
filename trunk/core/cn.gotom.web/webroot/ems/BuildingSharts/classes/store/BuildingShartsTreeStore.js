@@ -37,6 +37,10 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
                 {
                     name: 'text',
                     type: 'string'
+                },
+                {
+                    name: 'expand',
+                    type: 'boolean'
                 }
             ]
         }, cfg)]);
