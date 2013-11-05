@@ -127,7 +127,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     fieldLabel: '建筑标识',
                                     labelAlign: 'right',
                                     labelWidth: 80,
-                                    name: 'id'
+                                    name: 'name'
                                 },
                                 {
                                     xtype: 'datefield',
@@ -137,7 +137,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     width: 220,
                                     fieldLabel: '查询时间',
                                     labelAlign: 'right',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'startDate'
                                 },
                                 {
                                     xtype: 'datefield',
@@ -148,14 +149,16 @@ Ext.define('ems.view.BuildingShartsPanel', {
                                     fieldLabel: '至',
                                     labelAlign: 'right',
                                     labelSeparator: ' ',
-                                    labelWidth: 20
+                                    labelWidth: 20,
+                                    name: 'endDate'
                                 },
                                 {
                                     xtype: 'hiddenfield',
                                     x: 417,
                                     y: 13,
                                     id: 'id',
-                                    fieldLabel: 'Label'
+                                    fieldLabel: 'Label',
+                                    name: 'id'
                                 }
                             ],
                             listeners: {
