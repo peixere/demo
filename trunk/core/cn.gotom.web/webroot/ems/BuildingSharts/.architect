@@ -2,7 +2,7 @@
     "expandedState": {
         "data": true,
         "model": true,
-        "component": true,
+        "component": false,
         "controller": true,
         "resource": true,
         "8984df7f-0808-4ae8-9597-f164846211a6": {
@@ -16,6 +16,7 @@
         },
         "bcffa829-619f-4e3e-8cae-6eb69c607a5e": {
             "id": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+            "expanded": false,
             "cn": [
                 {
                     "id": "badc1417-4791-427d-9680-ced1b69cf6bd",
@@ -84,11 +85,11 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "6757a99e-9890-4c7f-8d45-0ca9304665e9",
-        "selectedInstance": "61917646-84e2-41bd-b3ad-ff55e0a5a600"
+        "topInstance": "application",
+        "selectedInstance": "application"
     },
     "codeState": {
-        "topInstance": "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+        "topInstance": "application"
     },
     "editMode": "code"
 }
