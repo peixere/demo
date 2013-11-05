@@ -45,7 +45,6 @@
                             "cn": [
                                 {
                                     "id": "d498bc09-ce48-473d-aebf-33348b1bb928",
-                                    "expanded": false,
                                     "cn": [
                                         {
                                             "id": "5215666d-2344-42ed-8d40-e94b6c20a3aa",
@@ -57,7 +56,12 @@
                                             ]
                                         },
                                         {
-                                            "id": "31c268d3-e3c8-47c8-8825-cf1b781619b6"
+                                            "id": "31c268d3-e3c8-47c8-8825-cf1b781619b6",
+                                            "cn": [
+                                                {
+                                                    "id": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -72,6 +76,9 @@
                                 },
                                 {
                                     "id": "800a7a55-967d-474c-b1b2-6dd98fa9751b"
+                                },
+                                {
+                                    "id": "57e7bd34-f26c-4b0e-8237-e4e6f9cdc25b"
                                 }
                             ]
                         },
@@ -113,11 +120,11 @@
         ]
     },
     "canvasState": {
-        "topInstance": null
+        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
     },
     "inspectorState": {
         "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
-        "selectedInstance": "53b267d8-afa4-4d3b-b7ef-17849b064f4c"
+        "selectedInstance": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
     },
     "codeState": {
         "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
