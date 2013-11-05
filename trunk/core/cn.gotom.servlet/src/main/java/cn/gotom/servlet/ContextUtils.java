@@ -8,19 +8,9 @@ import net.sf.json.JSON;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
-public abstract class JsonAction
+public abstract class ContextUtils
 {
-	private static final Logger log = Logger.getLogger(JsonAction.class);
-
-	public void toJSON(Object value) throws IOException
-	{
-		JSON json = net.sf.json.JSONSerializer.toJSON(value);
-		String encoing = ServletActionContext.getRequest().getCharacterEncoding();
-		ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
-		ServletActionContext.getResponse().getWriter().println(json.toString());
-		ServletActionContext.getResponse().getWriter().flush();
-		ServletActionContext.getResponse().getWriter().close();
-	}
+	private static final Logger log = Logger.getLogger(ContextUtils.class);
 
 	public static void writerToJSON(Object value) throws IOException
 	{
