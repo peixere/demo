@@ -48,7 +48,19 @@ Ext.define('ems.view.BuildingShartsPanel', {
                             fn: me.onBuildingShartsTreePanelItemClick,
                             scope: me
                         }
-                    }
+                    },
+                    tools: [
+                        {
+                            xtype: 'tool',
+                            type: 'refresh',
+                            listeners: {
+                                click: {
+                                    fn: me.onToolClick,
+                                    scope: me
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     xtype: 'panel',
@@ -143,6 +155,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                         {
                             xtype: 'panel',
                             region: 'center',
+                            html: '<iframe width="100%" height="100%" frameborder="0" src="chart.html"></iframe>',
                             id: 'ContentPanel'
                         }
                     ]
@@ -156,6 +169,10 @@ Ext.define('ems.view.BuildingShartsPanel', {
     onBuildingShartsTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
         Ext.getCmp('id').setValue(record.data.text);
+    },
+
+    onToolClick: function(tool, e, eOpts) {
+        Ext.getCmp('BuildingShartsTreePanel').getStore().reload();
     },
 
     onBtnRedClick: function(button, e, eOpts) {
