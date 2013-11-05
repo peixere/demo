@@ -1,6 +1,14 @@
 {
     "name": "BuildingSharts",
-    "settings": {},
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "E:/workspace/gotom/gotom/core/cn.gotom.web/webroot/ems",
+        "buildShouldOverwriteIndex": true
+    },
     "xdsVersion": "2.2.3",
     "xdsBuild": 1044,
     "schemaVersion": 1,
