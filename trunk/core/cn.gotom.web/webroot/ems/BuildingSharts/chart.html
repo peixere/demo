@@ -9,11 +9,10 @@
 		<script src="../../resources/highcharts/3.0.7/modules/exporting.js"></script>
 		<script type="text/javascript">	
 		$(document).ready(function() {
-
 		    var options = {
 		        chart: {
 		            renderTo: 'container',
-		            type: 'spline'
+		            type: 'line'
 		        },
 	            title: {
 	                text: '测试报表'
@@ -22,7 +21,7 @@
 	                text: 'Irregular time data in Highcharts JS'
 	            },		
 	            xAxis: {
-	                type: 'int'
+	                type: 'data'
 	            },
 	            yAxis: {
 	                title: {
