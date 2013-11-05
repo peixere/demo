@@ -205,8 +205,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
         //var endDate = Ext.getCmp('endDate').getValue();
         //var formdata = 'id='+id+'&name='+name+'&startDate='+startDate+'&endDate='+endDate;
         //var html = '<iframe width="100%" height="100%" frameborder="0" src="chart.html?'+formdata+'"></iframe>';
-        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
-        Ext.getCmp('ContentPanel').update(html);
+
         var form = Ext.getCmp('FormPanel');
         if (form.isValid())
         {
@@ -233,6 +232,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
     },
 
     showHighcharts: function(chartdata) {
+        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
+        Ext.getCmp('ContentPanel').update(html);
         var options = {
             chart: {
                 renderTo: 'heightchartcontainer',
@@ -265,9 +266,9 @@ Ext.define('ems.view.BuildingShartsPanel', {
             var plist = serie.data;
             $.each(plist, function (j, p){
                 options.series[i].data.push([p.x,p.y]); 
-            })	
-        })
-        var chart = new Highcharts.Chart(options);
+            });
+        });
+        new Highcharts.Chart(options);
     }
 
 });
