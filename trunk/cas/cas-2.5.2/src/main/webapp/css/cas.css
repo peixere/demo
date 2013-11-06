@@ -68,7 +68,9 @@ body { font-family: Verdana, sans-serif; font-size: 11px; line-height: 1.4em; }
 #cas #content { padding: 10px; overflow: hidden; }
 #cas #content #msg { padding: 20px; margin-bottom: 10px; }
 #cas #content #msg h2 { font-size: 1.4em; margin-bottom: 0.5em; }
+h2 { font-size: 1.4em; font-weight: normal; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #DDDDDD; }
 #cas #content #msg.errors { border: 1px dotted #BB0000; color: #BB0000; padding-left: 100px; background: url(../images/error.gif) no-repeat 20px center; }
+.errors { border: 1px dotted #BB0000; color: #BB0000; padding-left: 100px;}
 #cas #content #msg.success { border: 1px dotted #390; color: #390; padding-left: 100px; background: url(../images/confirm.gif) no-repeat 20px center; }
 #cas #content #msg.info { border: 1px dotted #008; color: #008; padding-left: 100px; background: url(../images/info.gif) no-repeat 20px center; }
 #cas #content #login { width: 320px; float: left; margin-right: 20px; }
