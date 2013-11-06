@@ -129,13 +129,15 @@ Ext.define('Login.view.LoginWindow', {
                             x: 30,
                             y: 10,
                             height: 30,
+                            html: '<h3>请输入您的用户名和密码.</h3>',
                             width: 340,
-                            text: '请输入您的用户名和密码.'
+                            text: ''
                         },
                         {
                             xtype: 'checkboxfield',
                             x: 80,
                             y: 110,
+                            id: 'warnCheckbox',
                             boxLabel: '转向其他站点前提示我。'
                         }
                     ]
@@ -151,6 +153,7 @@ Ext.define('Login.view.LoginWindow', {
         Ext.getCmp('loginusername').setValue(username);
         var password = document.getElementById('password').getAttribute('value');
         Ext.getCmp('loginpassword').setValue(password);
+        //Ext.getCmp('warnCheckbox').setChecked(document.getElementById('warn').checked);
         var msg = '';
         if(document.getElementById('msg') != ''){
             msg = document.getElementById('msg').innerHTML;
@@ -163,6 +166,7 @@ Ext.define('Login.view.LoginWindow', {
         document.getElementById('username').setAttribute('value',loginUsername.getValue());
         var loginpassword = Ext.getCmp('loginpassword');
         document.getElementById('password').setAttribute('value',loginpassword.getValue());
+        document.getElementById('warn').checked = Ext.getCmp('warnCheckbox').checked;
         document.getElementById("fm1").submit();
     },
 
