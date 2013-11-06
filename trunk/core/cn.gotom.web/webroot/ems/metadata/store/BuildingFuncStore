@@ -21,7 +21,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "../ems/buildfunc!execute.do"
+                "url": "../ems/buildfunc.do"
             },
             "designerId": "51abcc66-1acf-4986-b46c-6429dee96213"
         }

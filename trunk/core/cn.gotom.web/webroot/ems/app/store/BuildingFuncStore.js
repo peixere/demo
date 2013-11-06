@@ -29,7 +29,7 @@ Ext.define('MyApp.store.BuildingFuncStore', {
             storeId: 'MyStore',
             proxy: {
                 type: 'ajax',
-                url: '../ems/buildfunc!execute.do'
+                url: '../ems/buildfunc.do'
             }
         }, cfg)]);
     }
