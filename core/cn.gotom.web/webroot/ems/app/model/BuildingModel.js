@@ -21,6 +21,46 @@ Ext.define('MyApp.model.BuildingModel', {
         {
             name: 'id',
             type: 'string'
+        },
+        {
+            name: 'code',
+            type: 'string'
+        },
+        {
+            name: 'name',
+            type: 'string'
+        },
+        {
+            name: 'ecDate',
+            type: 'date'
+        },
+        {
+            name: 'fillFormDate',
+            type: 'date'
+        },
+        {
+            name: 'buildYear',
+            type: 'int'
+        },
+        {
+            name: 'buildFloor',
+            type: 'int'
+        },
+        {
+            name: 'buildArea',
+            type: 'float'
+        },
+        {
+            name: 'airconditioner',
+            type: 'float'
+        },
+        {
+            name: 'heatingArea',
+            type: 'float'
+        },
+        {
+            name: 'shapeCoefficient',
+            type: 'string'
         }
     ]
 });

@@ -20,21 +20,6 @@
     "designerId": "798b4213-2a66-4fef-babe-edff7cdc9e20",
     "cn": [
         {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "id",
-                "dataIndex": "id",
-                "menuText": "",
-                "text": "ID"
-            },
-            "designerId": "ff3d3680-ced9-4eb6-a343-93f9d33d5b53"
-        },
-        {
             "type": "Ext.grid.View",
             "reference": {
                 "name": "viewConfig",
@@ -259,7 +244,7 @@
             "userConfig": {
                 "designer|displayName": "code",
                 "dataIndex": "code",
-                "text": "Code"
+                "text": "编码"
             },
             "designerId": "48567c27-d68e-48eb-bc3d-a2f4bfebd260"
         },
@@ -273,7 +258,7 @@
             "userConfig": {
                 "designer|displayName": "name",
                 "dataIndex": "name",
-                "text": "name"
+                "text": "名称"
             },
             "designerId": "952d68d7-e207-47e5-9be5-7aafaeb4ed03"
         }

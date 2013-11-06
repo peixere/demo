@@ -14,6 +14,6 @@
  */
 
 Ext.define('MyApp.view.Viewport', {
-    extend: 'MyApp.view.BuildingFuncViewport',
+    extend: 'MyApp.view.BuildingFuncView',
     renderTo: Ext.getBody()
 });

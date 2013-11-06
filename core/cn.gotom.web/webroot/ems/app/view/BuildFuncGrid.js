@@ -30,24 +30,6 @@ Ext.define('MyApp.view.BuildFuncGrid', {
         var me = this;
 
         Ext.applyIf(me, {
-            columns: [
-                {
-                    xtype: 'gridcolumn',
-                    dataIndex: 'id',
-                    menuText: '',
-                    text: 'ID'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    dataIndex: 'code',
-                    text: 'Code'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    dataIndex: 'name',
-                    text: 'name'
-                }
-            ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -103,6 +85,18 @@ Ext.define('MyApp.view.BuildFuncGrid', {
                             }
                         }
                     ]
+                }
+            ],
+            columns: [
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'code',
+                    text: '编码'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'name',
+                    text: '名称'
                 }
             ]
         });
