@@ -156,7 +156,7 @@ abstract class AbsDaoJpa
 		q.executeUpdate();
 	}
 
-	protected String getHqlByDate(String fieldname, Date startDate, Date endDate, String format)
+	protected String getBetweenDateToHql(String fieldname, Date startDate, Date endDate, String format)
 	{
 		if (StringUtils.isNullOrEmpty(format))
 		{
