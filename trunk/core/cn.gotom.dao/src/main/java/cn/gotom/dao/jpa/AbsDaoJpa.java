@@ -1,5 +1,6 @@
 package cn.gotom.dao.jpa;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,9 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.util.Converter;
 import cn.gotom.util.Pagination;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -153,4 +156,15 @@ abstract class AbsDaoJpa
 		q.executeUpdate();
 	}
 
+	protected String getHqlByDate(String fieldname, Date startDate, Date endDate, String format)
+	{
+		if (StringUtils.isNullOrEmpty(format))
+		{
+			format = "yyyy-MM-dd";
+		}
+		String begin = Converter.format(startDate, format);
+		String end = Converter.format(endDate, format);
+		String sql = fieldname + " between to_date('" + begin + "', '" + format + "') and to_date('" + end + "', '" + format + "')";
+		return sql;
+	}
 }
