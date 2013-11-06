@@ -1,0 +1,248 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "id": "LoginWindow",
+        "width": 400,
+        "designer|userClassName": "LoginWindow",
+        "designer|userAlias": "LoginWindow",
+        "layout": "border",
+        "closable": false,
+        "title": "用户登录"
+    },
+    "designerId": "3f986473-29fa-4601-8a4b-cbf340c76cd7",
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLoginWindowAfterLayout",
+                "implHandler": [
+                    "var username = document.getElementById('username').getAttribute('value');\r",
+                    "Ext.getCmp('loginusername').setValue(username);\r",
+                    "var password = document.getElementById('password').getAttribute('value');\r",
+                    "Ext.getCmp('loginpassword').setValue(password);\r",
+                    "var msg = '';\r",
+                    "if(document.getElementById('msg') != ''){\r",
+                    "    msg = document.getElementById('msg').innerHTML;\r",
+                    "}\r",
+                    "Ext.getCmp('formmsgLabel').update('<div class=\"errors\">'+msg+'</div>');"
+                ],
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "6b7946ff-0889-44ee-832f-c07c1a3b2e00"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "container|pack": "center",
+                "container|padding": 5
+            },
+            "designerId": "62f1df70-3b43-4ffb-80cd-ec65f127b497",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnSubmit",
+                        "icon": "./images/accept.png",
+                        "text": "登录"
+                    },
+                    "designerId": "f29f650a-0ada-4919-9c67-700f26025ba2",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnSubmitClick",
+                                "implHandler": [
+                                    "var loginUsername = Ext.getCmp('loginusername');\r",
+                                    "document.getElementById('username').setAttribute('value',loginUsername.getValue());\r",
+                                    "var loginpassword = Ext.getCmp('loginpassword');\r",
+                                    "document.getElementById('password').setAttribute('value',loginpassword.getValue());\r",
+                                    "document.getElementById(\"fm1\").submit();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "976eca39-a7d7-46eb-848b-07872ea37c4e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnReset",
+                        "icon": "./images/reset.png",
+                        "text": "重置"
+                    },
+                    "designerId": "076304f0-2726-434a-adac-485730bfb3f9",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnResetClick",
+                                "implHandler": [
+                                    "Ext.getCmp('LoginForm').getForm().reset();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "106753c1-3420-446a-b8fe-a00e829b49d1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "designer|snapToGrid": 10,
+                "id": "LoginForm",
+                "layout": "absolute",
+                "bodyPadding": 10,
+                "header": false,
+                "title": "用户登录"
+            },
+            "designerId": "f2d1dbaa-f571-4137-9ba2-02fb8ddd8d10",
+            "cn": [
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 30,
+                        "layout|y": 130,
+                        "baseCls": "",
+                        "cls": "",
+                        "componentCls": "",
+                        "disabledCls": "",
+                        "height": 40,
+                        "html": "  ",
+                        "id": "formmsgLabel",
+                        "overCls": "",
+                        "padding": 5,
+                        "width": 340,
+                        "text": ""
+                    },
+                    "designerId": "ae16b620-b7dd-42db-99ea-287f9d4c3d24"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "layout|x": 10,
+                        "layout|y": 40,
+                        "id": "loginusername",
+                        "fieldLabel": "用户名",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "loginusername"
+                    },
+                    "designerId": "653862a3-1a8f-4553-9ded-abe4fe9a2d74"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "layout|x": 10,
+                        "layout|y": 80,
+                        "id": "loginpassword",
+                        "fieldLabel": "密　码",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "loginpassword",
+                        "inputType": "password"
+                    },
+                    "designerId": "ed1e90cc-4688-4cb4-8aa5-439aa1615f5d"
+                },
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 30,
+                        "layout|y": 10,
+                        "height": 30,
+                        "width": 340,
+                        "text": "请输入您的用户名和密码."
+                    },
+                    "designerId": "b3378387-e95f-4962-b2f5-f99905e7c502"
+                },
+                {
+                    "type": "Ext.form.field.Checkbox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 80,
+                        "layout|y": 110,
+                        "fieldLabel": null,
+                        "boxLabel": "转向其他站点前提示我。"
+                    },
+                    "designerId": "8a4078ab-13b3-48e3-982a-f602250b264d"
+                }
+            ]
+        }
+    ]
+}
