@@ -249,7 +249,11 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 text: chartdata.subtitle
             },		
             xAxis: {
-                type: 'date'
+                type: 'string',
+                dateTimeLabelFormats: {
+                    month: '%e. %b',
+                    year: '%b'
+                }
             },
             yAxis: {
                 title: {
@@ -257,7 +261,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 }
             },	                    
             series: []
-        };			    
+        };			   
+        var seriesList = chartdata.series;
         $.each(seriesList, function (i, serie) {
             options.series.push({
                 data: [],
