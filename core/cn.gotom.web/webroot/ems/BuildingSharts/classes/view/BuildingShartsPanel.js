@@ -189,7 +189,9 @@ Ext.define('ems.view.BuildingShartsPanel', {
     },
 
     onToolClick: function(tool, e, eOpts) {
-        Ext.getCmp('BuildingShartsTreePanel').getStore().reload();
+        var store = Ext.getCmp('BuildingShartsTreePanel').getStore();
+        store.getRootNode().removeAll();
+        store.load();
     },
 
     onBtnRedClick: function(button, e, eOpts) {
