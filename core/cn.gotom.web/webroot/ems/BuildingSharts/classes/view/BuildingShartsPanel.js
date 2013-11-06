@@ -242,24 +242,21 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 type: 'line'
             },
             title: {
-                text: '测试报表'
+                text: chartdata.title
             },
             subtitle: {
-                text: 'Irregular time data in Highcharts JS'
+                text: chartdata.subtitle
             },		
             xAxis: {
-                type: 'data'
+                type: 'date'
             },
             yAxis: {
                 title: {
-                    text: 'Snow depth (m)'
+                    text: chartdata.yAxisText
                 }
             },	                    
             series: []
         };			    
-        options.title.text = chartdata.title;
-        options.subtitle.text = chartdata.subtitle;
-        var seriesList = chartdata.series;
         $.each(seriesList, function (i, serie) {
             options.series.push({
                 data: [],
