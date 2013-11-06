@@ -87,7 +87,9 @@
                             "userConfig": {
                                 "fn": "onToolClick",
                                 "implHandler": [
-                                    "Ext.getCmp('BuildingShartsTreePanel').getStore().reload();"
+                                    "var store = Ext.getCmp('BuildingShartsTreePanel').getStore();\r",
+                                    "store.getRootNode().removeAll();\r",
+                                    "store.load();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
