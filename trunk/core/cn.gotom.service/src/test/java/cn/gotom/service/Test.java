@@ -11,6 +11,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
 import cn.gotom.pojos.Right;
+import cn.gotom.util.Converter;
 
 public class Test
 {
@@ -26,6 +27,7 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		System.out.println(Converter.format(new Date(), "yyyy-MM-dd 23:59:59"));
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		System.out.println("今天  :" + dateformat.format(new Date()));
 		
