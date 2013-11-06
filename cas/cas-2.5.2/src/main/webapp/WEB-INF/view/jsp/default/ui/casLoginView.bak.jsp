@@ -43,7 +43,7 @@
 
 						<c:if test="${empty sessionScope.openIdLocalId}">
 						<spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-						<form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="false" htmlEscape="true" />
+						<form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="false" htmlEscape="true" value="admin" />
 						</c:if>
                     </div>
                     <div class="row fl-controls-left">
@@ -143,3 +143,6 @@
             </div>
              -->
 <jsp:directive.include file="includes/bottom.jsp" />
+    <script src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
+    <link rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/ext-theme-classic/ext-theme-classic-all.css">
+    <script type="text/javascript" src="<c:url value="/login.js" />"></script>
