@@ -21,9 +21,9 @@ public class Chart
 	 */
 	private String subtitle;
 
-	private String xAxisTitle;
+	private String xAxisText;
 
-	private String yAxisTitle;
+	private String yAxisText;
 
 	private List<ChartSerie> series;
 
@@ -52,24 +52,25 @@ public class Chart
 		this.subtitle = subtitle;
 	}
 
-	public String getxAxisTitle()
+
+	public String getxAxisText()
 	{
-		return xAxisTitle;
+		return xAxisText;
 	}
 
-	public void setxAxisTitle(String xAxisTitle)
+	public void setxAxisText(String xAxisText)
 	{
-		this.xAxisTitle = xAxisTitle;
+		this.xAxisText = xAxisText;
 	}
 
-	public String getyAxisTitle()
+	public String getyAxisText()
 	{
-		return yAxisTitle;
+		return yAxisText;
 	}
 
-	public void setyAxisTitle(String yAxisTitle)
+	public void setyAxisText(String yAxisText)
 	{
-		this.yAxisTitle = yAxisTitle;
+		this.yAxisText = yAxisText;
 	}
 
 	public List<ChartSerie> getSeries()
