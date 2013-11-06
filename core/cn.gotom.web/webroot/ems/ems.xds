@@ -1,0 +1,87 @@
+{
+    "name": "ems",
+    "settings": {},
+    "xdsVersion": "2.2.3",
+    "xdsBuild": 1044,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "7028e080-95c0-4b6a-b3ed-1a36ca95b5dc": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "357e6892-b444-44e6-88cf-fb05418ffff6": {
+            "paths": [
+                "metadata/model/BuildingFuncModel",
+                "app/model/override/BuildingFuncModel.js",
+                "app/model/BuildingFuncModel.js"
+            ],
+            "className": "BuildingFuncModel"
+        },
+        "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a": {
+            "paths": [
+                "metadata/store/BuildingFuncStore",
+                "app/store/override/BuildingFuncStore.js",
+                "app/store/BuildingFuncStore.js"
+            ],
+            "className": "BuildingFuncStore"
+        },
+        "5ed241fc-3a5a-4b85-b680-058b2c4698de": {
+            "paths": [
+                "metadata/view/BuildingFuncViewport",
+                "app/view/override/BuildingFuncViewport.js",
+                "app/view/BuildingFuncViewport.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "BuildingFuncViewport"
+        },
+        "3efe28bc-44ae-4356-ac82-504838ca9441": {
+            "paths": [
+                "metadata/view/BuildingFuncWin",
+                "app/view/override/BuildingFuncWin.js",
+                "app/view/BuildingFuncWin.js"
+            ],
+            "className": "BuildingFuncWin"
+        },
+        "798b4213-2a66-4fef-babe-edff7cdc9e20": {
+            "paths": [
+                "metadata/view/BuildFuncGrid",
+                "app/view/override/BuildFuncGrid.js",
+                "app/view/BuildFuncGrid.js"
+            ],
+            "className": "BuildFuncGrid"
+        },
+        "5f5b3172-ef2c-4f41-a6d8-d70eeca8e6cb": {
+            "paths": [
+                "metadata/model/BuildingModel",
+                "app/model/override/BuildingModel.js",
+                "app/model/BuildingModel.js"
+            ],
+            "className": "BuildingModel"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "5ed241fc-3a5a-4b85-b680-058b2c4698de",
+            "3efe28bc-44ae-4356-ac82-504838ca9441",
+            "798b4213-2a66-4fef-babe-edff7cdc9e20"
+        ],
+        "store": [
+            "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a"
+        ],
+        "controller": [],
+        "model": [
+            "357e6892-b444-44e6-88cf-fb05418ffff6",
+            "5f5b3172-ef2c-4f41-a6d8-d70eeca8e6cb"
+        ],
+        "resource": [
+            "7028e080-95c0-4b6a-b3ed-1a36ca95b5dc"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

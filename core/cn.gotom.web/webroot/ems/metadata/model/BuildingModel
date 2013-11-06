@@ -1,0 +1,28 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "BuildingModel",
+        "designer|userAlias": "BuildingModel"
+    },
+    "designerId": "5f5b3172-ef2c-4f41-a6d8-d70eeca8e6cb",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "string"
+            },
+            "designerId": "5b13e50b-a78f-4e42-8bd4-d811b6029783"
+        }
+    ]
+}

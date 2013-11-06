@@ -1,0 +1,25 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "BuildingFuncModel",
+            "BuildingModel"
+        ],
+        "stores": [
+            "BuildingFuncStore"
+        ],
+        "views": [
+            "BuildingFuncViewport",
+            "BuildingFuncWin",
+            "BuildFuncGrid"
+        ],
+        "autoCreateViewport": true,
+        "name": "MyApp"
+    },
+    "designerId": "application"
+}
