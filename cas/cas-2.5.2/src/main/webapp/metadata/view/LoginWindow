@@ -87,7 +87,9 @@
                                     "var loginpassword = Ext.getCmp('loginpassword');\r",
                                     "document.getElementById('password').setAttribute('value',loginpassword.getValue());\r",
                                     "document.getElementById('warn').checked = Ext.getCmp('warnCheckbox').checked;\r",
-                                    "document.getElementById(\"fm1\").submit();"
+                                    "formsubmit();\r",
+                                    "$(\"fm1\").submit();\r",
+                                    "//document.getElementById(\"fm1\").Submit();"
                                 ],
                                 "name": "click",
                                 "scope": "me"

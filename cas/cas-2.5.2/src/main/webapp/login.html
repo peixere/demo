@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-
-<!-- Auto Generated with Sencha Architect -->
-<!-- Modifications to this file will be overwritten. -->
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>login</title>
-    <script src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
-    <link rel="stylesheet" href="http://cdn.sencha.com/ext/gpl/4.2.1/resources/ext-theme-classic/ext-theme-classic-all.css">
-    <script type="text/javascript" src="login.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
 </head>
-<body></body>
+
+<body>
+<script>
+
+function test()
+{
+    document.getElementById("fm1").submit();    
+    alert(11);
+}
+</script>
+<form  name="fm1" id="fm1" method="get" action="http://localhost:8080/">
+<input type="text" name="pwd" value="" />
+<input type="submit" name="sub" value="111" />
+<input type="button" name="btn" value="btn" onclick="test()" />
+</form>
+</body>
 </html>
