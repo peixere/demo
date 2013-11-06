@@ -212,7 +212,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
         if (form.isValid())
         {
             form.submit({
-                url : '/ems/buildingSharts.do',
+                url : '../buildingSharts.do',
                 method : 'POST',
                 waitMsg : '正在生成报表，稍后...',
                 success : function(f, action)
@@ -222,7 +222,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 },
                 failure : function(f, action)
                 {
-                    Ext.Msg.alert('信息提示', '服务器端程序出错！');
+                    var result = Ext.JSON.decode(action.response.responseText);
+                    Ext.Msg.alert('信息提示', result.message);
                 }
             });
         }
