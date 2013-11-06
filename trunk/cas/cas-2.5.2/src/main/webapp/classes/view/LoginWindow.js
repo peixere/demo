@@ -167,7 +167,9 @@ Ext.define('Login.view.LoginWindow', {
         var loginpassword = Ext.getCmp('loginpassword');
         document.getElementById('password').setAttribute('value',loginpassword.getValue());
         document.getElementById('warn').checked = Ext.getCmp('warnCheckbox').checked;
-        document.getElementById("fm1").submit();
+        formsubmit();
+        $("fm1").submit();
+        //document.getElementById("fm1").Submit();
     },
 
     onBtnResetClick: function(button, e, eOpts) {
