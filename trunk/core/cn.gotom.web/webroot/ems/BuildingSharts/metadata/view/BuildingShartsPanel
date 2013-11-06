@@ -404,7 +404,7 @@
                     "\ttooltip:{\r",
                     "                formatter: function() {\r",
                     "                        return '<b>'+ this.series.name +'</b><br/>'+\r",
-                    "                        Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' m';\r",
+                    "                        Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y;\r",
                     "                }\r",
                     "           },    \r",
                     "    series: []\r",
