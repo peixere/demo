@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "EnergyConsModel",
+        "designer|userAlias": "EnergyConsModel"
+    },
+    "designerId": "6d4a95a2-4a9f-4d06-96f3-4adb832d18a3",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "string"
+            },
+            "designerId": "4a8af720-de3c-4a1f-86c9-e3b388f5ef46"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "collectDate",
+                "type": "date"
+            },
+            "designerId": "8b50dc7a-2847-4a47-836e-b0da2a112175"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "consumption",
+                "type": "float"
+            },
+            "designerId": "d31bb5cd-cf0c-4be0-b294-6cb47e0304dd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "consumptionClass",
+                "type": "string"
+            },
+            "designerId": "c674cdff-d164-402d-9c18-4ba1c616cf64"
+        }
+    ]
+}

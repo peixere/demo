@@ -1,0 +1,28 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "EnergyConsModel",
+        "designer|userClassName": "EnergyConsStore",
+        "designer|userAlias": "EnergyConsStore"
+    },
+    "designerId": "d328176b-6b47-45b9-8d26-7bf51af2ad99",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "../ems/energyCons.do"
+            },
+            "designerId": "16f6794e-7897-4637-aab4-fd3038c00eb8"
+        }
+    ]
+}
