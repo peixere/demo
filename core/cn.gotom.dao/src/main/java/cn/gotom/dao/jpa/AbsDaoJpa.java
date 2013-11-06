@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.util.Converter;
 import cn.gotom.util.Pagination;
-import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -156,15 +155,18 @@ abstract class AbsDaoJpa
 		q.executeUpdate();
 	}
 
-	protected String getBetweenDateToHql(String fieldname, Date startDate, Date endDate, String format)
+	/**
+	 * 在两个时期间
+	 * @param fieldname
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	protected String getBetweenDateToHql(String fieldname, Date startDate, Date endDate)
 	{
-		if (StringUtils.isNullOrEmpty(format))
-		{
-			format = "yyyy-MM-dd";
-		}
-		String begin = Converter.format(startDate, format);
-		String end = Converter.format(endDate, format);
-		String sql = fieldname + " between to_date('" + begin + "', '" + format + "') and to_date('" + end + "', '" + format + "')";
+		String begin = Converter.format(startDate, "yyyy-MM-dd 00:00:00");
+		String end = Converter.format(endDate, "yyyy-MM-dd 23:59:59");
+		String sql = fieldname + " between ('" + begin + "' and '" + end+"')";
 		return sql;
 	}
 }
