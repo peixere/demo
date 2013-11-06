@@ -1,0 +1,230 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 135,
+        "width": 370,
+        "designer|userClassName": "BuildingFuncWin",
+        "designer|userAlias": "BuildingFuncWin",
+        "layout": "border",
+        "title": "建筑类别管理"
+    },
+    "designerId": "3efe28bc-44ae-4356-ac82-504838ca9441",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "BuildingFuncForm",
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "designerId": "e147b39b-31e1-43f1-ac60-68065d4e5a63",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "",
+                        "fieldLabel": "标识",
+                        "name": "id"
+                    },
+                    "designerId": "1deb27f0-154b-4c01-a9dd-6957f72b81d4"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "formBind": false,
+                        "fieldLabel": "编码",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "code",
+                        "invalidText": "编码不能为空！",
+                        "blankText": "编码不能为空！"
+                    },
+                    "designerId": "eba790c2-3bc8-4baf-a38f-b6c8e117ab46"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "名称",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "name",
+                        "invalidText": "名称不能为空！",
+                        "blankText": "名称不能为空！"
+                    },
+                    "designerId": "1016abfe-f75d-45d6-9797-874dbe4f06b5"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom",
+                        "container|pack": "end",
+                        "id": "bfEditToolBarl"
+                    },
+                    "designerId": "026d956c-4971-4021-b4bf-1eae36729599",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "id": "btnSave",
+                                "iconCls": "icon-save",
+                                "text": "保存"
+                            },
+                            "designerId": "f506d88e-5dd3-4047-b501-b3b04cf9122f",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onBtnSaveClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "8bf1cbdf-d5f8-45a5-8f98-dc9597a7a493"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "id": "btnCancel",
+                                "iconCls": "icon-cancel",
+                                "text": "取消",
+                                "textAlign": null
+                            },
+                            "designerId": "5a67c94b-8f82-42ab-9119-f884a5f19447",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onBtnCancelClick",
+                                        "implHandler": [
+                                            "this.close();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "202d03a7-1cb4-445c-9867-da6e2177703b"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "basicfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "bindData",
+                        "designer|params": [
+                            "id"
+                        ],
+                        "implHandler": [
+                            "var formPanel = this;\r",
+                            "var wait = Ext.Msg.wait(\"正在载入......\",\"操作提示\");\r",
+                            "Ext.Ajax.request(\r",
+                            "{\r",
+                            "    url:'../ems/buildfunc.do',\r",
+                            "    method:'POST',\r",
+                            "    params:{\r",
+                            "        id:id\r",
+                            "    },\r",
+                            "    success:function(response,options)\r",
+                            "    {\r",
+                            "        var result=Ext.JSON.decode(response.responseText);\r",
+                            "        var record=Ext.create('');\r",
+                            "        record.data=result;\r",
+                            "        wait.close();\r",
+                            "        formPanel.getForm().reset();\r",
+                            "        formPanel.loadRecord(record);\r",
+                            "    },\r",
+                            "    failure:function(response,options)\r",
+                            "    {\r",
+                            "        wait.close();\r",
+                            "        Ext.Msg.alert(\"操作提示\",\"载入失败\");\r",
+                            "    }\r",
+                            "});"
+                        ]
+                    },
+                    "designerId": "b19e89fc-3ddf-4ee8-a58c-d79397f6b8b3"
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getForm",
+                "implHandler": [
+                    "return Ext.getCmp('BuildingFuncForm');"
+                ]
+            },
+            "designerId": "6242bf85-67ba-40e1-9113-c0e0e5ba7a5b"
+        }
+    ]
+}
