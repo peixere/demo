@@ -37,6 +37,6 @@ var id = getQueryParam('id');
 Ext.onReady(function()
 {
     var view = Ext.create('MyApp.view.DemoViewport');    
-    view.loadData(id);
+    view.loadTreeData(id);
     //view.expandAll();
 });
