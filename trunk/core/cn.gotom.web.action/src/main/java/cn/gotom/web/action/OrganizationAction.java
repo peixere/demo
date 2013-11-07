@@ -19,6 +19,12 @@ import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
+/**
+ * 组织机构管理
+ * 
+ * @author <a href="mailto:pqixere@qq.com">裴绍国</a>
+ * 
+ */
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/organization", results = { @Result(name = "success", type = "json") })
@@ -67,11 +73,13 @@ public class OrganizationAction
 		}
 		ContextUtils.writerToJSON(menuList);
 	}
+
 	public void list() throws IOException
 	{
 		List<Organization> menuList = service.findAll();
 		ContextUtils.writerToJSON(menuList);
 	}
+
 	public String remove()
 	{
 		String ids = getId();
