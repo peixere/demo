@@ -2,6 +2,7 @@ package cn.gotom.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -27,9 +28,13 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
-		System.out.println(Converter.format(new Date(), "yyyy-MM-dd 23:59:59"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2013, 0, 1);
+		System.out.println(calendar.getTimeInMillis());
+		//1359676800000
+		System.out.println(Converter.format(calendar.getTime(), "yyyy-MM-dd 23:59:59"));
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		System.out.println("今天  :" + dateformat.format(new Date()));
+		System.out.println(new Date()+"今天  :" + dateformat.format(new Date()));
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("DefaultData", Locale.ROOT);
 		String rightString = bundle.getString("Right");
