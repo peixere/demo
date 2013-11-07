@@ -159,16 +159,6 @@ Ext.onReady(function()
 	    columnWidth : 0.7,
 	    items : [
 	    {
-		title : '新闻动态',
-		height : 150,
-		tools : portal.getTools(),
-		html : '<iframe width="100%" height="100%" frameborder="0" src="http://www.google.com.hk"></iframe>',
-		listeners :
-		{
-		    'close' : Ext.bind(portal.onPortletClose, portal)
-		}
-	    },
-	    {
 		title : '最新通知',
 		height : 150,
 		tools : portal.getTools(),

@@ -59,7 +59,6 @@ Ext.define('Ext.app.PortalView',
 	border : false,
 	split : false
     }),
-
     menus : Ext.create("Ext.panel.Panel",
     {
 	id : 'app-options',
@@ -76,6 +75,19 @@ Ext.define('Ext.app.PortalView',
 	    type : 'accordion',
 	    animate : true
 	},
+	/*
+        tools: [
+                {
+                    xtype: 'tool',
+                    type: 'refresh',
+                    listeners: {
+                        click: function(tool, e, eOpts) {
+                            //alert('s');
+                        }
+                    }
+                }
+        ],	
+        */
 	listeners : {
 	// afterrender : Ext.bind(this.onLoadMenus, this)
 	}
