@@ -56,6 +56,13 @@ public class Pagination<T> extends JsonResponse
 		list = new ArrayList<T>();
 	}
 
+	/**
+	 * 分页实例化
+	 * @param rowCount 总行数
+	 * @param list 当前页数据
+	 * @param rowSize 每页行数
+	 * @param pageNum 当前页码
+	 */
 	public Pagination(int rowCount, List<T> list, int rowSize, int pageNum)
 	{
 		this.rowCount = rowCount;
