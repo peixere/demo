@@ -38,7 +38,15 @@ Ext.define('MyApp.view.DemoWindow', {
                     },
                     bodyPadding: 10,
                     header: false,
-                    title: '表单'
+                    title: '表单',
+                    items: [
+                        {
+                            xtype: 'combobox',
+                            id: 'mycombobox',
+                            fieldLabel: 'Label',
+                            valueField: 'id'
+                        }
+                    ]
                 }
             ],
             dockedItems: [
@@ -77,7 +85,13 @@ Ext.define('MyApp.view.DemoWindow', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterlayout: {
+                    fn: me.onDemoWindowAfterLayout,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
@@ -88,7 +102,34 @@ Ext.define('MyApp.view.DemoWindow', {
     },
 
     onBtnCancelClick: function(button, e, eOpts) {
-        this.store.reload();
+
+    },
+
+    onDemoWindowAfterLayout: function(container, layout, eOpts) {
+        var store = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'ComBoboxStore',
+            fields: [
+            {
+                name: 'id',
+                type: 'string'
+            },
+            {
+                name: 'text',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',
+                url : '../p/right!list.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('mycombobox').bindStore(store);
     }
 
 });

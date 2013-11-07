@@ -30,7 +30,24 @@
                 "header": false,
                 "title": "表单"
             },
-            "designerId": "570bc2de-51e5-4a79-97b2-d578f05d3a7f"
+            "designerId": "570bc2de-51e5-4a79-97b2-d578f05d3a7f",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "mycombobox",
+                        "fieldLabel": "Label",
+                        "store": null,
+                        "valueField": "id"
+                    },
+                    "designerId": "a62752cb-5936-4c9e-95c1-b1ff37f30393"
+                }
+            ]
         },
         {
             "type": "Ext.toolbar.Toolbar",
@@ -105,7 +122,7 @@
                             "userConfig": {
                                 "fn": "onBtnCancelClick",
                                 "implHandler": [
-                                    "this.store.reload();"
+                                    ""
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -115,6 +132,46 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onDemoWindowAfterLayout",
+                "implHandler": [
+                    "var store = new Ext.data.Store({\r",
+                    "    autoLoad: true,\r",
+                    "    storeId: 'ComBoboxStore',\r",
+                    "    fields: [\r",
+                    "        {\r",
+                    "            name: 'id',\r",
+                    "            type: 'string'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'text',\r",
+                    "            type: 'string'\r",
+                    "        }\r",
+                    "    ],\r",
+                    "\tproxy: {\r",
+                    "        type: 'ajax',\r",
+                    "        url : '../p/right!list.do',\r",
+                    "        listeners: {\r",
+                    "            exception: function(proxy, response, operation, eOpts) {\r",
+                    "                alert(response.statusText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    }\r",
+                    "});\r",
+                    "Ext.getCmp('mycombobox').bindStore(store);"
+                ],
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "f727941e-c6f7-4bca-a9cc-df821abaef59"
         }
     ]
 }
