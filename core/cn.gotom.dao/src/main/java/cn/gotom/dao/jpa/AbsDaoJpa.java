@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 
 import cn.gotom.util.Converter;
-import cn.gotom.util.Pagination;
+import cn.gotom.vo.Pagination;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -115,31 +115,39 @@ abstract class AbsDaoJpa
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Pagination<?> findPagination(String jpql, String countHql, int pageIndex, int pageSize, Object... values)
+	protected Pagination<?> findPagination(String jpql, String countJpql, int pageIndex, int pageSize, Object... values)
 	{
-		Long count = count(countHql, values);
+		if (pageIndex < 1)
+		{
+			pageIndex = 1;
+		}
+		Long count = count(countJpql, values);
 		Query ql = getEntityManager().createQuery(jpql);
 		for (int i = 0; i < values.length; i++)
 		{
 			ql.setParameter(i + 1, values[i]);
 		}
-		int first = pageIndex * pageSize;
+		int first = (pageIndex - 1) * pageSize;
 		ql.setFirstResult((first > 0 ? first : 0));
 		ql.setMaxResults((pageSize > 1 ? pageSize : 20));
 		return new Pagination(count.intValue(), ql.getResultList(), pageSize, pageIndex);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected Pagination findPaginationByMap(String jpql, String countHql, int pageIndex, int pageSize, Map<String, Object> params)
+	protected Pagination findPaginationByMap(String jpql, String countJpql, int pageIndex, int pageSize, Map<String, Object> params)
 	{
-		Long fullListSize = count(countHql, params);
+		if (pageIndex < 1)
+		{
+			pageIndex = 1;
+		}
+		Long fullListSize = count(countJpql, params);
 		Query q = getEntityManager().createQuery(jpql);
 		for (String key : params.keySet())
 		{
 			Object value = params.get(key);
 			q.setParameter(key, value);
 		}
-		int first = pageIndex * pageSize;
+		int first = (pageIndex - 1) * pageSize;
 		q.setFirstResult((first > 0 ? first : 0));
 		q.setMaxResults((pageSize > 1 ? pageSize : 20));
 		return new Pagination(fullListSize.intValue(), q.getResultList(), pageSize, pageIndex);
@@ -157,6 +165,7 @@ abstract class AbsDaoJpa
 
 	/**
 	 * 在两个时期间
+	 * 
 	 * @param fieldname
 	 * @param startDate
 	 * @param endDate
@@ -166,7 +175,7 @@ abstract class AbsDaoJpa
 	{
 		String begin = Converter.format(startDate, "yyyy-MM-dd 00:00:00");
 		String end = Converter.format(endDate, "yyyy-MM-dd 23:59:59");
-		String sql = fieldname + " between ('" + begin + "' and '" + end+"')";
+		String sql = fieldname + " between ('" + begin + "' and '" + end + "')";
 		return sql;
 	}
 }
