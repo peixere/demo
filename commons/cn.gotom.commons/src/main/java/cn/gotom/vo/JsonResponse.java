@@ -1,12 +1,14 @@
 package cn.gotom.vo;
 
+
 public class JsonResponse
 {
+
 	private boolean success = true;
 
 	private String message = "OK";
 
-	public boolean isSuccess()
+	public boolean getSuccess()
 	{
 		return success;
 	}
