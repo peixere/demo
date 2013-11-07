@@ -33,16 +33,19 @@ Ext.define('MyApp.store.DemoTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../p/organization!tree.do'
-            },
-            fields: [
-                {
-
+                url: '../p/organization!tree.do',
+                listeners: {
+                    exception: {
+                        fn: me.onAjaxException,
+                        scope: me
+                    }
                 }
-            ],
-            sorters: {
-
             }
         }, cfg)]);
+    },
+
+    onAjaxException: function(proxy, response, operation, eOpts) {
+        alert(response.statusText);
     }
+
 });
