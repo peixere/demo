@@ -175,7 +175,7 @@ abstract class AbsDaoJpa
 	{
 		String begin = Converter.format(startDate, "yyyy-MM-dd 00:00:00");
 		String end = Converter.format(endDate, "yyyy-MM-dd 23:59:59");
-		String sql = fieldname + " between ('" + begin + "' and '" + end + "')";
+		String sql = fieldname + " between '" + begin + "' and '" + end + "'";
 		return sql;
 	}
 }
