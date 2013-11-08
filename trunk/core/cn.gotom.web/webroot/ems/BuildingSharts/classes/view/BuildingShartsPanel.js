@@ -218,7 +218,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 success : function(f, action)
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
-                    me.showHighcharts(result.chart);
+                    me.showHighcharts(result.responseText);
                 },
                 failure : function(f, action)
                 {

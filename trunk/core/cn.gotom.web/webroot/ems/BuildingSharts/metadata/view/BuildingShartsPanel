@@ -229,7 +229,7 @@
                                                     "        success : function(f, action)\r",
                                                     "        {\r",
                                                     "            var result = Ext.JSON.decode(action.response.responseText);\r",
-                                                    "            me.showHighcharts(result.chart);\r",
+                                                    "            me.showHighcharts(result.responseText);\r",
                                                     "        },\r",
                                                     "        failure : function(f, action)\r",
                                                     "        {\r",

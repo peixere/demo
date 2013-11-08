@@ -33,6 +33,11 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
                         fn: me.onAjaxException,
                         scope: me
                     }
+                },
+                reader: {
+                    type: 'json',
+                    idProperty: 'id',
+                    root: 'responseText'
                 }
             },
             fields: [
@@ -53,7 +58,7 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
     },
 
     onAjaxException: function(proxy, response, operation, eOpts) {
-        Ext.Msg.alert('操作提示',response.statusText);
+        Ext.Msg.alert('操作提示',response.status);
     }
 
 });
