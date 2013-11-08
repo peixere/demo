@@ -36,7 +36,6 @@ abstract class GnuSerialChannel extends ChannelImpl implements CommPortOwnership
 	{
 		try
 		{
-			System.out.println("SerialPortLibrary.init()");
 			SerialPortLibrary.init();
 		}
 		catch (Exception e)

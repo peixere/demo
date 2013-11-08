@@ -1,8 +1,11 @@
 package cn.gotom.comm.serial;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.comm.SerialPort;
+
+import org.apache.log4j.Logger;
 
 import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.FileUtils;
@@ -10,10 +13,20 @@ import cn.gotom.util.SysProperty;
 
 public class SerialPortLibrary
 {
+	protected static final Logger log = Logger.getLogger(SerialPortLibrary.class);
+
 	private final static String javaHome = SysProperty.java_home;
 
 	public static boolean init() throws IOException
 	{
+		Map<?, ?> map = System.getProperties();
+		String systemProperties = "";
+		for (Object key : map.keySet())
+		{
+			systemProperties += key + "=" + map.get(key) + "\n";
+		}
+		log.debug(systemProperties);
+		System.out.println(systemProperties);
 		boolean flag = false;
 		switch (SysProperty.os)
 		{
