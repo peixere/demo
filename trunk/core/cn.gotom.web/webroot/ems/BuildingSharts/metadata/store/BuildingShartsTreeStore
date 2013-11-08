@@ -24,9 +24,28 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "../buildingSharts!tree.do"
+                "url": "../BuildingSharts!tree.do"
             },
-            "designerId": "86871230-aeb9-4619-bf76-8905b03db6de"
+            "designerId": "86871230-aeb9-4619-bf76-8905b03db6de",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onAjaxException",
+                        "implHandler": [
+                            "Ext.Msg.alert('操作提示',response.statusText);"
+                        ],
+                        "name": "exception",
+                        "scope": "me"
+                    },
+                    "designerId": "66f4b69c-4e9a-4c5a-b179-080397be5c92"
+                }
+            ]
         },
         {
             "type": "Ext.data.Field",

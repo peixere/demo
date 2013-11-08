@@ -27,7 +27,13 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../buildingSharts!tree.do'
+                url: '../BuildingSharts!tree.do',
+                listeners: {
+                    exception: {
+                        fn: me.onAjaxException,
+                        scope: me
+                    }
+                }
             },
             fields: [
                 {
@@ -44,5 +50,10 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
                 }
             ]
         }, cfg)]);
+    },
+
+    onAjaxException: function(proxy, response, operation, eOpts) {
+        Ext.Msg.alert('操作提示',response.statusText);
     }
+
 });
