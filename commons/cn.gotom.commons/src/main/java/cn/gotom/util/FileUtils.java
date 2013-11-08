@@ -8,11 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 public class FileUtils
 {
+	protected static final Logger log = Logger.getLogger(FileUtils.class);
 
 	public static void cover(String from, String to) throws IOException
 	{
@@ -26,16 +27,16 @@ public class FileUtils
 				{
 					if (toFile.length() == fromFile.length())
 					{
-						Logger.getLogger(FileUtils.class.getName()).warning(toFile.getAbsolutePath() + " file exists");
+						log.warn(toFile.getAbsolutePath() + " file exists");
 						return;
 					}
 					else
 					{
-						Logger.getLogger(FileUtils.class.getName()).warning(toFile.getAbsolutePath() + " deleteOnExit");
+						log.warn(toFile.getAbsolutePath() + " deleteOnExit");
 						toFile.deleteOnExit();
 					}
 				}
-				Logger.getLogger(FileUtils.class.getName()).warning("cover " + from + " to " + to);
+				log.warn("cover " + from + " to " + to);
 				InputStream in = new BufferedInputStream(new FileInputStream(fromFile));
 				OutputStream out = new BufferedOutputStream(new FileOutputStream(to));
 				for (int b = in.read(); b != -1; b = in.read())
@@ -48,7 +49,7 @@ public class FileUtils
 		}
 		catch (Exception ex)
 		{
-			Logger.getLogger(FileUtils.class.getName()).log(Level.WARNING, "copy " + from + " to " + to, ex);
+			log.error("copy " + from + " to " + to, ex);
 		}
 	}
 }

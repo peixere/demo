@@ -3,14 +3,13 @@ package cn.gotom.comm.channel;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class ChannelManager
 {
 	public final static ChannelManager instance = new ChannelManager();
 
-	protected Logger log = Logger.getLogger(this.getClass().getName());
+	protected final Logger log = Logger.getLogger(this.getClass());
 
 	private final ArrayList<Channel> channels = new ArrayList<Channel>();
 
@@ -38,7 +37,7 @@ public class ChannelManager
 					}
 					catch (Throwable e)
 					{
-						log.log(Level.WARNING, e.getMessage(), e);
+						log.error(e.getMessage(), e);
 					}
 				}
 			}
