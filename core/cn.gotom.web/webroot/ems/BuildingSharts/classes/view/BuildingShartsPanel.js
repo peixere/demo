@@ -212,21 +212,22 @@ Ext.define('ems.view.BuildingShartsPanel', {
         if (form.isValid())
         {
             form.submit({
-                url : '../BuildingSharts!s.do',
+                url : '../BuildingSharts.do',
                 method : 'POST',
                 waitMsg : '正在生成报表，稍后...',
                 success : function(f, action)
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
-                    me.showHighcharts(result.responseText);
+                    me.showHighcharts(result.data);
                 },
                 failure : function(f, action)
                 {
                     if(action.response.status == 200)
                     {
                         var result = Ext.JSON.decode(action.response.responseText);
-                        Ext.Msg.alert('信息提示', result.responseText);
-                    }else
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                    else
                     {
                         Ext.Msg.alert('信息提示', action.response.responseText);
                     }

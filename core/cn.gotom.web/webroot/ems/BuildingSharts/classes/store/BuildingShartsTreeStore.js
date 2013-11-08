@@ -37,7 +37,7 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
                 reader: {
                     type: 'json',
                     idProperty: 'id',
-                    root: 'responseText'
+                    root: 'data'
                 }
             },
             fields: [
@@ -58,7 +58,15 @@ Ext.define('ems.store.BuildingShartsTreeStore', {
     },
 
     onAjaxException: function(proxy, response, operation, eOpts) {
-        Ext.Msg.alert('操作提示',response.status);
+        if(response.status == 200)
+        {
+            var result = Ext.JSON.decode(response.responseText);
+            Ext.Msg.alert('信息提示', result.data);
+        }
+        else
+        {
+            Ext.Msg.alert('信息提示', response.responseText);
+        }
     }
 
 });
