@@ -50,9 +50,10 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			}
 			else
 			{
+				response.setStatus(403);
 //				response.getWriter().append("你没权限访问此功能!");
 //				response.getWriter().flush();
-				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
+//				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
 			}
 		}
 		finally
