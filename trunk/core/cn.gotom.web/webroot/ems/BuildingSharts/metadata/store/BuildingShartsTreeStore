@@ -38,7 +38,15 @@
                     "userConfig": {
                         "fn": "onAjaxException",
                         "implHandler": [
-                            "Ext.Msg.alert('操作提示',response.status);"
+                            "if(response.status == 200)\r",
+                            "{\r",
+                            "    var result = Ext.JSON.decode(response.responseText);\r",
+                            "    Ext.Msg.alert('信息提示', result.data);\r",
+                            "}\r",
+                            "else\r",
+                            "{\r",
+                            "    Ext.Msg.alert('信息提示', response.responseText);\r",
+                            "}"
                         ],
                         "name": "exception",
                         "scope": "me"
@@ -54,7 +62,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "idProperty": "id",
-                        "root": "responseText"
+                        "root": "data"
                     },
                     "designerId": "d257d46a-968e-4279-9a32-93afad9a34c5"
                 }
