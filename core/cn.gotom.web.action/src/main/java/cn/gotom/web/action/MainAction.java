@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.RightService;
-import cn.gotom.servlet.ContextUtils;
+import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
@@ -60,7 +60,7 @@ public class MainAction
 		this.setTitle("统合管理平台");
 		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
 		rightList = authService.findRightList(username, id);
-		ContextUtils.writerToJSON(this);
+		ResponseUtils.toJSON(this);
 	}
 
 	private void menu() throws IOException
@@ -74,7 +74,7 @@ public class MainAction
 		{
 			menuList = rightService.loadTreeByParentId(id);
 		}
-		ContextUtils.writerToJSON(menuList);
+		ResponseUtils.toJSON(menuList);
 		//resource();
 	}
 
@@ -114,7 +114,7 @@ public class MainAction
 				menuList = rightService.loadTreeByParentId(id);
 			}
 		}
-		ContextUtils.writerToJSON(menuList);
+		ResponseUtils.toJSON(menuList);
 	}
 
 	private void loadChildrencallback(Right right)

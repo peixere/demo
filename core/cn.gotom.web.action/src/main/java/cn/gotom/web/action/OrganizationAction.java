@@ -14,7 +14,7 @@ import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.Organization;
 import cn.gotom.service.OrganizationService;
-import cn.gotom.servlet.ContextUtils;
+import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
@@ -57,7 +57,7 @@ public class OrganizationAction
 			e = new Organization();
 			e.setParentId(this.getParentId());
 		}
-		ContextUtils.writerToJSON(e);
+		ResponseUtils.toJSON(e);
 	}
 
 	public void tree() throws IOException
@@ -71,13 +71,13 @@ public class OrganizationAction
 			service.save(o);
 			menuList.add(o);
 		}
-		ContextUtils.writerToJSON(menuList);
+		ResponseUtils.toJSON(menuList);
 	}
 
 	public void list() throws IOException
 	{
 		List<Organization> menuList = service.findAll();
-		ContextUtils.writerToJSON(menuList);
+		ResponseUtils.toJSON(menuList);
 	}
 
 	public String remove()

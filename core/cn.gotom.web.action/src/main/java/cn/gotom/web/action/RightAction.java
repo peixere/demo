@@ -14,7 +14,7 @@ import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.Right;
 import cn.gotom.service.RightService;
-import cn.gotom.servlet.ContextUtils;
+import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
@@ -37,13 +37,13 @@ public class RightAction
 	public void execute() throws IOException
 	{
 		Right right = rightService.get(this.getId());
-		ContextUtils.writerToJSON(right);
+		ResponseUtils.toJSON(right);
 	}
 
 	public void fresh() throws IOException
 	{
 		Right right = new Right();
-		ContextUtils.writerToJSON(right);
+		ResponseUtils.toJSON(right);
 	}
 
 	public void tree() throws IOException
@@ -55,12 +55,12 @@ public class RightAction
 			rightService.save(o);
 			menuList.add(o);
 		}
-		ContextUtils.writerToJSON(menuList);
+		ResponseUtils.toJSON(menuList);
 	}
 	public void list() throws IOException
 	{
 		List<Right> list = rightService.findAll();
-		ContextUtils.writerToJSON(list);
+		ResponseUtils.toJSON(list);
 	}
 	public String remove()
 	{
