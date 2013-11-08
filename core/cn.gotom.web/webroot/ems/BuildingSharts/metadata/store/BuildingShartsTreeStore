@@ -38,12 +38,25 @@
                     "userConfig": {
                         "fn": "onAjaxException",
                         "implHandler": [
-                            "Ext.Msg.alert('操作提示',response.statusText);"
+                            "Ext.Msg.alert('操作提示',response.status);"
                         ],
                         "name": "exception",
                         "scope": "me"
                     },
                     "designerId": "66f4b69c-4e9a-4c5a-b179-080397be5c92"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "idProperty": "id",
+                        "root": "responseText"
+                    },
+                    "designerId": "d257d46a-968e-4279-9a32-93afad9a34c5"
                 }
             ]
         },
