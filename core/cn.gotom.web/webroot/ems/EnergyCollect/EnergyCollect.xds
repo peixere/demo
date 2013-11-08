@@ -1,0 +1,67 @@
+{
+    "name": "BuildingSharts",
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "E:/workspace/gotom/gotom/core/cn.gotom.web/webroot/ems",
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.3",
+    "xdsBuild": 1044,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "64f665e8-4c5d-46df-b8fd-7e7878f31cdb": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "8984df7f-0808-4ae8-9597-f164846211a6": {
+            "paths": [
+                "metadata/view/BuildingShartsViewport",
+                "classes/view/override/BuildingShartsViewport.js",
+                "classes/view/BuildingShartsViewport.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "BuildingShartsViewport"
+        },
+        "bcffa829-619f-4e3e-8cae-6eb69c607a5e": {
+            "paths": [
+                "metadata/view/BuildingShartsPanel",
+                "classes/view/override/BuildingShartsPanel.js",
+                "classes/view/BuildingShartsPanel.js"
+            ],
+            "className": "BuildingShartsPanel"
+        },
+        "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
+            "paths": [
+                "metadata/store/BuildingShartsTreeStore",
+                "classes/store/override/BuildingShartsTreeStore.js",
+                "classes/store/BuildingShartsTreeStore.js"
+            ],
+            "className": "BuildingShartsTreeStore"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "8984df7f-0808-4ae8-9597-f164846211a6",
+            "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+        ],
+        "store": [
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+        ],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "64f665e8-4c5d-46df-b8fd-7e7878f31cdb"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

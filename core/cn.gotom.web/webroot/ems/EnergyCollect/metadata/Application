@@ -1,0 +1,23 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "BuildingSharts",
+        "stores": [
+            "BuildingShartsTreeStore"
+        ],
+        "views": [
+            "BuildingShartsViewport",
+            "BuildingShartsPanel"
+        ],
+        "appFolder": "classes",
+        "appProperty": "BuildingSharts",
+        "autoCreateViewport": true,
+        "name": "ems"
+    },
+    "designerId": "application"
+}
