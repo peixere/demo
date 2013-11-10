@@ -256,7 +256,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 text: chartdata.subtitle
             },		
             xAxis: {
-                type: 'datetime',
+                //type: 'datetime',
+                type: 'int',
                 dateTimeLabelFormats: {
                     month: '%e. %b',
                     year: '%b'
@@ -287,7 +288,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 var year = x.getYear();
                 var month = x.getMonth();
                 var date = x.getDate();
-                options.series[i].data.push([Date.UTC(year+1900,  month, date),p.y]); 
+                //options.series[i].data.push([Date.UTC(year+1900,  month, date),p.y]); 
+                options.series[i].data.push([j,p.y]); 
             });
         });
         new Highcharts.Chart(options);
