@@ -1,0 +1,111 @@
+{
+    "type": "Ext.data.TreeStore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": null,
+        "storeId": "BuildingTreeStore",
+        "designer|userClassName": "BuildingTreeStore",
+        "designer|userAlias": "BuildingTreeStore",
+        "defaultRootId": "",
+        "defaultRootText": "",
+        "nodeParam": "id"
+    },
+    "designerId": "6757a99e-9890-4c7f-8d45-0ca9304665e9",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "../BuildingTree.do"
+            },
+            "designerId": "86871230-aeb9-4619-bf76-8905b03db6de",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "idProperty": "id",
+                        "root": "data"
+                    },
+                    "designerId": "84f855aa-a2a4-4473-b3f7-f66dde6ecff4"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onAjaxException",
+                        "implHandler": [
+                            "if(response.status == 200)\r",
+                            "{\r",
+                            "    var result = Ext.JSON.decode(response.responseText);\r",
+                            "    Ext.Msg.alert('信息提示', result.data);\r",
+                            "}\r",
+                            "else\r",
+                            "{\r",
+                            "    Ext.Msg.alert('信息提示', response.responseText);\r",
+                            "}"
+                        ],
+                        "name": "exception",
+                        "scope": "me"
+                    },
+                    "designerId": "fbbd8500-2f45-48dc-972f-e94aaf5179a8"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "type",
+                "type": "string"
+            },
+            "designerId": "f1223045-b859-4ca2-8ab0-26e337c81c94"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text",
+                "type": "string"
+            },
+            "designerId": "61917646-84e2-41bd-b3ad-ff55e0a5a600"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "expand",
+                "type": "boolean"
+            },
+            "designerId": "fa76d7f4-3eac-409b-abab-e9163c6737ab"
+        }
+    ]
+}
