@@ -6,8 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "BuildingShartsViewport",
-        "designer|userAlias": "BuildingShartsViewport",
+        "designer|userClassName": "EnergyCollectView",
+        "designer|userAlias": "EnergyCollectView",
         "designer|initialView": true,
         "layout": "border"
     },
