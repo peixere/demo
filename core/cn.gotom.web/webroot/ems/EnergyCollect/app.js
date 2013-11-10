@@ -19,13 +19,13 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    id: 'BuildingSharts',
+    id: 'EnergyCollect',
     stores: [
-        'BuildingShartsTreeStore'
+        'BuildingTreeStore'
     ],
     views: [
-        'BuildingShartsViewport',
-        'BuildingShartsPanel'
+        'EnergyCollectPanel',
+        'EnergyCollectView'
     ],
     appFolder: 'classes',
     appProperty: 'BuildingSharts',
