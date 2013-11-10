@@ -210,7 +210,8 @@ Ext.define('ems.view.EnergyCollectPanel', {
                 success : function(f, action)
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
-                    me.showHighcharts(result.data);
+                    //me.showHighcharts(result.data);
+                    me.loadGridData(result.data);
                 },
                 failure : function(f, action)
                 {
