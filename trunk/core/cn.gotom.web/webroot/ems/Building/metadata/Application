@@ -7,24 +7,22 @@
     "codeClass": null,
     "userConfig": {
         "models": [
-            "BuildingFuncModel",
-            "BuildingModel",
-            "EnergyConsModel"
+            "BuildingModel"
         ],
         "stores": [
-            "BuildingFuncStore",
             "BuildingStore",
-            "EnergyConsStore"
+            "BuildingTreeStore"
         ],
         "views": [
-            "BuildingFuncView",
-            "BuildingFuncWin",
-            "BuildFuncGrid",
+            "BuildingView",
             "BuildingGrid",
-            "BuildingView"
+            "BuildingPanel",
+            "BuildingWin"
         ],
+        "appFolder": "classes",
+        "appProperty": "Building",
         "autoCreateViewport": true,
-        "name": "MyApp"
+        "name": "ems"
     },
     "designerId": "application"
 }

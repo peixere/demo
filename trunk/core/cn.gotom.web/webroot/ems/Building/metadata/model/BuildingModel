@@ -1,0 +1,483 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "BuildingModel",
+        "designer|userAlias": "BuildingModel"
+    },
+    "designerId": "602cef89-1bbf-408b-9e65-c9e23650e68c",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "string"
+            },
+            "designerId": "269154a5-8236-4fb2-83db-0b79fc4548c9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "code",
+                "type": "string"
+            },
+            "designerId": "0a66f455-0c0c-441c-b3fc-fae4541d562d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name",
+                "type": "string"
+            },
+            "designerId": "50b5a805-e797-4ba1-a569-41a3caaa2b67"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "province",
+                "type": "string"
+            },
+            "designerId": "fe922583-f169-4b08-851a-4a8032559e30"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "city",
+                "type": "string"
+            },
+            "designerId": "eade4e94-5d06-4e68-83a6-120805e02b4e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "address",
+                "type": "string"
+            },
+            "designerId": "f3d77207-ebcf-4107-bcca-9c3c976e1fe3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "ecDate",
+                "type": "date"
+            },
+            "designerId": "55719b98-cb7d-4571-acbc-7ad29fedf516"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "fillFormDate",
+                "type": "date"
+            },
+            "designerId": "3108a678-3268-4205-8690-58562536e83b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "buildYear",
+                "type": "int"
+            },
+            "designerId": "c1153fa0-ea83-4c79-950c-836100a9f66e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "buildFloor",
+                "type": "int"
+            },
+            "designerId": "ecc5e7e1-a6c1-402f-8b30-ae61ff479ae2"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "buildArea",
+                "type": "float"
+            },
+            "designerId": "235b9ea5-688f-447f-a18c-83f9459ce57d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "airconditioner",
+                "type": "float"
+            },
+            "designerId": "93bc2edf-a697-48b9-bb69-453ee9b76233"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "heatingArea",
+                "type": "float"
+            },
+            "designerId": "67663b2a-54ac-40c8-b8a9-ea697cb217cc"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "airconditionerSystemCode",
+                "type": "string"
+            },
+            "designerId": "fe83067a-0e1a-4a2f-9f67-7f0413068dac"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "airconditionerSystem",
+                "type": "string"
+            },
+            "designerId": "e1a68d54-ea4a-4ee5-8c67-0fe333f42014"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "heatingFormCode",
+                "type": "string"
+            },
+            "designerId": "25cac4e4-bd54-4681-be60-cfeed911e2c0"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "heatingForm",
+                "type": "string"
+            },
+            "designerId": "9032a11d-6e69-4675-8f9a-39d180141531"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "structureCode",
+                "type": "string"
+            },
+            "designerId": "664b467c-ec17-4779-ac56-45892389d305"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "structure",
+                "type": "string"
+            },
+            "designerId": "a6d89797-9112-44e9-8059-602a7f368791"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exteriorCode",
+                "type": "string"
+            },
+            "designerId": "41bcaa7d-a81e-439c-85ca-6423fbea1fe3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exterior",
+                "type": "string"
+            },
+            "designerId": "3f21b2ef-8ef4-47fd-8879-c536da78756c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exteriorWallCode",
+                "type": "string"
+            },
+            "designerId": "302ad2ff-3f91-4d8a-87e7-ddfec11acfc9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "exteriorWall",
+                "type": "string"
+            },
+            "designerId": "ebed486d-a628-4d7a-b8e4-868eb3e95d3a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "windowTypeCode",
+                "type": "string"
+            },
+            "designerId": "6a55e265-cd9d-47c1-b417-06463f506d8d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "windowType",
+                "type": "string"
+            },
+            "designerId": "926f4700-4931-44d2-bf84-bd3c5c790d98"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "glassTypesCode",
+                "type": "string"
+            },
+            "designerId": "8da78337-754b-48d1-965b-e149f236ee24"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "glassTypes",
+                "type": "string"
+            },
+            "designerId": "b490c4c8-6030-4fb9-94d9-fe7e4bc474c9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "windowFrameMaterialCode",
+                "type": "string"
+            },
+            "designerId": "a55230cd-92f1-4e89-872f-f79fed2c36b5"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "windowFrameMaterial",
+                "type": "string"
+            },
+            "designerId": "1a054e60-b998-438f-89c1-cbbd4a5ed535"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "electrovalency",
+                "type": "float"
+            },
+            "designerId": "0ae5630b-158c-4122-ae00-b573ad8a53e4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "waterPrice",
+                "type": "float"
+            },
+            "designerId": "01ea8876-40f6-4451-a01c-91c525cf3fcc"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "gasPrice",
+                "type": "float"
+            },
+            "designerId": "c787c058-8d66-4e10-8a77-9089cf4f823d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "feverPrice",
+                "type": "float"
+            },
+            "designerId": "c136cb02-926a-4c51-b96e-90a6844fd0a8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "attacha",
+                "type": "float"
+            },
+            "designerId": "4803b4a6-fbbc-48fb-82d6-7012550ee107"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "attachb",
+                "type": "float"
+            },
+            "designerId": "cf20792d-eee6-46db-b04d-7de2f765e356"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "attachc",
+                "type": "float"
+            },
+            "designerId": "beb7bd73-a4ea-4940-a902-73bb3da38b6d"
+        }
+    ]
+}

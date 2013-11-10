@@ -53,74 +53,20 @@
                 "app/view/BuildFuncGrid.js"
             ],
             "className": "BuildFuncGrid"
-        },
-        "5f5b3172-ef2c-4f41-a6d8-d70eeca8e6cb": {
-            "paths": [
-                "metadata/model/BuildingModel",
-                "app/model/override/BuildingModel.js",
-                "app/model/BuildingModel.js"
-            ],
-            "className": "BuildingModel"
-        },
-        "6d4a95a2-4a9f-4d06-96f3-4adb832d18a3": {
-            "paths": [
-                "metadata/model/EnergyConsModel",
-                "app/model/override/EnergyConsModel.js",
-                "app/model/EnergyConsModel.js"
-            ],
-            "className": "EnergyConsModel"
-        },
-        "6e34d141-bd40-4c1e-8fc2-75ecbffa7540": {
-            "paths": [
-                "metadata/view/BuildingGrid",
-                "app/view/override/BuildingGrid.js",
-                "app/view/BuildingGrid.js"
-            ],
-            "className": "BuildingGrid"
-        },
-        "4bc7e60b-533c-4a56-8ad3-09b99c0aff21": {
-            "paths": [
-                "metadata/store/BuildingStore",
-                "app/store/override/BuildingStore.js",
-                "app/store/BuildingStore.js"
-            ],
-            "className": "BuildingStore"
-        },
-        "d328176b-6b47-45b9-8d26-7bf51af2ad99": {
-            "paths": [
-                "metadata/store/EnergyConsStore",
-                "app/store/override/EnergyConsStore.js",
-                "app/store/EnergyConsStore.js"
-            ],
-            "className": "EnergyConsStore"
-        },
-        "fbd2fe5b-bfd6-417d-857d-6ff3ed3aff23": {
-            "paths": [
-                "metadata/view/BuildingView",
-                "app/view/override/BuildingView.js",
-                "app/view/BuildingView.js"
-            ],
-            "className": "BuildingView"
         }
     },
     "viewOrderMap": {
         "view": [
             "5ed241fc-3a5a-4b85-b680-058b2c4698de",
-            "fbd2fe5b-bfd6-417d-857d-6ff3ed3aff23",
             "3efe28bc-44ae-4356-ac82-504838ca9441",
-            "798b4213-2a66-4fef-babe-edff7cdc9e20",
-            "6e34d141-bd40-4c1e-8fc2-75ecbffa7540"
+            "798b4213-2a66-4fef-babe-edff7cdc9e20"
         ],
         "store": [
-            "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a",
-            "4bc7e60b-533c-4a56-8ad3-09b99c0aff21",
-            "d328176b-6b47-45b9-8d26-7bf51af2ad99"
+            "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a"
         ],
         "controller": [],
         "model": [
-            "357e6892-b444-44e6-88cf-fb05418ffff6",
-            "5f5b3172-ef2c-4f41-a6d8-d70eeca8e6cb",
-            "6d4a95a2-4a9f-4d06-96f3-4adb832d18a3"
+            "357e6892-b444-44e6-88cf-fb05418ffff6"
         ],
         "resource": [
             "7028e080-95c0-4b6a-b3ed-1a36ca95b5dc"

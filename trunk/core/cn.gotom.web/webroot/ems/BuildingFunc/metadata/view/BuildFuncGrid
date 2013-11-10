@@ -105,7 +105,7 @@
                                     "var id='';\r",
                                     "if(!Ext.isEmpty(record))\r",
                                     "{\r",
-                                    "\tid=record.data.id;\r",
+                                    "    id=record.data.id;\r",
                                     "}\r",
                                     "this.openWinForm(id);"
                                 ],
@@ -206,7 +206,7 @@
                                     "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
                                     "        Ext.Ajax.request(\r",
                                     "        {\r",
-                                    "            url : '../ems/buildfunc!remove.do',\r",
+                                    "            url : '../buildfunc!remove.do',\r",
                                     "            method : 'POST',\r",
                                     "            params :\r",
                                     "            {\r",

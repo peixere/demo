@@ -7,9 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "BuildingView",
-        "designer|userAlias": "BuildingView"
+        "designer|userAlias": "BuildingView",
+        "designer|initialView": true,
+        "layout": "border"
     },
-    "designerId": "fbd2fe5b-bfd6-417d-857d-6ff3ed3aff23",
+    "designerId": "9aad3fcf-4c29-408c-8150-2086919175b5",
     "cn": [
         {
             "type": "linkedinstance",
@@ -18,8 +20,11 @@
                 "type": "array"
             },
             "codeClass": null,
-            "designerId": "013a4bfc-f8a0-4771-b862-f8dde0964b8c",
-            "masterInstanceId": "6e34d141-bd40-4c1e-8fc2-75ecbffa7540"
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "b1d66ba0-553b-4298-aef6-904810be6279",
+            "masterInstanceId": "8e4f6f60-b24d-4df2-bc0e-c9248fd17a9f"
         }
     ]
 }
