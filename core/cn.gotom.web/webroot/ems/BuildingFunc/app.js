@@ -20,21 +20,15 @@ Ext.Loader.setConfig({
 
 Ext.application({
     models: [
-        'BuildingFuncModel',
-        'BuildingModel',
-        'EnergyConsModel'
+        'BuildingFuncModel'
     ],
     stores: [
-        'BuildingFuncStore',
-        'BuildingStore',
-        'EnergyConsStore'
+        'BuildingFuncStore'
     ],
     views: [
         'BuildingFuncView',
         'BuildingFuncWin',
-        'BuildFuncGrid',
-        'BuildingGrid',
-        'BuildingView'
+        'BuildFuncGrid'
     ],
     autoCreateViewport: true,
     name: 'MyApp'

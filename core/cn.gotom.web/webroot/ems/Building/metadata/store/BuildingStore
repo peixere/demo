@@ -6,12 +6,13 @@
     },
     "codeClass": null,
     "userConfig": {
-        "model": "BuildingFuncModel",
+        "autoLoad": true,
+        "model": "BuildingModel",
         "storeId": "MyStore",
-        "designer|userClassName": "BuildingFuncStore",
-        "designer|userAlias": "BuildingFuncStore"
+        "designer|userClassName": "BuildingStore",
+        "designer|userAlias": "BuildingStore"
     },
-    "designerId": "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a",
+    "designerId": "71be0942-480e-43fb-b18c-be09530aecee",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -21,9 +22,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "../ems/buildfunc.do"
+                "url": "../build!list.do"
             },
-            "designerId": "51abcc66-1acf-4986-b46c-6429dee96213"
+            "designerId": "6f7c4633-dfe1-46ec-9c1b-bdfcac6eb9ce"
         }
     ]
 }

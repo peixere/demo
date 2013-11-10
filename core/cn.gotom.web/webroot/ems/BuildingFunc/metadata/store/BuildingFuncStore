@@ -1,0 +1,30 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "model": "BuildingFuncModel",
+        "storeId": "MyStore",
+        "designer|userClassName": "BuildingFuncStore",
+        "designer|userAlias": "BuildingFuncStore"
+    },
+    "designerId": "6b11ccb1-40ef-4fb7-98b7-a438ef65e25a",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "../buildfunc!list.do"
+            },
+            "designerId": "51abcc66-1acf-4986-b46c-6429dee96213"
+        }
+    ]
+}

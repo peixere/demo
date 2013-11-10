@@ -155,7 +155,7 @@ Ext.define('MyApp.view.BuildFuncGrid', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : '../ems/buildfunc!remove.do',
+                    url : '../buildfunc!remove.do',
                     method : 'POST',
                     params :
                     {
