@@ -47,6 +47,7 @@ Ext.define('ems.view.BuildingPanel', {
                     collapsible: true,
                     title: '建筑信息管理',
                     store: 'BuildingTreeStore',
+                    rootVisible: false,
                     viewConfig: {
 
                     },
@@ -93,6 +94,7 @@ Ext.define('ems.view.BuildingPanel', {
     },
 
     onToolClick: function(tool, e, eOpts) {
+        //alert('aaa');
         var store = Ext.getCmp('BuildingTreePanel').getStore();
         store.getRootNode().removeAll();
         store.load();

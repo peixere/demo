@@ -30,6 +30,8 @@ Ext.application({
         'BuildingFuncWin',
         'BuildFuncGrid'
     ],
+    appFolder: 'classes',
+    appProperty: 'BuildingFunc',
     autoCreateViewport: true,
-    name: 'MyApp'
+    name: 'ems'
 });

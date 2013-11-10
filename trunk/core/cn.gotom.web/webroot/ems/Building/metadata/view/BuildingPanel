@@ -35,7 +35,8 @@
                 "width": 150,
                 "collapsible": true,
                 "title": "建筑信息管理",
-                "store": "BuildingTreeStore"
+                "store": "BuildingTreeStore",
+                "rootVisible": false
             },
             "designerId": "7f5ee183-4774-43d4-a924-20ea271dabbb",
             "cn": [
@@ -70,6 +71,7 @@
                             "userConfig": {
                                 "fn": "onToolClick",
                                 "implHandler": [
+                                    "//alert('aaa');\r",
                                     "var store = Ext.getCmp('BuildingTreePanel').getStore();\r",
                                     "store.getRootNode().removeAll();\r",
                                     "store.load();"
