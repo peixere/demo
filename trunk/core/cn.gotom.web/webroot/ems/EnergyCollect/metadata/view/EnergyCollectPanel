@@ -219,7 +219,7 @@
                                                     "        success : function(f, action)\r",
                                                     "        {\r",
                                                     "            var result = Ext.JSON.decode(action.response.responseText);\r",
-                                                    "            //me.showHighcharts(result.data);\r",
+                                                    "            me.showHighcharts(result.data);\r",
                                                     "            me.loadGridData(result.data);\r",
                                                     "        },\r",
                                                     "        failure : function(f, action)\r",
@@ -356,7 +356,93 @@
                         "layout": "border",
                         "title": null
                     },
-                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b"
+                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|region": "north",
+                                "height": 180,
+                                "id": "GataGridPanel",
+                                "autoScroll": true,
+                                "collapsible": true,
+                                "title": "查询结果"
+                            },
+                            "designerId": "30d4930b-5f5d-4022-baff-8717807c72f1",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "sortable": false,
+                                        "dataIndex": "context",
+                                        "text": "context"
+                                    },
+                                    "designerId": "eb8d7c8b-3a17-4e7e-ab82-2fbd00492dae"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "reductions",
+                                        "text": "reductions"
+                                    },
+                                    "designerId": "f9509b0b-9b3f-4d6d-bc5c-cf51ae832fe5"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "phone",
+                                        "text": "phone"
+                                    },
+                                    "designerId": "f6aa7bd8-856e-4e2c-b9aa-95e99aeed288"
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "d1b3924a-f188-4375-9508-8a61cb0277ec"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|region": "center",
+                                "id": "chartPanel",
+                                "autoScroll": true,
+                                "collapsible": false,
+                                "title": "图形"
+                            },
+                            "designerId": "96a7fa3d-b5a8-46dc-9cd2-d6269dac296a"
+                        }
+                    ]
                 }
             ]
         },
@@ -374,7 +460,7 @@
                 ],
                 "implHandler": [
                     "var html = '<div id=\"heightchartcontainer\" width=\"100%\" height=\"100\"></div>';\r",
-                    "Ext.getCmp('ContentPanel').update(html);\r",
+                    "Ext.getCmp('chartPanel').update(html);\r",
                     "var options = {\r",
                     "    chart: {\r",
                     "        renderTo: 'heightchartcontainer',\r",
@@ -439,30 +525,28 @@
                     "data"
                 ],
                 "implHandler": [
-                    "var store = new Ext.data.Store({\r",
-                    "    autoLoad: true,\r",
-                    "    storeId: 'DataGridPanelStore',\r",
-                    "    fields: [\r",
-                    "    {\r",
-                    "        name: 'id',\r",
-                    "        type: 'string'\r",
-                    "    },\r",
-                    "    {\r",
-                    "        name: 'text',\r",
-                    "        type: 'string'\r",
-                    "    }\r",
-                    "    ],\r",
-                    "    proxy: {\r",
-                    "        type: 'ajax',\r",
-                    "        url : '../p/right!list.do',\r",
-                    "        listeners: {\r",
-                    "            exception: function(proxy, response, operation, eOpts) {\r",
-                    "                alert(response.statusText);\r",
+                    "var json_data={'out':[\r",
+                    "        {\"context\":\"Lisa\", \"reductions\":\"lisa@simpsons.com\", \"phone\":\"555-111-1224\"},\r",
+                    "        {\"context\":\"Bart\", \"reductions\":\"bart@simpsons.com\", \"phone\":\"555--222-1234\"},\r",
+                    "        {\"context\":\"Homer\", \"reductions\":\"home@simpsons.com\", \"phone\":\"555-222-1244\"},\r",
+                    "        {\"context\":\"Marge\", \"reductions\":\"marge@simpsons.com\", \"phone\":\"555-222-1254\"}\r",
+                    "    ]};\r",
+                    "\r",
+                    "   var jsonStore = Ext.create('Ext.data.Store', {\r",
+                    "        storeId:'jsonStore',\r",
+                    "        fields: ['context', 'reductions','phone'],\r",
+                    "        data : json_data,        \r",
+                    "        proxy:\r",
+                    "              {\r",
+                    "            type: 'memory',\r",
+                    "            reader:{\r",
+                    "                type: 'json',\r",
+                    "                root: 'out'\r",
                     "            }\r",
                     "        }\r",
-                    "    }\r",
-                    "});\r",
-                    "Ext.getCmp('DataGridPanel').bindStore(store);"
+                    "    });    \r",
+                    "Ext.getCmp('GataGridPanel').bindStore(jsonStore);           \r",
+                    "//Ext.getCmp('ContentPanel').add(grid_xml);"
                 ]
             },
             "designerId": "b52acb1b-f364-413f-ab66-3a8605284441"

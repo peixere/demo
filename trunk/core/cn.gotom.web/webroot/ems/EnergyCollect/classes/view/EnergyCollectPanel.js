@@ -174,7 +174,44 @@ Ext.define('ems.view.EnergyCollectPanel', {
                             id: 'ContentPanel',
                             layout: {
                                 type: 'border'
-                            }
+                            },
+                            items: [
+                                {
+                                    xtype: 'gridpanel',
+                                    region: 'north',
+                                    height: 180,
+                                    id: 'GataGridPanel',
+                                    autoScroll: true,
+                                    collapsible: true,
+                                    title: '查询结果',
+                                    columns: [
+                                        {
+                                            xtype: 'gridcolumn',
+                                            sortable: false,
+                                            dataIndex: 'context',
+                                            text: 'context'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'reductions',
+                                            text: 'reductions'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'phone',
+                                            text: 'phone'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'panel',
+                                    region: 'center',
+                                    id: 'chartPanel',
+                                    autoScroll: true,
+                                    collapsible: false,
+                                    title: '图形'
+                                }
+                            ]
                         }
                     ]
                 }
@@ -210,7 +247,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                 success : function(f, action)
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
-                    //me.showHighcharts(result.data);
+                    me.showHighcharts(result.data);
                     me.loadGridData(result.data);
                 },
                 failure : function(f, action)
@@ -236,7 +273,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
 
     showHighcharts: function(chartdata) {
         var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
-        Ext.getCmp('ContentPanel').update(html);
+        Ext.getCmp('chartPanel').update(html);
         var options = {
             chart: {
                 renderTo: 'heightchartcontainer',
@@ -287,30 +324,28 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     loadGridData: function(data) {
-        var store = new Ext.data.Store({
-            autoLoad: true,
-            storeId: 'DataGridPanelStore',
-            fields: [
+        var json_data={'out':[
+            {"context":"Lisa", "reductions":"lisa@simpsons.com", "phone":"555-111-1224"},
+            {"context":"Bart", "reductions":"bart@simpsons.com", "phone":"555--222-1234"},
+            {"context":"Homer", "reductions":"home@simpsons.com", "phone":"555-222-1244"},
+            {"context":"Marge", "reductions":"marge@simpsons.com", "phone":"555-222-1254"}
+        ]};
+
+        var jsonStore = Ext.create('Ext.data.Store', {
+            storeId:'jsonStore',
+            fields: ['context', 'reductions','phone'],
+            data : json_data,        
+            proxy:
             {
-                name: 'id',
-                type: 'string'
-            },
-            {
-                name: 'text',
-                type: 'string'
-            }
-            ],
-            proxy: {
-                type: 'ajax',
-                url : '../p/right!list.do',
-                listeners: {
-                    exception: function(proxy, response, operation, eOpts) {
-                        alert(response.statusText);
-                    }
+                type: 'memory',
+                reader:{
+                    type: 'json',
+                    root: 'out'
                 }
             }
-        });
-        Ext.getCmp('DataGridPanel').bindStore(store);
+        });    
+        Ext.getCmp('GataGridPanel').bindStore(jsonStore);           
+        //Ext.getCmp('ContentPanel').add(grid_xml);
     }
 
 });
