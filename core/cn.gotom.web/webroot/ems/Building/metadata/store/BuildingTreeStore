@@ -26,7 +26,47 @@
             "userConfig": {
                 "url": "../build!tree.do"
             },
-            "designerId": "4e1cc3df-3955-4115-b1c6-4adf016021b1"
+            "designerId": "4e1cc3df-3955-4115-b1c6-4adf016021b1",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onAjaxException",
+                        "implHandler": [
+                            "if(response.status == 200)\r",
+                            "{\r",
+                            "    var result = Ext.JSON.decode(response.responseText);\r",
+                            "    Ext.Msg.alert('信息提示', result.data);\r",
+                            "}\r",
+                            "else\r",
+                            "{\r",
+                            "    Ext.Msg.alert('信息提示', response.responseText);\r",
+                            "}"
+                        ],
+                        "name": "exception",
+                        "scope": "me"
+                    },
+                    "designerId": "dd0c5a35-bbb0-4d25-9627-44f41d28ed1e"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "idProperty": "id",
+                        "root": "data"
+                    },
+                    "designerId": "e7cbd884-4265-42f4-884d-88de477417c1"
+                }
+            ]
         },
         {
             "type": "Ext.data.Field",

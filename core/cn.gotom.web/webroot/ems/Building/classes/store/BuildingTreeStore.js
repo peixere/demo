@@ -28,7 +28,18 @@ Ext.define('ems.store.BuildingTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../build!tree.do'
+                url: '../build!tree.do',
+                listeners: {
+                    exception: {
+                        fn: me.onAjaxException,
+                        scope: me
+                    }
+                },
+                reader: {
+                    type: 'json',
+                    idProperty: 'id',
+                    root: 'data'
+                }
             },
             fields: [
                 {
@@ -45,5 +56,18 @@ Ext.define('ems.store.BuildingTreeStore', {
                 }
             ]
         }, cfg)]);
+    },
+
+    onAjaxException: function(proxy, response, operation, eOpts) {
+        if(response.status == 200)
+        {
+            var result = Ext.JSON.decode(response.responseText);
+            Ext.Msg.alert('信息提示', result.data);
+        }
+        else
+        {
+            Ext.Msg.alert('信息提示', response.responseText);
+        }
     }
+
 });
