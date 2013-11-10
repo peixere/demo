@@ -14,6 +14,6 @@
  */
 
 Ext.define('ems.view.Viewport', {
-    extend: 'ems.view.BuildingShartsViewport',
+    extend: 'ems.view.EnergyCollectView',
     renderTo: Ext.getBody()
 });
