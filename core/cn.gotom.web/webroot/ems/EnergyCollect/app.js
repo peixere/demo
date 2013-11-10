@@ -28,7 +28,7 @@ Ext.application({
         'EnergyCollectView'
     ],
     appFolder: 'classes',
-    appProperty: 'BuildingSharts',
+    appProperty: 'classes',
     autoCreateViewport: true,
     name: 'ems'
 });
