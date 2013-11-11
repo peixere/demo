@@ -17,8 +17,8 @@ Ext.define('ems.view.BuildingWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.BuildingWin',
 
-    height: 315,
-    width: 553,
+    height: 340,
+    width: 552,
     layout: {
         type: 'border'
     },
@@ -81,6 +81,7 @@ Ext.define('ems.view.BuildingWin', {
                             xtype: 'textfield',
                             x: 190,
                             y: 10,
+                            id: 'name',
                             fieldLabel: '名称',
                             labelAlign: 'right',
                             labelWidth: 50,
@@ -139,6 +140,7 @@ Ext.define('ems.view.BuildingWin', {
                             fieldLabel: '采暖总面积（平方米）',
                             labelAlign: 'right',
                             labelWidth: 140,
+                            name: 'heatingArea',
                             inputType: 'number'
                         },
                         {
@@ -254,6 +256,16 @@ Ext.define('ems.view.BuildingWin', {
                             id: 'id',
                             fieldLabel: 'Label',
                             name: 'id'
+                        },
+                        {
+                            xtype: 'textfield',
+                            x: -1,
+                            y: 250,
+                            id: 'address',
+                            fieldLabel: '地址',
+                            labelAlign: 'right',
+                            labelWidth: 60,
+                            name: 'address'
                         }
                     ],
                     dockedItems: [

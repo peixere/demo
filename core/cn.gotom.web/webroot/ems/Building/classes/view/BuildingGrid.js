@@ -211,8 +211,11 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     bindBfData: function(id) {
+        alert(record.data.id);
         var store = Ext.getCmp('BuildingGrid').getStore(); 
-        stroe.reload();
+        stroe.load();
+        alert('dd');
+
     }
 
 });

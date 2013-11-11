@@ -363,8 +363,11 @@
                     "id"
                 ],
                 "implHandler": [
+                    "alert(record.data.id);\r",
                     "var store = Ext.getCmp('BuildingGrid').getStore(); \r",
-                    "stroe.reload();"
+                    "stroe.load();\r",
+                    "alert('dd');\r",
+                    ""
                 ]
             },
             "designerId": "2b9f28cd-58ae-454a-8289-b85578a3cb1e"
