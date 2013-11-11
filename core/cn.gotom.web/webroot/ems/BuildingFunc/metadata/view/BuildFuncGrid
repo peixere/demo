@@ -12,6 +12,7 @@
         "designer|userClassName": "BuildFuncGrid",
         "designer|userAlias": "BuildFuncGrid",
         "frameHeader": false,
+        "header": false,
         "title": "建筑类别管理",
         "enableColumnHide": false,
         "enableColumnMove": false,

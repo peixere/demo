@@ -94,8 +94,12 @@
                         "fn": "onBuildingTreePanelItemClick",
                         "implHandler": [
                             "\r",
-                            "Ext.getCmp('name').setValue(record.data.text);\r",
-                            "Ext.getCmp('id').setValue(record.data.id);"
+                            "//Ext.getCmp('name').setValue(record.data.text);\r",
+                            "//Ext.getCmp('id').setValue(record.data.id);\r",
+                            "\r",
+                            "var winform = Ext.getCmp('BuildingGrid');\r",
+                            "alert(record.data.id);\r",
+                            "winform.bindBfData(record.data.id);"
                         ],
                         "name": "itemclick",
                         "scope": "me"

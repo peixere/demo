@@ -8,7 +8,7 @@
     "userConfig": {
         "autoLoad": true,
         "model": "BuildingFuncModel",
-        "storeId": "MyStore",
+        "storeId": "BuildingFuncStore",
         "designer|userClassName": "BuildingFuncStore",
         "designer|userAlias": "BuildingFuncStore"
     },
