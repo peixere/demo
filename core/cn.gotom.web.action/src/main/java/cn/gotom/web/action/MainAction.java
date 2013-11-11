@@ -66,7 +66,7 @@ public class MainAction
 		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
 		if(appTitle == null){
 			appTitle = new ResourceConfig();
-			appTitle.setName("");
+			appTitle.setName(ResourceName.appliction_title);
 			appTitle.setValue("能源管理系统");
 			configService.save(appTitle);
 		}
