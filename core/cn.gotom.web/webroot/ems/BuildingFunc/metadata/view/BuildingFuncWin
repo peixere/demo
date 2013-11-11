@@ -122,7 +122,26 @@
                                     "userConfig": {
                                         "fn": "onBtnSaveClick",
                                         "implHandler": [
-                                            ""
+                                            "\r",
+                                            "if (this.getForm().isValid())\r",
+                                            "{\r",
+                                            "    this.getForm().submit(\r",
+                                            "    {\r",
+                                            "        url : '../buildfunc!save.do',\r",
+                                            "        method : 'POST',\r",
+                                            "        waitMsg : '正在保存数据，稍后...',\r",
+                                            "        success : function(f, action)\r",
+                                            "        {\r",
+                                            "            Ext.Msg.alert('信息提示', '保存成功');\r",
+                                            "            //me.close();\r",
+                                            "            window.location.reload();\r",
+                                            "        },\r",
+                                            "        failure : function(f, action)\r",
+                                            "        {\r",
+                                            "            Ext.Msg.alert('信息提示', '保存失败，服务器端程序出错！');\r",
+                                            "        }\r",
+                                            "    });\r",
+                                            "}"
                                         ],
                                         "name": "click",
                                         "scope": "me"
@@ -185,16 +204,16 @@
                             "var wait = Ext.Msg.wait(\"正在载入......\",\"操作提示\");\r",
                             "Ext.Ajax.request(\r",
                             "{\r",
-                            "    url:'../ems/buildfunc.do',\r",
+                            "    url:'../buildfunc.do',\r",
                             "    method:'POST',\r",
                             "    params:{\r",
                             "        id:id\r",
                             "    },\r",
                             "    success:function(response,options)\r",
                             "    {\r",
-                            "        var result=Ext.JSON.decode(response.responseText);\r",
-                            "        var record=Ext.create('');\r",
-                            "        record.data=result;\r",
+                            "        var result = Ext.JSON.decode(response.responseText);\r",
+                            "        var record = Ext.create('ems.model.BuildingFuncModel');\r",
+                            "        record.data = result;\r",
                             "        wait.close();\r",
                             "        formPanel.getForm().reset();\r",
                             "        formPanel.loadRecord(record);\r",
@@ -204,7 +223,8 @@
                             "        wait.close();\r",
                             "        Ext.Msg.alert(\"操作提示\",\"载入失败\");\r",
                             "    }\r",
-                            "});"
+                            "});\r",
+                            " "
                         ]
                     },
                     "designerId": "b19e89fc-3ddf-4ee8-a58c-d79397f6b8b3"

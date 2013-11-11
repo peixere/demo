@@ -29,6 +29,34 @@
             "designerId": "4557cfc2-0cc5-4edc-bb2b-f01e97041a86"
         },
         {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "code",
+                "dataIndex": "code",
+                "text": "编码"
+            },
+            "designerId": "48567c27-d68e-48eb-bc3d-a2f4bfebd260"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "name",
+                "dataIndex": "name",
+                "text": "名称"
+            },
+            "designerId": "952d68d7-e207-47e5-9be5-7aafaeb4ed03"
+        },
+        {
             "type": "Ext.toolbar.Toolbar",
             "reference": {
                 "name": "dockedItems",
@@ -100,14 +128,7 @@
                             "userConfig": {
                                 "fn": "onBtnNewClick",
                                 "implHandler": [
-                                    "var selected=this.getSelectionModel().selected;\r",
-                                    "var record=selected.items[0];\r",
-                                    "var id='';\r",
-                                    "if(!Ext.isEmpty(record))\r",
-                                    "{\r",
-                                    "    id=record.data.id;\r",
-                                    "}\r",
-                                    "this.openWinForm(id);"
+                                    "this.openWinForm('');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -142,10 +163,21 @@
                                 "fn": "onBtnEditClick",
                                 "implHandler": [
                                     "var selected = this.getSelectionModel().selected;\r",
-                                    "var record = selected.items[0];\r",
+                                    "var record = selected.items[0]; \r",
+                                    "\r",
                                     "if(!Ext.isEmpty(record))\r",
                                     "{\r",
                                     "    this.openWinForm(record.data.id);\r",
+                                    "}\r",
+                                    "else\r",
+                                    "{\r",
+                                    "     Ext.Msg.show(\r",
+                                    "    {\r",
+                                    "        title : \"操作提示\",\r",
+                                    "        msg : \"请选择要修改的项!\",\r",
+                                    "        icon : Ext.Msg.WARNING\r",
+                                    "    });\r",
+                                    "    return;\r",
                                     "}"
                                 ],
                                 "name": "click",
@@ -235,32 +267,42 @@
             ]
         },
         {
-            "type": "Ext.grid.column.Column",
+            "type": "basicfunction",
             "reference": {
-                "name": "columns",
+                "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "code",
-                "dataIndex": "code",
-                "text": "编码"
+                "fn": "openWinForm",
+                "designer|params": [
+                    "id"
+                ],
+                "implHandler": [
+                    "var winform = Ext.create('ems.view.BuildingFuncWin'); \r",
+                    "winform.getForm().bindData(id); \r",
+                    "winform.show();"
+                ]
             },
-            "designerId": "48567c27-d68e-48eb-bc3d-a2f4bfebd260"
+            "designerId": "53769701-dd5f-41d6-8dc1-f04db6981d83"
         },
         {
-            "type": "Ext.grid.column.Column",
+            "type": "basiceventbinding",
             "reference": {
-                "name": "columns",
+                "name": "listeners",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "name",
-                "dataIndex": "name",
-                "text": "名称"
+                "fn": "onBuildFuncGridItemDblClick",
+                "implHandler": [
+                    "//alert(record.data.id);\r",
+                    "this.openWinForm(record.data.id);"
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
             },
-            "designerId": "952d68d7-e207-47e5-9be5-7aafaeb4ed03"
+            "designerId": "9f870367-7b86-4b7d-84ce-38caee709e35"
         }
     ]
 }
