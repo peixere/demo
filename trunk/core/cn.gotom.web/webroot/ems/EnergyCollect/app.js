@@ -25,7 +25,8 @@ Ext.application({
     ],
     views: [
         'EnergyCollectPanel',
-        'EnergyCollectView'
+        'EnergyCollectView',
+        'EnergyCollectWindow'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
