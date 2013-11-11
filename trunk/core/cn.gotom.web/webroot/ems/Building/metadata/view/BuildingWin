@@ -6,8 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "height": 315,
-        "width": 553,
+        "height": 340,
+        "width": 552,
         "designer|userClassName": "BuildingWin",
         "designer|userAlias": "BuildingWin",
         "layout": "border",
@@ -61,6 +61,7 @@
                     "userConfig": {
                         "layout|x": 190,
                         "layout|y": 10,
+                        "id": "name",
                         "fieldLabel": "名称",
                         "labelAlign": "right",
                         "labelWidth": 50,
@@ -159,6 +160,7 @@
                         "fieldLabel": "采暖总面积（平方米）",
                         "labelAlign": "right",
                         "labelWidth": 140,
+                        "name": "heatingArea",
                         "inputType": "number"
                     },
                     "designerId": "a32a9108-1296-4ca1-a9cc-e2841de575d8"
@@ -502,6 +504,24 @@
                         ]
                     },
                     "designerId": "5ae408b1-b476-424e-a783-488c96eec7de"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": -1,
+                        "layout|y": 250,
+                        "id": "address",
+                        "fieldLabel": "地址",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "address"
+                    },
+                    "designerId": "3ffb35e9-a13a-416b-ab4a-3daaeba8f2f4"
                 }
             ]
         },
