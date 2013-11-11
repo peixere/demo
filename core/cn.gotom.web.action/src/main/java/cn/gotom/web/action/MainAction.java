@@ -10,8 +10,11 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.ResourceConfig;
+import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
+import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
@@ -29,6 +32,9 @@ public class MainAction
 
 	@Inject
 	private RightService rightService;
+	
+	@Inject
+	private ResourceConfigService configService;
 
 	private List<Right> rightList;
 
@@ -57,7 +63,14 @@ public class MainAction
 	private void main() throws IOException
 	{
 		username = ServletActionContext.getRequest().getRemoteUser();
-		this.setTitle("统合管理平台");
+		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
+		if(appTitle == null){
+			appTitle = new ResourceConfig();
+			appTitle.setName("");
+			appTitle.setValue("能源管理系统");
+			configService.save(appTitle);
+		}
+		this.setTitle(appTitle.getValue());
 		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
 		rightList = authService.findRightList(username, id);
 		ResponseUtils.toJSON(this);
