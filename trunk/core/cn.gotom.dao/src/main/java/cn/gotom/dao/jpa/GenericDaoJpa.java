@@ -67,7 +67,15 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 	@Override
 	public T get(PK id)
 	{
-		return (T) getEntityManager().find(this.persistentClass, id);
+		try
+		{
+			return (T) getEntityManager().find(this.persistentClass, id);
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+			return null;
+		}
 	}
 
 	@Override
