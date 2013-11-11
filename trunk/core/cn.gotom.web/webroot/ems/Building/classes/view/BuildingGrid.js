@@ -19,6 +19,7 @@ Ext.define('ems.view.BuildingGrid', {
 
     autoRender: true,
     height: 461,
+    id: 'BuildingGrid',
     width: 914,
     header: false,
     title: '建筑信息管理',
@@ -134,14 +135,7 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     onBtnBfAddClick: function(button, e, eOpts) {
-        var selected = this.getSelectionModel().selected;
-        var record = selected.items[0]; 
-        var id='';
-        if(!Ext.isEmpty(record))
-        {
-            id = record.data.id;
-        }
-        this.openWinForm(id);
+        this.openWinForm('');
     },
 
     onBtnBfEditClick: function(button, e, eOpts) {
@@ -150,6 +144,16 @@ Ext.define('ems.view.BuildingGrid', {
         if(!Ext.isEmpty(record))
         {
             this.openWinForm(record.data.id);
+        }
+        else
+        { 
+            Ext.Msg.show(
+            {
+                title : "操作提示",
+                msg : "请选择要编辑的项!",
+                icon : Ext.Msg.WARNING
+            }); 
+            return;
         }
     },
 
@@ -162,7 +166,7 @@ Ext.define('ems.view.BuildingGrid', {
             Ext.Msg.show(
             {
                 title : "操作提示",
-                msg : "请选择要删除的节点!",
+                msg : "请选择要删除的项!",
                 icon : Ext.Msg.WARNING
             });
             return;
@@ -204,6 +208,11 @@ Ext.define('ems.view.BuildingGrid', {
         var winform = Ext.create('ems.view.BuildingWin');
         winform.getForm().bindData(id);
         winform.show();
+    },
+
+    bindBfData: function(id) {
+        var store = Ext.getCmp('BuildingGrid').getStore(); 
+        stroe.reload();
     }
 
 });

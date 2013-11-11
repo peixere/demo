@@ -17,8 +17,8 @@ Ext.define('ems.view.BuildingWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.BuildingWin',
 
-    height: 322,
-    width: 557,
+    height: 315,
+    width: 553,
     layout: {
         type: 'border'
     },
@@ -39,8 +39,7 @@ Ext.define('ems.view.BuildingWin', {
                             url : '../build.do',
                             method : 'POST',
                             params:{  
-                                id:id,
-                                parentId:parentId
+                                id:id, 
                             },  
                             success : function(response, options)
                             {
@@ -150,17 +149,21 @@ Ext.define('ems.view.BuildingWin', {
                             fieldLabel: '建筑空调系统',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'airconditionerSystemCode'
+                            name: 'airconditionerSystemCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
-                            x: 250,
+                            x: 270,
                             y: 130,
                             id: 'heatingFormCode',
                             fieldLabel: '建筑采暖形式',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'heatingFormCode'
+                            name: 'heatingFormCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
@@ -170,7 +173,9 @@ Ext.define('ems.view.BuildingWin', {
                             fieldLabel: '建筑结构形式',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'structureCode'
+                            name: 'structureCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'textfield',
@@ -184,13 +189,15 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'combobox',
-                            x: 250,
+                            x: 270,
                             y: 160,
                             id: 'exteriorCode',
                             fieldLabel: '建筑外墙形式',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'exteriorCode'
+                            name: 'exteriorCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
@@ -200,17 +207,21 @@ Ext.define('ems.view.BuildingWin', {
                             fieldLabel: '外墙保温形式',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'exteriorWallCode'
+                            name: 'exteriorWallCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
-                            x: 250,
+                            x: 270,
                             y: 190,
                             id: 'windowTypeCode',
                             fieldLabel: '建筑外窗类型',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'windowTypeCode'
+                            name: 'windowTypeCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
@@ -220,17 +231,21 @@ Ext.define('ems.view.BuildingWin', {
                             fieldLabel: '建筑玻璃类型',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'glassTypesCode'
+                            name: 'glassTypesCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'combobox',
-                            x: 250,
+                            x: 270,
                             y: 220,
                             id: 'windowFrameMaterialCode',
                             fieldLabel: '窗框材料类型',
                             labelAlign: 'right',
                             labelWidth: 80,
-                            name: 'windowFrameMaterialCode'
+                            name: 'windowFrameMaterialCode',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         },
                         {
                             xtype: 'hiddenfield',
@@ -280,7 +295,13 @@ Ext.define('ems.view.BuildingWin', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterlayout: {
+                    fn: me.onWindowAfterLayout,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
@@ -311,6 +332,208 @@ Ext.define('ems.view.BuildingWin', {
 
     onBtnBuildingCancelClick: function(button, e, eOpts) {
         this.close();
+    },
+
+    onWindowAfterLayout: function(container, layout, eOpts) {
+        var airSystemCodeStore = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'airSystemCodeCmbStore',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!airSystemCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('airconditionerSystemCode').bindStore(airSystemCodeStore);
+
+        var heatingFormCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'heatingFormCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!heatingFormCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('heatingFormCode').bindStore(heatingFormCodeStroe);
+
+        var structureCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'structureCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!structureCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('structureCode').bindStore(structureCodeStroe);
+
+        var exteriorCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'exteriorCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!exteriorCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('exteriorCode').bindStore(exteriorCodeStroe);
+
+        var exteriorWallCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'exteriorWallCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!exteriorWallCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('exteriorWallCode').bindStore(exteriorWallCodeStroe);
+
+        var windowTypeCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'windowTypeCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!windowTypeCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('windowTypeCode').bindStore(windowTypeCodeStroe);
+
+        var glassTypesCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'glassTypesCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!glassTypesCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('glassTypesCode').bindStore(glassTypesCodeStroe);
+
+        var windowFrameMaterialCodeStroe = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'windowFrameMaterialCodeCmbStroe',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!windowFrameMaterialCodes.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('windowFrameMaterialCode').bindStore(windowFrameMaterialCodeStroe);
     },
 
     getForm: function() {

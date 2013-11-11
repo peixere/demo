@@ -27,7 +27,7 @@ Ext.define('ems.store.BuildingFuncStore', {
         me.callParent([Ext.apply({
             autoLoad: true,
             model: 'ems.model.BuildingFuncModel',
-            storeId: 'MyStore',
+            storeId: 'BuildingFuncStore',
             proxy: {
                 type: 'ajax',
                 url: '../buildfunc!list.do'

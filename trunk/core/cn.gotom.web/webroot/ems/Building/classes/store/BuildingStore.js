@@ -25,7 +25,7 @@ Ext.define('ems.store.BuildingStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: true,
+            autoLoad: false,
             model: 'ems.model.BuildingModel',
             storeId: 'MyStore',
             proxy: {

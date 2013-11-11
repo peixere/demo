@@ -8,6 +8,7 @@
     "userConfig": {
         "autoRender": true,
         "height": 461,
+        "id": "BuildingGrid",
         "width": 914,
         "designer|userClassName": "BuildingGrid",
         "designer|userAlias": "BuildingGrid",
@@ -192,14 +193,7 @@
                             "userConfig": {
                                 "fn": "onBtnBfAddClick",
                                 "implHandler": [
-                                    "var selected = this.getSelectionModel().selected;\r",
-                                    "var record = selected.items[0]; \r",
-                                    "var id='';\r",
-                                    "if(!Ext.isEmpty(record))\r",
-                                    "{\r",
-                                    "    id = record.data.id;\r",
-                                    "}\r",
-                                    "this.openWinForm(id);"
+                                    "this.openWinForm('');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -238,6 +232,16 @@
                                     "if(!Ext.isEmpty(record))\r",
                                     "{\r",
                                     "    this.openWinForm(record.data.id);\r",
+                                    "}\r",
+                                    "else\r",
+                                    "{ \r",
+                                    "     Ext.Msg.show(\r",
+                                    "    {\r",
+                                    "        title : \"操作提示\",\r",
+                                    "        msg : \"请选择要编辑的项!\",\r",
+                                    "        icon : Ext.Msg.WARNING\r",
+                                    "    }); \r",
+                                    "    return;\r",
                                     "}"
                                 ],
                                 "name": "click",
@@ -280,7 +284,7 @@
                                     "    Ext.Msg.show(\r",
                                     "    {\r",
                                     "        title : \"操作提示\",\r",
-                                    "        msg : \"请选择要删除的节点!\",\r",
+                                    "        msg : \"请选择要删除的项!\",\r",
                                     "        icon : Ext.Msg.WARNING\r",
                                     "    });\r",
                                     "    return;\r",
@@ -345,6 +349,25 @@
                 ]
             },
             "designerId": "1fb5f958-b4ea-4834-afdb-d627d82560fa"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindBfData",
+                "designer|params": [
+                    "id"
+                ],
+                "implHandler": [
+                    "var store = Ext.getCmp('BuildingGrid').getStore(); \r",
+                    "stroe.reload();"
+                ]
+            },
+            "designerId": "2b9f28cd-58ae-454a-8289-b85578a3cb1e"
         }
     ]
 }

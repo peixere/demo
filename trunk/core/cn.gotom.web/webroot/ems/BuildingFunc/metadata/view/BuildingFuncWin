@@ -224,7 +224,7 @@
                             "        Ext.Msg.alert(\"操作提示\",\"载入失败\");\r",
                             "    }\r",
                             "});\r",
-                            " "
+                            ""
                         ]
                     },
                     "designerId": "b19e89fc-3ddf-4ee8-a58c-d79397f6b8b3"

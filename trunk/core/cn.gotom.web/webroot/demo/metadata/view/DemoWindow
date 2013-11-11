@@ -25,7 +25,7 @@
             "userConfig": {
                 "layout|region": "center",
                 "id": "demoForm",
-                "layout": "column",
+                "layout": "auto",
                 "bodyPadding": 10,
                 "header": false,
                 "title": "表单"
@@ -46,6 +46,22 @@
                         "valueField": "id"
                     },
                     "designerId": "a62752cb-5936-4c9e-95c1-b1ff37f30393"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "mycombobox1",
+                        "designer|displayName": "",
+                        "fieldLabel": "Label",
+                        "displayField": "optionValue",
+                        "valueField": "optionCode"
+                    },
+                    "designerId": "efaa5fb2-e38e-4be8-bfb1-b9d880d3d83a"
                 }
             ]
         },
@@ -147,16 +163,16 @@
                     "    autoLoad: true,\r",
                     "    storeId: 'ComBoboxStore',\r",
                     "    fields: [\r",
-                    "        {\r",
-                    "            name: 'id',\r",
-                    "            type: 'string'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'text',\r",
-                    "            type: 'string'\r",
-                    "        }\r",
+                    "    {\r",
+                    "        name: 'id',\r",
+                    "        type: 'string'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        name: 'text',\r",
+                    "        type: 'string'\r",
+                    "    }\r",
                     "    ],\r",
-                    "\tproxy: {\r",
+                    "    proxy: {\r",
                     "        type: 'ajax',\r",
                     "        url : '../p/right!list.do',\r",
                     "        listeners: {\r",
@@ -166,7 +182,32 @@
                     "        }\r",
                     "    }\r",
                     "});\r",
-                    "Ext.getCmp('mycombobox').bindStore(store);"
+                    "Ext.getCmp('mycombobox').bindStore(store);\r",
+                    "\r",
+                    "var store1 = new Ext.data.Store({\r",
+                    "    autoLoad: true,\r",
+                    "    storeId: 'ComBoboxStore1',\r",
+                    "    fields: [\r",
+                    "    {\r",
+                    "        name: 'optionCode',\r",
+                    "        type: 'string'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        name: 'optionValue',\r",
+                    "        type: 'string'\r",
+                    "    }\r",
+                    "    ],\r",
+                    "    proxy: {\r",
+                    "        type: 'ajax',  \r",
+                    "        url : '../build!options.do',\r",
+                    "        listeners: {\r",
+                    "            exception: function(proxy, response, operation, eOpts) {\r",
+                    "                alert(response.statusText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    }\r",
+                    "});\r",
+                    "Ext.getCmp('mycombobox1').bindStore(store);"
                 ],
                 "name": "afterlayout",
                 "scope": "me"

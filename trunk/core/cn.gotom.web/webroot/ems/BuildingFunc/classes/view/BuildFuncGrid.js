@@ -21,6 +21,7 @@ Ext.define('ems.view.BuildFuncGrid', {
     id: 'BuildFuncGrid',
     width: 468,
     frameHeader: false,
+    header: false,
     title: '建筑类别管理',
     enableColumnHide: false,
     enableColumnMove: false,

@@ -102,8 +102,12 @@ Ext.define('ems.view.BuildingPanel', {
 
     onBuildingTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
-        Ext.getCmp('name').setValue(record.data.text);
-        Ext.getCmp('id').setValue(record.data.id);
+        //Ext.getCmp('name').setValue(record.data.text);
+        //Ext.getCmp('id').setValue(record.data.id);
+
+        var winform = Ext.getCmp('BuildingGrid');
+        alert(record.data.id);
+        winform.bindBfData(record.data.id);
     }
 
 });

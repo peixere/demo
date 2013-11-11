@@ -34,7 +34,7 @@ Ext.define('MyApp.view.DemoWindow', {
                     region: 'center',
                     id: 'demoForm',
                     layout: {
-                        type: 'column'
+                        type: 'auto'
                     },
                     bodyPadding: 10,
                     header: false,
@@ -45,6 +45,13 @@ Ext.define('MyApp.view.DemoWindow', {
                             id: 'mycombobox',
                             fieldLabel: 'Label',
                             valueField: 'id'
+                        },
+                        {
+                            xtype: 'combobox',
+                            id: 'mycombobox1',
+                            fieldLabel: 'Label',
+                            displayField: 'optionValue',
+                            valueField: 'optionCode'
                         }
                     ]
                 }
@@ -130,6 +137,31 @@ Ext.define('MyApp.view.DemoWindow', {
             }
         });
         Ext.getCmp('mycombobox').bindStore(store);
+
+        var store1 = new Ext.data.Store({
+            autoLoad: true,
+            storeId: 'ComBoboxStore1',
+            fields: [
+            {
+                name: 'optionCode',
+                type: 'string'
+            },
+            {
+                name: 'optionValue',
+                type: 'string'
+            }
+            ],
+            proxy: {
+                type: 'ajax',  
+                url : '../build!options.do',
+                listeners: {
+                    exception: function(proxy, response, operation, eOpts) {
+                        alert(response.statusText);
+                    }
+                }
+            }
+        });
+        Ext.getCmp('mycombobox1').bindStore(store);
     }
 
 });
