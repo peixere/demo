@@ -58,10 +58,10 @@ public class AuthServiceImpl implements AuthService
 		{
 			rc = new ResourceConfig();
 			rc.setName(ResourceName.everyone_can_access);
-			rc.setResValue(Boolean.TRUE.toString());
+			rc.setValue(Boolean.TRUE.toString());
 			resourceConfigService.save(rc);
 		}
-		if (rc != null && Boolean.parseBoolean(rc.getResValue()))
+		if (rc != null && Boolean.parseBoolean(rc.getValue()))
 		{
 			return true;
 		}
