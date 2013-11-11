@@ -18,18 +18,20 @@ public class ResponseUtils
 		log.debug(value);
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
 		String encoing = ServletActionContext.getRequest().getCharacterEncoding();
-		ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
+		//ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
+		ServletActionContext.getResponse().setContentType("application/json;charset=" + encoing);
 		try
 		{
 			ServletActionContext.getResponse().getWriter().println(json.toString());
 			ServletActionContext.getResponse().getWriter().flush();
-			ServletActionContext.getResponse().getWriter().close();			
+			ServletActionContext.getResponse().getWriter().close();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
+
 	public static void writer(JsonResponse value)
 	{
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
@@ -39,11 +41,11 @@ public class ResponseUtils
 		{
 			ServletActionContext.getResponse().getWriter().println(json.toString());
 			ServletActionContext.getResponse().getWriter().flush();
-			ServletActionContext.getResponse().getWriter().close();			
+			ServletActionContext.getResponse().getWriter().close();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-	}	
+	}
 }
