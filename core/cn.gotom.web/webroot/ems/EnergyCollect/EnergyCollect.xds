@@ -45,12 +45,21 @@
                 "classes/store/BuildingTreeStore.js"
             ],
             "className": "BuildingTreeStore"
+        },
+        "a8033e9d-5a96-461f-aa0a-79587e9bd700": {
+            "paths": [
+                "metadata/view/EnergyCollectWindow",
+                "classes/view/override/EnergyCollectWindow.js",
+                "classes/view/EnergyCollectWindow.js"
+            ],
+            "className": "EnergyCollectWindow"
         }
     },
     "viewOrderMap": {
         "view": [
             "8984df7f-0808-4ae8-9597-f164846211a6",
-            "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+            "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+            "a8033e9d-5a96-461f-aa0a-79587e9bd700"
         ],
         "store": [
             "6757a99e-9890-4c7f-8d45-0ca9304665e9"

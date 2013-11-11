@@ -113,6 +113,30 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                                     scope: me
                                                 }
                                             }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            id: 'btnNew',
+                                            iconCls: 'icon-add',
+                                            text: '新增',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnNewClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            id: 'btnDel',
+                                            iconCls: 'icon-del',
+                                            text: '删除',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnDelClick,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 }
@@ -188,8 +212,8 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                         {
                                             xtype: 'gridcolumn',
                                             sortable: false,
-                                            dataIndex: 'context',
-                                            text: 'context'
+                                            dataIndex: 'collectDate',
+                                            text: '采集时间'
                                         },
                                         {
                                             xtype: 'gridcolumn',
@@ -201,7 +225,15 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                             dataIndex: 'phone',
                                             text: 'phone'
                                         }
-                                    ]
+                                    ],
+                                    viewConfig: {
+                                        listeners: {
+                                            itemclick: {
+                                                fn: me.onViewItemClick,
+                                                scope: me
+                                            }
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'panel',
@@ -241,7 +273,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
         if (form.isValid())
         {
             form.submit({
-                url : '../BuildingSharts.do',
+                url : '../EnergyCollect.do',
                 method : 'POST',
                 waitMsg : '正在生成报表，稍后...',
                 success : function(f, action)
@@ -266,9 +298,25 @@ Ext.define('ems.view.EnergyCollectPanel', {
         }
     },
 
+    onBtnNewClick: function(button, e, eOpts) {
+        var winform = Ext.create('ems.view.EnergyCollectWindow');
+        var id = Ext.getCmp('id').getValue();
+        var name = Ext.getCmp('name').getValue();
+        winform.bindFields(id,name);
+        winform.show();
+    },
+
+    onBtnDelClick: function(button, e, eOpts) {
+
+    },
+
     onFormPanelAfterLayout: function(container, layout, eOpts) {
         Ext.getCmp('startDate').setValue(new Date());
         Ext.getCmp('endDate').setValue(new Date());
+    },
+
+    onViewItemClick: function(dataview, record, item, index, e, eOpts) {
+
     },
 
     showHighcharts: function(chartdata) {
@@ -324,28 +372,29 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     loadGridData: function(data) {
+        /**
         var json_data={'out':[
-            {"context":"Lisa", "reductions":"lisa@simpsons.com", "phone":"555-111-1224"},
-            {"context":"Bart", "reductions":"bart@simpsons.com", "phone":"555--222-1234"},
-            {"context":"Homer", "reductions":"home@simpsons.com", "phone":"555-222-1244"},
-            {"context":"Marge", "reductions":"marge@simpsons.com", "phone":"555-222-1254"}
+        {"context":"Lisa", "reductions":"lisa@simpsons.com", "phone":"555-111-1224"},
+        {"context":"Bart", "reductions":"bart@simpsons.com", "phone":"555--222-1234"},
+        {"context":"Homer", "reductions":"home@simpsons.com", "phone":"555-222-1244"},
+        {"context":"Marge", "reductions":"marge@simpsons.com", "phone":"555-222-1254"}
         ]};
 
         var jsonStore = Ext.create('Ext.data.Store', {
-            storeId:'jsonStore',
-            fields: ['context', 'reductions','phone'],
-            data : json_data,        
-            proxy:
-            {
-                type: 'memory',
-                reader:{
-                    type: 'json',
-                    root: 'out'
-                }
-            }
+        storeId:'jsonStore',
+        fields: ['context', 'reductions','phone'],
+        data : json_data,        
+        proxy:
+        {
+        type: 'memory',
+        reader:{
+        type: 'json',
+        root: 'out'
+        }
+        }
         });    
+        */
         Ext.getCmp('GataGridPanel').bindStore(jsonStore);           
-        //Ext.getCmp('ContentPanel').add(grid_xml);
     }
 
 });
