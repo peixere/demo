@@ -30,6 +30,18 @@ Ext.define('ems.view.BuildFuncGrid', {
         var me = this;
 
         Ext.applyIf(me, {
+            columns: [
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'code',
+                    text: '编码'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'name',
+                    text: '名称'
+                }
+            ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -87,18 +99,12 @@ Ext.define('ems.view.BuildFuncGrid', {
                     ]
                 }
             ],
-            columns: [
-                {
-                    xtype: 'gridcolumn',
-                    dataIndex: 'code',
-                    text: '编码'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    dataIndex: 'name',
-                    text: '名称'
+            listeners: {
+                itemdblclick: {
+                    fn: me.onBuildFuncGridItemDblClick,
+                    scope: me
                 }
-            ]
+            }
         });
 
         me.callParent(arguments);
@@ -109,22 +115,26 @@ Ext.define('ems.view.BuildFuncGrid', {
     },
 
     onBtnNewClick: function(button, e, eOpts) {
-        var selected=this.getSelectionModel().selected;
-        var record=selected.items[0];
-        var id='';
-        if(!Ext.isEmpty(record))
-        {
-            id=record.data.id;
-        }
-        this.openWinForm(id);
+        this.openWinForm('');
     },
 
     onBtnEditClick: function(button, e, eOpts) {
         var selected = this.getSelectionModel().selected;
-        var record = selected.items[0];
+        var record = selected.items[0]; 
+
         if(!Ext.isEmpty(record))
         {
             this.openWinForm(record.data.id);
+        }
+        else
+        {
+            Ext.Msg.show(
+            {
+                title : "操作提示",
+                msg : "请选择要修改的项!",
+                icon : Ext.Msg.WARNING
+            });
+            return;
         }
     },
 
@@ -173,6 +183,17 @@ Ext.define('ems.view.BuildFuncGrid', {
                 });
             }
         });
+    },
+
+    onBuildFuncGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        //alert(record.data.id);
+        this.openWinForm(record.data.id);
+    },
+
+    openWinForm: function(id) {
+        var winform = Ext.create('ems.view.BuildingFuncWin'); 
+        winform.getForm().bindData(id); 
+        winform.show();
     }
 
 });

@@ -36,16 +36,16 @@ Ext.define('ems.view.BuildingFuncWin', {
                         var wait = Ext.Msg.wait("正在载入......","操作提示");
                         Ext.Ajax.request(
                         {
-                            url:'../ems/buildfunc.do',
+                            url:'../buildfunc.do',
                             method:'POST',
                             params:{
                                 id:id
                             },
                             success:function(response,options)
                             {
-                                var result=Ext.JSON.decode(response.responseText);
-                                var record=Ext.create('');
-                                record.data=result;
+                                var result = Ext.JSON.decode(response.responseText);
+                                var record = Ext.create('ems.model.BuildingFuncModel');
+                                record.data = result;
                                 wait.close();
                                 formPanel.getForm().reset();
                                 formPanel.loadRecord(record);
@@ -56,6 +56,7 @@ Ext.define('ems.view.BuildingFuncWin', {
                                 Ext.Msg.alert("操作提示","载入失败");
                             }
                         });
+
                     },
                     region: 'center',
                     id: 'BuildingFuncForm',
@@ -138,6 +139,25 @@ Ext.define('ems.view.BuildingFuncWin', {
 
     onBtnSaveClick: function(button, e, eOpts) {
 
+        if (this.getForm().isValid())
+        {
+            this.getForm().submit(
+            {
+                url : '../buildfunc!save.do',
+                method : 'POST',
+                waitMsg : '正在保存数据，稍后...',
+                success : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存成功');
+                    //me.close();
+                    window.location.reload();
+                },
+                failure : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存失败，服务器端程序出错！');
+                }
+            });
+        }
     },
 
     onBtnCancelClick: function(button, e, eOpts) {
