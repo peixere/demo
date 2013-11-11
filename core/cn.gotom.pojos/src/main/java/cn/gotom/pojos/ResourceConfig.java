@@ -25,7 +25,7 @@ public class ResourceConfig extends SuperEntity implements Serializable
 	private String name;
 
 	@Column(name = "res_value", nullable = false, length = 200)
-	private String resValue;
+	private String value;
 
 	public String getName()
 	{
@@ -37,13 +37,13 @@ public class ResourceConfig extends SuperEntity implements Serializable
 		this.name = name;
 	}
 
-	public String getResValue()
+	public String getValue()
 	{
-		return resValue;
+		return value;
 	}
 
-	public void setResValue(String resValue)
+	public void setValue(String value)
 	{
-		this.resValue = resValue;
+		this.value = value;
 	}
 }
