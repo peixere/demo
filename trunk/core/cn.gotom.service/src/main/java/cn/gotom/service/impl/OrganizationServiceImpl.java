@@ -49,6 +49,23 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 	}
 
 	@Override
+	public Organization findParentByCode(String code)
+	{
+		// SELECT * FROM core_organization p WHERE p.id IN
+		// (SELECT parent_id FROM core_organization WHERE `code`='420100')
+		// AND (p.parent_id IS NULL OR p.parent_id = '' OR p.parent_id = '0')
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
+		jpql.append(" where 1 = 1");
+		jpql.append(" and p.id IN (SELECT parentId FROM  " + persistentClass.getSimpleName() + " WHERE code=:code) ");
+		jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0')");
+		Query q = getEntityManager().createQuery(jpql.toString()); 
+		q.setParameter("code", code);
+		Object obj = q.getSingleResult();
+		return obj == null ? null : (Organization) obj;
+	}
+
+	@Override
 	public List<Organization> loadTree()
 	{
 		List<Organization> list = findByParentId(null);
@@ -58,6 +75,7 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		}
 		return list;
 	}
+
 	@Override
 	public List<Organization> loadTreeByParentId(String parentId)
 	{
@@ -68,7 +86,7 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		}
 		return list;
 	}
-	
+
 	private void loadTreeCallback(Organization p)
 	{
 		List<Organization> list = findByParentId(p.getId());
