@@ -6,8 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "height": 340,
-        "width": 552,
+        "height": 349,
+        "width": 590,
         "designer|userClassName": "BuildingWin",
         "designer|userAlias": "BuildingWin",
         "layout": "border",
@@ -59,7 +59,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 190,
+                        "layout|x": 220,
                         "layout|y": 10,
                         "id": "name",
                         "fieldLabel": "名称",
@@ -98,7 +98,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 200,
+                        "layout|x": 230,
                         "layout|y": 40,
                         "id": "buildFloor",
                         "fieldLabel": "建筑层数（层）",
@@ -135,12 +135,12 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 280,
                         "layout|y": 100,
                         "id": "airconditioner",
                         "fieldLabel": "空调总面积（平方米）",
                         "labelAlign": "right",
-                        "labelWidth": 130,
+                        "labelWidth": 140,
                         "name": "airconditioner",
                         "inputType": "number"
                     },
@@ -193,7 +193,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 290,
                         "layout|y": 130,
                         "id": "heatingFormCode",
                         "fieldLabel": "建筑采暖形式",
@@ -233,7 +233,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 340,
                         "layout|y": 70,
                         "id": "shapeCoefficient",
                         "fieldLabel": "建筑体型系数",
@@ -251,7 +251,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 290,
                         "layout|y": 160,
                         "id": "exteriorCode",
                         "fieldLabel": "建筑外墙形式",
@@ -291,7 +291,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 290,
                         "layout|y": 190,
                         "id": "windowTypeCode",
                         "fieldLabel": "建筑外窗类型",
@@ -331,7 +331,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 270,
+                        "layout|x": 290,
                         "layout|y": 220,
                         "id": "windowFrameMaterialCode",
                         "fieldLabel": "窗框材料类型",
@@ -342,6 +342,40 @@
                         "valueField": "optionCode"
                     },
                     "designerId": "3991bb45-9695-4544-af9c-94fdd448fd3c"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": -9,
+                        "layout|y": 250,
+                        "id": "address",
+                        "fieldLabel": "地址",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "address"
+                    },
+                    "designerId": "3ffb35e9-a13a-416b-ab4a-3daaeba8f2f4"
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 428,
+                        "layout|y": 16,
+                        "id": "id",
+                        "fieldLabel": "Label",
+                        "name": "id"
+                    },
+                    "designerId": "0e6ee34a-baeb-4187-a7f0-02ce3c08b51e"
                 },
                 {
                     "type": "Ext.toolbar.Toolbar",
@@ -369,6 +403,9 @@
                                 "layout|flex": null,
                                 "id": "btnBuildingSave",
                                 "iconCls": "icon-save",
+                                "params": [
+                                    "bid"
+                                ],
                                 "text": "保存"
                             },
                             "designerId": "ced31369-a615-48ee-8247-f9fea4ff522e",
@@ -386,10 +423,16 @@
                                             "\r",
                                             "if (this.getForm().isValid())\r",
                                             "{\r",
+                                            "    var id=Ext.getCmp('params').getValue();\r",
+                                            "    //alert('Save id:'+id);\r",
                                             "    this.getForm().submit(\r",
                                             "    {\r",
                                             "        url : '../build!save.do',\r",
                                             "        method : 'POST',\r",
+                                            "        params:\r",
+                                            "        {\r",
+                                            "            tid:id\r",
+                                            "        },\r",
                                             "        waitMsg : '正在保存数据，稍后...',\r",
                                             "        success : function(f, action)\r",
                                             "        {\r",
@@ -448,22 +491,6 @@
                     ]
                 },
                 {
-                    "type": "Ext.form.field.Hidden",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|x": 428,
-                        "layout|y": 16,
-                        "id": "id",
-                        "fieldLabel": "Label",
-                        "name": "id"
-                    },
-                    "designerId": "0e6ee34a-baeb-4187-a7f0-02ce3c08b51e"
-                },
-                {
                     "type": "basicfunction",
                     "reference": {
                         "name": "items",
@@ -473,17 +500,20 @@
                     "userConfig": {
                         "fn": "bindData",
                         "designer|params": [
-                            "id"
+                            "id",
+                            "bid"
                         ],
                         "implHandler": [
+                            "alert('bindData-id:'+id); \r",
                             "var formPanel = this;\r",
-                            "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\");\r",
+                            "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\"); \r",
                             "Ext.Ajax.request(\r",
                             "{\r",
                             "    url : '../build.do',\r",
                             "    method : 'POST',\r",
                             "    params:{  \r",
-                            "        id:id, \r",
+                            "        id:id,\r",
+                            "        bid:bid\r",
                             "    },  \r",
                             "    success : function(response, options)\r",
                             "    {\r",
@@ -504,24 +534,6 @@
                         ]
                     },
                     "designerId": "5ae408b1-b476-424e-a783-488c96eec7de"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|x": -1,
-                        "layout|y": 250,
-                        "id": "address",
-                        "fieldLabel": "地址",
-                        "labelAlign": "right",
-                        "labelWidth": 60,
-                        "name": "address"
-                    },
-                    "designerId": "3ffb35e9-a13a-416b-ab4a-3daaeba8f2f4"
                 }
             ]
         },

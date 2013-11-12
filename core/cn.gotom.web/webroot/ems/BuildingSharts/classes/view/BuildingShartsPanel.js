@@ -186,6 +186,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
 
         Ext.getCmp('name').setValue(record.data.text);
         Ext.getCmp('id').setValue(record.data.id);
+        //alert(record.data.id);
+        //alert(record.data.text);
     },
 
     onToolClick: function(tool, e, eOpts) {
@@ -201,7 +203,8 @@ Ext.define('ems.view.BuildingShartsPanel', {
     onBtnSearchClick: function(button, e, eOpts) {
         var me = this;
         //var heightchartcontainer = $('#heightchartcontainer');
-        //var id = Ext.getCmp('id').getValue();
+        var id = Ext.getCmp('id').getValue();
+        alert(id);
         //var name = Ext.getCmp('name').getValue();
         //var startDate = Ext.getCmp('startDate').getValue();
         //var endDate = Ext.getCmp('endDate').getValue();

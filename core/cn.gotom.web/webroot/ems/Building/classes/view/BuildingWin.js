@@ -17,8 +17,8 @@ Ext.define('ems.view.BuildingWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.BuildingWin',
 
-    height: 340,
-    width: 552,
+    height: 349,
+    width: 590,
     layout: {
         type: 'border'
     },
@@ -31,15 +31,17 @@ Ext.define('ems.view.BuildingWin', {
             items: [
                 {
                     xtype: 'form',
-                    bindData: function(id) {
+                    bindData: function(id, bid) {
+                        alert('bindData-id:'+id); 
                         var formPanel = this;
-                        var wait = Ext.Msg.wait("正在载入......", "操作提示");
+                        var wait = Ext.Msg.wait("正在载入......", "操作提示"); 
                         Ext.Ajax.request(
                         {
                             url : '../build.do',
                             method : 'POST',
                             params:{  
-                                id:id, 
+                                id:id,
+                                bid:bid
                             },  
                             success : function(response, options)
                             {
@@ -79,7 +81,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'textfield',
-                            x: 190,
+                            x: 220,
                             y: 10,
                             id: 'name',
                             fieldLabel: '名称',
@@ -102,7 +104,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'textfield',
-                            x: 200,
+                            x: 230,
                             y: 40,
                             id: 'buildFloor',
                             fieldLabel: '建筑层数（层）',
@@ -123,12 +125,12 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'textfield',
-                            x: 270,
+                            x: 280,
                             y: 100,
                             id: 'airconditioner',
                             fieldLabel: '空调总面积（平方米）',
                             labelAlign: 'right',
-                            labelWidth: 130,
+                            labelWidth: 140,
                             name: 'airconditioner',
                             inputType: 'number'
                         },
@@ -157,7 +159,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'combobox',
-                            x: 270,
+                            x: 290,
                             y: 130,
                             id: 'heatingFormCode',
                             fieldLabel: '建筑采暖形式',
@@ -181,7 +183,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'textfield',
-                            x: 270,
+                            x: 340,
                             y: 70,
                             id: 'shapeCoefficient',
                             fieldLabel: '建筑体型系数',
@@ -191,7 +193,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'combobox',
-                            x: 270,
+                            x: 290,
                             y: 160,
                             id: 'exteriorCode',
                             fieldLabel: '建筑外墙形式',
@@ -215,7 +217,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'combobox',
-                            x: 270,
+                            x: 290,
                             y: 190,
                             id: 'windowTypeCode',
                             fieldLabel: '建筑外窗类型',
@@ -239,7 +241,7 @@ Ext.define('ems.view.BuildingWin', {
                         },
                         {
                             xtype: 'combobox',
-                            x: 270,
+                            x: 290,
                             y: 220,
                             id: 'windowFrameMaterialCode',
                             fieldLabel: '窗框材料类型',
@@ -250,22 +252,22 @@ Ext.define('ems.view.BuildingWin', {
                             valueField: 'optionCode'
                         },
                         {
-                            xtype: 'hiddenfield',
-                            x: 428,
-                            y: 16,
-                            id: 'id',
-                            fieldLabel: 'Label',
-                            name: 'id'
-                        },
-                        {
                             xtype: 'textfield',
-                            x: -1,
+                            x: -9,
                             y: 250,
                             id: 'address',
                             fieldLabel: '地址',
                             labelAlign: 'right',
                             labelWidth: 60,
                             name: 'address'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            x: 428,
+                            y: 16,
+                            id: 'id',
+                            fieldLabel: 'Label',
+                            name: 'id'
                         }
                     ],
                     dockedItems: [
@@ -283,6 +285,7 @@ Ext.define('ems.view.BuildingWin', {
                                     xtype: 'button',
                                     id: 'btnBuildingSave',
                                     iconCls: 'icon-save',
+                                    params: 'bid',
                                     text: '保存',
                                     listeners: {
                                         click: {
@@ -323,10 +326,16 @@ Ext.define('ems.view.BuildingWin', {
 
         if (this.getForm().isValid())
         {
+            var id=Ext.getCmp('params').getValue();
+            //alert('Save id:'+id);
             this.getForm().submit(
             {
                 url : '../build!save.do',
                 method : 'POST',
+                params:
+                {
+                    tid:id
+                },
                 waitMsg : '正在保存数据，稍后...',
                 success : function(f, action)
                 {

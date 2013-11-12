@@ -26,6 +26,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "code",
                 "defaultWidth": 60,
                 "dataIndex": "code",
                 "text": "编码"
@@ -40,6 +41,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "name",
                 "defaultWidth": 180,
                 "dataIndex": "name",
                 "text": "名称"
@@ -54,6 +56,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "buildYear",
                 "dataIndex": "buildYear",
                 "text": "建设年代"
             },
@@ -67,6 +70,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "buildFloor",
                 "dataIndex": "buildFloor",
                 "text": "建筑层数（层）"
             },
@@ -81,6 +85,7 @@
             "codeClass": null,
             "userConfig": {
                 "autoRender": false,
+                "designer|displayName": "buildArea",
                 "layout": null,
                 "dataIndex": "buildArea",
                 "text": "建筑总面积（平方米）"
@@ -95,6 +100,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "numbercolumn",
                 "dataIndex": "airconditioner",
                 "text": "空调总面积（平方米）"
             },
@@ -108,6 +114,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|displayName": "heatingArea",
                 "dataIndex": "heatingArea",
                 "text": "采暖总面积（平方米）"
             },
@@ -193,7 +200,9 @@
                             "userConfig": {
                                 "fn": "onBtnBfAddClick",
                                 "implHandler": [
-                                    "this.openWinForm('');"
+                                    "var id = Ext.getCmp('params').getValue();  \r",
+                                    "//alert('add-id:'+id); \r",
+                                    "this.openWinForm(id,'');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -231,11 +240,12 @@
                                     "var record = selected.items[0];\r",
                                     "if(!Ext.isEmpty(record))\r",
                                     "{\r",
-                                    "    this.openWinForm(record.data.id);\r",
+                                    "    var id = getCmp('params').getValue();\r",
+                                    "    this.openWinForm(id, record.data.id);\r",
                                     "}\r",
                                     "else\r",
                                     "{ \r",
-                                    "     Ext.Msg.show(\r",
+                                    "    Ext.Msg.show(\r",
                                     "    {\r",
                                     "        title : \"操作提示\",\r",
                                     "        msg : \"请选择要编辑的项!\",\r",
@@ -306,7 +316,7 @@
                                     "            method : 'POST',\r",
                                     "            params :\r",
                                     "            {\r",
-                                    "                id : ids.join(\",\")\r",
+                                    "                bid : ids.join(\",\")\r",
                                     "            },\r",
                                     "            success : function(response, options)\r",
                                     "            {\r",
@@ -340,11 +350,13 @@
             "userConfig": {
                 "fn": "openWinForm",
                 "designer|params": [
-                    "id"
+                    "id",
+                    "bid"
                 ],
                 "implHandler": [
-                    "var winform = Ext.create('ems.view.BuildingWin');\r",
-                    "winform.getForm().bindData(id);\r",
+                    "//alert(\"open-id:\"+id+\"--params: \"+Ext.getCmp('params').getValue()); \r",
+                    "var winform = Ext.create('ems.view.BuildingWin'); \r",
+                    "winform.getForm().bindData(id, bid);\r",
                     "winform.show();"
                 ]
             },
@@ -358,19 +370,18 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "bindBfData",
+                "fn": "refreshBuildings",
                 "designer|params": [
                     "id"
                 ],
                 "implHandler": [
-                    "alert(record.data.id);\r",
-                    "var store = Ext.getCmp('BuildingGrid').getStore(); \r",
-                    "stroe.load();\r",
-                    "alert('dd');\r",
-                    ""
+                    "//alert(\"refreshBuildings-id:\"+id); \r",
+                    "var store = Ext.getCmp('BuildingGrid').getStore();\r",
+                    "//store.getRootNode().removeAll();\r",
+                    "store.load();"
                 ]
             },
-            "designerId": "2b9f28cd-58ae-454a-8289-b85578a3cb1e"
+            "designerId": "0ffbc1e4-755b-49cc-ac43-5880a8aa6582"
         }
     ]
 }

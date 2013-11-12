@@ -93,13 +93,13 @@
                     "userConfig": {
                         "fn": "onBuildingTreePanelItemClick",
                         "implHandler": [
+                            " \r",
+                            "Ext.getCmp('params').setValue(record.data.id);  \r",
+                            " \r",
+                            "var winform = Ext.create('ems.view.BuildingGrid'); \r",
+                            "winform.refreshBuildings(record.data.id);\r",
                             "\r",
-                            "//Ext.getCmp('name').setValue(record.data.text);\r",
-                            "Ext.getCmp('id').setValue(record.data.id);\r",
-                            "\r",
-                            "var winform = Ext.getCmp('BuildingGrid');\r",
-                            "alert(winform);\r",
-                            "winform.bindBfData(record.data.id);"
+                            ""
                         ],
                         "name": "itemclick",
                         "scope": "me"
@@ -125,6 +125,22 @@
             },
             "designerId": "41f2eefb-c89e-4d60-84e8-5e0665c0c532",
             "cn": [
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "west",
+                        "id": "params",
+                        "width": 150,
+                        "fieldLabel": "Label",
+                        "name": "params"
+                    },
+                    "designerId": "0ed96fc0-ea78-4c5e-9095-004920c4e61e"
+                },
                 {
                     "type": "linkedinstance",
                     "reference": {

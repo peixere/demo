@@ -135,7 +135,9 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     onBtnBfAddClick: function(button, e, eOpts) {
-        this.openWinForm('');
+        var id = Ext.getCmp('params').getValue();  
+        //alert('add-id:'+id); 
+        this.openWinForm(id,'');
     },
 
     onBtnBfEditClick: function(button, e, eOpts) {
@@ -143,7 +145,8 @@ Ext.define('ems.view.BuildingGrid', {
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            this.openWinForm(record.data.id);
+            var id = getCmp('params').getValue();
+            this.openWinForm(id, record.data.id);
         }
         else
         { 
@@ -188,7 +191,7 @@ Ext.define('ems.view.BuildingGrid', {
                     method : 'POST',
                     params :
                     {
-                        id : ids.join(",")
+                        bid : ids.join(",")
                     },
                     success : function(response, options)
                     {
@@ -204,18 +207,18 @@ Ext.define('ems.view.BuildingGrid', {
         });
     },
 
-    openWinForm: function(id) {
-        var winform = Ext.create('ems.view.BuildingWin');
-        winform.getForm().bindData(id);
+    openWinForm: function(id, bid) {
+        //alert("open-id:"+id+"--params: "+Ext.getCmp('params').getValue()); 
+        var winform = Ext.create('ems.view.BuildingWin'); 
+        winform.getForm().bindData(id, bid);
         winform.show();
     },
 
-    bindBfData: function(id) {
-        alert(record.data.id);
-        var store = Ext.getCmp('BuildingGrid').getStore(); 
-        stroe.load();
-        alert('dd');
-
+    refreshBuildings: function(id) {
+        //alert("refreshBuildings-id:"+id); 
+        var store = Ext.getCmp('BuildingGrid').getStore();
+        //store.getRootNode().removeAll();
+        store.load();
     }
 
 });
