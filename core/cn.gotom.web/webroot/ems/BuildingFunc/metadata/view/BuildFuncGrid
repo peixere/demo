@@ -172,7 +172,7 @@
                                     "}\r",
                                     "else\r",
                                     "{\r",
-                                    "     Ext.Msg.show(\r",
+                                    "    Ext.Msg.show(\r",
                                     "    {\r",
                                     "        title : \"操作提示\",\r",
                                     "        msg : \"请选择要修改的项!\",\r",
