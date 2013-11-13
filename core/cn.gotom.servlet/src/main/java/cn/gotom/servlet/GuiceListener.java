@@ -36,7 +36,8 @@ public class GuiceListener extends GuiceServletContextListener
 	public List<Module> createModules()
 	{
 		List<Module> moduleList = new ArrayList<Module>();
-		moduleList.add(new JpaPersistModule("AppEntityManager"));
+		JpaPersistModule jpm = new JpaPersistModule("AppEntityManager");
+		moduleList.add(jpm);
 		//moduleList.add(new CorePersistModule());
 		moduleList.add(new CoreServletModule());
 		moduleList.add(new Struts2GuicePluginModule());
