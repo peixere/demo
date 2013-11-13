@@ -270,10 +270,10 @@
     },
     "inspectorState": {
         "topInstance": "a8033e9d-5a96-461f-aa0a-79587e9bd700",
-        "selectedInstance": "cf418c28-e090-41d3-8bbd-4147d2aa6c98"
+        "selectedInstance": "a8033e9d-5a96-461f-aa0a-79587e9bd700"
     },
     "codeState": {
-        "topInstance": "a8033e9d-5a96-461f-aa0a-79587e9bd700"
+        "topInstance": null
     },
     "editMode": "design"
 }
