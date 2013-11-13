@@ -32,7 +32,7 @@ Ext.define('ems.view.BuildingWin', {
                 {
                     xtype: 'form',
                     bindData: function(id, bid) {
-                        //alert('bindData-id:'+id); 
+                        //alert('bindData-id:'+id+"----bid:"+bid); 
                         var formPanel = this;
                         var wait = Ext.Msg.wait("正在载入......", "操作提示"); 
                         Ext.Ajax.request(
@@ -323,7 +323,7 @@ Ext.define('ems.view.BuildingWin', {
     },
 
     onBtnBuildingSaveClick: function(button, e, eOpts) {
-
+        var me = this;
         if (this.getForm().isValid())
         {
             var id=Ext.getCmp('params').getValue();
@@ -336,14 +336,13 @@ Ext.define('ems.view.BuildingWin', {
                 {
                     tid:id
                 },
-                waitMsg : '正在保存数据，稍后...',
+                waitMsg : '正在保存数据，请稍后...',
                 success : function(f, action)
                 {
-                    Ext.Msg.alert('信息提示', '保存成功');
-                    //me.close();
+                    Ext.Msg.alert('信息提示', '保存成功'); 
                     var winform = Ext.create('ems.view.BuildingGrid'); 
                     winform.refreshBuildings(id);
-                    this.close();
+                    me.close();
                 },
                 failure : function(f, action)
                 {

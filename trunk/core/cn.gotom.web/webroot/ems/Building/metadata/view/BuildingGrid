@@ -169,7 +169,9 @@
                             "userConfig": {
                                 "fn": "onBtnBdRefClick",
                                 "implHandler": [
-                                    "window.location.reload();"
+                                    "//window.location.reload();\r",
+                                    "var id = Ext.getCmp('params').getValue();   \r",
+                                    "this.refreshBuildings(id);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -243,8 +245,8 @@
                                     "var record = selected.items[0];\r",
                                     "if(!Ext.isEmpty(record))\r",
                                     "{\r",
-                                    "    var id = getCmp('params').getValue();\r",
-                                    "    this.openWinForm(id, record.data.id);\r",
+                                    "    var id = Ext.getCmp('params').getValue(); \r",
+                                    "    this.openWinForm(id, record.data.id); \r",
                                     "}\r",
                                     "else\r",
                                     "{ \r",
@@ -289,9 +291,9 @@
                             "userConfig": {
                                 "fn": "onBtnBfDelClick",
                                 "implHandler": [
+                                    "var me = this;\r",
                                     "var selected = this.getSelectionModel().selected;\r",
-                                    "var selecteditems = selected.items;\r",
-                                    "\r",
+                                    "var selecteditems = selected.items; \r",
                                     "if (selecteditems.length == 0)\r",
                                     "{\r",
                                     "    Ext.Msg.show(\r",
@@ -323,8 +325,9 @@
                                     "            },\r",
                                     "            success : function(response, options)\r",
                                     "            {\r",
-                                    "                Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
-                                    "                window.location.reload();\r",
+                                    "                Ext.Msg.alert(\"删除提示\", \"删除成功\");  \r",
+                                    "                var id = Ext.getCmp('params').getValue();   \r",
+                                    "\t\t\t\tme.refreshBuildings(id);\r",
                                     "            },\r",
                                     "            failure : function(response, options)\r",
                                     "            {\r",
@@ -379,9 +382,7 @@
                 ],
                 "implHandler": [
                     "//alert(\"refreshBuildings-id:\"+id); \r",
-                    "var store = Ext.getCmp('BuildingGrid').getStore();\r",
-                    "//store.removeAll();\r",
-                    "//store.load();\r",
+                    "var store = Ext.getCmp('BuildingGrid').getStore(); \r",
                     "store.load({\r",
                     "    params: {id:id},\r",
                     "    callback: function(records, options, success){\r",
@@ -395,6 +396,24 @@
                 ]
             },
             "designerId": "0ffbc1e4-755b-49cc-ac43-5880a8aa6582"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onBuildingGridItemDblClick",
+                "implHandler": [
+                    "var id = Ext.getCmp('params').getValue();\r",
+                    "this.openWinForm(id, record.data.id);"
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "designerId": "1e53d428-cf90-417f-b0ef-e47a9d3c4940"
         }
     ]
 }
