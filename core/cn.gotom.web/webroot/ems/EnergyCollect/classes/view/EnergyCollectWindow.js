@@ -56,8 +56,8 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'button',
                             id: 'btnReset',
-                            iconCls: 'icon-reset',
-                            text: '重置',
+                            iconCls: 'icon-close',
+                            text: '关闭',
                             listeners: {
                                 click: {
                                     fn: me.onBtnResetClick,
@@ -223,11 +223,38 @@ Ext.define('ems.view.EnergyCollectWindow', {
     },
 
     onBtnSaveClick: function(button, e, eOpts) {
-
+        var me = this;
+        var form = Ext.getCmp('ecform');
+        if (form.isValid())
+        {
+            form.submit(
+            {
+                url : '../EnergyCollect!save.do',
+                method : 'POST',
+                waitMsg : '正在保存数据，稍后...',
+                success : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存成功');
+                    me.close();
+                },
+                failure : function(f, action)
+                {
+                    if(action.response.status == 200)
+                    {
+                        var result = Ext.JSON.decode(action.response.responseText);
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', action.response.responseText);
+                    }
+                }
+            });
+        }
     },
 
     onBtnResetClick: function(button, e, eOpts) {
-
+        this.close();
     },
 
     bindFields: function(id, name) {

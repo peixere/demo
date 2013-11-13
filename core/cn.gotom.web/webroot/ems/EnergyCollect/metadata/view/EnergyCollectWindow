@@ -57,7 +57,34 @@
                             "userConfig": {
                                 "fn": "onBtnSaveClick",
                                 "implHandler": [
-                                    ""
+                                    "var me = this;\r",
+                                    "var form = Ext.getCmp('ecform');\r",
+                                    "if (form.isValid())\r",
+                                    "{\r",
+                                    "    form.submit(\r",
+                                    "        {\r",
+                                    "            url : '../EnergyCollect!save.do',\r",
+                                    "            method : 'POST',\r",
+                                    "            waitMsg : '正在保存数据，稍后...',\r",
+                                    "            success : function(f, action)\r",
+                                    "            {\r",
+                                    "                Ext.Msg.alert('信息提示', '保存成功');\r",
+                                    "                me.close();\r",
+                                    "            },\r",
+                                    "            failure : function(f, action)\r",
+                                    "            {\r",
+                                    "                if(action.response.status == 200)\r",
+                                    "                {\r",
+                                    "                    var result = Ext.JSON.decode(action.response.responseText);\r",
+                                    "                    Ext.Msg.alert('信息提示', result.data);\r",
+                                    "                }\r",
+                                    "                else\r",
+                                    "                {\r",
+                                    "                    Ext.Msg.alert('信息提示', action.response.responseText);\r",
+                                    "                }\r",
+                                    "            }\r",
+                                    "        });\r",
+                                    "}"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -76,8 +103,8 @@
                     "userConfig": {
                         "layout|flex": null,
                         "id": "btnReset",
-                        "iconCls": "icon-reset",
-                        "text": "重置"
+                        "iconCls": "icon-close",
+                        "text": "关闭"
                     },
                     "designerId": "9c49c40f-06ca-462b-be2c-b9bbff63d9c9",
                     "cn": [
@@ -90,6 +117,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnResetClick",
+                                "implHandler": [
+                                    "this.close();"
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
