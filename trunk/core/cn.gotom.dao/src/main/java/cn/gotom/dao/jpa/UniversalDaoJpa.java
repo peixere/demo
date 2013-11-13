@@ -225,6 +225,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		return eList;
 	}
 
+	@Transactional
 	@Override
 	public int executeUpdate(String sql)
 	{
