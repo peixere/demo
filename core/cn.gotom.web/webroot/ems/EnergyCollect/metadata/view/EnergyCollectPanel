@@ -213,7 +213,7 @@
                                                     "if (form.isValid())\r",
                                                     "{\r",
                                                     "    form.submit({\r",
-                                                    "        url : '../EnergyCollect.do',\r",
+                                                    "        url : '../EnergyCollect!list.do',\r",
                                                     "        method : 'POST',\r",
                                                     "        waitMsg : '正在生成报表，稍后...',\r",
                                                     "        success : function(f, action)\r",
@@ -269,11 +269,7 @@
                                             "userConfig": {
                                                 "fn": "onBtnNewClick",
                                                 "implHandler": [
-                                                    "var winform = Ext.create('ems.view.EnergyCollectWindow');\r",
-                                                    "var id = Ext.getCmp('id').getValue();\r",
-                                                    "var name = Ext.getCmp('name').getValue();\r",
-                                                    "winform.bindFields(id,name);\r",
-                                                    "winform.show();"
+                                                    "this.showWinForm('');"
                                                 ],
                                                 "name": "click",
                                                 "scope": "me"
@@ -506,7 +502,7 @@
                                             "userConfig": {
                                                 "fn": "onViewItemClick",
                                                 "implHandler": [
-                                                    ""
+                                                    "this.showWinForm(record);"
                                                 ],
                                                 "name": "itemclick",
                                                 "scope": "me"
@@ -642,6 +638,31 @@
                 ]
             },
             "designerId": "b52acb1b-f364-413f-ab66-3a8605284441"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showWinForm",
+                "designer|params": [
+                    "record"
+                ],
+                "implHandler": [
+                    "var winform = Ext.create('ems.view.EnergyCollectWindow');\r",
+                    "var id = Ext.getCmp('id').getValue();\r",
+                    "var name = Ext.getCmp('name').getValue();\r",
+                    "winform.bindFields(id,name);\r",
+                    "if(record!= ''){\r",
+                    "    formPanel.loadRecord(record);\r",
+                    "}\r",
+                    "winform.show();"
+                ]
+            },
+            "designerId": "db5395ab-6bf6-48c1-98ff-1fdff2bd7567"
         }
     ]
 }

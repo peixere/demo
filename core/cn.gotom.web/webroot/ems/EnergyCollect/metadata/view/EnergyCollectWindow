@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "height": 352,
+        "height": 557,
         "id": "EnergyCollectWindow",
-        "width": 487,
+        "width": 745,
         "designer|userClassName": "EnergyCollectWindow",
         "designer|userAlias": "EnergyCollectWindow",
         "layout": "border",
@@ -55,6 +55,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onBtnSaveClick",
+                                "implHandler": [
+                                    ""
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
@@ -118,11 +121,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
                         "id": "building.name",
                         "fieldLabel": "建筑名称",
                         "labelAlign": "right",
-                        "labelWidth": 80,
                         "name": "name",
                         "readOnly": true
                     },
@@ -136,8 +137,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
                         "id": "building.id",
+                        "width": 150,
                         "fieldLabel": "Label",
                         "name": "id"
                     },
@@ -151,8 +152,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "id": "collectDate",
+                        "width": null,
+                        "fieldLabel": "采集时间",
+                        "labelAlign": "right",
+                        "name": "collectDate"
                     },
                     "designerId": "83c6df16-9024-4882-91f0-ac04c5747f13"
                 },
@@ -164,8 +168,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "electric",
+                        "fieldLabel": "电",
+                        "labelAlign": "right",
+                        "name": "electric"
                     },
                     "designerId": "b18407aa-5d46-4379-85e6-4a3fe76f097b"
                 },
@@ -177,8 +184,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "water",
+                        "fieldLabel": "水",
+                        "labelAlign": "right",
+                        "name": "water"
                     },
                     "designerId": "c2ea176d-8a97-4a4f-9333-b7589a835115"
                 },
@@ -190,8 +200,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "gas",
+                        "fieldLabel": "燃气",
+                        "labelAlign": "right",
+                        "name": "gas"
                     },
                     "designerId": "544146cb-4610-4619-8905-b5fb11c9f4ad"
                 },
@@ -203,8 +216,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "heating",
+                        "fieldLabel": "集中供热量",
+                        "labelAlign": "right",
+                        "name": "heating"
                     },
                     "designerId": "1b7e5de1-ac75-4a97-9364-c0c248b26038"
                 },
@@ -216,8 +232,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "otherEnergy",
+                        "fieldLabel": "其它能源",
+                        "labelAlign": "right",
+                        "name": "otherEnergy"
                     },
                     "designerId": "ed451fc9-89ec-4d04-969e-0d94db06ea6b"
                 },
@@ -229,8 +248,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "coal",
+                        "fieldLabel": "煤",
+                        "labelAlign": "right",
+                        "name": "coal"
                     },
                     "designerId": "a845a483-d6d1-43f6-bafb-d1ba114782bd"
                 },
@@ -242,8 +264,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "lpg",
+                        "fieldLabel": " 液化石油气",
+                        "labelAlign": "right",
+                        "name": "lpg"
                     },
                     "designerId": "b1b616d1-f560-4c60-841c-afc31c2b14fa"
                 },
@@ -255,10 +280,109 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Label"
+                        "height": null,
+                        "id": "manufacturedGas",
+                        "fieldLabel": "人工煤气",
+                        "labelAlign": "right",
+                        "name": "manufacturedGas"
                     },
                     "designerId": "a4a598a2-026d-454c-8c56-7d85e11f0703"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "gasoline",
+                        "fieldLabel": "汽油",
+                        "labelAlign": "right",
+                        "name": "gasoline"
+                    },
+                    "designerId": "9d208ad7-3746-4470-8d66-6121fb4e71ed"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "kerosene",
+                        "fieldLabel": "煤油",
+                        "labelAlign": "right",
+                        "name": "kerosene"
+                    },
+                    "designerId": "f4496c49-df6f-4ce6-bf06-7a33e5603900"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "solarThermal",
+                        "fieldLabel": "太阳能光热利用系统集热器面积",
+                        "labelAlign": "right",
+                        "name": "solarThermal"
+                    },
+                    "designerId": "c2469947-880f-49dd-a126-cd467525a94a"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "geothermal",
+                        "fieldLabel": "浅层地热能利用系统装机容量",
+                        "labelAlign": "right",
+                        "name": "geothermal"
+                    },
+                    "designerId": "421ee246-465d-4f09-b209-569cd72d66e3"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "geothermalAuxiliary",
+                        "fieldLabel": "浅层地热能利用系统辅助热源供热量",
+                        "labelAlign": "right",
+                        "name": "geothermalAuxiliary"
+                    },
+                    "designerId": "06cdd2f5-4504-4c81-a5f2-fb4fb047bbbe"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "id": "solarPV",
+                        "fieldLabel": "太阳能光电利用系统装机容量",
+                        "labelAlign": "right",
+                        "name": "solarPV"
+                    },
+                    "designerId": "e41abcc5-10e4-4c95-94f0-c98b1d44dd0b"
                 }
             ]
         },
