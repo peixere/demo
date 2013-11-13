@@ -113,7 +113,15 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	@Override
 	public <T> T get(Class<T> clazz, Serializable id)
 	{
-		return getEntityManager().find(clazz, id);
+		try
+		{
+			return (T) getEntityManager().find(clazz, id);
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getMessage());
+			return null;
+		}
 	}
 
 	@Override
