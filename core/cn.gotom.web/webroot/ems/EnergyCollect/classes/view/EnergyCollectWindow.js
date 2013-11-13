@@ -100,7 +100,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                             padding: 2,
                             fieldLabel: '采集时间',
                             labelAlign: 'right',
-                            name: 'collectDate'
+                            name: 'collectDates'
                         },
                         {
                             xtype: 'numberfield',
