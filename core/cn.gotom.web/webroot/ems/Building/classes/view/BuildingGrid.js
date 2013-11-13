@@ -215,14 +215,14 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     refreshBuildings: function(id) {
-        alert("refreshBuildings-id:"+id); 
+        //alert("refreshBuildings-id:"+id); 
         var store = Ext.getCmp('BuildingGrid').getStore();
         //store.removeAll();
         //store.load();
         store.load({
             params: {id:id},
             callback: function(records, options, success){
-                Ext.Msg.alert('info', '加载完毕,id:'+id);
+                //Ext.Msg.alert('info', '加载完毕,id:'+id);
             },
             scope: store,
             add: false
