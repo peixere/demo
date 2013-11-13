@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.hibernate.ejb.packaging.JarVisitorFactory;
+
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
@@ -28,6 +30,7 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		JarVisitorFactory.getURLFromPath("url:/");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, 0, 1);
 		System.out.println(calendar.getTimeInMillis());
