@@ -14,6 +14,7 @@ import cn.gotom.vo.Pagination;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.persist.Transactional;
 
 abstract class AbsDaoJpa
 {
@@ -153,6 +154,7 @@ abstract class AbsDaoJpa
 		return new Pagination(fullListSize.intValue(), q.getResultList(), pageSize, pageIndex);
 	}
 
+	@Transactional
 	protected void execute(String jpql, Object... values)
 	{
 		Query q = getEntityManager().createQuery(jpql);
