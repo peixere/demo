@@ -6,11 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "height": 557,
+        "height": 312,
         "id": "EnergyCollectWindow",
-        "width": 745,
+        "width": 523,
         "designer|userClassName": "EnergyCollectWindow",
         "designer|userAlias": "EnergyCollectWindow",
+        "resizeHandles": "n",
         "layout": "border",
         "title": "数据采集"
     },
@@ -108,6 +109,7 @@
             "userConfig": {
                 "layout|region": "center",
                 "id": "ecform",
+                "layout": "column",
                 "bodyPadding": 10,
                 "title": null
             },
@@ -122,6 +124,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "id": "building.name",
+                        "padding": 2,
                         "fieldLabel": "建筑名称",
                         "labelAlign": "right",
                         "name": "name",
@@ -153,6 +156,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "id": "collectDate",
+                        "padding": 2,
                         "width": null,
                         "fieldLabel": "采集时间",
                         "labelAlign": "right",
@@ -170,6 +174,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "electric",
+                        "padding": 2,
                         "fieldLabel": "电",
                         "labelAlign": "right",
                         "name": "electric"
@@ -186,6 +191,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "water",
+                        "padding": 2,
                         "fieldLabel": "水",
                         "labelAlign": "right",
                         "name": "water"
@@ -202,6 +208,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "gas",
+                        "padding": 2,
                         "fieldLabel": "燃气",
                         "labelAlign": "right",
                         "name": "gas"
@@ -218,6 +225,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "heating",
+                        "padding": 2,
                         "fieldLabel": "集中供热量",
                         "labelAlign": "right",
                         "name": "heating"
@@ -234,6 +242,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "otherEnergy",
+                        "padding": 2,
                         "fieldLabel": "其它能源",
                         "labelAlign": "right",
                         "name": "otherEnergy"
@@ -250,6 +259,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "coal",
+                        "padding": 2,
                         "fieldLabel": "煤",
                         "labelAlign": "right",
                         "name": "coal"
@@ -266,6 +276,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "lpg",
+                        "padding": 2,
                         "fieldLabel": " 液化石油气",
                         "labelAlign": "right",
                         "name": "lpg"
@@ -282,6 +293,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "manufacturedGas",
+                        "padding": 2,
                         "fieldLabel": "人工煤气",
                         "labelAlign": "right",
                         "name": "manufacturedGas"
@@ -298,6 +310,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "gasoline",
+                        "padding": 2,
                         "fieldLabel": "汽油",
                         "labelAlign": "right",
                         "name": "gasoline"
@@ -314,6 +327,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "kerosene",
+                        "padding": 2,
                         "fieldLabel": "煤油",
                         "labelAlign": "right",
                         "name": "kerosene"
@@ -330,6 +344,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "solarThermal",
+                        "padding": 2,
                         "fieldLabel": "太阳能光热利用系统集热器面积",
                         "labelAlign": "right",
                         "name": "solarThermal"
@@ -346,6 +361,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "geothermal",
+                        "padding": 2,
                         "fieldLabel": "浅层地热能利用系统装机容量",
                         "labelAlign": "right",
                         "name": "geothermal"
@@ -362,6 +378,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "geothermalAuxiliary",
+                        "padding": 2,
                         "fieldLabel": "浅层地热能利用系统辅助热源供热量",
                         "labelAlign": "right",
                         "name": "geothermalAuxiliary"
@@ -378,6 +395,7 @@
                     "userConfig": {
                         "height": null,
                         "id": "solarPV",
+                        "padding": 2,
                         "fieldLabel": "太阳能光电利用系统装机容量",
                         "labelAlign": "right",
                         "name": "solarPV"

@@ -17,9 +17,10 @@ Ext.define('ems.view.EnergyCollectWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.EnergyCollectWindow',
 
-    height: 557,
+    height: 312,
     id: 'EnergyCollectWindow',
-    width: 745,
+    width: 523,
+    resizeHandles: 'n',
     layout: {
         type: 'border'
     },
@@ -72,11 +73,15 @@ Ext.define('ems.view.EnergyCollectWindow', {
                     xtype: 'form',
                     region: 'center',
                     id: 'ecform',
+                    layout: {
+                        type: 'column'
+                    },
                     bodyPadding: 10,
                     items: [
                         {
                             xtype: 'textfield',
                             id: 'building.name',
+                            padding: 2,
                             fieldLabel: '建筑名称',
                             labelAlign: 'right',
                             name: 'name',
@@ -92,6 +97,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'datefield',
                             id: 'collectDate',
+                            padding: 2,
                             fieldLabel: '采集时间',
                             labelAlign: 'right',
                             name: 'collectDate'
@@ -99,6 +105,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'electric',
+                            padding: 2,
                             fieldLabel: '电',
                             labelAlign: 'right',
                             name: 'electric'
@@ -106,6 +113,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'water',
+                            padding: 2,
                             fieldLabel: '水',
                             labelAlign: 'right',
                             name: 'water'
@@ -113,6 +121,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'gas',
+                            padding: 2,
                             fieldLabel: '燃气',
                             labelAlign: 'right',
                             name: 'gas'
@@ -120,6 +129,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'heating',
+                            padding: 2,
                             fieldLabel: '集中供热量',
                             labelAlign: 'right',
                             name: 'heating'
@@ -127,6 +137,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'otherEnergy',
+                            padding: 2,
                             fieldLabel: '其它能源',
                             labelAlign: 'right',
                             name: 'otherEnergy'
@@ -134,6 +145,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'coal',
+                            padding: 2,
                             fieldLabel: '煤',
                             labelAlign: 'right',
                             name: 'coal'
@@ -141,6 +153,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'lpg',
+                            padding: 2,
                             fieldLabel: ' 液化石油气',
                             labelAlign: 'right',
                             name: 'lpg'
@@ -148,6 +161,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'manufacturedGas',
+                            padding: 2,
                             fieldLabel: '人工煤气',
                             labelAlign: 'right',
                             name: 'manufacturedGas'
@@ -155,6 +169,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'gasoline',
+                            padding: 2,
                             fieldLabel: '汽油',
                             labelAlign: 'right',
                             name: 'gasoline'
@@ -162,6 +177,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'kerosene',
+                            padding: 2,
                             fieldLabel: '煤油',
                             labelAlign: 'right',
                             name: 'kerosene'
@@ -169,6 +185,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'solarThermal',
+                            padding: 2,
                             fieldLabel: '太阳能光热利用系统集热器面积',
                             labelAlign: 'right',
                             name: 'solarThermal'
@@ -176,6 +193,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'geothermal',
+                            padding: 2,
                             fieldLabel: '浅层地热能利用系统装机容量',
                             labelAlign: 'right',
                             name: 'geothermal'
@@ -183,6 +201,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'geothermalAuxiliary',
+                            padding: 2,
                             fieldLabel: '浅层地热能利用系统辅助热源供热量',
                             labelAlign: 'right',
                             name: 'geothermalAuxiliary'
@@ -190,6 +209,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                         {
                             xtype: 'numberfield',
                             id: 'solarPV',
+                            padding: 2,
                             fieldLabel: '太阳能光电利用系统装机容量',
                             labelAlign: 'right',
                             name: 'solarPV'
