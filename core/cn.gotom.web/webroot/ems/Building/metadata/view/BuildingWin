@@ -420,7 +420,7 @@
                                     "userConfig": {
                                         "fn": "onBtnBuildingSaveClick",
                                         "implHandler": [
-                                            "\r",
+                                            "var me = this;\r",
                                             "if (this.getForm().isValid())\r",
                                             "{\r",
                                             "    var id=Ext.getCmp('params').getValue();\r",
@@ -433,14 +433,13 @@
                                             "        {\r",
                                             "            tid:id\r",
                                             "        },\r",
-                                            "        waitMsg : '正在保存数据，稍后...',\r",
+                                            "        waitMsg : '正在保存数据，请稍后...',\r",
                                             "        success : function(f, action)\r",
                                             "        {\r",
-                                            "            Ext.Msg.alert('信息提示', '保存成功');\r",
-                                            "            //me.close();\r",
+                                            "            Ext.Msg.alert('信息提示', '保存成功'); \r",
                                             "            var winform = Ext.create('ems.view.BuildingGrid'); \r",
                                             "\t\t\twinform.refreshBuildings(id);\r",
-                                            "            this.close();\r",
+                                            "            me.close();\r",
                                             "        },\r",
                                             "        failure : function(f, action)\r",
                                             "        {\r",
@@ -506,7 +505,7 @@
                             "bid"
                         ],
                         "implHandler": [
-                            "//alert('bindData-id:'+id); \r",
+                            "//alert('bindData-id:'+id+\"----bid:\"+bid); \r",
                             "var formPanel = this;\r",
                             "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\"); \r",
                             "Ext.Ajax.request(\r",

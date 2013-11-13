@@ -127,14 +127,22 @@ Ext.define('ems.view.BuildingGrid', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                itemdblclick: {
+                    fn: me.onBuildingGridItemDblClick,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
     },
 
     onBtnBdRefClick: function(button, e, eOpts) {
-        window.location.reload();
+        //window.location.reload();
+        var id = Ext.getCmp('params').getValue();   
+        this.refreshBuildings(id);
     },
 
     onBtnBfAddClick: function(button, e, eOpts) {
@@ -148,8 +156,8 @@ Ext.define('ems.view.BuildingGrid', {
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            var id = getCmp('params').getValue();
-            this.openWinForm(id, record.data.id);
+            var id = Ext.getCmp('params').getValue(); 
+            this.openWinForm(id, record.data.id); 
         }
         else
         { 
@@ -164,9 +172,9 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     onBtnBfDelClick: function(button, e, eOpts) {
+        var me = this;
         var selected = this.getSelectionModel().selected;
-        var selecteditems = selected.items;
-
+        var selecteditems = selected.items; 
         if (selecteditems.length == 0)
         {
             Ext.Msg.show(
@@ -198,8 +206,9 @@ Ext.define('ems.view.BuildingGrid', {
                     },
                     success : function(response, options)
                     {
-                        Ext.Msg.alert("删除提示", "删除成功");
-                        window.location.reload();
+                        Ext.Msg.alert("删除提示", "删除成功");  
+                        var id = Ext.getCmp('params').getValue();   
+                        me.refreshBuildings(id);
                     },
                     failure : function(response, options)
                     {
@@ -208,6 +217,11 @@ Ext.define('ems.view.BuildingGrid', {
                 });
             }
         });
+    },
+
+    onBuildingGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        var id = Ext.getCmp('params').getValue();
+        this.openWinForm(id, record.data.id);
     },
 
     openWinForm: function(id, bid) {
@@ -219,9 +233,7 @@ Ext.define('ems.view.BuildingGrid', {
 
     refreshBuildings: function(id) {
         //alert("refreshBuildings-id:"+id); 
-        var store = Ext.getCmp('BuildingGrid').getStore();
-        //store.removeAll();
-        //store.load();
+        var store = Ext.getCmp('BuildingGrid').getStore(); 
         store.load({
             params: {id:id},
             callback: function(records, options, success){
