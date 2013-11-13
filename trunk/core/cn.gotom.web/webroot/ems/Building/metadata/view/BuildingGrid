@@ -14,6 +14,9 @@
         "designer|userAlias": "BuildingGrid",
         "header": false,
         "title": "建筑信息管理",
+        "enableColumnHide": false,
+        "enableColumnMove": false,
+        "forceFit": true,
         "store": "BuildingStore"
     },
     "designerId": "f5516564-c584-4981-8f9b-e2c911d2176c",

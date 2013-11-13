@@ -32,7 +32,7 @@ Ext.define('ems.view.BuildingWin', {
                 {
                     xtype: 'form',
                     bindData: function(id, bid) {
-                        alert('bindData-id:'+id); 
+                        //alert('bindData-id:'+id); 
                         var formPanel = this;
                         var wait = Ext.Msg.wait("正在载入......", "操作提示"); 
                         Ext.Ajax.request(
@@ -341,7 +341,9 @@ Ext.define('ems.view.BuildingWin', {
                 {
                     Ext.Msg.alert('信息提示', '保存成功');
                     //me.close();
-                    window.location.reload();
+                    var winform = Ext.create('ems.view.BuildingGrid'); 
+                    winform.refreshBuildings(id);
+                    this.close();
                 },
                 failure : function(f, action)
                 {

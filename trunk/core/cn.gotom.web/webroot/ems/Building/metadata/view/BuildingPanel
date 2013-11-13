@@ -93,9 +93,9 @@
                     "userConfig": {
                         "fn": "onBuildingTreePanelItemClick",
                         "implHandler": [
-                            " \r",
+                            "\r",
                             "Ext.getCmp('params').setValue(record.data.id);  \r",
-                            " \r",
+                            "\r",
                             "var winform = Ext.create('ems.view.BuildingGrid'); \r",
                             "winform.refreshBuildings(record.data.id);\r",
                             "\r",

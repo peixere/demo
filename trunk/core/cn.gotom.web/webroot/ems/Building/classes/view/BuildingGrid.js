@@ -23,6 +23,9 @@ Ext.define('ems.view.BuildingGrid', {
     width: 914,
     header: false,
     title: '建筑信息管理',
+    enableColumnHide: false,
+    enableColumnMove: false,
+    forceFit: true,
     store: 'BuildingStore',
 
     initComponent: function() {
