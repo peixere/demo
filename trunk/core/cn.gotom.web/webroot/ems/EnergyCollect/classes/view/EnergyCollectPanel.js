@@ -273,7 +273,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
         if (form.isValid())
         {
             form.submit({
-                url : '../EnergyCollect.do',
+                url : '../EnergyCollect!list.do',
                 method : 'POST',
                 waitMsg : '正在生成报表，稍后...',
                 success : function(f, action)
@@ -299,11 +299,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     onBtnNewClick: function(button, e, eOpts) {
-        var winform = Ext.create('ems.view.EnergyCollectWindow');
-        var id = Ext.getCmp('id').getValue();
-        var name = Ext.getCmp('name').getValue();
-        winform.bindFields(id,name);
-        winform.show();
+        this.showWinForm('');
     },
 
     onBtnDelClick: function(button, e, eOpts) {
@@ -316,7 +312,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     onViewItemClick: function(dataview, record, item, index, e, eOpts) {
-
+        this.showWinForm(record);
     },
 
     showHighcharts: function(chartdata) {
@@ -395,6 +391,17 @@ Ext.define('ems.view.EnergyCollectPanel', {
         });    
         */
         Ext.getCmp('GataGridPanel').bindStore(jsonStore);           
+    },
+
+    showWinForm: function(record) {
+        var winform = Ext.create('ems.view.EnergyCollectWindow');
+        var id = Ext.getCmp('id').getValue();
+        var name = Ext.getCmp('name').getValue();
+        winform.bindFields(id,name);
+        if(record!= ''){
+            formPanel.loadRecord(record);
+        }
+        winform.show();
     }
 
 });

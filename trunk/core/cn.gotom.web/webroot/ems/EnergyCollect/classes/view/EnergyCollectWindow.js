@@ -17,9 +17,9 @@ Ext.define('ems.view.EnergyCollectWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.EnergyCollectWindow',
 
-    height: 352,
+    height: 557,
     id: 'EnergyCollectWindow',
-    width: 487,
+    width: 745,
     layout: {
         type: 'border'
     },
@@ -76,65 +76,123 @@ Ext.define('ems.view.EnergyCollectWindow', {
                     items: [
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             id: 'building.name',
                             fieldLabel: '建筑名称',
                             labelAlign: 'right',
-                            labelWidth: 80,
                             name: 'name',
                             readOnly: true
                         },
                         {
                             xtype: 'hiddenfield',
-                            anchor: '100%',
                             id: 'building.id',
+                            width: 150,
                             fieldLabel: 'Label',
                             name: 'id'
                         },
                         {
                             xtype: 'datefield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'collectDate',
+                            fieldLabel: '采集时间',
+                            labelAlign: 'right',
+                            name: 'collectDate'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'electric',
+                            fieldLabel: '电',
+                            labelAlign: 'right',
+                            name: 'electric'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'water',
+                            fieldLabel: '水',
+                            labelAlign: 'right',
+                            name: 'water'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'gas',
+                            fieldLabel: '燃气',
+                            labelAlign: 'right',
+                            name: 'gas'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'heating',
+                            fieldLabel: '集中供热量',
+                            labelAlign: 'right',
+                            name: 'heating'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'otherEnergy',
+                            fieldLabel: '其它能源',
+                            labelAlign: 'right',
+                            name: 'otherEnergy'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'coal',
+                            fieldLabel: '煤',
+                            labelAlign: 'right',
+                            name: 'coal'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'lpg',
+                            fieldLabel: ' 液化石油气',
+                            labelAlign: 'right',
+                            name: 'lpg'
                         },
                         {
                             xtype: 'numberfield',
-                            anchor: '100%',
-                            fieldLabel: 'Label'
+                            id: 'manufacturedGas',
+                            fieldLabel: '人工煤气',
+                            labelAlign: 'right',
+                            name: 'manufacturedGas'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'gasoline',
+                            fieldLabel: '汽油',
+                            labelAlign: 'right',
+                            name: 'gasoline'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'kerosene',
+                            fieldLabel: '煤油',
+                            labelAlign: 'right',
+                            name: 'kerosene'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'solarThermal',
+                            fieldLabel: '太阳能光热利用系统集热器面积',
+                            labelAlign: 'right',
+                            name: 'solarThermal'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'geothermal',
+                            fieldLabel: '浅层地热能利用系统装机容量',
+                            labelAlign: 'right',
+                            name: 'geothermal'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'geothermalAuxiliary',
+                            fieldLabel: '浅层地热能利用系统辅助热源供热量',
+                            labelAlign: 'right',
+                            name: 'geothermalAuxiliary'
+                        },
+                        {
+                            xtype: 'numberfield',
+                            id: 'solarPV',
+                            fieldLabel: '太阳能光电利用系统装机容量',
+                            labelAlign: 'right',
+                            name: 'solarPV'
                         }
                     ]
                 }
