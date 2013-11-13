@@ -375,10 +375,20 @@
                     "id"
                 ],
                 "implHandler": [
-                    "//alert(\"refreshBuildings-id:\"+id); \r",
+                    "alert(\"refreshBuildings-id:\"+id); \r",
                     "var store = Ext.getCmp('BuildingGrid').getStore();\r",
-                    "//store.getRootNode().removeAll();\r",
-                    "store.load();"
+                    "//store.removeAll();\r",
+                    "//store.load();\r",
+                    "store.load({\r",
+                    "    params: {id:id},\r",
+                    "    callback: function(records, options, success){\r",
+                    "        Ext.Msg.alert('info', '加载完毕,id:'+id);\r",
+                    "    },\r",
+                    "    scope: store,\r",
+                    "    add: false\r",
+                    "});\r",
+                    "\r",
+                    ""
                 ]
             },
             "designerId": "0ffbc1e4-755b-49cc-ac43-5880a8aa6582"
