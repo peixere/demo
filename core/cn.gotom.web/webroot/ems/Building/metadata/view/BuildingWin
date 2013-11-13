@@ -438,7 +438,9 @@
                                             "        {\r",
                                             "            Ext.Msg.alert('信息提示', '保存成功');\r",
                                             "            //me.close();\r",
-                                            "            window.location.reload();\r",
+                                            "            var winform = Ext.create('ems.view.BuildingGrid'); \r",
+                                            "\t\t\twinform.refreshBuildings(id);\r",
+                                            "            this.close();\r",
                                             "        },\r",
                                             "        failure : function(f, action)\r",
                                             "        {\r",
@@ -504,7 +506,7 @@
                             "bid"
                         ],
                         "implHandler": [
-                            "alert('bindData-id:'+id); \r",
+                            "//alert('bindData-id:'+id); \r",
                             "var formPanel = this;\r",
                             "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\"); \r",
                             "Ext.Ajax.request(\r",
