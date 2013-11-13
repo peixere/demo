@@ -190,7 +190,7 @@
                         "width": null,
                         "fieldLabel": "采集时间",
                         "labelAlign": "right",
-                        "name": "collectDate"
+                        "name": "collectDates"
                     },
                     "designerId": "83c6df16-9024-4882-91f0-ac04c5747f13"
                 },
