@@ -18,6 +18,7 @@ Ext.define('ems.view.BuildingWin', {
     alias: 'widget.BuildingWin',
 
     height: 349,
+    maxWidth: 600,
     width: 590,
     layout: {
         type: 'border'
@@ -256,10 +257,14 @@ Ext.define('ems.view.BuildingWin', {
                             x: -9,
                             y: 250,
                             id: 'address',
+                            maxWidth: 520,
+                            minWidth: 300,
+                            width: 520,
                             fieldLabel: '地址',
                             labelAlign: 'right',
                             labelWidth: 60,
-                            name: 'address'
+                            name: 'address',
+                            maxLength: 255
                         },
                         {
                             xtype: 'hiddenfield',
@@ -285,7 +290,6 @@ Ext.define('ems.view.BuildingWin', {
                                     xtype: 'button',
                                     id: 'btnBuildingSave',
                                     iconCls: 'icon-save',
-                                    params: 'bid',
                                     text: '保存',
                                     listeners: {
                                         click: {
