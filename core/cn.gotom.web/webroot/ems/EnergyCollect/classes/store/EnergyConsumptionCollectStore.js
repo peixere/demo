@@ -29,7 +29,9 @@ Ext.define('ems.store.EnergyConsumptionCollectStore', {
             proxy: {
                 type: 'ajax',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    idProperty: 'id',
+                    root: 'data'
                 }
             }
         }, cfg)]);
