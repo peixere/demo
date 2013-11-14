@@ -185,14 +185,23 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "renderer": "y-m-d",
                         "id": "collectDate",
                         "padding": 2,
                         "width": null,
                         "fieldLabel": "采集时间",
                         "labelAlign": "right",
-                        "name": "collectDates"
+                        "name": "collectDate",
+                        "value": 1385827200000
                     },
-                    "designerId": "83c6df16-9024-4882-91f0-ac04c5747f13"
+                    "designerId": "83c6df16-9024-4882-91f0-ac04c5747f13",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "renderer",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Number",

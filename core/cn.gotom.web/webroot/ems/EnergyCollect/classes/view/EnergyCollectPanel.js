@@ -212,22 +212,31 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                     autoScroll: true,
                                     collapsible: true,
                                     title: '查询结果',
+                                    store: 'MyJsonStore',
                                     columns: [
+                                        {
+                                            xtype: 'datecolumn',
+                                            width: 160,
+                                            defaultWidth: 200,
+                                            dataIndex: 'collectDate',
+                                            text: '采集时间',
+                                            format: 'Y-m-d H:i:s'
+                                        },
                                         {
                                             xtype: 'gridcolumn',
                                             sortable: false,
-                                            dataIndex: 'collectDate',
-                                            text: '采集时间'
+                                            dataIndex: 'electric',
+                                            text: '耗电量(度)'
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'reductions',
-                                            text: 'reductions'
+                                            dataIndex: 'water',
+                                            text: '用水量(吨)'
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'phone',
-                                            text: 'phone'
+                                            dataIndex: 'gas',
+                                            text: '燃气(立方)'
                                         }
                                     ],
                                     viewConfig: {
@@ -237,7 +246,10 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                                 scope: me
                                             }
                                         }
-                                    }
+                                    },
+                                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                                    })
                                 },
                                 {
                                     xtype: 'panel',
@@ -282,8 +294,8 @@ Ext.define('ems.view.EnergyCollectPanel', {
                 success : function(f, action)
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
-                    me.showHighcharts(result.data);
                     me.loadGridData(result.data);
+                    me.showHighcharts(result.data);
                 },
                 failure : function(f, action)
                 {
@@ -393,6 +405,19 @@ Ext.define('ems.view.EnergyCollectPanel', {
         }
         });    
         */
+
+        var jsonStore = Ext.create('Ext.data.Store', {
+            storeId:'jsonStore',
+            model: 'ems.model.EnergyConsumptionCollectModel',
+            data : data,
+            proxy:
+            {
+                type: 'memory',
+                reader:{
+                    type: 'json',
+                }
+            }    
+        });
         Ext.getCmp('GataGridPanel').bindStore(jsonStore);           
     },
 
@@ -401,10 +426,13 @@ Ext.define('ems.view.EnergyCollectPanel', {
         var buildingId = Ext.getCmp('buildingId').getValue();
         var name = Ext.getCmp('name').getValue();
         winform.show();
-        winform.bindFields(buildingId,name,'');
-        if(record!= ''){
-            //formPanel.loadRecord(record);
+        var id = '';
+        if(record !== '')
+        {
+            id = record.data.id;
         }
+        winform.bindFields(buildingId,name,id);
+
     }
 
 });

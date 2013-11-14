@@ -25,7 +25,7 @@ Ext.application({
     ],
     stores: [
         'BuildingTreeStore',
-        'EnergyConsumptionCollectStore'
+        'MyJsonStore'
     ],
     views: [
         'EnergyCollectPanel',

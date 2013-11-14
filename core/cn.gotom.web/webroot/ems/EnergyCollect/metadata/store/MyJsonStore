@@ -1,0 +1,36 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "EnergyConsumptionCollectModel",
+        "storeId": "MyJsonStore",
+        "designer|userClassName": "MyJsonStore"
+    },
+    "designerId": "f352cec5-381e-4d47-a9b1-9466c8868af5",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "designerId": "40585b09-6f1b-4121-8247-dc224972804a",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "c1001d69-b32a-4822-82b2-29f0d0761187"
+                }
+            ]
+        }
+    ]
+}

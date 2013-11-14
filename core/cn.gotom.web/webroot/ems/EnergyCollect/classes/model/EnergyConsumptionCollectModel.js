@@ -66,7 +66,10 @@ Ext.define('ems.model.EnergyConsumptionCollectModel', {
             name: 'id'
         },
         {
-            name: 'collectDate'
+            dateFormat: 'time',
+            mapping: 'collectDate.time',
+            name: 'collectDate',
+            type: 'date'
         }
     ]
 });

@@ -210,7 +210,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "collectDate"
+                "dateFormat": "time",
+                "mapping": "collectDate.time",
+                "name": "collectDate",
+                "type": "date"
             },
             "designerId": "a97d415e-3e3b-44c5-a69c-427a755df59d"
         }
