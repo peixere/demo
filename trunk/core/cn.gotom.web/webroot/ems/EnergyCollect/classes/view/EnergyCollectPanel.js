@@ -289,7 +289,10 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                                 scope: me
                                             }
                                         }
-                                    }
+                                    },
+                                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+
+                                    })
                                 }
                             ]
                         }

@@ -709,6 +709,15 @@
                                             "designerId": "69932b90-bb87-4955-8d13-d34f0c5a1455"
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "Ext.selection.CheckboxModel",
+                                    "reference": {
+                                        "name": "selModel",
+                                        "type": "object"
+                                    },
+                                    "codeClass": "Ext.selection.CheckboxModel",
+                                    "designerId": "75d42d8a-0372-4d2b-a1d9-ab19dcfa011b"
                                 }
                             ]
                         }
