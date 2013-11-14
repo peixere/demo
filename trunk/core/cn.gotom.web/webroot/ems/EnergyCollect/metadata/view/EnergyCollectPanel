@@ -221,8 +221,8 @@
                                                     "        success : function(f, action)\r",
                                                     "        {\r",
                                                     "            var result = Ext.JSON.decode(action.response.responseText);\r",
-                                                    "            me.showHighcharts(result.data);\r",
                                                     "            me.loadGridData(result.data);\r",
+                                                    "            me.showHighcharts(result.data);\r",
                                                     "        },\r",
                                                     "        failure : function(f, action)\r",
                                                     "        {\r",
@@ -441,10 +441,34 @@
                                 "id": "GataGridPanel",
                                 "autoScroll": true,
                                 "collapsible": true,
-                                "title": "查询结果"
+                                "title": "查询结果",
+                                "store": "MyJsonStore"
                             },
                             "designerId": "30d4930b-5f5d-4022-baff-8717807c72f1",
                             "cn": [
+                                {
+                                    "type": "Ext.grid.column.Date",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "width": 160,
+                                        "defaultWidth": 200,
+                                        "dataIndex": "collectDate",
+                                        "text": "采集时间",
+                                        "format": "Y-m-d H:i:s"
+                                    },
+                                    "designerId": "6bd6cd2f-3ff9-4117-b54c-e55fe6155a76",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "renderer",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
                                 {
                                     "type": "Ext.grid.column.Column",
                                     "reference": {
@@ -454,8 +478,8 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "sortable": false,
-                                        "dataIndex": "collectDate",
-                                        "text": "采集时间"
+                                        "dataIndex": "electric",
+                                        "text": "耗电量(度)"
                                     },
                                     "designerId": "eb8d7c8b-3a17-4e7e-ab82-2fbd00492dae"
                                 },
@@ -467,8 +491,8 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "reductions",
-                                        "text": "reductions"
+                                        "dataIndex": "water",
+                                        "text": "用水量(吨)"
                                     },
                                     "designerId": "f9509b0b-9b3f-4d6d-bc5c-cf51ae832fe5"
                                 },
@@ -480,8 +504,8 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "phone",
-                                        "text": "phone"
+                                        "dataIndex": "gas",
+                                        "text": "燃气(立方)"
                                     },
                                     "designerId": "f6aa7bd8-856e-4e2c-b9aa-95e99aeed288"
                                 },
@@ -512,6 +536,15 @@
                                             "designerId": "d4ed74cd-d889-4058-9cc7-632290c499dc"
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "Ext.selection.RowModel",
+                                    "reference": {
+                                        "name": "selModel",
+                                        "type": "object"
+                                    },
+                                    "codeClass": "Ext.selection.RowModel",
+                                    "designerId": "58b60be5-13e5-4cdc-b6a9-7e2d210687e9"
                                 }
                             ]
                         },
@@ -636,6 +669,19 @@
                     "}\r",
                     "});    \r",
                     "*/\r",
+                    "\r",
+                    "var jsonStore = Ext.create('Ext.data.Store', {\r",
+                    "    storeId:'jsonStore',\r",
+                    "    model: 'ems.model.EnergyConsumptionCollectModel',\r",
+                    "    data : data,\r",
+                    "    proxy:\r",
+                    "    {\r",
+                    "        type: 'memory',\r",
+                    "        reader:{\r",
+                    "            type: 'json',\r",
+                    "        }\r",
+                    "    }    \r",
+                    "});\r",
                     "Ext.getCmp('GataGridPanel').bindStore(jsonStore);           "
                 ]
             },
@@ -658,10 +704,13 @@
                     "var buildingId = Ext.getCmp('buildingId').getValue();\r",
                     "var name = Ext.getCmp('name').getValue();\r",
                     "winform.show();\r",
-                    "winform.bindFields(buildingId,name,'');\r",
-                    "if(record!= ''){\r",
-                    "    //formPanel.loadRecord(record);\r",
-                    "}"
+                    "var id = '';\r",
+                    "if(record !== '')\r",
+                    "{\r",
+                    "    id = record.data.id;\r",
+                    "}\r",
+                    "winform.bindFields(buildingId,name,id);\r",
+                    ""
                 ]
             },
             "designerId": "db5395ab-6bf6-48c1-98ff-1fdff2bd7567"
