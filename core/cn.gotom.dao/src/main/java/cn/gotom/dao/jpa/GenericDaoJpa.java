@@ -73,7 +73,7 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 		}
 		catch (Exception ex)
 		{
-			log.error(ex.getMessage());
+			log.error(ex.getMessage() + " " + persistentClass.getSimpleName());
 			return null;
 		}
 	}
