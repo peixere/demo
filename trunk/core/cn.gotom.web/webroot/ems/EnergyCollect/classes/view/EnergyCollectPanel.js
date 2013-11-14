@@ -108,18 +108,6 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                         },
                                         {
                                             xtype: 'button',
-                                            id: 'btnSearch',
-                                            iconCls: 'icon-search',
-                                            text: '查询',
-                                            listeners: {
-                                                click: {
-                                                    fn: me.onBtnSearchClick,
-                                                    scope: me
-                                                }
-                                            }
-                                        },
-                                        {
-                                            xtype: 'button',
                                             id: 'btnNew',
                                             iconCls: 'icon-add',
                                             text: '新增',
@@ -138,6 +126,18 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                             listeners: {
                                                 click: {
                                                     fn: me.onBtnDelClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            id: 'btnSearch',
+                                            iconCls: 'icon-search',
+                                            text: '查询',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onBtnSearchClick,
                                                     scope: me
                                                 }
                                             }
@@ -206,8 +206,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                             items: [
                                 {
                                     xtype: 'gridpanel',
-                                    region: 'north',
-                                    height: 180,
+                                    region: 'center',
                                     id: 'GataGridPanel',
                                     autoScroll: true,
                                     collapsible: true,
@@ -237,6 +236,46 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                             xtype: 'gridcolumn',
                                             dataIndex: 'gas',
                                             text: '燃气(立方)'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'heating',
+                                            text: '集中供热量'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'cooling',
+                                            text: '集中供冷量'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'otherEnergy',
+                                            text: '其它能源'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'coal',
+                                            text: '煤'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'lpg',
+                                            text: '液化石油气'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'manufacturedGas',
+                                            text: '人工煤气'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'gasoline',
+                                            text: '汽油'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'kerosene',
+                                            text: '煤油'
                                         }
                                     ],
                                     viewConfig: {
@@ -244,20 +283,16 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                             itemclick: {
                                                 fn: me.onViewItemClick,
                                                 scope: me
+                                            },
+                                            itemdblclick: {
+                                                fn: me.onViewItemDblClick,
+                                                scope: me
                                             }
                                         }
                                     },
                                     selModel: Ext.create('Ext.selection.RowModel', {
 
                                     })
-                                },
-                                {
-                                    xtype: 'panel',
-                                    region: 'center',
-                                    id: 'chartPanel',
-                                    autoScroll: true,
-                                    collapsible: false,
-                                    title: '图形'
                                 }
                             ]
                         }
@@ -282,6 +317,14 @@ Ext.define('ems.view.EnergyCollectPanel', {
         window.location.reload();
     },
 
+    onBtnNewClick: function(button, e, eOpts) {
+        this.showWinForm('');
+    },
+
+    onBtnDelClick: function(button, e, eOpts) {
+
+    },
+
     onBtnSearchClick: function(button, e, eOpts) {
         var me = this;
         var form = Ext.getCmp('FormPanel');
@@ -295,7 +338,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                 {
                     var result = Ext.JSON.decode(action.response.responseText);
                     me.loadGridData(result.data);
-                    me.showHighcharts(result.data);
+                    //me.showHighcharts(result.data);
                 },
                 failure : function(f, action)
                 {
@@ -313,73 +356,17 @@ Ext.define('ems.view.EnergyCollectPanel', {
         }
     },
 
-    onBtnNewClick: function(button, e, eOpts) {
-        this.showWinForm('');
-    },
-
-    onBtnDelClick: function(button, e, eOpts) {
-
-    },
-
     onFormPanelAfterLayout: function(container, layout, eOpts) {
         Ext.getCmp('startDate').setValue(new Date());
         Ext.getCmp('endDate').setValue(new Date());
     },
 
     onViewItemClick: function(dataview, record, item, index, e, eOpts) {
-        this.showWinForm(record);
+
     },
 
-    showHighcharts: function(chartdata) {
-        var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
-        Ext.getCmp('chartPanel').update(html);
-        var options = {
-            chart: {
-                renderTo: 'heightchartcontainer',
-                type: 'line'
-            },
-            title: {
-                text: chartdata.title
-            },
-            subtitle: {
-                text: chartdata.subtitle
-            },		
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                    month: '%e. %b',
-                    year: '%b'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: chartdata.yAxisText
-                }
-            },	    
-            tooltip:{
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y;
-                }
-            },    
-            series: []
-        };			   
-        var seriesList = chartdata.series;
-        $.each(seriesList, function (i, serie) {
-            options.series.push({
-                data: [],
-                name: serie.name
-            });
-            var plist = serie.data;
-            $.each(plist, function (j, p){
-                var x = new Date(p.x);
-                var year = x.getYear();
-                var month = x.getMonth();
-                var date = x.getDate();
-                options.series[i].data.push([Date.UTC(year+1900,  month, date),p.y]); 
-            });
-        });
-        new Highcharts.Chart(options);
+    onViewItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.showWinForm(record);
     },
 
     loadGridData: function(data) {
