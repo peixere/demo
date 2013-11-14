@@ -61,14 +61,6 @@
                 "classes/model/EnergyConsumptionCollectModel.js"
             ],
             "className": "EnergyConsumptionCollectModel"
-        },
-        "f352cec5-381e-4d47-a9b1-9466c8868af5": {
-            "paths": [
-                "metadata/store/MyJsonStore",
-                "classes/store/override/MyJsonStore.js",
-                "classes/store/MyJsonStore.js"
-            ],
-            "className": "MyJsonStore"
         }
     },
     "viewOrderMap": {
@@ -78,8 +70,7 @@
             "a8033e9d-5a96-461f-aa0a-79587e9bd700"
         ],
         "store": [
-            "6757a99e-9890-4c7f-8d45-0ca9304665e9",
-            "f352cec5-381e-4d47-a9b1-9466c8868af5"
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9"
         ],
         "controller": [],
         "model": [

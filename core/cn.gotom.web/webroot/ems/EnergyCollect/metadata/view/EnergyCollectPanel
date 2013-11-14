@@ -494,7 +494,7 @@
                                 "autoScroll": true,
                                 "collapsible": true,
                                 "title": "查询结果",
-                                "store": "MyJsonStore"
+                                "store": null
                             },
                             "designerId": "30d4930b-5f5d-4022-baff-8717807c72f1",
                             "cn": [
