@@ -322,7 +322,37 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     onBtnDelClick: function(button, e, eOpts) {
-
+        var me = this;
+        var id = '';
+        var wait = Ext.Msg.wait("正在删除......", "操作提示");
+        Ext.Ajax.request(
+        {
+            url : '../EnergyCollect!remove.do',
+            method : 'POST',
+            params:{  
+                id:id,
+            },  
+            success : function(response, options)
+            {
+                wait.close();
+                var result = Ext.JSON.decode(response.responseText); 
+                Ext.Msg.alert('信息提示', result.data);
+            },
+            failure : function(response, options)
+            {
+                wait.close();
+                if(response.status == 200)
+                {
+                    var result = Ext.JSON.decode(response.responseText);
+                    Ext.Msg.alert('信息提示', result.data);
+                }
+                else
+                {
+                    Ext.Msg.alert('信息提示', response.responseText);
+                }
+            }
+        });
+        this.onBtnSearchClick(button,e,eOpts);
     },
 
     onBtnSearchClick: function(button, e, eOpts) {
