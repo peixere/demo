@@ -211,7 +211,6 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                     autoScroll: true,
                                     collapsible: true,
                                     title: '查询结果',
-                                    store: 'MyJsonStore',
                                     columns: [
                                         {
                                             xtype: 'datecolumn',
