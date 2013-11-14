@@ -16,7 +16,7 @@
 		<class>zhwedo.ems.pojos.BuildingFunction</class>
 		<class>zhwedo.ems.pojos.Building</class>
 		<class>zhwedo.ems.pojos.EnergyConsumption</class>	
-		 
+		<class>zhwedo.ems.pojos.EnergyConsumptionCollect</class> 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
