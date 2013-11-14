@@ -119,7 +119,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		}
 		catch (Exception ex)
 		{
-			log.error(ex.getMessage());
+			log.error(ex.getMessage() + " " + clazz.getSimpleName());
 			return null;
 		}
 	}
