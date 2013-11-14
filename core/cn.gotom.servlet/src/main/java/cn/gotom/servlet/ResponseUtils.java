@@ -16,6 +16,9 @@ public class ResponseUtils
 	public static void toJSON(Object value)
 	{
 		log.debug(value);
+		//DateTransformer dateTransformer = new DateTransformer("yyyy-MM-dd HH:mm:ss.SSS");
+		//JSONSerializer serializer = new JSONSerializer();
+		//JSON json = serializer.transform(dateTransformer, Date.class).toJSON(value);
 		JSON json = net.sf.json.JSONSerializer.toJSON(value);
 		String encoing = ServletActionContext.getRequest().getCharacterEncoding();
 		//ServletActionContext.getResponse().setContentType("text/html;charset=" + encoing);
