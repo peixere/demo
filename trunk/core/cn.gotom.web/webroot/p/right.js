@@ -316,6 +316,7 @@ Ext.onReady(function()
 	    text : '菜单名称',
 	    sortable : false,
 	    flex : 1,
+	    width:300,
 	    menuDisabled : true
 	},
 	{
@@ -326,11 +327,13 @@ Ext.onReady(function()
 	{
 	    xtype : 'gridcolumn',
 	    dataIndex : 'component',
+	    width:300,
 	    text : '控件或连接'
 	},
 	{
 	    xtype : 'gridcolumn',
 	    dataIndex : 'resource',
+	    width:300,
 	    text : '数据资源'
 	},
 	{
