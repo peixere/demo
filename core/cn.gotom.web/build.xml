@@ -10,5 +10,8 @@
         <ant antfile="build.xml" dir="../cn.gotom.auth.client" />
         <ant antfile="build.xml" dir="../cn.gotom.servlet" />
         <ant antfile="build.xml" dir="../cn.gotom.web.action" />
+	   	<copy toDir="./webroot/WEB-INF/classes"> 
+	     	<fileset dir="./src/resources" includes="/**/*"/>
+	    </copy>	        
     </target>
 </project>
