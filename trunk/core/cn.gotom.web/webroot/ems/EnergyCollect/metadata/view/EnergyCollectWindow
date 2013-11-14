@@ -185,7 +185,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "renderer": "y-m-d",
+                        "renderer": null,
                         "id": "collectDate",
                         "padding": 2,
                         "width": null,
