@@ -289,10 +289,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                                 scope: me
                                             }
                                         }
-                                    },
-                                    selModel: Ext.create('Ext.selection.RowModel', {
-
-                                    })
+                                    }
                                 }
                             ]
                         }
@@ -323,36 +320,59 @@ Ext.define('ems.view.EnergyCollectPanel', {
 
     onBtnDelClick: function(button, e, eOpts) {
         var me = this;
-        var id = '';
-        var wait = Ext.Msg.wait("正在删除......", "操作提示");
-        Ext.Ajax.request(
+        var selected = Ext.getCmp('GataGridPanel').getSelectionModel().selected;
+        var selecteditems = selected.items; 
+        if (selecteditems.length == 0)
         {
-            url : '../EnergyCollect!remove.do',
-            method : 'POST',
-            params:{  
-                id:id,
-            },  
-            success : function(response, options)
+            Ext.Msg.show(
             {
-                wait.close();
-                var result = Ext.JSON.decode(response.responseText); 
-                Ext.Msg.alert('信息提示', result.data);
-            },
-            failure : function(response, options)
+                title : "操作提示",
+                msg : "请选择要删除的项!",
+                icon : Ext.Msg.WARNING
+            });
+            return;
+        }
+        var ids = [];
+        Ext.each(selecteditems, function()
+        {
+            var nd = this;
+            ids.push(nd.data.id);
+        });
+        Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
+        {
+            if (button == "yes")
             {
-                wait.close();
-                if(response.status == 200)
+                var wait = Ext.Msg.wait("正在删除......", "操作提示");
+                Ext.Ajax.request(
                 {
-                    var result = Ext.JSON.decode(response.responseText);
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', response.responseText);
-                }
+                    url : '../EnergyCollect!remove.do',
+                    method : 'POST',
+                    params:{  
+                        id:ids,
+                    },  
+                    success : function(response, options)
+                    {
+                        wait.close();
+                        var result = Ext.JSON.decode(response.responseText); 
+                        Ext.Msg.alert('信息提示', result.data);
+                    },
+                    failure : function(response, options)
+                    {
+                        wait.close();
+                        if(response.status == 200)
+                        {
+                            var result = Ext.JSON.decode(response.responseText);
+                            Ext.Msg.alert('信息提示', result.data);
+                        }
+                        else
+                        {
+                            Ext.Msg.alert('信息提示', response.responseText);
+                        }
+                    }
+                });
+                this.onBtnSearchClick(button,e,eOpts);
             }
         });
-        this.onBtnSearchClick(button,e,eOpts);
     },
 
     onBtnSearchClick: function(button, e, eOpts) {

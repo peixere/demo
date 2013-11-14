@@ -101,10 +101,10 @@
                         },
                         {
                             "id": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "30d4930b-5f5d-4022-baff-8717807c72f1",
+                                    "expanded": false,
                                     "cn": [
                                         {
                                             "id": "6bd6cd2f-3ff9-4117-b54c-e55fe6155a76"
@@ -153,9 +153,6 @@
                                                     "id": "69932b90-bb87-4955-8d13-d34f0c5a1455"
                                                 }
                                             ]
-                                        },
-                                        {
-                                            "id": "58b60be5-13e5-4cdc-b6a9-7e2d210687e9"
                                         }
                                     ]
                                 }
@@ -372,7 +369,7 @@
         ]
     },
     "canvasState": {
-        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+        "topInstance": null
     },
     "inspectorState": {
         "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
