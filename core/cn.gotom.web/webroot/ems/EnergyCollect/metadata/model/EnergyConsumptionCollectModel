@@ -1,0 +1,218 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "EnergyConsumptionCollectModel"
+    },
+    "designerId": "db5144d3-41c8-427e-9dd8-5bec829adafe",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "geothermal"
+            },
+            "designerId": "9c2ab616-9f01-42ad-9bf3-19be5bc2427e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "solarPV"
+            },
+            "designerId": "abd33a12-8d41-40e1-919d-398c003a7c82"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "geothermalAuxiliary"
+            },
+            "designerId": "8d249699-568a-42a3-9e29-634b7084ab5e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "solarThermal"
+            },
+            "designerId": "0e47bcc2-a088-4975-b876-0f55933d289f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "kerosene"
+            },
+            "designerId": "5eba170a-a017-4541-a469-e11db0ecd64a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "gasoline"
+            },
+            "designerId": "734fc949-2c5c-4cca-8ce0-495dc722cda3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "manufacturedGas"
+            },
+            "designerId": "5f4e9ef7-1368-4b33-8082-031e3516c441"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lpg"
+            },
+            "designerId": "9f420b93-f3fa-4cba-969e-68f6a4323d56"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "coal"
+            },
+            "designerId": "0b74f03a-8973-4636-aac4-e60e84df94d7"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "otherEnergy"
+            },
+            "designerId": "091dee46-6b91-478a-8a78-2d6c9717d0c9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cooling"
+            },
+            "designerId": "5da4b296-67d4-489f-bad1-6c640ef480e6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "heating"
+            },
+            "designerId": "452d3db1-c2aa-4644-bb6a-05bcf1408989"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "gas"
+            },
+            "designerId": "46c9b355-fa84-4d7c-b0e9-78f6a2a43c9a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "water"
+            },
+            "designerId": "d4337156-ed90-4777-9456-0756d4f81e20"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "electric"
+            },
+            "designerId": "6e9271de-59ed-4c6f-be34-be84c93914c3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "designerId": "12a443ae-8ea5-4700-aa6b-19190c0f7a71"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "collectDate"
+            },
+            "designerId": "a97d415e-3e3b-44c5-a69c-427a755df59d"
+        }
+    ]
+}

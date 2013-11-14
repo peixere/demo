@@ -7,8 +7,12 @@
     "codeClass": null,
     "userConfig": {
         "id": "EnergyCollect",
+        "models": [
+            "EnergyConsumptionCollectModel"
+        ],
         "stores": [
-            "BuildingTreeStore"
+            "BuildingTreeStore",
+            "EnergyConsumptionCollectStore"
         ],
         "views": [
             "EnergyCollectPanel",

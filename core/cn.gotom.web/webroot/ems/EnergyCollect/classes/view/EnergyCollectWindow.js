@@ -17,6 +17,10 @@ Ext.define('ems.view.EnergyCollectWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.EnergyCollectWindow',
 
+    requires: [
+        'ems.model.EnergyConsumptionCollectModel'
+    ],
+
     height: 312,
     id: 'EnergyCollectWindow',
     width: 523,
@@ -92,7 +96,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                             id: 'building.id',
                             width: 150,
                             fieldLabel: 'Label',
-                            name: 'id'
+                            name: 'buildingId'
                         },
                         {
                             xtype: 'datefield',
@@ -213,6 +217,12 @@ Ext.define('ems.view.EnergyCollectWindow', {
                             fieldLabel: '太阳能光电利用系统装机容量',
                             labelAlign: 'right',
                             name: 'solarPV'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            id: 'id',
+                            fieldLabel: 'Label',
+                            name: 'id'
                         }
                     ]
                 }
@@ -257,9 +267,41 @@ Ext.define('ems.view.EnergyCollectWindow', {
         this.close();
     },
 
-    bindFields: function(id, name) {
-        Ext.getCmp('building.id').setValue(id);
-        Ext.getCmp('building.name').setValue(name);
+    bindFields: function(buildingId, buildingName, id) {
+        var me = this;
+        var formPanel = Ext.getCmp('ecform');
+        Ext.getCmp('building.id').setValue(buildingId);
+        Ext.getCmp('building.name').setValue(buildingName);
+        var wait = Ext.Msg.wait("正在载入......", "操作提示");
+        Ext.Ajax.request(
+        {
+            url : '../EnergyCollect.do',
+            method : 'POST',
+            params:{  
+                id:id,
+                buildingId:buildingId
+            },  
+            success : function(response, options)
+            {
+                var result = Ext.JSON.decode(response.responseText);
+                var record = Ext.create('ems.model.EnergyConsumptionCollectModel');
+                record.data = result.data;
+                wait.close();
+                formPanel.loadRecord(record);   
+            },
+            failure : function(response, options)
+            {
+                if(response.status == 200)
+                {
+                    var result = Ext.JSON.decode(response.responseText);
+                    Ext.Msg.alert('信息提示', result.data);
+                }
+                else
+                {
+                    Ext.Msg.alert('信息提示', response.responseText);
+                }
+            }
+        });
     }
 
 });

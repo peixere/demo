@@ -56,9 +56,8 @@
                     "userConfig": {
                         "fn": "onBuildingTreePanelItemClick",
                         "implHandler": [
-                            "\r",
                             "Ext.getCmp('name').setValue(record.data.text);\r",
-                            "Ext.getCmp('id').setValue(record.data.id);"
+                            "Ext.getCmp('buildingId').setValue(record.data.id);"
                         ],
                         "name": "itemclick",
                         "scope": "me"
@@ -402,9 +401,9 @@
                             "userConfig": {
                                 "layout|x": 417,
                                 "layout|y": 13,
-                                "id": "id",
+                                "id": "buildingId",
                                 "fieldLabel": "Label",
-                                "name": "id"
+                                "name": "buildingId"
                             },
                             "designerId": "57e7bd34-f26c-4b0e-8237-e4e6f9cdc25b"
                         }
@@ -653,13 +652,13 @@
                 ],
                 "implHandler": [
                     "var winform = Ext.create('ems.view.EnergyCollectWindow');\r",
-                    "var id = Ext.getCmp('id').getValue();\r",
+                    "var buildingId = Ext.getCmp('buildingId').getValue();\r",
                     "var name = Ext.getCmp('name').getValue();\r",
-                    "winform.bindFields(id,name);\r",
+                    "winform.show();\r",
+                    "winform.bindFields(buildingId,name,'');\r",
                     "if(record!= ''){\r",
-                    "    formPanel.loadRecord(record);\r",
-                    "}\r",
-                    "winform.show();"
+                    "    //formPanel.loadRecord(record);\r",
+                    "}"
                 ]
             },
             "designerId": "db5395ab-6bf6-48c1-98ff-1fdff2bd7567"
