@@ -185,14 +185,14 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "renderer": null,
                         "id": "collectDate",
                         "padding": 2,
                         "width": null,
                         "fieldLabel": "采集时间",
                         "labelAlign": "right",
                         "name": "collectDate",
-                        "value": 1385827200000
+                        "value": 1385827200000,
+                        "useStrict": null
                     },
                     "designerId": "83c6df16-9024-4882-91f0-ac04c5747f13",
                     "customConfigs": [
@@ -494,6 +494,7 @@
                     "            \tvar record = Ext.create('ems.model.EnergyConsumptionCollectModel');\r",
                     "                record.data = result.data;\r",
                     "                formPanel.loadRecord(record);  \r",
+                    "                Ext.getCmp('collectDate').setValue(new Date(record.data.collectDate.time));\r",
                     "                Ext.getCmp('building.id').setValue(result.data.building.id);\r",
                     "            }\r",
                     "            else\r",

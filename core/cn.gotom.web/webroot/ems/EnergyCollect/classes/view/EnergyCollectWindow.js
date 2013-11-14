@@ -287,6 +287,7 @@ Ext.define('ems.view.EnergyCollectWindow', {
                     var record = Ext.create('ems.model.EnergyConsumptionCollectModel');
                     record.data = result.data;
                     formPanel.loadRecord(record);  
+                    Ext.getCmp('collectDate').setValue(new Date(record.data.collectDate.time));
                     Ext.getCmp('building.id').setValue(result.data.building.id);
                 }
                 else
