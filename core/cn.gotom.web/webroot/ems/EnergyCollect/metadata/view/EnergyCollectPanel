@@ -193,68 +193,6 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "layout|flex": null,
-                                        "border": null,
-                                        "id": "btnSearch",
-                                        "iconCls": "icon-search",
-                                        "text": "查询"
-                                    },
-                                    "designerId": "31c268d3-e3c8-47c8-8825-cf1b781619b6",
-                                    "cn": [
-                                        {
-                                            "type": "basiceventbinding",
-                                            "reference": {
-                                                "name": "listeners",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "fn": "onBtnSearchClick",
-                                                "implHandler": [
-                                                    "var me = this;\r",
-                                                    "var form = Ext.getCmp('FormPanel');\r",
-                                                    "if (form.isValid())\r",
-                                                    "{\r",
-                                                    "    form.submit({\r",
-                                                    "        url : '../EnergyCollect!list.do',\r",
-                                                    "        method : 'POST',\r",
-                                                    "        waitMsg : '正在生成报表，稍后...',\r",
-                                                    "        success : function(f, action)\r",
-                                                    "        {\r",
-                                                    "            var result = Ext.JSON.decode(action.response.responseText);\r",
-                                                    "            me.loadGridData(result.data);\r",
-                                                    "            me.showHighcharts(result.data);\r",
-                                                    "        },\r",
-                                                    "        failure : function(f, action)\r",
-                                                    "        {\r",
-                                                    "            if(action.response.status == 200)\r",
-                                                    "            {\r",
-                                                    "                var result = Ext.JSON.decode(action.response.responseText);\r",
-                                                    "                Ext.Msg.alert('信息提示', result.data);\r",
-                                                    "            }\r",
-                                                    "            else\r",
-                                                    "            {\r",
-                                                    "                Ext.Msg.alert('信息提示', action.response.responseText);\r",
-                                                    "            }\r",
-                                                    "        }\r",
-                                                    "    });\r",
-                                                    "}"
-                                                ],
-                                                "name": "click",
-                                                "scope": "me"
-                                            },
-                                            "designerId": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "Ext.button.Button",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "layout|flex": null,
                                         "id": "btnNew",
                                         "iconCls": "icon-add",
                                         "text": "新增"
@@ -311,6 +249,68 @@
                                                 "scope": "me"
                                             },
                                             "designerId": "336850b0-b65e-4c1a-ae3c-dcf09080eadd"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "border": null,
+                                        "id": "btnSearch",
+                                        "iconCls": "icon-search",
+                                        "text": "查询"
+                                    },
+                                    "designerId": "31c268d3-e3c8-47c8-8825-cf1b781619b6",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnSearchClick",
+                                                "implHandler": [
+                                                    "var me = this;\r",
+                                                    "var form = Ext.getCmp('FormPanel');\r",
+                                                    "if (form.isValid())\r",
+                                                    "{\r",
+                                                    "    form.submit({\r",
+                                                    "        url : '../EnergyCollect!list.do',\r",
+                                                    "        method : 'POST',\r",
+                                                    "        waitMsg : '正在生成报表，稍后...',\r",
+                                                    "        success : function(f, action)\r",
+                                                    "        {\r",
+                                                    "            var result = Ext.JSON.decode(action.response.responseText);\r",
+                                                    "            me.loadGridData(result.data);\r",
+                                                    "            //me.showHighcharts(result.data);\r",
+                                                    "        },\r",
+                                                    "        failure : function(f, action)\r",
+                                                    "        {\r",
+                                                    "            if(action.response.status == 200)\r",
+                                                    "            {\r",
+                                                    "                var result = Ext.JSON.decode(action.response.responseText);\r",
+                                                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                                                    "            }\r",
+                                                    "            else\r",
+                                                    "            {\r",
+                                                    "                Ext.Msg.alert('信息提示', action.response.responseText);\r",
+                                                    "            }\r",
+                                                    "        }\r",
+                                                    "    });\r",
+                                                    "}"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
                                         }
                                     ]
                                 }
@@ -436,8 +436,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "layout|region": "north",
-                                "height": 180,
+                                "layout|region": "center",
                                 "id": "GataGridPanel",
                                 "autoScroll": true,
                                 "collapsible": true,
@@ -510,6 +509,110 @@
                                     "designerId": "f6aa7bd8-856e-4e2c-b9aa-95e99aeed288"
                                 },
                                 {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "heating",
+                                        "text": "集中供热量"
+                                    },
+                                    "designerId": "fc12c46b-96e0-471c-904b-cb70b1c07dcf"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "cooling",
+                                        "text": "集中供冷量"
+                                    },
+                                    "designerId": "a20f5a58-8f0e-4f3b-827d-b4f8cde9e279"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "otherEnergy",
+                                        "text": "其它能源"
+                                    },
+                                    "designerId": "35fb8332-61ad-4c5f-a668-0f9d9caea2c7"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "coal",
+                                        "text": "煤"
+                                    },
+                                    "designerId": "4164f0f0-d0a2-491d-bb85-4bc3df836abd"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "lpg",
+                                        "text": "液化石油气"
+                                    },
+                                    "designerId": "07ce4b59-acf6-40f5-9f31-80aa8bce5721"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "manufacturedGas",
+                                        "text": "人工煤气"
+                                    },
+                                    "designerId": "fe1490c5-22fe-4701-bdad-a125d197be76"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "gasoline",
+                                        "text": "汽油"
+                                    },
+                                    "designerId": "5e7d74d3-ac3c-45e0-a316-80b580ab5813"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "kerosene",
+                                        "text": "煤油"
+                                    },
+                                    "designerId": "db500b2b-012b-46a2-b072-f282c0a78cc8"
+                                },
+                                {
                                     "type": "Ext.grid.View",
                                     "reference": {
                                         "name": "viewConfig",
@@ -528,12 +631,29 @@
                                             "userConfig": {
                                                 "fn": "onViewItemClick",
                                                 "implHandler": [
-                                                    "this.showWinForm(record);"
+                                                    ""
                                                 ],
                                                 "name": "itemclick",
                                                 "scope": "me"
                                             },
                                             "designerId": "d4ed74cd-d889-4058-9cc7-632290c499dc"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onViewItemDblClick",
+                                                "implHandler": [
+                                                    "this.showWinForm(record);"
+                                                ],
+                                                "name": "itemdblclick",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "69932b90-bb87-4955-8d13-d34f0c5a1455"
                                         }
                                     ]
                                 },
@@ -547,92 +667,10 @@
                                     "designerId": "58b60be5-13e5-4cdc-b6a9-7e2d210687e9"
                                 }
                             ]
-                        },
-                        {
-                            "type": "Ext.panel.Panel",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|region": "center",
-                                "id": "chartPanel",
-                                "autoScroll": true,
-                                "collapsible": false,
-                                "title": "图形"
-                            },
-                            "designerId": "96a7fa3d-b5a8-46dc-9cd2-d6269dac296a"
                         }
                     ]
                 }
             ]
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "showHighcharts",
-                "designer|params": [
-                    "chartdata"
-                ],
-                "implHandler": [
-                    "var html = '<div id=\"heightchartcontainer\" width=\"100%\" height=\"100\"></div>';\r",
-                    "Ext.getCmp('chartPanel').update(html);\r",
-                    "var options = {\r",
-                    "    chart: {\r",
-                    "        renderTo: 'heightchartcontainer',\r",
-                    "        type: 'line'\r",
-                    "    },\r",
-                    "    title: {\r",
-                    "        text: chartdata.title\r",
-                    "    },\r",
-                    "    subtitle: {\r",
-                    "        text: chartdata.subtitle\r",
-                    "    },\t\t\r",
-                    "    xAxis: {\r",
-                    "        type: 'datetime',\r",
-                    "        dateTimeLabelFormats: {\r",
-                    "            month: '%e. %b',\r",
-                    "            year: '%b'\r",
-                    "        }\r",
-                    "    },\r",
-                    "    yAxis: {\r",
-                    "        title: {\r",
-                    "            text: chartdata.yAxisText\r",
-                    "        }\r",
-                    "    },\t    \r",
-                    "    tooltip:{\r",
-                    "        formatter: function() {\r",
-                    "            return '<b>'+ this.series.name +'</b><br/>'+\r",
-                    "            Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y;\r",
-                    "        }\r",
-                    "    },    \r",
-                    "    series: []\r",
-                    "};\t\t\t   \r",
-                    "var seriesList = chartdata.series;\r",
-                    "$.each(seriesList, function (i, serie) {\r",
-                    "    options.series.push({\r",
-                    "        data: [],\r",
-                    "        name: serie.name\r",
-                    "    });\r",
-                    "    var plist = serie.data;\r",
-                    "    $.each(plist, function (j, p){\r",
-                    "        var x = new Date(p.x);\r",
-                    "        var year = x.getYear();\r",
-                    "        var month = x.getMonth();\r",
-                    "        var date = x.getDate();\r",
-                    "        options.series[i].data.push([Date.UTC(year+1900,  month, date),p.y]); \r",
-                    "    });\r",
-                    "});\r",
-                    "new Highcharts.Chart(options);"
-                ]
-            },
-            "designerId": "ed31db4a-0c5f-42eb-b4fa-61c446e69a11"
         },
         {
             "type": "basicfunction",
