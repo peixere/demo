@@ -26,7 +26,7 @@ public interface GenericService<T, PK extends Serializable> extends UniversalSer
 
 	long getCount();
 
-	void remove(PK id);
+	void removeById(PK id);
 
 	void removeAll();
 

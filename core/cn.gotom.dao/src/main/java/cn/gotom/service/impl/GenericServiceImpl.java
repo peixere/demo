@@ -54,7 +54,7 @@ public class GenericServiceImpl<T, PK extends Serializable> extends UniversalSer
 	}
 
 	@Override
-	public void remove(PK id)
+	public void removeById(PK id)
 	{
 		dao.remove(id);
 	}
