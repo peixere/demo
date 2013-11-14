@@ -358,6 +358,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                         wait.close();
                         var result = Ext.JSON.decode(response.responseText); 
                         Ext.Msg.alert('信息提示', result.data);
+                        me.onBtnSearchClick(button,e,eOpts);
                     },
                     failure : function(response, options)
                     {
@@ -373,7 +374,6 @@ Ext.define('ems.view.EnergyCollectPanel', {
                         }
                     }
                 });
-                this.onBtnSearchClick(button,e,eOpts);
             }
         });
     },
@@ -423,29 +423,6 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     loadGridData: function(data) {
-        /**
-        var json_data={'out':[
-        {"context":"Lisa", "reductions":"lisa@simpsons.com", "phone":"555-111-1224"},
-        {"context":"Bart", "reductions":"bart@simpsons.com", "phone":"555--222-1234"},
-        {"context":"Homer", "reductions":"home@simpsons.com", "phone":"555-222-1244"},
-        {"context":"Marge", "reductions":"marge@simpsons.com", "phone":"555-222-1254"}
-        ]};
-
-        var jsonStore = Ext.create('Ext.data.Store', {
-        storeId:'jsonStore',
-        fields: ['context', 'reductions','phone'],
-        data : json_data,        
-        proxy:
-        {
-        type: 'memory',
-        reader:{
-        type: 'json',
-        root: 'out'
-        }
-        }
-        });    
-        */
-
         var jsonStore = Ext.create('Ext.data.Store', {
             storeId:'jsonStore',
             model: 'ems.model.EnergyConsumptionCollectModel',
