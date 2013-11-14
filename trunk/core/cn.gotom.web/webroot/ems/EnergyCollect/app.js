@@ -20,8 +20,12 @@ Ext.Loader.setConfig({
 
 Ext.application({
     id: 'EnergyCollect',
+    models: [
+        'EnergyConsumptionCollectModel'
+    ],
     stores: [
-        'BuildingTreeStore'
+        'BuildingTreeStore',
+        'EnergyConsumptionCollectStore'
     ],
     views: [
         'EnergyCollectPanel',

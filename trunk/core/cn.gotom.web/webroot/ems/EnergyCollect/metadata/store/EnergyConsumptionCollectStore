@@ -1,0 +1,36 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "EnergyConsumptionCollectModel",
+        "storeId": "EnergyConsumptionCollectStore",
+        "designer|userClassName": "EnergyConsumptionCollectStore"
+    },
+    "designerId": "71e25399-808f-427b-8cb7-2ac2754d8791",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "designerId": "b9369d0c-6344-4412-aed4-4816e44f50da",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "1d68aedd-f84a-4618-81bb-324d1ff08143"
+                }
+            ]
+        }
+    ]
+}

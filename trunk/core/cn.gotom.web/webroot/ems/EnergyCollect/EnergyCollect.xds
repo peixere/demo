@@ -53,6 +53,22 @@
                 "classes/view/EnergyCollectWindow.js"
             ],
             "className": "EnergyCollectWindow"
+        },
+        "71e25399-808f-427b-8cb7-2ac2754d8791": {
+            "paths": [
+                "metadata/store/EnergyConsumptionCollectStore",
+                "classes/store/override/EnergyConsumptionCollectStore.js",
+                "classes/store/EnergyConsumptionCollectStore.js"
+            ],
+            "className": "EnergyConsumptionCollectStore"
+        },
+        "db5144d3-41c8-427e-9dd8-5bec829adafe": {
+            "paths": [
+                "metadata/model/EnergyConsumptionCollectModel",
+                "classes/model/override/EnergyConsumptionCollectModel.js",
+                "classes/model/EnergyConsumptionCollectModel.js"
+            ],
+            "className": "EnergyConsumptionCollectModel"
         }
     },
     "viewOrderMap": {
@@ -62,10 +78,13 @@
             "a8033e9d-5a96-461f-aa0a-79587e9bd700"
         ],
         "store": [
-            "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9",
+            "71e25399-808f-427b-8cb7-2ac2754d8791"
         ],
         "controller": [],
-        "model": [],
+        "model": [
+            "db5144d3-41c8-427e-9dd8-5bec829adafe"
+        ],
         "resource": [
             "64f665e8-4c5d-46df-b8fd-7e7878f31cdb"
         ],

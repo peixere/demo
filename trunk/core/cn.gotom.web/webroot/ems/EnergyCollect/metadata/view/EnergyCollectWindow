@@ -11,6 +11,9 @@
         "width": 523,
         "designer|userClassName": "EnergyCollectWindow",
         "designer|userAlias": "EnergyCollectWindow",
+        "requires": [
+            "ems.model.EnergyConsumptionCollectModel"
+        ],
         "resizeHandles": "n",
         "layout": "border",
         "title": "数据采集"
@@ -173,7 +176,7 @@
                         "id": "building.id",
                         "width": 150,
                         "fieldLabel": "Label",
-                        "name": "id"
+                        "name": "buildingId"
                     },
                     "designerId": "e5679219-69f5-4b73-9f02-30e2e2adce6a"
                 },
@@ -431,6 +434,20 @@
                         "name": "solarPV"
                     },
                     "designerId": "e41abcc5-10e4-4c95-94f0-c98b1d44dd0b"
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "id",
+                        "fieldLabel": "Label",
+                        "name": "id"
+                    },
+                    "designerId": "f0deafc2-9abc-4be5-b76e-d2d792f62112"
                 }
             ]
         },
@@ -444,12 +461,45 @@
             "userConfig": {
                 "fn": "bindFields",
                 "designer|params": [
-                    "id",
-                    "name"
+                    "buildingId",
+                    "buildingName",
+                    "id"
                 ],
                 "implHandler": [
-                    "Ext.getCmp('building.id').setValue(id);\r",
-                    "Ext.getCmp('building.name').setValue(name);"
+                    "var me = this;\r",
+                    "var formPanel = Ext.getCmp('ecform');\r",
+                    "Ext.getCmp('building.id').setValue(buildingId);\r",
+                    "Ext.getCmp('building.name').setValue(buildingName);\r",
+                    "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\");\r",
+                    "Ext.Ajax.request(\r",
+                    "    {\r",
+                    "        url : '../EnergyCollect.do',\r",
+                    "        method : 'POST',\r",
+                    "        params:{  \r",
+                    "            id:id,\r",
+                    "            buildingId:buildingId\r",
+                    "        },  \r",
+                    "        success : function(response, options)\r",
+                    "        {\r",
+                    "            var result = Ext.JSON.decode(response.responseText);\r",
+                    "            var record = Ext.create('ems.model.EnergyConsumptionCollectModel');\r",
+                    "            record.data = result.data;\r",
+                    "            wait.close();\r",
+                    "            formPanel.loadRecord(record);   \r",
+                    "        },\r",
+                    "        failure : function(response, options)\r",
+                    "        {\r",
+                    "            if(response.status == 200)\r",
+                    "            {\r",
+                    "                var result = Ext.JSON.decode(response.responseText);\r",
+                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    });"
                 ]
             },
             "designerId": "5834f8af-e89c-4d45-8f30-7815dda80826"

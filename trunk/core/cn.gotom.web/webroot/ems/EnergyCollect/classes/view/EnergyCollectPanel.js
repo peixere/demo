@@ -180,9 +180,9 @@ Ext.define('ems.view.EnergyCollectPanel', {
                                     xtype: 'hiddenfield',
                                     x: 417,
                                     y: 13,
-                                    id: 'id',
+                                    id: 'buildingId',
                                     fieldLabel: 'Label',
-                                    name: 'id'
+                                    name: 'buildingId'
                                 }
                             ],
                             listeners: {
@@ -254,9 +254,8 @@ Ext.define('ems.view.EnergyCollectPanel', {
     },
 
     onBuildingTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
-
         Ext.getCmp('name').setValue(record.data.text);
-        Ext.getCmp('id').setValue(record.data.id);
+        Ext.getCmp('buildingId').setValue(record.data.id);
     },
 
     onToolClick: function(tool, e, eOpts) {
@@ -395,13 +394,13 @@ Ext.define('ems.view.EnergyCollectPanel', {
 
     showWinForm: function(record) {
         var winform = Ext.create('ems.view.EnergyCollectWindow');
-        var id = Ext.getCmp('id').getValue();
+        var buildingId = Ext.getCmp('buildingId').getValue();
         var name = Ext.getCmp('name').getValue();
-        winform.bindFields(id,name);
-        if(record!= ''){
-            formPanel.loadRecord(record);
-        }
         winform.show();
+        winform.bindFields(buildingId,name,'');
+        if(record!= ''){
+            //formPanel.loadRecord(record);
+        }
     }
 
 });
