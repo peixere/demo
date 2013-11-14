@@ -86,7 +86,7 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 
 	@Transactional
 	@Override
-	public void remove(PK id)
+	public void removeById(PK id)
 	{
 		T entity = getEntityManager().find(this.persistentClass, id);
 		if (entity != null)
