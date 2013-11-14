@@ -243,6 +243,8 @@ Ext.define('ems.view.EnergyCollectWindow', {
                 {
                     Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
+                    var panel = Ext.getCmp('EnergyCollectPanel');
+                    panel.onBtnSearchClick(button,e,eOpts);            
                 },
                 failure : function(f, action)
                 {
