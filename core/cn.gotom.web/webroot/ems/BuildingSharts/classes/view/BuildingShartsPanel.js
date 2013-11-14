@@ -204,7 +204,6 @@ Ext.define('ems.view.BuildingShartsPanel', {
         var me = this;
         //var heightchartcontainer = $('#heightchartcontainer');
         var id = Ext.getCmp('id').getValue();
-        alert(id);
         //var name = Ext.getCmp('name').getValue();
         //var startDate = Ext.getCmp('startDate').getValue();
         //var endDate = Ext.getCmp('endDate').getValue();

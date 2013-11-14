@@ -214,8 +214,7 @@
                                                 "implHandler": [
                                                     "var me = this;\r",
                                                     "//var heightchartcontainer = $('#heightchartcontainer');\r",
-                                                    " var id = Ext.getCmp('id').getValue();\r",
-                                                    "alert(id);\r",
+                                                    "var id = Ext.getCmp('id').getValue();\r",
                                                     "//var name = Ext.getCmp('name').getValue();\r",
                                                     "//var startDate = Ext.getCmp('startDate').getValue();\r",
                                                     "//var endDate = Ext.getCmp('endDate').getValue();\r",
