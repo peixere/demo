@@ -11,9 +11,6 @@
         "width": 523,
         "designer|userClassName": "EnergyCollectWindow",
         "designer|userAlias": "EnergyCollectWindow",
-        "requires": [
-            "ems.model.EnergyConsumptionCollectModel"
-        ],
         "resizeHandles": "n",
         "layout": "border",
         "title": "数据采集"

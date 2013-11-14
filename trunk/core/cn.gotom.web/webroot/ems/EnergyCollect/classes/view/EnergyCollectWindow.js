@@ -17,10 +17,6 @@ Ext.define('ems.view.EnergyCollectWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.EnergyCollectWindow',
 
-    requires: [
-        'ems.model.EnergyConsumptionCollectModel'
-    ],
-
     height: 312,
     id: 'EnergyCollectWindow',
     width: 523,

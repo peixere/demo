@@ -17,6 +17,10 @@ Ext.define('ems.view.EnergyCollectPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.EnergyCollectPanel',
 
+    requires: [
+        'ems.model.EnergyConsumptionCollectModel'
+    ],
+
     id: 'EnergyCollectPanel',
     layout: {
         type: 'border'

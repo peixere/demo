@@ -9,6 +9,9 @@
         "id": "EnergyCollectPanel",
         "designer|userClassName": "EnergyCollectPanel",
         "designer|userAlias": "EnergyCollectPanel",
+        "requires": [
+            "ems.model.EnergyConsumptionCollectModel"
+        ],
         "layout": "border",
         "title": null
     },
