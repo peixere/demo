@@ -279,14 +279,25 @@ Ext.define('ems.view.EnergyCollectWindow', {
             },  
             success : function(response, options)
             {
-                var result = Ext.JSON.decode(response.responseText);
-                var record = Ext.create('ems.model.EnergyConsumptionCollectModel');
-                record.data = result.data;
                 wait.close();
-                formPanel.loadRecord(record);   
+                var result = Ext.JSON.decode(response.responseText); 
+                if(result.success)
+                {
+                    var record = Ext.create('ems.model.EnergyConsumptionCollectModel');
+                    record.data = result.data;
+                    formPanel.loadRecord(record);  
+                    Ext.getCmp('building.id').setValue(result.data.building.id);
+                }
+                else
+                {
+                    me.close();
+                    Ext.Msg.alert('信息提示', result.data);
+                }
             },
             failure : function(response, options)
             {
+                wait.close();
+                me.close();
                 if(response.status == 200)
                 {
                     var result = Ext.JSON.decode(response.responseText);
