@@ -73,7 +73,7 @@ public class RightAction
 			{
 				if (rightService.findByParentId(id).size() == 0)
 				{
-					rightService.remove(id);
+					rightService.removeById(id);
 				}
 				else
 				{
