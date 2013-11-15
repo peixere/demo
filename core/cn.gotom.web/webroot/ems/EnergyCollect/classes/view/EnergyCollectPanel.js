@@ -430,7 +430,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
             {
                 type: 'memory',
                 reader:{
-                    type: 'json',
+                    type: 'json'
                 }
             }    
         });
