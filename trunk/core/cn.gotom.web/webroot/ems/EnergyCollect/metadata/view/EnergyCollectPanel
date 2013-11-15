@@ -746,7 +746,7 @@
                     "    {\r",
                     "        type: 'memory',\r",
                     "        reader:{\r",
-                    "            type: 'json',\r",
+                    "            type: 'json'\r",
                     "        }\r",
                     "    }    \r",
                     "});\r",
