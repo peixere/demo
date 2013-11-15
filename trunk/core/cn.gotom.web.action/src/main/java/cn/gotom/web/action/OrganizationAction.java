@@ -91,7 +91,7 @@ public class OrganizationAction
 			{
 				if (service.findByParentId(id).size() == 0)
 				{
-					service.remove(id);
+					service.removeById(id);
 				}
 				else
 				{

@@ -1,5 +1,6 @@
 package cn.gotom.web.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,11 +9,13 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
+import cn.gotom.service.model.RightChecked;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
-import cn.gotom.vo.TreeCheckedModel;
 
 import com.google.inject.Inject;
 
@@ -29,32 +32,86 @@ public class RoleAction
 
 	private Object data;
 
+	private String rightIds;
+
 	@Inject
 	private RoleService roleService;
+
+	@Inject
+	private RightService rightService;
 
 	public String execute()
 	{
 		if (role != null && StringUtils.isNotEmpty(role.getId()))
 		{
 			role = roleService.get(role.getId());
-			if (role == null)
-			{
-				role = new Role();
-			}
+		}
+		if (role == null)
+		{
+			role = new Role();
 		}
 		return "success";
 	}
 
 	public void tree()
 	{
-		List<TreeCheckedModel> menuList = roleService.loadRightTree(role.getId());
-		ResponseUtils.toJSON(menuList);
+		try
+		{
+			execute();
+			List<RightChecked> rightList = rightService.loadCheckedTree(role.getRights());
+			for (RightChecked r : rightList)
+			{
+				r.setChecked(true);
+			}
+			this.setData(rightList);
+			ResponseUtils.toJSON(rightList);
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getMessage(), ex);
+		}
 	}
 
 	public String list()
 	{
 		List<Role> roleList = roleService.findAll();
 		this.setData(roleList);
+		return "success";
+	}
+
+	public String save()
+	{
+		List<Right> roleRights = new ArrayList<Right>();
+		if (StringUtils.isNotEmpty(rightIds))
+		{
+			String[] rightIdArray = rightIds.split(",");
+			List<Right> rightList = rightService.findAll();
+			for (Right right : rightList)
+			{
+				for (String rightId : rightIdArray)
+				{
+					if (right.getId().equals(rightId.trim()))
+					{
+						roleRights.add(right);
+						break;
+					}
+				}
+			}
+		}
+		role.setRights(roleRights);
+		roleService.save(role);
+		return "success";
+	}
+
+	public String remove()
+	{
+		String[] ids = role.getId().split(",");
+		for (String id : ids)
+		{
+			role = roleService.get(id.trim());
+			if (role != null)
+				roleService.remove(role);
+		}
 		return "success";
 	}
 
@@ -86,6 +143,16 @@ public class RoleAction
 	public void setData(Object data)
 	{
 		this.data = data;
+	}
+
+	public String getRightIds()
+	{
+		return rightIds;
+	}
+
+	public void setRightIds(String rightIds)
+	{
+		this.rightIds = rightIds;
 	}
 
 }
