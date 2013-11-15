@@ -8,11 +8,11 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
-import cn.gotom.servlet.ResponseUtils;
-import cn.gotom.vo.JsonResponse;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
@@ -25,23 +25,33 @@ public class RoleAction
 
 	private Role role;
 
+	private boolean success = true;
+
+	private Object data;
+
 	@Inject
 	private RightService rightService;
 
 	@Inject
 	private RoleService roleService;
 
-	public void execute()
+	public String execute()
 	{
-
+		if (role != null && StringUtils.isNotEmpty(role.getId()))
+		{
+			role = roleService.get(role.getId());
+			List<Right> rights = role.getRights();
+			List<Right> menuList = rightService.loadTree();
+			this.setData(menuList);
+		}
+		return "success";
 	}
 
-	public void list()
+	public String list()
 	{
 		List<Role> roleList = roleService.findAll();
-		JsonResponse json = new JsonResponse();
-		json.setData(roleList);
-		ResponseUtils.toJSON(json);
+		this.setData(roleList);
+		return "success";
 	}
 
 	public Role getRole()
@@ -52,6 +62,26 @@ public class RoleAction
 	public void setRole(Role role)
 	{
 		this.role = role;
+	}
+
+	public boolean isSuccess()
+	{
+		return success;
+	}
+
+	public void setSuccess(boolean success)
+	{
+		this.success = success;
+	}
+
+	public Object getData()
+	{
+		return data;
+	}
+
+	public void setData(Object data)
+	{
+		this.data = data;
 	}
 
 }
