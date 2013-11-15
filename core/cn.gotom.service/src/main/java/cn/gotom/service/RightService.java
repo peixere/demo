@@ -14,6 +14,6 @@ public interface RightService extends GenericService<Right, String>
 	List<Right> findByParentId(String parentId);
 
 	List<Right> loadTree();
-
+	
 	List<Right> loadTreeByParentId(String parentId);
 }

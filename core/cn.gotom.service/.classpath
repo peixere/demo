@@ -32,5 +32,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/ezmorph-1.0.4.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-adapters-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.vo.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

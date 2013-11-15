@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.vo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

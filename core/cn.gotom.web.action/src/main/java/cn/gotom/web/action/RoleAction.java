@@ -8,11 +8,11 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
-import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
+import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.TreeCheckedModel;
 
 import com.google.inject.Inject;
 
@@ -30,9 +30,6 @@ public class RoleAction
 	private Object data;
 
 	@Inject
-	private RightService rightService;
-
-	@Inject
 	private RoleService roleService;
 
 	public String execute()
@@ -40,11 +37,18 @@ public class RoleAction
 		if (role != null && StringUtils.isNotEmpty(role.getId()))
 		{
 			role = roleService.get(role.getId());
-			List<Right> rights = role.getRights();
-			List<Right> menuList = rightService.loadTree();
-			this.setData(menuList);
+			if (role == null)
+			{
+				role = new Role();
+			}
 		}
 		return "success";
+	}
+
+	public void tree()
+	{
+		List<TreeCheckedModel> menuList = roleService.loadRightTree(role.getId());
+		ResponseUtils.toJSON(menuList);
 	}
 
 	public String list()
