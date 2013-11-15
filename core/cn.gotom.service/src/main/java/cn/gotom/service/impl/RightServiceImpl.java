@@ -100,6 +100,17 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 			{
 				log.error("", e);
 			}
+			if (checkeds != null)
+			{
+				for (Right checked : checkeds)
+				{
+					if (right.getId().equals(checked.getId()))
+					{
+						right.setChecked(true);
+						break;
+					}
+				}
+			}
 			checkedList.add(right);
 			loadCheckedTreeCallback(right, checkeds);
 		}
@@ -121,6 +132,17 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 			catch (Exception e)
 			{
 				log.error("", e);
+			}
+			if (checkeds != null)
+			{
+				for (Right checked : checkeds)
+				{
+					if (right.getId().equals(checked.getId()))
+					{
+						right.setChecked(true);
+						break;
+					}
+				}
 			}
 			checkedList.add(right);
 			loadCheckedTreeCallback(right, checkeds);
