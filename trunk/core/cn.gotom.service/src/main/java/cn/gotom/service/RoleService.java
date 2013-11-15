@@ -8,4 +8,6 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(RoleServiceImpl.class)
 public interface RoleService extends GenericService<Role, String>
 {
+
+	void saveRoleAndRights(Role role);
 }
