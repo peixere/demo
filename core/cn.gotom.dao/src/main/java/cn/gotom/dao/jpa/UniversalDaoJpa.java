@@ -239,4 +239,19 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		query.unwrap(org.hibernate.SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 		return query.getResultList();
 	}
+
+	@Override
+	public <T> List<T> findByIds(Class<T> clazz, Serializable[] ids)
+	{
+		List<T> list = new ArrayList<T>();
+		for (Serializable id : ids)
+		{
+			T e = this.get(clazz, id);
+			if (e != null)
+			{
+				list.add(e);
+			}
+		}
+		return list;
+	}
 }
