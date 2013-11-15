@@ -99,4 +99,10 @@ public class UniversalServiceImpl implements UniversalService
 	{
 		return dao.executeUpdate(sql);
 	}
+
+	@Override
+	public <T> List<T> findByIds(Class<T> clazz, Serializable[] ids)
+	{
+		return dao.findByIds(clazz,ids);
+	}
 }

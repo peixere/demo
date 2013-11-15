@@ -19,6 +19,8 @@ public interface UniversalService
 
 	boolean exist(Class<?> clazz, Serializable id);
 
+	<T> List<T> findByIds(Class<T> clazz, Serializable[] ids);
+
 	<T> List<T> find(Class<T> clazz, int maxResults, int firstResult);
 
 	<T> List<T> findAll(Class<T> clazz);
