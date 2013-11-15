@@ -350,7 +350,7 @@ Ext.define('ems.view.EnergyCollectPanel', {
                     url : '../EnergyCollect!remove.do',
                     method : 'POST',
                     params:{  
-                        id:ids,
+                        id:ids
                     },  
                     success : function(response, options)
                     {
