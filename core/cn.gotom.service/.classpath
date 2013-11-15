@@ -33,5 +33,8 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-adapters-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-logging-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.vo.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar" sourcepath="F:/m2/repository/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
