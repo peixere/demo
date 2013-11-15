@@ -1,6 +1,5 @@
 package cn.gotom.service;
 
-
 import java.util.List;
 
 import cn.gotom.pojos.Right;
@@ -15,7 +14,7 @@ public interface RightService extends GenericService<Right, String>
 	List<Right> findByParentId(String parentId);
 
 	List<Right> loadTree();
-	
+
 	List<Right> loadTreeByParentId(String parentId);
 
 	List<RightChecked> loadCheckedTree(List<Right> rights);

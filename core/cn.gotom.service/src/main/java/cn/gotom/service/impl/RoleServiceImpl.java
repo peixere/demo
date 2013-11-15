@@ -10,4 +10,11 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	{
 		super(Role.class);
 	}
+
+	@Override
+	public void saveRoleAndRights(Role role)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
