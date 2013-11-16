@@ -6,10 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "RoleView",
+        "id": "UserView",
+        "designer|userClassName": "UserView",
+        "designer|userAlias": "UserView",
         "layout": "border"
     },
-    "designerId": "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9",
+    "designerId": "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
     "cn": [
         {
             "type": "linkedinstance",
@@ -21,8 +23,8 @@
             "userConfig": {
                 "layout|region": "center"
             },
-            "designerId": "b9f3ee43-b6cd-4d1f-9937-621ce6972b1c",
-            "masterInstanceId": "184faed7-af51-4017-bfa9-4850c8a4ddb7"
+            "designerId": "98be9111-5966-4e64-916f-424aee846805",
+            "masterInstanceId": "298abba3-7f63-41ab-a4cf-57724f883002"
         }
     ]
 }
