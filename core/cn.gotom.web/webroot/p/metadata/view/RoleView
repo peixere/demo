@@ -1,0 +1,28 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "RoleView",
+        "layout": "border"
+    },
+    "designerId": "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "8ad14c2b-d306-4ced-92ae-1ad358746e33",
+            "masterInstanceId": "184faed7-af51-4017-bfa9-4850c8a4ddb7"
+        }
+    ]
+}

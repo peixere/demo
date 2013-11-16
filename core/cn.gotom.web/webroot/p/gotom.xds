@@ -15,12 +15,6 @@
     "upgradeVersion": 210000000503,
     "framework": "ext42",
     "topInstanceFileMap": {
-        "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2": {
-            "paths": [
-                "metadata/resource/Library"
-            ],
-            "className": "Library"
-        },
         "24627296-f776-4b9b-8ff9-a32f299758f7": {
             "paths": [
                 "metadata/store/OrganizationTreeStore",
@@ -85,10 +79,34 @@
                 "classes/view/OrganizationWinForm.js"
             ],
             "className": "OrganizationWinForm"
+        },
+        "184faed7-af51-4017-bfa9-4850c8a4ddb7": {
+            "paths": [
+                "metadata/view/RolePanel",
+                "classes/view/override/RolePanel.js",
+                "classes/view/RolePanel.js"
+            ],
+            "className": "RolePanel"
+        },
+        "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9": {
+            "paths": [
+                "metadata/view/RoleView",
+                "classes/view/override/RoleView.js",
+                "classes/view/RoleView.js"
+            ],
+            "className": "RoleView"
+        },
+        "25240bf5-9608-4384-b28c-a04aef16f309": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
         }
     },
     "viewOrderMap": {
         "view": [
+            "184faed7-af51-4017-bfa9-4850c8a4ddb7",
+            "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9",
             "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
             "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
             "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
@@ -104,7 +122,7 @@
             "b8c562b6-aeba-48c3-86ff-2b4509c6d545"
         ],
         "resource": [
-            "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2"
+            "25240bf5-9608-4384-b28c-a04aef16f309"
         ],
         "app": [
             "application"

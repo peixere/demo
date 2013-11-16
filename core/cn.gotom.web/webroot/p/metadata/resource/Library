@@ -6,7 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Library"
+        "designer|userClassName": "Library",
+        "basePath": "http://localhost:8080/ext/ext4.2.1/"
     },
-    "designerId": "cbf8be51-a8d6-4a10-9e0c-bb82efdce3e2"
+    "designerId": "25240bf5-9608-4384-b28c-a04aef16f309"
 }
