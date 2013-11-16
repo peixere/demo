@@ -260,7 +260,7 @@ Ext.define('Gotom.view.UserPanel', {
                 var result = Ext.JSON.decode(response.responseText); 
                 if(result.success)
                 {
-                    me.bindRoleGrid(result.data);
+                    me.bindGrid(result.data);
                 }
                 else
                 {
@@ -285,8 +285,8 @@ Ext.define('Gotom.view.UserPanel', {
 
     bindGrid: function(data) {
         var me = this;
-        var roleStore = Ext.create('Ext.data.Store', {
-            storeId:'roleStore',
+        var UserStore = Ext.create('Ext.data.Store', {
+            storeId:'UserStore',
             fields: [
             {
                 name: 'id'
@@ -307,27 +307,27 @@ Ext.define('Gotom.view.UserPanel', {
                 }
             }
         });
-        Ext.getCmp('RoleGridPanel').bindStore(roleStore); 
+        Ext.getCmp('UserGridPanel').bindStore(UserStore); 
     },
 
-    loadFormData: function(roleId) {
+    loadFormData: function(id) {
         var me = this;
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
             url : 'Role.do',
             method : 'POST',
-            params:{'role.id':roleId},  
+            params:{'role.id':id},  
             success : function(response, options)
             {
                 wait.close();
                 var result = Ext.JSON.decode(response.responseText); 
                 if(result.success)
                 {
-                    me.bindRightTree(result.role.id);
-                    Ext.getCmp('role.id').setValue(result.role.id);
-                    Ext.getCmp('role.name').setValue(result.role.name);                
-                    Ext.getCmp('role.sort').setValue(result.role.sort);  
+                    me.bindRoleTree(result.role.id);
+                    Ext.getCmp('user.id').setValue(result.role.id);
+                    Ext.getCmp('user.name').setValue(result.role.name);                
+                    Ext.getCmp('user.username').setValue(result.role.sort);  
                 }
                 else
                 {
@@ -356,7 +356,7 @@ Ext.define('Gotom.view.UserPanel', {
             {
                 defaultRootId : userId,
                 clearOnLoad : true,
-                nodeParam : 'user.id',
+                nodeParam : 'role.id',
                 fields: [
                 {
                     name: 'id'
@@ -390,7 +390,7 @@ Ext.define('Gotom.view.UserPanel', {
         var tree = Ext.create('Ext.tree.Panel',
             {
                 region: 'center',
-                id: 'UserTreePanel',
+                id: 'RoleTreePanel',
                 title: '角色可访问资源',
                 animate : true,
                 border : false,
@@ -451,8 +451,8 @@ Ext.define('Gotom.view.UserPanel', {
                 }]
             });
         tree.expandAll();
-        Ext.getCmp('UsesrCenterPanel').remove(1);
-        Ext.getCmp('UsesrCenterPanel').add(tree);
+        Ext.getCmp('UserCenterPanel').remove(1);
+        Ext.getCmp('UserCenterPanel').add(tree);
 
     },
 

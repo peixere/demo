@@ -435,7 +435,7 @@
                     "        var result = Ext.JSON.decode(response.responseText); \r",
                     "        if(result.success)\r",
                     "        {\r",
-                    "            me.bindRoleGrid(result.data);\r",
+                    "            me.bindGrid(result.data);\r",
                     "        }\r",
                     "        else\r",
                     "        {\r",
@@ -474,8 +474,8 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "var roleStore = Ext.create('Ext.data.Store', {\r",
-                    "    storeId:'roleStore',\r",
+                    "var UserStore = Ext.create('Ext.data.Store', {\r",
+                    "    storeId:'UserStore',\r",
                     "    fields: [\r",
                     "    {\r",
                     "        name: 'id'\r",
@@ -496,7 +496,7 @@
                     "        }\r",
                     "    }\r",
                     "});\r",
-                    "Ext.getCmp('RoleGridPanel').bindStore(roleStore); "
+                    "Ext.getCmp('UserGridPanel').bindStore(UserStore); "
                 ]
             },
             "designerId": "ae70c0c8-1886-4ee2-bdda-5fc185f18f06"
@@ -511,7 +511,7 @@
             "userConfig": {
                 "fn": "loadFormData",
                 "designer|params": [
-                    "roleId"
+                    "id"
                 ],
                 "implHandler": [
                     "var me = this;\r",
@@ -520,17 +520,17 @@
                     "{\r",
                     "    url : 'Role.do',\r",
                     "    method : 'POST',\r",
-                    "    params:{'role.id':roleId},  \r",
+                    "    params:{'role.id':id},  \r",
                     "    success : function(response, options)\r",
                     "    {\r",
                     "        wait.close();\r",
                     "        var result = Ext.JSON.decode(response.responseText); \r",
                     "        if(result.success)\r",
                     "        {\r",
-                    "            me.bindRightTree(result.role.id);\r",
-                    "            Ext.getCmp('role.id').setValue(result.role.id);\r",
-                    "            Ext.getCmp('role.name').setValue(result.role.name);                \r",
-                    "            Ext.getCmp('role.sort').setValue(result.role.sort);  \r",
+                    "            me.bindRoleTree(result.role.id);\r",
+                    "            Ext.getCmp('user.id').setValue(result.role.id);\r",
+                    "            Ext.getCmp('user.name').setValue(result.role.name);                \r",
+                    "            Ext.getCmp('user.username').setValue(result.role.sort);  \r",
                     "        }\r",
                     "        else\r",
                     "        {\r",
@@ -573,7 +573,7 @@
                     "    {\r",
                     "        defaultRootId : userId,\r",
                     "        clearOnLoad : true,\r",
-                    "        nodeParam : 'user.id',\r",
+                    "        nodeParam : 'role.id',\r",
                     "        fields: [\r",
                     "        {\r",
                     "            name: 'id'\r",
@@ -607,7 +607,7 @@
                     "var tree = Ext.create('Ext.tree.Panel',\r",
                     "    {\r",
                     "        region: 'center',\r",
-                    "        id: 'UserTreePanel',\r",
+                    "        id: 'RoleTreePanel',\r",
                     "        title: '角色可访问资源',\r",
                     "        animate : true,\r",
                     "        border : false,\r",
@@ -668,8 +668,8 @@
                     "        }]\r",
                     "    });\r",
                     "tree.expandAll();\r",
-                    "Ext.getCmp('UsesrCenterPanel').remove(1);\r",
-                    "Ext.getCmp('UsesrCenterPanel').add(tree);\r",
+                    "Ext.getCmp('UserCenterPanel').remove(1);\r",
+                    "Ext.getCmp('UserCenterPanel').add(tree);\r",
                     ""
                 ]
             },
