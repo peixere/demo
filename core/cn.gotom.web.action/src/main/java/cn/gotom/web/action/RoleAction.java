@@ -46,7 +46,7 @@ public class RoleAction
 		{
 			role = roleService.get(role.getId());
 		}
-		if (role == null)
+		else
 		{
 			role = new Role();
 		}
