@@ -349,6 +349,7 @@ Ext.define('Gotom.view.RolePanel', {
     },
 
     bindRightTree: function(roleId) {
+        var me = this;
         var myStore = Ext.create("Ext.data.TreeStore",
             {
                 defaultRootId : roleId,
@@ -407,6 +408,18 @@ Ext.define('Gotom.view.RolePanel', {
                 {
                     expanded : true
                 },
+                listeners: {
+                    itemclick: 
+                    {
+                        fn: me.onTreeItemClick,
+                        scope: me
+                    },
+                    checkchange: 
+                    {
+                        fn: me.onTreePanelCheckChange,
+                        scope: me
+                    }
+                },        
                 columns : [
                 {
                     xtype : 'treecolumn',
@@ -425,13 +438,13 @@ Ext.define('Gotom.view.RolePanel', {
                 {
                     xtype : 'gridcolumn',
                     dataIndex : 'component',
-                    width:300,
+                    width:200,
                     text : '控件或连接'
                 },
                 {
                     xtype : 'gridcolumn',
                     dataIndex : 'resource',
-                    width:300,
+                    width:200,
                     text : '数据资源'
                 }]
             });
@@ -547,6 +560,56 @@ Ext.define('Gotom.view.RolePanel', {
                 });
             }
         });
+    },
+
+    onTreeItemClick: function(dataview, record, item, index, e, eOpts) {
+        if(record.data.checked)
+        {
+            record.set('checked', false);
+            this.onTreePanelCheckChange(record,false,eOpts);
+        }
+        else
+        {
+            record.set('checked', true);
+            this.onTreePanelCheckChange(record,true,eOpts);
+        }
+    },
+
+    onTreePanelCheckChange: function(node, checked, eOpts) {
+        var me = this;
+        me.onTreeChildNodesChecked(node,checked);
+        me.onTreeParentNodeChecked(node,checked);
+    },
+
+    onTreeChildNodesChecked: function(node, checked) {
+        var me = this;
+        Ext.each(node.childNodes,function(childNode)
+        {
+            childNode.set('checked', checked);   
+            if(childNode.childNodes.length >0)
+            {
+                me.onTreeChildNodesChecked(childNode,checked);
+            }
+        });
+    },
+
+    onTreeParentNodeChecked: function(node, checked) {
+        if(node.parentNode !== null)
+        {
+            if(node.parentNode.childNodes.length >0)
+            {
+                var parentCheck = false;
+                Ext.each(node.parentNode.childNodes,function(childNode)
+                {
+                    if(childNode.data.checked)
+                    {
+                        parentCheck = true;
+                    }
+                });
+                node.parentNode.set('checked', parentCheck);
+                this.onTreeParentNodeChecked(node.parentNode,checked);
+            }
+        }
     }
 
 });
