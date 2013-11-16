@@ -61,7 +61,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            id: 'btnRef',
+                            id: 'btnRef1',
                             iconCls: 'icon-refresh',
                             text: '刷新',
                             listeners: {
@@ -73,7 +73,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnNew',
+                            id: 'btnNew1',
                             iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
@@ -85,7 +85,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnEdit',
+                            id: 'btnEdit1',
                             iconCls: 'icon-edit',
                             text: '修改',
                             listeners: {
@@ -97,7 +97,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnDel',
+                            id: 'btnDel1',
                             iconCls: 'icon-del',
                             text: '删除',
                             listeners: {
@@ -185,7 +185,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     },
                     failure : function(response, options)
                     {
-                        Ext.Msg.alert("删除提示", "删除失败"+response.responseText);
+                        Ext.Msg.alert("删除提示", "删除失败");
                     }
                 });
             }

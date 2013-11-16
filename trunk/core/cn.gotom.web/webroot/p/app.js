@@ -19,19 +19,12 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    models: [
-        'OrganizationModel'
-    ],
-    stores: [
-        'OrganizationTreeStore'
-    ],
     views: [
-        'OrganizationPanel',
-        'OrganizationCRUB',
-        'OrganizationWinForm'
+        'RoleView',
+        'RolePanel'
     ],
     appFolder: 'classes',
-    appProperty: 'gotom',
+    appProperty: 'classes',
     autoCreateViewport: true,
     name: 'Gotom'
 });

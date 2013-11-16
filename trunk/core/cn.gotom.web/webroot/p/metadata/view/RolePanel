@@ -1,0 +1,811 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "RolePanel",
+        "designer|userClassName": "RolePanel",
+        "designer|userAlias": "RolePanel",
+        "layout": "border",
+        "title": "角色管理"
+    },
+    "designerId": "184faed7-af51-4017-bfa9-4850c8a4ddb7",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "designerId": "e7044ebd-aff7-4c4a-a679-d7f4f0db431b",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnNew",
+                        "iconCls": "icon-add",
+                        "text": "新增"
+                    },
+                    "designerId": "cb6b2420-e721-4382-9075-ac41f91c43f8",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnNewClick",
+                                "implHandler": [
+                                    "this.loadFormData('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "2f577886-1fd9-4015-89f7-45d2cf44b4f4"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnEdit",
+                        "iconCls": "icon-edit",
+                        "text": "修改"
+                    },
+                    "designerId": "177a42ad-b8d3-401b-8062-14b145a6a89f",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnEditClick",
+                                "implHandler": [
+                                    "var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;\r",
+                                    "var record = selected.items[0];\r",
+                                    "if(!Ext.isEmpty(record))\r",
+                                    "{\r",
+                                    "    this.loadFormData(record.data.id);\r",
+                                    "}\r",
+                                    "else\r",
+                                    "{\r",
+                                    "    Ext.Msg.alert('操作提示','请选择要修改的列!');\r",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "c3e1800e-62c6-4339-a1b0-ad1975408daa"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnDel",
+                        "iconCls": "icon-del",
+                        "text": "删除"
+                    },
+                    "designerId": "671d2e39-2737-4fb5-816a-7a1539972e23",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnDelClick",
+                                "implHandler": [
+                                    "this.deleteRole();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "c98a4349-2ddd-4cae-b08d-07a722bcca54"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnSave1",
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "b8e1e478-092b-4f94-a041-ad43821648f1",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnSaveClick",
+                                "implHandler": [
+                                    "this.saveForm();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "e654e973-1617-49fe-bcf8-db66f7e2a659"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnRef",
+                        "iconCls": "icon-refresh",
+                        "text": "刷新"
+                    },
+                    "designerId": "817d84ca-7c42-4585-af57-b62876ff40b5",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnRefClick",
+                                "implHandler": [
+                                    "this.loadRoleGrid();\r",
+                                    "this.loadFormData('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "e2f8ced6-3f6a-4d9b-8188-8d79db5be200"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "west",
+                "id": "RoleGridPanel",
+                "width": 250,
+                "title": "角色列表"
+            },
+            "designerId": "91ffc50f-fb12-4e7a-b9b0-737ca1fc8ffe",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "RoleGridName",
+                        "width": 130,
+                        "dataIndex": "name",
+                        "text": "权限名称"
+                    },
+                    "designerId": "6ddc624a-26df-47f4-b4ee-778f28e221f5"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "RoleGridSort",
+                        "width": 94,
+                        "dataIndex": "sort",
+                        "text": "排列顺序",
+                        "format": "0,000"
+                    },
+                    "designerId": "263f6b2d-7c97-4a96-b041-feefb5f266c4"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "b2787428-7a57-4801-96d7-8f95a3a280f9",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onViewItemDblClick",
+                                "implHandler": [
+                                    "this.loadFormData(record.data.id);"
+                                ],
+                                "name": "itemdblclick",
+                                "scope": "me"
+                            },
+                            "designerId": "2ca02e62-2e6a-42af-85a5-644d3dacea2b"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.selection.CheckboxModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.CheckboxModel",
+                    "designerId": "dda8eb9d-f6fc-4208-a2fa-1c0cd59803fa"
+                },
+                {
+                    "type": "Ext.panel.Tool",
+                    "reference": {
+                        "name": "tools",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "type": "refresh"
+                    },
+                    "designerId": "64a830d9-3c6e-4df9-a567-a4530fae185c",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onToolClick",
+                                "implHandler": [
+                                    "this.loadRoleGrid();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "df4c8ee8-2535-4c49-b5c5-489ebc821277"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "CenterPanel",
+                "layout": "border",
+                "title": null
+            },
+            "designerId": "b1c1db0e-c42c-468c-a675-c7f5c537dd63",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "north",
+                        "height": 97,
+                        "id": "RoleForm",
+                        "bodyPadding": 10,
+                        "title": "编辑角色"
+                    },
+                    "designerId": "5841fa75-4e15-4bf0-b7e1-4a9c0daccab1",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": "role.id",
+                                "fieldLabel": "Label",
+                                "name": "role.id"
+                            },
+                            "designerId": "324bcbc0-31d0-434f-9ca4-d1da2f688627"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": "role.name",
+                                "fieldLabel": "权限名称",
+                                "name": "role.name",
+                                "allowBlank": false,
+                                "enforceMaxLength": false,
+                                "maxLength": 50,
+                                "minLength": 2
+                            },
+                            "designerId": "d2e4b6e3-4e59-4e48-b5ac-cdad7bc192e8"
+                        },
+                        {
+                            "type": "Ext.form.field.Number",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": "role.sort",
+                                "fieldLabel": "排列顺序",
+                                "name": "role.sort"
+                            },
+                            "designerId": "5339b663-b5bc-447e-8f33-5bf984a2b33e"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadRoleGrid",
+                "implHandler": [
+                    "var me = this;\r",
+                    "var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
+                    "Ext.Ajax.request(\r",
+                    "{\r",
+                    "    url : 'Role!list.do',\r",
+                    "    method : 'POST',\r",
+                    "    //params:{id:ids},  \r",
+                    "    success : function(response, options)\r",
+                    "    {\r",
+                    "        wait.close();\r",
+                    "        var result = Ext.JSON.decode(response.responseText); \r",
+                    "        if(result.success)\r",
+                    "        {\r",
+                    "            me.bindRoleGrid(result.data);\r",
+                    "        }\r",
+                    "        else\r",
+                    "        {\r",
+                    "            Ext.Msg.alert('信息提示', result.data);\r",
+                    "        }\r",
+                    "    },\r",
+                    "    failure : function(response, options)\r",
+                    "    {\r",
+                    "        wait.close();\r",
+                    "        if(response.status == 200)\r",
+                    "        {\r",
+                    "            var result = Ext.JSON.decode(response.responseText);\r",
+                    "            Ext.Msg.alert('信息提示', result.data);\r",
+                    "        }\r",
+                    "        else\r",
+                    "        {\r",
+                    "            Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "        }\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "d4133f26-67d7-4c23-9755-73e5eba0a1d0"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindRoleGrid",
+                "designer|params": [
+                    "data"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "var roleStore = Ext.create('Ext.data.Store', {\r",
+                    "    storeId:'roleStore',\r",
+                    "    fields: [\r",
+                    "    {\r",
+                    "        name: 'id'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        name: 'name'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        name: 'sort'\r",
+                    "    }\r",
+                    "    ],\r",
+                    "    data : data,\r",
+                    "    proxy:\r",
+                    "    {\r",
+                    "        type: 'memory',\r",
+                    "        reader:{\r",
+                    "            type: 'json'\r",
+                    "        }\r",
+                    "    }\r",
+                    "});\r",
+                    "Ext.getCmp('RoleGridPanel').bindStore(roleStore); "
+                ]
+            },
+            "designerId": "a3554f7b-6ac4-4b05-abaf-d070d320a5de"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadFormData",
+                "designer|params": [
+                    "roleId"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
+                    "Ext.Ajax.request(\r",
+                    "{\r",
+                    "    url : 'Role.do',\r",
+                    "    method : 'POST',\r",
+                    "    params:{'role.id':roleId},  \r",
+                    "    success : function(response, options)\r",
+                    "    {\r",
+                    "        wait.close();\r",
+                    "        var result = Ext.JSON.decode(response.responseText); \r",
+                    "        if(result.success)\r",
+                    "        {\r",
+                    "            me.bindRightTree(result.role.id);\r",
+                    "            Ext.getCmp('role.id').setValue(result.role.id);\r",
+                    "            Ext.getCmp('role.name').setValue(result.role.name);                \r",
+                    "            Ext.getCmp('role.sort').setValue(result.role.sort);  \r",
+                    "        }\r",
+                    "        else\r",
+                    "        {\r",
+                    "            Ext.Msg.alert('信息提示', result.data);\r",
+                    "        }\r",
+                    "    },\r",
+                    "    failure : function(response, options)\r",
+                    "    {\r",
+                    "        wait.close();\r",
+                    "        if(response.status == 200)\r",
+                    "        {\r",
+                    "            var result = Ext.JSON.decode(response.responseText);\r",
+                    "            Ext.Msg.alert('信息提示', result.data);\r",
+                    "        }\r",
+                    "        else\r",
+                    "        {\r",
+                    "            Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "        }\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "7b57b5b6-464a-4b72-bba3-7202798b9038"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindRightTree",
+                "designer|params": [
+                    "roleId"
+                ],
+                "implHandler": [
+                    "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
+                    "    {\r",
+                    "        defaultRootId : roleId,\r",
+                    "        clearOnLoad : true,\r",
+                    "        nodeParam : 'role.id',\r",
+                    "        fields: [\r",
+                    "        {\r",
+                    "            name: 'id'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'parentId'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'text'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'component'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'resource'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'iconCls'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'checked',\r",
+                    "            type: 'boolean'\r",
+                    "        }\r",
+                    "        ],\r",
+                    "        proxy :\r",
+                    "        {\r",
+                    "            type : 'ajax',\r",
+                    "            url : 'Role!tree.do'             \r",
+                    "        }                      \r",
+                    "    });\r",
+                    "var tree = Ext.create('Ext.tree.Panel',\r",
+                    "    {\r",
+                    "        region: 'center',\r",
+                    "        id: 'RightTreePanel',\r",
+                    "        title: '角色可访问资源',\r",
+                    "        animate : true,\r",
+                    "        border : false,\r",
+                    "        bodyborder : false,\r",
+                    "        lines : true,\r",
+                    "        split : true,\r",
+                    "        stateful : true,\r",
+                    "        collapsible : false,\r",
+                    "        frame : false,\r",
+                    "        enableDD : true,\r",
+                    "        autoScroll : true,\r",
+                    "        autoHeight : false,\r",
+                    "        rootVisible : false,\r",
+                    "        multiSelect : false,\r",
+                    "        store:myStore,\r",
+                    "        root :\r",
+                    "        {\r",
+                    "            expanded : true\r",
+                    "        },\r",
+                    "        columns : [\r",
+                    "        {\r",
+                    "            xtype : 'treecolumn',\r",
+                    "            dataIndex : 'text',\r",
+                    "            text : '菜单名称',\r",
+                    "            sortable : false,\r",
+                    "            flex : 1,\r",
+                    "            width:300,\r",
+                    "            menuDisabled : true\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'iconCls',\r",
+                    "            text : '使用样式'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'component',\r",
+                    "            width:300,\r",
+                    "            text : '控件或连接'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'resource',\r",
+                    "            width:300,\r",
+                    "            text : '数据资源'\r",
+                    "        }]\r",
+                    "    });\r",
+                    "tree.expandAll();\r",
+                    "Ext.getCmp('CenterPanel').remove(1);\r",
+                    "Ext.getCmp('CenterPanel').add(tree);\r",
+                    ""
+                ]
+            },
+            "designerId": "378b4c39-7905-4704-a514-dc653ba110ef"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onRolePanelAfterLayout",
+                "implHandler": [
+                    "this.loadRoleGrid();\r",
+                    "this.loadFormData('');"
+                ],
+                "single": true,
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "96e6fa76-4f1e-4a28-b8a0-2b52d30de25c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "saveForm",
+                "implHandler": [
+                    "var me = this;\r",
+                    "if (Ext.getCmp('RoleForm').isValid())\r",
+                    "{\r",
+                    "    var roleId = Ext.getCmp('role.id').getValue();\r",
+                    "    var name = Ext.getCmp('role.name').getValue();                \r",
+                    "    var sort = Ext.getCmp('role.sort').getValue();\r",
+                    "    var rightIds = [];\r",
+                    "    var tree = Ext.getCmp('RightTreePanel');\r",
+                    "    var items = tree.getSelectionModel().store.data.items;\r",
+                    "    Ext.each(items, function()\r",
+                    "    {\r",
+                    "        var nd = this;\r",
+                    "        if(nd.data.checked)\r",
+                    "        {\r",
+                    "            rightIds.push(nd.data.id);\r",
+                    "        }\r",
+                    "    });\r",
+                    "    var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
+                    "    Ext.Ajax.request(\r",
+                    "    {\r",
+                    "        url : 'Role!save.do',\r",
+                    "        method : 'POST',\r",
+                    "        params:{\r",
+                    "            'role.id':roleId,\r",
+                    "            'role.name':name,\r",
+                    "            'role.sort':sort,\r",
+                    "            'rightIds':rightIds\r",
+                    "        },  \r",
+                    "        success : function(response, options)\r",
+                    "        {\r",
+                    "            wait.close();\r",
+                    "            var result = Ext.JSON.decode(response.responseText); \r",
+                    "            if(result.success)\r",
+                    "            {\r",
+                    "                me.loadRoleGrid();\r",
+                    "                me.loadFormData('');\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                    "            }\r",
+                    "        },\r",
+                    "        failure : function(response, options)\r",
+                    "        {\r",
+                    "            wait.close();\r",
+                    "            if(response.status == 200)\r",
+                    "            {\r",
+                    "                var result = Ext.JSON.decode(response.responseText);\r",
+                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    });\r",
+                    "}"
+                ]
+            },
+            "designerId": "0c3c12bb-97e3-4685-8b18-3331b18ec751"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "deleteRole",
+                "implHandler": [
+                    "var me = this;\r",
+                    "var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;\r",
+                    "var selecteditems = selected.items;\r",
+                    "if (selecteditems.length == 0)\r",
+                    "{\r",
+                    "    Ext.Msg.show(\r",
+                    "    {\r",
+                    "        title : \"操作提示\",\r",
+                    "        msg : \"请选择要删除的节点!\",\r",
+                    "        icon : Ext.Msg.WARNING\r",
+                    "    });\r",
+                    "    return;\r",
+                    "}\r",
+                    "var ids = [];\r",
+                    "Ext.each(selecteditems, function()\r",
+                    "{\r",
+                    "    var nd = this;\r",
+                    "    ids.push(nd.data.id);\r",
+                    "});\r",
+                    "Ext.Msg.confirm(\"警告\", \"确定要删除吗？\", function(button)\r",
+                    "{\r",
+                    "    if (button == \"yes\")\r",
+                    "    {\r",
+                    "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
+                    "        Ext.Ajax.request(\r",
+                    "        {\r",
+                    "            url : 'Role!remove.do',\r",
+                    "            method : 'POST',\r",
+                    "            params :\r",
+                    "            {\r",
+                    "                'role.id' : ids.join(\",\")\r",
+                    "            },\r",
+                    "            success : function(response, options)\r",
+                    "            {\r",
+                    "                Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
+                    "                me.loadRoleGrid();\r",
+                    "                me.loadFormData('');\r",
+                    "            },\r",
+                    "            failure : function(response, options)\r",
+                    "            {\r",
+                    "                Ext.Msg.alert(\"删除提示\", \"删除失败<br/>\"+response.responseText);\r",
+                    "            }\r",
+                    "        });\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "e13440e6-beed-423d-add6-65e22e185ddf"
+        }
+    ]
+}
