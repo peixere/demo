@@ -1,0 +1,140 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 164,
+        "width": 400,
+        "designer|userClassName": "UserPassowrd",
+        "layout": "border",
+        "title": "修改密码"
+    },
+    "designerId": "76105148-6bbf-4cd5-b79f-e8c94a5a4230",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "passwordForm",
+                "bodyPadding": 10,
+                "title": null
+            },
+            "designerId": "6f7c9f56-94ee-45b2-bedb-7fb3465f9d5a",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom",
+                        "container|pack": "end",
+                        "container|padding": 3
+                    },
+                    "designerId": "07f8ed0a-d839-4cf3-803c-2c4440644c72",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-save",
+                                "text": "保存"
+                            },
+                            "designerId": "b3047e77-3807-4acc-b33f-741e487233f3"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "userid",
+                        "fieldLabel": "Label",
+                        "name": "user.id"
+                    },
+                    "designerId": "796d6f71-5617-451e-b017-9a6f85a783da"
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "username",
+                        "fieldLabel": "Label",
+                        "name": "user.username"
+                    },
+                    "designerId": "2e231f10-e28d-4ca9-8c78-c4d9fa623f9e"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "user.password",
+                        "fieldLabel": "原 密 码",
+                        "name": "user.password"
+                    },
+                    "designerId": "c02f7283-8410-4ff7-9505-b18a3104000b"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "user.newpass",
+                        "fieldLabel": "新 密 码",
+                        "name": "user.newpass"
+                    },
+                    "designerId": "3f0a7ccc-72c6-464e-912b-9af97072f013"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "id": "user.newpassCheck",
+                        "fieldLabel": "确认密码",
+                        "name": "user.newpassCheck"
+                    },
+                    "designerId": "9e1b5054-edfc-4d1f-b723-86f90d92c04f"
+                }
+            ]
+        }
+    ]
+}

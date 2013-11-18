@@ -22,7 +22,8 @@ Ext.application({
     views: [
         'RoleView',
         'UserPanel',
-        'UserView'
+        'UserView',
+        'UserPassowrd'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
