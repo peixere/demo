@@ -45,12 +45,9 @@ public class RoleAction
 		if (role != null && StringUtils.isNotEmpty(role.getId()))
 		{
 			role = roleService.get(role.getId());
-			if (role == null)
-			{
-				role = new Role();
-			}
+
 		}
-		else
+		if (role == null)
 		{
 			role = new Role();
 		}

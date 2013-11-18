@@ -1,5 +1,7 @@
 package cn.gotom.service;
 
+import java.util.List;
+
 import cn.gotom.pojos.Role;
 import cn.gotom.service.impl.RoleServiceImpl;
 
@@ -9,5 +11,5 @@ import com.google.inject.ImplementedBy;
 public interface RoleService extends GenericService<Role, String>
 {
 
-	void saveRoleAndRights(Role role);
+	List<Role> findAllAndChecked(List<Role> hasRoles);
 }
