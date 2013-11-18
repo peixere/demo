@@ -42,10 +42,9 @@ public class RoleAction
 
 	public String execute()
 	{
-		if (role != null && StringUtils.isNotEmpty(role.getId()))
+		if (role != null)
 		{
 			role = roleService.get(role.getId());
-
 		}
 		if (role == null)
 		{
