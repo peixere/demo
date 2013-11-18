@@ -134,6 +134,21 @@ public class UserAction
 
 	public String remove()
 	{
+		return settingStatus(Status.Delete);
+	}
+	
+	public String banned()
+	{
+		return settingStatus(Status.Banned);
+	}
+	
+	public String normal()
+	{
+		return settingStatus(Status.Normal);
+	}
+
+	private String settingStatus(Status status)
+	{
 		try
 		{
 			String[] ids = user.getId().split(",");
@@ -142,7 +157,7 @@ public class UserAction
 				User user = userService.get(id.trim());
 				if (user != null)
 				{
-					user.setStatus(Status.Delete);
+					user.setStatus(status);
 					userService.save(user);
 				}
 			}
@@ -153,7 +168,6 @@ public class UserAction
 		}
 		return "success";
 	}
-
 	private User user;
 
 	private boolean success = true;
