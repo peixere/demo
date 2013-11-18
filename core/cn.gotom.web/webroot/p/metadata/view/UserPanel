@@ -112,6 +112,74 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
+                        "id": "btnNormal",
+                        "iconCls": "icon-status-online",
+                        "text": "恢复"
+                    },
+                    "designerId": "4d8f7568-a12d-49ed-af0e-52ae06f65e5c",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnNormalClick",
+                                "implHandler": [
+                                    "this.userStatus('normal');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "4416647c-d74e-45f0-a8fb-8d5fb07231c8"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": "btnBanned",
+                        "iconCls": "icon-status-offline",
+                        "text": "挂起"
+                    },
+                    "designerId": "be189da3-41ae-45f5-a3ba-62f3221983d7",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnBannedClick",
+                                "implHandler": [
+                                    "this.userStatus('banned');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "ea2b3f86-23e8-445f-bc81-6af2d2b349db"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
                         "id": "btnDel2",
                         "iconCls": "icon-del",
                         "text": "删除"
@@ -128,7 +196,7 @@
                             "userConfig": {
                                 "fn": "onBtnDelClick",
                                 "implHandler": [
-                                    "this.deleteUser();"
+                                    "this.userStatus('remove');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -776,17 +844,20 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "deleteUser",
+                "fn": "userStatus",
+                "designer|params": [
+                    "status"
+                ],
                 "implHandler": [
                     "var me = this;\r",
-                    "var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;\r",
+                    "var selected = Ext.getCmp('UserGridPanel').getSelectionModel().selected;\r",
                     "var selecteditems = selected.items;\r",
-                    "if (selecteditems.length == 0)\r",
+                    "if (selecteditems.length === 0)\r",
                     "{\r",
                     "    Ext.Msg.show(\r",
                     "    {\r",
                     "        title : \"操作提示\",\r",
-                    "        msg : \"请选择要删除的节点!\",\r",
+                    "        msg : \"请选择节点!\",\r",
                     "        icon : Ext.Msg.WARNING\r",
                     "    });\r",
                     "    return;\r",
@@ -797,14 +868,14 @@
                     "    var nd = this;\r",
                     "    ids.push(nd.data.id);\r",
                     "});\r",
-                    "Ext.Msg.confirm(\"警告\", \"确定要删除吗？\", function(button)\r",
+                    "Ext.Msg.confirm(\"警告\", \"确定要执行吗？\", function(button)\r",
                     "{\r",
                     "    if (button == \"yes\")\r",
                     "    {\r",
                     "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
                     "        Ext.Ajax.request(\r",
                     "        {\r",
-                    "            url : 'User!remove.do',\r",
+                    "            url : 'User!'+status+'.do',\r",
                     "            method : 'POST',\r",
                     "            params :\r",
                     "            {\r",
@@ -812,13 +883,13 @@
                     "            },\r",
                     "            success : function(response, options)\r",
                     "            {\r",
-                    "                Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
-                    "                me.loadRoleGrid();\r",
+                    "                Ext.Msg.alert(\"操作提示\", \"操作成功\");\r",
+                    "                me.loadGrid();\r",
                     "                me.loadFormData('');\r",
                     "            },\r",
                     "            failure : function(response, options)\r",
                     "            {\r",
-                    "                Ext.Msg.alert(\"删除提示\", \"删除失败<br/>\"+response.responseText);\r",
+                    "                Ext.Msg.alert(\"操作提示\", \"操作失败<br/>\"+response.responseText);\r",
                     "            }\r",
                     "        });\r",
                     "    }\r",

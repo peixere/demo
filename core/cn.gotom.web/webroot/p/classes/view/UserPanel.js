@@ -58,6 +58,30 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
+                            id: 'btnNormal',
+                            iconCls: 'icon-status-online',
+                            text: '恢复',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnNormalClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            id: 'btnBanned',
+                            iconCls: 'icon-status-offline',
+                            text: '挂起',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnBannedClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
                             id: 'btnDel2',
                             iconCls: 'icon-del',
                             text: '删除',
@@ -227,8 +251,16 @@ Ext.define('Gotom.view.UserPanel', {
         }
     },
 
+    onBtnNormalClick: function(button, e, eOpts) {
+        this.userStatus('normal');
+    },
+
+    onBtnBannedClick: function(button, e, eOpts) {
+        this.userStatus('banned');
+    },
+
     onBtnDelClick: function(button, e, eOpts) {
-        this.deleteUser();
+        this.userStatus('remove');
     },
 
     onBtnSaveClick: function(button, e, eOpts) {
@@ -506,16 +538,16 @@ Ext.define('Gotom.view.UserPanel', {
         }
     },
 
-    deleteUser: function() {
+    userStatus: function(status) {
         var me = this;
-        var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;
+        var selected = Ext.getCmp('UserGridPanel').getSelectionModel().selected;
         var selecteditems = selected.items;
-        if (selecteditems.length == 0)
+        if (selecteditems.length === 0)
         {
             Ext.Msg.show(
             {
                 title : "操作提示",
-                msg : "请选择要删除的节点!",
+                msg : "请选择节点!",
                 icon : Ext.Msg.WARNING
             });
             return;
@@ -526,14 +558,14 @@ Ext.define('Gotom.view.UserPanel', {
             var nd = this;
             ids.push(nd.data.id);
         });
-        Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
+        Ext.Msg.confirm("警告", "确定要执行吗？", function(button)
         {
             if (button == "yes")
             {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : 'User!remove.do',
+                    url : 'User!'+status+'.do',
                     method : 'POST',
                     params :
                     {
@@ -541,13 +573,13 @@ Ext.define('Gotom.view.UserPanel', {
                     },
                     success : function(response, options)
                     {
-                        Ext.Msg.alert("删除提示", "删除成功");
-                        me.loadRoleGrid();
+                        Ext.Msg.alert("操作提示", "操作成功");
+                        me.loadGrid();
                         me.loadFormData('');
                     },
                     failure : function(response, options)
                     {
-                        Ext.Msg.alert("删除提示", "删除失败<br/>"+response.responseText);
+                        Ext.Msg.alert("操作提示", "操作失败<br/>"+response.responseText);
                     }
                 });
             }
