@@ -45,6 +45,10 @@ public class RoleAction
 		if (role != null && StringUtils.isNotEmpty(role.getId()))
 		{
 			role = roleService.get(role.getId());
+			if (role == null)
+			{
+				role = new Role();
+			}
 		}
 		else
 		{
@@ -59,10 +63,6 @@ public class RoleAction
 		{
 			execute();
 			List<RightChecked> rightList = rightService.loadCheckedTree(role.getRights());
-			for (RightChecked r : rightList)
-			{
-				r.setChecked(true);
-			}
 			this.setData(rightList);
 			ResponseUtils.toJSON(rightList);
 		}
@@ -105,12 +105,19 @@ public class RoleAction
 
 	public String remove()
 	{
-		String[] ids = role.getId().split(",");
-		for (String id : ids)
+		try
 		{
-			role = roleService.get(id.trim());
-			if (role != null)
-				roleService.remove(role);
+			String[] ids = role.getId().split(",");
+			for (String id : ids)
+			{
+				Role role = roleService.get(id.trim());
+				if (role != null)
+					roleService.remove(role);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
 		}
 		return "success";
 	}
