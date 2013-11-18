@@ -15,6 +15,7 @@ import cn.gotom.pojos.User;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
+import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.TreeCheckedModel;
 
@@ -39,7 +40,7 @@ public class UserAction
 
 	public String execute()
 	{
-		if (user != null && StringUtils.isNotEmpty(user.getId()))
+		if (user != null)
 		{
 			user = userService.get(user.getId());
 		}
@@ -58,6 +59,13 @@ public class UserAction
 		{
 			execute();
 			List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
+			if (User.admin.equals(user.getUsername()))
+			{
+				for (TreeCheckedModel m : roleList)
+				{
+					m.setChecked(true);
+				}
+			}
 			this.setData(roleList);
 			ResponseUtils.toJSON(roleList);
 		}
@@ -92,6 +100,15 @@ public class UserAction
 		}
 		else
 		{
+			if (old != null)
+			{
+				user.setPassword(old.getPassword());
+			}
+			else
+			{
+				PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
+				user.setPassword(passwordEncoder.encode("123456"));
+			}
 			List<Role> userRoles = new ArrayList<Role>();
 			if (StringUtils.isNotEmpty(roleIds))
 			{
@@ -173,6 +190,16 @@ public class UserAction
 	public void setData(Object data)
 	{
 		this.data = data;
+	}
+
+	public String getRoleIds()
+	{
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds)
+	{
+		this.roleIds = roleIds;
 	}
 
 }
