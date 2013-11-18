@@ -37,7 +37,7 @@ public class UserPasswordAction
 
 	public String save()
 	{
-		User old = userService.getByUsername(user.getUsername());
+		User old = userService.get(user.getId());
 		if (old != null)
 		{
 			PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
