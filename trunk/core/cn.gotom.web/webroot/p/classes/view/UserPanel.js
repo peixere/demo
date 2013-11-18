@@ -100,23 +100,26 @@ Ext.define('Gotom.view.UserPanel', {
                     xtype: 'gridpanel',
                     region: 'west',
                     id: 'UserGridPanel',
-                    width: 250,
+                    width: 300,
                     title: '角色列表',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            id: 'UserGridName',
-                            width: 130,
-                            dataIndex: 'name',
-                            text: '权限名称'
+                            dataIndex: 'username',
+                            text: '登录帐号'
                         },
                         {
-                            xtype: 'numbercolumn',
-                            id: 'UserGridSort',
-                            width: 94,
-                            dataIndex: 'sort',
-                            text: '排列顺序',
-                            format: '0,000'
+                            xtype: 'gridcolumn',
+                            width: 130,
+                            dataIndex: 'name',
+                            text: '用户名称'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            width: 44,
+                            defaultWidth: 50,
+                            dataIndex: 'status',
+                            text: '状态'
                         }
                     ],
                     viewConfig: {
@@ -156,7 +159,7 @@ Ext.define('Gotom.view.UserPanel', {
                         {
                             xtype: 'form',
                             region: 'north',
-                            height: 97,
+                            height: 98,
                             id: 'UserForm',
                             bodyPadding: 10,
                             title: '编辑角色',
@@ -169,17 +172,21 @@ Ext.define('Gotom.view.UserPanel', {
                                     name: 'user.id'
                                 },
                                 {
-                                    xtype: 'numberfield',
+                                    xtype: 'textfield',
                                     anchor: '100%',
                                     id: 'user.username',
-                                    fieldLabel: '排列顺序',
-                                    name: 'user.username'
+                                    fieldLabel: '登录帐号',
+                                    name: 'user.username',
+                                    allowBlank: false,
+                                    enforceMaxLength: true,
+                                    maxLength: 50,
+                                    minLength: 3
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     id: 'user.name',
-                                    fieldLabel: '权限名称',
+                                    fieldLabel: '用户名称',
                                     name: 'user.name',
                                     allowBlank: false,
                                     enforceMaxLength: false,
@@ -251,7 +258,7 @@ Ext.define('Gotom.view.UserPanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : 'Role!list.do',
+            url : 'User!list.do',
             method : 'POST',
             //params:{id:ids},  
             success : function(response, options)
@@ -295,7 +302,10 @@ Ext.define('Gotom.view.UserPanel', {
                 name: 'name'
             },
             {
-                name: 'sort'
+                name: 'username'
+            },
+            {
+                name: 'status'
             }
             ],
             data : data,
@@ -315,19 +325,19 @@ Ext.define('Gotom.view.UserPanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : 'Role.do',
+            url : 'User.do',
             method : 'POST',
-            params:{'role.id':id},  
+            params:{'user.id':id},  
             success : function(response, options)
             {
                 wait.close();
                 var result = Ext.JSON.decode(response.responseText); 
                 if(result.success)
                 {
-                    me.bindRoleTree(result.role.id);
-                    Ext.getCmp('user.id').setValue(result.role.id);
-                    Ext.getCmp('user.name').setValue(result.role.name);                
-                    Ext.getCmp('user.username').setValue(result.role.sort);  
+                    me.bindRoleTree(result.user.id);
+                    Ext.getCmp('user.id').setValue(result.user.id);
+                    Ext.getCmp('user.name').setValue(result.user.name);                
+                    Ext.getCmp('user.username').setValue(result.user.username);  
                 }
                 else
                 {

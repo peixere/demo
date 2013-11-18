@@ -17,7 +17,10 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	public List<Role> findAllAndChecked(List<Role> hasRoles)
 	{
 		List<Role> roles = this.findAll();
-
+		for (Role r : roles)
+		{
+			
+		}
 		return roles;
 	}
 }
