@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.gotom.pojos.Role;
 import cn.gotom.service.impl.RoleServiceImpl;
+import cn.gotom.vo.TreeCheckedModel;
 
 import com.google.inject.ImplementedBy;
 
@@ -11,5 +12,7 @@ import com.google.inject.ImplementedBy;
 public interface RoleService extends GenericService<Role, String>
 {
 
-	List<Role> findAllAndChecked(List<Role> hasRoles);
+	List<Role> findAllAndChecked(List<Role> userRoles);
+
+	List<TreeCheckedModel> findAndChecked(List<Role> userRoles);
 }

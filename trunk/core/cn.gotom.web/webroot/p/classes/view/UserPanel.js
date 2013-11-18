@@ -100,23 +100,23 @@ Ext.define('Gotom.view.UserPanel', {
                     xtype: 'gridpanel',
                     region: 'west',
                     id: 'UserGridPanel',
-                    width: 300,
-                    title: '角色列表',
+                    width: 326,
+                    title: '用户列表',
                     columns: [
                         {
                             xtype: 'gridcolumn',
+                            sortable: false,
                             dataIndex: 'username',
                             text: '登录帐号'
                         },
                         {
                             xtype: 'gridcolumn',
-                            width: 130,
+                            sortable: false,
                             dataIndex: 'name',
                             text: '用户名称'
                         },
                         {
                             xtype: 'gridcolumn',
-                            width: 44,
                             defaultWidth: 50,
                             dataIndex: 'status',
                             text: '状态'
@@ -162,7 +162,7 @@ Ext.define('Gotom.view.UserPanel', {
                             height: 98,
                             id: 'UserForm',
                             bodyPadding: 10,
-                            title: '编辑角色',
+                            title: '编辑用户',
                             items: [
                                 {
                                     xtype: 'hiddenfield',

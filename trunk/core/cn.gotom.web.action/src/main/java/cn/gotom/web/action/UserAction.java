@@ -14,7 +14,9 @@ import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
+import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.TreeCheckedModel;
 
 import com.google.inject.Inject;
 
@@ -45,10 +47,24 @@ public class UserAction
 		{
 			user = new User();
 		}
-		List<Role> hasRoles = user.getRoles();
-		List<Role> roleList = roleService.findAllAndChecked(hasRoles);
+		List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
 		this.setData(roleList);
 		return "success";
+	}
+
+	public void tree()
+	{
+		try
+		{
+			execute();
+			List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
+			this.setData(roleList);
+			ResponseUtils.toJSON(roleList);
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getMessage(), ex);
+		}
 	}
 
 	public String list()
@@ -58,7 +74,7 @@ public class UserAction
 		{
 			if (u.getUsername().equals(User.admin))
 			{
-				//list.remove(u);
+				// list.remove(u);
 				break;
 			}
 		}
@@ -72,7 +88,7 @@ public class UserAction
 		if (old != null && !old.getId().equals(user.getId()))
 		{
 			this.setSuccess(false);
-			this.setData(user.getUsername()+" 登录帐号已经被占用！");
+			this.setData(user.getUsername() + " 登录帐号已经被占用！");
 		}
 		else
 		{
