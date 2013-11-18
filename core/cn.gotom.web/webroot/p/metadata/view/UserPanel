@@ -218,8 +218,8 @@
             "userConfig": {
                 "layout|region": "west",
                 "id": "UserGridPanel",
-                "width": 300,
-                "title": "角色列表"
+                "width": 326,
+                "title": "用户列表"
             },
             "designerId": "101e8393-eba9-4ef0-9801-998dcbce9b8f",
             "cn": [
@@ -231,7 +231,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "width": null,
                         "designer|displayName": "",
+                        "sortable": false,
                         "dataIndex": "username",
                         "text": "登录帐号"
                     },
@@ -246,7 +248,8 @@
                     "codeClass": null,
                     "userConfig": {
                         "id": null,
-                        "width": 130,
+                        "width": null,
+                        "sortable": false,
                         "dataIndex": "name",
                         "text": "用户名称"
                     },
@@ -260,7 +263,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 44,
+                        "width": null,
                         "defaultWidth": 50,
                         "dataIndex": "status",
                         "text": "状态"
@@ -368,7 +371,7 @@
                         "height": 98,
                         "id": "UserForm",
                         "bodyPadding": 10,
-                        "title": "编辑角色"
+                        "title": "编辑用户"
                     },
                     "designerId": "e2705cb8-004d-4b24-ac71-ac8a21871650",
                     "cn": [
