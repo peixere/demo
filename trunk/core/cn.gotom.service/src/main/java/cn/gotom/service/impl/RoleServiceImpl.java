@@ -1,5 +1,7 @@
 package cn.gotom.service.impl;
 
+import java.util.List;
+
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Role;
 import cn.gotom.service.RoleService;
@@ -12,9 +14,10 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	}
 
 	@Override
-	public void saveRoleAndRights(Role role)
+	public List<Role> findAllAndChecked(List<Role> hasRoles)
 	{
-		// TODO Auto-generated method stub
-		
+		List<Role> roles = this.findAll();
+
+		return roles;
 	}
 }
