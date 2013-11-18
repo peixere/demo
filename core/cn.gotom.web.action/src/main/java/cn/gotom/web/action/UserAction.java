@@ -54,31 +54,48 @@ public class UserAction
 	public String list()
 	{
 		List<User> list = userService.findAll();
+		for (User u : list)
+		{
+			if (u.getUsername().equals(User.admin))
+			{
+				//list.remove(u);
+				break;
+			}
+		}
 		this.setData(list);
 		return "success";
 	}
 
 	public String save()
 	{
-		List<Role> userRoles = new ArrayList<Role>();
-		if (StringUtils.isNotEmpty(roleIds))
+		User old = userService.getByUsername(user.getUsername());
+		if (old != null && !old.getId().equals(user.getId()))
 		{
-			String[] roleIdArray = roleIds.split(",");
-			List<Role> roleList = roleService.findAll();
-			for (Role o : roleList)
+			this.setSuccess(false);
+			this.setData(user.getUsername()+" 登录帐号已经被占用！");
+		}
+		else
+		{
+			List<Role> userRoles = new ArrayList<Role>();
+			if (StringUtils.isNotEmpty(roleIds))
 			{
-				for (String roleId : roleIdArray)
+				String[] roleIdArray = roleIds.split(",");
+				List<Role> roleList = roleService.findAll();
+				for (Role o : roleList)
 				{
-					if (o.getId().equals(roleId.trim()))
+					for (String roleId : roleIdArray)
 					{
-						userRoles.add(o);
-						break;
+						if (o.getId().equals(roleId.trim()))
+						{
+							userRoles.add(o);
+							break;
+						}
 					}
 				}
 			}
+			user.setRoles(userRoles);
+			userService.save(user);
 		}
-		user.setRoles(userRoles);
-		userService.save(user);
 		return "success";
 	}
 

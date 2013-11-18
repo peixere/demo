@@ -218,7 +218,7 @@
             "userConfig": {
                 "layout|region": "west",
                 "id": "UserGridPanel",
-                "width": 250,
+                "width": 300,
                 "title": "角色列表"
             },
             "designerId": "101e8393-eba9-4ef0-9801-998dcbce9b8f",
@@ -231,28 +231,41 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "UserGridName",
-                        "width": 130,
-                        "dataIndex": "name",
-                        "text": "权限名称"
+                        "designer|displayName": "",
+                        "dataIndex": "username",
+                        "text": "登录帐号"
                     },
-                    "designerId": "c7c2d7d0-6e20-4c77-a639-8fe276b3c292"
+                    "designerId": "4e976787-d1fd-4788-971f-0482d1ff0499"
                 },
                 {
-                    "type": "Ext.grid.column.Number",
+                    "type": "Ext.grid.column.Column",
                     "reference": {
                         "name": "columns",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "id": "UserGridSort",
-                        "width": 94,
-                        "dataIndex": "sort",
-                        "text": "排列顺序",
-                        "format": "0,000"
+                        "id": null,
+                        "width": 130,
+                        "dataIndex": "name",
+                        "text": "用户名称"
                     },
-                    "designerId": "0428ba91-0136-4728-bddd-1682c5422b3e"
+                    "designerId": "c7c2d7d0-6e20-4c77-a639-8fe276b3c292"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 44,
+                        "defaultWidth": 50,
+                        "dataIndex": "status",
+                        "text": "状态"
+                    },
+                    "designerId": "7171beb8-4964-43ef-a12c-2036facf6c97"
                 },
                 {
                     "type": "Ext.grid.View",
@@ -352,7 +365,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "north",
-                        "height": 97,
+                        "height": 98,
                         "id": "UserForm",
                         "bodyPadding": 10,
                         "title": "编辑角色"
@@ -375,7 +388,7 @@
                             "designerId": "add902a0-f590-4188-b3fe-781398d476a7"
                         },
                         {
-                            "type": "Ext.form.field.Number",
+                            "type": "Ext.form.field.Text",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -384,10 +397,14 @@
                             "userConfig": {
                                 "layout|anchor": "100%",
                                 "id": "user.username",
-                                "fieldLabel": "排列顺序",
-                                "name": "user.username"
+                                "fieldLabel": "登录帐号",
+                                "name": "user.username",
+                                "allowBlank": false,
+                                "enforceMaxLength": true,
+                                "maxLength": 50,
+                                "minLength": 3
                             },
-                            "designerId": "4d67cfe7-f276-41cb-b5c3-6d7987ce179c"
+                            "designerId": "f3633fe5-1671-41b7-85c1-517e22709441"
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -399,7 +416,7 @@
                             "userConfig": {
                                 "layout|anchor": "100%",
                                 "id": "user.name",
-                                "fieldLabel": "权限名称",
+                                "fieldLabel": "用户名称",
                                 "name": "user.name",
                                 "allowBlank": false,
                                 "enforceMaxLength": false,
@@ -426,7 +443,7 @@
                     "var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
                     "Ext.Ajax.request(\r",
                     "{\r",
-                    "    url : 'Role!list.do',\r",
+                    "    url : 'User!list.do',\r",
                     "    method : 'POST',\r",
                     "    //params:{id:ids},  \r",
                     "    success : function(response, options)\r",
@@ -477,15 +494,18 @@
                     "var UserStore = Ext.create('Ext.data.Store', {\r",
                     "    storeId:'UserStore',\r",
                     "    fields: [\r",
-                    "    {\r",
-                    "        name: 'id'\r",
-                    "    },\r",
-                    "    {\r",
-                    "        name: 'name'\r",
-                    "    },\r",
-                    "    {\r",
-                    "        name: 'sort'\r",
-                    "    }\r",
+                    "        {\r",
+                    "            name: 'id'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'name'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'username'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'status'\r",
+                    "        }\r",
                     "    ],\r",
                     "    data : data,\r",
                     "    proxy:\r",
@@ -518,19 +538,19 @@
                     "var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
                     "Ext.Ajax.request(\r",
                     "{\r",
-                    "    url : 'Role.do',\r",
+                    "    url : 'User.do',\r",
                     "    method : 'POST',\r",
-                    "    params:{'role.id':id},  \r",
+                    "    params:{'user.id':id},  \r",
                     "    success : function(response, options)\r",
                     "    {\r",
                     "        wait.close();\r",
                     "        var result = Ext.JSON.decode(response.responseText); \r",
                     "        if(result.success)\r",
                     "        {\r",
-                    "            me.bindRoleTree(result.role.id);\r",
-                    "            Ext.getCmp('user.id').setValue(result.role.id);\r",
-                    "            Ext.getCmp('user.name').setValue(result.role.name);                \r",
-                    "            Ext.getCmp('user.username').setValue(result.role.sort);  \r",
+                    "            me.bindRoleTree(result.user.id);\r",
+                    "            Ext.getCmp('user.id').setValue(result.user.id);\r",
+                    "            Ext.getCmp('user.name').setValue(result.user.name);                \r",
+                    "            Ext.getCmp('user.username').setValue(result.user.username);  \r",
                     "        }\r",
                     "        else\r",
                     "        {\r",
@@ -925,12 +945,12 @@
                     "    {\r",
                     "        var parentCheck = false;\r",
                     "        Ext.each(node.parentNode.childNodes,function(childNode)\r",
-                    "                 {\r",
-                    "                     if(childNode.data.checked)\r",
-                    "                     {\r",
-                    "                         parentCheck = true;\r",
-                    "                     }\r",
-                    "                 });\r",
+                    "        {\r",
+                    "            if(childNode.data.checked)\r",
+                    "            {\r",
+                    "                parentCheck = true;\r",
+                    "            }\r",
+                    "        });\r",
                     "        node.parentNode.set('checked', parentCheck);\r",
                     "        this.onTreeParentNodeChecked(node.parentNode,checked);\r",
                     "    }\r",
