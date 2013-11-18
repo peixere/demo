@@ -117,6 +117,14 @@
                 "classes/view/UserView.js"
             ],
             "className": "UserView"
+        },
+        "76105148-6bbf-4cd5-b79f-e8c94a5a4230": {
+            "paths": [
+                "metadata/view/UserPassowrd",
+                "classes/view/override/UserPassowrd.js",
+                "classes/view/UserPassowrd.js"
+            ],
+            "className": "UserPassowrd"
         }
     },
     "viewOrderMap": {
@@ -130,7 +138,8 @@
             "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
             "8b5b629a-7c35-4103-ad47-a13ab196e213",
             "298abba3-7f63-41ab-a4cf-57724f883002",
-            "26aef431-c0c0-45ec-9ccb-4bd420a78f69"
+            "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
+            "76105148-6bbf-4cd5-b79f-e8c94a5a4230"
         ],
         "store": [
             "24627296-f776-4b9b-8ff9-a32f299758f7"
