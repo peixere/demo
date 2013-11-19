@@ -1,0 +1,31 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "YearReportView",
+        "designer|userClassName": "YearReportView",
+        "designer|userAlias": "YearReportView",
+        "designer|initialView": true,
+        "layout": "border"
+    },
+    "designerId": "8984df7f-0808-4ae8-9597-f164846211a6",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "407dc367-1152-4c16-970b-27a45ecc4886",
+            "masterInstanceId": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+        }
+    ]
+}

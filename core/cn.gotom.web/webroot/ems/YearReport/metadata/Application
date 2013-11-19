@@ -1,0 +1,26 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "YearReport",
+        "models": [
+            "YearReportDataModel"
+        ],
+        "stores": [
+            "BuildingTreeStore"
+        ],
+        "views": [
+            "YearReportPanel",
+            "YearReportView"
+        ],
+        "appFolder": "classes",
+        "appProperty": "classes",
+        "autoCreateViewport": true,
+        "name": "ems"
+    },
+    "designerId": "application"
+}
