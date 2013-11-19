@@ -15,7 +15,7 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/password", results = { @Result(name = "success", type = "json") })
-public class UserPasswordAction
+public class PasswordAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -43,6 +43,11 @@ public class UserPasswordAction
 			PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
 			old.setPassword(passwordEncoder.encode(user.getPassword()));
 			userService.save(old);
+		}
+		else
+		{
+			this.setSuccess(false);
+			this.setData("找不到此用户！");
 		}
 		return "success";
 	}
