@@ -1,0 +1,176 @@
+{
+    "expandedState": {
+        "data": true,
+        "model": false,
+        "component": true,
+        "controller": true,
+        "resource": true,
+        "8984df7f-0808-4ae8-9597-f164846211a6": {
+            "id": "8984df7f-0808-4ae8-9597-f164846211a6",
+            "expanded": false,
+            "cn": [
+                {
+                    "id": "407dc367-1152-4c16-970b-27a45ecc4886"
+                }
+            ]
+        },
+        "bcffa829-619f-4e3e-8cae-6eb69c607a5e": {
+            "id": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+            "cn": [
+                {
+                    "id": "badc1417-4791-427d-9680-ced1b69cf6bd",
+                    "expanded": false,
+                    "cn": [
+                        {
+                            "id": "071f1b78-e6e2-4cf7-bbb8-f851e951ccff"
+                        },
+                        {
+                            "id": "53b267d8-afa4-4d3b-b7ef-17849b064f4c"
+                        },
+                        {
+                            "id": "b3f2bbf9-f2ba-485d-9cbf-2ce894717b97",
+                            "cn": [
+                                {
+                                    "id": "101ec687-0395-4a02-84c6-48214cd3ff4b"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "cf165709-b3ee-4dc7-ba4a-18f6210c6eb2",
+                    "expanded": false,
+                    "cn": [
+                        {
+                            "id": "49d0d5f9-a2b6-49f6-b68a-6a86d823ee60",
+                            "expanded": false,
+                            "cn": [
+                                {
+                                    "id": "d498bc09-ce48-473d-aebf-33348b1bb928",
+                                    "expanded": false,
+                                    "cn": [
+                                        {
+                                            "id": "5215666d-2344-42ed-8d40-e94b6c20a3aa",
+                                            "cn": [
+                                                {
+                                                    "id": "edd13c11-6fa7-4273-8b30-000eed873896"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "31c268d3-e3c8-47c8-8825-cf1b781619b6",
+                                            "cn": [
+                                                {
+                                                    "id": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "231dd8b0-07f6-4720-8a39-36c29e574f4a"
+                                },
+                                {
+                                    "id": "4d74e755-54af-4704-90c4-e61f52664dcc"
+                                },
+                                {
+                                    "id": "800a7a55-967d-474c-b1b2-6dd98fa9751b"
+                                },
+                                {
+                                    "id": "57e7bd34-f26c-4b0e-8237-e4e6f9cdc25b"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
+                            "cn": [
+                                {
+                                    "id": "78109ca7-75d0-423c-aaa9-cce9d93dd89d",
+                                    "expanded": false,
+                                    "cn": [
+                                        {
+                                            "id": "f0cf7f74-635a-4e31-be13-a1b74a67490a"
+                                        },
+                                        {
+                                            "id": "64c4de69-64ad-4a92-9980-7f06e8ffa766"
+                                        },
+                                        {
+                                            "id": "ac45066e-6c25-4784-8de3-144131499fb8"
+                                        },
+                                        {
+                                            "id": "12debb6a-2d71-4087-a9b1-00f1c413c626"
+                                        },
+                                        {
+                                            "id": "90810837-0b9b-4b1d-a483-4e577244cd46"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "b52acb1b-f364-413f-ab66-3a8605284441"
+                }
+            ]
+        },
+        "6757a99e-9890-4c7f-8d45-0ca9304665e9": {
+            "id": "6757a99e-9890-4c7f-8d45-0ca9304665e9",
+            "expanded": false,
+            "cn": [
+                {
+                    "id": "86871230-aeb9-4619-bf76-8905b03db6de",
+                    "expanded": false,
+                    "cn": [
+                        {
+                            "id": "84f855aa-a2a4-4473-b3f7-f66dde6ecff4"
+                        },
+                        {
+                            "id": "fbbd8500-2f45-48dc-972f-e94aaf5179a8"
+                        }
+                    ]
+                },
+                {
+                    "id": "f1223045-b859-4ca2-8ab0-26e337c81c94"
+                },
+                {
+                    "id": "61917646-84e2-41bd-b3ad-ff55e0a5a600"
+                },
+                {
+                    "id": "fa76d7f4-3eac-409b-abab-e9163c6737ab"
+                }
+            ]
+        },
+        "db5144d3-41c8-427e-9dd8-5bec829adafe": {
+            "id": "db5144d3-41c8-427e-9dd8-5bec829adafe",
+            "cn": [
+                {
+                    "id": "12a443ae-8ea5-4700-aa6b-19190c0f7a71"
+                }
+            ]
+        },
+        "64f665e8-4c5d-46df-b8fd-7e7878f31cdb": {
+            "id": "64f665e8-4c5d-46df-b8fd-7e7878f31cdb"
+        }
+    },
+    "tabState": {
+        "openTabs": [
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9",
+            "8984df7f-0808-4ae8-9597-f164846211a6",
+            "application",
+            "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+            "db5144d3-41c8-427e-9dd8-5bec829adafe"
+        ]
+    },
+    "canvasState": {
+        "topInstance": "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
+    },
+    "inspectorState": {
+        "topInstance": null,
+        "selectedInstance": null
+    },
+    "codeState": {
+        "topInstance": null
+    },
+    "editMode": "design"
+}

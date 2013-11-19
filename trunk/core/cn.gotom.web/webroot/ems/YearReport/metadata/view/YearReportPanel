@@ -1,0 +1,456 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "YearReportPanel",
+        "designer|userClassName": "YearReportPanel",
+        "designer|userAlias": "YearReportPanel",
+        "requires": [
+            "ems.model.YearReportDataModel"
+        ],
+        "layout": "border",
+        "title": null
+    },
+    "designerId": "bcffa829-619f-4e3e-8cae-6eb69c607a5e",
+    "cn": [
+        {
+            "type": "Ext.tree.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "west",
+                "layout|split": true,
+                "id": "BuildingTreePanel",
+                "maxWidth": 400,
+                "minWidth": 100,
+                "width": 150,
+                "designer|createAlias": "",
+                "collapsed": false,
+                "collapsible": true,
+                "title": "年报表查询",
+                "store": "BuildingTreeStore",
+                "rootVisible": false
+            },
+            "designerId": "badc1417-4791-427d-9680-ced1b69cf6bd",
+            "cn": [
+                {
+                    "type": "Ext.tree.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "071f1b78-e6e2-4cf7-bbb8-f851e951ccff"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onBuildingTreePanelItemClick",
+                        "implHandler": [
+                            "Ext.getCmp('name').setValue(record.data.text);\r",
+                            "Ext.getCmp('buildingId').setValue(record.data.id);"
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "designerId": "53b267d8-afa4-4d3b-b7ef-17849b064f4c"
+                },
+                {
+                    "type": "Ext.panel.Tool",
+                    "reference": {
+                        "name": "tools",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "type": "refresh"
+                    },
+                    "designerId": "b3f2bbf9-f2ba-485d-9cbf-2ce894717b97",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onToolClick",
+                                "implHandler": [
+                                    "var store = Ext.getCmp('BuildingTreePanel').getStore();\r",
+                                    "store.getRootNode().removeAll();\r",
+                                    "store.load();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "101ec687-0395-4a02-84c6-48214cd3ff4b"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "CenterPanel",
+                "layout": "border",
+                "title": null
+            },
+            "designerId": "cf165709-b3ee-4dc7-ba4a-18f6210c6eb2",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "north",
+                        "designer|snapToGrid": 10,
+                        "height": 101,
+                        "id": "FormPanel",
+                        "layout": "absolute",
+                        "bodyPadding": 10,
+                        "collapsed": false,
+                        "collapsible": true,
+                        "header": false,
+                        "title": "查询条件",
+                        "titleCollapse": false
+                    },
+                    "designerId": "49d0d5f9-a2b6-49f6-b68a-6a86d823ee60",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "top",
+                                "id": "toolbar"
+                            },
+                            "designerId": "d498bc09-ce48-473d-aebf-33348b1bb928",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "id": "btnRed",
+                                        "iconCls": "icon-refresh",
+                                        "text": "刷新"
+                                    },
+                                    "designerId": "5215666d-2344-42ed-8d40-e94b6c20a3aa",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnRedClick",
+                                                "implHandler": [
+                                                    "window.location.reload();"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "edd13c11-6fa7-4273-8b30-000eed873896"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "border": null,
+                                        "id": "btnSearch",
+                                        "iconCls": "icon-search",
+                                        "text": "查询"
+                                    },
+                                    "designerId": "31c268d3-e3c8-47c8-8825-cf1b781619b6",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnSearchClick",
+                                                "implHandler": [
+                                                    "var me = this;\r",
+                                                    "var form = Ext.getCmp('FormPanel');\r",
+                                                    "if (form.isValid())\r",
+                                                    "{\r",
+                                                    "    form.submit({\r",
+                                                    "        url : '../YearReport.do',\r",
+                                                    "        method : 'POST',\r",
+                                                    "        waitMsg : '正在生成报表，稍后...',\r",
+                                                    "        success : function(f, action)\r",
+                                                    "        {\r",
+                                                    "            var result = Ext.JSON.decode(action.response.responseText);\r",
+                                                    "            me.loadGridData(result.data);\r",
+                                                    "            //me.showHighcharts(result.data);\r",
+                                                    "        },\r",
+                                                    "        failure : function(f, action)\r",
+                                                    "        {\r",
+                                                    "            if(action.response.status == 200)\r",
+                                                    "            {\r",
+                                                    "                var result = Ext.JSON.decode(action.response.responseText);\r",
+                                                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                                                    "            }\r",
+                                                    "            else\r",
+                                                    "            {\r",
+                                                    "                Ext.Msg.alert('信息提示', action.response.responseText);\r",
+                                                    "            }\r",
+                                                    "        }\r",
+                                                    "    });\r",
+                                                    "}"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "cae5e0f2-d340-40d8-96d4-538c64b89bf3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": null,
+                                "layout|x": 10,
+                                "layout|y": 40,
+                                "id": "name",
+                                "width": 380,
+                                "fieldLabel": "建筑标识",
+                                "labelAlign": "right",
+                                "labelWidth": 80,
+                                "name": "name"
+                            },
+                            "designerId": "231dd8b0-07f6-4720-8a39-36c29e574f4a"
+                        },
+                        {
+                            "type": "Ext.form.field.Date",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": null,
+                                "layout|x": 10,
+                                "layout|y": 10,
+                                "id": "startDate",
+                                "width": 220,
+                                "fieldLabel": "查询时间",
+                                "labelAlign": "right",
+                                "labelWidth": 80,
+                                "name": "startDate",
+                                "format": "Y"
+                            },
+                            "designerId": "4d74e755-54af-4704-90c4-e61f52664dcc"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onFormPanelAfterLayout",
+                                "implHandler": [
+                                    "Ext.getCmp('startDate').setValue(new Date()); "
+                                ],
+                                "name": "afterlayout",
+                                "scope": "me"
+                            },
+                            "designerId": "800a7a55-967d-474c-b1b2-6dd98fa9751b"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 417,
+                                "layout|y": 13,
+                                "id": "buildingId",
+                                "fieldLabel": "Label",
+                                "name": "buildingId"
+                            },
+                            "designerId": "57e7bd34-f26c-4b0e-8237-e4e6f9cdc25b"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "html": null,
+                        "id": "ContentPanel",
+                        "layout": "border",
+                        "title": null
+                    },
+                    "designerId": "998fc5d0-5fbc-4617-a91f-6ad18c890e3b",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|region": "center",
+                                "title": "My Grid Panel"
+                            },
+                            "designerId": "78109ca7-75d0-423c-aaa9-cce9d93dd89d",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "string",
+                                        "text": "String"
+                                    },
+                                    "designerId": "f0cf7f74-635a-4e31-be13-a1b74a67490a"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "number",
+                                        "text": "Number"
+                                    },
+                                    "designerId": "64c4de69-64ad-4a92-9980-7f06e8ffa766"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Date",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "date",
+                                        "text": "Date"
+                                    },
+                                    "designerId": "ac45066e-6c25-4784-8de3-144131499fb8"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Boolean",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "bool",
+                                        "text": "Boolean"
+                                    },
+                                    "designerId": "12debb6a-2d71-4087-a9b1-00f1c413c626"
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "designerId": "90810837-0b9b-4b1d-a483-4e577244cd46"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadGridData",
+                "designer|params": [
+                    "data"
+                ],
+                "implHandler": [
+                    "var jsonStore = Ext.create('Ext.data.Store', {\r",
+                    "    storeId:'jsonStore',\r",
+                    "    model: 'ems.model.YearReportDataModel',\r",
+                    "    data : data,\r",
+                    "    proxy:\r",
+                    "    {\r",
+                    "        type: 'memory',\r",
+                    "        reader:{\r",
+                    "            type: 'json'\r",
+                    "        }\r",
+                    "    }    \r",
+                    "});\r",
+                    "Ext.getCmp('GataGridPanel').bindStore(jsonStore);           "
+                ]
+            },
+            "designerId": "b52acb1b-f364-413f-ab66-3a8605284441"
+        }
+    ]
+}
