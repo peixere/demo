@@ -54,10 +54,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     xtype: 'toolbar',
                     dock: 'top',
                     id: 'treeGridTBar',
-                    layout: {
-                        padding: 3,
-                        type: 'hbox'
-                    },
                     items: [
                         {
                             xtype: 'button',

@@ -21,6 +21,7 @@ Ext.define('Gotom.view.RolePanel', {
     layout: {
         type: 'border'
     },
+    header: false,
     title: '角色管理',
 
     initComponent: function() {
