@@ -55,7 +55,23 @@
                                 "iconCls": "icon-save",
                                 "text": "保存"
                             },
-                            "designerId": "b3047e77-3807-4acc-b33f-741e487233f3"
+                            "designerId": "b3047e77-3807-4acc-b33f-741e487233f3",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "442984a9-d37e-4c45-b98c-e48cd69274b3"
+                                }
+                            ]
                         }
                     ]
                 },

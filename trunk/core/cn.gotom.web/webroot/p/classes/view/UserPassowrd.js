@@ -46,7 +46,13 @@ Ext.define('Gotom.view.UserPassowrd', {
                                 {
                                     xtype: 'button',
                                     iconCls: 'icon-save',
-                                    text: '保存'
+                                    text: '保存',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -93,6 +99,10 @@ Ext.define('Gotom.view.UserPassowrd', {
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+
     }
 
 });
