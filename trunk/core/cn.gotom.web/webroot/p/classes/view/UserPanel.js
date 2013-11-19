@@ -21,6 +21,7 @@ Ext.define('Gotom.view.UserPanel', {
     layout: {
         type: 'border'
     },
+    header: false,
     title: '用户管理',
 
     initComponent: function() {

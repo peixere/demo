@@ -10,6 +10,7 @@
         "designer|userClassName": "RolePanel",
         "designer|userAlias": "RolePanel",
         "layout": "border",
+        "header": false,
         "title": "角色管理"
     },
     "designerId": "184faed7-af51-4017-bfa9-4850c8a4ddb7",

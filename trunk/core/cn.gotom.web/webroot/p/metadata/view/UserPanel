@@ -10,6 +10,7 @@
         "designer|userClassName": "UserPanel",
         "designer|userAlias": "UserPanel",
         "layout": "border",
+        "header": false,
         "title": "用户管理"
     },
     "designerId": "298abba3-7f63-41ab-a4cf-57724f883002",
