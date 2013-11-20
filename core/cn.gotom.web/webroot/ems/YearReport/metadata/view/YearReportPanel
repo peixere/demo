@@ -351,7 +351,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|region": "center",
-                                "title": "My Grid Panel"
+                                "id": "YearReportGrid",
+                                "title": "查询结果",
+                                "store": "YearReportStore"
                             },
                             "designerId": "78109ca7-75d0-423c-aaa9-cce9d93dd89d",
                             "cn": [
@@ -363,8 +365,10 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "string",
-                                        "text": "String"
+                                        "id": "ConsumptionClass",
+                                        "designer|displayName": "ConsumptionClass",
+                                        "dataIndex": "ConsumptionClass",
+                                        "text": "能源消耗量"
                                     },
                                     "designerId": "f0cf7f74-635a-4e31-be13-a1b74a67490a"
                                 },
@@ -376,36 +380,42 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "number",
-                                        "text": "Number"
+                                        "id": "JanValue",
+                                        "designer|displayName": "JanValue",
+                                        "dataIndex": "JanValue",
+                                        "text": "1月"
                                     },
-                                    "designerId": "64c4de69-64ad-4a92-9980-7f06e8ffa766"
+                                    "designerId": "048a79c2-ef17-4fa1-808f-b93d649ca276"
                                 },
                                 {
-                                    "type": "Ext.grid.column.Date",
+                                    "type": "Ext.grid.column.Number",
                                     "reference": {
                                         "name": "columns",
                                         "type": "array"
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "date",
-                                        "text": "Date"
+                                        "id": "FebValue",
+                                        "designer|displayName": "FebValue",
+                                        "dataIndex": "FebValue",
+                                        "text": "2月"
                                     },
-                                    "designerId": "ac45066e-6c25-4784-8de3-144131499fb8"
+                                    "designerId": "c89ad480-3557-4e85-baaf-50bfd00b0718"
                                 },
                                 {
-                                    "type": "Ext.grid.column.Boolean",
+                                    "type": "Ext.grid.column.Number",
                                     "reference": {
                                         "name": "columns",
                                         "type": "array"
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "bool",
-                                        "text": "Boolean"
+                                        "id": "MarValue",
+                                        "designer|displayName": "MarValue",
+                                        "dataIndex": "MarValue",
+                                        "text": "3月"
                                     },
-                                    "designerId": "12debb6a-2d71-4087-a9b1-00f1c413c626"
+                                    "designerId": "e5ba0c72-176b-4164-b215-cc109dc08a8a"
                                 },
                                 {
                                     "type": "Ext.grid.View",
@@ -415,6 +425,140 @@
                                     },
                                     "codeClass": null,
                                     "designerId": "90810837-0b9b-4b1d-a483-4e577244cd46"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "AprValue",
+                                        "designer|displayName": "AprValue",
+                                        "dataIndex": "AprValue",
+                                        "text": "4月"
+                                    },
+                                    "designerId": "500ed8e6-910e-4777-854e-fba0d13626ea"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "MayValue",
+                                        "designer|displayName": "MayValue",
+                                        "dataIndex": "MayValue",
+                                        "text": "5月"
+                                    },
+                                    "designerId": "e8e7cb74-080b-4e00-ba46-d42001dd4770"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "JuneValue",
+                                        "designer|displayName": "JuneValue",
+                                        "dataIndex": "JuneValue",
+                                        "text": "6月"
+                                    },
+                                    "designerId": "0afd9bc7-26bb-4b45-9c34-068085fe8a12"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "JulyValue",
+                                        "designer|displayName": "JulyValue",
+                                        "dataIndex": "JulyValue",
+                                        "text": "7月"
+                                    },
+                                    "designerId": "4c0d6599-e83d-44cc-a35d-13b81c3aa334"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "AugValue",
+                                        "designer|displayName": "AugValue",
+                                        "dataIndex": "AugValue",
+                                        "text": "8月"
+                                    },
+                                    "designerId": "62499d35-831e-43d3-8ed9-88bb10851ac4"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "SeptValue",
+                                        "dataIndex": "SeptValue",
+                                        "text": "9月"
+                                    },
+                                    "designerId": "35427c37-6220-4ec3-b3d3-0d03050ceb16"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "OctValue",
+                                        "designer|displayName": "OctValue",
+                                        "dataIndex": "OctValue",
+                                        "text": "10月"
+                                    },
+                                    "designerId": "53ccecee-459b-4450-9d3f-40e3489d20ec"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "NovValue",
+                                        "designer|displayName": "NovValue",
+                                        "dataIndex": "NovValue",
+                                        "text": "11月"
+                                    },
+                                    "designerId": "04293c18-e15b-41ab-90ee-21001170cfdd"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "id": "DecValue",
+                                        "designer|displayName": "DecValue",
+                                        "dataIndex": "DecValue",
+                                        "text": "12月"
+                                    },
+                                    "designerId": "cec961c3-6365-42ef-892b-13e0ebb16c76"
                                 }
                             ]
                         }

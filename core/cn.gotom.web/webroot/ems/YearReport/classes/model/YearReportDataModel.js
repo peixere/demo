@@ -18,7 +18,56 @@ Ext.define('ems.model.YearReportDataModel', {
 
     fields: [
         {
-            name: 'id'
+            name: 'ConsumptionClass',
+            type: 'string'
+        },
+        {
+            name: 'JanValue',
+            type: 'float'
+        },
+        {
+            name: 'FebValue',
+            type: 'float'
+        },
+        {
+            name: 'MarValue',
+            type: 'float'
+        },
+        {
+            name: 'AprValue',
+            type: 'float'
+        },
+        {
+            name: 'MayValue',
+            type: 'float'
+        },
+        {
+            name: 'JuneValue',
+            type: 'float'
+        },
+        {
+            name: 'JulyValue',
+            type: 'float'
+        },
+        {
+            name: 'AugValue',
+            type: 'float'
+        },
+        {
+            name: 'SeptValue',
+            type: 'float'
+        },
+        {
+            name: 'OctValue',
+            type: 'float'
+        },
+        {
+            name: 'NovValue',
+            type: 'float'
+        },
+        {
+            name: 'DecValue',
+            type: 'float'
         }
     ]
 });

@@ -172,27 +172,86 @@ Ext.define('ems.view.YearReportPanel', {
                                 {
                                     xtype: 'gridpanel',
                                     region: 'center',
-                                    title: 'My Grid Panel',
+                                    id: 'YearReportGrid',
+                                    title: '查询结果',
+                                    store: 'YearReportStore',
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'string',
-                                            text: 'String'
+                                            id: 'ConsumptionClass',
+                                            dataIndex: 'ConsumptionClass',
+                                            text: '能源消耗量'
                                         },
                                         {
                                             xtype: 'numbercolumn',
-                                            dataIndex: 'number',
-                                            text: 'Number'
+                                            id: 'JanValue',
+                                            dataIndex: 'JanValue',
+                                            text: '1月'
                                         },
                                         {
-                                            xtype: 'datecolumn',
-                                            dataIndex: 'date',
-                                            text: 'Date'
+                                            xtype: 'numbercolumn',
+                                            id: 'FebValue',
+                                            dataIndex: 'FebValue',
+                                            text: '2月'
                                         },
                                         {
-                                            xtype: 'booleancolumn',
-                                            dataIndex: 'bool',
-                                            text: 'Boolean'
+                                            xtype: 'numbercolumn',
+                                            id: 'MarValue',
+                                            dataIndex: 'MarValue',
+                                            text: '3月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'AprValue',
+                                            dataIndex: 'AprValue',
+                                            text: '4月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'MayValue',
+                                            dataIndex: 'MayValue',
+                                            text: '5月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'JuneValue',
+                                            dataIndex: 'JuneValue',
+                                            text: '6月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'JulyValue',
+                                            dataIndex: 'JulyValue',
+                                            text: '7月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'AugValue',
+                                            dataIndex: 'AugValue',
+                                            text: '8月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'SeptValue',
+                                            text: '9月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'OctValue',
+                                            dataIndex: 'OctValue',
+                                            text: '10月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'NovValue',
+                                            dataIndex: 'NovValue',
+                                            text: '11月'
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            id: 'DecValue',
+                                            dataIndex: 'DecValue',
+                                            text: '12月'
                                         }
                                     ]
                                 }

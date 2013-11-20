@@ -11,7 +11,8 @@
             "YearReportDataModel"
         ],
         "stores": [
-            "BuildingTreeStore"
+            "BuildingTreeStore",
+            "YearReportStore"
         ],
         "views": [
             "YearReportPanel",

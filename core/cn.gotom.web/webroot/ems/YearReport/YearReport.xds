@@ -53,6 +53,14 @@
                 "classes/model/YearReportDataModel.js"
             ],
             "className": "YearReportDataModel"
+        },
+        "7d705ee1-21c6-4895-abd9-8ca545dad709": {
+            "paths": [
+                "metadata/store/YearReportStore",
+                "classes/store/override/YearReportStore.js",
+                "classes/store/YearReportStore.js"
+            ],
+            "className": "YearReportStore"
         }
     },
     "viewOrderMap": {
@@ -61,7 +69,8 @@
             "bcffa829-619f-4e3e-8cae-6eb69c607a5e"
         ],
         "store": [
-            "6757a99e-9890-4c7f-8d45-0ca9304665e9"
+            "6757a99e-9890-4c7f-8d45-0ca9304665e9",
+            "7d705ee1-21c6-4895-abd9-8ca545dad709"
         ],
         "controller": [],
         "model": [
