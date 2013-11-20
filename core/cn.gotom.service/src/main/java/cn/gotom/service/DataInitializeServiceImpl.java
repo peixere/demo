@@ -28,10 +28,19 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	@Inject
 	private OrganizationService organizationService;
 
+	@Inject
+	private OptionsConfigService optionsConfigService;
+
 	public void init()
 	{
 		initUser();
 		defalutData();
+		initOptionConfig();
+	}
+	
+	private void initOptionConfig()
+	{
+		optionsConfigService.findAll();
 	}
 
 	private void initUser()
