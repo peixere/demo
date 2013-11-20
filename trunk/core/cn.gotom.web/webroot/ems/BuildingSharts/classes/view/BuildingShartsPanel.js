@@ -247,6 +247,9 @@ Ext.define('ems.view.BuildingShartsPanel', {
         var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
         Ext.getCmp('ContentPanel').update(html);
         var options = {
+            global : {
+                useUTC : false
+            },     
             chart: {
                 renderTo: 'heightchartcontainer',
                 type: 'line'
@@ -258,26 +261,25 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 text: chartdata.subtitle
             },		
             xAxis: {
-                //type: 'datetime',
-                type: 'int',
-                dateTimeLabelFormats: {
-                    month: '%e. %b',
-                    year: '%b'
-                }
+                type: 'datetime',
+                dateTimeLabelFormats: {  
+                    //second: '%Y-%m-%d %H:%M:%S'
+                    second: '%Y:%e.%y:%e.%b: %%H:%M:%S'
+                }  
             },
             yAxis: {
                 title: {
                     text: chartdata.yAxisText
                 }
-            },	    
+            },
             tooltip:{
                 formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y;
+                    //%Y年%m月%d日%H时%M分%S秒
+                    return Highcharts.dateFormat('%Y年%m月%d日', this.x)+'<br/><b>'+ this.series.name +'</b>'+': '+ this.y;
                 }
             },    
             series: []
-        };			   
+        };
         var seriesList = chartdata.series;
         $.each(seriesList, function (i, serie) {
             options.series.push({
@@ -286,12 +288,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
             });
             var plist = serie.data;
             $.each(plist, function (j, p){
-                var x = new Date(p.x);
-                var year = x.getYear();
-                var month = x.getMonth();
-                var date = x.getDate();
-                //options.series[i].data.push([Date.UTC(year+1900,  month, date),p.y]); 
-                options.series[i].data.push([j,p.y]); 
+                options.series[i].data.push([p.x,p.y]); 
             });
         });
         new Highcharts.Chart(options);
