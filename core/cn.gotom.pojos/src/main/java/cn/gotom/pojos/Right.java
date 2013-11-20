@@ -44,7 +44,7 @@ public class Right extends SuperEntity implements Serializable
 	@Column(name = "component", length = 300)
 	private String component;
 
-	@Column()
+	@Column(columnDefinition="bit default 0 ")
 	private boolean leaf;
 
 	@Column(name = "resource", length = 300)
