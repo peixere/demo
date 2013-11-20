@@ -24,7 +24,8 @@ Ext.application({
         'YearReportDataModel'
     ],
     stores: [
-        'BuildingTreeStore'
+        'BuildingTreeStore',
+        'YearReportStore'
     ],
     views: [
         'YearReportPanel',
