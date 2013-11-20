@@ -405,7 +405,7 @@
                     "        type: 'datetime',\r",
                     "        dateTimeLabelFormats: {  \r",
                     "            //second: '%Y-%m-%d %H:%M:%S'\r",
-                    "            second: '%Y:%e.%y:%e.%b: %%H:%M:%S'\r",
+                    "            //second: '%Y:%e.%y:%e.%b: %%H:%M:%S'\r",
                     "        }  \r",
                     "    },\r",
                     "    yAxis: {\r",

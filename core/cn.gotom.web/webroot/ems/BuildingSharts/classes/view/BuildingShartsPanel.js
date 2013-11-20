@@ -264,7 +264,7 @@ Ext.define('ems.view.BuildingShartsPanel', {
                 type: 'datetime',
                 dateTimeLabelFormats: {  
                     //second: '%Y-%m-%d %H:%M:%S'
-                    second: '%Y:%e.%y:%e.%b: %%H:%M:%S'
+                    //second: '%Y:%e.%y:%e.%b: %%H:%M:%S'
                 }  
             },
             yAxis: {
