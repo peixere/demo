@@ -60,6 +60,10 @@ public class RightAction
 	public void list() throws IOException
 	{
 		List<Right> list = rightService.findAll();
+		for(Right r : list){
+			r.setRoles(null);
+			r.setChildren(null);
+		}
 		ResponseUtils.toJSON(list);
 	}
 	public String remove()
