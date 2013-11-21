@@ -2,7 +2,6 @@ package cn.gotom.web.action;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 import javax.servlet.ServletOutputStream;
 
@@ -18,10 +17,6 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
-import org.dom4j.Document;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
 
 @Namespace("/p")
 @Action(value = "/highcharts", results = { @Result(name = "success", type = "stream") })
@@ -63,41 +58,6 @@ public class HighchartsExportAction
 		return type;
 	}
 
-	public String formatXML(String inputXML)
-	{
-		SAXReader reader = new SAXReader();
-		XMLWriter writer = null;
-		try
-		{
-			Document document = (Document) reader.read(new StringReader(inputXML));
-			StringWriter stringWriter = new StringWriter();
-			OutputFormat format = new OutputFormat(" ", true);
-			writer = new XMLWriter(stringWriter, format);
-			writer.write(document);
-			writer.flush();
-			inputXML = stringWriter.getBuffer().toString();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			log.error(e.getMessage());
-		}
-		finally
-		{
-			if (writer != null)
-			{
-				try
-				{
-					writer.close();
-				}
-				catch (IOException e)
-				{
-				}
-			}
-		}
-		return inputXML;
-	}
-
 	public void execute()
 	{
 //		SVGUniverse svgUniverse = new SVGUniverse();
@@ -113,7 +73,6 @@ public class HighchartsExportAction
 		svg = svg.replaceAll("</SPAN>", "</text>");
 		svg = svg.replaceAll("Highcharts.com", "gotom.cn");
 		svg = svg.replaceAll(":rect", "rect");
-		svg = formatXML(svg);
 		if (type.equals("image/svg+xml"))
 		{
 			exportSvg(svg);

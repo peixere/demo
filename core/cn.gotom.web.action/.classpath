@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.dao"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.pojos"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.service"/>
@@ -26,5 +26,10 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.vo.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/batik-transcoder.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/pdf-transcoder.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
