@@ -101,6 +101,14 @@
                 "classes/view/UserPassowrd.js"
             ],
             "className": "UserPassowrd"
+        },
+        "640e059b-b167-4e5b-a268-5d16d3e3b81a": {
+            "paths": [
+                "metadata/view/Commons",
+                "classes/view/override/Commons.js",
+                "classes/view/Commons.js"
+            ],
+            "className": "Commons"
         }
     },
     "viewOrderMap": {
@@ -112,7 +120,8 @@
             "8b5b629a-7c35-4103-ad47-a13ab196e213",
             "298abba3-7f63-41ab-a4cf-57724f883002",
             "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
-            "76105148-6bbf-4cd5-b79f-e8c94a5a4230"
+            "76105148-6bbf-4cd5-b79f-e8c94a5a4230",
+            "640e059b-b167-4e5b-a268-5d16d3e3b81a"
         ],
         "store": [
             "24627296-f776-4b9b-8ff9-a32f299758f7"

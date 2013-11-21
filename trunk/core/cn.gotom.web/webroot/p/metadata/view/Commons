@@ -1,0 +1,134 @@
+{
+    "type": "class",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Commons"
+    },
+    "designerId": "640e059b-b167-4e5b-a268-5d16d3e3b81a",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "ajax",
+                "designer|params": [
+                    "config"
+                ],
+                "implHandler": [
+                    "Ext.Ajax.request(\r",
+                    "    {\r",
+                    "        url : config.url,\r",
+                    "        params : config.params,\r",
+                    "        method : 'post',\r",
+                    "        \r",
+                    "        callback : function(options, success, response)\r",
+                    "        {\r",
+                    "            if (success)\r",
+                    "            {\r",
+                    "                config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    });"
+                ]
+            },
+            "designerId": "5f12c821-5e56-4839-ac02-38ce08b52b0f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "treeStore",
+                "designer|params": [
+                    "url",
+                    "pid",
+                    "treeModel"
+                ],
+                "implHandler": [
+                    "return Ext.create(\"Ext.data.TreeStore\",\r",
+                    "                  {\r",
+                    "                      defaultRootId : pid,\r",
+                    "                      model : treeModel,\r",
+                    "                      proxy :\r",
+                    "                      {\r",
+                    "                          type : \"ajax\",\r",
+                    "                          url : url\r",
+                    "                      },\r",
+                    "                      clearOnLoad : true,\r",
+                    "                      nodeParam : \"id\"\r",
+                    "                  });"
+                ]
+            },
+            "designerId": "789b56f3-1f87-4928-91be-e183e9bed108"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getQueryParam",
+                "designer|params": [
+                    "name"
+                ],
+                "implHandler": [
+                    "var regex = RegExp('[?&]' + name + '=([^&]*)');\r",
+                    "var scriptEls = document.getElementsByTagName('script');\r",
+                    "var path = scriptEls[scriptEls.length - 1].src;\r",
+                    "var match = regex.exec(location.search) || regex.exec(path);\r",
+                    "return match && decodeURIComponent(match[1]);"
+                ]
+            },
+            "designerId": "a68c10f0-16df-40af-9550-59786b2af40c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "addQueryParam",
+                "designer|params": [
+                    "url",
+                    "name",
+                    "value"
+                ],
+                "implHandler": [
+                    "var path = url;\r",
+                    "if (value !== null && value.length > 0)\r",
+                    "{\r",
+                    "    if (url.indexOf('?') >= 0)\r",
+                    "    {\r",
+                    "        path = url + '&' + name + '=' + value;\r",
+                    "    }\r",
+                    "    else\r",
+                    "    {\r",
+                    "        path = url + '?' + name + '=' + value;\r",
+                    "    }\r",
+                    "}\r",
+                    "return path;"
+                ]
+            },
+            "designerId": "b03ca34c-0714-4eac-bd74-9f432c5f8439"
+        }
+    ]
+}
