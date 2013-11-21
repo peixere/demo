@@ -17,7 +17,9 @@ Ext.define('Gotom.view.OrganizationCRUB', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Gotom.view.OrganizationTreeGrid'
+        'Gotom.view.OrganizationTreeGrid',
+        'Gotom.model.OrganizationModel',
+        'Gotom.store.OrganizationTreeStore'
     ],
 
     id: 'OrganizationCRUB',
@@ -39,10 +41,6 @@ Ext.define('Gotom.view.OrganizationCRUB', {
         });
 
         me.callParent(arguments);
-    },
-
-    getTreeGrid: function() {
-        return Ext.getCmp('OrganizationTreeGrid');
     }
 
 });

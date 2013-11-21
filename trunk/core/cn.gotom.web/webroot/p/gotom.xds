@@ -23,22 +23,6 @@
             ],
             "className": "OrganizationTreeStore"
         },
-        "f55b9a72-ec2c-4ad1-9502-744db3d87be0": {
-            "paths": [
-                "metadata/view/OrganizationView",
-                "classes/view/override/OrganizationView.js",
-                "classes/view/OrganizationView.js"
-            ],
-            "className": "OrganizationView"
-        },
-        "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0": {
-            "paths": [
-                "metadata/view/OrganizationPanel",
-                "classes/view/override/OrganizationPanel.js",
-                "classes/view/OrganizationPanel.js"
-            ],
-            "className": "OrganizationPanel"
-        },
         "b8c562b6-aeba-48c3-86ff-2b4509c6d545": {
             "paths": [
                 "metadata/model/OrganizationModel",
@@ -46,14 +30,6 @@
                 "classes/model/OrganizationModel.js"
             ],
             "className": "OrganizationModel"
-        },
-        "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0": {
-            "paths": [
-                "metadata/view/OrganizationTree",
-                "classes/view/override/OrganizationTree.js",
-                "classes/view/OrganizationTree.js"
-            ],
-            "className": "OrganizationTree"
         },
         "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d": {
             "paths": [
@@ -131,10 +107,7 @@
         "view": [
             "184faed7-af51-4017-bfa9-4850c8a4ddb7",
             "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9",
-            "f55b9a72-ec2c-4ad1-9502-744db3d87be0",
             "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
-            "a7fc368a-234d-4fcf-b2ae-7aaa9c3a61d0",
-            "69a66e5e-6fa6-4c8a-94d3-0117ae2091c0",
             "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
             "8b5b629a-7c35-4103-ad47-a13ab196e213",
             "298abba3-7f63-41ab-a4cf-57724f883002",

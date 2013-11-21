@@ -110,6 +110,11 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 itemdblclick: {
                     fn: me.onTreepanelItemDblClick,
                     scope: me
+                },
+                afterlayout: {
+                    fn: me.onOrganizationTreeGridAfterLayout,
+                    single: true,
+                    scope: me
                 }
             }
         });
@@ -190,6 +195,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     onTreepanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
         this.openWinForm(record.data.id,record.data.parentId);
+    },
+
+    onOrganizationTreeGridAfterLayout: function(container, layout, eOpts) {
+        this.expandAll();
     },
 
     openWinForm: function(id, parentId) {
