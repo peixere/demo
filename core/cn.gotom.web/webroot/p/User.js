@@ -5,8 +5,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
     views: [
-        'UserView',
-        'UserPanel'
+        'UserView'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
