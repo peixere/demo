@@ -20,7 +20,8 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     requires: [
         'Gotom.view.OrganizationWinForm',
         'Gotom.model.OrganizationModel',
-        'Gotom.store.OrganizationTreeStore'
+        'Gotom.store.OrganizationTreeStore',
+        'Gotom.view.Commons'
     ],
 
     id: 'OrganizationTreeGrid',
@@ -150,7 +151,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         var selected = this.getSelectionModel().selected;
         var selecteditems = selected.items;
 
-        if (selecteditems.length == 0)
+        if (selecteditems.length === 0)
         {
             Ext.Msg.show(
             {
@@ -168,7 +169,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         });
         Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
         {
-            if (button == "yes")
+            if (button === "yes")
             {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
