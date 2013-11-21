@@ -15,6 +15,9 @@
 
 Ext.define('Gotom.view.Commons', {
     extend: 'Ext.Base',
+    alias: 'widget.Commons',
+
+    ctxp: '',
 
     ajax: function(config) {
         Ext.Ajax.request(
