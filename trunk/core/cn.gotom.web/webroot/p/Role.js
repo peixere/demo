@@ -5,8 +5,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
     views: [
-        'RoleView',
-        'RolePanel'
+        'RoleView'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
