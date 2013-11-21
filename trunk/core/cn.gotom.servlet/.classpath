@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.auth.client"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
