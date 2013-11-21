@@ -8,6 +8,11 @@
     "userConfig": {
         "id": "OrganizationCRUB",
         "designer|userClassName": "OrganizationCRUB",
+        "requires": [
+            "Gotom.view.OrganizationTreeGrid",
+            "Gotom.model.OrganizationModel",
+            "Gotom.store.OrganizationTreeStore"
+        ],
         "designer|initialView": true,
         "layout": "border"
     },
@@ -26,21 +31,6 @@
             },
             "designerId": "eaaf4215-5755-4870-b9d6-1261636805d7",
             "masterInstanceId": "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "getTreeGrid",
-                "implHandler": [
-                    "return Ext.getCmp('OrganizationTreeGrid');"
-                ]
-            },
-            "designerId": "f83584e9-d310-486c-8dcd-154d651e9a8b"
         }
     ]
 }

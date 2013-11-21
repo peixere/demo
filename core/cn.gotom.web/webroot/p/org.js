@@ -10,16 +10,14 @@ Ext.application({
         'OrganizationTreeStore'
     ],
     views: [
-        'OrganizationCRUB',
-        'OrganizationWinForm'
+        'OrganizationCRUB'
     ],
     appFolder: 'classes',
-    appProperty: 'gotom',
+    appProperty: 'classes',
     autoCreateViewport: false,
     name: 'Gotom'
 });
 Ext.onReady(function()
 {
-    var crub = Ext.create('Gotom.view.OrganizationCRUB');
-    crub.getTreeGrid().expandAll();
+	Ext.create('Gotom.view.OrganizationCRUB');
 });

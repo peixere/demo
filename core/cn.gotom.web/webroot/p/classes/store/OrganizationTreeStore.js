@@ -25,6 +25,7 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: true,
             model: 'Gotom.model.OrganizationModel',
             storeId: 'OrganizationTreeStore',
             defaultRootId: '',

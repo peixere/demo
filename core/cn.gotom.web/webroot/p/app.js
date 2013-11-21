@@ -19,10 +19,18 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
+    models: [
+        'OrganizationModel'
+    ],
+    stores: [
+        'OrganizationTreeStore'
+    ],
     views: [
         'RoleView',
-        'UserPanel',
         'UserView',
+        'OrganizationCRUB',
+        'RolePanel',
+        'UserPanel',
         'UserPassowrd'
     ],
     appFolder: 'classes',

@@ -316,6 +316,24 @@
                 ]
             },
             "designerId": "1b98a32d-2ffb-4442-9007-52c981b5abe3"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onOrganizationTreeGridAfterLayout",
+                "implHandler": [
+                    "this.expandAll();"
+                ],
+                "single": true,
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "40877f47-7611-4cfc-98a2-9556aae8538f"
         }
     ]
 }
