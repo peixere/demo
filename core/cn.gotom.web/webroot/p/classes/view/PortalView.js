@@ -17,7 +17,8 @@ Ext.define('Gotom.view.PortalView', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Gotom.view.Portal'
+        'Gotom.view.Portal',
+        'Gotom.view.*'
     ],
 
     layout: {
