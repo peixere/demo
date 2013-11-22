@@ -337,35 +337,41 @@ Ext.define('Gotom.view.Portal', {
         {
             return;
         }
-        if (node.isLeaf())
-        {// 判断是否是根节点
-            if (node.data.type === 'URL')
-            {// 判断资源类型
-                var theme = me.commons.getQueryParam('theme');
-                var url = me.commons.addQueryParam(node.data.component, 'theme', theme);
-                var panel = Ext.create('Ext.panel.Panel',
-                    {
-                        id : node.data.id,
-                        title : node.data.text,
-                        closable : true,
-                        // iconCls : 'icon-activity',
-                        html : '<iframe width="100%" height="100%" frameborder="0" src="' + url + '"></iframe>'
-                    });
-                tabPanel.add(panel);
-                tabPanel.setActiveTab(panel);
+        try{
+            if (node.isLeaf())
+            {// 判断是否是根节点
+                if (node.data.type === 'URL')
+                {// 判断资源类型
+                    var theme = me.commons.getQueryParam('theme');
+                    var url = me.commons.addQueryParam(node.data.component, 'theme', theme);
+                    var panel = Ext.create('Ext.panel.Panel',
+                        {
+                            id : node.data.id,
+                            title : node.data.text,
+                            closable : true,
+                            // iconCls : 'icon-activity',
+                            html : '<iframe width="100%" height="100%" frameborder="0" src="' + url + '"></iframe>'
+                        });
+                    tabPanel.add(panel);
+                    tabPanel.setActiveTab(panel);
+                }
+                else if (node.data.type === 'COMPONENT')
+                {
+                    var component = Ext.create(node.data.component,
+                        {
+                            id : node.data.id,
+                            title : node.data.text,
+                            closable : true
+                            // iconCls : 'icon-activity'
+                        });
+                    tabPanel.add(component);
+                    tabPanel.setActiveTab(component);
+                }
             }
-            else if (node.data.type === 'COMPONENT')
-            {
-                var component = Ext.create(node.data.component,
-                    {
-                        id : node.data.id,
-                        title : node.data.text,
-                        closable : true
-                        // iconCls : 'icon-activity'
-                    });
-                tabPanel.add(component);
-                tabPanel.setActiveTab(component);
-            }
+        }
+        catch(err)
+        {
+            Ext.Msg.alert('错误',err);
         }
     },
 
