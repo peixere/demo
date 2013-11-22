@@ -82,7 +82,7 @@ public class UserAction
 		{
 			if (u.getUsername().equals(User.admin))
 			{
-				// list.remove(u);
+				list.remove(u);
 				break;
 			}
 		}
