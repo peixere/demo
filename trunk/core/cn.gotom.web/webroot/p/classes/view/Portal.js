@@ -54,6 +54,25 @@ Ext.define('Gotom.view.Portal', {
                     title: ''
                 },
                 {
+                    xtype: 'container',
+                    region: 'center',
+                    id: 'ContentContainer',
+                    layout: {
+                        type: 'border'
+                    },
+                    items: [
+                        {
+                            xtype: 'tabpanel',
+                            region: 'center',
+                            split: true,
+                            autoScroll: true,
+                            enableTabScroll: true,
+                            animScroll: true,
+                            id: 'tabPanel'
+                        }
+                    ]
+                },
+                {
                     xtype: 'panel',
                     region: 'south',
                     split: false,
@@ -64,12 +83,6 @@ Ext.define('Gotom.view.Portal', {
                     layout: {
                         type: 'border'
                     }
-                },
-                {
-                    xtype: 'tabpanel',
-                    region: 'center',
-                    split: true,
-                    id: 'app-tab'
                 }
             ],
             listeners: {
@@ -86,6 +99,28 @@ Ext.define('Gotom.view.Portal', {
 
     onPortalVIewPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
+    },
+
+    createTools: function() {
+        return [
+        {
+            xtype : 'tool',
+            type : 'gear',
+            handler : function(e, target, header, tool)
+            {
+                var portlet = header.ownerCt;
+                portlet.setLoading(portlet.id + 'Loading...');
+                Ext.defer(function()
+                {
+                    portlet.setLoading(false);
+                }, 1000);
+            }
+        }
+        ];
+    },
+
+    onPortletClose: function(portlet) {
+        alert('"' + portlet.title + '" was removed');
     },
 
     onLoad: function() {
@@ -130,7 +165,82 @@ Ext.define('Gotom.view.Portal', {
     },
 
     onLoadIndex: function(data) {
-
+        var me = this;
+        var tabPanel = Ext.getCmp('tabPanel');
+        var portalPanel = Ext.create("Gotom.view.PortalPanel",
+            {
+                id : 'app-portal',
+                region : 'center',
+                title : "平台首页",
+                layout : 'column'
+            });
+        tabPanel.setLoading('加载数据...');
+        tabPanel.add(portalPanel);
+        Ext.defer(function()
+        {
+            var portalcolumn = Ext.create('Gotom.view.PortalColumn',
+                {
+                    columnWidth : 0.7,
+                    items : [
+                    {
+                        title : '最新通知',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
+                    {
+                        title : '业绩报表',
+                        height : 250,
+                        tools : me.createTools(),
+                        items : Ext.create('Gotom.view.ChartPortlet'),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    }
+                    ]
+                });
+            portalPanel.add(portalcolumn);
+            var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',
+                {
+                    columnWidth : 0.7,
+                    items : [
+                    {
+                        title : '功能链接',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
+                    {
+                        title : '待办事项',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
+                    {
+                        title : '业绩报表',
+                        height : 250,
+                        tools : me.createTools(),
+                        items : Ext.create('Gotom.view.ChartPortlet'),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    }
+                    ]
+                });
+            portalPanel.add(portalcolumn2);
+            tabPanel.setLoading(false);
+        }, 100);
     },
 
     setHeader: function() {
@@ -204,7 +314,7 @@ Ext.define('Gotom.view.Portal', {
 
     onOptionsItemClick: function(view, node) {
         var me = Ext.getCmp('Portal');
-        var tabPanel = Ext.getCmp('app-tab');
+        var tabPanel = Ext.getCmp('tabPanel');
         var has = false;
         for (var i = 0; i < tabPanel.items.length; i++)
         {
