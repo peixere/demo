@@ -14,7 +14,7 @@
  */
 
 Ext.define('Gotom.view.Portal', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.container.Viewport',
     alias: 'widget.Portal',
 
     requires: [
@@ -26,12 +26,11 @@ Ext.define('Gotom.view.Portal', {
     passWin: '',
     commons: '',
     border: false,
-    id: 'Portal',
+    id: 'app-viewport',
     layout: {
         padding: '0 5 5 5',
         type: 'border'
     },
-    title: '',
 
     initComponent: function() {
         var me = this;
@@ -56,18 +55,47 @@ Ext.define('Gotom.view.Portal', {
                 {
                     xtype: 'container',
                     region: 'center',
-                    id: 'ContentContainer',
+                    id: 'portal-container',
                     layout: {
                         type: 'border'
                     },
                     items: [
                         {
-                            xtype: 'tabpanel',
-                            region: 'center',
+                            xtype: 'panel',
+                            region: 'west',
                             split: true,
+                            id: 'app-options',
+                            maxWidth: 450,
+                            minWidth: 100,
+                            width: 180,
+                            layout: {
+                                animate: true,
+                                type: 'accordion'
+                            },
+                            animCollapse: true,
+                            collapsible: true,
+                            title: '系统菜单',
+                            tools: [
+                                {
+                                    xtype: 'tool',
+                                    dock: 'top',
+                                    type: 'refresh',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onToolClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'tabpanel',
                             autoScroll: true,
                             enableTabScroll: true,
                             animScroll: true,
+                            region: 'center',
+                            split: true,
                             id: 'tabPanel'
                         }
                     ]
@@ -95,6 +123,10 @@ Ext.define('Gotom.view.Portal', {
         });
 
         me.callParent(arguments);
+    },
+
+    onToolClick: function(tool, e, eOpts) {
+        this.onOptionsToolClick(tool,e,eOpts);
     },
 
     onPortalVIewPanelAfterLayout: function(container, layout, eOpts) {
@@ -127,37 +159,6 @@ Ext.define('Gotom.view.Portal', {
         var me = this;
         this.commons = Ext.create('Gotom.view.Commons');
         this.setHeader();
-        this.add(Ext.create("Ext.panel.Panel",
-        {
-            id : 'app-options',
-            title : '系统菜单',
-            region : 'west',
-            animCollapse : true,
-            width : 200,
-            minWidth : 150,
-            maxWidth : 400,
-            split : true,
-            collapsible : true,
-            layout :
-            {
-                type : 'accordion',
-                animate : true
-            },                    
-            tools: [
-            {
-                xtype: 'tool',
-                id: 'MenuTool',
-                type: 'refresh',
-                listeners: {
-                    click: {
-                        fn: me.onOptionsToolClick,
-                        scope: me
-                    }
-                }
-            }
-            ]
-        })
-        );
         this.setOptions();
         this.onLoadIndex('');
         var footer = Ext.getCmp('app-footer');
@@ -253,7 +254,7 @@ Ext.define('Gotom.view.Portal', {
     },
 
     callbackHeader: function(data) {
-        Ext.getCmp('Portal').setLoading(false);
+        Ext.getCmp('app-viewport').setLoading(false);
         document.title = data.title;
         var htmlStr = '<div class="logoPanel">　' + data.title + '</div>';
         htmlStr += '<div class="userPanel">';
@@ -282,7 +283,7 @@ Ext.define('Gotom.view.Portal', {
     callbackOptions: function(data) {
         var options = Ext.getCmp('app-options');
         options.removeAll();
-        var me = Ext.getCmp('Portal');
+        var me = Ext.getCmp('app-viewport');
         var URL = me.commons.ctxp+'/main.do?action=menu';
         for (var i = 0; i < data.length; i++)
         {    
@@ -313,7 +314,7 @@ Ext.define('Gotom.view.Portal', {
     },
 
     onOptionsItemClick: function(view, node) {
-        var me = Ext.getCmp('Portal');
+        var me = Ext.getCmp('app-viewport');
         var tabPanel = Ext.getCmp('tabPanel');
         var has = false;
         for (var i = 0; i < tabPanel.items.length; i++)

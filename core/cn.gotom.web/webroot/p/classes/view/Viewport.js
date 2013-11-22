@@ -14,6 +14,6 @@
  */
 
 Ext.define('Gotom.view.Viewport', {
-    extend: 'Gotom.view.PortalView',
+    extend: 'Gotom.view.Portal',
     renderTo: Ext.getBody()
 });

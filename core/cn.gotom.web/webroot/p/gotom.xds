@@ -113,18 +113,10 @@
             "paths": [
                 "metadata/view/Portal",
                 "classes/view/override/Portal.js",
-                "classes/view/Portal.js"
-            ],
-            "className": "Portal"
-        },
-        "572300f9-8cf0-481b-aa28-deb4547fd700": {
-            "paths": [
-                "metadata/view/PortalView",
-                "classes/view/override/PortalView.js",
-                "classes/view/PortalView.js",
+                "classes/view/Portal.js",
                 "classes/view/Viewport.js"
             ],
-            "className": "PortalView"
+            "className": "Portal"
         }
     },
     "viewOrderMap": {
@@ -138,8 +130,7 @@
             "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
             "76105148-6bbf-4cd5-b79f-e8c94a5a4230",
             "640e059b-b167-4e5b-a268-5d16d3e3b81a",
-            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-            "572300f9-8cf0-481b-aa28-deb4547fd700"
+            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
         ],
         "store": [
             "24627296-f776-4b9b-8ff9-a32f299758f7"
