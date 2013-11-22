@@ -15,8 +15,9 @@
         "designer|userClassName": "Portal",
         "designer|userAlias": "Portal",
         "requires": [
-            "Gotom.view.Commons",
-            "Gotom.view.UserPassowrd"
+            "Gotom.view.*",
+            "Gotom.model.*",
+            "Gotom.store.*"
         ],
         "layout": "border",
         "title": ""
@@ -166,11 +167,30 @@
                     "})\r",
                     ");\r",
                     "this.setOptions();\r",
+                    "this.onLoadIndex('');\r",
                     "var footer = Ext.getCmp('app-footer');\r",
                     "footer.setHeight(30);"
                 ]
             },
             "designerId": "4c2b0b57-0974-488a-8f4e-573a4ad2a4f1"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLoadIndex",
+                "designer|params": [
+                    "data"
+                ],
+                "implHandler": [
+                    ""
+                ]
+            },
+            "designerId": "50922d80-5cde-48f8-8ec3-eaf1d1a811c7"
         },
         {
             "type": "basicfunction",
@@ -279,7 +299,7 @@
                     "            store : treeStore,\r",
                     "            listeners : {\r",
                     "                itemclick: {\r",
-                    "                    fn: me.itemClick,\r",
+                    "                    fn: me.onOptionsItemClick,\r",
                     "                    scope: me\r",
                     "                }\r",
                     "            }\r",
@@ -290,6 +310,70 @@
                 ]
             },
             "designerId": "5601d7cb-fede-45b7-87af-96b04b7f27c4"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onOptionsItemClick",
+                "designer|params": [
+                    "view",
+                    "node"
+                ],
+                "implHandler": [
+                    "var me = Ext.getCmp('Portal');\r",
+                    "var tabPanel = Ext.getCmp('app-tab');\r",
+                    "var has = false;\r",
+                    "for (var i = 0; i < tabPanel.items.length; i++)\r",
+                    "{\r",
+                    "    if (tabPanel.items.get(i).id == node.data.id)\r",
+                    "    {\r",
+                    "        has = true;\r",
+                    "        tabPanel.setActiveTab(tabPanel.items.get(i));\r",
+                    "        break;\r",
+                    "    }\r",
+                    "}\r",
+                    "if (has)\r",
+                    "{\r",
+                    "    return;\r",
+                    "}\r",
+                    "if (node.isLeaf())\r",
+                    "{// 判断是否是根节点\r",
+                    "    if (node.data.type === 'URL')\r",
+                    "    {// 判断资源类型\r",
+                    "        var theme = me.commons.getQueryParam('theme');\r",
+                    "        var url = me.commons.addQueryParam(node.data.component, 'theme', theme);\r",
+                    "        var panel = Ext.create('Ext.panel.Panel',\r",
+                    "                               {\r",
+                    "                                   id : node.data.id,\r",
+                    "                                   title : node.data.text,\r",
+                    "                                   closable : true,\r",
+                    "                                   // iconCls : 'icon-activity',\r",
+                    "                                   html : '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"' + url + '\"></iframe>'\r",
+                    "                               });\r",
+                    "        tabPanel.add(panel);\r",
+                    "        tabPanel.setActiveTab(panel);\r",
+                    "    }\r",
+                    "    else if (node.data.type === 'COMPONENT')\r",
+                    "    {\r",
+                    "        var component = Ext.create(node.data.component,\r",
+                    "                               {\r",
+                    "                                   id : node.data.id,\r",
+                    "                                   title : node.data.text,\r",
+                    "                                   closable : true\r",
+                    "                                   // iconCls : 'icon-activity'\r",
+                    "                               });\r",
+                    "        tabPanel.add(component);\r",
+                    "        tabPanel.setActiveTab(component);\r",
+                    "    }\r",
+                    "}"
+                ]
+            },
+            "designerId": "b7a2a083-62da-4e09-91a6-e11a06bfa272"
         },
         {
             "type": "basicfunction",
@@ -330,25 +414,6 @@
                 ]
             },
             "designerId": "23276d49-0ba6-4da1-aaa9-5ed6adb0821e"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "itemClick",
-                "designer|params": [
-                    "view",
-                    "node"
-                ],
-                "implHandler": [
-                    ""
-                ]
-            },
-            "designerId": "b7a2a083-62da-4e09-91a6-e11a06bfa272"
         }
     ]
 }
