@@ -27,7 +27,7 @@ Ext.define('Gotom.store.BuildingShartsTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../BuildingTree.do',
+                url: '../ems/BuildingTree.do',
                 listeners: {
                     exception: {
                         fn: me.onAjaxException,
