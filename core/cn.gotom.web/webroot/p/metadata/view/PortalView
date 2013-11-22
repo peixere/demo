@@ -7,6 +7,9 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "PortalView",
+        "requires": [
+            "Gotom.view.*"
+        ],
         "designer|initialView": true,
         "layout": "border"
     },
