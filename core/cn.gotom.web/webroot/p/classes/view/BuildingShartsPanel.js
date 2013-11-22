@@ -172,7 +172,7 @@ Ext.define('Gotom.view.BuildingShartsPanel', {
                             xtype: 'panel',
                             region: 'center',
                             html: '<div id="heightchartcontainer" style="min-width: 310px; width: 100%;height: 100%; margin: 0 auto"></div>',
-                            id: 'ContentPanel'
+                            id: 'heightchartcontainerPanel'
                         }
                     ]
                 }
@@ -214,7 +214,7 @@ Ext.define('Gotom.view.BuildingShartsPanel', {
         if (form.isValid())
         {
             form.submit({
-                url : '../BuildingSharts.do',
+                url : '../ems/BuildingSharts.do',
                 method : 'POST',
                 waitMsg : '正在生成报表，稍后...',
                 success : function(f, action)
@@ -245,7 +245,7 @@ Ext.define('Gotom.view.BuildingShartsPanel', {
 
     showHighcharts: function(chartdata) {
         var html = '<div id="heightchartcontainer" width="100%" height="100"></div>';
-        Ext.getCmp('ContentPanel').update(html);
+        Ext.getCmp('heightchartcontainerPanel').update(html);
         var options = {
             global : {
                 useUTC : false
