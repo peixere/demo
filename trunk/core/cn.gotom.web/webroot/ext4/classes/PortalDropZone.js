@@ -76,7 +76,7 @@ Ext.define('Ext.app.PortalDropZone', {
         }
 
         // find insert position
-        var overPortlet = null, pos = 0,
+        var overPortlet, pos = 0,
             h = 0,
             match = false,
             overColumn = portal.items.getAt(colIndex),
