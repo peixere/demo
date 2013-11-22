@@ -15,10 +15,11 @@
 
 Ext.define('Gotom.view.PortalView', {
     extend: 'Ext.container.Viewport',
-    alias: 'widget.PortalView',
 
-    id: 'app-viewport',
-    padding: '0 5 5 5',
+    requires: [
+        'Gotom.view.Portal'
+    ],
+
     layout: {
         type: 'border'
     },
@@ -29,45 +30,8 @@ Ext.define('Gotom.view.PortalView', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'panel',
-                    region: 'north',
-                    border: false,
-                    height: 60,
-                    id: 'app-header',
-                    animCollapse: false,
-                    title: ''
-                },
-                {
-                    xtype: 'panel',
-                    region: 'west',
-                    split: true,
-                    id: 'app-options',
-                    maxWidth: 450,
-                    minWidth: 100,
-                    width: 180,
-                    collapsed: false,
-                    collapsible: true,
-                    title: '平台功能',
-                    tools: [
-                        {
-                            xtype: 'tool',
-                            id: 'MenuTool',
-                            type: 'refresh'
-                        }
-                    ]
-                },
-                {
-                    xtype: 'tabpanel',
-                    region: 'center',
-                    split: true,
-                    id: 'app-tab'
-                },
-                {
-                    xtype: 'panel',
-                    region: 'south',
-                    border: false,
-                    height: 30,
-                    id: 'app-footer'
+                    xtype: 'Portal',
+                    region: 'center'
                 }
             ]
         });

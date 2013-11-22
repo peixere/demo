@@ -10,7 +10,9 @@
         "width": 400,
         "designer|userClassName": "UserPassowrd",
         "layout": "border",
-        "title": "修改密码"
+        "closeAction": "hide",
+        "title": "修改密码",
+        "modal": true
     },
     "designerId": "76105148-6bbf-4cd5-b79f-e8c94a5a4230",
     "cn": [
