@@ -186,7 +186,7 @@ Ext.define('Gotom.view.Portal', {
                     store : treeStore,
                     listeners : {
                         itemclick: {
-                            fn: me.itemClick,
+                            fn: me.onOptionsItemClick,
                             scope: me
                         }
                     }
@@ -194,6 +194,55 @@ Ext.define('Gotom.view.Portal', {
                 options.add(tree);
         }
         options.doLayout();
+    },
+
+    onOptionsItemClick: function(view, node) {
+        var me = Ext.getCmp('Portal');
+        var tabPanel = Ext.getCmp('app-tab');
+        var has = false;
+        for (var i = 0; i < tabPanel.items.length; i++)
+        {
+            if (tabPanel.items.get(i).id == node.data.id)
+            {
+                has = true;
+                tabPanel.setActiveTab(tabPanel.items.get(i));
+                break;
+            }
+        }
+        if (has)
+        {
+            return;
+        }
+        if (node.isLeaf())
+        {// 判断是否是根节点
+            if (node.data.type === 'URL')
+            {// 判断资源类型
+                var theme = me.commons.getQueryParam('theme');
+                var url = me.commons.addQueryParam(node.data.component, 'theme', theme);
+                var panel = Ext.create('Ext.panel.Panel',
+                    {
+                        id : node.data.id,
+                        title : node.data.text,
+                        closable : true,
+                        // iconCls : 'icon-activity',
+                        html : '<iframe width="100%" height="100%" frameborder="0" src="' + url + '"></iframe>'
+                    });
+                tabPanel.add(panel);
+                tabPanel.setActiveTab(panel);
+            }
+            else if (node.data.type === 'COMPONENT')
+            {
+                var COMPONENT = Ext.create(node.data.component,
+                    {
+                        id : node.data.id,
+                        title : node.data.text,
+                        closable : true
+                        // iconCls : 'icon-activity'
+                    });
+                tabPanel.add(COMPONENT);
+                tabPanel.setActiveTab(COMPONENT);
+            }
+        }
     },
 
     onOptionsToolClick: function(tool, e, eOpts) {
@@ -207,10 +256,6 @@ Ext.define('Gotom.view.Portal', {
             this.passWin = Ext.create('Gotom.view.UserPassowrd');
         }
         this.passWin.show();
-    },
-
-    itemClick: function(view, node) {
-
     }
 
 });
