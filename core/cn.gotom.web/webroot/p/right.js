@@ -337,6 +337,11 @@ Ext.onReady(function()
 	    text : '数据资源'
 	},
 	{
+	    xtype : 'gridcolumn',
+	    dataIndex : 'sort',
+	    text : '排列顺序'
+	},	
+	{
 	    xtype : 'actioncolumn',
 	    menuDisabled : true,
 	    align : 'center',
