@@ -29,7 +29,8 @@ Ext.application({
         'RoleView',
         'UserView',
         'OrganizationCRUB',
-        'Portal'
+        'Portal',
+        'PortalView'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
