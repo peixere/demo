@@ -116,6 +116,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     fn: me.onOrganizationTreeGridAfterLayout,
                     single: true,
                     scope: me
+                },
+                load: {
+                    fn: me.onOrganizationTreeGridLoad,
+                    scope: me
                 }
             }
         });
@@ -203,6 +207,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onOrganizationTreeGridAfterLayout: function(container, layout, eOpts) {
+        this.expandAll();
+    },
+
+    onOrganizationTreeGridLoad: function(treestore, node, records, successful, eOpts) {
         this.expandAll();
     },
 
