@@ -68,6 +68,61 @@
             "designerId": "e00e39b8-36ef-4721-b97d-05d3b0ee0410"
         },
         {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "ContentContainer",
+                "layout": "border"
+            },
+            "designerId": "498ea698-28b7-4276-8b9e-66d6ab2a4e1e",
+            "cn": [
+                {
+                    "type": "Ext.tab.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "layout|split": true,
+                        "autoScroll": true,
+                        "enableTabScroll": true,
+                        "animScroll": true,
+                        "id": "tabPanel"
+                    },
+                    "configAlternates": {
+                        "autoScroll": "boolean",
+                        "enableTabScroll": "boolean",
+                        "animScroll": "boolean"
+                    },
+                    "designerId": "494fd406-3e56-4ca2-a410-1098ada00208",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "autoScroll",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "enableTabScroll",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "animScroll",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "type": "Ext.panel.Panel",
             "reference": {
                 "name": "items",
@@ -91,20 +146,6 @@
             "designerId": "db5791b5-dc74-413d-94d7-487c30efd23f"
         },
         {
-            "type": "Ext.tab.Panel",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|region": "center",
-                "layout|split": true,
-                "id": "app-tab"
-            },
-            "designerId": "494fd406-3e56-4ca2-a410-1098ada00208"
-        },
-        {
             "type": "basiceventbinding",
             "reference": {
                 "name": "listeners",
@@ -121,6 +162,53 @@
                 "scope": "me"
             },
             "designerId": "be1bdaba-49f0-4d19-8306-03f3c34f3cef"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createTools",
+                "implHandler": [
+                    "return [\r",
+                    "    {\r",
+                    "        xtype : 'tool',\r",
+                    "        type : 'gear',\r",
+                    "        handler : function(e, target, header, tool)\r",
+                    "        {\r",
+                    "            var portlet = header.ownerCt;\r",
+                    "            portlet.setLoading(portlet.id + 'Loading...');\r",
+                    "            Ext.defer(function()\r",
+                    "                      {\r",
+                    "                          portlet.setLoading(false);\r",
+                    "                      }, 1000);\r",
+                    "        }\r",
+                    "    }\r",
+                    "];"
+                ]
+            },
+            "designerId": "dadc7659-d76d-4ae1-9d7f-48d2cea9ccfd"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPortletClose",
+                "designer|params": [
+                    "portlet"
+                ],
+                "implHandler": [
+                    "alert('\"' + portlet.title + '\" was removed');"
+                ]
+            },
+            "designerId": "ab6672c5-f560-4829-8db0-8334cb36a850"
         },
         {
             "type": "basicfunction",
@@ -187,7 +275,82 @@
                     "data"
                 ],
                 "implHandler": [
-                    ""
+                    "var me = this;\r",
+                    "var tabPanel = Ext.getCmp('tabPanel');\r",
+                    "var portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
+                    "                             {\r",
+                    "                                 id : 'app-portal',\r",
+                    "                                 region : 'center',\r",
+                    "                                 title : \"平台首页\",\r",
+                    "                                 layout : 'column'\r",
+                    "                             });\r",
+                    "tabPanel.setLoading('加载数据...');\r",
+                    "tabPanel.add(portalPanel);\r",
+                    "Ext.defer(function()\r",
+                    "          {\r",
+                    "              var portalcolumn = Ext.create('Gotom.view.PortalColumn',\r",
+                    "                                            {\r",
+                    "                                                columnWidth : 0.7,\r",
+                    "                                                items : [\r",
+                    "                                                    {\r",
+                    "                                                        title : '最新通知',\r",
+                    "                                                        height : 150,\r",
+                    "                                                        tools : me.createTools(),\r",
+                    "                                                        listeners :\r",
+                    "                                                        {\r",
+                    "                                                            'close' : Ext.bind(me.onPortletClose, this)\r",
+                    "                                                        }\r",
+                    "                                                    },\r",
+                    "                                                    {\r",
+                    "                                                        title : '业绩报表',\r",
+                    "                                                        height : 250,\r",
+                    "                                                        tools : me.createTools(),\r",
+                    "                                                        items : Ext.create('Gotom.view.ChartPortlet'),\r",
+                    "                                                        listeners :\r",
+                    "                                                        {\r",
+                    "                                                            'close' : Ext.bind(me.onPortletClose, this)\r",
+                    "                                                        }\r",
+                    "                                                    }\r",
+                    "                                                ]\r",
+                    "                                            });\r",
+                    "              portalPanel.add(portalcolumn);\r",
+                    "              var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',\r",
+                    "                                             {\r",
+                    "                                                 columnWidth : 0.7,\r",
+                    "                                                 items : [\r",
+                    "                                                     {\r",
+                    "                                                         title : '功能链接',\r",
+                    "                                                         height : 150,\r",
+                    "                                                         tools : me.createTools(),\r",
+                    "                                                         listeners :\r",
+                    "                                                         {\r",
+                    "                                                             'close' : Ext.bind(me.onPortletClose, this)\r",
+                    "                                                         }\r",
+                    "                                                     },\r",
+                    "                                                     {\r",
+                    "                                                         title : '待办事项',\r",
+                    "                                                         height : 150,\r",
+                    "                                                         tools : me.createTools(),\r",
+                    "                                                         listeners :\r",
+                    "                                                         {\r",
+                    "                                                             'close' : Ext.bind(me.onPortletClose, this)\r",
+                    "                                                         }\r",
+                    "                                                     },\r",
+                    "                                                     {\r",
+                    "                                                         title : '业绩报表',\r",
+                    "                                                         height : 250,\r",
+                    "                                                         tools : me.createTools(),\r",
+                    "                                                         items : Ext.create('Gotom.view.ChartPortlet'),\r",
+                    "                                                         listeners :\r",
+                    "                                                         {\r",
+                    "                                                             'close' : Ext.bind(me.onPortletClose, this)\r",
+                    "                                                         }\r",
+                    "                                                     }\r",
+                    "                                                 ]\r",
+                    "                                             });\r",
+                    "              portalPanel.add(portalcolumn2);\r",
+                    "              tabPanel.setLoading(false);\r",
+                    "          }, 100);"
                 ]
             },
             "designerId": "50922d80-5cde-48f8-8ec3-eaf1d1a811c7"
@@ -326,7 +489,7 @@
                 ],
                 "implHandler": [
                     "var me = Ext.getCmp('Portal');\r",
-                    "var tabPanel = Ext.getCmp('app-tab');\r",
+                    "var tabPanel = Ext.getCmp('tabPanel');\r",
                     "var has = false;\r",
                     "for (var i = 0; i < tabPanel.items.length; i++)\r",
                     "{\r",
