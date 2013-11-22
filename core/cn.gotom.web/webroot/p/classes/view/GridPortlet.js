@@ -1,4 +1,4 @@
-Ext.define('Ext.app.GridPortlet', {
+Ext.define('Gotom.view.GridPortlet', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.gridportlet',
     uses: [

@@ -28,7 +28,9 @@ Ext.application({
     views: [
         'RoleView',
         'UserView',
-        'OrganizationCRUB'
+        'OrganizationCRUB',
+        'Portal',
+        'PortalView'
     ],
     appFolder: 'classes',
     appProperty: 'classes',

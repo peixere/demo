@@ -1,17 +1,17 @@
 /**
- * @class Ext.app.PortalPanel
+ * @class Gotom.view.PortalPanel
  * @extends Ext.panel.Panel
  * A {@link Ext.panel.Panel Panel} class used for providing drag-drop-enabled portal layouts.
  */
-Ext.define('Ext.app.PortalPanel', {
+Ext.define('Gotom.view.PortalPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.portalpanel',
 
     requires: [
         'Ext.layout.container.Column',
 
-        'Ext.app.PortalDropZone',
-        'Ext.app.PortalColumn'
+        'Gotom.view.PortalDropZone',
+        'Gotom.view.PortalColumn'
     ],
 
     cls: 'x-portal',
@@ -72,7 +72,7 @@ Ext.define('Ext.app.PortalPanel', {
     // private
     initEvents : function(){
         this.callParent();
-        this.dd = Ext.create('Ext.app.PortalDropZone', this, this.dropConfig);
+        this.dd = Ext.create('Gotom.view.PortalDropZone', this, this.dropConfig);
     },
 
     // private

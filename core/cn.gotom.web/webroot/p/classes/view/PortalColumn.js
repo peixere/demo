@@ -1,9 +1,9 @@
 /**
- * @class Ext.app.PortalColumn
+ * @class Gotom.view.PortalColumn
  * @extends Ext.container.Container
  * A layout column class used internally be {@link Ext.app.PortalPanel}.
  */
-Ext.define('Ext.app.PortalColumn', {
+Ext.define('Gotom.view.PortalColumn', {
     extend: 'Ext.container.Container',
     alias: 'widget.portalcolumn',
 

@@ -13,7 +13,6 @@
             "Gotom.model.OrganizationModel",
             "Gotom.store.OrganizationTreeStore"
         ],
-        "designer|initialView": true,
         "layout": "border"
     },
     "designerId": "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",

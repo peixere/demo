@@ -40,19 +40,50 @@ Ext.define('Gotom.view.Commons', {
         });
     },
 
-    treeStore: function(url, pid, treeModel) {
-        return Ext.create("Ext.data.TreeStore",
-        {
-            defaultRootId : pid,
-            model : treeModel,
-            proxy :
+    createTreeStore: function(URL, pid) {
+        var store = Ext.create("Ext.data.TreeStore",
             {
-                type : "ajax",
-                url : url
-            },
-            clearOnLoad : true,
-            nodeParam : "id"
-        });
+                defaultRootId : pid,
+                clearOnLoad : true,
+                nodeParam : 'id',
+                fields: [
+                {
+                    name: 'id'
+                },
+                {
+                    name: 'sort',
+                    type: 'int'
+                },
+                {
+                    name: 'text'
+                },
+                {
+                    name: 'iconCls'
+                },
+                {
+                    name: 'leaf',
+                    type: 'boolean'
+                },
+                {
+                    name: 'type'
+                },
+                {
+                    name: 'resource'
+                },
+                {
+                    name: 'component'
+                },
+                {
+                    name: 'parentId'
+                }
+                ],
+                proxy :
+                {
+                    type : 'ajax',
+                    url : URL            
+                }
+            });
+        return store;
     },
 
     getQueryParam: function(name) {

@@ -21,7 +21,9 @@ Ext.define('Gotom.view.UserPassowrd', {
     layout: {
         type: 'border'
     },
+    closeAction: 'hide',
     title: '修改密码',
+    modal: true,
 
     initComponent: function() {
         var me = this;
