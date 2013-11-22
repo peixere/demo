@@ -6,8 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "ctxpath": null,
-        "ctxp": "",
+        "ctxp": "..",
         "designer|userClassName": "Commons",
         "designer|userAlias": "Commons"
     },
@@ -16,11 +15,6 @@
     },
     "designerId": "640e059b-b167-4e5b-a268-5d16d3e3b81a",
     "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "ctxpath",
-            "type": "string"
-        },
         {
             "group": "(Custom Properties)",
             "name": "ctxp",
