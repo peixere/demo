@@ -1,0 +1,354 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "passWin": "",
+        "Commons": null,
+        "commons": "",
+        "container|padding": "0 5 5 5",
+        "border": false,
+        "id": "Portal",
+        "designer|userClassName": "Portal",
+        "designer|userAlias": "Portal",
+        "requires": [
+            "Gotom.view.Commons",
+            "Gotom.view.UserPassowrd"
+        ],
+        "layout": "border",
+        "title": ""
+    },
+    "designerId": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "passWin",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "Commons",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "commons",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "north",
+                "container|animate": false,
+                "border": false,
+                "height": 60,
+                "id": "app-header",
+                "maxWidth": null,
+                "minWidth": null,
+                "layout": "accordion",
+                "bodyStyle": "background-image: url(../resources/icons/fam/topbg.jpg) !important;",
+                "animCollapse": false,
+                "header": false,
+                "title": ""
+            },
+            "configAlternates": {
+                "bodyStyle": "string"
+            },
+            "designerId": "e00e39b8-36ef-4721-b97d-05d3b0ee0410"
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "south",
+                "layout|split": false,
+                "border": false,
+                "height": 1,
+                "id": "app-footer",
+                "shrinkWrap": 0,
+                "layout": "border",
+                "bodyStyle": null,
+                "title": null
+            },
+            "configAlternates": {
+                "bodyStyle": "string"
+            },
+            "designerId": "db5791b5-dc74-413d-94d7-487c30efd23f"
+        },
+        {
+            "type": "Ext.tab.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "layout|split": true,
+                "id": "app-tab"
+            },
+            "designerId": "494fd406-3e56-4ca2-a410-1098ada00208"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPortalVIewPanelAfterLayout",
+                "implHandler": [
+                    "this.onLoad();"
+                ],
+                "single": true,
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "be1bdaba-49f0-4d19-8306-03f3c34f3cef"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onLoad",
+                "implHandler": [
+                    "var me = this;\r",
+                    "this.commons = Ext.create('Gotom.view.Commons');\r",
+                    "this.setHeader();\r",
+                    "this.add(Ext.create(\"Ext.panel.Panel\",\r",
+                    "{\r",
+                    "    id : 'app-options',\r",
+                    "    title : '系统菜单',\r",
+                    "    region : 'west',\r",
+                    "    animCollapse : true,\r",
+                    "    width : 200,\r",
+                    "    minWidth : 150,\r",
+                    "    maxWidth : 400,\r",
+                    "    split : true,\r",
+                    "    collapsible : true,\r",
+                    "    layout :\r",
+                    "    {\r",
+                    "        type : 'accordion',\r",
+                    "        animate : true\r",
+                    "    },                    \r",
+                    "    tools: [\r",
+                    "    {\r",
+                    "        xtype: 'tool',\r",
+                    "        id: 'MenuTool',\r",
+                    "        type: 'refresh',\r",
+                    "        listeners: {\r",
+                    "            click: {\r",
+                    "                fn: me.onOptionsToolClick,\r",
+                    "                scope: me\r",
+                    "            }\r",
+                    "        }\r",
+                    "    }\r",
+                    "    ]\r",
+                    "})\r",
+                    ");\r",
+                    "this.setOptions();\r",
+                    "var footer = Ext.getCmp('app-footer');\r",
+                    "footer.setHeight(30);"
+                ]
+            },
+            "designerId": "4c2b0b57-0974-488a-8f4e-573a4ad2a4f1"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setHeader",
+                "implHandler": [
+                    "me = this;\r",
+                    "me.setLoading('加载...');\r",
+                    "me.commons.ajax({\r",
+                    "    url : me.commons.ctxp+'/main.do',\r",
+                    "    callback : me.callbackHeader\r",
+                    "});"
+                ]
+            },
+            "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "callbackHeader",
+                "designer|params": [
+                    "data"
+                ],
+                "implHandler": [
+                    "Ext.getCmp('Portal').setLoading(false);\r",
+                    "document.title = data.title;\r",
+                    "var htmlStr = '<div class=\"logoPanel\">　' + data.title + '</div>';\r",
+                    "htmlStr += '<div class=\"userPanel\">';\r",
+                    "htmlStr += '欢迎您：<a href=\"#\">' + data.username + '</a>　';\r",
+                    "htmlStr += '<a href=\"javascript:Ext.getCmp(\\'Portal\\').settingPassword();\">修改密码</a>　';\r",
+                    "htmlStr += '<a href=\"' + data.casServerLogoutUrl + '\">注销登录</a>';\r",
+                    "htmlStr += '</div>';\r",
+                    "Ext.getCmp('app-header').update(htmlStr);"
+                ]
+            },
+            "designerId": "484b5059-8015-4655-aeec-1c8c0f005f8d"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setOptions",
+                "implHandler": [
+                    "var me = this;\r",
+                    "var options = Ext.getCmp('app-options');\r",
+                    "options.setLoading('加载菜单...');\r",
+                    "Ext.defer(function()\r",
+                    "{\r",
+                    "    me.commons.ajax(\r",
+                    "    {\r",
+                    "        url : me.commons.ctxp + '/main.do?action=menu',\r",
+                    "        callback : me.callbackOptions\r",
+                    "    });\r",
+                    "    options.setLoading(false);\r",
+                    "}, 100);"
+                ]
+            },
+            "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "callbackOptions",
+                "designer|params": [
+                    "data"
+                ],
+                "implHandler": [
+                    "var options = Ext.getCmp('app-options');\r",
+                    "options.removeAll();\r",
+                    "var me = Ext.getCmp('Portal');\r",
+                    "var URL = me.commons.ctxp+'/main.do?action=menu';\r",
+                    "for (var i = 0; i < data.length; i++)\r",
+                    "{    \r",
+                    "    var treeStore = me.commons.createTreeStore(URL, data[i].id);     \r",
+                    "    var tree = Ext.create(\"Ext.tree.Panel\",\r",
+                    "        {\r",
+                    "            id : data[i].id,\r",
+                    "            title : data[i].text,\r",
+                    "            iconCls : data[i].iconCls,\r",
+                    "            // useArrows: true,\r",
+                    "            autoScroll : true,\r",
+                    "            rootVisible : false,\r",
+                    "            viewConfig :\r",
+                    "            {\r",
+                    "                loadingText : \"正在加载...\"\r",
+                    "            },\r",
+                    "            store : treeStore,\r",
+                    "            listeners : {\r",
+                    "                itemclick: {\r",
+                    "                    fn: me.itemClick,\r",
+                    "                    scope: me\r",
+                    "                }\r",
+                    "            }\r",
+                    "        });    \r",
+                    "        options.add(tree);\r",
+                    "}\r",
+                    "options.doLayout();"
+                ]
+            },
+            "designerId": "5601d7cb-fede-45b7-87af-96b04b7f27c4"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onOptionsToolClick",
+                "designer|params": [
+                    "tool",
+                    "e",
+                    "eOpts"
+                ],
+                "implHandler": [
+                    "this.setOptions();"
+                ]
+            },
+            "designerId": "6ea19e75-7751-4120-bafc-59852c166866"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "settingPassword",
+                "implHandler": [
+                    "//Ext.Msg.alert('修改密码');\r",
+                    "if (!this.passWin)\r",
+                    "{\r",
+                    "    this.passWin = Ext.create('Gotom.view.UserPassowrd');\r",
+                    "}\r",
+                    "this.passWin.show();"
+                ]
+            },
+            "designerId": "23276d49-0ba6-4da1-aaa9-5ed6adb0821e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "itemClick",
+                "designer|params": [
+                    "view",
+                    "node"
+                ],
+                "implHandler": [
+                    ""
+                ]
+            },
+            "designerId": "b7a2a083-62da-4e09-91a6-e11a06bfa272"
+        }
+    ]
+}
