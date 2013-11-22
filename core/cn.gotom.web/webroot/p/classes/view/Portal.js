@@ -18,8 +18,9 @@ Ext.define('Gotom.view.Portal', {
     alias: 'widget.Portal',
 
     requires: [
-        'Gotom.view.Commons',
-        'Gotom.view.UserPassowrd'
+        'Gotom.view.*',
+        'Gotom.model.*',
+        'Gotom.store.*'
     ],
 
     passWin: '',
@@ -123,8 +124,13 @@ Ext.define('Gotom.view.Portal', {
         })
         );
         this.setOptions();
+        this.onLoadIndex('');
         var footer = Ext.getCmp('app-footer');
         footer.setHeight(30);
+    },
+
+    onLoadIndex: function(data) {
+
     },
 
     setHeader: function() {
@@ -232,15 +238,15 @@ Ext.define('Gotom.view.Portal', {
             }
             else if (node.data.type === 'COMPONENT')
             {
-                var COMPONENT = Ext.create(node.data.component,
+                var component = Ext.create(node.data.component,
                     {
                         id : node.data.id,
                         title : node.data.text,
                         closable : true
                         // iconCls : 'icon-activity'
                     });
-                tabPanel.add(COMPONENT);
-                tabPanel.setActiveTab(COMPONENT);
+                tabPanel.add(component);
+                tabPanel.setActiveTab(component);
             }
         }
     },
