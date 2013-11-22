@@ -14,7 +14,7 @@
  */
 
 Ext.define('Gotom.view.Portal', {
-    extend: 'Ext.container.Viewport',
+    extend: 'Ext.panel.Panel',
     alias: 'widget.Portal',
 
     requires: [
@@ -266,7 +266,7 @@ Ext.define('Gotom.view.Portal', {
         var htmlStr = '<div class="logoPanel">　' + data.title + '</div>';
         htmlStr += '<div class="userPanel">';
         htmlStr += '欢迎您：<a href="#">' + data.username + '</a>　';
-        htmlStr += '<a href="javascript:Ext.getCmp(\'Portal\').settingPassword();">修改密码</a>　';
+        htmlStr += '<a href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
         htmlStr += '<a href="' + data.casServerLogoutUrl + '">注销登录</a>';
         htmlStr += '</div>';
         Ext.getCmp('app-header').update(htmlStr);
