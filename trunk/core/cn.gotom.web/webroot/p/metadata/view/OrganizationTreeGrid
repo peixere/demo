@@ -339,6 +339,23 @@
                 "scope": "me"
             },
             "designerId": "40877f47-7611-4cfc-98a2-9556aae8538f"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onOrganizationTreeGridLoad",
+                "implHandler": [
+                    "this.expandAll();"
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "5d69bc54-1a10-4100-89c3-81dab5645720"
         }
     ]
 }
