@@ -88,15 +88,6 @@ Ext.define('Gotom.view.Portal', {
                                     }
                                 }
                             ]
-                        },
-                        {
-                            xtype: 'tabpanel',
-                            autoScroll: true,
-                            enableTabScroll: true,
-                            animScroll: true,
-                            region: 'center',
-                            split: true,
-                            id: 'tabPanel'
                         }
                     ]
                 },
@@ -159,6 +150,29 @@ Ext.define('Gotom.view.Portal', {
         var me = this;
         this.commons = Ext.create('Gotom.view.Commons');
         this.setHeader();
+        var portal = Ext.getCmp('portal-container');
+        var portalPanel = Ext.create("Gotom.view.PortalPanel",
+            {
+                id : 'app-portal',
+                region : 'center',
+                title : "平台首页",
+                layout : 'column'
+            });
+        //var tabPanel = Ext.getCmp('tabPanel');
+        var tabPanel = Ext.create('Ext.tab.Panel',
+            {
+                id : 'tabPanel',
+                region : 'center',
+                activeTab : 0,
+                enableTabScroll : true,
+                animScroll : true,
+                border : true,
+                autoScroll : true,
+                split : true,
+                items : [ portalPanel
+                ]
+            });
+        portal.add(tabPanel);
         this.setOptions();
         this.onLoadIndex('');
         var footer = Ext.getCmp('app-footer');
@@ -168,15 +182,9 @@ Ext.define('Gotom.view.Portal', {
     onLoadIndex: function(data) {
         var me = this;
         var tabPanel = Ext.getCmp('tabPanel');
-        var portalPanel = Ext.create("Gotom.view.PortalPanel",
-            {
-                id : 'app-portal',
-                region : 'center',
-                title : "平台首页",
-                layout : 'column'
-            });
+        var portalPanel = Ext.getCmp('app-portal');
         tabPanel.setLoading('加载数据...');
-        tabPanel.add(portalPanel);
+        //tabPanel.add(portalPanel);
         Ext.defer(function()
         {
             var portalcolumn = Ext.create('Gotom.view.PortalColumn',
