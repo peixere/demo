@@ -105,7 +105,9 @@
                             "userConfig": {
                                 "fn": "onBtnRefClick",
                                 "implHandler": [
-                                    "window.location.reload();"
+                                    "this.getStore().reload();\r",
+                                    "this.expandAll();\r",
+                                    "//window.location.reload();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -146,14 +148,14 @@
                             "userConfig": {
                                 "fn": "onBtnNewClick",
                                 "implHandler": [
-                                    "    var selected = this.getSelectionModel().selected;\r",
-                                    "    var record = selected.items[0];\r",
-                                    "\tvar pid = '';\r",
-                                    "    if(!Ext.isEmpty(record))\r",
-                                    "    {\r",
-                                    "        pid = record.data.id;\r",
-                                    "    }\r",
-                                    "\tthis.openWinForm('',pid);"
+                                    "var selected = this.getSelectionModel().selected;\r",
+                                    "var record = selected.items[0];\r",
+                                    "var pid = '';\r",
+                                    "if(!Ext.isEmpty(record))\r",
+                                    "{\r",
+                                    "    pid = record.data.id;\r",
+                                    "}\r",
+                                    "this.openWinForm('',pid);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -226,6 +228,7 @@
                             "userConfig": {
                                 "fn": "onBtnDelClick",
                                 "implHandler": [
+                                    "var me = this;\r",
                                     "var selected = this.getSelectionModel().selected;\r",
                                     "var selecteditems = selected.items;\r",
                                     "\r",
@@ -261,7 +264,8 @@
                                     "            success : function(response, options)\r",
                                     "            {\r",
                                     "                Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
-                                    "                window.location.reload();\r",
+                                    "                //window.location.reload();\r",
+                                    "                me.onBtnRefClick(button,e,eOpts);\r",
                                     "            },\r",
                                     "            failure : function(response, options)\r",
                                     "            {\r",

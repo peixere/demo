@@ -124,7 +124,9 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onBtnRefClick: function(button, e, eOpts) {
-        window.location.reload();
+        this.getStore().reload();
+        this.expandAll();
+        //window.location.reload();
     },
 
     onBtnNewClick: function(button, e, eOpts) {
@@ -148,6 +150,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onBtnDelClick: function(button, e, eOpts) {
+        var me = this;
         var selected = this.getSelectionModel().selected;
         var selecteditems = selected.items;
 
@@ -183,7 +186,8 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     success : function(response, options)
                     {
                         Ext.Msg.alert("删除提示", "删除成功");
-                        window.location.reload();
+                        //window.location.reload();
+                        me.onBtnRefClick(button,e,eOpts);
                     },
                     failure : function(response, options)
                     {
