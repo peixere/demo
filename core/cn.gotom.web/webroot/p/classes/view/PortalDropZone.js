@@ -1,15 +1,15 @@
 /**
- * @class Gotom.view.PortalDropZone
+ * @class Ext.app.PortalDropZone
  * @extends Ext.dd.DropTarget
- * Internal class that manages drag/drop for {@link Gotom.view.PortalPanel}.
+ * Internal class that manages drag/drop for {@link Ext.app.PortalPanel}.
  */
-Ext.define('Gotom.view.PortalDropZone', {
+Ext.define('Ext.app.PortalDropZone', {
     extend: 'Ext.dd.DropTarget',
 
     constructor: function(portal, cfg) {
         this.portal = portal;
         Ext.dd.ScrollManager.register(portal.body);
-        Gotom.view.PortalDropZone.superclass.constructor.call(this, portal.body, cfg);
+        Ext.app.PortalDropZone.superclass.constructor.call(this, portal.body, cfg);
         portal.body.ddScrollConfig = this.ddScrollConfig;
     },
 
@@ -76,7 +76,7 @@ Ext.define('Gotom.view.PortalDropZone', {
         }
 
         // find insert position
-        var overPortlet = null, pos = 0,
+        var overPortlet, pos = 0,
             h = 0,
             match = false,
             overColumn = portal.items.getAt(colIndex),
@@ -190,6 +190,6 @@ Ext.define('Gotom.view.PortalDropZone', {
     // unregister the dropzone from ScrollManager
     unreg: function() {
         Ext.dd.ScrollManager.unregister(this.portal.body);
-        Gotom.view.PortalDropZone.superclass.unreg.call(this);
+        Ext.app.PortalDropZone.superclass.unreg.call(this);
     }
 });

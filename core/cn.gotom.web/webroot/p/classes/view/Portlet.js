@@ -1,9 +1,9 @@
 /**
- * @class Gotom.view.Portlet
+ * @class Ext.app.Portlet
  * @extends Ext.panel.Panel
- * A {@link Ext.panel.Panel Panel} class that is managed by {@link Gotom.view.PortalPanel}.
+ * A {@link Ext.panel.Panel Panel} class that is managed by {@link Ext.app.PortalPanel}.
  */
-Ext.define('Gotom.view.Portlet', {
+Ext.define('Ext.app.Portlet', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.portlet',
     layout: 'fit',

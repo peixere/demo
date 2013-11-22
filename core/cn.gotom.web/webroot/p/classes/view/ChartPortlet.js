@@ -1,4 +1,4 @@
-Ext.define('Gotom.view.ChartPortlet', {
+Ext.define('Ext.app.ChartPortlet', {
 
     extend: 'Ext.panel.Panel',
     alias: 'widget.chartportlet',
