@@ -146,9 +146,23 @@ Ext.define('ems.view.BuildingGrid', {
     },
 
     onBtnBfAddClick: function(button, e, eOpts) {
-        var id = Ext.getCmp('params').getValue();  
-        //alert('add-id:'+id); 
-        this.openWinForm(id,'');
+        var type = Ext.getCmp('ndtype').getValue();
+        if(type == 'BuildingFunction')
+        {
+            var id = Ext.getCmp('params').getValue();  
+            //alert('add-id:'+id); 
+            this.openWinForm(id,'');
+        }
+        else 
+        {
+            Ext.Msg.show(
+            {
+                title : "操作提示",
+                msg : "请先选择建筑类型!",
+                icon : Ext.Msg.WARNING
+            }); 
+            return;
+        }
     },
 
     onBtnBfEditClick: function(button, e, eOpts) {

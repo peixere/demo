@@ -90,6 +90,14 @@ Ext.define('ems.view.BuildingPanel', {
                             name: 'params'
                         },
                         {
+                            xtype: 'hiddenfield',
+                            region: 'east',
+                            id: 'ndtype',
+                            width: 150,
+                            fieldLabel: 'Label',
+                            name: 'ndtype'
+                        },
+                        {
                             xtype: 'BuildingGrid',
                             region: 'center'
                         }
@@ -111,6 +119,7 @@ Ext.define('ems.view.BuildingPanel', {
     onBuildingTreePanelItemClick: function(dataview, record, item, index, e, eOpts) {
 
         Ext.getCmp('params').setValue(record.data.id);  
+        Ext.getCmp('ndtype').setValue(record.data.type);
 
         var winform = Ext.create('ems.view.BuildingGrid'); 
         winform.refreshBuildings(record.data.id);

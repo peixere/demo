@@ -95,6 +95,7 @@
                         "implHandler": [
                             "\r",
                             "Ext.getCmp('params').setValue(record.data.id);  \r",
+                            "Ext.getCmp('ndtype').setValue(record.data.type);\r",
                             "\r",
                             "var winform = Ext.create('ems.view.BuildingGrid'); \r",
                             "winform.refreshBuildings(record.data.id);\r",
@@ -140,6 +141,22 @@
                         "name": "params"
                     },
                     "designerId": "0ed96fc0-ea78-4c5e-9095-004920c4e61e"
+                },
+                {
+                    "type": "Ext.form.field.Hidden",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "east",
+                        "id": "ndtype",
+                        "width": 150,
+                        "fieldLabel": "Label",
+                        "name": "ndtype"
+                    },
+                    "designerId": "f60d89c2-5dec-430f-86c9-f09e4da7ad4f"
                 },
                 {
                     "type": "linkedinstance",
