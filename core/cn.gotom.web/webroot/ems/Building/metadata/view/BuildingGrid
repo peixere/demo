@@ -205,9 +205,23 @@
                             "userConfig": {
                                 "fn": "onBtnBfAddClick",
                                 "implHandler": [
-                                    "var id = Ext.getCmp('params').getValue();  \r",
-                                    "//alert('add-id:'+id); \r",
-                                    "this.openWinForm(id,'');"
+                                    "var type = Ext.getCmp('ndtype').getValue();\r",
+                                    "if(type == 'BuildingFunction')\r",
+                                    "{\r",
+                                    "\tvar id = Ext.getCmp('params').getValue();  \r",
+                                    "\t//alert('add-id:'+id); \r",
+                                    "\tthis.openWinForm(id,'');\r",
+                                    "}\r",
+                                    "else \r",
+                                    "{\r",
+                                    "    Ext.Msg.show(\r",
+                                    "    {\r",
+                                    "        title : \"操作提示\",\r",
+                                    "        msg : \"请先选择建筑类型!\",\r",
+                                    "        icon : Ext.Msg.WARNING\r",
+                                    "    }); \r",
+                                    "    return;\r",
+                                    "}"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -327,7 +341,7 @@
                                     "            {\r",
                                     "                Ext.Msg.alert(\"删除提示\", \"删除成功\");  \r",
                                     "                var id = Ext.getCmp('params').getValue();   \r",
-                                    "\t\t\t\tme.refreshBuildings(id);\r",
+                                    "                me.refreshBuildings(id);\r",
                                     "            },\r",
                                     "            failure : function(response, options)\r",
                                     "            {\r",
