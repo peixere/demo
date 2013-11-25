@@ -18,7 +18,7 @@
 	<!-- cas config -->
 	<context-param>
 		<param-name>serverName</param-name>
-		<param-value>http://localhost:8080</param-value>
+		<param-value>/</param-value>
 	</context-param>
 	<context-param>
 		<param-name>casServerLoginUrl</param-name>
@@ -30,7 +30,7 @@
 	</context-param>
 	<context-param>
 		<param-name>casServerUrlPrefix</param-name>
-		<param-value>http://localhost:8080/cas</param-value>
+		<param-value>/cas</param-value>
 	</context-param>
 
 	<description>用于单点退出，该过滤器用于实现单点登出功能，可选配置</description>
