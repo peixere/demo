@@ -164,6 +164,7 @@ public class SerialPortLibrary
 
 	public static String getFile(String args)
 	{
+		//SerialPortLibrary.class.getProtectionDomain().getCodeSource().getLocation().getPath()
 		return SerialPortLibrary.class.getClassLoader().getResource(args).getFile();
 	}
 
