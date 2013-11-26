@@ -15,9 +15,7 @@
         "designer|userClassName": "Portal",
         "designer|userAlias": "Portal",
         "requires": [
-            "Gotom.view.*",
-            "Gotom.model.*",
-            "Gotom.store.*"
+            "Gotom.view.*"
         ],
         "layout": "border"
     },
