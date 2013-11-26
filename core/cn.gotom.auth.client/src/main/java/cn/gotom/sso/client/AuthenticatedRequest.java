@@ -1,4 +1,4 @@
-package cn.gotom.auth.client;
+package cn.gotom.sso.client;
 
 import net.sf.json.JSONSerializer;
 

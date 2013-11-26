@@ -1,4 +1,4 @@
-package cn.gotom.servlet;
+package cn.gotom.sso.utils;
 
 import java.util.regex.Pattern;
 

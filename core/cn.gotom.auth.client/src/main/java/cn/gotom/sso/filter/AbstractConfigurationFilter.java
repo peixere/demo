@@ -1,4 +1,4 @@
-package cn.gotom.servlet;
+package cn.gotom.sso.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
