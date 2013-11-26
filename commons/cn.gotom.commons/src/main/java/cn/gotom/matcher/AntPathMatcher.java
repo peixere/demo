@@ -1,4 +1,4 @@
-package cn.gotom.util;
+package cn.gotom.matcher;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.gotom.util.Assert;
+import cn.gotom.util.StringUtils;
 
 public class AntPathMatcher implements PathMatcher
 {
