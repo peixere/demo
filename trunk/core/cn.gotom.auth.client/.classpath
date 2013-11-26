@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/httpclient-cache-4.3.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/httpcore-4.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/httpmime-4.3.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar" sourcepath="/cas-client-core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
