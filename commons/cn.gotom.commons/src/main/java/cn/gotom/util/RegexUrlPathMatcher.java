@@ -1,5 +1,7 @@
 package cn.gotom.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -18,7 +20,8 @@ public class RegexUrlPathMatcher implements UrlMatcher {
     }
 
     public boolean pathMatchesUrl(Object compiledPath, String url) {
-        Pattern pattern = (Pattern)compiledPath;
+    	Pattern pattern = Pattern.compile((String)compiledPath);
+        //Pattern pattern = (Pattern)compiledPath;
 
         return pattern.matcher(url).matches();
     }
@@ -30,4 +33,19 @@ public class RegexUrlPathMatcher implements UrlMatcher {
     public boolean requiresLowerCaseUrl() {
         return requiresLowerCaseUrl;
     }
+    
+	public static void main(String[] args)
+	{
+		Map<String, String> resMap = new HashMap<String, String>();
+		resMap.put("/admin/**/*.jsp", "ADMIN");
+		resMap.put("/*.html", "ADMIN");
+		UrlMatcher matcher = new RegexUrlPathMatcher();
+		for (String res : resMap.keySet())
+		{
+			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))
+			{
+				System.out.println(res);
+			}
+		}
+	}    
 }
