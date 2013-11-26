@@ -1,20 +1,20 @@
-package cn.gotom.util;
+package cn.gotom.matcher;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class AntUrlPathMatcher implements UrlMatcher
+public class AntUrlMatcher implements UrlMatcher
 {
 	private boolean requiresLowerCaseUrl = true;
 	private PathMatcher pathMatcher = new AntPathMatcher();
 
-	public AntUrlPathMatcher()
+	public AntUrlMatcher()
 	{
 		this(true);
 	}
 
-	public AntUrlPathMatcher(boolean requiresLowerCaseUrl)
+	public AntUrlMatcher(boolean requiresLowerCaseUrl)
 	{
 		this.requiresLowerCaseUrl = requiresLowerCaseUrl;
 	}
@@ -63,7 +63,7 @@ public class AntUrlPathMatcher implements UrlMatcher
 		Map<String, String> resMap = new HashMap<String, String>();
 		resMap.put("/admin/**/*.jsp", "ADMIN");
 		resMap.put("/*.html", "ADMIN");
-		UrlMatcher matcher = new AntUrlPathMatcher();
+		UrlMatcher matcher = new AntUrlMatcher();
 		for (String res : resMap.keySet())
 		{
 			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))

@@ -1,4 +1,4 @@
-package cn.gotom.util;
+package cn.gotom.matcher;
 
 /**
  * Strategy for deciding whether configured path matches a submitted candidate URL.
