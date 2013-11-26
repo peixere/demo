@@ -7,7 +7,8 @@
         <ant antfile="build.xml" dir="../cn.gotom.dao" />
         <ant antfile="build.xml" dir="../cn.gotom.pojos" />
         <ant antfile="build.xml" dir="../cn.gotom.service" />
-        <ant antfile="build.xml" dir="../cn.gotom.auth.client" />
+        <ant antfile="build.xml" dir="../cn.gotom.web.util" />
+        <ant antfile="build.xml" dir="../cn.gotom.sso.client" />
         <ant antfile="build.xml" dir="../cn.gotom.servlet" />
         <ant antfile="build.xml" dir="../cn.gotom.web.action" />
 	   	<copy toDir="./webroot/WEB-INF/classes"> 

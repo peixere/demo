@@ -4,8 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 <title>WebSocket</title>
 <script type="text/javascript">  
-//var ctxp = "ws://localhost:8080/cn.gotom.web";
-var ctxp = 'ws://<%=cn.gotom.servlet.UrlUtils.buildContextPath(request)%>';
+var ctxp = "ws://localhost:8080/";
 var ws = null;  
 function startWebSocket() {  
     if ('WebSocket' in window)  
