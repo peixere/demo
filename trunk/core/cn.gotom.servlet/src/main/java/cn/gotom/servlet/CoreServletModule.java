@@ -1,7 +1,7 @@
 package cn.gotom.servlet;
 
 import cn.gotom.auth.server.AuthenticatedService;
-import cn.gotom.servlet.websocket.WebSocket;
+import cn.gotom.websocket.WebSocket;
 
 import com.google.inject.Singleton;
 
