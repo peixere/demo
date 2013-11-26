@@ -38,7 +38,7 @@ public class Persistence implements PersistenceLifeCycle
 		this.unitOfWork = unitOfWork;
 		this.persistService = persistService;
 	}
-
+	@Override
 	public void startService()
 	{
 		try
@@ -99,19 +99,31 @@ public class Persistence implements PersistenceLifeCycle
 		}
 		return domainPath;
 	}
-
+	@Override
 	public void stopService()
 	{
 		this.persistService.stop();
 	}
-
+	@Override
 	public void beginUnitOfWork()
 	{
 		this.unitOfWork.begin();
 	}
-
+	@Override
 	public void endUnitOfWork()
 	{
 		this.unitOfWork.end();
 	}
+	@Override
+	public String getPattern()
+	{
+		return pattern;
+	}
+	@Override
+	public void setPattern(String pattern)
+	{
+		this.pattern = pattern;
+	}
+	
+	
 }
