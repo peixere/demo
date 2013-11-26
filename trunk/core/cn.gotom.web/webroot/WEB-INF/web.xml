@@ -35,7 +35,7 @@
 
 	<description>用于单点退出，该过滤器用于实现单点登出功能，可选配置</description>
 	<listener>
-		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+		<listener-class>cn.gotom.sso.client.session.SingleSignOutHttpSessionListener</listener-class>
 	</listener>
 	
 	<listener>
