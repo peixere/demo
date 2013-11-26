@@ -80,7 +80,7 @@ public final class SingleSignOutFilter extends AbstractConfigurationFilter {
         // nothing to do
     }
     
-    protected static SingleSignOutHandler getSingleSignOutHandler() {
+    public static SingleSignOutHandler getSingleSignOutHandler() {
         return handler;
     }
 }
