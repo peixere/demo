@@ -20,4 +20,8 @@ public interface PersistenceLifeCycle
 
 	public abstract void endUnitOfWork();
 
+	String getPattern();
+
+	void setPattern(String pattern);
+
 }
