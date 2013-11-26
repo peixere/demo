@@ -5,6 +5,8 @@ import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 
+import cn.gotom.web.util.filter.CharacterFilter;
+
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 

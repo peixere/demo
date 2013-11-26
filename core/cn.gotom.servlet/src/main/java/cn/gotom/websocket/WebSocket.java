@@ -1,4 +1,4 @@
-package cn.gotom.servlet.websocket;
+package cn.gotom.websocket;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
