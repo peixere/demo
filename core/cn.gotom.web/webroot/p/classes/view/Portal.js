@@ -18,9 +18,7 @@ Ext.define('Gotom.view.Portal', {
     alias: 'widget.Portal',
 
     requires: [
-        'Gotom.view.*',
-        'Gotom.model.*',
-        'Gotom.store.*'
+        'Gotom.view.*'
     ],
 
     passWin: '',
