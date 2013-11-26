@@ -2,10 +2,13 @@ package cn.gotom.dao;
 
 import java.util.List;
 
+import cn.gotom.dao.jpa.UniversalDaoJpa;
 import cn.gotom.service.Parameter;
 import cn.gotom.service.UniversalService;
 
-//@ImplementedBy(UniversalDaoJpa.class)
+import com.google.inject.ImplementedBy;
+
+@ImplementedBy(UniversalDaoJpa.class)
 public interface UniversalDao extends UniversalService
 {
 
