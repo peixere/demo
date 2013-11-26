@@ -10,7 +10,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/tomcat-coyote.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-persist-3.0.jar" sourcepath="D:/Program Files/eclipse/guice-3.0-src.zip"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-servlet-3.0.jar" sourcepath="D:/Program Files/eclipse/guice-3.0-src.zip"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/guice-struts2-plugin-3.0.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/log4j-1.2.17.jar"/>
@@ -25,7 +24,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-beanutils-core-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.vo.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/batik-transcoder.jar"/>

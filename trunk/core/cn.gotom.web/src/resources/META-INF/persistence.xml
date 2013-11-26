@@ -5,6 +5,7 @@
 	<persistence-unit name="AppEntityManager"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>		
+		<!-- 
 		<class>cn.gotom.pojos.SuperEntity</class>
 		<class>cn.gotom.pojos.ResourceConfig</class>
 		<class>cn.gotom.pojos.App</class>
@@ -17,10 +18,11 @@
 		<class>zhwedo.ems.pojos.Building</class>
 		<class>zhwedo.ems.pojos.EnergyConsumption</class>	
 		<class>zhwedo.ems.pojos.EnergyConsumptionCollect</class> 
+ -->		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.max_fetch_depth" value="5" />
@@ -42,7 +44,7 @@
 <!-- mysql  -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/auth?Unicode=true&amp;characterEncoding=utf8" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ems?Unicode=true&amp;characterEncoding=utf8" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="" />
 

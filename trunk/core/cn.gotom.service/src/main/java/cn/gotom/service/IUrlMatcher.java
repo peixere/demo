@@ -1,7 +1,7 @@
 package cn.gotom.service;
 
+import cn.gotom.matcher.UrlMatcher;
 import cn.gotom.service.impl.IAntUrlPathMatcher;
-import cn.gotom.util.UrlMatcher;
 
 import com.google.inject.ImplementedBy;
 
