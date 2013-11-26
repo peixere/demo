@@ -23,10 +23,13 @@ Ext.application({
         'OrganizationModel'
     ],
     stores: [
-        'OrganizationTreeStore',
-		'BuildingShartsTreeStore'
+        'OrganizationTreeStore'
     ],
     views: [
+        'RoleView',
+        'UserView',
+        'OrganizationCRUB',
+        'Portal',
         'PortalView'
     ],
     appFolder: 'classes',
