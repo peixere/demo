@@ -7,12 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import org.hibernate.ejb.packaging.JarVisitorFactory;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
+
+import org.hibernate.ejb.packaging.JarVisitorFactory;
+
 import cn.gotom.pojos.Right;
 import cn.gotom.util.Converter;
 
@@ -30,6 +33,8 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		System.out.println(Pattern.matches("[^cat]", "one cat,two cats in the yard"));
+		
 		JarVisitorFactory.getURLFromPath("url:/");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, 0, 1);

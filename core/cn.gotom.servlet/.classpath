@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/xwork-core-2.3.1.1.jar" sourcepath="F:/m2/repository/org/apache/struts/xwork/xwork-core/2.3.1.1/xwork-core-2.3.1.1-sources.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.commons.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar" sourcepath="/cas-client-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.auth.client"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/webroot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
