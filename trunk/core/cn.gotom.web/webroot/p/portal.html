@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Portal Layout Sample</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="../resources/favicon.ico" type="text/css" rel="shortcut icon"/>
+	<link href="../resources/portal.css" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="../resources/jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="../resources/highcharts/3.0.7/highcharts.js"></script>
+	<script type="text/javascript" src="../resources/highcharts/3.0.7/modules/exporting.js"></script>
+    <script type="text/javascript" src="../ext4/shared/include-ext.js"></script>
+	<script type="text/javascript" src="../ext4/shared/options-toolbar.js"></script> 
+    <script type="text/javascript">
+        Ext.Loader.setPath('Gotom.view', 'classes/view');
+    </script>
+    <script type="text/javascript" src="portal.js"></script>
+    <script type="text/javascript">
+        Ext.require([
+            'Ext.layout.container.*',
+            'Ext.resizer.Splitter',
+            'Ext.fx.target.Element',
+            'Ext.fx.target.Component',
+            'Ext.window.Window',
+            'Gotom.view.Portlet',
+            'Gotom.view.PortalColumn',
+            'Gotom.view.PortalPanel',
+            'Gotom.view.Portlet',
+            'Gotom.view.PortalDropZone',
+            'Gotom.view.GridPortlet',
+            'Gotom.view.ChartPortlet'
+        ]);
+
+        Ext.onReady(function(){
+            Ext.create('Gotom.view.MyPortal');
+        });
+    </script>
+    <!-- </x-compile> -->
+</head>
+<body>
+    <span id="app-msg" style="display:none;"></span>
+</body>
+</html>
