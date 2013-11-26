@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.gotom.sso.filter.AbstractConfigurationFilter;
-import cn.gotom.sso.utils.UrlUtils;
+import cn.gotom.sso.util.UrlUtils;
 
 public class AuthenticatedClientFilter extends AbstractConfigurationFilter
 {

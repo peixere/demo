@@ -1,4 +1,4 @@
-package cn.gotom.sso.utils;
+package cn.gotom.sso.util;
 
 import java.util.regex.Pattern;
 
@@ -6,11 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 public final class UrlUtils
 {
-	// ~ Methods ========================================================================================================
 
 	public static String buildFullContextPath(HttpServletRequest r)
 	{
-
 		String scheme = r.getScheme().toLowerCase();
 		String serverName = r.getServerName();
 		int serverPort = r.getServerPort();
