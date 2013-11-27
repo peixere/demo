@@ -38,6 +38,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                     xtype: 'form',
                     bindData: function(id, parentId) {
                         var formPanel = this;
+                        alert(this.parentPanel);
                         var wait = Ext.Msg.wait("正在载入......", "操作提示");
                         Ext.Ajax.request(
                         {
@@ -178,11 +179,9 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                 success : function(f, action)
                 {
                     var treeGrid = Ext.getCmp('OrganizationTreeGrid');
-                    alert(treeGrid);
                     treeGrid.onBtnRefClick(button,e,eOpts);
                     Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
-                    //window.location.reload();
                 },
                 failure : function(f, action)
                 {
