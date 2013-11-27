@@ -18,15 +18,14 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     alias: 'widget.OrganizationTreeGrid',
 
     requires: [
-	'Gotom.view.Commons',        
+        'Gotom.view.OrganizationWinForm',
         'Gotom.model.OrganizationModel',
         'Gotom.store.OrganizationTreeStore',
-        'Gotom.view.OrganizationWinForm'
+        'Gotom.view.Commons'
     ],
 
     id: 'OrganizationTreeGrid',
     title: '组织架构管理',
-    store: 'OrganizationTreeStore',
     rootVisible: false,
 
     initComponent: function() {
@@ -155,6 +154,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     onBtnDelClick: function(button, e, eOpts) {
         var me = this;
+        alert(me.id);
         var selected = this.getSelectionModel().selected;
         var selecteditems = selected.items;
 
@@ -207,6 +207,9 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onOrganizationTreeGridAfterLayout: function(container, layout, eOpts) {
+        var store = Ext.create('Gotom.store.OrganizationTreeStore');
+        store.reload();
+        this.bindStore(store);
         this.expandAll();
     },
 

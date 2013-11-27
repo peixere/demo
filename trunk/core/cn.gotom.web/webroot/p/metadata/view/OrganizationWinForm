@@ -176,7 +176,6 @@
                                         "fn": "onBtnSaveClick",
                                         "implHandler": [
                                             "var me = this;\r",
-                                            "var OrganizationTreeGrid = Ext.getCmp('OrganizationTreeGrid');\r",
                                             "if (this.getForm().isValid())\r",
                                             "{\r",
                                             "    this.getForm().submit(\r",
@@ -186,7 +185,9 @@
                                             "        waitMsg : '正在保存数据，稍后...',\r",
                                             "        success : function(f, action)\r",
                                             "        {\r",
-                                            "            OrganizationTreeGrid.onBtnRefClick(button,e,eOpts);\r",
+                                            "            var treeGrid = Ext.getCmp('OrganizationTreeGrid');\r",
+                                            "            alert(treeGrid);\r",
+                                            "            treeGrid.onBtnRefClick(button,e,eOpts);\r",
                                             "            Ext.Msg.alert('信息提示', '保存成功');\r",
                                             "            me.close();\r",
                                             "            //window.location.reload();\r",

@@ -168,7 +168,6 @@ Ext.define('Gotom.view.OrganizationWinForm', {
 
     onBtnSaveClick: function(button, e, eOpts) {
         var me = this;
-        var OrganizationTreeGrid = Ext.getCmp('OrganizationTreeGrid');
         if (this.getForm().isValid())
         {
             this.getForm().submit(
@@ -178,7 +177,9 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                 waitMsg : '正在保存数据，稍后...',
                 success : function(f, action)
                 {
-                    OrganizationTreeGrid.onBtnRefClick(button,e,eOpts);
+                    var treeGrid = Ext.getCmp('OrganizationTreeGrid');
+                    alert(treeGrid);
+                    treeGrid.onBtnRefClick(button,e,eOpts);
                     Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
                     //window.location.reload();

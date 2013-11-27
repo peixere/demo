@@ -519,7 +519,7 @@ Ext.define('Gotom.view.RolePanel', {
         var me = this;
         var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;
         var selecteditems = selected.items;
-        if (selecteditems.length == 0)
+        if (selecteditems.length === 0)
         {
             Ext.Msg.show(
             {
