@@ -10,18 +10,14 @@
 	<script type="text/javascript" src="../resources/highcharts/3.0.7/modules/exporting.js"></script>
     <script type="text/javascript" src="../ext4/shared/include-ext.js"></script>
 	<script type="text/javascript" src="../ext4/shared/options-toolbar.js"></script> 
-    <script type="text/javascript">
+    <script type="text/javascript">    
         Ext.Loader.setPath('Gotom', 'classes');
-    </script>
-    <script type="text/javascript" src="p.js"></script>
-    <script type="text/javascript">
+    	Ext.require('Gotom.view.PortalView');
         Ext.onReady(function(){
-            Ext.create('Gotom.view.MyPortal');
+            Ext.create('Gotom.view.PortalView');
         });
     </script>
-    <!-- </x-compile> -->
 </head>
 <body>
-    <span id="app-msg" style="display:none;"></span>
 </body>
 </html>
