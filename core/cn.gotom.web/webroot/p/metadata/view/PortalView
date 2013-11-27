@@ -7,7 +7,6 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "PortalView",
-        "designer|initialView": true,
         "layout": "border"
     },
     "designerId": "1cae1395-da53-4cfa-a03c-f801a914d496",

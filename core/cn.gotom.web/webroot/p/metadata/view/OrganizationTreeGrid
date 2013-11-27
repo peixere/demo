@@ -229,7 +229,6 @@
                                 "fn": "onBtnDelClick",
                                 "implHandler": [
                                     "var me = this;\r",
-                                    "alert(me.id);\r",
                                     "var selected = this.getSelectionModel().selected;\r",
                                     "var selecteditems = selected.items;\r",
                                     "\r",
