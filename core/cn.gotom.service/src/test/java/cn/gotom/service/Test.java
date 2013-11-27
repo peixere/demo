@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -25,13 +26,25 @@ public class Test
 	{
 
 	}
-
+    public static Date BCDToDateTime()
+    {
+        GregorianCalendar clc = new GregorianCalendar();
+        clc.setTime(new Date());
+        clc.set(2013, 11 - 1, 27, 11, 59, 59);
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		System.out.println("yyyy-MM-dd HH:mm:ss.SSS  :" + dateformat.format(clc.getTime()));        
+        String time = Converter.format(clc.getTime(),"yyyy-MM-dd HH:mm:ss");
+        Date date = Converter.parse(time, "yyyy-MM-dd HH:mm:ss");
+        System.out.println("yyyy-MM-dd HH:mm:ss.SSS  :" + dateformat.format(date));
+		return clc.getTime();
+    }
 	/**
 	 * @param args
 	 */
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		BCDToDateTime();
 		System.out.println(Pattern.matches("[^cat]", "one cat,two cats in the yard"));
 		
 		JarVisitorFactory.getURLFromPath("url:/");
