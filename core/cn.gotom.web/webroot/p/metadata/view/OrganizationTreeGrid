@@ -16,7 +16,7 @@
             "Gotom.view.Commons"
         ],
         "title": "组织架构管理",
-        "store": "OrganizationTreeStore",
+        "store": null,
         "rootVisible": false
     },
     "configAlternates": {
@@ -229,6 +229,7 @@
                                 "fn": "onBtnDelClick",
                                 "implHandler": [
                                     "var me = this;\r",
+                                    "alert(me.id);\r",
                                     "var selected = this.getSelectionModel().selected;\r",
                                     "var selecteditems = selected.items;\r",
                                     "\r",
@@ -332,6 +333,9 @@
             "userConfig": {
                 "fn": "onOrganizationTreeGridAfterLayout",
                 "implHandler": [
+                    "var store = Ext.create('Gotom.store.OrganizationTreeStore');\r",
+                    "store.reload();\r",
+                    "this.bindStore(store);\r",
                     "this.expandAll();"
                 ],
                 "single": true,

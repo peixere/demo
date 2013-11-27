@@ -775,7 +775,7 @@
                     "var me = this;\r",
                     "var selected = Ext.getCmp('RoleGridPanel').getSelectionModel().selected;\r",
                     "var selecteditems = selected.items;\r",
-                    "if (selecteditems.length == 0)\r",
+                    "if (selecteditems.length === 0)\r",
                     "{\r",
                     "    Ext.Msg.show(\r",
                     "    {\r",
