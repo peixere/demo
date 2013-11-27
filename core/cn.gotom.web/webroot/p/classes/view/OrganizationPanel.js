@@ -21,6 +21,7 @@ Ext.define('Gotom.view.OrganizationPanel', {
         'Gotom.view.OrganizationTreeGrid'
     ],
 
+    border: false,
     layout: {
         type: 'border'
     },
