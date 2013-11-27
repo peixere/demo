@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "border": false,
         "height": null,
         "width": null,
         "designer|userClassName": "OrganizationPanel",
