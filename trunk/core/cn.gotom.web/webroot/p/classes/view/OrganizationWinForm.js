@@ -38,7 +38,6 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                     xtype: 'form',
                     bindData: function(id, parentId) {
                         var formPanel = this;
-                        alert(this.parentPanel);
                         var wait = Ext.Msg.wait("正在载入......", "操作提示");
                         Ext.Ajax.request(
                         {

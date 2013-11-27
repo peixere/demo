@@ -154,7 +154,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     onBtnDelClick: function(button, e, eOpts) {
         var me = this;
-        alert(me.id);
         var selected = this.getSelectionModel().selected;
         var selecteditems = selected.items;
 

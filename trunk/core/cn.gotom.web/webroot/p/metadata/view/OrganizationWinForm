@@ -255,7 +255,6 @@
                         ],
                         "implHandler": [
                             "var formPanel = this;\r",
-                            "alert(this.parentPanel);\r",
                             "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\");\r",
                             "Ext.Ajax.request(\r",
                             "{\r",
