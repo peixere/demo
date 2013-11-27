@@ -18,10 +18,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     alias: 'widget.OrganizationTreeGrid',
 
     requires: [
-        'Gotom.view.OrganizationWinForm',
+	'Gotom.view.Commons',        
         'Gotom.model.OrganizationModel',
         'Gotom.store.OrganizationTreeStore',
-        'Gotom.view.Commons'
+        'Gotom.view.OrganizationWinForm'
     ],
 
     id: 'OrganizationTreeGrid',
