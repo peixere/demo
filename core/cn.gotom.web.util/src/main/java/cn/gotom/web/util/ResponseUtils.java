@@ -3,7 +3,6 @@ package cn.gotom.web.util;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,41 +21,18 @@ import org.dom4j.io.XMLWriter;
 public class ResponseUtils
 {
 	private static final Logger log = Logger.getLogger(ResponseUtils.class);
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-	private static final JsonValueProcessor jsonDataValueProcessor = new JsonValueProcessor()
-	{
-
-		@Override
-		public Object processArrayValue(Object arg0, JsonConfig arg1)
-		{
-			return null;
-		}
-
-		@Override
-		public Object processObjectValue(String key, Object value, JsonConfig jsonConfig)
-		{
-			if (value == null)
-			{
-				return "";
-			}
-			if (value instanceof java.sql.Timestamp || value instanceof java.util.Date)
-			{
-				String str = dateFormat.format((java.util.Date) value);
-				return str;
-			}
-			return value;
-		}
-
-	};
-
-	public static void toJSON(HttpServletRequest request,HttpServletResponse response,Object value)
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
 	{
 		JsonConfig config = new JsonConfig();
 		config.setIgnoreDefaultExcludes(false);
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		config.registerJsonValueProcessor(java.sql.Timestamp.class, jsonDataValueProcessor);
-		config.registerJsonValueProcessor(java.util.Date.class, jsonDataValueProcessor);
+		if (dateFormat != null && dateFormat.trim().length() > 0)
+		{
+			JsonValueProcessor dateValueProcessor = new JsonDateValueProcessor();
+			config.registerJsonValueProcessor(java.sql.Timestamp.class, dateValueProcessor);
+			config.registerJsonValueProcessor(java.util.Date.class, dateValueProcessor);
+		}
 		JSON json = net.sf.json.JSONSerializer.toJSON(value, config);
 		String encoing = request.getCharacterEncoding();
 		// response.setContentType("text/html;charset=" + encoing);
@@ -82,6 +58,11 @@ public class ResponseUtils
 				log.error("输出JSON异常 " + value);
 			}
 		}
+	}
+
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value)
+	{
+		toJSON(request, response, value, null);
 	}
 
 	public static String formatXML(String inputXML)
