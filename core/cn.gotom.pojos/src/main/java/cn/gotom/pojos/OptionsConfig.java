@@ -30,6 +30,9 @@ public class OptionsConfig extends SuperEntity implements Serializable
 	@Column(name = "option_value", nullable = false, length = 100)
 	private String optionValue;
 
+	@Column(name = "sort", nullable = false)
+	private int sort;
+	
 	public String getName()
 	{
 		return name;
@@ -58,6 +61,16 @@ public class OptionsConfig extends SuperEntity implements Serializable
 	public void setOptionValue(String optionValue)
 	{
 		this.optionValue = optionValue;
+	}
+
+	public int getSort()
+	{
+		return sort;
+	}
+
+	public void setSort(int sort)
+	{
+		this.sort = sort;
 	}
 
 }
