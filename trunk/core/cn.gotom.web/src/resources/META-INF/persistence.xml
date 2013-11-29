@@ -5,20 +5,6 @@
 	<persistence-unit name="AppEntityManager"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>		
-		<!-- 
-		<class>cn.gotom.pojos.SuperEntity</class>
-		<class>cn.gotom.pojos.ResourceConfig</class>
-		<class>cn.gotom.pojos.App</class>
-		<class>cn.gotom.pojos.Right</class>
-		<class>cn.gotom.pojos.Role</class>
-		<class>cn.gotom.pojos.User</class>
-		<class>cn.gotom.pojos.Organization</class>
-		<class>cn.gotom.pojos.OptionsConfig</class>		
-		<class>zhwedo.ems.pojos.BuildingFunction</class>
-		<class>zhwedo.ems.pojos.Building</class>
-		<class>zhwedo.ems.pojos.EnergyConsumption</class>	
-		<class>zhwedo.ems.pojos.EnergyConsumptionCollect</class> 
- -->		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
