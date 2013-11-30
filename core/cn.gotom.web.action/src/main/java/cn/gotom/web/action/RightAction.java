@@ -49,7 +49,8 @@ public class RightAction
 	public void tree() throws IOException
 	{
 		List<Right> menuList = rightService.loadTree();
-		if(menuList.size() == 0){
+		if (menuList.size() == 0)
+		{
 			Right o = new Right();
 			o.setText("系统管理");
 			rightService.save(o);
@@ -57,15 +58,18 @@ public class RightAction
 		}
 		ResponseUtils.toJSON(menuList);
 	}
+
 	public void list() throws IOException
 	{
 		List<Right> list = rightService.findAll();
-		for(Right r : list){
+		for (Right r : list)
+		{
 			r.setRoles(null);
 			r.setChildren(null);
 		}
 		ResponseUtils.toJSON(list);
 	}
+
 	public String remove()
 	{
 		String ids = getId();
@@ -73,8 +77,9 @@ public class RightAction
 		{
 			String[] idarray = ids.split(",");
 			this.setSuccess(true);
-			for (String id : idarray)
+			for (int i = idarray.length - 1; i >= 0; i--)
 			{
+				String id = idarray[i];
 				if (rightService.findByParentId(id).size() == 0)
 				{
 					rightService.removeById(id);
