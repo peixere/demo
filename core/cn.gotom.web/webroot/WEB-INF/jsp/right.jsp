@@ -1,9 +1,9 @@
-<%@ include file="/WEB-INF/core/taglibs.jsp"%>
+<%@ include file="/WEB-INF/jsp/inc/taglibs.jsp"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Hello World</title>
-<jsp:include page="/WEB-INF/core/meta.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/inc/meta.jsp"></jsp:include>
 </head>
 <body>
 	<h1>${message}</h1>
