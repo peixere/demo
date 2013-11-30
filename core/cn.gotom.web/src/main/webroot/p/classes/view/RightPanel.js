@@ -152,7 +152,7 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     onRightTreePanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
-
+        this.showform(record);
     },
 
     onRightTreePanelViewItemClick: function(dataview, record, item, index, e, eOpts) {
@@ -171,15 +171,20 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     onButtonAddClick: function(button, e, eOpts) {
-
+        this.onBtnAddClick(false);
     },
 
     onButtonNewClick: function(button, e, eOpts) {
-
+        this.onBtnAddClick(true);
     },
 
     onButtonEditClick: function(button, e, eOpts) {
-
+        var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;
+        var record = selected.items[0];
+        if(!Ext.isEmpty(record))
+        {
+            this.showform(record);
+        }
     },
 
     onButtonDelClick: function(button, e, eOpts) {
@@ -255,7 +260,8 @@ Ext.define('Gotom.view.RightPanel', {
 
     onBtnAddClick: function(leaf) {
         var me = this;
-        var p = getSelectedNode(tree);
+        var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;
+        var p = selected.items[0];
         var parentId = '';
         if (!Ext.isEmpty(p, false))
         {
@@ -293,12 +299,9 @@ Ext.define('Gotom.view.RightPanel', {
     showform: function(record) {
         if (record !== null && record !== '')
         {
-            if (!formwin)
-            {
-                formwin = Ext.create('Gotom.view.RightWindow');
-            }
-            formwin.form.getForm().reset();
+            var formwin = Ext.create('Gotom.view.RightWindow');
             formwin.show();
+            formwin.form.getForm().reset();
             formwin.form.loadRecord(record);
         }
         else
