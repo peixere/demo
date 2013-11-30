@@ -415,16 +415,16 @@
                     "var me = this;\r",
                     "var options = Ext.getCmp('app-options');\r",
                     "Ext.defer(function()\r",
-                    "          {\r",
-                    "              me.commons.ajax(\r",
-                    "                  {\r",
-                    "                      component : options,\r",
-                    "                      message : '加载菜单...',\r",
-                    "                      url : '../p/main!menu.do',\r",
-                    "                      callback : me.callbackOptions\r",
-                    "                      \r",
-                    "                  });\r",
-                    "          }, 100);"
+                    "{\r",
+                    "    me.commons.ajax(\r",
+                    "    {\r",
+                    "        component : options,\r",
+                    "        message : '加载菜单...',\r",
+                    "        url : '../p/main!menu.do',\r",
+                    "        callback : me.callbackOptions\r",
+                    "\r",
+                    "    });\r",
+                    "}, 100);"
                 ]
             },
             "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
