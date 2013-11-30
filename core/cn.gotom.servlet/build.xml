@@ -13,7 +13,7 @@
 		<property name="targetdir" value="${dirs.base}/bin" />
 		<property name="src" value="${dirs.base}/src/main/java" />
 		<property name="resources" value="${dirs.base}/src/resources" />
-		<property name="outputjar" value="../cn.gotom.web/webroot/WEB-INF/lib/cn.gotom.servlet.jar" />
+		<property name="outputjar" value="../cn.gotom.web/src/main/webroot/WEB-INF/lib/cn.gotom.servlet.jar" />
 		<mkdir dir="${targetdir}" />
 	</target>
 	<target name="compile" depends="init">
