@@ -16,6 +16,7 @@
 Ext.define('Gotom.view.RightWindow', {
     extend: 'Ext.window.Window',
 
+    form: '',
     height: 350,
     maxWidth: 400,
     minHeight: 350,
@@ -53,99 +54,99 @@ Ext.define('Gotom.view.RightWindow', {
 
     onWindowAfterLayout: function(container, layout, eOpts) {
         var me = this;
-        var form = Ext.create('Ext.form.Panel',
+        me.form = Ext.create('Ext.form.Panel',
+        {
+            region : 'center',
+            bodyPadding : 20,
+            defaults :
             {
-                region : 'center',
-                bodyPadding : 20,
+                labelAlign : 'right',
+                anchor : '100%',
+                labelWidth : 100
+            },
+            items : [
+            {
+                xtype : 'hiddenfield',
+                anchor : '100%',
+                fieldLabel : '未节点',
+                name : 'leaf'
+            },
+            {
+                xtype : 'hiddenfield',
+                anchor : '100%',
+                fieldLabel : '菜单标识',
+                name : 'id'
+            },
+            {
+                xtype : 'hiddenfield',
+                anchor : '100%',
+                fieldLabel : '父节点标识',
+                name : 'parentId'
+            },
+            {
+                xtype : 'hiddenfield',
+                anchor : '100%',
+                fieldLabel : '所属应用',
+                name : 'appCode'
+            },
+            {
+                xtype : 'textfield',
+                anchor : '100%',
+                allowBlank : false,
+                msgTarget : 'side',
+                name : 'text',
+                fieldLabel : '菜单名称'
+            },
+            {
+                xtype : 'textfield',
+                anchor : '100%',
+                name : 'iconCls',
+                fieldLabel : '图标样式'
+            },
+            {
+                xtype : 'radiogroup',
+                fieldLabel : '资源类型',
+                columns : 3,
                 defaults :
                 {
-                    labelAlign : 'right',
-                    anchor : '100%',
-                    labelWidth : 100
+                    name : 'type'
                 },
                 items : [
                 {
-                    xtype : 'hiddenfield',
-                    anchor : '100%',
-                    fieldLabel : '未节点',
-                    name : 'leaf'
+                    inputValue : 'DIR',
+                    boxLabel : '目录'
                 },
                 {
-                    xtype : 'hiddenfield',
-                    anchor : '100%',
-                    fieldLabel : '菜单标识',
-                    name : 'id'
+                    inputValue : 'URL',
+                    boxLabel : '连接'
                 },
                 {
-                    xtype : 'hiddenfield',
-                    anchor : '100%',
-                    fieldLabel : '父节点标识',
-                    name : 'parentId'
-                },
-                {
-                    xtype : 'hiddenfield',
-                    anchor : '100%',
-                    fieldLabel : '所属应用',
-                    name : 'appCode'
-                },
-                {
-                    xtype : 'textfield',
-                    anchor : '100%',
-                    allowBlank : false,
-                    msgTarget : 'side',
-                    name : 'text',
-                    fieldLabel : '菜单名称'
-                },
-                {
-                    xtype : 'textfield',
-                    anchor : '100%',
-                    name : 'iconCls',
-                    fieldLabel : '图标样式'
-                },
-                {
-                    xtype : 'radiogroup',
-                    fieldLabel : '资源类型',
-                    columns : 3,
-                    defaults :
-                    {
-                        name : 'type'
-                    },
-                    items : [
-                    {
-                        inputValue : 'DIR',
-                        boxLabel : '目录'
-                    },
-                    {
-                        inputValue : 'URL',
-                        boxLabel : '连接'
-                    },
-                    {
-                        inputValue : 'COMPONENT',
-                        boxLabel : '控件'
-                    }
-                    ]
-                },
-                {
-                    xtype : 'textfield',
-                    anchor : '100%',
-                    name : 'component',
-                    fieldLabel : '连接或控件'
-                },
-                {
-                    xtype : 'numberfield',
-                    anchor : '100%',
-                    fieldLabel : '排列顺序',
-                    name : 'sort'
-                },
-                {
-                    xtype : 'textareafield',
-                    anchor : '100%',
-                    name : 'resource',
-                    fieldLabel : '菜单资源'
+                    inputValue : 'COMPONENT',
+                    boxLabel : '控件'
                 }
                 ]
-            });
-        me.add(form);
+            },
+            {
+                xtype : 'textfield',
+                anchor : '100%',
+                name : 'component',
+                fieldLabel : '连接或控件'
+            },
+            {
+                xtype : 'numberfield',
+                anchor : '100%',
+                fieldLabel : '排列顺序',
+                name : 'sort'
+            },
+            {
+                xtype : 'textareafield',
+                anchor : '100%',
+                name : 'resource',
+                fieldLabel : '菜单资源'
+            }
+            ]
+        });
+        me.add(me.form);
     }
 
 });

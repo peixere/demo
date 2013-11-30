@@ -42,7 +42,7 @@
                     "userConfig": {
                         "fn": "onRightTreePanelItemDblClick",
                         "implHandler": [
-                            ""
+                            "this.showform(record);"
                         ],
                         "name": "itemdblclick",
                         "scope": "me"
@@ -128,7 +128,7 @@
                                     "userConfig": {
                                         "fn": "onButtonAddClick",
                                         "implHandler": [
-                                            ""
+                                            "this.onBtnAddClick(false);"
                                         ],
                                         "name": "click",
                                         "scope": "me"
@@ -161,7 +161,7 @@
                                     "userConfig": {
                                         "fn": "onButtonNewClick",
                                         "implHandler": [
-                                            ""
+                                            "this.onBtnAddClick(true);"
                                         ],
                                         "name": "click",
                                         "scope": "me"
@@ -194,7 +194,12 @@
                                     "userConfig": {
                                         "fn": "onButtonEditClick",
                                         "implHandler": [
-                                            ""
+                                            "var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;\r",
+                                            "var record = selected.items[0];\r",
+                                            "if(!Ext.isEmpty(record))\r",
+                                            "{\r",
+                                            "    this.showform(record);\r",
+                                            "}"
                                         ],
                                         "name": "click",
                                         "scope": "me"
@@ -418,7 +423,8 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "var p = getSelectedNode(tree);\r",
+                    "var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;\r",
+                    "var p = selected.items[0];\r",
                     "var parentId = '';\r",
                     "if (!Ext.isEmpty(p, false))\r",
                     "{\r",
@@ -436,20 +442,20 @@
                     "        method : 'POST',\r",
                     "        success : function(response, options)\r",
                     "        {\r",
-                    "        var result = Ext.JSON.decode(response.responseText);\r",
-                    "        var data = Ext.create('RightModel');\r",
-                    "        result.parentId = parentId;\r",
-                    "        data.data = result;\r",
-                    "        data.data.leaf = leaf;\r",
-                    "        data.data.type = 'URL';\r",
-                    "        wait.close();\r",
-                    "        me.showform(data);\r",
-                    "    },\r",
-                    "    failure : function(response, options)\r",
-                    "    {\r",
-                    "        wait.close();\r",
-                    "        Ext.Msg.alert(\"操作提示\", \"操作失败\");\r",
-                    "    }\r",
+                    "            var result = Ext.JSON.decode(response.responseText);\r",
+                    "            var data = Ext.create('RightModel');\r",
+                    "            result.parentId = parentId;\r",
+                    "            data.data = result;\r",
+                    "            data.data.leaf = leaf;\r",
+                    "            data.data.type = 'URL';\r",
+                    "            wait.close();\r",
+                    "            me.showform(data);\r",
+                    "        },\r",
+                    "        failure : function(response, options)\r",
+                    "        {\r",
+                    "            wait.close();\r",
+                    "            Ext.Msg.alert(\"操作提示\", \"操作失败\");\r",
+                    "        }\r",
                     "});"
                 ]
             },
@@ -470,12 +476,9 @@
                 "implHandler": [
                     "if (record !== null && record !== '')\r",
                     "{\r",
-                    "    if (!formwin)\r",
-                    "    {\r",
-                    "        formwin = Ext.create('Gotom.view.RightWindow');\r",
-                    "    }\r",
-                    "    formwin.form.getForm().reset();\r",
+                    "    var formwin = Ext.create('Gotom.view.RightWindow');\r",
                     "    formwin.show();\r",
+                    "    formwin.form.getForm().reset();\r",
                     "    formwin.form.loadRecord(record);\r",
                     "}\r",
                     "else\r",

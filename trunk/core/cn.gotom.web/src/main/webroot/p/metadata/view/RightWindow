@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "form": "",
         "height": 350,
         "maxWidth": 400,
         "minHeight": 350,
@@ -20,6 +21,13 @@
         "modal": true
     },
     "designerId": "59eec288-8265-4b46-a272-a9076495f8e6",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "form",
+            "type": "string"
+        }
+    ],
     "cn": [
         {
             "type": "Ext.toolbar.Toolbar",
@@ -44,7 +52,7 @@
                 "fn": "onWindowAfterLayout",
                 "implHandler": [
                     "var me = this;\r",
-                    "var form = Ext.create('Ext.form.Panel',\r",
+                    "me.form = Ext.create('Ext.form.Panel',\r",
                     "                      {\r",
                     "                          region : 'center',\r",
                     "                          bodyPadding : 20,\r",
@@ -136,7 +144,7 @@
                     "                              }\r",
                     "                          ]\r",
                     "                      });\r",
-                    "me.add(form);"
+                    "me.add(me.form);"
                 ],
                 "single": true,
                 "name": "afterlayout",
