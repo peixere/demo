@@ -173,7 +173,7 @@ Ext.define('Gotom.view.Portal', {
         this.setOptions();
         this.onLoadIndex('');
         var footer = Ext.getCmp('app-footer');
-        footer.setHeight(30);
+        footer.setHeight(0);
     },
 
     onLoadIndex: function(data) {
@@ -251,14 +251,14 @@ Ext.define('Gotom.view.Portal', {
 
     setHeader: function() {
         me = this;
-        me.setLoading('加载...');
         me.commons.ajax({
-            url : me.commons.ctxp+'/main.do',
+            url : '../p/main!main.do',
             callback : me.callbackHeader
         });
     },
 
     callbackHeader: function(data) {
+        Ext.getCmp('app-header').setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
         document.title = data.title;
         var htmlStr = '<div class="logoPanel">　' + data.title + '</div>';
@@ -278,7 +278,7 @@ Ext.define('Gotom.view.Portal', {
         {
             me.commons.ajax(
             {
-                url : me.commons.ctxp + '/main.do?action=menu',
+                url : '../p/main!menu.do',
                 callback : me.callbackOptions
             });
             options.setLoading(false);
@@ -289,7 +289,7 @@ Ext.define('Gotom.view.Portal', {
         var options = Ext.getCmp('app-options');
         options.removeAll();
         var me = Ext.getCmp('app-viewport');
-        var URL = me.commons.ctxp+'/main.do?action=menu';
+        var URL = '../p/main!menu.do';
         for (var i = 0; i < data.length; i++)
         {    
             var treeStore = me.commons.createTreeStore(URL, data[i].id);     
