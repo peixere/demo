@@ -82,7 +82,10 @@ Ext.define('Gotom.view.RightWindow', {
                 {
                     Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
-                    Ext.getCmp('RightTreePanel').getStore().reload();
+                    var tree = Ext.getCmp('RightTreePanel');
+                    tree.getStore().reload();
+                    tree.expandAll();
+
                 },
                 failure : function(f, action)
                 {
