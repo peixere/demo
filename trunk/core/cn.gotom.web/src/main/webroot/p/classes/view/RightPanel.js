@@ -231,6 +231,7 @@ Ext.define('Gotom.view.RightPanel', {
                     {
                         Ext.Msg.alert("删除提示", "删除成功");
                         tree.getStore().reload();
+                        Ext.defer(function(){tree.expandAll();},100);
                     },
                     failure : function(response, options)
                     {
@@ -258,8 +259,7 @@ Ext.define('Gotom.view.RightPanel', {
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
         myStore.reload();
-        tree.expandAll();
-        tree.expandAll();
+        Ext.defer(function(){tree.expandAll();},100);
     },
 
     onBtnAddClick: function(leaf) {

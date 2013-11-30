@@ -274,6 +274,7 @@
                                             "                        {\r",
                                             "                            Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
                                             "                            tree.getStore().reload();\r",
+                                            "                            Ext.defer(function(){tree.expandAll();},100);\r",
                                             "                        },\r",
                                             "                            failure : function(response, options)\r",
                                             "                        {\r",
@@ -392,8 +393,7 @@
                             "var tree = Ext.getCmp('RightTreePanel');\r",
                             "tree.bindStore(myStore);\r",
                             "myStore.reload();\r",
-                            "tree.expandAll();\r",
-                            "tree.expandAll();"
+                            "Ext.defer(function(){tree.expandAll();},100);"
                         ],
                         "single": true,
                         "name": "afterlayout",
