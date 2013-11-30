@@ -26,7 +26,9 @@
             "userConfig": {
                 "layout|region": "center",
                 "id": "RightTreePanel",
-                "title": "My Tree Panel"
+                "autoScroll": true,
+                "title": null,
+                "rootVisible": false
             },
             "designerId": "4e78dfc3-8427-4709-a2e1-11e11fb474d5",
             "cn": [
@@ -40,7 +42,37 @@
                     "userConfig": {
                         "id": "RightTreePanelView"
                     },
-                    "designerId": "da82dc3e-d805-49af-9646-6090ee533a3d"
+                    "designerId": "da82dc3e-d805-49af-9646-6090ee533a3d",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onRightTreePanelViewItemClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "var cm = Ext.create('Gotom.view.Commons');\r",
+                                    "if(record.data.checked)\r",
+                                    "{\r",
+                                    "    record.set('checked', false);\r",
+                                    "    cm.onTreePanelCheckChange(record,false,eOpts);\r",
+                                    "}\r",
+                                    "else\r",
+                                    "{\r",
+                                    "    record.set('checked', true);\r",
+                                    "}\r",
+                                    "cm.onTreeChildNodesChecked(record,record.data.checked);"
+                                ],
+                                "name": "itemclick",
+                                "scope": "me"
+                            },
+                            "designerId": "889e5bf3-ec8e-45e3-ab5b-2bf9f337e22c"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Toolbar",
@@ -53,9 +85,429 @@
                         "dock": "top",
                         "id": "RightTreePanelToolbar"
                     },
-                    "designerId": "94cee4ee-e334-4f44-a8f7-5d02660b18c7"
+                    "designerId": "94cee4ee-e334-4f44-a8f7-5d02660b18c7",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-add",
+                                "text": "添加目录"
+                            },
+                            "designerId": "66f9419a-ea55-4565-9485-737503f6becd",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonAddClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "00c346e3-b5fc-407d-901a-ddd4d6d50208"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-add-p",
+                                "text": "添加资源"
+                            },
+                            "designerId": "78bb84a5-3203-4ad5-b981-563dee582947",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonNewClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "8d075d49-91ae-42c3-ae62-142e250a3f66"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-edit",
+                                "text": "修改"
+                            },
+                            "designerId": "d4ef333b-9b16-453c-9e8b-6c305e8fa22b",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonEditClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "afe517bc-167e-49c0-8da1-1b5205a7c9be"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-del",
+                                "text": "删除"
+                            },
+                            "designerId": "997a777a-33dd-4d81-b312-b78bf5d0e267",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonDelClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "cd4aa2c4-8e5d-4f73-a314-cc2a88ba9e8c"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.tree.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 300,
+                        "defaultWidth": null,
+                        "sortable": false,
+                        "dataIndex": "text",
+                        "menuDisabled": true,
+                        "text": "菜单名称",
+                        "flex": 1
+                    },
+                    "designerId": "625e3dfe-565d-4c29-a8a0-712fb4e4f5d6"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "iconCls",
+                        "text": "使用样式"
+                    },
+                    "designerId": "8df39977-c4d2-4df2-b7cd-84abb2d4626b"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "defaultWidth": 160,
+                        "dataIndex": "component",
+                        "text": "控件或连接"
+                    },
+                    "designerId": "94274c82-527c-4224-af82-6cf9e0740a51"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "defaultWidth": 200,
+                        "sortable": false,
+                        "dataIndex": "resource",
+                        "text": "数据资源",
+                        "flex": 1
+                    },
+                    "designerId": "ebcf332f-9fc4-40b7-81dc-cc7682b2e415"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "sort",
+                        "text": "排列顺序"
+                    },
+                    "designerId": "29d8bbf3-f724-4f49-8e27-b5e86bb4be0d"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRightTreePanelItemDblClick",
+                        "implHandler": [
+                            ""
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "designerId": "381658e6-9790-4a3d-913f-4d88cd5e9c85"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRightTreePanelAfterLayout",
+                        "implHandler": [
+                            "var me = this;\r",
+                            "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
+                            "                         {\r",
+                            "                             defaultRootId : '',\r",
+                            "                            proxy :\r",
+                            "                             {\r",
+                            "                                 type : \"ajax\",\r",
+                            "                                 url : ctxp+'/p/right!tree.do'\r",
+                            "                             },\r",
+                            "                             clearOnLoad : true,\r",
+                            "                             nodeParam : \"id\",                             \r",
+                            "                             fields : [\r",
+                            "                                 {\r",
+                            "                                     name : \"id\",\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : \"parentId\",\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : 'sort',\r",
+                            "                                     type : 'int'\r",
+                            "                                 },\r",
+                            "                                 \r",
+                            "                                 {\r",
+                            "                                     name : \"iconCls\",\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : \"leaf\",\r",
+                            "                                     type : \"boolean\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : 'type',\r",
+                            "                                     type : 'string'\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : 'resource',\r",
+                            "                                     type : 'string'\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : 'component',\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : \"text\",\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : \"appCode\",\r",
+                            "                                     type : \"string\"\r",
+                            "                                 },\r",
+                            "                                 {\r",
+                            "                                     name : 'checked',\r",
+                            "                                     type : \"boolean\"\r",
+                            "                                 }\r",
+                            "                             ]                      \r",
+                            "                         });\r",
+                            "var tree = Ext.getCmp('RightTreePanel');\r",
+                            "tree.bindStore(myStore);\r",
+                            "myStore.reload();\r",
+                            "tree.expandAll();\r",
+                            "tree.expandAll();"
+                        ],
+                        "single": true,
+                        "name": "afterlayout",
+                        "scope": "me"
+                    },
+                    "designerId": "22213db6-b997-4158-a545-dad3b9856af7"
+                },
+                {
+                    "type": "Ext.selection.RowModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.RowModel",
+                    "designerId": "f7103b84-3158-4901-b4db-e5bdc1d981e1"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRightTreePanelCheckChange",
+                        "implHandler": [
+                            ""
+                        ],
+                        "name": "checkchange",
+                        "scope": "me"
+                    },
+                    "designerId": "eceb94ca-0179-4c41-aa2d-538e722ab3c7"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onBtnAddClick",
+                "designer|params": [
+                    "leaf"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "var p = getSelectedNode(tree);\r",
+                    "var parentId = '';\r",
+                    "if (!Ext.isEmpty(p, false))\r",
+                    "{\r",
+                    "    parentId = p.data.id;\r",
+                    "    if (p.data.leaf)\r",
+                    "    {\r",
+                    "        Ext.Msg.alert(\"操作提示\", \"请选择目录类型节点！\");\r",
+                    "        return;\r",
+                    "    }\r",
+                    "}\r",
+                    "var wait = Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
+                    "Ext.Ajax.request(\r",
+                    "    {\r",
+                    "        url : ctxp + '/p/right!fresh.do',\r",
+                    "        method : 'POST',\r",
+                    "        success : function(response, options)\r",
+                    "        {\r",
+                    "        var result = Ext.JSON.decode(response.responseText);\r",
+                    "        var data = Ext.create('RightModel');\r",
+                    "        result.parentId = parentId;\r",
+                    "        data.data = result;\r",
+                    "        data.data.leaf = leaf;\r",
+                    "        data.data.type = 'URL';\r",
+                    "        wait.close();\r",
+                    "        me.showform(data);\r",
+                    "    },\r",
+                    "    failure : function(response, options)\r",
+                    "    {\r",
+                    "        wait.close();\r",
+                    "        Ext.Msg.alert(\"操作提示\", \"操作失败\");\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "84a01500-5e69-4896-9d54-7d7a28f12b4c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showform",
+                "designer|params": [
+                    "record"
+                ],
+                "implHandler": [
+                    "if (record !== null && record !== '')\r",
+                    "{\r",
+                    "    if (!formwin)\r",
+                    "    {\r",
+                    "        formwin = Ext.create('Gotom.view.RightWindow');\r",
+                    "    }\r",
+                    "    formwin.form.getForm().reset();\r",
+                    "    formwin.show();\r",
+                    "    formwin.form.loadRecord(record);\r",
+                    "}\r",
+                    "else\r",
+                    "{\r",
+                    "    Ext.Msg.show(\r",
+                    "        {\r",
+                    "            // width : 200\r",
+                    "            title : \"操作提示\",\r",
+                    "            msg : \"请选择要修改的节点!\",\r",
+                    "            icon : Ext.Msg.WARNING\r",
+                    "        });\r",
+                    "}"
+                ]
+            },
+            "designerId": "baabcfff-c44f-42d9-b8f2-0b2ab36ee27b"
         }
     ]
 }

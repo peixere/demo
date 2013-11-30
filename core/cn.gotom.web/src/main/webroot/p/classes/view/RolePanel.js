@@ -389,7 +389,7 @@ Ext.define('Gotom.view.RolePanel', {
         var tree = Ext.create('Ext.tree.Panel',
             {
                 region: 'center',
-                id: 'RightTreePanel',
+                id: 'RoleRightTreePanel',
                 title: '角色可访问资源',
                 animate : true,
                 border : false,
@@ -463,7 +463,7 @@ Ext.define('Gotom.view.RolePanel', {
             var name = Ext.getCmp('role.name').getValue();                
             var sort = Ext.getCmp('role.sort').getValue();
             var rightIds = [];
-            var tree = Ext.getCmp('RightTreePanel');
+            var tree = Ext.getCmp('RoleRightTreePanel');
             var items = tree.getSelectionModel().store.data.items;
             Ext.each(items, function()
             {

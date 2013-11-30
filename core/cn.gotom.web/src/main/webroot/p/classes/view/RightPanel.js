@@ -31,22 +31,294 @@ Ext.define('Gotom.view.RightPanel', {
                     xtype: 'treepanel',
                     region: 'center',
                     id: 'RightTreePanel',
-                    title: 'My Tree Panel',
+                    autoScroll: true,
+                    rootVisible: false,
                     viewConfig: {
-                        id: 'RightTreePanelView'
+                        id: 'RightTreePanelView',
+                        listeners: {
+                            itemclick: {
+                                fn: me.onRightTreePanelViewItemClick,
+                                scope: me
+                            }
+                        }
                     },
                     dockedItems: [
                         {
                             xtype: 'toolbar',
                             dock: 'top',
-                            id: 'RightTreePanelToolbar'
+                            id: 'RightTreePanelToolbar',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'icon-add',
+                                    text: '添加目录',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonAddClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'icon-add-p',
+                                    text: '添加资源',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonNewClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'icon-edit',
+                                    text: '修改',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonEditClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'icon-del',
+                                    text: '删除',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonDelClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    columns: [
+                        {
+                            xtype: 'treecolumn',
+                            width: 300,
+                            sortable: false,
+                            dataIndex: 'text',
+                            menuDisabled: true,
+                            text: '菜单名称',
+                            flex: 1
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'iconCls',
+                            text: '使用样式'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 160,
+                            dataIndex: 'component',
+                            text: '控件或连接'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            defaultWidth: 200,
+                            sortable: false,
+                            dataIndex: 'resource',
+                            text: '数据资源',
+                            flex: 1
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'sort',
+                            text: '排列顺序'
+                        }
+                    ],
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onRightTreePanelItemDblClick,
+                            scope: me
+                        },
+                        afterlayout: {
+                            fn: me.onRightTreePanelAfterLayout,
+                            single: true,
+                            scope: me
+                        },
+                        checkchange: {
+                            fn: me.onRightTreePanelCheckChange,
+                            scope: me
+                        }
+                    },
+                    selModel: Ext.create('Ext.selection.RowModel', {
+
+                    })
                 }
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    onRightTreePanelViewItemClick: function(dataview, record, item, index, e, eOpts) {
+        var me = this;
+        var cm = Ext.create('Gotom.view.Commons');
+        if(record.data.checked)
+        {
+            record.set('checked', false);
+            cm.onTreePanelCheckChange(record,false,eOpts);
+        }
+        else
+        {
+            record.set('checked', true);
+        }
+        cm.onTreeChildNodesChecked(record,record.data.checked);
+    },
+
+    onButtonAddClick: function(button, e, eOpts) {
+
+    },
+
+    onButtonNewClick: function(button, e, eOpts) {
+
+    },
+
+    onButtonEditClick: function(button, e, eOpts) {
+
+    },
+
+    onButtonDelClick: function(button, e, eOpts) {
+
+    },
+
+    onRightTreePanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+
+    },
+
+    onRightTreePanelAfterLayout: function(container, layout, eOpts) {
+        var me = this;
+        var myStore = Ext.create("Ext.data.TreeStore",
+            {
+                defaultRootId : '',
+                proxy :
+                {
+                    type : "ajax",
+                    url : ctxp+'/p/right!tree.do'
+                },
+                clearOnLoad : true,
+                nodeParam : "id",                             
+                fields : [
+                {
+                    name : "id",
+                    type : "string"
+                },
+                {
+                    name : "parentId",
+                    type : "string"
+                },
+                {
+                    name : 'sort',
+                    type : 'int'
+                },
+
+                {
+                    name : "iconCls",
+                    type : "string"
+                },
+                {
+                    name : "leaf",
+                    type : "boolean"
+                },
+                {
+                    name : 'type',
+                    type : 'string'
+                },
+                {
+                    name : 'resource',
+                    type : 'string'
+                },
+                {
+                    name : 'component',
+                    type : "string"
+                },
+                {
+                    name : "text",
+                    type : "string"
+                },
+                {
+                    name : "appCode",
+                    type : "string"
+                },
+                {
+                    name : 'checked',
+                    type : "boolean"
+                }
+                ]                      
+            });
+        var tree = Ext.getCmp('RightTreePanel');
+        tree.bindStore(myStore);
+        myStore.reload();
+        tree.expandAll();
+        tree.expandAll();
+    },
+
+    onRightTreePanelCheckChange: function(node, checked, eOpts) {
+
+    },
+
+    onBtnAddClick: function(leaf) {
+        var me = this;
+        var p = getSelectedNode(tree);
+        var parentId = '';
+        if (!Ext.isEmpty(p, false))
+        {
+            parentId = p.data.id;
+            if (p.data.leaf)
+            {
+                Ext.Msg.alert("操作提示", "请选择目录类型节点！");
+                return;
+            }
+        }
+        var wait = Ext.Msg.wait("正在执行......", "操作提示");
+        Ext.Ajax.request(
+        {
+            url : ctxp + '/p/right!fresh.do',
+            method : 'POST',
+            success : function(response, options)
+            {
+                var result = Ext.JSON.decode(response.responseText);
+                var data = Ext.create('RightModel');
+                result.parentId = parentId;
+                data.data = result;
+                data.data.leaf = leaf;
+                data.data.type = 'URL';
+                wait.close();
+                me.showform(data);
+            },
+            failure : function(response, options)
+            {
+                wait.close();
+                Ext.Msg.alert("操作提示", "操作失败");
+            }
+        });
+    },
+
+    showform: function(record) {
+        if (record !== null && record !== '')
+        {
+            if (!formwin)
+            {
+                formwin = Ext.create('Gotom.view.RightWindow');
+            }
+            formwin.form.getForm().reset();
+            formwin.show();
+            formwin.form.loadRecord(record);
+        }
+        else
+        {
+            Ext.Msg.show(
+            {
+                // width : 200
+                title : "操作提示",
+                msg : "请选择要修改的节点!",
+                icon : Ext.Msg.WARNING
+            });
+        }
     }
 
 });
