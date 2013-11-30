@@ -1,4 +1,4 @@
-
+var ctxp = '';
 (function() {
     function getQueryParam(name) {
         var regex = RegExp('[?&]' + name + '=([^&]*)');
@@ -45,13 +45,13 @@
     while (i--) {
         path = path.substring(0, path.lastIndexOf('/'));
     }
+    ctxp = path;
     if (theme && theme !== 'classic') {
         suffix.push(theme);
     }
     if (rtl) {
         suffix.push('rtl');
-    } 
-
+    }
     suffix = (suffix.length) ? ('-' + suffix.join('-')) : '';
     //var prefix = 'http://cdn.sencha.com/ext/gpl/4.2.1';
     var prefix = path + "/ext4/ext4.2.1"
