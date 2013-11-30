@@ -301,7 +301,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 300,
+                        "width": 200,
                         "defaultWidth": null,
                         "sortable": false,
                         "dataIndex": "text",
@@ -332,6 +332,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "width": 200,
                         "defaultWidth": 160,
                         "dataIndex": "component",
                         "text": "控件或连接"
