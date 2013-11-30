@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
@@ -22,7 +23,8 @@ import cn.gotom.util.StringUtils;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
-@Action(value = "/main", results = { @Result(name = "success", type = "json") })
+@Namespace(value = "/p")
+@Action(value = "/main", results = { @Result(name = "success", location = "/WEB-INF/jsp/index.jsp") })
 public class MainAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
@@ -32,7 +34,7 @@ public class MainAction
 
 	@Inject
 	private RightService rightService;
-	
+
 	@Inject
 	private ResourceConfigService configService;
 
@@ -48,23 +50,17 @@ public class MainAction
 
 	private String title;
 
-	public void execute() throws IOException
+	public String execute()
 	{
-		if (action == null)
-		{
-			main();
-		}
-		else
-		{
-			menu();
-		}
+		return "success";
 	}
 
-	private void main() throws IOException
+	public void main() throws IOException
 	{
 		username = ServletActionContext.getRequest().getRemoteUser();
 		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
-		if(appTitle == null){
+		if (appTitle == null)
+		{
 			appTitle = new ResourceConfig();
 			appTitle.setName(ResourceName.appliction_title);
 			appTitle.setValue("能源管理系统");
@@ -76,7 +72,7 @@ public class MainAction
 		ResponseUtils.toJSON(this);
 	}
 
-	private void menu() throws IOException
+	public void menu() throws IOException
 	{
 		List<Right> menuList = null;
 		if (StringUtils.isNullOrEmpty(id))
@@ -88,7 +84,6 @@ public class MainAction
 			menuList = rightService.loadTreeByParentId(id);
 		}
 		ResponseUtils.toJSON(menuList);
-		//resource();
 	}
 
 	private boolean hasRight = true;
