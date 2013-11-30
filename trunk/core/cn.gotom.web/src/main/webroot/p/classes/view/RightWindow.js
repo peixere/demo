@@ -37,7 +37,24 @@ Ext.define('Gotom.view.RightWindow', {
             dockedItems: [
                 {
                     xtype: 'toolbar',
-                    dock: 'bottom'
+                    dock: 'bottom',
+                    layout: {
+                        pack: 'end',
+                        type: 'hbox'
+                    },
+                    items: [
+                        {
+                            xtype: 'button',
+                            iconCls: 'icon-save',
+                            text: '保存',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonSaveClick,
+                                    scope: me
+                                }
+                            }
+                        }
+                    ]
                 }
             ],
             listeners: {
@@ -50,6 +67,29 @@ Ext.define('Gotom.view.RightWindow', {
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonSaveClick: function(button, e, eOpts) {
+        var me = this;
+        if (me.form.isValid())
+        {
+            me.form.submit(
+            {
+                url : ctxp + '/p/right!save.do',
+                method : 'POST',
+                waitMsg : '正在保存数据，稍后...',
+                success : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存成功');
+                    me.close();
+                    Ext.getCmp('RightTreePanel').getStore().reload();
+                },
+                failure : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存失败！');
+                }
+            });
+        }
     },
 
     onWindowAfterLayout: function(container, layout, eOpts) {
