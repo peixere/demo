@@ -33,6 +33,17 @@ Ext.define('Gotom.view.RightPanel', {
                     id: 'RightTreePanel',
                     autoScroll: true,
                     rootVisible: false,
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onRightTreePanelItemDblClick,
+                            scope: me
+                        },
+                        afterlayout: {
+                            fn: me.onRightTreePanelAfterLayout,
+                            single: true,
+                            scope: me
+                        }
+                    },
                     viewConfig: {
                         id: 'RightTreePanelView',
                         listeners: {
@@ -130,21 +141,6 @@ Ext.define('Gotom.view.RightPanel', {
                             text: '排列顺序'
                         }
                     ],
-                    listeners: {
-                        itemdblclick: {
-                            fn: me.onRightTreePanelItemDblClick,
-                            scope: me
-                        },
-                        afterlayout: {
-                            fn: me.onRightTreePanelAfterLayout,
-                            single: true,
-                            scope: me
-                        },
-                        checkchange: {
-                            fn: me.onRightTreePanelCheckChange,
-                            scope: me
-                        }
-                    },
                     selModel: Ext.create('Ext.selection.RowModel', {
 
                     })
@@ -155,13 +151,17 @@ Ext.define('Gotom.view.RightPanel', {
         me.callParent(arguments);
     },
 
+    onRightTreePanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+
+    },
+
     onRightTreePanelViewItemClick: function(dataview, record, item, index, e, eOpts) {
         var me = this;
         var cm = Ext.create('Gotom.view.Commons');
         if(record.data.checked)
         {
             record.set('checked', false);
-            cm.onTreePanelCheckChange(record,false,eOpts);
+            cm.onTreePanelCheckChange(record,false);
         }
         else
         {
@@ -183,10 +183,6 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     onButtonDelClick: function(button, e, eOpts) {
-
-    },
-
-    onRightTreePanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
 
     },
 
@@ -255,10 +251,6 @@ Ext.define('Gotom.view.RightPanel', {
         myStore.reload();
         tree.expandAll();
         tree.expandAll();
-    },
-
-    onRightTreePanelCheckChange: function(node, checked, eOpts) {
-
     },
 
     onBtnAddClick: function(leaf) {
