@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "Library",
-        "basePath": "http://localhost:8080/ext/ext4.2.1/"
+        "basePath": "http://localhost:8080/R/ext4/shared/include-ext.js?theme=classic&"
     },
     "designerId": "25240bf5-9608-4384-b28c-a04aef16f309"
 }
