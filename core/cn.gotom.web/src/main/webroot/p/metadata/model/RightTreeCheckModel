@@ -1,0 +1,150 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "RightTreeCheckModel",
+        "designer|userAlias": "RightTreeCheckModel"
+    },
+    "designerId": "d5e00281-6e1c-45a0-8f07-5df062224e1b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "designerId": "5cb2521e-960f-4192-89ee-a45f88323706"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "parentId"
+            },
+            "designerId": "b1cfa9fb-73af-4f3b-a4b1-0971d3fb3b52"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "sort",
+                "type": "int"
+            },
+            "designerId": "1e362799-ae31-401f-8319-655a61463036"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "iconCls"
+            },
+            "designerId": "f6e5c33e-02e5-4399-830b-f9434828281b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "leaf",
+                "type": "boolean"
+            },
+            "designerId": "143b47f9-b4c5-4a2e-8005-1fc44dc40b30"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "type"
+            },
+            "designerId": "ed9ec93b-50b8-4b53-a779-0e4b14b5fd8d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "resource"
+            },
+            "designerId": "384a0439-514d-4901-9210-7f668cf72fe6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "component"
+            },
+            "designerId": "b85a5f20-53f4-4dc8-894a-e4443842aa83"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text"
+            },
+            "designerId": "2918f96c-05be-4f87-bc85-dc9c5d75b89d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "appCode"
+            },
+            "designerId": "94e23cdb-3534-4a05-a514-70ca62dc5206"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "checked",
+                "type": "boolean"
+            },
+            "designerId": "729fe29c-025e-4978-98e6-d575df67dd33"
+        }
+    ]
+}
