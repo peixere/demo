@@ -17,6 +17,10 @@ Ext.define('Gotom.view.RightPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.RightPanel',
 
+    requires: [
+        'Gotom.model.RightTreeCheckModel'
+    ],
+
     border: false,
     layout: {
         type: 'border'
@@ -280,7 +284,7 @@ Ext.define('Gotom.view.RightPanel', {
             success : function(response, options)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                var data = Ext.create('RightModel');
+                var data = Ext.create('Gotom.model.RightTreeCheckModel');
                 result.parentId = parentId;
                 data.data = result;
                 data.data.leaf = leaf;

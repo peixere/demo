@@ -149,6 +149,14 @@
                 "classes/view/RightWindow.js"
             ],
             "className": "RightWindow"
+        },
+        "d5e00281-6e1c-45a0-8f07-5df062224e1b": {
+            "paths": [
+                "metadata/model/RightTreeCheckModel",
+                "classes/model/override/RightTreeCheckModel.js",
+                "classes/model/RightTreeCheckModel.js"
+            ],
+            "className": "RightTreeCheckModel"
         }
     },
     "viewOrderMap": {
@@ -173,7 +181,8 @@
         ],
         "controller": [],
         "model": [
-            "b8c562b6-aeba-48c3-86ff-2b4509c6d545"
+            "b8c562b6-aeba-48c3-86ff-2b4509c6d545",
+            "d5e00281-6e1c-45a0-8f07-5df062224e1b"
         ],
         "resource": [
             "25240bf5-9608-4384-b28c-a04aef16f309"

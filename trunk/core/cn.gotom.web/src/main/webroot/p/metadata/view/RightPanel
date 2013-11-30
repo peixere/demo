@@ -11,6 +11,9 @@
         "width": null,
         "designer|userClassName": "RightPanel",
         "designer|userAlias": "RightPanel",
+        "requires": [
+            "Gotom.model.RightTreeCheckModel"
+        ],
         "layout": "border",
         "title": null
     },
@@ -443,7 +446,7 @@
                     "        success : function(response, options)\r",
                     "        {\r",
                     "            var result = Ext.JSON.decode(response.responseText);\r",
-                    "            var data = Ext.create('RightModel');\r",
+                    "            var data = Ext.create('Gotom.model.RightTreeCheckModel');\r",
                     "            result.parentId = parentId;\r",
                     "            data.data = result;\r",
                     "            data.data.leaf = leaf;\r",

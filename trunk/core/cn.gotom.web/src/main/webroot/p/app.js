@@ -20,7 +20,8 @@ Ext.Loader.setConfig({
 
 Ext.application({
     models: [
-        'OrganizationModel'
+        'OrganizationModel',
+        'RightTreeCheckModel'
     ],
     stores: [
         'OrganizationTreeStore'
