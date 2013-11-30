@@ -113,7 +113,7 @@ Ext.define('Gotom.view.RightPanel', {
                     columns: [
                         {
                             xtype: 'treecolumn',
-                            width: 300,
+                            width: 200,
                             sortable: false,
                             dataIndex: 'text',
                             menuDisabled: true,
@@ -127,6 +127,7 @@ Ext.define('Gotom.view.RightPanel', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: 200,
                             defaultWidth: 160,
                             dataIndex: 'component',
                             text: '控件或连接'
