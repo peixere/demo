@@ -252,6 +252,8 @@ Ext.define('Gotom.view.Portal', {
     setHeader: function() {
         me = this;
         me.commons.ajax({
+            component : Ext.getCmp('app-header'),
+            message : '加载头信息...',    
             url : '../p/main!main.do',
             callback : me.callbackHeader
         });
@@ -273,15 +275,16 @@ Ext.define('Gotom.view.Portal', {
     setOptions: function() {
         var me = this;
         var options = Ext.getCmp('app-options');
-        options.setLoading('加载菜单...');
         Ext.defer(function()
         {
             me.commons.ajax(
             {
+                component : options,
+                message : '加载菜单...',
                 url : '../p/main!menu.do',
                 callback : me.callbackOptions
+
             });
-            options.setLoading(false);
         }, 100);
     },
 

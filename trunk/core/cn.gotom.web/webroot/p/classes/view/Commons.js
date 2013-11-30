@@ -17,9 +17,18 @@ Ext.define('Gotom.view.Commons', {
     extend: 'Ext.Base',
     alias: 'widget.Commons',
 
-    ctxp: '..',
-
     ajax: function(config) {
+        if(config.component)
+        {
+            if(config.message)
+            {
+                config.component.setLoading(config.message);
+            }
+            else
+            {
+                config.component.setLoading('正在下载...');
+            }
+        }
         Ext.Ajax.request(
         {
             url : config.url,
@@ -35,6 +44,10 @@ Ext.define('Gotom.view.Commons', {
                 else
                 {
                     Ext.Msg.alert('信息提示', response.responseText);
+                }
+                if(config.component)
+                {
+                    config.component.setLoading(false);
                 }
             }
         });

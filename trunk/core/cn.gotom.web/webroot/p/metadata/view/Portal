@@ -366,6 +366,8 @@
                 "implHandler": [
                     "me = this;\r",
                     "me.commons.ajax({\r",
+                    "    component : Ext.getCmp('app-header'),\r",
+                    "    message : '加载头信息...',    \r",
                     "    url : '../p/main!main.do',\r",
                     "    callback : me.callbackHeader\r",
                     "});"
@@ -412,16 +414,17 @@
                 "implHandler": [
                     "var me = this;\r",
                     "var options = Ext.getCmp('app-options');\r",
-                    "options.setLoading('加载菜单...');\r",
                     "Ext.defer(function()\r",
-                    "{\r",
-                    "    me.commons.ajax(\r",
-                    "    {\r",
-                    "        url : '../p/main!menu.do',\r",
-                    "        callback : me.callbackOptions\r",
-                    "    });\r",
-                    "    options.setLoading(false);\r",
-                    "}, 100);"
+                    "          {\r",
+                    "              me.commons.ajax(\r",
+                    "                  {\r",
+                    "                      component : options,\r",
+                    "                      message : '加载菜单...',\r",
+                    "                      url : '../p/main!menu.do',\r",
+                    "                      callback : me.callbackOptions\r",
+                    "                      \r",
+                    "                  });\r",
+                    "          }, 100);"
                 ]
             },
             "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
