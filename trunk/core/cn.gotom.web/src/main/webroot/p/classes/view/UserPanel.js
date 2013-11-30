@@ -291,7 +291,7 @@ Ext.define('Gotom.view.UserPanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : 'User!list.do',
+            url : ctxp+'/p/User!list.do',
             method : 'POST',
             //params:{id:ids},  
             success : function(response, options)
@@ -358,7 +358,7 @@ Ext.define('Gotom.view.UserPanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : 'User.do',
+            url : ctxp+'/p/User.do',
             method : 'POST',
             params:{'user.id':id},  
             success : function(response, options)
@@ -419,7 +419,7 @@ Ext.define('Gotom.view.UserPanel', {
                 proxy :
                 {
                     type : 'ajax',
-                    url : 'User!tree.do'             
+                    url : ctxp+'/p/User!tree.do'             
                 }                      
             });
         var tree = Ext.create('Ext.tree.Panel',
@@ -500,7 +500,7 @@ Ext.define('Gotom.view.UserPanel', {
             var wait = Ext.Msg.wait("正在加载......", "操作提示");
             Ext.Ajax.request(
             {
-                url : 'User!save.do',
+                url : ctxp+'/p/User!save.do',
                 method : 'POST',
                 params:{
                     'user.id':userId,
@@ -566,7 +566,7 @@ Ext.define('Gotom.view.UserPanel', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : 'User!'+status+'.do',
+                    url : ctxp+'/p/User!'+status+'.do',
                     method : 'POST',
                     params :
                     {

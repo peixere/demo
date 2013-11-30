@@ -31,7 +31,8 @@ Ext.application({
         'OrganizationCRUB',
         'Portal',
         'PortalView',
-        'OrganizationPanel'
+        'OrganizationPanel',
+        'RightPanel'
     ],
     appFolder: 'classes',
     appProperty: 'classes',

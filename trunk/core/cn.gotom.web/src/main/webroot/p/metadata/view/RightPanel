@@ -1,0 +1,61 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "border": false,
+        "height": null,
+        "width": null,
+        "designer|userClassName": "RightPanel",
+        "designer|userAlias": "RightPanel",
+        "layout": "border",
+        "title": null
+    },
+    "designerId": "f94f3f13-627f-4409-9b48-5cb8ade0c788",
+    "cn": [
+        {
+            "type": "Ext.tree.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "id": "RightTreePanel",
+                "title": "My Tree Panel"
+            },
+            "designerId": "4e78dfc3-8427-4709-a2e1-11e11fb474d5",
+            "cn": [
+                {
+                    "type": "Ext.tree.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "RightTreePanelView"
+                    },
+                    "designerId": "da82dc3e-d805-49af-9646-6090ee533a3d"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top",
+                        "id": "RightTreePanelToolbar"
+                    },
+                    "designerId": "94cee4ee-e334-4f44-a8f7-5d02660b18c7"
+                }
+            ]
+        }
+    ]
+}
