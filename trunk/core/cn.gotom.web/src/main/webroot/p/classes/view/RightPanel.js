@@ -206,54 +206,8 @@ Ext.define('Gotom.view.RightPanel', {
                     url : ctxp+'/p/right!tree.do'
                 },
                 clearOnLoad : true,
-                nodeParam : "id",                             
-                fields : [
-                {
-                    name : "id",
-                    type : "string"
-                },
-                {
-                    name : "parentId",
-                    type : "string"
-                },
-                {
-                    name : 'sort',
-                    type : 'int'
-                },
-
-                {
-                    name : "iconCls",
-                    type : "string"
-                },
-                {
-                    name : "leaf",
-                    type : "boolean"
-                },
-                {
-                    name : 'type',
-                    type : 'string'
-                },
-                {
-                    name : 'resource',
-                    type : 'string'
-                },
-                {
-                    name : 'component',
-                    type : "string"
-                },
-                {
-                    name : "text",
-                    type : "string"
-                },
-                {
-                    name : "appCode",
-                    type : "string"
-                },
-                {
-                    name : 'checked',
-                    type : "boolean"
-                }
-                ]                      
+                model : 'Gotom.model.RightTreeCheckModel',
+                nodeParam : "id"                 
             });
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
@@ -288,7 +242,11 @@ Ext.define('Gotom.view.RightPanel', {
                 result.parentId = parentId;
                 data.data = result;
                 data.data.leaf = leaf;
-                data.data.type = 'URL';
+                if(leaf){
+                    data.data.type = 'URL';
+                }else{
+                    data.data.type = 'DIR';
+                }
                 wait.close();
                 me.showform(data);
             },
