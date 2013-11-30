@@ -121,6 +121,42 @@ Ext.define('Gotom.view.Commons', {
             }
         }
         return path;
+    },
+
+    onTreePanelCheckChange: function(node, checked) {
+        this.onTreeChildNodesChecked(node,checked);
+        this.onTreeParentNodeChecked(node,checked);
+    },
+
+    onTreeChildNodesChecked: function(node, checked) {
+        var me = this;
+        Ext.each(node.childNodes,function(childNode)
+        {
+            childNode.set('checked', checked);   
+            if(childNode.childNodes.length >0)
+            {
+                me.onTreeChildNodesChecked(childNode,checked);
+            }
+        });
+    },
+
+    onTreeParentNodeChecked: function(node, checked) {
+        if(node.parentNode !== null)
+        {
+            if(node.parentNode.childNodes.length >0)
+            {
+                var parentCheck = false;
+                Ext.each(node.parentNode.childNodes,function(childNode)
+                {
+                    if(childNode.data.checked)
+                    {
+                        parentCheck = true;
+                    }
+                });
+                node.parentNode.set('checked', parentCheck);
+                this.onTreeParentNodeChecked(node.parentNode,checked);
+            }
+        }
     }
 
 });

@@ -185,6 +185,87 @@
                 ]
             },
             "designerId": "b03ca34c-0714-4eac-bd74-9f432c5f8439"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTreePanelCheckChange",
+                "designer|params": [
+                    "node",
+                    "checked"
+                ],
+                "implHandler": [
+                    "this.onTreeChildNodesChecked(node,checked);\r",
+                    "this.onTreeParentNodeChecked(node,checked);"
+                ]
+            },
+            "designerId": "be116a82-6bf2-4468-9a00-8b9fa63c4593"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTreeChildNodesChecked",
+                "designer|params": [
+                    "node",
+                    "checked"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "Ext.each(node.childNodes,function(childNode)\r",
+                    "{\r",
+                    "    childNode.set('checked', checked);   \r",
+                    "    if(childNode.childNodes.length >0)\r",
+                    "    {\r",
+                    "        me.onTreeChildNodesChecked(childNode,checked);\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "c1a5da96-1b71-462c-9afe-fdeeb708223a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTreeParentNodeChecked",
+                "designer|params": [
+                    "node",
+                    "checked"
+                ],
+                "implHandler": [
+                    "if(node.parentNode !== null)\r",
+                    "{\r",
+                    "    if(node.parentNode.childNodes.length >0)\r",
+                    "    {\r",
+                    "        var parentCheck = false;\r",
+                    "        Ext.each(node.parentNode.childNodes,function(childNode)\r",
+                    "        {\r",
+                    "            if(childNode.data.checked)\r",
+                    "            {\r",
+                    "                parentCheck = true;\r",
+                    "            }\r",
+                    "        });\r",
+                    "        node.parentNode.set('checked', parentCheck);\r",
+                    "        this.onTreeParentNodeChecked(node.parentNode,checked);\r",
+                    "    }\r",
+                    "}"
+                ]
+            },
+            "designerId": "08613068-637f-411c-aafd-9ca6217d3205"
         }
     ]
 }

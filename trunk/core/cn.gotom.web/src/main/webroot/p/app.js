@@ -32,7 +32,8 @@ Ext.application({
         'Portal',
         'PortalView',
         'OrganizationPanel',
-        'RightPanel'
+        'RightPanel',
+        'RightWindow'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
