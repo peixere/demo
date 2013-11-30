@@ -192,7 +192,53 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     onButtonDelClick: function(button, e, eOpts) {
-
+        var ids = [];
+        var tree = Ext.getCmp('RightTreePanel');
+        var items = tree.getSelectionModel().store.data.items;
+        Ext.each(items, function()
+        {
+            var nd = this;
+            if(nd.data.checked)
+            {
+                ids.push(nd.data.id);
+            }
+        });
+        if (ids.length === 0)
+        {
+            Ext.Msg.show(
+            {
+                // width : 200
+                title : "操作提示",
+                msg : "请选择要删除的节点!",
+                icon : Ext.Msg.WARNING
+            });
+            return;
+        }
+        Ext.Msg.confirm("警告", "确定要删除吗？", function(button)
+        {
+            if (button == "yes")
+            {
+                Ext.Msg.wait("正在执行......", "操作提示");
+                Ext.Ajax.request(
+                {
+                    url : ctxp + '/p/right!remove.do',
+                    method : 'POST',
+                    params :
+                    {
+                        id : ids
+                    },
+                    success : function(response, options)
+                    {
+                        Ext.Msg.alert("删除提示", "删除成功");
+                        tree.getStore().reload();
+                    },
+                    failure : function(response, options)
+                    {
+                        Ext.Msg.alert("删除提示", "删除失败");
+                    }
+                });
+            }
+        });
     },
 
     onRightTreePanelAfterLayout: function(container, layout, eOpts) {

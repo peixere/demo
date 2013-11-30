@@ -37,9 +37,64 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dock": "bottom"
+                "dock": "bottom",
+                "container|pack": "end"
             },
-            "designerId": "09c228c5-241a-4eb6-9c36-d5ef4599ee22"
+            "designerId": "09c228c5-241a-4eb6-9c36-d5ef4599ee22",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "23107865-0325-4e13-a987-042d13b77c90",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonSaveClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "if (me.form.isValid())\r",
+                                    "{\r",
+                                    "    me.form.submit(\r",
+                                    "        {\r",
+                                    "            url : ctxp + '/p/right!save.do',\r",
+                                    "            method : 'POST',\r",
+                                    "            waitMsg : '正在保存数据，稍后...',\r",
+                                    "            success : function(f, action)\r",
+                                    "            {\r",
+                                    "            Ext.Msg.alert('信息提示', '保存成功');\r",
+                                    "            me.close();\r",
+                                    "            Ext.getCmp('RightTreePanel').getStore().reload();\r",
+                                    "        },\r",
+                                    "        failure : function(f, action)\r",
+                                    "    {\r",
+                                    "        Ext.Msg.alert('信息提示', '保存失败！');\r",
+                                    "    }\r",
+                                    "});\r",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "65d6c8ec-8546-4920-a131-a82644bf9b8e"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "type": "basiceventbinding",
