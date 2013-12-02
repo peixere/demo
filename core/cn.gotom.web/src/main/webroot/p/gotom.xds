@@ -35,8 +35,7 @@
             "paths": [
                 "metadata/view/OrganizationCRUB",
                 "classes/view/override/OrganizationCRUB.js",
-                "classes/view/OrganizationCRUB.js",
-                "classes/view/Viewport.js"
+                "classes/view/OrganizationCRUB.js"
             ],
             "className": "OrganizationCRUB"
         },
@@ -90,7 +89,8 @@
             "paths": [
                 "metadata/view/UserView",
                 "classes/view/override/UserView.js",
-                "classes/view/UserView.js"
+                "classes/view/UserView.js",
+                "classes/view/Viewport.js"
             ],
             "className": "UserView"
         },
