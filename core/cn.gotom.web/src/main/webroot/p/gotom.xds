@@ -89,8 +89,7 @@
             "paths": [
                 "metadata/view/UserView",
                 "classes/view/override/UserView.js",
-                "classes/view/UserView.js",
-                "classes/view/Viewport.js"
+                "classes/view/UserView.js"
             ],
             "className": "UserView"
         },
@@ -114,7 +113,8 @@
             "paths": [
                 "metadata/view/PortalView",
                 "classes/view/override/PortalView.js",
-                "classes/view/PortalView.js"
+                "classes/view/PortalView.js",
+                "classes/view/Viewport.js"
             ],
             "className": "PortalView"
         },
