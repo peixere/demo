@@ -55,6 +55,32 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "onProxyException",
+                "designer|params": [
+                    "proxy, response, operation, eOpts"
+                ],
+                "implHandler": [
+                    "if(response.status === 200)\r",
+                    "{\r",
+                    "    var result = Ext.JSON.decode(response.responseText);\r",
+                    "    Ext.Msg.alert('操作异常 '+response.status, result.data);\r",
+                    "}\r",
+                    "else\r",
+                    "{\r",
+                    "    Ext.Msg.alert('操作异常 '+response.status, response.responseText);\r",
+                    "}"
+                ]
+            },
+            "designerId": "219bcb24-10c3-4283-80a9-1045a5b50df6"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "ajax",
                 "designer|params": [
                     "config"
