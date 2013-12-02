@@ -528,7 +528,7 @@
                 "fn": "loadGrid",
                 "implHandler": [
                     "var me = this;\r",
-                    "CommonUtil.ajax({\r",
+                    "Common.ajax({\r",
                     "    component : me,\r",
                     "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/User!list.do',\r",
@@ -596,7 +596,7 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "Gotom.view.Common.ajax({\r",
+                    "Common.ajax({\r",
                     "    params:{'user.id':id},\r",
                     "    component : Ext.getCmp('UserForm'),\r",
                     "    message : '正在加载......',    \r",
@@ -653,7 +653,7 @@
                     "            url : ctxp+'/p/User!tree.do', \r",
                     "            listeners: {\r",
                     "                    exception: {\r",
-                    "                        fn: Gotom.view.Common.onAjaxException,\r",
+                    "                        fn: Common.onAjaxException,\r",
                     "                        scope: me\r",
                     "                    }\r",
                     "                }             \r",

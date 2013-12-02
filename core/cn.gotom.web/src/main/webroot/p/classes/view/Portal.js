@@ -248,7 +248,7 @@ Ext.define('Gotom.view.Portal', {
 
     setHeader: function() {
         me = this;
-        CommonUtil.ajax({
+        Common.ajax({
             component : Ext.getCmp('app-header'),
             message : '加载头信息...',    
             url : '../p/main!main.do',
@@ -274,7 +274,7 @@ Ext.define('Gotom.view.Portal', {
         var options = Ext.getCmp('app-options');
         Ext.defer(function()
         {
-            CommonUtil.ajax(
+            Common.ajax(
             {
                 component : options,
                 message : '加载菜单...',
@@ -292,7 +292,7 @@ Ext.define('Gotom.view.Portal', {
         var URL = '../p/main!menu.do';
         for (var i = 0; i < data.length; i++)
         {    
-            var treeStore = CommonUtil.createTreeStore(URL, data[i].id);     
+            var treeStore = Common.createTreeStore(URL, data[i].id);     
             var tree = Ext.create("Ext.tree.Panel",
                 {
                     id : data[i].id,
@@ -340,8 +340,8 @@ Ext.define('Gotom.view.Portal', {
             {// 判断是否是根节点
                 if (node.data.type === 'URL')
                 {// 判断资源类型
-                    var theme = CommonUtil.getQueryParam('theme');
-                    var url = CommonUtil.addQueryParam(node.data.component, 'theme', theme);
+                    var theme = Common.getQueryParam('theme');
+                    var url = Common.addQueryParam(node.data.component, 'theme', theme);
                     var panel = Ext.create('Ext.panel.Panel',
                         {
                             id : node.data.id,
