@@ -393,9 +393,9 @@
                     "document.title = data.title;\r",
                     "var htmlStr = '<div class=\"logoPanel\">　' + data.title + '</div>';\r",
                     "htmlStr += '<div class=\"userPanel\">';\r",
-                    "htmlStr += '欢迎您：<a href=\"#\">' + data.name + '</a>　';\r",
+                    "htmlStr += '欢迎您：<a href=\"#\">' + data.userFullname + '</a>　';\r",
                     "htmlStr += '<a href=\"javascript:Ext.getCmp(\\'app-viewport\\').settingPassword();\">修改密码</a>　';\r",
-                    "htmlStr += '<a href=\"' + data.casServerLogoutUrl + '\">注销登录</a>';\r",
+                    "htmlStr += '<a href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
                     "htmlStr += '</div>';\r",
                     "Ext.getCmp('app-header').update(htmlStr);"
                 ]

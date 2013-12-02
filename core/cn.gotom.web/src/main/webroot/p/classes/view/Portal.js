@@ -265,9 +265,9 @@ Ext.define('Gotom.view.Portal', {
         document.title = data.title;
         var htmlStr = '<div class="logoPanel">　' + data.title + '</div>';
         htmlStr += '<div class="userPanel">';
-        htmlStr += '欢迎您：<a href="#">' + data.name + '</a>　';
+        htmlStr += '欢迎您：<a href="#">' + data.userFullname + '</a>　';
         htmlStr += '<a href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
-        htmlStr += '<a href="' + data.casServerLogoutUrl + '">注销登录</a>';
+        htmlStr += '<a href="' + data.logoutUrl + '">注销登录</a>';
         htmlStr += '</div>';
         Ext.getCmp('app-header').update(htmlStr);
     },
