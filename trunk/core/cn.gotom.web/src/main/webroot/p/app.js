@@ -34,7 +34,8 @@ Ext.application({
         'PortalView',
         'OrganizationPanel',
         'RightPanel',
-        'RightWindow'
+        'RightWindow',
+        'UserPassowrd'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
