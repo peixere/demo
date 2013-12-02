@@ -39,7 +39,7 @@
                     "userConfig": {
                         "fn": "onAjaxException",
                         "implHandler": [
-                            "Gotom.view.Common.onAjaxException(response);"
+                            "Common.onAjaxException(response);"
                         ],
                         "name": "exception",
                         "scope": "me"

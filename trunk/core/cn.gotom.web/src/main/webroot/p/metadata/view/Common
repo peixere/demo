@@ -24,7 +24,8 @@
             "userConfig": {
                 "fn": "onAjaxException",
                 "designer|params": [
-                    "response"
+                    "response",
+                    "component"
                 ],
                 "implHandler": [
                     "if(response.status === 200)\r",
@@ -88,7 +89,7 @@
                     "                    config.component.close();\r",
                     "                }\r",
                     "            }\r",
-                    "            Gotom.view.Common.onAjaxException(response);\r",
+                    "            Common.onAjaxException(response);\r",
                     "        }\r",
                     "    }\r",
                     "});"
@@ -231,14 +232,14 @@
                     "    {\r",
                     "        var parentCheck = false;\r",
                     "        Ext.each(node.parentNode.childNodes,function(childNode)\r",
-                    "                 {\r",
-                    "                     if(childNode.data.checked)\r",
-                    "                     {\r",
-                    "                         parentCheck = true;\r",
-                    "                     }\r",
-                    "                 });\r",
+                    "        {\r",
+                    "            if(childNode.data.checked)\r",
+                    "            {\r",
+                    "                parentCheck = true;\r",
+                    "            }\r",
+                    "        });\r",
                     "        node.parentNode.set('checked', parentCheck);\r",
-                    "        Gotom.view.Common.onTreeParentNodeChecked(node.parentNode,checked);\r",
+                    "        Common.onTreeParentNodeChecked(node.parentNode,checked);\r",
                     "    }\r",
                     "}"
                 ]
@@ -260,13 +261,13 @@
                 ],
                 "implHandler": [
                     "Ext.each(node.childNodes,function(childNode)\r",
-                    "         {\r",
-                    "             childNode.set('checked', checked);  \r",
-                    "             if(childNode.childNodes.length >0)\r",
-                    "             {\r",
-                    "                 Gotom.view.Common.onTreeChildNodesChecked(childNode,checked);\r",
-                    "             }\r",
-                    "         });\r",
+                    "{\r",
+                    "    childNode.set('checked', checked);  \r",
+                    "    if(childNode.childNodes.length >0)\r",
+                    "    {\r",
+                    "        Common.onTreeChildNodesChecked(childNode,checked);\r",
+                    "    }\r",
+                    "});\r",
                     ""
                 ]
             },
@@ -286,8 +287,8 @@
                     "checked"
                 ],
                 "implHandler": [
-                    "Gotom.view.Common.onTreeChildNodesChecked(node,checked);\r",
-                    "Gotom.view.Common.onTreeParentNodeChecked(node,checked);\r",
+                    "Common.onTreeChildNodesChecked(node,checked);\r",
+                    "Common.onTreeParentNodeChecked(node,checked);\r",
                     ""
                 ]
             },
@@ -313,16 +314,16 @@
                     "        msg = config.msg;\r",
                     "    }\r",
                     "    config.form().submit(\r",
+                    "    {\r",
+                    "        url : config.url,\r",
+                    "        method : 'POST',\r",
+                    "        waitMsg : msg,\r",
+                    "        success : config.callback,\r",
+                    "        failure : function(f, action)\r",
                     "        {\r",
-                    "            url : config.url,\r",
-                    "            method : 'POST',\r",
-                    "            waitMsg : msg,\r",
-                    "            success : config.callback,\r",
-                    "            failure : function(f, action)\r",
-                    "            {\r",
-                    "                Gotom.view.Common.onAjaxException(action.response);          \r",
-                    "            }\r",
-                    "        });\r",
+                    "            Common.onAjaxException(action.response);          \r",
+                    "        }\r",
+                    "    });\r",
                     "}"
                 ]
             },
