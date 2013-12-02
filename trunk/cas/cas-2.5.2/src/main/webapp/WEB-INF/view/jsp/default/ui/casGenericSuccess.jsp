@@ -19,6 +19,9 @@
 
 --%>
 <jsp:directive.include file="includes/top.jsp" />
+	<script type="text/javascript">
+	window.location.href = '/';
+	</script>
 		<div id="msg" class="success">
 			<h2><spring:message code="screen.success.header" /></h2>
 			<p><spring:message code="screen.success.success" /></p>
