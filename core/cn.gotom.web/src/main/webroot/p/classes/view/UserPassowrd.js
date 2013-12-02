@@ -15,6 +15,7 @@
 
 Ext.define('Gotom.view.UserPassowrd', {
     extend: 'Ext.window.Window',
+    alias: 'widget.UserPassowrd',
 
     height: 164,
     width: 400,
@@ -96,23 +97,35 @@ Ext.define('Gotom.view.UserPassowrd', {
         var form = Ext.getCmp('PasswordForm');
         if (form.isValid())
         {
-            form.submit(
-            {
+            form.submit({
                 url : ctxp + '/p/main!password.do',
                 method : 'POST',
                 waitMsg : '正在保存数据，稍后...',
-                success : function(f, action)
-                {
-                    Ext.Msg.alert('信息提示', '保存成功');
+                success : function(f, action){
                     me.close();
-                },
-                failure : function(f, action)
-                {
-                    //Ext.JSON.decode(response.responseText)
-                    Ext.Msg.alert('信息提示', '保存失败！');
-                }
-            });
-        }
+                    Ext.Msg.show({
+                        title:'操作提示',
+                        msg:'保存成功',
+                        icon: Ext.Msg.INFO,
+                        waitConfig:{
+                            duration:1000,
+                            fn:function(){
+                                Ext.MessageBox.hide();
+                            }},
+                            closable:true
+                        });
+                    },
+                    failure : function(f, action)
+                    {
+                        Ext.Msg.alert({
+                            title:'保存失败',
+                            msg:action.result.data,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });            
+                    }
+                });
+            }
     }
 
 });

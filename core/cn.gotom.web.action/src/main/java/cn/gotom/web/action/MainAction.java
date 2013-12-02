@@ -90,6 +90,7 @@ public class MainAction
 
 	public void password()
 	{
+		PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
 		String password = ServletActionContext.getRequest().getParameter("password");
 		String newpass = ServletActionContext.getRequest().getParameter("newpass");
 		String newpassCheck = ServletActionContext.getRequest().getParameter("newpassCheck");
@@ -100,9 +101,8 @@ public class MainAction
 			User old = userService.getByUsername(this.getUsername());
 			if (old != null)
 			{
-				if (old.getPassword().equals(password))
+				if (password!= null && old.getPassword().equals(passwordEncoder.encode(password)))
 				{
-					PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
 					old.setPassword(passwordEncoder.encode(newpass));
 					userService.save(old);
 					response.setSuccess(true);
