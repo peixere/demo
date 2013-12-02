@@ -5,7 +5,7 @@
 	<target name="all" depends="clean,init,compile,jar" />
 
 	<path id="lib">
-		<fileset dir="../cn.gotom.web/webroot/WEB-INF/lib">
+		<fileset dir="../cn.gotom.web">
 			<include name="**/**.jar" />
 		</fileset>
 	</path>

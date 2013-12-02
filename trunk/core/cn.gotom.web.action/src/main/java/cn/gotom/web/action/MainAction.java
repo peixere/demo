@@ -78,7 +78,7 @@ public class MainAction
 		}
 		else
 		{
-			menuList = rightService.loadTreeByParentId(id);
+			menuList = authService.loadTreeByParentId(username, id);
 		}
 		ResponseUtils.toJSON(menuList);
 	}

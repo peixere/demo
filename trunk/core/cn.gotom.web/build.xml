@@ -11,7 +11,8 @@
         <ant antfile="build.xml" dir="../cn.gotom.sso.client" />
         <ant antfile="build.xml" dir="../cn.gotom.servlet" />
         <ant antfile="build.xml" dir="../cn.gotom.web.action" />
-	   	<copy toDir="./webroot/WEB-INF/classes"> 
+        <delete dir="./src/main/webroot/WEB-INF/classes" />
+	   	<copy toDir="./src/main/webroot/WEB-INF/classes"> 
 	     	<fileset dir="./src/resources" includes="/**/*"/>
 	    </copy>	        
     </target>
