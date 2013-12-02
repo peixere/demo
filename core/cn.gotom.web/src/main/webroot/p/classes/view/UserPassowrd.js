@@ -68,21 +68,49 @@ Ext.define('Gotom.view.UserPassowrd', {
                             anchor: '100%',
                             id: 'user.password',
                             fieldLabel: '原 密 码',
-                            name: 'password'
+                            msgTarget: 'side',
+                            name: 'password',
+                            inputType: 'password',
+                            allowBlank: false,
+                            blankText: '请输入6位字符以上的密码！',
+                            emptyText: '请输入6-25位字符长度的密码',
+                            maxLength: 25,
+                            maxLengthText: '请输入6-25位字符以上的密码！',
+                            minLength: 6,
+                            minLengthText: '请输入6-25位字符以上的密码！'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             id: 'user.newpass',
                             fieldLabel: '新 密 码',
-                            name: 'newpass'
+                            msgTarget: 'side',
+                            name: 'newpass',
+                            inputType: 'password',
+                            allowBlank: false,
+                            blankText: '请输入6位字符以上的密码！',
+                            emptyText: '请输入6-25位字符长度的密码',
+                            enforceMaxLength: true,
+                            maxLength: 25,
+                            maxLengthText: '请输入6-25位字符以上的密码！',
+                            minLength: 6,
+                            minLengthText: '请输入6-25位字符以上的密码！',
+                            regexText: '*'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             id: 'user.newpassCheck',
                             fieldLabel: '确认密码',
-                            name: 'newpassCheck'
+                            msgTarget: 'side',
+                            name: 'newpassCheck',
+                            allowBlank: false,
+                            listeners: {
+                                change: {
+                                    fn: me.onnewpassCheckChange,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -103,13 +131,14 @@ Ext.define('Gotom.view.UserPassowrd', {
                 waitMsg : '正在保存数据，稍后...',
                 success : function(f, action){
                     me.close();
+                    form.reset();
                     Ext.Msg.show({
                         title:'操作提示',
                         msg:'保存成功',
                         icon: Ext.Msg.INFO,
                         wait:true,
                         waitConfig:{
-                            interval:1000,
+                            interval:600,
                             duration:1000,
                             fn:function(){
                                 Ext.MessageBox.hide();
@@ -128,6 +157,10 @@ Ext.define('Gotom.view.UserPassowrd', {
                     }
                 });
             }
+    },
+
+    onnewpassCheckChange: function(field, newValue, oldValue, eOpts) {
+        alert(0);
     }
 
 });
