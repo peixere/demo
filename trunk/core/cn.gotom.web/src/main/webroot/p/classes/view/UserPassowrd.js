@@ -105,9 +105,6 @@ Ext.define('Gotom.view.UserPassowrd', {
                 {
                     Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
-                    var tree = Ext.getCmp('RightTreePanel');
-                    tree.getStore().reload();            
-                    Ext.defer(function(){tree.expandAll();},100);
                 },
                 failure : function(f, action)
                 {
