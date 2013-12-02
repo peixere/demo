@@ -40,7 +40,6 @@ public class MainAction
 	private ResourceConfigService configService;
 
 	private String id;
-	private User user;
 
 	public String execute()
 	{
@@ -91,18 +90,36 @@ public class MainAction
 
 	public void savePassword()
 	{
+		String password = ServletActionContext.getRequest().getParameter("password");
+		String newpass = ServletActionContext.getRequest().getParameter("newpass");
+		String newpassCheck = ServletActionContext.getRequest().getParameter("newpassCheck");
 		JsonResponse response = new JsonResponse();
-		User old = userService.getByUsername(this.getUsername());
-		if (old != null)
+		response.setSuccess(false);
+		if (newpass.equals(newpassCheck))
 		{
-			PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
-			old.setPassword(passwordEncoder.encode(user.getPassword()));
-			userService.save(old);
+			User old = userService.getByUsername(this.getUsername());
+			if (old != null)
+			{
+				if (old.getPassword().equals(password))
+				{
+					PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
+					old.setPassword(passwordEncoder.encode(newpass));
+					userService.save(old);
+					response.setSuccess(true);
+				}
+				else
+				{
+					response.setData("请输入正确的密码！");
+				}
+			}
+			else
+			{
+				response.setData("找不到此用户！");
+			}
 		}
 		else
 		{
-			response.setSuccess(false);
-			response.setData("找不到此用户！");
+			response.setData("新密码和确认密码必须一样！");
 		}
 		ResponseUtils.toJSON(response);
 	}
@@ -115,16 +132,6 @@ public class MainAction
 	public void setId(String id)
 	{
 		this.id = id;
-	}
-
-	public User getUser()
-	{
-		return user;
-	}
-
-	public void setUser(User user)
-	{
-		this.user = user;
 	}
 
 }
