@@ -19,6 +19,7 @@ import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.MainInfo;
 
 import com.google.inject.Inject;
 
@@ -38,16 +39,6 @@ public class MainAction
 
 	private String id;
 
-	private String username;
-
-	private String name;
-
-	private String action;
-
-	private String casServerLogoutUrl;
-
-	private String title;
-
 	public String execute()
 	{
 		return "success";
@@ -55,11 +46,12 @@ public class MainAction
 
 	public void main() throws IOException
 	{
-		username = ServletActionContext.getRequest().getRemoteUser();
-		User user = userService.getByUsername(username);
+		MainInfo mainInfo = new MainInfo();
+		mainInfo.setUsername(getUsername());
+		User user = userService.getByUsername(mainInfo.getUsername());
 		if (user != null)
 		{
-			this.setName(user.getName());
+			mainInfo.setUserFullname(user.getName());
 		}
 		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
 		if (appTitle == null)
@@ -69,14 +61,19 @@ public class MainAction
 			appTitle.setValue("能源管理系统");
 			configService.save(appTitle);
 		}
-		this.setTitle(appTitle.getValue());
-		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
-		ResponseUtils.toJSON(this);
+		mainInfo.setTitle(appTitle.getValue());
+		mainInfo.setLogoutUrl(ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl"));
+		ResponseUtils.toJSON(mainInfo);
+	}
+
+	private String getUsername()
+	{
+		return ServletActionContext.getRequest().getRemoteUser();
 	}
 
 	public void menu() throws IOException
 	{
-		username = ServletActionContext.getRequest().getRemoteUser();
+		String username = getUsername();
 		List<Right> menuList = null;
 		if (StringUtils.isNullOrEmpty(id))
 		{
@@ -97,56 +94,6 @@ public class MainAction
 	public void setId(String id)
 	{
 		this.id = id;
-	}
-
-	public String getUsername()
-	{
-		return username;
-	}
-
-	public void setUsername(String username)
-	{
-		this.username = username;
-	}
-
-	public String getCasServerLogoutUrl()
-	{
-		return casServerLogoutUrl;
-	}
-
-	public void setCasServerLogoutUrl(String casServerLogoutUrl)
-	{
-		this.casServerLogoutUrl = casServerLogoutUrl;
-	}
-
-	public String getAction()
-	{
-		return action;
-	}
-
-	public void setAction(String action)
-	{
-		this.action = action;
-	}
-
-	public String getTitle()
-	{
-		return title;
-	}
-
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
 	}
 
 }

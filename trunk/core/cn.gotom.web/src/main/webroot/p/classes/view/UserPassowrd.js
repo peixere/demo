@@ -33,6 +33,7 @@ Ext.define('Gotom.view.UserPassowrd', {
                 {
                     xtype: 'form',
                     region: 'center',
+                    border: false,
                     id: 'passwordForm',
                     bodyPadding: 10,
                     dockedItems: [
@@ -60,20 +61,6 @@ Ext.define('Gotom.view.UserPassowrd', {
                         }
                     ],
                     items: [
-                        {
-                            xtype: 'hiddenfield',
-                            anchor: '100%',
-                            id: 'userid',
-                            fieldLabel: 'Label',
-                            name: 'user.id'
-                        },
-                        {
-                            xtype: 'hiddenfield',
-                            anchor: '100%',
-                            id: 'username',
-                            fieldLabel: 'Label',
-                            name: 'user.username'
-                        },
                         {
                             xtype: 'textfield',
                             anchor: '100%',

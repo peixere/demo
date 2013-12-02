@@ -25,6 +25,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
+                "border": false,
                 "id": "passwordForm",
                 "bodyPadding": 10,
                 "title": null
@@ -68,6 +69,9 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "fn": "onButtonClick",
+                                        "implHandler": [
+                                            ""
+                                        ],
                                         "name": "click",
                                         "scope": "me"
                                     },
@@ -76,36 +80,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "type": "Ext.form.field.Hidden",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "id": "userid",
-                        "fieldLabel": "Label",
-                        "name": "user.id"
-                    },
-                    "designerId": "796d6f71-5617-451e-b017-9a6f85a783da"
-                },
-                {
-                    "type": "Ext.form.field.Hidden",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "id": "username",
-                        "fieldLabel": "Label",
-                        "name": "user.username"
-                    },
-                    "designerId": "2e231f10-e28d-4ca9-8c78-c4d9fa623f9e"
                 },
                 {
                     "type": "Ext.form.field.Text",
