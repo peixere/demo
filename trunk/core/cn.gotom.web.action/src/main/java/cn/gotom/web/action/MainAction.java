@@ -15,7 +15,6 @@ import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.ResourceConfigService;
-import cn.gotom.service.RightService;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
@@ -30,9 +29,6 @@ public class MainAction
 
 	@Inject
 	private AuthService authService;
-
-	@Inject
-	private RightService rightService;
 
 	@Inject
 	private ResourceConfigService configService;
