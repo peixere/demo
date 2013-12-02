@@ -28,6 +28,12 @@
                     "component"
                 ],
                 "implHandler": [
+                    "if(component)\r",
+                    "{\r",
+                    "    if(response.status === 403){\r",
+                    "        component.close();\r",
+                    "    }\r",
+                    "}\r",
                     "if(response.status === 200)\r",
                     "{\r",
                     "    var result = Ext.JSON.decode(response.responseText);\r",
@@ -83,13 +89,7 @@
                     "        }\r",
                     "        else\r",
                     "        {\r",
-                    "            if(config.component)\r",
-                    "            {\r",
-                    "                if(+response.status === 403){\r",
-                    "                    config.component.close();\r",
-                    "                }\r",
-                    "            }\r",
-                    "            Common.onAjaxException(response);\r",
+                    "            Common.onAjaxException(response,config.component);\r",
                     "        }\r",
                     "    }\r",
                     "});"
