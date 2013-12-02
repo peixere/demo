@@ -13,9 +13,9 @@
  * Do NOT hand edit this file.
  */
 
-Ext.define('CommonUtil', {
+Ext.define('Common', {
     extend: 'Ext.Base',
-    alias: 'widget.CommonUtil',
+    alias: 'widget.Common',
 
     statics: {
         onAjaxException: function(response) {
