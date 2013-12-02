@@ -193,7 +193,7 @@
                                             "        failure : function(f, action)\r",
                                             "        {\r",
                                             "            var response = action.response;\r",
-                                            "            Gotom.view.Common.onAjaxException(action.response);          \r",
+                                            "            Common.onAjaxException(action.response);          \r",
                                             "        }\r",
                                             "    });\r",
                                             "}"
@@ -278,7 +278,7 @@
                             "    failure : function(response, options)\r",
                             "    {\r",
                             "        wait.close();\r",
-                            "        Gotom.view.Common.onAjaxException(response);\r",
+                            "        Common.onAjaxException(response);\r",
                             "    }\r",
                             "});"
                         ]
