@@ -101,6 +101,11 @@ public class RightAction
 			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(right, params);
 			this.setSuccess(true);
+			Right old = rightService.get(right.getId());
+			if (old != null)
+			{
+				right.setRoles(old.getRoles());
+			}
 			rightService.save(right);
 		}
 		catch (Exception e)

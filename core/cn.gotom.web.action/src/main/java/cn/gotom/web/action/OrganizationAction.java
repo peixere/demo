@@ -109,8 +109,13 @@ public class OrganizationAction
 			Organization o = new Organization();
 			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(o, params);
-			this.setSuccess(true);
+			Organization old = service.get(o.getId());
+			if (old != null)
+			{
+				o.setUsers(old.getUsers());
+			}
 			service.save(o);
+			this.setSuccess(true);
 		}
 		catch (Exception e)
 		{
