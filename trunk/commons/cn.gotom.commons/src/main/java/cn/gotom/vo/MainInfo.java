@@ -1,6 +1,6 @@
 package cn.gotom.vo;
 
-public class MainInfo
+public class MainInfo extends JsonResponse
 {
 	private String id;
 	private String username;
