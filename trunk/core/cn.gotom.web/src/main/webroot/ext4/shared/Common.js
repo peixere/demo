@@ -3,7 +3,25 @@ Ext.define('Common', {
     alias: 'widget.Common',
 
     statics: {
-        onAjaxException: function(response) {
+        onAjaxException: function(response, component) {
+            if(component)
+            {
+                if(response.status === 403){
+                    component.close();
+                }
+            }
+            if(response.status === 200)
+            {
+                var result = Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert('操作异常 '+response.status, result.data);
+            }
+            else
+            {
+                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
+            }
+        },
+
+        onProxyException: function(proxy, response, operation, eOpts) {
             if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
@@ -45,13 +63,7 @@ Ext.define('Common', {
                     }
                     else
                     {
-                        if(config.component)
-                        {
-                            if(+response.status === 403){
-                                config.component.close();
-                            }
-                        }
-                        Common.onAjaxException(response);
+                        Common.onAjaxException(response,config.component);
                     }
                 }
             });
