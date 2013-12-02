@@ -7,7 +7,6 @@
         "resource": true,
         "184faed7-af51-4017-bfa9-4850c8a4ddb7": {
             "id": "184faed7-af51-4017-bfa9-4850c8a4ddb7",
-            "expanded": false,
             "cn": [
                 {
                     "id": "e7044ebd-aff7-4c4a-a679-d7f4f0db431b",
@@ -289,7 +288,6 @@
         },
         "298abba3-7f63-41ab-a4cf-57724f883002": {
             "id": "298abba3-7f63-41ab-a4cf-57724f883002",
-            "expanded": false,
             "cn": [
                 {
                     "id": "efab0064-76b1-4a32-a08a-2fd9732cf75e",
@@ -355,7 +353,6 @@
                 },
                 {
                     "id": "101e8393-eba9-4ef0-9801-998dcbce9b8f",
-                    "expanded": false,
                     "cn": [
                         {
                             "id": "4e976787-d1fd-4788-971f-0482d1ff0499"
@@ -419,13 +416,10 @@
                     "id": "f5884c7f-d347-4702-94e9-17ec148e4825"
                 },
                 {
-                    "id": "6ba731a0-b3ef-4734-b78c-ab89233e7098"
+                    "id": "fc88e6a9-1f71-4416-a522-99bff485ad3e"
                 },
                 {
                     "id": "e6f1a3c5-bee7-47e6-b050-b67a75aa22d7"
-                },
-                {
-                    "id": "fc88e6a9-1f71-4416-a522-99bff485ad3e"
                 },
                 {
                     "id": "b2d3a4a1-a517-47b9-ae28-7636d37adb2f"
@@ -681,7 +675,6 @@
         },
         "640e059b-b167-4e5b-a268-5d16d3e3b81a": {
             "id": "640e059b-b167-4e5b-a268-5d16d3e3b81a",
-            "expanded": false,
             "cn": [
                 {
                     "id": "7b5ba420-4043-43c6-89b4-9e436578ddc8"
@@ -813,11 +806,11 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
-        "selectedInstance": "26aef431-c0c0-45ec-9ccb-4bd420a78f69"
+        "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002",
+        "selectedInstance": "fc88e6a9-1f71-4416-a522-99bff485ad3e"
     },
     "codeState": {
-        "topInstance": "26aef431-c0c0-45ec-9ccb-4bd420a78f69"
+        "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002"
     },
     "editMode": "code"
 }
