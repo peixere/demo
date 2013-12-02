@@ -39,7 +39,11 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 		String authenticatedNone = getInitParameter(filterConfig, "authenticatedNone");
 		if (authenticatedNone != null)
 		{
-			authenticatedNones = authenticatedNone.trim().replace("；", ";").replace(",", ";").split(";");
+			authenticatedNone = authenticatedNone.trim().replace("；", ";");
+			authenticatedNone = authenticatedNone.replace(",", ";");
+			authenticatedNone = authenticatedNone.replace("，", ";");
+			authenticatedNone = authenticatedNone.replace("\n", ";");
+			authenticatedNones = authenticatedNone.trim().replace("；", ";").split(";");
 		}
 		dataInitializeService.init();
 	}
