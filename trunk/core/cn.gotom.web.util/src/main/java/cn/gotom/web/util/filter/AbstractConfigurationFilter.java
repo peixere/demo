@@ -11,6 +11,17 @@ public abstract class AbstractConfigurationFilter implements Filter
 
 	protected final String getInitParameter(final FilterConfig filterConfig, final String propertyName, final String defaultValue)
 	{
+
+		String value = getInitParameter(filterConfig, propertyName);
+		if (value != null && value.trim().length() > 0)
+		{
+			return value;
+		}
+		return defaultValue;
+	}
+
+	protected final String getInitParameter(final FilterConfig filterConfig, final String propertyName)
+	{
 		String value = filterConfig.getInitParameter(propertyName);
 
 		if (value != null && value.trim().length() > 0)
