@@ -509,6 +509,22 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "onLoad",
+                "implHandler": [
+                    "this.loadGrid();\r",
+                    "this.loadFormData('');"
+                ]
+            },
+            "designerId": "2ee45c7a-c140-4289-8232-9819bde6d1d2"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "loadGrid",
                 "implHandler": [
                     "var me = this;\r",
@@ -517,8 +533,7 @@
                     "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/User!list.do',\r",
                     "    callback : me.bindGrid\r",
-                    "});\r",
-                    ""
+                    "});"
                 ]
             },
             "designerId": "bab4a028-00b5-4884-9d8c-939a52bda64d"
@@ -581,37 +596,107 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
-                    "Ext.Ajax.request(\r",
-                    "{\r",
+                    "CommonUtil.ajax({\r",
+                    "    component : Ext.getCmp('UserForm'),\r",
+                    "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/User.do',\r",
-                    "    method : 'POST',\r",
-                    "    params:{'user.id':id},  \r",
-                    "    success : function(response, options)\r",
-                    "    {\r",
-                    "        wait.close();\r",
-                    "        var result = Ext.JSON.decode(response.responseText); \r",
-                    "        if(result.success)\r",
-                    "        {\r",
-                    "            me.bindRoleTree(result.user.id);\r",
-                    "            Ext.getCmp('user.id').setValue(result.user.id);\r",
-                    "            Ext.getCmp('user.name').setValue(result.user.name);                \r",
-                    "            Ext.getCmp('user.username').setValue(result.user.username);  \r",
-                    "        }\r",
-                    "        else\r",
-                    "        {\r",
-                    "            Ext.Msg.alert('信息提示', result.data);\r",
-                    "        }\r",
-                    "    },\r",
-                    "    failure : function(response, options)\r",
-                    "    {\r",
-                    "        wait.close();\r",
-                    "        CommonUtil.onAjaxException(response);\r",
-                    "    }\r",
+                    "    callback : me.bindFormData\r",
                     "});"
                 ]
             },
             "designerId": "f5884c7f-d347-4702-94e9-17ec148e4825"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindFormData",
+                "designer|params": [
+                    "result"
+                ],
+                "implHandler": [
+                    "this.bindRoleTree(result.user.id);\r",
+                    "Ext.getCmp('user.id').setValue(result.user.id);\r",
+                    "Ext.getCmp('user.name').setValue(result.user.name);                \r",
+                    "Ext.getCmp('user.username').setValue(result.user.username);  "
+                ]
+            },
+            "designerId": "6ba731a0-b3ef-4734-b78c-ab89233e7098"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "saveForm",
+                "implHandler": [
+                    "var me = this;\r",
+                    "if (Ext.getCmp('UserForm').isValid())\r",
+                    "{\r",
+                    "    var userId = Ext.getCmp('user.id').getValue();\r",
+                    "    var name = Ext.getCmp('user.name').getValue();                \r",
+                    "    var username = Ext.getCmp('user.username').getValue();\r",
+                    "    var pkIds = [];\r",
+                    "    var tree = Ext.getCmp('RoleTreePanel');\r",
+                    "    var items = tree.getSelectionModel().store.data.items;\r",
+                    "    Ext.each(items, function()\r",
+                    "    {\r",
+                    "        var nd = this;\r",
+                    "        if(nd.data.checked)\r",
+                    "        {\r",
+                    "            pkIds.push(nd.data.id);\r",
+                    "        }\r",
+                    "    });\r",
+                    "    var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
+                    "    Ext.Ajax.request(\r",
+                    "    {\r",
+                    "        url : ctxp+'/p/User!save.do',\r",
+                    "        method : 'POST',\r",
+                    "        params:{\r",
+                    "            'user.id':userId,\r",
+                    "            'user.name':name,\r",
+                    "            'user.username':username,\r",
+                    "            'roleIds':pkIds\r",
+                    "        },  \r",
+                    "        success : function(response, options)\r",
+                    "        {\r",
+                    "            wait.close();\r",
+                    "            var result = Ext.JSON.decode(response.responseText); \r",
+                    "            if(result.success)\r",
+                    "            {\r",
+                    "                me.loadGrid();\r",
+                    "                me.loadFormData('');\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                    "            }\r",
+                    "        },\r",
+                    "        failure : function(response, options)\r",
+                    "        {\r",
+                    "            wait.close();\r",
+                    "            if(response.status == 200)\r",
+                    "            {\r",
+                    "                var result = Ext.JSON.decode(response.responseText);\r",
+                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                    "            }\r",
+                    "            else\r",
+                    "            {\r",
+                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "            }\r",
+                    "        }\r",
+                    "    });\r",
+                    "}"
+                ]
+            },
+            "designerId": "e6f1a3c5-bee7-47e6-b050-b67a75aa22d7"
         },
         {
             "type": "basicfunction",
@@ -723,85 +808,13 @@
             "userConfig": {
                 "fn": "onPanelAfterLayout",
                 "implHandler": [
-                    "this.loadGrid();\r",
-                    "this.loadFormData('');"
+                    "this.onLoad();"
                 ],
                 "single": true,
                 "name": "afterlayout",
                 "scope": "me"
             },
             "designerId": "b2d3a4a1-a517-47b9-ae28-7636d37adb2f"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "saveForm",
-                "implHandler": [
-                    "var me = this;\r",
-                    "if (Ext.getCmp('UserForm').isValid())\r",
-                    "{\r",
-                    "    var userId = Ext.getCmp('user.id').getValue();\r",
-                    "    var name = Ext.getCmp('user.name').getValue();                \r",
-                    "    var username = Ext.getCmp('user.username').getValue();\r",
-                    "    var pkIds = [];\r",
-                    "    var tree = Ext.getCmp('RoleTreePanel');\r",
-                    "    var items = tree.getSelectionModel().store.data.items;\r",
-                    "    Ext.each(items, function()\r",
-                    "    {\r",
-                    "        var nd = this;\r",
-                    "        if(nd.data.checked)\r",
-                    "        {\r",
-                    "            pkIds.push(nd.data.id);\r",
-                    "        }\r",
-                    "    });\r",
-                    "    var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
-                    "    Ext.Ajax.request(\r",
-                    "    {\r",
-                    "        url : ctxp+'/p/User!save.do',\r",
-                    "        method : 'POST',\r",
-                    "        params:{\r",
-                    "            'user.id':userId,\r",
-                    "            'user.name':name,\r",
-                    "            'user.username':username,\r",
-                    "            'roleIds':pkIds\r",
-                    "        },  \r",
-                    "        success : function(response, options)\r",
-                    "        {\r",
-                    "            wait.close();\r",
-                    "            var result = Ext.JSON.decode(response.responseText); \r",
-                    "            if(result.success)\r",
-                    "            {\r",
-                    "                me.loadGrid();\r",
-                    "                me.loadFormData('');\r",
-                    "            }\r",
-                    "            else\r",
-                    "            {\r",
-                    "                Ext.Msg.alert('信息提示', result.data);\r",
-                    "            }\r",
-                    "        },\r",
-                    "        failure : function(response, options)\r",
-                    "        {\r",
-                    "            wait.close();\r",
-                    "            if(response.status == 200)\r",
-                    "            {\r",
-                    "                var result = Ext.JSON.decode(response.responseText);\r",
-                    "                Ext.Msg.alert('信息提示', result.data);\r",
-                    "            }\r",
-                    "            else\r",
-                    "            {\r",
-                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
-                    "            }\r",
-                    "        }\r",
-                    "    });\r",
-                    "}"
-                ]
-            },
-            "designerId": "e6f1a3c5-bee7-47e6-b050-b67a75aa22d7"
         },
         {
             "type": "basicfunction",

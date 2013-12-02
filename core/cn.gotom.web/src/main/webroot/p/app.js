@@ -27,6 +27,7 @@ Ext.application({
         'OrganizationTreeStore'
     ],
     views: [
+        'Common',
         'RoleView',
         'UserView',
         'OrganizationCRUB',
@@ -35,8 +36,7 @@ Ext.application({
         'OrganizationPanel',
         'RightPanel',
         'RightWindow',
-        'UserPassowrd',
-        'Commons'
+        'UserPassowrd'
     ],
     appFolder: 'classes',
     appProperty: 'classes',

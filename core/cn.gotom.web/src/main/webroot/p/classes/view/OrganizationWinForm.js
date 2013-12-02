@@ -60,7 +60,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             failure : function(response, options)
                             {
                                 wait.close();
-                                Gotom.view.Commons.onAjaxException(response);
+                                Gotom.view.Common.onAjaxException(response);
                             }
                         });
                     },
@@ -185,7 +185,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                 failure : function(f, action)
                 {
                     var response = action.response;
-                    Gotom.view.Commons.onAjaxException(action.response);          
+                    Gotom.view.Common.onAjaxException(action.response);          
                 }
             });
         }

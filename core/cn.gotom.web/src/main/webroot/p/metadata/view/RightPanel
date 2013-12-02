@@ -75,17 +75,16 @@
                                 "fn": "onRightTreePanelViewItemClick",
                                 "implHandler": [
                                     "var me = this;\r",
-                                    "var cm = Ext.create('Gotom.view.Commons');\r",
                                     "if(record.data.checked)\r",
                                     "{\r",
                                     "    record.set('checked', false);\r",
-                                    "    cm.onTreePanelCheckChange(record,false);\r",
+                                    "    Gotom.view.Common.onTreePanelCheckChange(record,false);\r",
                                     "}\r",
                                     "else\r",
                                     "{\r",
                                     "    record.set('checked', true);\r",
                                     "}\r",
-                                    "cm.onTreeChildNodesChecked(record,record.data.checked);"
+                                    "Gotom.view.Common.onTreeChildNodesChecked(record,record.data.checked);"
                                 ],
                                 "name": "itemclick",
                                 "scope": "me"
@@ -392,7 +391,7 @@
                             "        nodeParam : \"id\",\r",
                             "        listeners: {\r",
                             "            exception: {\r",
-                            "                fn: function(response){Commons.onAjaxException(response)},\r",
+                            "                fn: function(response){Gotom.view.Common.onAjaxException(response)},\r",
                             "                scope: me\r",
                             "            }\r",
                             "        }        \r",

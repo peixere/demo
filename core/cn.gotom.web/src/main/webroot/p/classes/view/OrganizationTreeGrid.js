@@ -21,7 +21,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         'Gotom.view.OrganizationWinForm',
         'Gotom.model.OrganizationModel',
         'Gotom.store.OrganizationTreeStore',
-        'Gotom.view.Commons'
+        'Gotom.view.Common'
     ],
 
     id: 'OrganizationTreeGrid',
