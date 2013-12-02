@@ -38,17 +38,6 @@ Ext.define('Gotom.view.RightPanel', {
                     id: 'RightTreePanel',
                     autoScroll: true,
                     rootVisible: false,
-                    listeners: {
-                        itemdblclick: {
-                            fn: me.onRightTreePanelItemDblClick,
-                            scope: me
-                        },
-                        afterlayout: {
-                            fn: me.onRightTreePanelAfterLayout,
-                            single: true,
-                            scope: me
-                        }
-                    },
                     viewConfig: {
                         id: 'RightTreePanelView',
                         listeners: {
@@ -147,6 +136,13 @@ Ext.define('Gotom.view.RightPanel', {
                             text: '排列顺序'
                         }
                     ],
+                    listeners: {
+                        afterlayout: {
+                            fn: me.onRightTreePanelAfterLayout,
+                            single: true,
+                            scope: me
+                        }
+                    },
                     selModel: Ext.create('Ext.selection.RowModel', {
 
                     })
@@ -155,10 +151,6 @@ Ext.define('Gotom.view.RightPanel', {
         });
 
         me.callParent(arguments);
-    },
-
-    onRightTreePanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
-        this.showform(record);
     },
 
     onRightTreePanelViewItemClick: function(dataview, record, item, index, e, eOpts) {
@@ -258,7 +250,7 @@ Ext.define('Gotom.view.RightPanel', {
                 nodeParam : "id",
                 listeners: {
                     exception: {
-                        fn: function(response){Common.onAjaxException(response)},
+                        fn: Common.onAjaxException,
                         scope: me
                     }
                 }        
