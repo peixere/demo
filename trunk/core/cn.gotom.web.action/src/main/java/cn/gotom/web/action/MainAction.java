@@ -40,7 +40,7 @@ public class MainAction
 
 	private String username;
 
-	private User user = new User();
+	private String name;
 
 	private String action;
 
@@ -56,10 +56,10 @@ public class MainAction
 	public void main() throws IOException
 	{
 		username = ServletActionContext.getRequest().getRemoteUser();
-		user = userService.getByUsername(username);
-		if (user == null)
+		User user = userService.getByUsername(username);
+		if (user != null)
 		{
-			user = new User();
+			this.setName(user.getName());
 		}
 		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
 		if (appTitle == null)
@@ -139,14 +139,14 @@ public class MainAction
 		this.title = title;
 	}
 
-	public User getUser()
+	public String getName()
 	{
-		return user;
+		return name;
 	}
 
-	public void setUser(User user)
+	public void setName(String name)
 	{
-		this.user = user;
+		this.name = name;
 	}
 
 }
