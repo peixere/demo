@@ -9,6 +9,7 @@
         "id": "UserView",
         "designer|userClassName": "UserView",
         "designer|userAlias": "UserView",
+        "designer|initialView": true,
         "layout": "border"
     },
     "designerId": "26aef431-c0c0-45ec-9ccb-4bd420a78f69",
