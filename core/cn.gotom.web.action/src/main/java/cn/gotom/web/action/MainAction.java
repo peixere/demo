@@ -13,8 +13,10 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.ResourceConfig;
 import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
+import cn.gotom.pojos.User;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.ResourceConfigService;
+import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
@@ -29,13 +31,16 @@ public class MainAction
 
 	@Inject
 	private AuthService authService;
-
+	@Inject
+	private UserService userService;
 	@Inject
 	private ResourceConfigService configService;
 
 	private String id;
 
 	private String username;
+
+	private User user = new User();
 
 	private String action;
 
@@ -51,6 +56,11 @@ public class MainAction
 	public void main() throws IOException
 	{
 		username = ServletActionContext.getRequest().getRemoteUser();
+		user = userService.getByUsername(username);
+		if (user == null)
+		{
+			user = new User();
+		}
 		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
 		if (appTitle == null)
 		{
@@ -127,6 +137,16 @@ public class MainAction
 	public void setTitle(String title)
 	{
 		this.title = title;
+	}
+
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 
 }
