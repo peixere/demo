@@ -45,7 +45,7 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
     },
 
     onAjaxException: function(proxy, response, operation, eOpts) {
-        //CommonUtil.onAjaxException(response);
+        Gotom.view.Common.onAjaxException(response);
     }
 
 });
