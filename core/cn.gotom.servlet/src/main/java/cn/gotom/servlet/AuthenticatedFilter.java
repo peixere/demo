@@ -55,7 +55,10 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 		{
 			for (String pattern : authenticatedNones)
 			{
-				return urlMatcher.pathMatchesUrl(pattern, url);
+				if (urlMatcher.pathMatchesUrl(pattern, url))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -74,6 +77,7 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			}
 			else
 			{
+				log.warn(request.getRemoteUser() + " 403：" + url);
 				response.setStatus(403);
 				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
 			}
