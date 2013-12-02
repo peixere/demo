@@ -158,7 +158,7 @@ public class AuthServiceImpl implements AuthService
 	}
 
 	@Override
-	public List<Right> loadTreeByParentId(String parentId, String username)
+	public List<Right> loadTreeByParentId(String username, String parentId)
 	{
 		User user = userService.getByUsername(username);
 		List<Right> rightList = rightService.findByParentId(parentId);
