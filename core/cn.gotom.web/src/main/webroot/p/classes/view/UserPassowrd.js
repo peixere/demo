@@ -34,12 +34,13 @@ Ext.define('Gotom.view.UserPassowrd', {
                     xtype: 'form',
                     region: 'center',
                     border: false,
-                    id: 'passwordForm',
+                    id: 'PasswordForm',
                     bodyPadding: 10,
                     dockedItems: [
                         {
                             xtype: 'toolbar',
                             dock: 'bottom',
+                            id: 'passwordFormToolbar',
                             layout: {
                                 pack: 'end',
                                 padding: 3,
@@ -91,7 +92,29 @@ Ext.define('Gotom.view.UserPassowrd', {
     },
 
     onButtonClick: function(button, e, eOpts) {
-
+        var me = this;
+        var form = Ext.getCmp('PasswordForm');
+        if (form.isValid())
+        {
+            form.submit(
+            {
+                url : ctxp + '/p/main!password.do',
+                method : 'POST',
+                waitMsg : '正在保存数据，稍后...',
+                success : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存成功');
+                    me.close();
+                    var tree = Ext.getCmp('RightTreePanel');
+                    tree.getStore().reload();            
+                    Ext.defer(function(){tree.expandAll();},100);
+                },
+                failure : function(f, action)
+                {
+                    Ext.Msg.alert('信息提示', '保存失败！');
+                }
+            });
+        }
     }
 
 });
