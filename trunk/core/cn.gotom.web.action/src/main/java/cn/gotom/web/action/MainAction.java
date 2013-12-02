@@ -88,7 +88,7 @@ public class MainAction
 		ResponseUtils.toJSON(menuList);
 	}
 
-	public void savePassword()
+	public void password()
 	{
 		String password = ServletActionContext.getRequest().getParameter("password");
 		String newpass = ServletActionContext.getRequest().getParameter("newpass");

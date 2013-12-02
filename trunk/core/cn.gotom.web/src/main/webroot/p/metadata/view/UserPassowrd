@@ -26,7 +26,7 @@
             "userConfig": {
                 "layout|region": "center",
                 "border": false,
-                "id": "passwordForm",
+                "id": "PasswordForm",
                 "bodyPadding": 10,
                 "title": null
             },
@@ -42,7 +42,8 @@
                     "userConfig": {
                         "dock": "bottom",
                         "container|pack": "end",
-                        "container|padding": 3
+                        "container|padding": 3,
+                        "id": "passwordFormToolbar"
                     },
                     "designerId": "07f8ed0a-d839-4cf3-803c-2c4440644c72",
                     "cn": [
@@ -70,7 +71,29 @@
                                     "userConfig": {
                                         "fn": "onButtonClick",
                                         "implHandler": [
-                                            ""
+                                            "var me = this;\r",
+                                            "var form = Ext.getCmp('PasswordForm');\r",
+                                            "if (form.isValid())\r",
+                                            "{\r",
+                                            "    form.submit(\r",
+                                            "    {\r",
+                                            "        url : ctxp + '/p/main!password.do',\r",
+                                            "        method : 'POST',\r",
+                                            "        waitMsg : '正在保存数据，稍后...',\r",
+                                            "        success : function(f, action)\r",
+                                            "        {\r",
+                                            "            Ext.Msg.alert('信息提示', '保存成功');\r",
+                                            "            me.close();\r",
+                                            "            var tree = Ext.getCmp('RightTreePanel');\r",
+                                            "            tree.getStore().reload();            \r",
+                                            "            Ext.defer(function(){tree.expandAll();},100);\r",
+                                            "        },\r",
+                                            "        failure : function(f, action)\r",
+                                            "        {\r",
+                                            "            Ext.Msg.alert('信息提示', '保存失败！');\r",
+                                            "        }\r",
+                                            "    });\r",
+                                            "}"
                                         ],
                                         "name": "click",
                                         "scope": "me"
