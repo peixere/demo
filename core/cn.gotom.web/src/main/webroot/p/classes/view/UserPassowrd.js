@@ -71,13 +71,14 @@ Ext.define('Gotom.view.UserPassowrd', {
                             msgTarget: 'side',
                             name: 'password',
                             inputType: 'password',
+                            invalidText: '请输入1-25位字符以上的密码！',
                             allowBlank: false,
-                            blankText: '请输入6位字符以上的密码！',
-                            emptyText: '请输入6-25位字符长度的密码',
+                            blankText: '请输入1-25位字符以上的密码！',
+                            emptyText: '请输入1-25位字符以上的密码！',
                             maxLength: 25,
-                            maxLengthText: '请输入6-25位字符以上的密码！',
-                            minLength: 6,
-                            minLengthText: '请输入6-25位字符以上的密码！'
+                            maxLengthText: '请输入1-25位字符以上的密码！',
+                            minLength: 1,
+                            minLengthText: '请输入1-25位字符以上的密码！'
                         },
                         {
                             xtype: 'textfield',
@@ -88,13 +89,13 @@ Ext.define('Gotom.view.UserPassowrd', {
                             name: 'newpass',
                             inputType: 'password',
                             allowBlank: false,
-                            blankText: '请输入6位字符以上的密码！',
-                            emptyText: '请输入6-25位字符长度的密码',
+                            blankText: '请输入1-25位字符以上的密码！',
+                            emptyText: '请输入1-25位字符以上的密码！',
                             enforceMaxLength: true,
                             maxLength: 25,
-                            maxLengthText: '请输入6-25位字符以上的密码！',
-                            minLength: 6,
-                            minLengthText: '请输入6-25位字符以上的密码！'
+                            maxLengthText: '请输入1-25位字符以上的密码！',
+                            minLength: 1,
+                            minLengthText: '请输入1-25位字符以上的密码！'
                         },
                         {
                             xtype: 'textfield',
@@ -106,6 +107,8 @@ Ext.define('Gotom.view.UserPassowrd', {
                             name: 'newpassCheck',
                             inputType: 'password',
                             allowBlank: false,
+                            blankText: '请输入1-25位字符以上的密码！',
+                            emptyText: '请输入1-25位字符以上的密码！',
                             vtype: 'password',
                             listeners: {
                                 change: {
