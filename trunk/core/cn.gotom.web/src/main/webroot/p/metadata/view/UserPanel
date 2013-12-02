@@ -514,10 +514,11 @@
                     "var me = this;\r",
                     "CommonUtil.ajax({\r",
                     "    component : me,\r",
-                    "    message : '加载头信息...',    \r",
+                    "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/User!list.do',\r",
                     "    callback : me.bindGrid\r",
-                    "});"
+                    "});\r",
+                    ""
                 ]
             },
             "designerId": "bab4a028-00b5-4884-9d8c-939a52bda64d"
@@ -532,7 +533,7 @@
             "userConfig": {
                 "fn": "bindGrid",
                 "designer|params": [
-                    "data"
+                    "result"
                 ],
                 "implHandler": [
                     "var me = this;\r",
@@ -552,7 +553,7 @@
                     "        name: 'status'\r",
                     "    }\r",
                     "    ],\r",
-                    "    data : data,\r",
+                    "    data : result.data,\r",
                     "    proxy:\r",
                     "    {\r",
                     "        type: 'memory',\r",
@@ -605,15 +606,7 @@
                     "    failure : function(response, options)\r",
                     "    {\r",
                     "        wait.close();\r",
-                    "        if(response.status == 200)\r",
-                    "        {\r",
-                    "            var result = Ext.JSON.decode(response.responseText);\r",
-                    "            Ext.Msg.alert('信息提示', result.data);\r",
-                    "        }\r",
-                    "        else\r",
-                    "        {\r",
-                    "            Ext.Msg.alert('信息提示', response.responseText);\r",
-                    "        }\r",
+                    "        CommonUtil.onAjaxException(response);\r",
                     "    }\r",
                     "});"
                 ]

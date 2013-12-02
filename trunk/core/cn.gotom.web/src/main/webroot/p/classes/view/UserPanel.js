@@ -290,13 +290,14 @@ Ext.define('Gotom.view.UserPanel', {
         var me = this;
         CommonUtil.ajax({
             component : me,
-            message : '加载头信息...',    
+            message : '正在加载......',    
             url : ctxp+'/p/User!list.do',
             callback : me.bindGrid
         });
+
     },
 
-    bindGrid: function(data) {
+    bindGrid: function(result) {
         var me = this;
         var UserStore = Ext.create('Ext.data.Store', {
             storeId:'UserStore',
@@ -314,7 +315,7 @@ Ext.define('Gotom.view.UserPanel', {
                 name: 'status'
             }
             ],
-            data : data,
+            data : result.data,
             proxy:
             {
                 type: 'memory',
@@ -353,15 +354,7 @@ Ext.define('Gotom.view.UserPanel', {
             failure : function(response, options)
             {
                 wait.close();
-                if(response.status == 200)
-                {
-                    var result = Ext.JSON.decode(response.responseText);
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', response.responseText);
-                }
+                CommonUtil.onAjaxException(response);
             }
         });
     },
