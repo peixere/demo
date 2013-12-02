@@ -23,4 +23,6 @@ public interface AuthService
 	 */
 	public abstract List<Right> findRightList(String username, String parentId);
 
+	public abstract List<Right> loadTreeByParentId(String parentId, String username);
+
 }
