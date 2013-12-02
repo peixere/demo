@@ -37,23 +37,6 @@
             "designerId": "4e78dfc3-8427-4709-a2e1-11e11fb474d5",
             "cn": [
                 {
-                    "type": "basiceventbinding",
-                    "reference": {
-                        "name": "listeners",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "onRightTreePanelItemDblClick",
-                        "implHandler": [
-                            "this.showform(record);"
-                        ],
-                        "name": "itemdblclick",
-                        "scope": "me"
-                    },
-                    "designerId": "381658e6-9790-4a3d-913f-4d88cd5e9c85"
-                },
-                {
                     "type": "Ext.tree.View",
                     "reference": {
                         "name": "viewConfig",
@@ -392,7 +375,7 @@
                             "        nodeParam : \"id\",\r",
                             "        listeners: {\r",
                             "            exception: {\r",
-                            "                fn: function(response){Common.onAjaxException(response)},\r",
+                            "                fn: Common.onAjaxException,\r",
                             "                scope: me\r",
                             "            }\r",
                             "        }        \r",
