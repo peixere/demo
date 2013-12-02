@@ -66,21 +66,21 @@ Ext.define('Gotom.view.UserPassowrd', {
                             anchor: '100%',
                             id: 'user.password',
                             fieldLabel: '原 密 码',
-                            name: 'user.password'
+                            name: 'password'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             id: 'user.newpass',
                             fieldLabel: '新 密 码',
-                            name: 'user.newpass'
+                            name: 'newpass'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             id: 'user.newpassCheck',
                             fieldLabel: '确认密码',
-                            name: 'user.newpassCheck'
+                            name: 'newpassCheck'
                         }
                     ]
                 }
