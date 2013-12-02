@@ -94,6 +94,11 @@ public class RoleAction
 				}
 			}
 		}
+		Role old = roleService.get(role.getId());
+		if (old != null)
+		{
+			role.setUsers(old.getUsers());
+		}
 		role.setRights(roleRights);
 		roleService.save(role);
 		return "success";
