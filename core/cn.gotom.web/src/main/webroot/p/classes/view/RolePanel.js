@@ -417,7 +417,7 @@ Ext.define('Gotom.view.RolePanel', {
                     },
                     checkchange: 
                     {
-                        fn: me.onTreePanelCheckChange,
+                        fn: Common.onTreePanelCheckChange,
                         scope: me
                     }
                 },        
@@ -567,49 +567,12 @@ Ext.define('Gotom.view.RolePanel', {
         if(record.data.checked)
         {
             record.set('checked', false);
-            this.onTreePanelCheckChange(record,false,eOpts);
+            Common.onTreePanelCheckChange(record,false,eOpts);
         }
         else
         {
             record.set('checked', true);
-            this.onTreePanelCheckChange(record,true,eOpts);
-        }
-    },
-
-    onTreePanelCheckChange: function(node, checked, eOpts) {
-        var me = this;
-        me.onTreeChildNodesChecked(node,checked);
-        me.onTreeParentNodeChecked(node,checked);
-    },
-
-    onTreeChildNodesChecked: function(node, checked) {
-        var me = this;
-        Ext.each(node.childNodes,function(childNode)
-        {
-            childNode.set('checked', checked);   
-            if(childNode.childNodes.length >0)
-            {
-                me.onTreeChildNodesChecked(childNode,checked);
-            }
-        });
-    },
-
-    onTreeParentNodeChecked: function(node, checked) {
-        if(node.parentNode !== null)
-        {
-            if(node.parentNode.childNodes.length >0)
-            {
-                var parentCheck = false;
-                Ext.each(node.parentNode.childNodes,function(childNode)
-                {
-                    if(childNode.data.checked)
-                    {
-                        parentCheck = true;
-                    }
-                });
-                node.parentNode.set('checked', parentCheck);
-                this.onTreeParentNodeChecked(node.parentNode,checked);
-            }
+            Common.onTreePanelCheckChange(record,true,eOpts);
         }
     }
 
