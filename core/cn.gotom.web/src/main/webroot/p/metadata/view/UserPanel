@@ -595,9 +595,8 @@
                     "id"
                 ],
                 "implHandler": [
-                    "console.log(id);\r",
                     "var me = this;\r",
-                    "CommonUtil.ajax({\r",
+                    "Gotom.view.Common.ajax({\r",
                     "    params:{'user.id':id},\r",
                     "    component : Ext.getCmp('UserForm'),\r",
                     "    message : '正在加载......',    \r",
@@ -627,7 +626,6 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "console.log(userId);\r",
                     "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
                     "    {\r",
                     "        defaultRootId : userId,\r",
@@ -652,7 +650,13 @@
                     "        proxy :\r",
                     "        {\r",
                     "            type : 'ajax',\r",
-                    "            url : ctxp+'/p/User!tree.do'             \r",
+                    "            url : ctxp+'/p/User!tree.do', \r",
+                    "            listeners: {\r",
+                    "                    exception: {\r",
+                    "                        fn: Gotom.view.Common.onAjaxException,\r",
+                    "                        scope: me\r",
+                    "                    }\r",
+                    "                }             \r",
                     "        }                      \r",
                     "    });\r",
                     "var tree = Ext.create('Ext.tree.Panel',\r",

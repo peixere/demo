@@ -331,9 +331,8 @@ Ext.define('Gotom.view.UserPanel', {
     },
 
     loadFormData: function(id) {
-        console.log(id);
         var me = this;
-        CommonUtil.ajax({
+        Gotom.view.Common.ajax({
             params:{'user.id':id},
             component : Ext.getCmp('UserForm'),
             message : '正在加载......',    
@@ -349,7 +348,6 @@ Ext.define('Gotom.view.UserPanel', {
 
     bindRoleTree: function(userId) {
         var me = this;
-        console.log(userId);
         var myStore = Ext.create("Ext.data.TreeStore",
             {
                 defaultRootId : userId,
@@ -374,7 +372,13 @@ Ext.define('Gotom.view.UserPanel', {
                 proxy :
                 {
                     type : 'ajax',
-                    url : ctxp+'/p/User!tree.do'             
+                    url : ctxp+'/p/User!tree.do', 
+                    listeners: {
+                        exception: {
+                            fn: Gotom.view.Common.onAjaxException,
+                            scope: me
+                        }
+                    }             
                 }                      
             });
         var tree = Ext.create('Ext.tree.Panel',
