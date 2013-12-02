@@ -18,9 +18,11 @@
     under the License.
 
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctxp" value="${pageContext.request.contextPath}" />
 <jsp:directive.include file="includes/top.jsp" />
 	<script type="text/javascript">
-	window.location.href = 'login';
+	window.location.href = '${ctxp}/';
 	</script>
 		<div id="msg" class="success">
 			<h2><spring:message code="screen.logout.header" /></h2>
