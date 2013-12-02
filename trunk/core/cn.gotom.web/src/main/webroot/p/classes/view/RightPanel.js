@@ -162,17 +162,16 @@ Ext.define('Gotom.view.RightPanel', {
 
     onRightTreePanelViewItemClick: function(dataview, record, item, index, e, eOpts) {
         var me = this;
-        var cm = Ext.create('Gotom.view.Commons');
         if(record.data.checked)
         {
             record.set('checked', false);
-            cm.onTreePanelCheckChange(record,false);
+            Gotom.view.Common.onTreePanelCheckChange(record,false);
         }
         else
         {
             record.set('checked', true);
         }
-        cm.onTreeChildNodesChecked(record,record.data.checked);
+        Gotom.view.Common.onTreeChildNodesChecked(record,record.data.checked);
     },
 
     onButtonAddClick: function(button, e, eOpts) {
@@ -258,7 +257,7 @@ Ext.define('Gotom.view.RightPanel', {
                 nodeParam : "id",
                 listeners: {
                     exception: {
-                        fn: function(response){Commons.onAjaxException(response)},
+                        fn: function(response){Gotom.view.Common.onAjaxException(response)},
                         scope: me
                     }
                 }        

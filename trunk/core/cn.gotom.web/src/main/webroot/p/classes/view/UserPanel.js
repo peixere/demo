@@ -282,6 +282,10 @@ Ext.define('Gotom.view.UserPanel', {
     },
 
     onPanelAfterLayout: function(container, layout, eOpts) {
+        this.onLoad();
+    },
+
+    onLoad: function() {
         this.loadGrid();
         this.loadFormData('');
     },
@@ -294,7 +298,6 @@ Ext.define('Gotom.view.UserPanel', {
             url : ctxp+'/p/User!list.do',
             callback : me.bindGrid
         });
-
     },
 
     bindGrid: function(result) {
@@ -329,34 +332,79 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadFormData: function(id) {
         var me = this;
-        var wait = Ext.Msg.wait("正在加载......", "操作提示");
-        Ext.Ajax.request(
-        {
+        CommonUtil.ajax({
+            component : Ext.getCmp('UserForm'),
+            message : '正在加载......',    
             url : ctxp+'/p/User.do',
-            method : 'POST',
-            params:{'user.id':id},  
-            success : function(response, options)
-            {
-                wait.close();
-                var result = Ext.JSON.decode(response.responseText); 
-                if(result.success)
-                {
-                    me.bindRoleTree(result.user.id);
-                    Ext.getCmp('user.id').setValue(result.user.id);
-                    Ext.getCmp('user.name').setValue(result.user.name);                
-                    Ext.getCmp('user.username').setValue(result.user.username);  
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-            },
-            failure : function(response, options)
-            {
-                wait.close();
-                CommonUtil.onAjaxException(response);
-            }
+            callback : me.bindFormData
         });
+    },
+
+    bindFormData: function(result) {
+        this.bindRoleTree(result.user.id);
+        Ext.getCmp('user.id').setValue(result.user.id);
+        Ext.getCmp('user.name').setValue(result.user.name);                
+        Ext.getCmp('user.username').setValue(result.user.username);  
+    },
+
+    saveForm: function() {
+        var me = this;
+        if (Ext.getCmp('UserForm').isValid())
+        {
+            var userId = Ext.getCmp('user.id').getValue();
+            var name = Ext.getCmp('user.name').getValue();                
+            var username = Ext.getCmp('user.username').getValue();
+            var pkIds = [];
+            var tree = Ext.getCmp('RoleTreePanel');
+            var items = tree.getSelectionModel().store.data.items;
+            Ext.each(items, function()
+            {
+                var nd = this;
+                if(nd.data.checked)
+                {
+                    pkIds.push(nd.data.id);
+                }
+            });
+            var wait = Ext.Msg.wait("正在加载......", "操作提示");
+            Ext.Ajax.request(
+            {
+                url : ctxp+'/p/User!save.do',
+                method : 'POST',
+                params:{
+                    'user.id':userId,
+                    'user.name':name,
+                    'user.username':username,
+                    'roleIds':pkIds
+                },  
+                success : function(response, options)
+                {
+                    wait.close();
+                    var result = Ext.JSON.decode(response.responseText); 
+                    if(result.success)
+                    {
+                        me.loadGrid();
+                        me.loadFormData('');
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                },
+                failure : function(response, options)
+                {
+                    wait.close();
+                    if(response.status == 200)
+                    {
+                        var result = Ext.JSON.decode(response.responseText);
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', response.responseText);
+                    }
+                }
+            });
+        }
     },
 
     bindRoleTree: function(userId) {
@@ -443,66 +491,6 @@ Ext.define('Gotom.view.UserPanel', {
         Ext.getCmp('UserCenterPanel').remove(1);
         Ext.getCmp('UserCenterPanel').add(tree);
 
-    },
-
-    saveForm: function() {
-        var me = this;
-        if (Ext.getCmp('UserForm').isValid())
-        {
-            var userId = Ext.getCmp('user.id').getValue();
-            var name = Ext.getCmp('user.name').getValue();                
-            var username = Ext.getCmp('user.username').getValue();
-            var pkIds = [];
-            var tree = Ext.getCmp('RoleTreePanel');
-            var items = tree.getSelectionModel().store.data.items;
-            Ext.each(items, function()
-            {
-                var nd = this;
-                if(nd.data.checked)
-                {
-                    pkIds.push(nd.data.id);
-                }
-            });
-            var wait = Ext.Msg.wait("正在加载......", "操作提示");
-            Ext.Ajax.request(
-            {
-                url : ctxp+'/p/User!save.do',
-                method : 'POST',
-                params:{
-                    'user.id':userId,
-                    'user.name':name,
-                    'user.username':username,
-                    'roleIds':pkIds
-                },  
-                success : function(response, options)
-                {
-                    wait.close();
-                    var result = Ext.JSON.decode(response.responseText); 
-                    if(result.success)
-                    {
-                        me.loadGrid();
-                        me.loadFormData('');
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                },
-                failure : function(response, options)
-                {
-                    wait.close();
-                    if(response.status == 200)
-                    {
-                        var result = Ext.JSON.decode(response.responseText);
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }
-                }
-            });
-        }
     },
 
     userStatus: function(status) {

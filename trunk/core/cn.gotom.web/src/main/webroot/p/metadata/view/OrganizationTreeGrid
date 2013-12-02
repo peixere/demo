@@ -13,7 +13,7 @@
             "Gotom.view.OrganizationWinForm",
             "Gotom.model.OrganizationModel",
             "Gotom.store.OrganizationTreeStore",
-            "Gotom.view.Commons"
+            "Gotom.view.Common"
         ],
         "title": "组织架构管理",
         "store": null,
