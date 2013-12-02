@@ -2,7 +2,6 @@ package cn.gotom.web.action;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -38,8 +37,6 @@ public class MainAction
 	@Inject
 	private ResourceConfigService configService;
 
-	private List<Right> rightList;
-
 	private String id;
 
 	private String username;
@@ -68,89 +65,22 @@ public class MainAction
 		}
 		this.setTitle(appTitle.getValue());
 		casServerLogoutUrl = ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl");
-		rightList = authService.findRightList(username, id);
 		ResponseUtils.toJSON(this);
 	}
 
 	public void menu() throws IOException
 	{
+		username = ServletActionContext.getRequest().getRemoteUser();
 		List<Right> menuList = null;
 		if (StringUtils.isNullOrEmpty(id))
 		{
-			menuList = rightService.findByParentId(id);
+			menuList = authService.findRightList(username, id);
 		}
 		else
 		{
 			menuList = rightService.loadTreeByParentId(id);
 		}
 		ResponseUtils.toJSON(menuList);
-	}
-
-	private boolean hasRight = true;
-
-	public void resource() throws IOException
-	{
-		List<Right> menuList = null;
-		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
-		if (StringUtils.isNullOrEmpty(id))
-		{
-			sql += " where t.parent_id is null";
-		}
-		else
-		{
-			sql += " where t.parent_id = '" + id + "'";
-		}
-
-		if (rightService.findAll().size() == 0)
-		{
-			hasRight = false;
-			menuList = rightService.query(Right.class, sql);
-			for (Right r : menuList)
-			{
-				r.setExpanded(true);
-				loadChildrencallback(r);
-			}
-		}
-		else
-		{
-			if (StringUtils.isNullOrEmpty(id))
-			{
-				menuList = rightService.findByParentId(id);
-			}
-			else
-			{
-				menuList = rightService.loadTreeByParentId(id);
-			}
-		}
-		ResponseUtils.toJSON(menuList);
-	}
-
-	private void loadChildrencallback(Right right)
-	{
-		String sql = "select  t.id, t.text, t.component, t.description, t.type, t.iconCls, t.sort,t.leaf from resource t";
-		sql += " where t.parent_id = '" + right.getId() + "'";
-		List<Right> menuList = rightService.query(Right.class, sql);
-		if (!hasRight)
-		{
-			right.setId(UUID.randomUUID().toString());
-			rightService.save(right);
-		}
-		right.setChildren(menuList);
-		for (Right r : menuList)
-		{
-			r.setParentId(right.getId());
-			loadChildrencallback(r);
-		}
-	}
-
-	public List<Right> getRightList()
-	{
-		return rightList;
-	}
-
-	public void setRightList(List<Right> rightList)
-	{
-		this.rightList = rightList;
 	}
 
 	public String getId()
