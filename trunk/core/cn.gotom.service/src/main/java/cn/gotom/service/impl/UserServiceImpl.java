@@ -27,7 +27,7 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 				user.setUsername(User.admin);
 				user.setName("超级管理员");
 				PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
-				user.setPassword(passwordEncoder.encode("a"));
+				user.setPassword(passwordEncoder.encode("888888"));
 				save(user);
 			}
 		}
