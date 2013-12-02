@@ -107,7 +107,9 @@ Ext.define('Gotom.view.UserPassowrd', {
                         title:'操作提示',
                         msg:'保存成功',
                         icon: Ext.Msg.INFO,
+                        wait:true,
                         waitConfig:{
+                            interval:1000,
                             duration:1000,
                             fn:function(){
                                 Ext.MessageBox.hide();
