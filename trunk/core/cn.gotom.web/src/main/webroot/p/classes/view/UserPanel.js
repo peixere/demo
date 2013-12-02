@@ -292,7 +292,7 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadGrid: function() {
         var me = this;
-        CommonUtil.ajax({
+        Common.ajax({
             component : me,
             message : '正在加载......',    
             url : ctxp+'/p/User!list.do',
@@ -332,7 +332,7 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadFormData: function(id) {
         var me = this;
-        Gotom.view.Common.ajax({
+        Common.ajax({
             params:{'user.id':id},
             component : Ext.getCmp('UserForm'),
             message : '正在加载......',    
@@ -375,7 +375,7 @@ Ext.define('Gotom.view.UserPanel', {
                     url : ctxp+'/p/User!tree.do', 
                     listeners: {
                         exception: {
-                            fn: Gotom.view.Common.onAjaxException,
+                            fn: Common.onAjaxException,
                             scope: me
                         }
                     }             
