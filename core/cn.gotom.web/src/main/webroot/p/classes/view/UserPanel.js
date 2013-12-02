@@ -331,84 +331,25 @@ Ext.define('Gotom.view.UserPanel', {
     },
 
     loadFormData: function(id) {
+        console.log(id);
         var me = this;
         CommonUtil.ajax({
+            params:{'user.id':id},
             component : Ext.getCmp('UserForm'),
             message : '正在加载......',    
             url : ctxp+'/p/User.do',
-            callback : me.bindFormData
+            callback : function(result) {
+                Ext.getCmp('user.id').setValue(result.user.id);
+                Ext.getCmp('user.name').setValue(result.user.name);                
+                Ext.getCmp('user.username').setValue(result.user.username);  
+                me.bindRoleTree(result.user.id);
+            }
         });
-    },
-
-    bindFormData: function(result) {
-        this.bindRoleTree(result.user.id);
-        Ext.getCmp('user.id').setValue(result.user.id);
-        Ext.getCmp('user.name').setValue(result.user.name);                
-        Ext.getCmp('user.username').setValue(result.user.username);  
-    },
-
-    saveForm: function() {
-        var me = this;
-        if (Ext.getCmp('UserForm').isValid())
-        {
-            var userId = Ext.getCmp('user.id').getValue();
-            var name = Ext.getCmp('user.name').getValue();                
-            var username = Ext.getCmp('user.username').getValue();
-            var pkIds = [];
-            var tree = Ext.getCmp('RoleTreePanel');
-            var items = tree.getSelectionModel().store.data.items;
-            Ext.each(items, function()
-            {
-                var nd = this;
-                if(nd.data.checked)
-                {
-                    pkIds.push(nd.data.id);
-                }
-            });
-            var wait = Ext.Msg.wait("正在加载......", "操作提示");
-            Ext.Ajax.request(
-            {
-                url : ctxp+'/p/User!save.do',
-                method : 'POST',
-                params:{
-                    'user.id':userId,
-                    'user.name':name,
-                    'user.username':username,
-                    'roleIds':pkIds
-                },  
-                success : function(response, options)
-                {
-                    wait.close();
-                    var result = Ext.JSON.decode(response.responseText); 
-                    if(result.success)
-                    {
-                        me.loadGrid();
-                        me.loadFormData('');
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                },
-                failure : function(response, options)
-                {
-                    wait.close();
-                    if(response.status == 200)
-                    {
-                        var result = Ext.JSON.decode(response.responseText);
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }
-                }
-            });
-        }
     },
 
     bindRoleTree: function(userId) {
         var me = this;
+        console.log(userId);
         var myStore = Ext.create("Ext.data.TreeStore",
             {
                 defaultRootId : userId,
@@ -491,6 +432,66 @@ Ext.define('Gotom.view.UserPanel', {
         Ext.getCmp('UserCenterPanel').remove(1);
         Ext.getCmp('UserCenterPanel').add(tree);
 
+    },
+
+    saveForm: function() {
+        var me = this;
+        if (Ext.getCmp('UserForm').isValid())
+        {
+            var userId = Ext.getCmp('user.id').getValue();
+            var name = Ext.getCmp('user.name').getValue();                
+            var username = Ext.getCmp('user.username').getValue();
+            var pkIds = [];
+            var tree = Ext.getCmp('RoleTreePanel');
+            var items = tree.getSelectionModel().store.data.items;
+            Ext.each(items, function()
+            {
+                var nd = this;
+                if(nd.data.checked)
+                {
+                    pkIds.push(nd.data.id);
+                }
+            });
+            var wait = Ext.Msg.wait("正在加载......", "操作提示");
+            Ext.Ajax.request(
+            {
+                url : ctxp+'/p/User!save.do',
+                method : 'POST',
+                params:{
+                    'user.id':userId,
+                    'user.name':name,
+                    'user.username':username,
+                    'roleIds':pkIds
+                },  
+                success : function(response, options)
+                {
+                    wait.close();
+                    var result = Ext.JSON.decode(response.responseText); 
+                    if(result.success)
+                    {
+                        me.loadGrid();
+                        me.loadFormData('');
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                },
+                failure : function(response, options)
+                {
+                    wait.close();
+                    if(response.status == 200)
+                    {
+                        var result = Ext.JSON.decode(response.responseText);
+                        Ext.Msg.alert('信息提示', result.data);
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', response.responseText);
+                    }
+                }
+            });
+        }
     },
 
     userStatus: function(status) {
