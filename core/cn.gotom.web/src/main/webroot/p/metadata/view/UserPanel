@@ -652,11 +652,11 @@
                     "            type : 'ajax',\r",
                     "            url : ctxp+'/p/User!tree.do', \r",
                     "            listeners: {\r",
-                    "                    exception: {\r",
-                    "                        fn: Common.onAjaxException,\r",
-                    "                        scope: me\r",
-                    "                    }\r",
-                    "                }             \r",
+                    "                exception: {\r",
+                    "                    fn: Common.onAjaxException,\r",
+                    "                    scope: me\r",
+                    "                }\r",
+                    "            }             \r",
                     "        }                      \r",
                     "    });\r",
                     "var tree = Ext.create('Ext.tree.Panel',\r",
@@ -690,7 +690,7 @@
                     "            },\r",
                     "            checkchange: \r",
                     "            {\r",
-                    "                fn: me.onTreePanelCheckChange,\r",
+                    "                fn: Common.onTreePanelCheckChange,\r",
                     "                scope: me\r",
                     "            }\r",
                     "        },        \r",
@@ -890,99 +890,16 @@
                     "if(record.data.checked)\r",
                     "{\r",
                     "    record.set('checked', false);\r",
-                    "    this.onTreePanelCheckChange(record,false,eOpts);\r",
+                    "    Common.onTreePanelCheckChange(record,false,eOpts);\r",
                     "}\r",
                     "else\r",
                     "{\r",
                     "    record.set('checked', true);\r",
-                    "    this.onTreePanelCheckChange(record,true,eOpts);\r",
+                    "    Common.onTreePanelCheckChange(record,true,eOpts);\r",
                     "}"
                 ]
             },
             "designerId": "94644817-1bb8-4702-89df-17f9209c0235"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onTreePanelCheckChange",
-                "designer|params": [
-                    "node",
-                    "checked",
-                    "eOpts"
-                ],
-                "implHandler": [
-                    "var me = this;\r",
-                    "me.onTreeChildNodesChecked(node,checked);\r",
-                    "me.onTreeParentNodeChecked(node,checked);"
-                ]
-            },
-            "designerId": "3db42519-4ba0-4412-96f6-0700f7a28991"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onTreeChildNodesChecked",
-                "designer|params": [
-                    "node",
-                    "checked"
-                ],
-                "implHandler": [
-                    "var me = this;\r",
-                    "Ext.each(node.childNodes,function(childNode)\r",
-                    "{\r",
-                    "    childNode.set('checked', checked);   \r",
-                    "    if(childNode.childNodes.length >0)\r",
-                    "    {\r",
-                    "        me.onTreeChildNodesChecked(childNode,checked);\r",
-                    "    }\r",
-                    "});"
-                ]
-            },
-            "designerId": "6b946511-f81b-4f15-92fd-5c855562e821"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onTreeParentNodeChecked",
-                "designer|params": [
-                    "node",
-                    "checked"
-                ],
-                "implHandler": [
-                    "if(node.parentNode !== null)\r",
-                    "{\r",
-                    "    if(node.parentNode.childNodes.length >0)\r",
-                    "    {\r",
-                    "        var parentCheck = false;\r",
-                    "        Ext.each(node.parentNode.childNodes,function(childNode)\r",
-                    "        {\r",
-                    "            if(childNode.data.checked)\r",
-                    "            {\r",
-                    "                parentCheck = true;\r",
-                    "            }\r",
-                    "        });\r",
-                    "        node.parentNode.set('checked', parentCheck);\r",
-                    "        this.onTreeParentNodeChecked(node.parentNode,checked);\r",
-                    "    }\r",
-                    "}"
-                ]
-            },
-            "designerId": "a475dfc7-240c-45f1-baf2-ff73387dc9ad"
         }
     ]
 }
