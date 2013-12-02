@@ -43,7 +43,11 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			authenticatedNone = authenticatedNone.replace(",", ";");
 			authenticatedNone = authenticatedNone.replace("，", ";");
 			authenticatedNone = authenticatedNone.replace("\n", ";");
-			authenticatedNones = authenticatedNone.trim().replace("；", ";").split(";");
+			authenticatedNones = authenticatedNone.trim().split(";");
+			for (int i = 0; i < authenticatedNones.length; i++)
+			{
+				authenticatedNones[i] = authenticatedNones[i].trim();
+			}
 		}
 		dataInitializeService.init();
 	}
@@ -59,7 +63,7 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 		{
 			for (String pattern : authenticatedNones)
 			{
-				if (urlMatcher.pathMatchesUrl(pattern, url))
+				if (urlMatcher.pathMatchesUrl(pattern.trim(), url))
 				{
 					return true;
 				}
