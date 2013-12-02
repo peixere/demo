@@ -1,7 +1,6 @@
 package cn.gotom.servlet;
 
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
-import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 
@@ -15,7 +14,6 @@ public abstract class AbsServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		configureCasLogout();
 		bind(CharacterFilter.class).in(Singleton.class);
 		filter("/*").through(CharacterFilter.class);
 		configureGuicePersistServlets();
@@ -41,13 +39,6 @@ public abstract class AbsServletModule extends ServletModule
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
 	}
 
-	protected void configureCasLogout()
-	{
-		/*** cas ***/
-		bind(SingleSignOutFilter.class).in(Singleton.class);
-		filter("/*").through(SingleSignOutFilter.class);
-		/*** cas ***/
-	}
 	protected void configureCasServlets()
 	{
 		/*** cas ***/
