@@ -156,4 +156,78 @@ public class AuthServiceImpl implements AuthService
 		}
 		return rightList;
 	}
+
+	@Override
+	public List<Right> loadTreeByParentId(String parentId, String username)
+	{
+		User user = userService.getByUsername(username);
+		List<Right> rightList = rightService.findByParentId(parentId);
+		if (user != null)
+		{
+			for (int i = rightList.size() - 1; i >= 0; i--)
+			{
+				boolean find = false;
+				if (User.admin.equals(user.getUsername()))
+				{
+					find = true;
+				}
+				else
+				{
+					for (Role role : user.getRoles())
+					{
+						// role.getCompany()
+						if (rightList.get(i).getRoles().contains(role))
+						{
+							find = true;
+						}
+					}
+				}
+				if (!find)
+				{
+					rightList.remove(i);
+				}
+			}
+		}
+		for (Right r : rightList)
+		{
+			loadTreeCallback(r, user);
+		}
+		return rightList;
+	}
+
+	private void loadTreeCallback(Right right, User user)
+	{
+		List<Right> rightList = rightService.findByParentId(right.getId());
+		if (user != null)
+		{
+			for (int i = rightList.size() - 1; i >= 0; i--)
+			{
+				boolean find = false;
+				if (User.admin.equals(user.getUsername()))
+				{
+					find = true;
+				}
+				else
+				{
+					for (Role role : user.getRoles())
+					{
+						if (rightList.get(i).getRoles().contains(role))
+						{
+							find = true;
+						}
+					}
+				}
+				if (!find)
+				{
+					rightList.remove(i);
+				}
+			}
+		}
+		right.setChildren(rightList);
+		for (Right r : rightList)
+		{
+			loadTreeCallback(r, user);
+		}
+	}
+
 }
