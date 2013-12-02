@@ -36,6 +36,18 @@ Ext.define('Gotom.view.Common', {
             }
         },
 
+        onProxyException: function(proxy, response, operation, eOpts) {
+            if(response.status === 200)
+            {
+                var result = Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert('操作异常 '+response.status, result.data);
+            }
+            else
+            {
+                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
+            }
+        },
+
         ajax: function(config) {
             if(config.component)
             {

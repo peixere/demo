@@ -243,18 +243,19 @@ Ext.define('Gotom.view.RightPanel', {
                 proxy :
                 {
                     type : "ajax",
-                    url : ctxp+'/p/right!tree.do'
-                },
-                clearOnLoad : true,
-                model : 'Gotom.model.RightTreeCheckModel',
-                nodeParam : "id",
-                listeners: {
-                    exception: {
-                        fn: Common.onAjaxException,
-                        scope: me
+                    url : ctxp+'/p/right!tree.do',
+                    listeners: {
+                        exception: {
+                            fn: function(proxy, response, operation, eOpts) {
+                                Common.onAjaxException(response,me);
+                        }
                     }
-                }        
-            });
+                }            
+            },
+            clearOnLoad : true,
+            model : 'Gotom.model.RightTreeCheckModel',
+            nodeParam : "id"        
+        });
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
         myStore.reload();
