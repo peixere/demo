@@ -87,6 +87,7 @@
                                             "        },\r",
                                             "        failure : function(f, action)\r",
                                             "        {\r",
+                                            "            //Ext.JSON.decode(response.responseText)\r",
                                             "            Ext.Msg.alert('信息提示', '保存失败！');\r",
                                             "        }\r",
                                             "    });\r",
