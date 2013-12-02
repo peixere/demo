@@ -19,6 +19,12 @@ Ext.define('Gotom.view.Common', {
 
     statics: {
         onAjaxException: function(response, component) {
+            if(component)
+            {
+                if(response.status === 403){
+                    component.close();
+                }
+            }
             if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
@@ -60,13 +66,7 @@ Ext.define('Gotom.view.Common', {
                     }
                     else
                     {
-                        if(config.component)
-                        {
-                            if(+response.status === 403){
-                                config.component.close();
-                            }
-                        }
-                        Common.onAjaxException(response);
+                        Common.onAjaxException(response,config.component);
                     }
                 }
             });
