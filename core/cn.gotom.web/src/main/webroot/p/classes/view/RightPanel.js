@@ -255,7 +255,13 @@ Ext.define('Gotom.view.RightPanel', {
                 },
                 clearOnLoad : true,
                 model : 'Gotom.model.RightTreeCheckModel',
-                nodeParam : "id"                 
+                nodeParam : "id",
+                listeners: {
+                    exception: {
+                        fn: function(response){Commons.onAjaxException(response)},
+                        scope: me
+                    }
+                }        
             });
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);

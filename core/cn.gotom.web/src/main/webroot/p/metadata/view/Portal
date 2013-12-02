@@ -7,8 +7,6 @@
     "codeClass": null,
     "userConfig": {
         "passWin": "",
-        "Commons": null,
-        "commons": "",
         "container|padding": "0 5 5 5",
         "border": false,
         "id": "app-viewport",
@@ -24,16 +22,6 @@
         {
             "group": "(Custom Properties)",
             "name": "passWin",
-            "type": "string"
-        },
-        {
-            "group": "(Custom Properties)",
-            "name": "Commons",
-            "type": "string"
-        },
-        {
-            "group": "(Custom Properties)",
-            "name": "commons",
             "type": "string"
         }
     ],
@@ -234,7 +222,6 @@
                 "fn": "onLoad",
                 "implHandler": [
                     "var me = this;\r",
-                    "this.commons = Ext.create('Gotom.view.Commons');\r",
                     "this.setHeader();\r",
                     "var portal = Ext.getCmp('portal-container');\r",
                     "var portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
@@ -255,8 +242,7 @@
                     "        border : true,\r",
                     "        autoScroll : true,\r",
                     "        split : true,\r",
-                    "        items : [ portalPanel\r",
-                    "        ]\r",
+                    "        items : [ portalPanel]\r",
                     "    });\r",
                     "portal.add(tabPanel);\r",
                     "this.setOptions();\r",
@@ -365,7 +351,7 @@
                 "fn": "setHeader",
                 "implHandler": [
                     "me = this;\r",
-                    "me.commons.ajax({\r",
+                    "CommonUtil.ajax({\r",
                     "    component : Ext.getCmp('app-header'),\r",
                     "    message : '加载头信息...',    \r",
                     "    url : '../p/main!main.do',\r",
@@ -416,7 +402,7 @@
                     "var options = Ext.getCmp('app-options');\r",
                     "Ext.defer(function()\r",
                     "{\r",
-                    "    me.commons.ajax(\r",
+                    "    CommonUtil.ajax(\r",
                     "    {\r",
                     "        component : options,\r",
                     "        message : '加载菜单...',\r",
@@ -448,7 +434,7 @@
                     "var URL = '../p/main!menu.do';\r",
                     "for (var i = 0; i < data.length; i++)\r",
                     "{    \r",
-                    "    var treeStore = me.commons.createTreeStore(URL, data[i].id);     \r",
+                    "    var treeStore = CommonUtil.createTreeStore(URL, data[i].id);     \r",
                     "    var tree = Ext.create(\"Ext.tree.Panel\",\r",
                     "        {\r",
                     "            id : data[i].id,\r",
@@ -511,8 +497,8 @@
                     "    {// 判断是否是根节点\r",
                     "        if (node.data.type === 'URL')\r",
                     "        {// 判断资源类型\r",
-                    "            var theme = me.commons.getQueryParam('theme');\r",
-                    "            var url = me.commons.addQueryParam(node.data.component, 'theme', theme);\r",
+                    "            var theme = CommonUtil.getQueryParam('theme');\r",
+                    "            var url = CommonUtil.addQueryParam(node.data.component, 'theme', theme);\r",
                     "            var panel = Ext.create('Ext.panel.Panel',\r",
                     "                {\r",
                     "                    id : node.data.id,\r",

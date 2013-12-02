@@ -45,15 +45,7 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
     },
 
     onAjaxException: function(proxy, response, operation, eOpts) {
-        if(response.status == 200)
-        {
-            var result = Ext.JSON.decode(response.responseText);
-            Ext.Msg.alert('信息提示'+response.status, result.data);
-        }
-        else
-        {
-            Ext.Msg.alert('信息提示', response.responseText);
-        }
+        //CommonUtil.onAjaxException(response);
     }
 
 });

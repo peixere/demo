@@ -29,117 +29,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "ajax",
-                "designer|params": [
-                    "config"
-                ],
-                "implHandler": [
-                    "if(config.component)\r",
-                    "{\r",
-                    "    if(config.message)\r",
-                    "    {\r",
-                    "        config.component.setLoading(config.message);\r",
-                    "    }\r",
-                    "    else\r",
-                    "    {\r",
-                    "        config.component.setLoading('正在下载...');\r",
-                    "    }\r",
-                    "}\r",
-                    "Ext.Ajax.request(\r",
-                    "    {\r",
-                    "        url : config.url,\r",
-                    "        params : config.params,\r",
-                    "        method : 'post',\r",
-                    "        \r",
-                    "        callback : function(options, success, response)\r",
-                    "        {\r",
-                    "            if (success)\r",
-                    "            {\r",
-                    "                config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数\r",
-                    "            }\r",
-                    "            else\r",
-                    "            {\r",
-                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
-                    "            }\r",
-                    "            if(config.component)\r",
-                    "            {\r",
-                    "                config.component.setLoading(false);\r",
-                    "            }\r",
-                    "        }\r",
-                    "    });"
-                ]
-            },
-            "designerId": "5f12c821-5e56-4839-ac02-38ce08b52b0f"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "createTreeStore",
-                "designer|params": [
-                    "URL",
-                    "pid"
-                ],
-                "implHandler": [
-                    "var store = Ext.create(\"Ext.data.TreeStore\",\r",
-                    "    {\r",
-                    "        defaultRootId : pid,\r",
-                    "        clearOnLoad : true,\r",
-                    "        nodeParam : 'id',\r",
-                    "        fields: [\r",
-                    "        {\r",
-                    "            name: 'id'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'sort',\r",
-                    "            type: 'int'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'text'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'iconCls'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'leaf',\r",
-                    "            type: 'boolean'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'type'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'resource'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'component'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'parentId'\r",
-                    "        }\r",
-                    "        ],\r",
-                    "        proxy :\r",
-                    "        {\r",
-                    "            type : 'ajax',\r",
-                    "            url : URL            \r",
-                    "        }\r",
-                    "    });\r",
-                    "return store;"
-                ]
-            },
-            "designerId": "789b56f3-1f87-4928-91be-e183e9bed108"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "fn": "getQueryParam",
                 "designer|params": [
                     "name"
@@ -266,6 +155,143 @@
                 ]
             },
             "designerId": "08613068-637f-411c-aafd-9ca6217d3205"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onAjaxException",
+                "designer|params": [
+                    "response"
+                ],
+                "implHandler": [
+                    "if(response.status == 200)\r",
+                    "{\r",
+                    "    var result = Ext.JSON.decode(response.responseText);\r",
+                    "    Ext.Msg.alert('信息提示'+response.status, result.data);\r",
+                    "}\r",
+                    "else\r",
+                    "{\r",
+                    "    Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "}"
+                ]
+            },
+            "designerId": "7b5ba420-4043-43c6-89b4-9e436578ddc8"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "ajax",
+                "designer|params": [
+                    "config"
+                ],
+                "implHandler": [
+                    "if(config.component)\r",
+                    "{\r",
+                    "    if(config.message)\r",
+                    "    {\r",
+                    "        config.component.setLoading(config.message);\r",
+                    "    }\r",
+                    "    else\r",
+                    "    {\r",
+                    "        config.component.setLoading('正在下载...');\r",
+                    "    }\r",
+                    "}\r",
+                    "Ext.Ajax.request(\r",
+                    "{\r",
+                    "    url : config.url,\r",
+                    "    params : config.params,\r",
+                    "    method : 'post',\r",
+                    "\r",
+                    "    callback : function(options, success, response)\r",
+                    "    {\r",
+                    "        if (success)\r",
+                    "        {\r",
+                    "            config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数\r",
+                    "        }\r",
+                    "        else\r",
+                    "        {\r",
+                    "            Ext.Msg.alert('信息提示', response.responseText);\r",
+                    "        }\r",
+                    "        if(config.component)\r",
+                    "        {\r",
+                    "            config.component.setLoading(false);\r",
+                    "        }\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "394bcca9-3ba2-4b53-a498-8be915f9a068"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "createTreeStore",
+                "designer|params": [
+                    "URL",
+                    "pid"
+                ],
+                "implHandler": [
+                    "var store = Ext.create(\"Ext.data.TreeStore\",\r",
+                    "    {\r",
+                    "        defaultRootId : pid,\r",
+                    "        clearOnLoad : true,\r",
+                    "        nodeParam : 'id',\r",
+                    "        fields: [\r",
+                    "        {\r",
+                    "            name: 'id'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'sort',\r",
+                    "            type: 'int'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'text'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'iconCls'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'leaf',\r",
+                    "            type: 'boolean'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'type'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'resource'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'component'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            name: 'parentId'\r",
+                    "        }\r",
+                    "        ],\r",
+                    "        proxy :\r",
+                    "        {\r",
+                    "            type : 'ajax',\r",
+                    "            url : URL            \r",
+                    "        }\r",
+                    "    });\r",
+                    "return store;"
+                ]
+            },
+            "designerId": "a37d4a7f-ca93-4474-a706-4635e5a4128e"
         }
     ]
 }
