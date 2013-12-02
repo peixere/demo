@@ -16,7 +16,15 @@
 	</context-param>
 	<context-param>
 		<param-name>authenticatedNone</param-name>
-		<param-value>/ext4/**/**;/final/**/**;/resources/**/**;/**/**.htm*;/**/**.js;/**/**.css</param-value>
+		<param-value>
+		    /ext4/**/**;
+		    /final/**/**;
+		    /resources/**/**;
+		    /**/**.htm*;
+		    /**/**.js;
+		    /**/**.css;
+		    /p/main*.do
+		</param-value>
 	</context-param>
 	
 	<!-- cas config -->
