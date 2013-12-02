@@ -33,8 +33,27 @@ Ext.define('Gotom.store.OrganizationTreeStore', {
             nodeParam: 'id',
             proxy: {
                 type: 'ajax',
-                url: '../p/organization!tree.do'
+                url: '../p/organization!tree.do',
+                listeners: {
+                    exception: {
+                        fn: me.onAjaxException,
+                        scope: me
+                    }
+                }
             }
         }, cfg)]);
+    },
+
+    onAjaxException: function(proxy, response, operation, eOpts) {
+        if(response.status == 200)
+        {
+            var result = Ext.JSON.decode(response.responseText);
+            Ext.Msg.alert('信息提示'+response.status, result.data);
+        }
+        else
+        {
+            Ext.Msg.alert('信息提示', response.responseText);
+        }
     }
+
 });

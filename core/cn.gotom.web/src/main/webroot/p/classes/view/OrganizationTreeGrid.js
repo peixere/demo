@@ -194,7 +194,15 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                     },
                     failure : function(response, options)
                     {
-                        Ext.Msg.alert("删除提示", "删除失败");
+                        if(response.status == 200)
+                        {
+                            var result = Ext.JSON.decode(response.responseText);
+                            Ext.Msg.alert('删除失败'+response.status, result.data);
+                        }
+                        else
+                        {
+                            Ext.Msg.alert('信息提示', response.responseText);
+                        }
                     }
                 });
             }
