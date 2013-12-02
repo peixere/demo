@@ -22,6 +22,7 @@ Ext.define('Gotom.view.RightPanel', {
     ],
 
     border: false,
+    autoScroll: true,
     layout: {
         type: 'border'
     },
@@ -165,13 +166,13 @@ Ext.define('Gotom.view.RightPanel', {
         if(record.data.checked)
         {
             record.set('checked', false);
-            Gotom.view.Common.onTreePanelCheckChange(record,false);
+            Common.onTreePanelCheckChange(record,false);
         }
         else
         {
             record.set('checked', true);
         }
-        Gotom.view.Common.onTreeChildNodesChecked(record,record.data.checked);
+        Common.onTreeChildNodesChecked(record,record.data.checked);
     },
 
     onButtonAddClick: function(button, e, eOpts) {
@@ -257,7 +258,7 @@ Ext.define('Gotom.view.RightPanel', {
                 nodeParam : "id",
                 listeners: {
                     exception: {
-                        fn: function(response){Gotom.view.Common.onAjaxException(response)},
+                        fn: function(response){Common.onAjaxException(response)},
                         scope: me
                     }
                 }        
