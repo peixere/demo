@@ -4,14 +4,14 @@ Ext.define('CommonUtil', {
 
     statics: {
         onAjaxException: function(response) {
-            if(response.status == 200)
+            if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                Ext.Msg.alert('操作异常提示'+response.status, result.data);
+                Ext.Msg.alert('操作异常 '+response.status, result.data);
             }
             else
             {
-                Ext.Msg.alert('操作异常提示', response.responseText);
+                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
             }
         },
 
@@ -35,17 +35,23 @@ Ext.define('CommonUtil', {
 
                 callback : function(options, success, response)
                 {
-                    if (success)
-                    {
-                        config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }
                     if(config.component)
                     {
                         config.component.setLoading(false);
+                    }
+                    if (success)
+                    {
+                	config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数
+                    }
+                    else
+                    {
+                        if(config.component)
+                        {
+                            if(+response.status === 403){
+                        	config.component.close();
+                            }
+                        }
+                        CommonUtil.onAjaxException(response);
                     }
                 }
             });
