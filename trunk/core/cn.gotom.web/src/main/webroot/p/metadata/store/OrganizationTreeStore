@@ -27,7 +27,34 @@
             "userConfig": {
                 "url": "../p/organization!tree.do"
             },
-            "designerId": "ceaa342e-73a9-4d72-b111-3737add4cb67"
+            "designerId": "ceaa342e-73a9-4d72-b111-3737add4cb67",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onAjaxException",
+                        "implHandler": [
+                            "if(response.status == 200)\r",
+                            "{\r",
+                            "    var result = Ext.JSON.decode(response.responseText);\r",
+                            "    Ext.Msg.alert('信息提示'+response.status, result.data);\r",
+                            "}\r",
+                            "else\r",
+                            "{\r",
+                            "    Ext.Msg.alert('信息提示', response.responseText);\r",
+                            "}"
+                        ],
+                        "name": "exception",
+                        "scope": "me"
+                    },
+                    "designerId": "2f9cc72a-c780-4d53-a423-653718a0755d"
+                }
+            ]
         }
     ]
 }

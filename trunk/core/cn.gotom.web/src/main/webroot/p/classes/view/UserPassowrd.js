@@ -99,8 +99,8 @@ Ext.define('Gotom.view.UserPassowrd', {
                         },
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             confirmPwd: 'user.newpass',
+                            anchor: '100%',
                             id: 'user.newpassCheck',
                             fieldLabel: '确认密码',
                             msgTarget: 'side',
