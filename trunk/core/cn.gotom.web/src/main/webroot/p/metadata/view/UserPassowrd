@@ -132,13 +132,14 @@
                         "msgTarget": "side",
                         "name": "password",
                         "inputType": "password",
+                        "invalidText": "请输入1-25位字符以上的密码！",
                         "allowBlank": false,
-                        "blankText": "请输入6位字符以上的密码！",
-                        "emptyText": "请输入6-25位字符长度的密码",
+                        "blankText": "请输入1-25位字符以上的密码！",
+                        "emptyText": "请输入1-25位字符以上的密码！",
                         "maxLength": 25,
-                        "maxLengthText": "请输入6-25位字符以上的密码！",
-                        "minLength": 6,
-                        "minLengthText": "请输入6-25位字符以上的密码！"
+                        "maxLengthText": "请输入1-25位字符以上的密码！",
+                        "minLength": 1,
+                        "minLengthText": "请输入1-25位字符以上的密码！"
                     },
                     "designerId": "c02f7283-8410-4ff7-9505-b18a3104000b"
                 },
@@ -157,13 +158,13 @@
                         "name": "newpass",
                         "inputType": "password",
                         "allowBlank": false,
-                        "blankText": "请输入6位字符以上的密码！",
-                        "emptyText": "请输入6-25位字符长度的密码",
+                        "blankText": "请输入1-25位字符以上的密码！",
+                        "emptyText": "请输入1-25位字符以上的密码！",
                         "enforceMaxLength": true,
                         "maxLength": 25,
-                        "maxLengthText": "请输入6-25位字符以上的密码！",
-                        "minLength": 6,
-                        "minLengthText": "请输入6-25位字符以上的密码！",
+                        "maxLengthText": "请输入1-25位字符以上的密码！",
+                        "minLength": 1,
+                        "minLengthText": "请输入1-25位字符以上的密码！",
                         "regexText": null
                     },
                     "designerId": "3f0a7ccc-72c6-464e-912b-9af97072f013"
@@ -184,6 +185,8 @@
                         "name": "newpassCheck",
                         "inputType": "password",
                         "allowBlank": false,
+                        "blankText": "请输入1-25位字符以上的密码！",
+                        "emptyText": "请输入1-25位字符以上的密码！",
                         "vtype": "password"
                     },
                     "designerId": "9e1b5054-edfc-4d1f-b723-86f90d92c04f",
