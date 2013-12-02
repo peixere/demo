@@ -182,7 +182,9 @@
                         "fieldLabel": "确认密码",
                         "msgTarget": "side",
                         "name": "newpassCheck",
-                        "allowBlank": false
+                        "inputType": "password",
+                        "allowBlank": false,
+                        "vtype": "password"
                     },
                     "designerId": "9e1b5054-edfc-4d1f-b723-86f90d92c04f",
                     "customConfigs": [
@@ -203,7 +205,16 @@
                             "userConfig": {
                                 "fn": "onnewpassCheckChange",
                                 "implHandler": [
-                                    "alert(0);"
+                                    "Ext.apply(Ext.form.VTypes, {\r",
+                                    "    password : function(val, field) {\r",
+                                    "        if (field.confirmPwd) {\r",
+                                    "            var pwd = Ext.getCmp(field.confirmPwd);\r",
+                                    "            return (val == pwd.getValue());\r",
+                                    "        }\r",
+                                    "        return true;\r",
+                                    "    },\r",
+                                    "    passwordText : '两次输入的密码不一致!'\r",
+                                    "});"
                                 ],
                                 "name": "change",
                                 "scope": "me"

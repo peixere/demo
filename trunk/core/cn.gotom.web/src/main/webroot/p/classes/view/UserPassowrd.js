@@ -104,7 +104,9 @@ Ext.define('Gotom.view.UserPassowrd', {
                             fieldLabel: '确认密码',
                             msgTarget: 'side',
                             name: 'newpassCheck',
+                            inputType: 'password',
                             allowBlank: false,
+                            vtype: 'password',
                             listeners: {
                                 change: {
                                     fn: me.onnewpassCheckChange,
@@ -160,7 +162,16 @@ Ext.define('Gotom.view.UserPassowrd', {
     },
 
     onnewpassCheckChange: function(field, newValue, oldValue, eOpts) {
-        alert(0);
+        Ext.apply(Ext.form.VTypes, {
+            password : function(val, field) {
+                if (field.confirmPwd) {
+                    var pwd = Ext.getCmp(field.confirmPwd);
+                    return (val == pwd.getValue());
+                }
+                return true;
+            },
+            passwordText : '两次输入的密码不一致!'
+        });
     }
 
 });
