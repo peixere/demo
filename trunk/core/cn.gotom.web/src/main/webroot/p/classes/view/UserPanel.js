@@ -288,38 +288,11 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadGrid: function() {
         var me = this;
-        var wait = Ext.Msg.wait("正在加载......", "操作提示");
-        Ext.Ajax.request(
-        {
+        CommonUtil.ajax({
+            component : me,
+            message : '加载头信息...',    
             url : ctxp+'/p/User!list.do',
-            method : 'POST',
-            //params:{id:ids},  
-            success : function(response, options)
-            {
-                wait.close();
-                var result = Ext.JSON.decode(response.responseText); 
-                if(result.success)
-                {
-                    me.bindGrid(result.data);
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-            },
-            failure : function(response, options)
-            {
-                wait.close();
-                if(response.status == 200)
-                {
-                    var result = Ext.JSON.decode(response.responseText);
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', response.responseText);
-                }
-            }
+            callback : me.bindGrid
         });
     },
 
