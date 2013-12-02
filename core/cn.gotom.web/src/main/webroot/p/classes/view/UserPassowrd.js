@@ -108,6 +108,7 @@ Ext.define('Gotom.view.UserPassowrd', {
                 },
                 failure : function(f, action)
                 {
+                    //Ext.JSON.decode(response.responseText)
                     Ext.Msg.alert('信息提示', '保存失败！');
                 }
             });
