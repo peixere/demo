@@ -7,11 +7,11 @@ Ext.define('CommonUtil', {
             if(response.status == 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                Ext.Msg.alert('信息提示'+response.status, result.data);
+                Ext.Msg.alert('操作异常提示'+response.status, result.data);
             }
             else
             {
-                Ext.Msg.alert('信息提示', response.responseText);
+                Ext.Msg.alert('操作异常提示', response.responseText);
             }
         },
 
