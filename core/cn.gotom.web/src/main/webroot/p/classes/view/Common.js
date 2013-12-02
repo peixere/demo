@@ -18,7 +18,7 @@ Ext.define('Gotom.view.Common', {
     alias: 'widget.Common',
 
     statics: {
-        onAjaxException: function(response) {
+        onAjaxException: function(response, component) {
             if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
@@ -66,7 +66,7 @@ Ext.define('Gotom.view.Common', {
                                 config.component.close();
                             }
                         }
-                        Gotom.view.Common.onAjaxException(response);
+                        Common.onAjaxException(response);
                     }
                 }
             });
@@ -156,7 +156,7 @@ Ext.define('Gotom.view.Common', {
                         }
                     });
                     node.parentNode.set('checked', parentCheck);
-                    Gotom.view.Common.onTreeParentNodeChecked(node.parentNode,checked);
+                    Common.onTreeParentNodeChecked(node.parentNode,checked);
                 }
             }
         },
@@ -167,15 +167,15 @@ Ext.define('Gotom.view.Common', {
                 childNode.set('checked', checked);  
                 if(childNode.childNodes.length >0)
                 {
-                    Gotom.view.Common.onTreeChildNodesChecked(childNode,checked);
+                    Common.onTreeChildNodesChecked(childNode,checked);
                 }
             });
 
         },
 
         onTreePanelCheckChange: function(node, checked) {
-            Gotom.view.Common.onTreeChildNodesChecked(node,checked);
-            Gotom.view.Common.onTreeParentNodeChecked(node,checked);
+            Common.onTreeChildNodesChecked(node,checked);
+            Common.onTreeParentNodeChecked(node,checked);
 
         },
 
@@ -194,7 +194,7 @@ Ext.define('Gotom.view.Common', {
                     success : config.callback,
                     failure : function(f, action)
                     {
-                        Gotom.view.Common.onAjaxException(action.response);          
+                        Common.onAjaxException(action.response);          
                     }
                 });
             }
