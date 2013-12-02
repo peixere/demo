@@ -60,15 +60,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             failure : function(response, options)
                             {
                                 wait.close();
-                                if(response.status == 200)
-                                {
-                                    var result = Ext.JSON.decode(response.responseText);
-                                    Ext.Msg.alert('信息提示'+response.status, result.data);
-                                }
-                                else
-                                {
-                                    Ext.Msg.alert('信息提示', response.responseText);
-                                }
+                                Gotom.view.Commons.onAjaxException(response);
                             }
                         });
                     },
@@ -193,16 +185,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                 failure : function(f, action)
                 {
                     var response = action.response;
-                    //Ext.Msg.alert('信息提示', '保存失败，服务器端程序出错！');
-                    if(response.status == 200)
-                    {
-                        var result = Ext.JSON.decode(response.responseText);
-                        Ext.Msg.alert('信息提示'+response.status, result.data);
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }            
+                    Gotom.view.Commons.onAjaxException(action.response);          
                 }
             });
         }

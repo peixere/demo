@@ -39,15 +39,7 @@
                     "userConfig": {
                         "fn": "onAjaxException",
                         "implHandler": [
-                            "if(response.status == 200)\r",
-                            "{\r",
-                            "    var result = Ext.JSON.decode(response.responseText);\r",
-                            "    Ext.Msg.alert('信息提示'+response.status, result.data);\r",
-                            "}\r",
-                            "else\r",
-                            "{\r",
-                            "    Ext.Msg.alert('信息提示', response.responseText);\r",
-                            "}"
+                            "//CommonUtil.onAjaxException(response);"
                         ],
                         "name": "exception",
                         "scope": "me"

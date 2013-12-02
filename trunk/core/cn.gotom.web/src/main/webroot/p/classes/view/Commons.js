@@ -17,86 +17,100 @@ Ext.define('Gotom.view.Commons', {
     extend: 'Ext.Base',
     alias: 'widget.Commons',
 
-    ajax: function(config) {
-        if(config.component)
-        {
-            if(config.message)
+    statics: {
+        onAjaxException: function(response) {
+            if(response.status == 200)
             {
-                config.component.setLoading(config.message);
+                var result = Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert('信息提示'+response.status, result.data);
             }
             else
             {
-                config.component.setLoading('正在下载...');
+                Ext.Msg.alert('信息提示', response.responseText);
             }
-        }
-        Ext.Ajax.request(
-        {
-            url : config.url,
-            params : config.params,
-            method : 'post',
+        },
 
-            callback : function(options, success, response)
+        ajax: function(config) {
+            if(config.component)
             {
-                if (success)
+                if(config.message)
                 {
-                    config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数
+                    config.component.setLoading(config.message);
                 }
                 else
                 {
-                    Ext.Msg.alert('信息提示', response.responseText);
-                }
-                if(config.component)
-                {
-                    config.component.setLoading(false);
+                    config.component.setLoading('正在下载...');
                 }
             }
-        });
-    },
-
-    createTreeStore: function(URL, pid) {
-        var store = Ext.create("Ext.data.TreeStore",
+            Ext.Ajax.request(
             {
-                defaultRootId : pid,
-                clearOnLoad : true,
-                nodeParam : 'id',
-                fields: [
+                url : config.url,
+                params : config.params,
+                method : 'post',
+
+                callback : function(options, success, response)
                 {
-                    name: 'id'
-                },
-                {
-                    name: 'sort',
-                    type: 'int'
-                },
-                {
-                    name: 'text'
-                },
-                {
-                    name: 'iconCls'
-                },
-                {
-                    name: 'leaf',
-                    type: 'boolean'
-                },
-                {
-                    name: 'type'
-                },
-                {
-                    name: 'resource'
-                },
-                {
-                    name: 'component'
-                },
-                {
-                    name: 'parentId'
-                }
-                ],
-                proxy :
-                {
-                    type : 'ajax',
-                    url : URL            
+                    if (success)
+                    {
+                        config.callback(Ext.JSON.decode(response.responseText),options, success, response);// 调用回调函数
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', response.responseText);
+                    }
+                    if(config.component)
+                    {
+                        config.component.setLoading(false);
+                    }
                 }
             });
-        return store;
+        },
+
+        createTreeStore: function(URL, pid) {
+            var store = Ext.create("Ext.data.TreeStore",
+                {
+                    defaultRootId : pid,
+                    clearOnLoad : true,
+                    nodeParam : 'id',
+                    fields: [
+                    {
+                        name: 'id'
+                    },
+                    {
+                        name: 'sort',
+                        type: 'int'
+                    },
+                    {
+                        name: 'text'
+                    },
+                    {
+                        name: 'iconCls'
+                    },
+                    {
+                        name: 'leaf',
+                        type: 'boolean'
+                    },
+                    {
+                        name: 'type'
+                    },
+                    {
+                        name: 'resource'
+                    },
+                    {
+                        name: 'component'
+                    },
+                    {
+                        name: 'parentId'
+                    }
+                    ],
+                    proxy :
+                    {
+                        type : 'ajax',
+                        url : URL            
+                    }
+                });
+            return store;
+        }
     },
 
     getQueryParam: function(name) {

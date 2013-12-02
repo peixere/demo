@@ -61,5 +61,5 @@ var ctxp = '';
         document.write('<link rel="stylesheet" type="text/css" href="' + prefix + '/resources/css/ext-all' + suffix + '-debug.css"/>');
     }
     document.write('<script type="text/javascript" src="' + prefix + '/ext-all' + (rtl ? '-rtl' : '') + '.js"></script>');
-
+    document.write('<script type="text/javascript" src="' + path + '/ext4/shared/CommonUtil.js"></script>');
 })();

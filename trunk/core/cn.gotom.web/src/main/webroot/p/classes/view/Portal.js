@@ -22,7 +22,6 @@ Ext.define('Gotom.view.Portal', {
     ],
 
     passWin: '',
-    commons: '',
     border: false,
     id: 'app-viewport',
     layout: {
@@ -145,7 +144,6 @@ Ext.define('Gotom.view.Portal', {
 
     onLoad: function() {
         var me = this;
-        this.commons = Ext.create('Gotom.view.Commons');
         this.setHeader();
         var portal = Ext.getCmp('portal-container');
         var portalPanel = Ext.create("Gotom.view.PortalPanel",
@@ -166,8 +164,7 @@ Ext.define('Gotom.view.Portal', {
                 border : true,
                 autoScroll : true,
                 split : true,
-                items : [ portalPanel
-                ]
+                items : [ portalPanel]
             });
         portal.add(tabPanel);
         this.setOptions();
@@ -251,7 +248,7 @@ Ext.define('Gotom.view.Portal', {
 
     setHeader: function() {
         me = this;
-        me.commons.ajax({
+        CommonUtil.ajax({
             component : Ext.getCmp('app-header'),
             message : '加载头信息...',    
             url : '../p/main!main.do',
@@ -277,7 +274,7 @@ Ext.define('Gotom.view.Portal', {
         var options = Ext.getCmp('app-options');
         Ext.defer(function()
         {
-            me.commons.ajax(
+            CommonUtil.ajax(
             {
                 component : options,
                 message : '加载菜单...',
@@ -295,7 +292,7 @@ Ext.define('Gotom.view.Portal', {
         var URL = '../p/main!menu.do';
         for (var i = 0; i < data.length; i++)
         {    
-            var treeStore = me.commons.createTreeStore(URL, data[i].id);     
+            var treeStore = CommonUtil.createTreeStore(URL, data[i].id);     
             var tree = Ext.create("Ext.tree.Panel",
                 {
                     id : data[i].id,
@@ -343,8 +340,8 @@ Ext.define('Gotom.view.Portal', {
             {// 判断是否是根节点
                 if (node.data.type === 'URL')
                 {// 判断资源类型
-                    var theme = me.commons.getQueryParam('theme');
-                    var url = me.commons.addQueryParam(node.data.component, 'theme', theme);
+                    var theme = CommonUtil.getQueryParam('theme');
+                    var url = CommonUtil.addQueryParam(node.data.component, 'theme', theme);
                     var panel = Ext.create('Ext.panel.Panel',
                         {
                             id : node.data.id,
