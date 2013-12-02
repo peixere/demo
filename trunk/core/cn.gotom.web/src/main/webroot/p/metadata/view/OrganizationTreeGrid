@@ -12,8 +12,7 @@
         "requires": [
             "Gotom.view.OrganizationWinForm",
             "Gotom.model.OrganizationModel",
-            "Gotom.store.OrganizationTreeStore",
-            "Gotom.view.Common"
+            "Gotom.store.OrganizationTreeStore"
         ],
         "title": "组织架构管理",
         "store": null,
