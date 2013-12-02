@@ -164,7 +164,7 @@
                         "maxLengthText": "请输入6-25位字符以上的密码！",
                         "minLength": 6,
                         "minLengthText": "请输入6-25位字符以上的密码！",
-                        "regexText": "*"
+                        "regexText": null
                     },
                     "designerId": "3f0a7ccc-72c6-464e-912b-9af97072f013"
                 },
@@ -177,6 +177,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
+                        "confirmPwd": "user.newpass",
                         "id": "user.newpassCheck",
                         "fieldLabel": "确认密码",
                         "msgTarget": "side",
@@ -184,6 +185,13 @@
                         "allowBlank": false
                     },
                     "designerId": "9e1b5054-edfc-4d1f-b723-86f90d92c04f",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "confirmPwd",
+                            "type": "string"
+                        }
+                    ],
                     "cn": [
                         {
                             "type": "basiceventbinding",

@@ -94,12 +94,12 @@ Ext.define('Gotom.view.UserPassowrd', {
                             maxLength: 25,
                             maxLengthText: '请输入6-25位字符以上的密码！',
                             minLength: 6,
-                            minLengthText: '请输入6-25位字符以上的密码！',
-                            regexText: '*'
+                            minLengthText: '请输入6-25位字符以上的密码！'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
+                            confirmPwd: 'user.newpass',
                             id: 'user.newpassCheck',
                             fieldLabel: '确认密码',
                             msgTarget: 'side',
