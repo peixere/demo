@@ -18,7 +18,9 @@ import cn.gotom.service.AuthService;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
+import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.JsonResponse;
 import cn.gotom.vo.MainInfo;
 
 import com.google.inject.Inject;
@@ -38,6 +40,7 @@ public class MainAction
 	private ResourceConfigService configService;
 
 	private String id;
+	private User user;
 
 	public String execute()
 	{
@@ -86,6 +89,24 @@ public class MainAction
 		ResponseUtils.toJSON(menuList);
 	}
 
+	public void savePassword()
+	{
+		JsonResponse response = new JsonResponse();
+		User old = userService.getByUsername(this.getUsername());
+		if (old != null)
+		{
+			PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
+			old.setPassword(passwordEncoder.encode(user.getPassword()));
+			userService.save(old);
+		}
+		else
+		{
+			response.setSuccess(false);
+			response.setData("找不到此用户！");
+		}
+		ResponseUtils.toJSON(response);
+	}
+
 	public String getId()
 	{
 		return id;
@@ -94,6 +115,16 @@ public class MainAction
 	public void setId(String id)
 	{
 		this.id = id;
+	}
+
+	public User getUser()
+	{
+		return user;
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 
 }
