@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.service.AuthService;
 import cn.gotom.service.DataInitializeService;
+import cn.gotom.service.IUrlMatcher;
 import cn.gotom.web.util.UrlUtils;
 import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
@@ -28,14 +29,36 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 	@Inject
 	protected DataInitializeService dataInitializeService;
 
+	@Inject
+	private IUrlMatcher urlMatcher;
+
+	private String[] authenticatedNones;
+
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
+		String authenticatedNone = getInitParameter(filterConfig, "authenticatedNone");
+		if (authenticatedNone != null)
+		{
+			authenticatedNones = authenticatedNone.trim().replace("；", ";").replace(",", ";").split(";");
+		}
 		dataInitializeService.init();
 	}
 
 	public void destroy()
 	{
 
+	}
+
+	private boolean none(String url)
+	{
+		if (authenticatedNones != null)
+		{
+			for (String pattern : authenticatedNones)
+			{
+				return urlMatcher.pathMatchesUrl(pattern, url);
+			}
+		}
+		return false;
 	}
 
 	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
@@ -45,7 +68,7 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			final HttpServletRequest request = (HttpServletRequest) sRequest;
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
 			String url = UrlUtils.buildUrl(request);
-			if (authService.isAuth(request.getRemoteUser(), url))
+			if (none(url) || authService.isAuth(request.getRemoteUser(), url))
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
