@@ -96,7 +96,7 @@ public class MainAction
 		String newpassCheck = ServletActionContext.getRequest().getParameter("newpassCheck");
 		JsonResponse response = new JsonResponse();
 		response.setSuccess(false);
-		if (newpass != null && newpass.length() > 5 && newpass.equals(newpassCheck))
+		if (newpass != null && newpass.length() > 0 && newpass.equals(newpassCheck))
 		{
 			User old = userService.getByUsername(this.getUsername());
 			if (old != null)
