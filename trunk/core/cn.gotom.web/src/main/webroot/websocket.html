@@ -2,14 +2,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 <title>WebSocket</title>
+<script type="text/javascript" src="resources/js/jcontext.js"></script>
 <script type="text/javascript">  
-var ctxp = "ws://localhost:8080/";
+var url = "ws://"+jcontext.domain+jcontext.ctxp+"/websocket.do";
 var ws = null;  
 function startWebSocket() {  
     if ('WebSocket' in window)  
-        ws = new WebSocket(ctxp+"/websocket.do");  
+        ws = new WebSocket(url);  
     else if ('MozWebSocket' in window)  
-        ws = new MozWebSocket(ctxp+"/websocket.do");  
+        ws = new MozWebSocket(url);  
     else  
         alert("not support");  
     ws.onmessage = function(evt) {  
