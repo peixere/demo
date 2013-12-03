@@ -27,7 +27,10 @@
 		    /p/main*.do
 		</param-value>
 	</context-param>
-	
+	<context-param>
+		<param-name>pluginsPath</param-name>
+		<param-value>plugins</param-value>
+	</context-param>	
 	<!-- cas config -->
 	<context-param>
 		<param-name>serverName</param-name>
