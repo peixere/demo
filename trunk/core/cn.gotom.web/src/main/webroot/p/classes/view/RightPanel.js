@@ -35,10 +35,14 @@ Ext.define('Gotom.view.RightPanel', {
                 {
                     xtype: 'treepanel',
                     region: 'center',
+                    split: true,
+                    stateful: true,
                     id: 'RightTreePanel',
                     autoScroll: true,
+                    animate: true,
                     rootVisible: false,
                     viewConfig: {
+                        stateful: true,
                         id: 'RightTreePanelView',
                         listeners: {
                             itemclick: {
@@ -176,11 +180,23 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     onButtonEditClick: function(button, e, eOpts) {
+        var me = this;
         var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
-            this.showform(record);
+            Common.ajax({
+                params:{id:record.data.id},
+                component : me,
+                message : '正在加载......',    
+                url : ctxp+'/p/right.do',
+                callback : function(result)
+                {
+                    var recordData = Ext.create('Gotom.model.RightTreeCheckModel');
+                    recordData.data = result;        
+                    me.showform(recordData);
+                }
+            });    
         }
     },
 
@@ -240,26 +256,21 @@ Ext.define('Gotom.view.RightPanel', {
         var myStore = Ext.create("Ext.data.TreeStore",
             {
                 defaultRootId : '',
+                clearOnLoad : true,
+                nodeParam : 'id',
+                model : 'Gotom.model.RightTreeCheckModel',
                 proxy :
                 {
                     type : "ajax",
                     url : ctxp+'/p/right!tree.do',
                     listeners: {
-                        exception: {
-                            fn: function(proxy, response, operation, eOpts) {
-                                Common.onAjaxException(response,me);
-                        }
-                    }
-                }            
-            },
-            clearOnLoad : true,
-            model : 'Gotom.model.RightTreeCheckModel',
-            nodeParam : "id"        
-        });
+                        exception: Common.onProxyException
+                    }            
+                }    
+            });
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
         myStore.reload();
-        Ext.defer(function(){tree.expandAll();},100);
     },
 
     onBtnAddClick: function(leaf) {
@@ -276,30 +287,23 @@ Ext.define('Gotom.view.RightPanel', {
                 return;
             }
         }
-        var wait = Ext.Msg.wait("正在执行......", "操作提示");
-        Ext.Ajax.request(
-        {
-            url : ctxp + '/p/right!fresh.do',
-            method : 'POST',
-            success : function(response, options)
+        Common.ajax({
+            params:{id:''},
+            component : me,
+            message : '正在加载......',    
+            url : ctxp+'/p/right.do',
+            callback : function(result)
             {
-                var result = Ext.JSON.decode(response.responseText);
-                var data = Ext.create('Gotom.model.RightTreeCheckModel');
+                var record = Ext.create('Gotom.model.RightTreeCheckModel');
                 result.parentId = parentId;
-                data.data = result;
-                data.data.leaf = leaf;
+                record.data = result;
+                record.data.leaf = leaf;
                 if(leaf){
-                    data.data.type = 'URL';
+                    record.data.type = 'URL';
                 }else{
-                    data.data.type = 'DIR';
-                }
-                wait.close();
-                me.showform(data);
-            },
-            failure : function(response, options)
-            {
-                wait.close();
-                Ext.Msg.alert("操作提示", "操作失败");
+                    record.data.type = 'DIR';
+                }       
+                me.showform(record);
             }
         });
     },
