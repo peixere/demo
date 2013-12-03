@@ -29,7 +29,7 @@
 	</context-param>
 	<context-param>
 		<param-name>pluginsPath</param-name>
-		<param-value>plugins</param-value>
+		<param-value>/plugins</param-value>
 	</context-param>	
 	<!-- cas config -->
 	<context-param>
