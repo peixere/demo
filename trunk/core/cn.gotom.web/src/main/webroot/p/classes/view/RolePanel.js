@@ -255,7 +255,7 @@ Ext.define('Gotom.view.RolePanel', {
         });
     },
 
-    bindRoleGrid: function(data) {
+    bindRoleGrid: function(result) {
         var me = this;
         var roleStore = Ext.create('Ext.data.Store', {
             storeId:'roleStore',
@@ -270,7 +270,7 @@ Ext.define('Gotom.view.RolePanel', {
                 name: 'sort'
             }
             ],
-            data : data,
+            data : result.data,
             proxy:
             {
                 type: 'memory',
