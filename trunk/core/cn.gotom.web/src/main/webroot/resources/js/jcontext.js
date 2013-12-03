@@ -41,7 +41,7 @@ var jcontext = (function(){
     }    
     context.path = path;
     path = path.substring(path.lastIndexOf('//') + 2, path.length);
-    if(path.indexOf('/') >=0)
+    if(path.indexOf('/') >= 0)
     {
 	context.ctxp = path.substring(path.lastIndexOf('/'), path.length);
 	context.domain = path.substring(0, path.indexOf('/'));;
