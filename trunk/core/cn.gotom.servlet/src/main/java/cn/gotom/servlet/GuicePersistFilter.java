@@ -44,7 +44,6 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 			{
 				this.pluginsPaths = file.list();
 			}
-			log.info("plugins：" + plugins);
 		}
 		catch (Exception ex)
 		{
@@ -68,10 +67,12 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 			this.manager.beginUnitOfWork();
 			if (plugins == null && pluginsPaths != null)
 			{
+				plugins = "";
 				for (String name : pluginsPaths)
 				{
 					plugins += "Ext.Loader.setPath('" + name + "', " + request.getContextPath() + "'/plugins/" + name + "/classes');\n\t";
 				}
+				log.info("plugins：" + plugins);
 			}
 			request.setAttribute("plugins", plugins);
 			filterChain.doFilter(request, response);
