@@ -44,7 +44,7 @@ Ext.define('Gotom.view.Portal', {
                         animate: false,
                         type: 'accordion'
                     },
-                    bodyStyle: 'background-image: url(../resources/icons/fam/topbg.jpg) !important;',
+                    bodyStyle: 'background-image: url(resources/icons/fam/topbg.jpg) !important;',
                     animCollapse: false,
                     header: false,
                     title: ''
@@ -257,16 +257,19 @@ Ext.define('Gotom.view.Portal', {
     },
 
     callbackHeader: function(data) {
-        Ext.getCmp('app-header').setLoading(false);
+        var header = Ext.getCmp('app-header');
+        header.setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
+        header.bodyStyle = ('background-image: url(resources/icons/fam/topbg.jpg) !important;');
         document.title = data.title;
-        var htmlStr = '<div class="logoPanel">　' + data.title + '</div>';
+        var htmlStr = '';
+        htmlStr += '<div class="logoPanel">　' + data.title + '</div>';
         htmlStr += '<div class="userPanel">';
         htmlStr += '欢迎您：<a href="#">' + data.userFullname + '</a>　';
         htmlStr += '<a href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
         htmlStr += '<a href="' + data.logoutUrl + '">注销登录</a>';
         htmlStr += '</div>';
-        Ext.getCmp('app-header').update(htmlStr);
+        header.update(htmlStr);
     },
 
     setOptions: function() {
