@@ -18,8 +18,7 @@ Ext.define('Gotom.view.OrganizationCRUB', {
 
     requires: [
         'Gotom.view.OrganizationTreeGrid',
-        'Gotom.model.OrganizationModel',
-        'Gotom.store.OrganizationTreeStore'
+        'Gotom.model.OrganizationModel'
     ],
 
     id: 'OrganizationCRUB',

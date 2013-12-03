@@ -10,8 +10,7 @@
         "designer|userClassName": "OrganizationCRUB",
         "requires": [
             "Gotom.view.OrganizationTreeGrid",
-            "Gotom.model.OrganizationModel",
-            "Gotom.store.OrganizationTreeStore"
+            "Gotom.model.OrganizationModel"
         ],
         "layout": "border"
     },
