@@ -9,7 +9,7 @@ import org.apache.struts2.convention.annotation.Result;
 @ParentPackage("json-default")
 @Namespace(value = "")
 @Action(value = "/p", results = { @Result(name = "success", location = "/WEB-INF/view/index.jsp") })
-public class PluginsScanAction
+public class PortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
