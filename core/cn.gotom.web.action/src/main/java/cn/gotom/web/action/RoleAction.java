@@ -21,7 +21,7 @@ import com.google.inject.Inject;
 
 @ParentPackage("json-default")
 @Namespace(value = "/p")
-@Action(value = "/Role", results = { @Result(name = "success", type = "json") })
+@Action(value = "/role", results = { @Result(name = "success", type = "json") })
 public class RoleAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
