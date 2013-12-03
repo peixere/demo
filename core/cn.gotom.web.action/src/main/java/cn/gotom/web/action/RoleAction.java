@@ -58,7 +58,7 @@ public class RoleAction
 		try
 		{
 			execute();
-			List<RightChecked> rightList = rightService.loadCheckedTree(role.getRights());
+			List<RightChecked> rightList = rightService.loadRoleCheckedTree(role.getRights());
 			this.setData(rightList);
 			ResponseUtils.toJSON(rightList);
 		}

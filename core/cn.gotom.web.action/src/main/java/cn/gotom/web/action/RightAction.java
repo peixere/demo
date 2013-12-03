@@ -14,6 +14,7 @@ import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.Right;
 import cn.gotom.service.RightService;
+import cn.gotom.service.model.RightTree;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
@@ -48,13 +49,13 @@ public class RightAction
 
 	public void tree() throws IOException
 	{
-		List<Right> menuList = rightService.loadTree();
+		List<RightTree> menuList = rightService.loadTree();
 		if (menuList.size() == 0)
 		{
 			Right o = new Right();
 			o.setText("系统管理");
 			rightService.save(o);
-			menuList.add(o);
+			menuList = rightService.loadTree();
 		}
 		ResponseUtils.toJSON(menuList);
 	}
@@ -65,7 +66,6 @@ public class RightAction
 		for (Right r : list)
 		{
 			r.setRoles(null);
-			r.setChildren(null);
 		}
 		ResponseUtils.toJSON(list);
 	}

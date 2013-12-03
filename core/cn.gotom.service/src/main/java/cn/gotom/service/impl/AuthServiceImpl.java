@@ -120,10 +120,10 @@ public class AuthServiceImpl implements AuthService
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see cn.gotom.service.IAuthService#findRightList(java.lang.String, java.lang.String)
+	 * @see cn.gotom.service.IAuthService#findUserRightList(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<Right> findRightList(String username, String parentId)
+	public List<Right> findUserRightList(String username, String parentId)
 	{
 		List<Right> rightList = new ArrayList<Right>();
 		User user = userService.getByUsername(username);
@@ -157,77 +157,77 @@ public class AuthServiceImpl implements AuthService
 		return rightList;
 	}
 
-	@Override
+	//@Override
 	public List<Right> loadTreeByParentId(String username, String parentId)
 	{
-		User user = userService.getByUsername(username);
+//		User user = userService.getByUsername(username);
 		List<Right> rightList = rightService.findByParentId(parentId);
-		if (user != null)
-		{
-			for (int i = rightList.size() - 1; i >= 0; i--)
-			{
-				boolean find = false;
-				if (User.admin.equals(user.getUsername()))
-				{
-					find = true;
-				}
-				else
-				{
-					for (Role role : user.getRoles())
-					{
-						// role.getCompany()
-						if (rightList.get(i).getRoles().contains(role))
-						{
-							find = true;
-						}
-					}
-				}
-				if (!find)
-				{
-					rightList.remove(i);
-				}
-			}
-		}
-		for (Right r : rightList)
-		{
-			loadTreeCallback(r, user);
-		}
+//		if (user != null)
+//		{
+//			for (int i = rightList.size() - 1; i >= 0; i--)
+//			{
+//				boolean find = false;
+//				if (User.admin.equals(user.getUsername()))
+//				{
+//					find = true;
+//				}
+//				else
+//				{
+//					for (Role role : user.getRoles())
+//					{
+//						// role.getCompany()
+//						if (rightList.get(i).getRoles().contains(role))
+//						{
+//							find = true;
+//						}
+//					}
+//				}
+//				if (!find)
+//				{
+//					rightList.remove(i);
+//				}
+//			}
+//		}
+//		for (Right r : rightList)
+//		{
+//			loadTreeCallback(r, user);
+//		}
 		return rightList;
 	}
 
-	private void loadTreeCallback(Right right, User user)
-	{
-		List<Right> rightList = rightService.findByParentId(right.getId());
-		if (user != null)
-		{
-			for (int i = rightList.size() - 1; i >= 0; i--)
-			{
-				boolean find = false;
-				if (User.admin.equals(user.getUsername()))
-				{
-					find = true;
-				}
-				else
-				{
-					for (Role role : user.getRoles())
-					{
-						if (rightList.get(i).getRoles().contains(role))
-						{
-							find = true;
-						}
-					}
-				}
-				if (!find)
-				{
-					rightList.remove(i);
-				}
-			}
-		}
-		right.setChildren(rightList);
-		for (Right r : rightList)
-		{
-			loadTreeCallback(r, user);
-		}
-	}
+//	private void loadTreeCallback(Right right, User user)
+//	{
+//		List<Right> rightList = rightService.findByParentId(right.getId());
+//		if (user != null)
+//		{
+//			for (int i = rightList.size() - 1; i >= 0; i--)
+//			{
+//				boolean find = false;
+//				if (User.admin.equals(user.getUsername()))
+//				{
+//					find = true;
+//				}
+//				else
+//				{
+//					for (Role role : user.getRoles())
+//					{
+//						if (rightList.get(i).getRoles().contains(role))
+//						{
+//							find = true;
+//						}
+//					}
+//				}
+//				if (!find)
+//				{
+//					rightList.remove(i);
+//				}
+//			}
+//		}
+//		right.setChildren(rightList);
+//		for (Right r : rightList)
+//		{
+//			loadTreeCallback(r, user);
+//		}
+//	}
 
 }

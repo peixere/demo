@@ -10,9 +10,11 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.App;
 import cn.gotom.pojos.ResourceConfig;
 import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
+import cn.gotom.pojos.RightType;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthService;
 import cn.gotom.service.ResourceConfigService;
@@ -79,11 +81,27 @@ public class MainAction
 		List<Right> menuList = null;
 		if (StringUtils.isNullOrEmpty(id))
 		{
-			menuList = authService.findRightList(username, id);
+			menuList = authService.findUserRightList(username, id);
 		}
 		else
 		{
-			menuList = authService.loadTreeByParentId(username, id);
+			menuList = authService.findUserRightList(username, id);
+			// menuList = authService.loadTreeByParentId(username, id);
+		}
+		String ctxp = ServletActionContext.getRequest().getContextPath();
+		for (Right menu : menuList)
+		{
+			if (menu.getLeaf() && menu.getType().equalsIgnoreCase(RightType.URL))
+			{
+				if (StringUtils.isNullOrEmpty(menu.getAppCode()) || App.ROOT.equalsIgnoreCase(menu.getAppCode()))
+				{
+					menu.setComponent(ctxp + menu.getComponent());
+				}
+				else
+				{
+					menu.setComponent(menu.getAppCode() + menu.getComponent());
+				}
+			}
 		}
 		ResponseUtils.toJSON(menuList);
 	}

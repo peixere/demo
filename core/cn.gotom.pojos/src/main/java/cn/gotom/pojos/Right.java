@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * 
@@ -39,7 +38,7 @@ public class Right extends SuperEntity implements Serializable
 	private String iconCls;
 
 	@Column(name = "type", nullable = true, length = 50)
-	private String type = "URL";
+	private String type = RightType.URL;
 
 	@Column(name = "component", length = 300)
 	private String component;
@@ -60,12 +59,6 @@ public class Right extends SuperEntity implements Serializable
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "right_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
 	private java.util.List<Role> roles;
 
-	@Transient
-	private boolean expanded;
-	
-	@Transient
-	private java.util.List<Right> children;
-	
 	public Right()
 	{
 	}
@@ -169,25 +162,4 @@ public class Right extends SuperEntity implements Serializable
 	{
 		this.roles = roles;
 	}
-
-	public boolean isExpanded()
-	{
-		return expanded;
-	}
-
-	public void setExpanded(boolean expanded)
-	{
-		this.expanded = expanded;
-	}
-
-	public java.util.List<Right> getChildren()
-	{
-		return children;
-	}
-
-	public void setChildren(java.util.List<Right> children)
-	{
-		this.children = children;
-	}
-
 }
