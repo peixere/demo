@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 
 @ParentPackage("json-default")
 @Namespace(value = "/p")
-@Action(value = "/main", results = { @Result(name = "success", location = "/WEB-INF/jsp/index.jsp") })
+@Action(value = "/main", results = { @Result(name = "success", location = "/WEB-INF/view/index.jsp") })
 public class MainAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
