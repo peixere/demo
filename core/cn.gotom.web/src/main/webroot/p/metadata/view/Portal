@@ -378,7 +378,6 @@
                     "header.setLoading(false);\r",
                     "Ext.getCmp('app-viewport').setLoading(false);\r",
                     "var image = ctxp+'/resources/icons/fam/topbg.jpg';\r",
-                    "//header.setStyle('background-image','url('+image+')');\r",
                     "header.setBodyStyle('background-image','url('+image+')');\r",
                     "document.title = data.title;\r",
                     "var htmlStr = '';\r",

@@ -260,7 +260,6 @@ Ext.define('Gotom.view.Portal', {
         header.setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
-        //header.setStyle('background-image','url('+image+')');
         header.setBodyStyle('background-image','url('+image+')');
         document.title = data.title;
         var htmlStr = '';
