@@ -179,7 +179,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : '../p/organization!remove.do',
+                    url : ctxp+'/p/organization!remove.do',
                     method : 'POST',
                     params :
                     {

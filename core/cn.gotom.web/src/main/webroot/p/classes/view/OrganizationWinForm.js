@@ -41,7 +41,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                         var wait = Ext.Msg.wait("正在载入......", "操作提示");
                         Ext.Ajax.request(
                         {
-                            url : '../p/organization.do',
+                            url : ctxp+'/p/organization.do',
                             method : 'POST',
                             params:{  
                                 id:id,
