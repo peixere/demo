@@ -69,6 +69,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 			{
 				log.error("", e);
 			}
+			rt.setExpanded(true);
 			tree.add(rt);
 			loadTreeCallback(rt);
 		}
@@ -91,6 +92,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 			{
 				log.error("", e);
 			}
+			rt.setExpanded(true);
 			tree.add(rt);
 			loadTreeCallback(rt);
 		}
@@ -135,6 +137,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 					}
 				}
 			}
+			right.setExpanded(true);
 			checkedList.add(right);
 			loadRoleCheckedTreeCallback(right, checkeds);
 		}
@@ -168,6 +171,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 					}
 				}
 			}
+			right.setExpanded(true);
 			checkedList.add(right);
 			loadRoleCheckedTreeCallback(right, checkeds);
 		}
