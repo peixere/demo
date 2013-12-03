@@ -250,7 +250,7 @@ Ext.define('Gotom.view.RolePanel', {
         Common.ajax({
             component : me,
             message : '正在加载......',    
-            url : ctxp+'/p/Role!list.do',
+            url : ctxp+'/p/role!list.do',
             callback : me.bindRoleGrid
         });
     },
@@ -287,7 +287,7 @@ Ext.define('Gotom.view.RolePanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : ctxp+'/p/Role.do',
+            url : ctxp+'/p/role.do',
             method : 'POST',
             params:{'role.id':roleId},  
             success : function(response, options)
@@ -356,7 +356,7 @@ Ext.define('Gotom.view.RolePanel', {
                 proxy :
                 {
                     type : 'ajax',
-                    url : ctxp+'/p/Role!tree.do'             
+                    url : ctxp+'/p/role!tree.do'             
                 }                      
             });
         var tree = Ext.create('Ext.tree.Panel',
@@ -449,7 +449,7 @@ Ext.define('Gotom.view.RolePanel', {
             var wait = Ext.Msg.wait("正在加载......", "操作提示");
             Ext.Ajax.request(
             {
-                url : ctxp+'/p/Role!save.do',
+                url : ctxp+'/p/role!save.do',
                 method : 'POST',
                 params:{
                     'role.id':roleId,
@@ -515,7 +515,7 @@ Ext.define('Gotom.view.RolePanel', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : ctxp+'/p/Role!remove.do',
+                    url : ctxp+'/p/role!remove.do',
                     method : 'POST',
                     params :
                     {

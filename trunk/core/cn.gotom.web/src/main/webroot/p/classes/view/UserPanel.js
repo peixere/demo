@@ -295,7 +295,7 @@ Ext.define('Gotom.view.UserPanel', {
         Common.ajax({
             component : me,
             message : '正在加载......',    
-            url : ctxp+'/p/User!list.do',
+            url : ctxp+'/p/user!list.do',
             callback : me.bindGrid
         });
     },
@@ -336,7 +336,7 @@ Ext.define('Gotom.view.UserPanel', {
             params:{'user.id':id},
             component : Ext.getCmp('UserForm'),
             message : '正在加载......',    
-            url : ctxp+'/p/User.do',
+            url : ctxp+'/p/user.do',
             callback : function(result) {
                 Ext.getCmp('user.id').setValue(result.user.id);
                 Ext.getCmp('user.name').setValue(result.user.name);                
@@ -372,7 +372,7 @@ Ext.define('Gotom.view.UserPanel', {
                 proxy :
                 {
                     type : 'ajax',
-                    url : ctxp+'/p/User!tree.do', 
+                    url : ctxp+'/p/user!tree.do', 
                     listeners: {
                         exception: {
                             fn: Common.onAjaxException,
@@ -459,7 +459,7 @@ Ext.define('Gotom.view.UserPanel', {
             var wait = Ext.Msg.wait("正在加载......", "操作提示");
             Ext.Ajax.request(
             {
-                url : ctxp+'/p/User!save.do',
+                url : ctxp+'/p/user!save.do',
                 method : 'POST',
                 params:{
                     'user.id':userId,
@@ -525,7 +525,7 @@ Ext.define('Gotom.view.UserPanel', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : ctxp+'/p/User!'+status+'.do',
+                    url : ctxp+'/p/user!'+status+'.do',
                     method : 'POST',
                     params :
                     {
