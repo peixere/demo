@@ -19,8 +19,7 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
 
     requires: [
         'Gotom.view.OrganizationWinForm',
-        'Gotom.model.OrganizationModel',
-        'Gotom.store.OrganizationTreeStore'
+        'Gotom.model.OrganizationModel'
     ],
 
     id: 'OrganizationTreeGrid',
@@ -213,7 +212,27 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
     },
 
     onOrganizationTreeGridAfterLayout: function(container, layout, eOpts) {
-        var store = Ext.create('Gotom.store.OrganizationTreeStore');
+        var store = Ext.create("Ext.data.TreeStore",
+            {
+                autoLoad: true,
+                model: 'Gotom.model.OrganizationModel',
+                storeId: 'OrganizationTreeStore',
+                defaultRootId: '',
+                defaultRootText: '',
+                nodeParam: 'id',
+                proxy: {
+                    type: 'ajax',
+                    url: ctxp+'/p/organization!tree.do',
+                    listeners: {
+                        exception: {
+                            fn: function(proxy, response, operation, eOpts) {
+                                Common.onAjaxException(response);
+                        },
+                        scope: me
+                    }
+                }
+            }                      
+        });
         store.reload();
         this.bindStore(store);
         this.expandAll();

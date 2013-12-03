@@ -11,8 +11,7 @@
         "designer|userAlias": "OrganizationTreeGrid",
         "requires": [
             "Gotom.view.OrganizationWinForm",
-            "Gotom.model.OrganizationModel",
-            "Gotom.store.OrganizationTreeStore"
+            "Gotom.model.OrganizationModel"
         ],
         "title": "组织架构管理",
         "store": null,
@@ -339,7 +338,27 @@
             "userConfig": {
                 "fn": "onOrganizationTreeGridAfterLayout",
                 "implHandler": [
-                    "var store = Ext.create('Gotom.store.OrganizationTreeStore');\r",
+                    "var store = Ext.create(\"Ext.data.TreeStore\",\r",
+                    "                       {\r",
+                    "                           autoLoad: true,\r",
+                    "                           model: 'Gotom.model.OrganizationModel',\r",
+                    "                           storeId: 'OrganizationTreeStore',\r",
+                    "                           defaultRootId: '',\r",
+                    "                           defaultRootText: '',\r",
+                    "                           nodeParam: 'id',\r",
+                    "                           proxy: {\r",
+                    "                               type: 'ajax',\r",
+                    "                               url: ctxp+'/p/organization!tree.do',\r",
+                    "                               listeners: {\r",
+                    "                                   exception: {\r",
+                    "                                       fn: function(proxy, response, operation, eOpts) {\r",
+                    "                                           Common.onAjaxException(response);\r",
+                    "                                       },\r",
+                    "                                       scope: me\r",
+                    "                                   }\r",
+                    "                               }\r",
+                    "                           }                      \r",
+                    "                       });\r",
                     "store.reload();\r",
                     "this.bindStore(store);\r",
                     "this.expandAll();"

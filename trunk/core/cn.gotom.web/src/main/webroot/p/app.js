@@ -23,9 +23,6 @@ Ext.application({
         'OrganizationModel',
         'RightTreeCheckModel'
     ],
-    stores: [
-        'OrganizationTreeStore'
-    ],
     views: [
         'Common',
         'RoleView',
