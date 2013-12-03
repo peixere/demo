@@ -1,5 +1,6 @@
 package cn.gotom.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -20,6 +21,7 @@ import com.google.inject.Singleton;
 public class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
+	private String plugins;
 
 	@Inject
 	public GuicePersistFilter(PersistenceLifeCycle manager)
@@ -32,7 +34,21 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.startService();
-			log.info("=========== startService ===========");
+			log.info("startService");
+			String pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
+			log.info("pluginsPath=" + pluginsPath);
+			String path = filterConfig.getServletContext().getRealPath(pluginsPath);
+			File file = new File(path);
+			plugins = "";
+			if (file.exists() && file.isDirectory())
+			{
+				String[] names = file.list();
+				for (String name : names)
+				{
+					plugins += "Ext.Loader.setPath('" + name + "', '${ctxp}/plugins/" + name + "/classes');\n\t";
+				}
+			}
+			log.info("plugins\n" + plugins);
 		}
 		catch (Exception ex)
 		{
@@ -42,7 +58,7 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 
 	public void destroy()
 	{
-		log.info("=========== stopService ===========");
+		log.info("stopService");
 		this.manager.stopService();
 		log.info(this.getClass().getName());
 	}
@@ -54,13 +70,14 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.beginUnitOfWork();
+			request.setAttribute("plugins", plugins);
 			filterChain.doFilter(request, response);
 		}
 		catch (Exception ex)
 		{
 			log.error("程序异常", ex);
 			response.setStatus(500);
-			//request.setAttribute("java.lang.Throwable", ex);
+			// request.setAttribute("java.lang.Throwable", ex);
 			request.getRequestDispatcher("/final/500.jsp").forward(request, response);
 		}
 		finally
