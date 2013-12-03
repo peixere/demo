@@ -23,6 +23,7 @@
 		    /**/**.htm*;
 		    /**/**.js;
 		    /**/**.css;
+			/p.do;
 		    /p/main*.do
 		</param-value>
 	</context-param>
