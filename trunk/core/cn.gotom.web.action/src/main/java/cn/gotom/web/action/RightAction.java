@@ -38,6 +38,10 @@ public class RightAction
 	public void execute() throws IOException
 	{
 		Right right = rightService.get(this.getId());
+		if (right == null)
+		{
+			right = new Right();
+		}
 		ResponseUtils.toJSON(right);
 	}
 
