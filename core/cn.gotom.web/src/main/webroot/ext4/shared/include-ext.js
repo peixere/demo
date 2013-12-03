@@ -46,6 +46,18 @@ var ctxp = '';
         path = path.substring(0, path.lastIndexOf('/'));
     }
     ctxp = path;
+    var domain = '';
+    var tmp = path.substring(path.lastIndexOf('//') + 2, path.length);
+    if(tmp.indexOf('/') >= 0)
+    {
+	ctxp = tmp.substring(tmp.lastIndexOf('/'), tmp.length);
+	domain = tmp.substring(0, tmp.indexOf('/'));;
+    }
+    else
+    {
+	ctxp = '';
+	domain = path;
+    }    
     if (theme && theme !== 'classic') {
         suffix.push(theme);
     }
