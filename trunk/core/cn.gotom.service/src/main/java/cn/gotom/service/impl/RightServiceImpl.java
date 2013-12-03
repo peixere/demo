@@ -11,6 +11,7 @@ import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.RightService;
 import cn.gotom.service.model.RightChecked;
+import cn.gotom.service.model.RightTree;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
@@ -53,39 +54,62 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 	}
 
 	@Override
-	public List<Right> loadTree()
+	public List<RightTree> loadTree()
 	{
 		List<Right> list = findByParentId(null);
+		List<RightTree> tree = new ArrayList<RightTree>();
 		for (Right r : list)
 		{
-			loadTreeCallback(r);
+			RightTree rt = new RightTree();
+			try
+			{
+				BeanUtils.copyProperties(rt, r);
+			}
+			catch (Exception e)
+			{
+				log.error("", e);
+			}
+			tree.add(rt);
+			loadTreeCallback(rt);
 		}
-		return list;
+		return tree;
 	}
 
-	@Override
-	public List<Right> loadTreeByParentId(String parentId)
-	{
-		List<Right> list = findByParentId(parentId);
-		for (Right r : list)
-		{
-			loadTreeCallback(r);
-		}
-		return list;
-	}
-
-	private void loadTreeCallback(Right right)
+	private void loadTreeCallback(RightTree right)
 	{
 		List<Right> list = findByParentId(right.getId());
-		right.setChildren(list);
+		List<RightTree> tree = new ArrayList<RightTree>();
+		right.setChildren(tree);
 		for (Right r : list)
 		{
-			loadTreeCallback(r);
+			RightTree rt = new RightTree();
+			try
+			{
+				BeanUtils.copyProperties(rt, r);
+			}
+			catch (Exception e)
+			{
+				log.error("", e);
+			}
+			tree.add(rt);
+			loadTreeCallback(rt);
 		}
 	}
+	
+//	@Override
+//	public List<Right> loadTreeByParentId(String parentId)
+//	{
+//		List<Right> list = findByParentId(parentId);
+//		for (Right r : list)
+//		{
+//			loadTreeCallback(r);
+//		}
+//		return list;
+//	}
+
 
 	@Override
-	public List<RightChecked> loadCheckedTree(List<Right> checkeds)
+	public List<RightChecked> loadRoleCheckedTree(List<Right> checkeds)
 	{
 		List<RightChecked> checkedList = new ArrayList<RightChecked>();
 		List<Right> list = findByParentId(null);
@@ -112,15 +136,15 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 				}
 			}
 			checkedList.add(right);
-			loadCheckedTreeCallback(right, checkeds);
+			loadRoleCheckedTreeCallback(right, checkeds);
 		}
 		return checkedList;
 	}
 
-	private void loadCheckedTreeCallback(RightChecked p, List<Right> checkeds)
+	private void loadRoleCheckedTreeCallback(RightChecked p, List<Right> checkeds)
 	{
 		List<Right> list = findByParentId(p.getId());
-		List<Right> checkedList = new ArrayList<Right>();
+		List<RightTree> checkedList = new ArrayList<RightTree>();
 		p.setChildren(checkedList);
 		for (Right r : list)
 		{
@@ -145,7 +169,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 				}
 			}
 			checkedList.add(right);
-			loadCheckedTreeCallback(right, checkeds);
+			loadRoleCheckedTreeCallback(right, checkeds);
 		}
 	}
 }

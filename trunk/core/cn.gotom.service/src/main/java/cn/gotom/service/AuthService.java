@@ -21,8 +21,8 @@ public interface AuthService
 	 * @param parentId
 	 * @return
 	 */
-	public abstract List<Right> findRightList(String username, String parentId);
+	public abstract List<Right> findUserRightList(String username, String parentId);
 
-	public abstract List<Right> loadTreeByParentId(String username, String parentId);
+	//public abstract List<Right> loadTreeByParentId(String username, String parentId);
 
 }

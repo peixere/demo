@@ -1,8 +1,7 @@
 package cn.gotom.service.model;
 
-import cn.gotom.pojos.Right;
 
-public class RightChecked extends Right
+public class RightChecked extends RightTree
 {
 	/**
 	 * 
