@@ -21,6 +21,7 @@ import com.google.inject.Singleton;
 public class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
+	private String[] pluginsPaths;
 	private String plugins;
 
 	@Inject
@@ -39,16 +40,11 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 			log.info("pluginsPath=" + pluginsPath);
 			String path = filterConfig.getServletContext().getRealPath(pluginsPath);
 			File file = new File(path);
-			plugins = "";
 			if (file.exists() && file.isDirectory())
 			{
-				String[] names = file.list();
-				for (String name : names)
-				{
-					plugins += "Ext.Loader.setPath('" + name + "', '${ctxp}/plugins/" + name + "/classes');\n\t";
-				}
+				this.pluginsPaths = file.list();
 			}
-			log.info("plugins\n" + plugins);
+			log.info("plugins：" + plugins);
 		}
 		catch (Exception ex)
 		{
@@ -70,6 +66,13 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.beginUnitOfWork();
+			if (plugins == null && pluginsPaths != null)
+			{
+				for (String name : pluginsPaths)
+				{
+					plugins += "Ext.Loader.setPath('" + name + "', " + request.getContextPath() + "'/plugins/" + name + "/classes');\n\t";
+				}
+			}
 			request.setAttribute("plugins", plugins);
 			filterChain.doFilter(request, response);
 		}
