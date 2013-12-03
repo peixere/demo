@@ -23,7 +23,7 @@
 <!-- sql 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:jtds:sqlserver://xere;SelectMethod=cursor;DataBaseName=ems" />
+			<property name="hibernate.connection.url" value="jdbc:jtds:sqlserver://xere;SelectMethod=cursor;DataBaseName=portal" />
 			<property name="hibernate.connection.username" value="sa" />
 			<property name="hibernate.connection.password" value="123456" />
 -->
