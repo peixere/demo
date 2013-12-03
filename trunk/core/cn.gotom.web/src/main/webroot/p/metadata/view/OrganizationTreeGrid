@@ -254,7 +254,7 @@
                                     "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
                                     "        Ext.Ajax.request(\r",
                                     "        {\r",
-                                    "            url : '../p/organization!remove.do',\r",
+                                    "            url : ctxp+'/p/organization!remove.do',\r",
                                     "            method : 'POST',\r",
                                     "            params :\r",
                                     "            {\r",

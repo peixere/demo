@@ -251,7 +251,7 @@ Ext.define('Gotom.view.Portal', {
         Common.ajax({
             component : Ext.getCmp('app-header'),
             message : '加载头信息...',    
-            url : '../p/main!main.do',
+            url : ctxp+'/p/main!main.do',
             callback : me.callbackHeader
         });
     },
@@ -278,7 +278,7 @@ Ext.define('Gotom.view.Portal', {
             {
                 component : options,
                 message : '加载菜单...',
-                url : '../p/main!menu.do',
+                url : ctxp+'/p/main!menu.do',
                 callback : me.callbackOptions
 
             });
@@ -289,7 +289,7 @@ Ext.define('Gotom.view.Portal', {
         var options = Ext.getCmp('app-options');
         options.removeAll();
         var me = Ext.getCmp('app-viewport');
-        var URL = '../p/main!menu.do';
+        var URL = ctxp+'/p/main!menu.do';
         for (var i = 0; i < data.length; i++)
         {    
             var treeStore = Common.createTreeStore(URL, data[i].id);     

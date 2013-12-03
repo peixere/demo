@@ -259,7 +259,7 @@
                             "var wait = Ext.Msg.wait(\"正在载入......\", \"操作提示\");\r",
                             "Ext.Ajax.request(\r",
                             "{\r",
-                            "    url : '../p/organization.do',\r",
+                            "    url : ctxp+'/p/organization.do',\r",
                             "    method : 'POST',\r",
                             "    params:{  \r",
                             "        id:id,\r",

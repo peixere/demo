@@ -287,7 +287,7 @@ Ext.define('Gotom.view.RolePanel', {
         var wait = Ext.Msg.wait("正在加载......", "操作提示");
         Ext.Ajax.request(
         {
-            url : 'Role.do',
+            url : ctxp+'/p/Role.do',
             method : 'POST',
             params:{'role.id':roleId},  
             success : function(response, options)
@@ -356,7 +356,7 @@ Ext.define('Gotom.view.RolePanel', {
                 proxy :
                 {
                     type : 'ajax',
-                    url : 'Role!tree.do'             
+                    url : ctxp+'/p/Role!tree.do'             
                 }                      
             });
         var tree = Ext.create('Ext.tree.Panel',
@@ -449,7 +449,7 @@ Ext.define('Gotom.view.RolePanel', {
             var wait = Ext.Msg.wait("正在加载......", "操作提示");
             Ext.Ajax.request(
             {
-                url : 'Role!save.do',
+                url : ctxp+'/p/Role!save.do',
                 method : 'POST',
                 params:{
                     'role.id':roleId,
@@ -515,7 +515,7 @@ Ext.define('Gotom.view.RolePanel', {
                 Ext.Msg.wait("正在执行......", "操作提示");
                 Ext.Ajax.request(
                 {
-                    url : 'Role!remove.do',
+                    url : ctxp+'/p/Role!remove.do',
                     method : 'POST',
                     params :
                     {
