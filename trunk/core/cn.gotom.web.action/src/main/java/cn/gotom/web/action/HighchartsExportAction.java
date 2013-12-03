@@ -18,6 +18,12 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 
+/**
+ * highcharts 导出
+ * 
+ * @author <a href="mailto:peixere@qq.com">裴绍国</a>
+ * @version 2013-12-03
+ */
 @Namespace("/p")
 @Action(value = "/highcharts", results = { @Result(name = "success", type = "stream") })
 public class HighchartsExportAction
