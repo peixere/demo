@@ -40,15 +40,27 @@ var jcontext = (function(){
         path = path.substring(0, path.lastIndexOf('/'));
     }    
     context.path = path;
-    path = path.substring(path.lastIndexOf('//') + 2, path.length);
-    if(path.indexOf('/') >= 0)
-    {
-	context.ctxp = path.substring(path.lastIndexOf('/'), path.length);
-	context.domain = path.substring(0, path.indexOf('/'));;
+    if(path.indexOf('//') > -1){
+	path = path.substring(path.indexOf('//') + 2, path.length);
+	if(path.indexOf('/') >= 0)
+	{
+	    context.ctxp = path.substring(path.indexOf('/'), path.length);
+	    context.domain = path.substring(0, path.indexOf('/'));
+	}
+	else
+	{
+	    context.domain = path;
+	}	
     }
     else
     {
-	context.domain = path;
-    }
+	try{
+	    var str = window.location.toString();
+	    str = str.substring(str.indexOf('//') + 2, str.length);
+	    domain = str.substring(0, str.indexOf('/'));
+	}catch(error){
+	    alert(error);
+	}
+    }    
     return context;
 })();

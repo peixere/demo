@@ -47,17 +47,30 @@ var ctxp = '';
     }
     ctxp = path;
     var domain = '';
-    var tmp = path.substring(path.lastIndexOf('//') + 2, path.length);
-    if(tmp.indexOf('/') >= 0)
+    if(path.indexOf('//') > -1)
     {
-	ctxp = tmp.substring(tmp.lastIndexOf('/'), tmp.length);
-	domain = tmp.substring(0, tmp.indexOf('/'));;
+        var tmp = path.substring(path.indexOf('//') + 2, path.length);
+        if(tmp.indexOf('/') >= 0)
+        {
+        	ctxp = tmp.substring(tmp.indexOf('/'), tmp.length);
+        	domain = tmp.substring(0, tmp.indexOf('/'));
+        }
+        else
+        {
+        	ctxp = '';
+        	domain = path;
+        }    
     }
     else
     {
-	ctxp = '';
-	domain = path;
-    }    
+	try{
+	    var str = window.location.toString();
+	    str = str.substring(str.indexOf('//') + 2, str.length);
+	    domain = str.substring(0, str.indexOf('/'));
+	}catch(error){
+	    alert(error);
+	}
+    }
     if (theme && theme !== 'classic') {
         suffix.push(theme);
     }
