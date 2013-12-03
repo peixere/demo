@@ -70,7 +70,7 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 				plugins = "";
 				for (String name : pluginsPaths)
 				{
-					plugins += "Ext.Loader.setPath('" + name + "', " + request.getContextPath() + "'/plugins/" + name + "/classes');\n\t";
+					plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
 				}
 				log.info("plugins：" + plugins);
 			}
