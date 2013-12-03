@@ -395,7 +395,12 @@
                             "});\r",
                             "var tree = Ext.getCmp('RightTreePanel');\r",
                             "tree.bindStore(myStore);\r",
-                            "myStore.reload();"
+                            "myStore.reload();\r",
+                            "tree.expandAll();\r",
+                            "Ext.defer(function()\r",
+                            "          {\r",
+                            "             Ext.getCmp('RightTreePanel').expandAll();\r",
+                            "          }, 1000);"
                         ],
                         "single": true,
                         "name": "afterlayout",

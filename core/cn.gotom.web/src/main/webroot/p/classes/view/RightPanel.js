@@ -271,6 +271,11 @@ Ext.define('Gotom.view.RightPanel', {
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
         myStore.reload();
+        tree.expandAll();
+        Ext.defer(function()
+        {
+            Ext.getCmp('RightTreePanel').expandAll();
+        }, 1000);
     },
 
     onBtnAddClick: function(leaf) {
