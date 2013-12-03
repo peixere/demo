@@ -44,7 +44,6 @@ Ext.define('Gotom.view.Portal', {
                         animate: false,
                         type: 'accordion'
                     },
-                    bodyStyle: 'background-image: url(resources/icons/fam/topbg.jpg) !important;',
                     animCollapse: false,
                     header: false,
                     title: ''
@@ -260,7 +259,9 @@ Ext.define('Gotom.view.Portal', {
         var header = Ext.getCmp('app-header');
         header.setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
-        header.bodyStyle = ('background-image: url(resources/icons/fam/topbg.jpg) !important;');
+        var image = ctxp+'/resources/icons/fam/topbg.jpg';
+        //header.setStyle('background-image','url('+image+')');
+        header.setBodyStyle('background-image','url('+image+')');
         document.title = data.title;
         var htmlStr = '';
         htmlStr += '<div class="logoPanel">　' + data.title + '</div>';
