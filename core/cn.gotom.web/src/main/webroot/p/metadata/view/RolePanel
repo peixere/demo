@@ -440,7 +440,7 @@
             "userConfig": {
                 "fn": "bindRoleGrid",
                 "designer|params": [
-                    "data"
+                    "result"
                 ],
                 "implHandler": [
                     "var me = this;\r",
@@ -457,7 +457,7 @@
                     "        name: 'sort'\r",
                     "    }\r",
                     "    ],\r",
-                    "    data : data,\r",
+                    "    data : result.data,\r",
                     "    proxy:\r",
                     "    {\r",
                     "        type: 'memory',\r",
