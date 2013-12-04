@@ -1,4 +1,5 @@
 <%@ page language="java" isErrorPage="true"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
 <%@ include file="/WEB-INF/view/inc/taglibs.jsp"%>
 <%response.setStatus(404);%>
 <!DOCTYPE HTML>
