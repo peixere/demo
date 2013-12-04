@@ -1,12 +1,12 @@
 package cn.gotom.injector;
 
 import cn.gotom.dao.jpa.UniversalDaoJpa;
+import cn.gotom.service.IAntUrlPathMatcher;
 import cn.gotom.service.IUrlMatcher;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
-import cn.gotom.service.impl.IAntUrlPathMatcher;
 import cn.gotom.service.impl.ResourceConfigServiceImpl;
 import cn.gotom.service.impl.RightServiceImpl;
 import cn.gotom.service.impl.RoleServiceImpl;

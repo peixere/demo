@@ -62,24 +62,6 @@ public class DataInitializeServiceImpl implements DataInitializeService
 					log.error("初始化数据异常 " + key, ex);
 				}
 			}
-//			if (universalService.findAll(Right.class).size() == 0)
-//			{
-//				String rightString = bundle.getString("Right");
-//				JSON json = JSONSerializer.toJSON(rightString);
-//				JsonConfig jsonConfig = new JsonConfig();
-//				jsonConfig.setRootClass(Right.class);
-//				List<Right> rights = (List<Right>) JSONSerializer.toJava(json, jsonConfig);
-//				universalService.saveAll(rights);
-//			}
-//			if (universalService.findAll(Organization.class).size() == 0)
-//			{
-//				String rightString = bundle.getString("Organization");
-//				JSON json = JSONSerializer.toJSON(rightString);
-//				JsonConfig jsonConfig = new JsonConfig();
-//				jsonConfig.setRootClass(Organization.class);
-//				List<Organization> list = (List<Organization>) JSONSerializer.toJava(json, jsonConfig);
-//				universalService.saveAll(list);
-//			}
 		}
 		catch (Exception ex)
 		{
