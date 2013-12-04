@@ -1,4 +1,4 @@
-<%@ page language="java"%>
+<%@ page language="java" isErrorPage="true"%>
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%response.setStatus(403);%>
@@ -11,8 +11,11 @@
 	<link rel="shortcut icon" href="${ctx}/resources/favicon.ico" />
 </head>
 <body>
-	<p><img src="${ctx}/resources/icons/fam/logo.png"/>您的访问出错了</p>
-	<p>很抱歉，您的权限无法访问此页面!</p>
+	<p><img src="${ctx}/resources/icons/fam/logo.png" title="错误"/>您的访问出错了</p>
+	<p>
+	${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}
+	<br>很抱歉，你的访问受限!
+	</p>
 	<p style="text-align: center; margin-top: 20px">
 		<img src="${ctx}/resources/icons/fam/403.png"/>
 	</p>
