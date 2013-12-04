@@ -47,6 +47,16 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	@Override
 	public boolean validation(String username, String url, String appCode)
 	{
+		if (without(url))
+		{
+			return true;
+		}
+		User user = userService.get("username", username);
+		return isAuth(user, url, appCode);
+	}
+
+	private boolean without(String url)
+	{
 		ResourceConfig without = resourceConfigService.getByName(ResourceName.validation_without);
 		if (without == null)
 		{
@@ -59,25 +69,15 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		{
 			return true;
 		}
-		if (safe(url))
+		without = resourceConfigService.getByName(ResourceName.validation_without_path);
+		if (without == null)
 		{
-			return true;
+			without = new ResourceConfig();
+			without.setName(ResourceName.validation_without_path);
+			without.setValue("/p.do;/p/main*.do");
+			resourceConfigService.save(without);
 		}
-		User user = userService.get("username", username);
-		return isAuth(user, url, appCode);
-	}
-
-	private boolean safe(String url)
-	{
-		ResourceConfig withoutPath = resourceConfigService.getByName(ResourceName.validation_without_path);
-		if (withoutPath == null)
-		{
-			withoutPath = new ResourceConfig();
-			withoutPath.setName(ResourceName.validation_without_path);
-			withoutPath.setValue("/p.do;/p/main*.do");
-			resourceConfigService.save(withoutPath);
-		}
-		String none = withoutPath.getValue();
+		String none = without.getValue();
 		none = none.trim().replace("；", ";");
 		none = none.replace(",", ";");
 		none = none.replace("，", ";");
