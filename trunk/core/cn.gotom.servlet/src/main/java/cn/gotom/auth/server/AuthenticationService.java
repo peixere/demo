@@ -17,8 +17,10 @@ import cn.gotom.sso.client.AuthenticatedResponse;
 import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-public class AuthenticatedService extends AbstractConfigurationFilter
+@Singleton
+public class AuthenticationService extends AbstractConfigurationFilter
 {
 	protected final Logger log = Logger.getLogger(getClass());
 

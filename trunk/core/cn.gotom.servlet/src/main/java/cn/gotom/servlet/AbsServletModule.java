@@ -4,6 +4,7 @@ import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 
+import cn.gotom.sso.client.authentication.AuthenticationFilter;
 import cn.gotom.web.util.filter.CharacterFilter;
 
 import com.google.inject.Singleton;
@@ -42,8 +43,8 @@ public abstract class AbsServletModule extends ServletModule
 	protected void configureCasServlets()
 	{
 		/*** cas ***/
-		bind(org.jasig.cas.client.authentication.AuthenticationFilter.class).in(Singleton.class);
-		filter("/*").through(org.jasig.cas.client.authentication.AuthenticationFilter.class);
+		bind(AuthenticationFilter.class).in(Singleton.class);
+		filter("/*").through(AuthenticationFilter.class);
 		bind(Cas20ProxyReceivingTicketValidationFilter.class).in(Singleton.class);
 		filter("/*").through(Cas20ProxyReceivingTicketValidationFilter.class);
 		bind(HttpServletRequestWrapperFilter.class).in(Singleton.class);
