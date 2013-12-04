@@ -13,7 +13,7 @@
 <body>
 	<p><img src="${ctx}/resources/icons/fam/logo.png" title="错误"/>您的访问出错了</p>
 	<p>
-	${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}
+	${url}
 	<br>很抱歉，你的访问受限!
 	</p>
 	<p style="text-align: center; margin-top: 20px">
