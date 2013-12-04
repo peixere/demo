@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
 <%@ include file="/WEB-INF/view/inc/taglibs.jsp"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

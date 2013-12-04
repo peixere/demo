@@ -62,7 +62,7 @@ public class MainAction
 		{
 			appTitle = new ResourceConfig();
 			appTitle.setName(ResourceName.appliction_title);
-			appTitle.setValue("能源管理系统");
+			appTitle.setValue("Gotom开发平台");
 			configService.save(appTitle);
 		}
 		mainInfo.setTitle(appTitle.getValue());
