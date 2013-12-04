@@ -28,14 +28,14 @@ public class HelloAction
 	@Action(value = "/hello", results = { @Result(name = "success", location = "/WEB-INF/jsp/hello.jsp") })
 	public String hello()
 	{
-		user = userService.get("username", User.admin);
+		user = userService.get("username", User.ROOT);
 		return "success";
 	}
 	
 	@Action(value = "/helloSave", results = { @Result(name = "success", location = "/WEB-INF/jsp/hello.jsp") })
 	public String save()
 	{
-		User old = userService.get("username", User.admin);
+		User old = userService.get("username", User.ROOT);
 		old.setName(user.getName());
 		userService.save(old);
 		return "success";

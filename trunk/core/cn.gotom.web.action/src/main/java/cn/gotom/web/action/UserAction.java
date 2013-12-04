@@ -59,7 +59,7 @@ public class UserAction
 		{
 			execute();
 			List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
-			if (User.admin.equals(user.getUsername()))
+			if (User.ROOT.equals(user.getUsername()))
 			{
 				for (TreeCheckedModel m : roleList)
 				{
@@ -80,7 +80,7 @@ public class UserAction
 		List<User> list = userService.findAll();
 		for (User u : list)
 		{
-			if (u.getUsername().equals(User.admin))
+			if (u.getUsername().equals(User.ROOT))
 			{
 				list.remove(u);
 				break;

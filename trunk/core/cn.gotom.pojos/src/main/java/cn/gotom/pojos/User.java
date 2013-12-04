@@ -24,7 +24,7 @@ public class User extends SuperEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	public static final String admin = "admin";
+	public static final String ROOT = "root";
 
 	@Column(nullable = true, length = 50)
 	private String name;
