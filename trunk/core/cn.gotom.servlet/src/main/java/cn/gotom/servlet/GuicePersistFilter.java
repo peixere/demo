@@ -65,15 +65,7 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.beginUnitOfWork();
-			if (plugins == null && pluginsPaths != null)
-			{
-				plugins = "";
-				for (String name : pluginsPaths)
-				{
-					plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
-				}
-				log.info("plugins：" + plugins);
-			}
+			initPlugins(request);
 			request.setAttribute("plugins", plugins);
 			filterChain.doFilter(request, response);
 		}
@@ -87,6 +79,19 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		finally
 		{
 			this.manager.endUnitOfWork();
+		}
+	}
+
+	private void initPlugins(final HttpServletRequest request)
+	{
+		if (plugins == null && pluginsPaths != null)
+		{
+			plugins = "";
+			for (String name : pluginsPaths)
+			{
+				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
+			}
+			log.info("plugins：" + plugins);
 		}
 	}
 }
