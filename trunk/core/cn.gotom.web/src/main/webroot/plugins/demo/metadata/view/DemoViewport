@@ -1,0 +1,29 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DemoViewport",
+        "designer|initialView": true,
+        "layout": "border"
+    },
+    "designerId": "c3898985-13ad-407d-8e92-49819697af5e",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center"
+            },
+            "designerId": "769e04de-bc56-446e-8a06-0972ae16766e",
+            "masterInstanceId": "e4a1f5b4-a124-4f47-b0ee-2ae9e158ffad"
+        }
+    ]
+}

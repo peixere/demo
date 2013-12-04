@@ -1,0 +1,66 @@
+{
+    "name": "demo",
+    "settings": {
+        "exportPath": "E:/workspace/gotom/gotom/core/cn.gotom.web/src/main/webroot/plugins/demo/",
+        "urlPrefix": "",
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.3",
+    "xdsBuild": 1044,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "f6e80f2d-fc47-48b8-b16d-0e4ae362b7e9": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "c3898985-13ad-407d-8e92-49819697af5e": {
+            "paths": [
+                "metadata/view/DemoViewport",
+                "classes/view/override/DemoViewport.js",
+                "classes/view/DemoViewport.js",
+                "classes/view/Viewport.js"
+            ],
+            "className": "DemoViewport"
+        },
+        "e4a1f5b4-a124-4f47-b0ee-2ae9e158ffad": {
+            "paths": [
+                "metadata/view/DemoPanel",
+                "classes/view/override/DemoPanel.js",
+                "classes/view/DemoPanel.js"
+            ],
+            "className": "DemoPanel"
+        },
+        "a74e2e81-3155-47a3-9586-afc4295d449e": {
+            "paths": [
+                "metadata/view/MyPanel",
+                "classes/view/override/MyPanel.js",
+                "classes/view/MyPanel.js"
+            ],
+            "className": "MyPanel"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "c3898985-13ad-407d-8e92-49819697af5e",
+            "e4a1f5b4-a124-4f47-b0ee-2ae9e158ffad",
+            "a74e2e81-3155-47a3-9586-afc4295d449e"
+        ],
+        "store": [],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "f6e80f2d-fc47-48b8-b16d-0e4ae362b7e9"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
