@@ -75,7 +75,7 @@ public class AuthServiceImpl implements AuthService
 		{
 			return false;
 		}
-		else if (User.admin.equals(user.getUsername()))
+		else if (User.ROOT.equals(user.getUsername()))
 		{
 			return true;
 		}
@@ -133,7 +133,7 @@ public class AuthServiceImpl implements AuthService
 			for (int i = rightList.size() - 1; i >= 0; i--)
 			{
 				boolean find = false;
-				if (User.admin.equals(user.getUsername()))
+				if (User.ROOT.equals(user.getUsername()))
 				{
 					find = true;
 				}

@@ -20,11 +20,11 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	{
 		try
 		{
-			User user = getByUsername(User.admin);
+			User user = getByUsername(User.ROOT);
 			if (user == null)
 			{
 				user = new User();
-				user.setUsername(User.admin);
+				user.setUsername(User.ROOT);
 				user.setName("超级管理员");
 				PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
 				user.setPassword(passwordEncoder.encode("888888"));

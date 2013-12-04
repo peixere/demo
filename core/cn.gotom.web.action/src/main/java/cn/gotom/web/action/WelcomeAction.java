@@ -21,7 +21,7 @@ public class WelcomeAction
 	@Action(value = "/welcome", results = { @Result(name = "success", location = "/WEB-INF/jsp/welcome.jsp") })
 	public String execute()
 	{
-		User user = userService.getByUsername(User.admin);
+		User user = userService.getByUsername(User.ROOT);
 		message = user.getUsername() + "欢迎 " + userName + " !";
 		return "success";
 	}
