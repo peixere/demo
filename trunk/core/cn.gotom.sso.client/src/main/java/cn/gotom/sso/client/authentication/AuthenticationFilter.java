@@ -126,6 +126,7 @@ public class AuthenticationFilter extends AbstractCasFilter
 			filterChain.doFilter(request, response);
 			return;
 		}
+		log.debug(url);
 		final HttpSession session = request.getSession(false);
 		final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
 
