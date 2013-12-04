@@ -1,4 +1,4 @@
-package cn.gotom.service.impl;
+package cn.gotom.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,6 @@ import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
-import cn.gotom.service.AuthenticationService;
-import cn.gotom.service.IUrlMatcher;
-import cn.gotom.service.ResourceConfigService;
-import cn.gotom.service.RightService;
-import cn.gotom.service.RoleService;
-import cn.gotom.service.UserService;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
@@ -80,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		{
 			withoutPath = new ResourceConfig();
 			withoutPath.setName(ResourceName.validation_without_path);
-			withoutPath.setValue("/p.do");
+			withoutPath.setValue("/p.do;/p/main*.do");
 			resourceConfigService.save(withoutPath);
 		}
 		String none = withoutPath.getValue();
