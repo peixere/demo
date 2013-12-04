@@ -20,10 +20,13 @@ public abstract class AbsServletModule extends ServletModule
 		configureGuicePersistServlets();
 		configureRemoteAuthServiceServlets();
 		configureCasServlets();
-		configureAuthenticatedServlets();
+		configureValidationFilter();
 		configureStrutsServlets();
 	}
 
+	/**
+	 * GuicePersist
+	 */
 	protected void configureGuicePersistServlets()
 	{
 		// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
@@ -32,14 +35,23 @@ public abstract class AbsServletModule extends ServletModule
 
 	protected abstract void configureRemoteAuthServiceServlets();
 
-	protected abstract void configureAuthenticatedServlets();
+	/**
+	 * 权限确认
+	 */
+	protected abstract void configureValidationFilter();
 
+	/**
+	 * Struts
+	 */
 	protected void configureStrutsServlets()
 	{
 		bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 		filter("/*").through(StrutsPrepareAndExecuteFilter.class);
 	}
 
+	/**
+	 * 单元登录验证
+	 */
 	protected void configureCasServlets()
 	{
 		/*** cas ***/

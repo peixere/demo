@@ -20,10 +20,10 @@ public class CoreServletModule extends AbsServletModule
 		filter("/authService").through(AuthenticationService.class);
 	}
 
-	protected void configureAuthenticatedServlets()
+	protected void configureValidationFilter()
 	{
-		bind(AuthenticationFilter.class).in(Singleton.class);
-		filter("/*").through(AuthenticationFilter.class);
+		bind(ValidationFilter.class).in(Singleton.class);
+		filter("/*").through(ValidationFilter.class);
 	}
 
 	protected void configureWebSocketServlets()

@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AuthenticationFilter extends AbstractConfigurationFilter
+public class ValidationFilter extends AbstractConfigurationFilter
 {
 
 	@Inject
