@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.service.AuthService;
+import cn.gotom.service.AuthenticationService;
 import cn.gotom.sso.client.AuthenticatedClient;
 import cn.gotom.sso.client.AuthenticatedRequest;
 import cn.gotom.sso.client.AuthenticatedResponse;
@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AuthenticationService extends AbstractConfigurationFilter
+public class AuthenticationServiceFilter extends AbstractConfigurationFilter
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -31,7 +31,7 @@ public class AuthenticationService extends AbstractConfigurationFilter
 	}
 
 	@Inject
-	protected AuthService authService;
+	protected AuthenticationService authService;
 
 	@Override
 	public void doFilter(ServletRequest sRequest, ServletResponse sResponse, FilterChain arg2) throws IOException, ServletException
@@ -43,7 +43,7 @@ public class AuthenticationService extends AbstractConfigurationFilter
 			String jsonString = AuthenticatedClient.convertStreamToString(sRequest.getInputStream());
 			request = AuthenticatedClient.fromJsonString(AuthenticatedRequest.class, jsonString);
 			response = new AuthenticatedResponse(request);
-			boolean success = authService.isAuth(request.getAppCode(), request.getUsername(), request.getUrl());
+			boolean success = authService.validation(request.getAppCode(), request.getUsername(), request.getUrl());
 			response.setStatus(success ? 200 : 403);
 		}
 		catch (Exception e)

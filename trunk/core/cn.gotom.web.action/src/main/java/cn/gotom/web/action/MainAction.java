@@ -16,7 +16,7 @@ import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.RightType;
 import cn.gotom.pojos.User;
-import cn.gotom.service.AuthService;
+import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
@@ -35,7 +35,7 @@ public class MainAction
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
-	private AuthService authService;
+	private AuthenticationService authService;
 	@Inject
 	private UserService userService;
 	@Inject

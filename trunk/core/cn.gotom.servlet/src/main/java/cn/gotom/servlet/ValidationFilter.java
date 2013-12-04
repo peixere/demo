@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.gotom.service.AuthService;
+import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
 import cn.gotom.service.IUrlMatcher;
 import cn.gotom.web.util.UrlUtils;
@@ -25,7 +25,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 {
 
 	@Inject
-	protected AuthService authService;
+	protected AuthenticationService authService;
 
 	@Inject
 	protected DataInitializeService dataInitializeService;
@@ -34,12 +34,43 @@ public class ValidationFilter extends AbstractConfigurationFilter
 	private IUrlMatcher urlMatcher;
 
 	private FilterConfig filterConfig;
-	
+
 	private String[] pluginsPaths;
-	
+
 	private String plugins;
-	
+
 	private String[] authenticationNones;
+
+	public void destroy()
+	{
+
+	}
+
+	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
+	{
+		try
+		{
+			final HttpServletRequest request = (HttpServletRequest) sRequest;
+			final HttpServletResponse response = (HttpServletResponse) sResponse;
+			setPlugins(request);
+			String url = UrlUtils.buildUrl(request);
+			if (authenticationNone(url) || authService.validation(request.getRemoteUser(), url))
+			{
+				filterChain.doFilter(sRequest, sResponse);
+			}
+			else
+			{
+				log.warn(request.getRemoteUser() + " 403：" + url);
+				response.setStatus(403);
+				request.setAttribute("url", UrlUtils.buildRequestUrl(request));
+				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
+			}
+		}
+		finally
+		{
+
+		}
+	}
 
 	private void initAuthenticationNone()
 	{
@@ -85,7 +116,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		}
 	}
 
-	private void initPlugins(final HttpServletRequest request)
+	private void setPlugins(final HttpServletRequest request)
 	{
 		if (plugins == null && pluginsPaths != null)
 		{
@@ -107,34 +138,4 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		dataInitializeService.init();
 	}
 
-	public void destroy()
-	{
-
-	}
-
-	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
-	{
-		try
-		{
-			final HttpServletRequest request = (HttpServletRequest) sRequest;
-			final HttpServletResponse response = (HttpServletResponse) sResponse;
-			initPlugins(request);
-			String url = UrlUtils.buildUrl(request);
-			if (authenticationNone(url) || authService.isAuth(request.getRemoteUser(), url))
-			{
-				filterChain.doFilter(sRequest, sResponse);
-			}
-			else
-			{
-				log.warn(request.getRemoteUser() + " 403：" + url);
-				response.setStatus(403);
-				request.setAttribute("url", UrlUtils.buildUrl(request));
-				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
-			}
-		}
-		finally
-		{
-
-		}
-	}
 }
