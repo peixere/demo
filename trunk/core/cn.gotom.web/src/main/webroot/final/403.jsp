@@ -13,7 +13,7 @@
 	<p>${url}</p>
 	<p>${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
 	<p style="text-align: center; margin-top: 20px">
-		<img src="${ctxp}/resources/icons/fam/403.png"/>
+		<img src="${ctxp}/resources/icons/fam/403.jpg"/>
 	</p>
 </body>
 </html>
