@@ -25,7 +25,6 @@
 		    /**/**.js;
 		    /**/**.css;
 		    /**/**.ico;
-		    /p/main*.do
 		</param-value>
 	</context-param>
 	<context-param>
