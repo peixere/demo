@@ -33,11 +33,15 @@ public class ValidationFilter extends AbstractConfigurationFilter
 	@Inject
 	private IUrlMatcher urlMatcher;
 
+	private FilterConfig filterConfig;
+	
 	private String[] pluginsPaths;
+	
 	private String plugins;
+	
 	private String[] authenticationNones;
 
-	private void initAuthenticationNone(FilterConfig filterConfig)
+	private void initAuthenticationNone()
 	{
 		String none = getInitParameter(filterConfig, "authenticationNone");
 		if (none != null)
@@ -69,7 +73,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		return false;
 	}
 
-	private void initPlugins(FilterConfig filterConfig)
+	private void initPlugins()
 	{
 		String pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
 		log.info("pluginsPath=" + pluginsPath);
@@ -97,8 +101,9 @@ public class ValidationFilter extends AbstractConfigurationFilter
 
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
-		initAuthenticationNone(filterConfig);
-		initPlugins(filterConfig);
+		this.filterConfig = filterConfig;
+		initAuthenticationNone();
+		initPlugins();
 		dataInitializeService.init();
 	}
 
