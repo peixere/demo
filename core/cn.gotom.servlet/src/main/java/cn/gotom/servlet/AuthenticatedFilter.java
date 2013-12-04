@@ -87,6 +87,7 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			{
 				log.warn(request.getRemoteUser() + " 403：" + url);
 				response.setStatus(403);
+				request.setAttribute("url", UrlUtils.buildUrl(request));
 				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
 			}
 		}
