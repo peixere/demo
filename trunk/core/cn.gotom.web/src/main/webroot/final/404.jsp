@@ -14,7 +14,10 @@ response.setStatus(404);
 </head>
 <body>
 	<p><img src="${ctx}/resources/icons/fam/logo.png" title="错误"/>您的访问出错了</p>
-	<p>很抱歉，您要访问的页面不存在!<br>${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
+	<p>
+	${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}
+	<br/>很抱歉，您要访问的页面不存在!
+	</p>
 	<p style="text-align: center; margin-top: 20px">
 		<img src="${ctx}/resources/icons/fam/404.png"/>
 	</p>
