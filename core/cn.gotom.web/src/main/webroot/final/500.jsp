@@ -11,8 +11,10 @@
 </head>
 <body>
 	<p><img src="${ctx}/resources/icons/fam/logo.png" title="错误"/>您要访问的页面出现异常</p>
+	<p>${url}</p>
 	<p>${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
 <p>
+		${errorMsg}<br>
 		<%	
 		exception = null;
 		if (request.getAttribute("java.lang.Throwable") != null)
