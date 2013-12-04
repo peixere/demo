@@ -1,6 +1,5 @@
 package cn.gotom.servlet;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -21,8 +20,6 @@ import com.google.inject.Singleton;
 public class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
-	private String[] pluginsPaths;
-	private String plugins;
 
 	@Inject
 	public GuicePersistFilter(PersistenceLifeCycle manager)
@@ -36,14 +33,6 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		{
 			this.manager.startService();
 			log.info("startService");
-			String pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
-			log.info("pluginsPath=" + pluginsPath);
-			String path = filterConfig.getServletContext().getRealPath(pluginsPath);
-			File file = new File(path);
-			if (file.exists() && file.isDirectory())
-			{
-				this.pluginsPaths = file.list();
-			}
 		}
 		catch (Exception ex)
 		{
@@ -65,8 +54,6 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.beginUnitOfWork();
-			initPlugins(request);
-			request.setAttribute("plugins", plugins);
 			filterChain.doFilter(request, response);
 		}
 		catch (Exception ex)
@@ -79,19 +66,6 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		finally
 		{
 			this.manager.endUnitOfWork();
-		}
-	}
-
-	private void initPlugins(final HttpServletRequest request)
-	{
-		if (plugins == null && pluginsPaths != null)
-		{
-			plugins = "";
-			for (String name : pluginsPaths)
-			{
-				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
-			}
-			log.info("plugins：" + plugins);
 		}
 	}
 }
