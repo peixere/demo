@@ -1,5 +1,6 @@
 package cn.gotom.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -32,6 +33,8 @@ public class ValidationFilter extends AbstractConfigurationFilter
 	@Inject
 	private IUrlMatcher urlMatcher;
 
+	private String[] pluginsPaths;
+	private String plugins;
 	private String[] authenticationNones;
 
 	private void initAuthenticationNone(FilterConfig filterConfig)
@@ -65,10 +68,37 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		}
 		return false;
 	}
-	
+
+	private void initPlugins(FilterConfig filterConfig)
+	{
+		String pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
+		log.info("pluginsPath=" + pluginsPath);
+		String path = filterConfig.getServletContext().getRealPath(pluginsPath);
+		File file = new File(path);
+		if (file.exists() && file.isDirectory())
+		{
+			this.pluginsPaths = file.list();
+		}
+	}
+
+	private void initPlugins(final HttpServletRequest request)
+	{
+		if (plugins == null && pluginsPaths != null)
+		{
+			plugins = "";
+			for (String name : pluginsPaths)
+			{
+				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
+			}
+			log.info("plugins：" + plugins);
+		}
+		request.setAttribute("plugins", plugins);
+	}
+
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		initAuthenticationNone(filterConfig);
+		initPlugins(filterConfig);
 		dataInitializeService.init();
 	}
 
@@ -83,6 +113,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		{
 			final HttpServletRequest request = (HttpServletRequest) sRequest;
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
+			initPlugins(request);
 			String url = UrlUtils.buildUrl(request);
 			if (authenticationNone(url) || authService.isAuth(request.getRemoteUser(), url))
 			{
