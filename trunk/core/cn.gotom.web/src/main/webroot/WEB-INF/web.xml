@@ -15,7 +15,8 @@
 		<param-value>true</param-value>
 	</context-param>
 	<context-param>
-		<param-name>authenticatedNone</param-name>
+	    <description>无须验证资源</description>
+		<param-name>authenticationNone</param-name>
 		<param-value>
 		    /ext4/**/**;
 		    /final/**/**;
@@ -23,11 +24,13 @@
 		    /**/**.htm*;
 		    /**/**.js;
 		    /**/**.css;
+		    /**/**.ico;
 			/p.do;
 		    /p/main*.do
 		</param-value>
 	</context-param>
 	<context-param>
+	    <description>ext 插件工程目录 {工程名/classes}</description>
 		<param-name>pluginsPath</param-name>
 		<param-value>/plugins</param-value>
 	</context-param>	
