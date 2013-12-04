@@ -264,10 +264,13 @@ Ext.define('Gotom.view.RightPanel', {
                     type : "ajax",
                     url : ctxp+'/p/right!tree.do',
                     listeners: {
-                        exception: Common.onProxyException
-                    }            
-                }    
-            });
+                        exception: function(proxy, response, operation, eOpts)
+                        {
+                            Common.onAjaxException(response,me);
+                    }
+                }            
+            }    
+        });
         var tree = Ext.getCmp('RightTreePanel');
         tree.bindStore(myStore);
         myStore.reload();
