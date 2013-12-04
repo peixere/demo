@@ -40,11 +40,11 @@
         },
         "a74e2e81-3155-47a3-9586-afc4295d449e": {
             "paths": [
-                "metadata/view/MyPanel",
-                "classes/view/override/MyPanel.js",
-                "classes/view/MyPanel.js"
+                "metadata/view/Panel404",
+                "classes/view/override/Panel404.js",
+                "classes/view/Panel404.js"
             ],
-            "className": "MyPanel"
+            "className": "Panel404"
         }
     },
     "viewOrderMap": {
