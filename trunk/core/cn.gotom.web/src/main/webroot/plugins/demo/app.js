@@ -22,7 +22,7 @@ Ext.application({
     views: [
         'DemoViewport',
         'DemoPanel',
-        'MyPanel'
+        'Panel404'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
