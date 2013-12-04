@@ -11,7 +11,7 @@ import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
-import cn.gotom.service.AuthService;
+import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.IUrlMatcher;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
@@ -21,7 +21,7 @@ import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 
-public class AuthServiceImpl implements AuthService
+public class AuthenticationServiceImpl implements AuthenticationService
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	@Inject
@@ -45,28 +45,58 @@ public class AuthServiceImpl implements AuthService
 	 * @see cn.gotom.service.IAuthService#isAuth(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean isAuth(String username, String url)
+	public boolean validation(String username, String url)
 	{
-		return isAuth(username, url, App.ROOT);
+		return validation(username, url, App.ROOT);
 	}
 
 	@Override
-	public boolean isAuth(String username, String url, String appCode)
+	public boolean validation(String username, String url, String appCode)
 	{
-		ResourceConfig rc = resourceConfigService.getByName(ResourceName.everyone_can_access);
-		if (rc == null)
+		ResourceConfig without = resourceConfigService.getByName(ResourceName.validation_without);
+		if (without == null)
 		{
-			rc = new ResourceConfig();
-			rc.setName(ResourceName.everyone_can_access);
-			rc.setValue(Boolean.FALSE.toString());
-			resourceConfigService.save(rc);
+			without = new ResourceConfig();
+			without.setName(ResourceName.validation_without);
+			without.setValue(Boolean.FALSE.toString());
+			resourceConfigService.save(without);
 		}
-		if (rc != null && Boolean.parseBoolean(rc.getValue()))
+		if (without != null && Boolean.parseBoolean(without.getValue()))
+		{
+			return true;
+		}
+		if (safe(url))
 		{
 			return true;
 		}
 		User user = userService.get("username", username);
 		return isAuth(user, url, appCode);
+	}
+
+	private boolean safe(String url)
+	{
+		ResourceConfig withoutPath = resourceConfigService.getByName(ResourceName.validation_without_path);
+		if (withoutPath == null)
+		{
+			withoutPath = new ResourceConfig();
+			withoutPath.setName(ResourceName.validation_without_path);
+			withoutPath.setValue("/p.do");
+			resourceConfigService.save(withoutPath);
+		}
+		String none = withoutPath.getValue();
+		none = none.trim().replace("；", ";");
+		none = none.replace(",", ";");
+		none = none.replace("，", ";");
+		none = none.replace("\n", ";");
+		String[] resource = none.split(";");
+		for (String pattern : resource)
+		{
+			if (urlMatcher.pathMatchesUrl(pattern, url))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isAuth(User user, String url, String appCode)
@@ -157,77 +187,77 @@ public class AuthServiceImpl implements AuthService
 		return rightList;
 	}
 
-	//@Override
+	// @Override
 	public List<Right> loadTreeByParentId(String username, String parentId)
 	{
-//		User user = userService.getByUsername(username);
+		// User user = userService.getByUsername(username);
 		List<Right> rightList = rightService.findByParentId(parentId);
-//		if (user != null)
-//		{
-//			for (int i = rightList.size() - 1; i >= 0; i--)
-//			{
-//				boolean find = false;
-//				if (User.admin.equals(user.getUsername()))
-//				{
-//					find = true;
-//				}
-//				else
-//				{
-//					for (Role role : user.getRoles())
-//					{
-//						// role.getCompany()
-//						if (rightList.get(i).getRoles().contains(role))
-//						{
-//							find = true;
-//						}
-//					}
-//				}
-//				if (!find)
-//				{
-//					rightList.remove(i);
-//				}
-//			}
-//		}
-//		for (Right r : rightList)
-//		{
-//			loadTreeCallback(r, user);
-//		}
+		// if (user != null)
+		// {
+		// for (int i = rightList.size() - 1; i >= 0; i--)
+		// {
+		// boolean find = false;
+		// if (User.admin.equals(user.getUsername()))
+		// {
+		// find = true;
+		// }
+		// else
+		// {
+		// for (Role role : user.getRoles())
+		// {
+		// // role.getCompany()
+		// if (rightList.get(i).getRoles().contains(role))
+		// {
+		// find = true;
+		// }
+		// }
+		// }
+		// if (!find)
+		// {
+		// rightList.remove(i);
+		// }
+		// }
+		// }
+		// for (Right r : rightList)
+		// {
+		// loadTreeCallback(r, user);
+		// }
 		return rightList;
 	}
 
-//	private void loadTreeCallback(Right right, User user)
-//	{
-//		List<Right> rightList = rightService.findByParentId(right.getId());
-//		if (user != null)
-//		{
-//			for (int i = rightList.size() - 1; i >= 0; i--)
-//			{
-//				boolean find = false;
-//				if (User.admin.equals(user.getUsername()))
-//				{
-//					find = true;
-//				}
-//				else
-//				{
-//					for (Role role : user.getRoles())
-//					{
-//						if (rightList.get(i).getRoles().contains(role))
-//						{
-//							find = true;
-//						}
-//					}
-//				}
-//				if (!find)
-//				{
-//					rightList.remove(i);
-//				}
-//			}
-//		}
-//		right.setChildren(rightList);
-//		for (Right r : rightList)
-//		{
-//			loadTreeCallback(r, user);
-//		}
-//	}
+	// private void loadTreeCallback(Right right, User user)
+	// {
+	// List<Right> rightList = rightService.findByParentId(right.getId());
+	// if (user != null)
+	// {
+	// for (int i = rightList.size() - 1; i >= 0; i--)
+	// {
+	// boolean find = false;
+	// if (User.admin.equals(user.getUsername()))
+	// {
+	// find = true;
+	// }
+	// else
+	// {
+	// for (Role role : user.getRoles())
+	// {
+	// if (rightList.get(i).getRoles().contains(role))
+	// {
+	// find = true;
+	// }
+	// }
+	// }
+	// if (!find)
+	// {
+	// rightList.remove(i);
+	// }
+	// }
+	// }
+	// right.setChildren(rightList);
+	// for (Right r : rightList)
+	// {
+	// loadTreeCallback(r, user);
+	// }
+	// }
 
 }

@@ -93,7 +93,7 @@ public class UserRoleServiceTest extends TestCase
 	@SuppressWarnings("unused")
 	public void testSaveUserRole()
 	{
-		AuthService authService = injector.getInstance(AuthService.class);
+		AuthenticationService authService = injector.getInstance(AuthenticationService.class);
 		Assert.assertNotNull(authService);
 		UserService userDao = injector.getInstance(UserService.class);
 		String sql = "select  t.id, t.text, t.component, " + " t.description, t.type, t.iconCls, t.sort " + " from resource t where t.parent_id is null";

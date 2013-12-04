@@ -3,17 +3,17 @@ package cn.gotom.service;
 import java.util.List;
 
 import cn.gotom.pojos.Right;
-import cn.gotom.service.impl.AuthServiceImpl;
+import cn.gotom.service.impl.AuthenticationServiceImpl;
 
 import com.google.inject.ImplementedBy;
 
-@ImplementedBy(AuthServiceImpl.class)
-public interface AuthService
+@ImplementedBy(AuthenticationServiceImpl.class)
+public interface AuthenticationService
 {
 
-	public abstract boolean isAuth(String username, String url);
+	public abstract boolean validation(String username, String url);
 
-	public abstract boolean isAuth(String username, String url, String appCode);
+	public abstract boolean validation(String username, String url, String appCode);
 
 	/**
 	 * 
