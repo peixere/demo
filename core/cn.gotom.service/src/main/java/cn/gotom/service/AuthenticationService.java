@@ -3,7 +3,6 @@ package cn.gotom.service;
 import java.util.List;
 
 import cn.gotom.pojos.Right;
-import cn.gotom.service.impl.AuthenticationServiceImpl;
 
 import com.google.inject.ImplementedBy;
 
