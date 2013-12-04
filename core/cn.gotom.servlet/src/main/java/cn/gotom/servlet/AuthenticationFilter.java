@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AuthenticatedFilter extends AbstractConfigurationFilter
+public class AuthenticationFilter extends AbstractConfigurationFilter
 {
 
 	@Inject
@@ -32,36 +32,30 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 	@Inject
 	private IUrlMatcher urlMatcher;
 
-	private String[] authenticatedNones;
+	private String[] authenticationNones;
 
-	public void init(FilterConfig filterConfig) throws ServletException
+	private void initAuthenticationNone(FilterConfig filterConfig)
 	{
-		String authenticatedNone = getInitParameter(filterConfig, "authenticatedNone");
-		if (authenticatedNone != null)
+		String none = getInitParameter(filterConfig, "authenticationNone");
+		if (none != null)
 		{
-			authenticatedNone = authenticatedNone.trim().replace("；", ";");
-			authenticatedNone = authenticatedNone.replace(",", ";");
-			authenticatedNone = authenticatedNone.replace("，", ";");
-			authenticatedNone = authenticatedNone.replace("\n", ";");
-			authenticatedNones = authenticatedNone.trim().split(";");
-			for (int i = 0; i < authenticatedNones.length; i++)
+			none = none.trim().replace("；", ";");
+			none = none.replace(",", ";");
+			none = none.replace("，", ";");
+			none = none.replace("\n", ";");
+			authenticationNones = none.trim().split(";");
+			for (int i = 0; i < authenticationNones.length; i++)
 			{
-				authenticatedNones[i] = authenticatedNones[i].trim();
+				authenticationNones[i] = authenticationNones[i].trim();
 			}
 		}
-		dataInitializeService.init();
 	}
 
-	public void destroy()
+	private boolean authenticationNone(String url)
 	{
-
-	}
-
-	private boolean none(String url)
-	{
-		if (authenticatedNones != null)
+		if (authenticationNones != null)
 		{
-			for (String pattern : authenticatedNones)
+			for (String pattern : authenticationNones)
 			{
 				if (urlMatcher.pathMatchesUrl(pattern.trim(), url))
 				{
@@ -71,6 +65,17 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 		}
 		return false;
 	}
+	
+	public void init(FilterConfig filterConfig) throws ServletException
+	{
+		initAuthenticationNone(filterConfig);
+		dataInitializeService.init();
+	}
+
+	public void destroy()
+	{
+
+	}
 
 	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
 	{
@@ -79,7 +84,7 @@ public class AuthenticatedFilter extends AbstractConfigurationFilter
 			final HttpServletRequest request = (HttpServletRequest) sRequest;
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
 			String url = UrlUtils.buildUrl(request);
-			if (none(url) || authService.isAuth(request.getRemoteUser(), url))
+			if (authenticationNone(url) || authService.isAuth(request.getRemoteUser(), url))
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
