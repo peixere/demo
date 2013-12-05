@@ -147,6 +147,7 @@ Ext.define('Gotom.view.RolePanel', {
                 {
                     xtype: 'panel',
                     region: 'center',
+                    border: false,
                     id: 'CenterPanel',
                     layout: {
                         type: 'border'
@@ -155,6 +156,7 @@ Ext.define('Gotom.view.RolePanel', {
                         {
                             xtype: 'form',
                             region: 'north',
+                            border: false,
                             height: 97,
                             id: 'RoleForm',
                             bodyPadding: 10,
