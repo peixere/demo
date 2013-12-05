@@ -334,6 +334,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
+                "border": false,
                 "id": "CenterPanel",
                 "layout": "border",
                 "title": null
@@ -349,6 +350,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "north",
+                        "border": false,
                         "height": 97,
                         "id": "RoleForm",
                         "bodyPadding": 10,
