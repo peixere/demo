@@ -118,7 +118,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		{
 			without = new ResourceConfig();
 			without.setName(ResourceName.validation_without_path);
-			without.setValue("/p.do;/p/main*.do;/*.html;/p/**");
+			without.setValue("/p.do;/p/main*.do;/*.html;/p/**;/plugins/**");
 			resourceConfigService.save(without);
 		}
 		String none = without.getValue();
