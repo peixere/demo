@@ -61,6 +61,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
+                "border": false,
                 "id": "portal-container",
                 "layout": "border"
             },
@@ -275,7 +276,7 @@
                     "{\r",
                     "    var portalcolumn = Ext.create('Gotom.view.PortalColumn',\r",
                     "        {\r",
-                    "            //columnWidth : 0.7,\r",
+                    "            columnWidth : 0.7,\r",
                     "            items : [\r",
                     "            {\r",
                     "                title : '最新通知',\r",
@@ -301,7 +302,7 @@
                     "    portalPanel.add(portalcolumn);\r",
                     "    var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',\r",
                     "        {\r",
-                    "            //columnWidth : 0.7,\r",
+                    "            columnWidth : 0.3,\r",
                     "            items : [\r",
                     "            {\r",
                     "                title : '功能链接',\r",
