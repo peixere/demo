@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class AntUrlMatcher implements UrlMatcher
+public class UrlMatcherAnt implements UrlMatcher
 {
 	private boolean requiresLowerCaseUrl = true;
-	private PathMatcher pathMatcher = new AntPathMatcher();
+	private PathMatcher pathMatcher = new PathMatcherAnt();
 
-	public AntUrlMatcher()
+	public UrlMatcherAnt()
 	{
 		this(true);
 	}
 
-	public AntUrlMatcher(boolean requiresLowerCaseUrl)
+	public UrlMatcherAnt(boolean requiresLowerCaseUrl)
 	{
 		this.requiresLowerCaseUrl = requiresLowerCaseUrl;
 	}
@@ -63,7 +63,7 @@ public class AntUrlMatcher implements UrlMatcher
 		Map<String, String> resMap = new HashMap<String, String>();
 		resMap.put("/admin/**/*.jsp", "ADMIN");
 		resMap.put("/*.html", "ADMIN");
-		UrlMatcher matcher = new AntUrlMatcher();
+		UrlMatcher matcher = new UrlMatcherAnt();
 		for (String res : resMap.keySet())
 		{
 			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))

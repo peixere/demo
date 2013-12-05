@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import cn.gotom.util.Assert;
 import cn.gotom.util.StringUtils;
 
-public class AntPathMatcher implements PathMatcher
+public class PathMatcherAnt implements PathMatcher
 {
 
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{[^/]+?\\}");

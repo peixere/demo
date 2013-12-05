@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * @author Luke Taylor
  * Copied from Spring Security 3.0.7 RELEASE 
  */
-public class RegexUrlMatcher implements UrlMatcher {
+public class UrlMatcherRegex implements UrlMatcher {
     private boolean requiresLowerCaseUrl = false;
 
     public Object compile(String path) {
@@ -39,7 +39,7 @@ public class RegexUrlMatcher implements UrlMatcher {
 		Map<String, String> resMap = new HashMap<String, String>();
 		resMap.put("/admin/**/*.jsp", "ADMIN");
 		resMap.put("/*.html", "ADMIN");
-		UrlMatcher matcher = new RegexUrlMatcher();
+		UrlMatcher matcher = new UrlMatcherRegex();
 		for (String res : resMap.keySet())
 		{
 			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))
