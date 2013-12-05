@@ -11,11 +11,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.gotom.client.filter.AbstractConfigurationFilter;
+import cn.gotom.client.util.UrlUtils;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
 import cn.gotom.service.IUrlMatcher;
-import cn.gotom.web.util.UrlUtils;
-import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -74,7 +74,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 
 	private void initAuthenticationNone()
 	{
-		String none = getInitParameter(filterConfig, "authenticationNone");
+		String none = getInitParameter(filterConfig, "authenticationNone", null);
 		if (none != null)
 		{
 			none = none.trim().replace("；", ";");
