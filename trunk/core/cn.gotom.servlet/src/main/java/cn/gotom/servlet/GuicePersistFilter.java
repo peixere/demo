@@ -66,7 +66,7 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 			log.error("程序异常", ex);
 			response.setStatus(500);
 			// request.setAttribute("java.lang.Throwable", ex);
-			request.getRequestDispatcher("/final/500.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
 		}
 		finally
 		{

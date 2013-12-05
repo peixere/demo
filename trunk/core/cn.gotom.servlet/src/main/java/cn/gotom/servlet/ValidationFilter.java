@@ -63,7 +63,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 				log.warn(request.getRemoteUser() + " 403：" + url);
 				response.setStatus(403);
 				request.setAttribute("url", url);
-				request.getRequestDispatcher("/final/403.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/view/error/403.jsp").forward(request, response);
 			}
 		}
 		finally
