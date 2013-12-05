@@ -228,7 +228,7 @@
                     "    {\r",
                     "        id : 'app-portal',\r",
                     "        region : 'center',\r",
-                    "        title : \"平台首页\",\r",
+                    "        title : \"我的桌面\",\r",
                     "        layout : 'column'\r",
                     "    });\r",
                     "//var tabPanel = Ext.getCmp('tabPanel');\r",

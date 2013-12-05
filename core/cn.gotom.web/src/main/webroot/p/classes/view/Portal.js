@@ -149,7 +149,7 @@ Ext.define('Gotom.view.Portal', {
             {
                 id : 'app-portal',
                 region : 'center',
-                title : "平台首页",
+                title : "我的桌面",
                 layout : 'column'
             });
         //var tabPanel = Ext.getCmp('tabPanel');
