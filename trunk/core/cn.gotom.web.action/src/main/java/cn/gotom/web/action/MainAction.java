@@ -81,11 +81,11 @@ public class MainAction
 		List<Right> menuList = null;
 		if (StringUtils.isNullOrEmpty(id))
 		{
-			menuList = authService.findUserRightList(username, id);
+			menuList = authService.findRightList(username, id);
 		}
 		else
 		{
-			menuList = authService.findUserRightList(username, id);
+			menuList = authService.findRightList(username, id);
 			// menuList = authService.loadTreeByParentId(username, id);
 		}
 		String ctxp = ServletActionContext.getRequest().getContextPath();
