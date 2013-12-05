@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.gotom.client.filter.AbstractConfigurationFilter;
+import cn.gotom.client.util.UrlUtils;
 import cn.gotom.dao.PersistenceLifeCycle;
-import cn.gotom.web.util.UrlUtils;
-import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

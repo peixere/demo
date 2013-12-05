@@ -10,11 +10,11 @@ import javax.servlet.ServletResponse;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.client.authentication.AuthenticatedClient;
+import cn.gotom.client.authentication.AuthenticatedRequest;
+import cn.gotom.client.authentication.AuthenticatedResponse;
+import cn.gotom.client.filter.AbstractConfigurationFilter;
 import cn.gotom.service.AuthenticationService;
-import cn.gotom.sso.client.AuthenticatedClient;
-import cn.gotom.sso.client.AuthenticatedRequest;
-import cn.gotom.sso.client.AuthenticatedResponse;
-import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

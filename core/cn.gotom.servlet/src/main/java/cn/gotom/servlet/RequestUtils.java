@@ -7,6 +7,6 @@ public class RequestUtils
 
 	public static void printParameters()
 	{
-		cn.gotom.web.util.RequestUtils.printParameters(ServletActionContext.getRequest());
+		cn.gotom.client.util.RequestUtils.printParameters(ServletActionContext.getRequest());
 	}
 }

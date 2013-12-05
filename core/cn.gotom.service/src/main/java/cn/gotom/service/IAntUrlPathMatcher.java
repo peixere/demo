@@ -1,8 +1,8 @@
 package cn.gotom.service;
 
-import cn.gotom.matcher.AntUrlMatcher;
+import cn.gotom.matcher.UrlMatcherAnt;
 
-public class IAntUrlPathMatcher extends AntUrlMatcher implements IUrlMatcher
+public class IAntUrlPathMatcher extends UrlMatcherAnt implements IUrlMatcher
 {
 
 }

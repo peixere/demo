@@ -14,8 +14,8 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.ejb.packaging.NativeScanner;
 import org.hibernate.ejb.packaging.Scanner;
 
-import cn.gotom.matcher.AntUrlMatcher;
 import cn.gotom.matcher.UrlMatcher;
+import cn.gotom.matcher.UrlMatcherAnt;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -30,7 +30,7 @@ public class Persistence implements PersistenceLifeCycle
 	private final PersistService persistService;
 	private String pattern = "*.pojos.*";
 
-	private final UrlMatcher urlMatcher = new AntUrlMatcher();
+	private final UrlMatcher urlMatcher = new UrlMatcherAnt();
 	
 	@Inject
 	public Persistence(UnitOfWork unitOfWork, PersistService persistService)

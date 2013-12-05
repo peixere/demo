@@ -7,6 +7,6 @@ public class ResponseUtils
 
 	public static void toJSON(Object value)
 	{
-		cn.gotom.web.util.ResponseUtils.toJSON(ServletActionContext.getRequest(), ServletActionContext.getResponse(), value);
+		cn.gotom.client.util.ResponseUtils.toJSON(ServletActionContext.getRequest(), ServletActionContext.getResponse(), value);
 	}
 }
