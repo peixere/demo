@@ -51,6 +51,7 @@ Ext.define('Gotom.view.Portal', {
                 {
                     xtype: 'container',
                     region: 'center',
+                    border: false,
                     id: 'portal-container',
                     layout: {
                         type: 'border'
@@ -182,7 +183,7 @@ Ext.define('Gotom.view.Portal', {
         {
             var portalcolumn = Ext.create('Gotom.view.PortalColumn',
                 {
-                    //columnWidth : 0.7,
+                    columnWidth : 0.7,
                     items : [
                     {
                         title : '最新通知',
@@ -208,7 +209,7 @@ Ext.define('Gotom.view.Portal', {
             portalPanel.add(portalcolumn);
             var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',
                 {
-                    //columnWidth : 0.7,
+                    columnWidth : 0.3,
                     items : [
                     {
                         title : '功能链接',
