@@ -3,7 +3,6 @@
     font-weight: 200;
     text-shadow: 0 1px 0 #fff;
     color: #596F8F;
-    padding: 1px 1px;
 }
 
 .x-theme-neptune #app-header {
@@ -299,14 +298,14 @@
 	float:left;
 	line-height:60px;
 	font-size:28px;
-	padding-left:20px;
+	color: #f6f6f6;
 }
 
 .userPanel{
 	float:right;
 	width:300px;	
 	font-size:12px;
-	padding-top:40px;
+	padding-top:36px;
 	padding-right:20px;
 	text-align: right;
 	color: red;
