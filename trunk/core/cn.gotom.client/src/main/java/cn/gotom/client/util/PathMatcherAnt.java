@@ -1,6 +1,7 @@
 package cn.gotom.client.util;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,20 @@ import java.util.regex.Pattern;
 
 public class PathMatcherAnt implements PathMatcher
 {
-
+	public static void main(String[] args)
+	{
+		Map<String, String> resMap = new HashMap<String, String>();
+		resMap.put("/admin/**/*.jsp", "ADMIN");
+		resMap.put("/*.html", "ADMIN");
+		PathMatcher matcher = new PathMatcherAnt();
+		for (String res : resMap.keySet())
+		{
+			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))
+			{
+				System.out.println(res);
+			}
+		}
+	} 
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{[^/]+?\\}");
 
 	/** Default path separator: "/" */
