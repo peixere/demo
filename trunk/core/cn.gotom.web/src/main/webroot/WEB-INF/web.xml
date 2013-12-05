@@ -15,16 +15,11 @@
 		<param-value>true</param-value>
 	</context-param>
 	<context-param>
-	    <description>无须验证资源</description>
+	    <description>无须登陆可访问资源</description>
 		<param-name>authenticationNone</param-name>
 		<param-value>
-		    /ext4/**/**;
-		    /final/**/**;
-		    /resources/**/**;
-		    /**/**.htm*;
-		    /**/**.js;
-		    /**/**.css;
-		    /**/**.ico;
+		    /ext4/**,
+		    /resources/**
 		</param-value>
 	</context-param>
 	<context-param>
@@ -83,7 +78,7 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/final/404.jsp</location>
+		<location>/WEB-INF/view/error/404.jsp</location>
 	</error-page>
 	<!-- 
 	<error-page>
