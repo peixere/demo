@@ -781,9 +781,14 @@ request.setCharacterEncoding("utf-8");
 <meta http-equiv="pragma" content="no-cache">
 <%
 String isLogin = (String)request.getSession().getAttribute(SessionLogin); 
-//isLogin = "true";
+boolean logined = false;
 if(isLogin!= null && isLogin.length() >0)
 {
+	logined = true;
+	if("true".equals(request.getParameter("logout"))){
+		request.getSession().removeAttribute(SessionLogin); 
+		response.sendRedirect(request.getRequestURI());
+	}
 %>	
 <%
 		//Get the current browsing directory
@@ -1924,6 +1929,7 @@ Upload finished.
 		<input type="hidden" name="sort" value="<%=sortMode%>">
 		<input type="hidden" name="command" value="">
 		<input title="Launch command in current directory" type="Submit" class="button" id="but_Lau" name="Submit" value="<%=LAUNCH_COMMAND%>">
+		<input title="logout" type="button" class="button" id="logout" onclick="window.location.href='<%=request.getRequestURI()%>?logout=true'" name="logout" value="logout">
 	</form><%
     }%>
     </div>
