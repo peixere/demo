@@ -17,6 +17,7 @@ Ext.define('Gotom.view.UserPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.UserPanel',
 
+    border: false,
     id: 'UserPanel',
     layout: {
         type: 'border'
@@ -126,6 +127,7 @@ Ext.define('Gotom.view.UserPanel', {
                     region: 'west',
                     id: 'UserGridPanel',
                     width: 326,
+                    bodyBorder: false,
                     title: '用户列表',
                     columns: [
                         {
@@ -176,6 +178,7 @@ Ext.define('Gotom.view.UserPanel', {
                 {
                     xtype: 'panel',
                     region: 'center',
+                    border: false,
                     id: 'UserCenterPanel',
                     layout: {
                         type: 'border'
