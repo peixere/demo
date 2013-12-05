@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.dao.PersistenceLifeCycle;
+import cn.gotom.web.util.UrlUtils;
 import cn.gotom.web.util.filter.AbstractConfigurationFilter;
 
 import com.google.inject.Inject;
@@ -58,6 +59,10 @@ public class GuicePersistFilter extends AbstractConfigurationFilter
 		}
 		catch (Exception ex)
 		{
+			String url = UrlUtils.buildUrl(request);
+			log.warn(request.getRemoteUser() + " Exception：" + url);
+			request.setAttribute("url", url);
+			request.setAttribute("errorMsg", ex.getMessage());
 			log.error("程序异常", ex);
 			response.setStatus(500);
 			// request.setAttribute("java.lang.Throwable", ex);
