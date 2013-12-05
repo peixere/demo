@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 
 public abstract class StringUtils
 {
-	protected static Logger log = Logger.getLogger(Converter.class.getName());
+	protected static Logger log = Logger.getLogger(StringUtils.class);
 
 	/**
 	 * @param args
