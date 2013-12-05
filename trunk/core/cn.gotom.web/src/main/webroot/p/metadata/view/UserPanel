@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "border": false,
         "id": "UserPanel",
         "designer|userClassName": "UserPanel",
         "designer|userAlias": "UserPanel",
@@ -286,8 +287,10 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "west",
+                "border": null,
                 "id": "UserGridPanel",
                 "width": 326,
+                "bodyBorder": false,
                 "title": "用户列表"
             },
             "designerId": "101e8393-eba9-4ef0-9801-998dcbce9b8f",
@@ -422,6 +425,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
+                "border": false,
                 "id": "UserCenterPanel",
                 "layout": "border",
                 "title": null
