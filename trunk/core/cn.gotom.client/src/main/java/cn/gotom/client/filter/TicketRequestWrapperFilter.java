@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.gotom.client.Ticket;
 
-public final class TicketRequestWrapperFilter extends AbstractFilter
+public final class TicketRequestWrapperFilter extends AbstractConfigurationFilter
 {
-
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
 	{
 		final Ticket ticket = getTicketFromSessionOrRequest(request);
 		filterChain.doFilter(new TicketRequestWrapper((HttpServletRequest) request, ticket), response);
+	}
+
+	@Override
+	public void destroy()
+	{
+
 	}
 }

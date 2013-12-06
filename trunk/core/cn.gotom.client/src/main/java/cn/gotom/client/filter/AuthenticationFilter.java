@@ -14,7 +14,7 @@ import cn.gotom.client.Ticket;
 import cn.gotom.client.util.CommonUtils;
 import cn.gotom.client.util.UrlUtils;
 
-public class AuthenticationFilter extends AbstractFilter
+public class AuthenticationFilter extends AbstractConfigurationFilter
 {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -39,8 +39,7 @@ public class AuthenticationFilter extends AbstractFilter
 			filterChain.doFilter(request, response);
 			return;
 		}
-
-		final String ticketName = CommonUtils.safeGetParameter(request, ticketParameterName);
+		final String ticketName = CommonUtils.safeGetParameter(request, ticketParameter);
 		if (CommonUtils.isNotBlank(ticketName))
 		{
 			filterChain.doFilter(request, response);
@@ -51,13 +50,18 @@ public class AuthenticationFilter extends AbstractFilter
 		{
 			log.debug("Constructed service url: " + serviceUrl);
 		}
-
-		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(this.getServerUrl(), serviceParameter, this.getService());
-
+		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(this.getServerUrl(), serviceParameter, serviceUrl);
 		if (log.isDebugEnabled())
 		{
 			log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		}
 		response.sendRedirect(urlToRedirectTo);
+	}
+
+	@Override
+	public void destroy()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
