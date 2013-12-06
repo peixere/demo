@@ -11,7 +11,6 @@ public class Ticket implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String CONST_TICKET = "CONST_TICKET";
 	private String name;
 	private String url;
 	private String user;

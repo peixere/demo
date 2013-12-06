@@ -39,7 +39,7 @@ public class AuthenticationFilter extends AbstractConfigurationFilter
 			filterChain.doFilter(request, response);
 			return;
 		}
-		final String ticketName = CommonUtils.safeGetParameter(request, ticketParameter);
+		final String ticketName = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
 		if (CommonUtils.isNotBlank(ticketName))
 		{
 			filterChain.doFilter(request, response);
