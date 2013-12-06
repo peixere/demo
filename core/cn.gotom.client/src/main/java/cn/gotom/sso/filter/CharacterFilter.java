@@ -1,4 +1,4 @@
-package cn.gotom.client.filter;
+package cn.gotom.sso.filter;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import cn.gotom.client.util.CommonUtils;
+import cn.gotom.sso.util.CommonUtils;
 
 public class CharacterFilter extends AbstractConfigurationFilter
 {

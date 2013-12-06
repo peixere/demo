@@ -1,9 +1,9 @@
-package cn.gotom.client.filter;
+package cn.gotom.sso.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import cn.gotom.client.Ticket;
+import cn.gotom.sso.Ticket;
 
 public class TicketRequestWrapper extends HttpServletRequestWrapper
 {

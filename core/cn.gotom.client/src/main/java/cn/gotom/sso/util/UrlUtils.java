@@ -1,4 +1,4 @@
-package cn.gotom.client.util;
+package cn.gotom.sso.util;
 
 import java.util.regex.Pattern;
 

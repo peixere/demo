@@ -1,9 +1,9 @@
-package cn.gotom.client;
+package cn.gotom.sso;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import cn.gotom.client.util.CommonUtils;
+import cn.gotom.sso.util.CommonUtils;
 
 public class Ticket implements Serializable
 {

@@ -1,4 +1,4 @@
-package cn.gotom.client;
+package cn.gotom.sso;
 
 import java.util.HashMap;
 

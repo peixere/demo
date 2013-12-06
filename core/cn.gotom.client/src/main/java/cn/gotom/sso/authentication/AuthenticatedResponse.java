@@ -1,4 +1,4 @@
-package cn.gotom.client.authentication;
+package cn.gotom.sso.authentication;
 
 public class AuthenticatedResponse extends AuthenticatedRequest
 {

@@ -1,4 +1,4 @@
-package cn.gotom.client.filter;
+package cn.gotom.sso.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.client.Ticket;
-import cn.gotom.client.util.CommonUtils;
-import cn.gotom.client.util.PathMatcher;
-import cn.gotom.client.util.PathMatcherAnt;
+import cn.gotom.sso.Ticket;
+import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.sso.util.PathMatcher;
+import cn.gotom.sso.util.PathMatcherAnt;
 
 public abstract class AbstractConfigurationFilter implements Filter
 {

@@ -1,4 +1,4 @@
-package cn.gotom.client.filter;
+package cn.gotom.sso.filter;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import cn.gotom.client.Ticket;
+import cn.gotom.sso.Ticket;
 
 public final class TicketRequestWrapperFilter extends AbstractConfigurationFilter
 {

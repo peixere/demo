@@ -1,4 +1,4 @@
-package cn.gotom.client.session;
+package cn.gotom.sso.session;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
