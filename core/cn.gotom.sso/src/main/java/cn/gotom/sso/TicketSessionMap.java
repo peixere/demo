@@ -2,7 +2,7 @@ package cn.gotom.sso;
 
 import java.util.HashMap;
 
-public class TicketStore extends HashMap<String, Ticket>
+public class TicketSessionMap extends HashMap<String, Ticket>
 {
 
 	/**
