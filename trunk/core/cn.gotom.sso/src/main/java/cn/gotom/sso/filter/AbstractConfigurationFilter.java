@@ -18,14 +18,15 @@ import cn.gotom.sso.util.PathMatcherAnt;
 public abstract class AbstractConfigurationFilter implements Filter
 {
 	protected final Logger log = Logger.getLogger(getClass());
-
-	protected final String serviceParameter = "service";
-
-	protected final String serverUrlParameter = "serverUrl";
-
-	protected final String ticketParameter = "ticket";
-
 	protected final PathMatcher urlMatcher = new PathMatcherAnt();
+
+	protected static final String serviceParameter = "service";
+
+	protected static final String serverUrlParameter = "serverUrl";
+
+	private String ticketParameterName = "ticket";
+
+	private String serviceParameterName = "service";
 
 	private boolean encodeServiceUrl = true;
 
@@ -52,6 +53,122 @@ public abstract class AbstractConfigurationFilter implements Filter
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		initInternal(filterConfig);
+	}
+
+	private void initIgnore(FilterConfig filterConfig)
+	{
+		String none = getInitParameter(filterConfig, "authenticationNone", null);
+		log.trace("Loaded " + "authenticationNone" + " parameter: " + none);
+		if (none != null)
+		{
+			none = none.trim().replace("；", ";");
+			none = none.replace(",", ";");
+			none = none.replace("，", ";");
+			none = none.replace("\n", ";");
+			authenticationNones = none.trim().split(";");
+			for (int i = 0; i < authenticationNones.length; i++)
+			{
+				authenticationNones[i] = authenticationNones[i].trim();
+			}
+		}
+	}
+
+	protected boolean isIgnore(String url)
+	{
+		if (authenticationNones != null)
+		{
+			for (String pattern : authenticationNones)
+			{
+				if (urlMatcher.pathMatchesUrl(pattern.trim(), url))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	protected void initInternal(final FilterConfig filterConfig) throws ServletException
+	{
+		initIgnore(filterConfig);
+		setTicketParameterName(getInitParameter(filterConfig, "ticketParameterName", "ticket"));
+		log.trace("Loading artifact parameter name property: " + this.getTicketParameterName());
+		setServiceParameterName(getInitParameter(filterConfig, "serviceParameterName", "service"));
+		log.trace("Loading serviceParameterName property: " + this.getServiceParameterName());
+
+		setServerName(getInitParameter(filterConfig, "serverName", null));
+		log.trace("Loading serverName property: " + this.serverName);
+		setService(getInitParameter(filterConfig, serviceParameter, null));
+		log.trace("Loaded " + serviceParameter + " parameter: " + this.getService());
+		setServerUrl(getInitParameter(filterConfig, serverUrlParameter, null));
+		log.trace("Loaded " + serverUrlParameter + " parameter: " + this.getServerUrl());
+		setEncodeServiceUrl(CommonUtils.parseBoolean(getInitParameter(filterConfig, "encodeServiceUrl", "true")));
+		log.trace("Loading encodeServiceUrl property: " + this.encodeServiceUrl);
+	}
+
+	protected Ticket getTicketFromSessionOrRequest(final ServletRequest servletRequest)
+	{
+		final HttpServletRequest request = (HttpServletRequest) servletRequest;
+		final HttpSession session = request.getSession(false);
+		final Ticket ticket = (Ticket) (session == null ? request.getAttribute(getTicketParameterName()) : session.getAttribute(getTicketParameterName()));
+		return ticket;
+	}
+
+	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.getTicketParameterName(), this.encodeServiceUrl);
+	}
+
+	protected final String getInitParameter(final FilterConfig filterConfig, final String propertyName, final String defaultValue)
+	{
+		String value = filterConfig.getInitParameter(propertyName);
+		if (CommonUtils.isNotBlank(value))
+		{
+			log.info("Property [" + propertyName + "] loaded from FilterConfig.getInitParameter with value [" + value + "]");
+			return value;
+		}
+		value = filterConfig.getServletContext().getInitParameter(propertyName);
+		if (CommonUtils.isNotBlank(value))
+		{
+			log.info("Property [" + propertyName + "] loaded from ServletContext.getInitParameter with value [" + value + "]");
+			return value;
+		}
+		if (CommonUtils.isEmpty(value))
+		{
+			value = defaultValue;
+		}
+		log.info("Property [" + propertyName + "] not found.  Using default value [" + defaultValue + "]");
+		return defaultValue;
+	}
+
+	public boolean isEncodeServiceUrl()
+	{
+		return encodeServiceUrl;
+	}
+
+	public void setEncodeServiceUrl(boolean encodeServiceUrl)
+	{
+		this.encodeServiceUrl = encodeServiceUrl;
+	}
+
+	public String getTicketParameterName()
+	{
+		return ticketParameterName;
+	}
+
+	public void setTicketParameterName(String ticketParameterName)
+	{
+		this.ticketParameterName = ticketParameterName;
+	}
+
+	public String getServiceParameterName()
+	{
+		return serviceParameterName;
+	}
+
+	public void setServiceParameterName(String serviceParameterName)
+	{
+		this.serviceParameterName = serviceParameterName;
 	}
 
 	public String getServerName()
@@ -94,94 +211,4 @@ public abstract class AbstractConfigurationFilter implements Filter
 		this.authenticationNones = authenticationNones;
 	}
 
-	public boolean isEncodeServiceUrl()
-	{
-		return encodeServiceUrl;
-	}
-
-	public void setEncodeServiceUrl(boolean encodeServiceUrl)
-	{
-		this.encodeServiceUrl = encodeServiceUrl;
-	}
-
-	private void initIgnore(FilterConfig filterConfig)
-	{
-		String none = getInitParameter(filterConfig, "authenticationNone", null);
-		log.trace("Loaded " + "authenticationNone" + " parameter: " + none);
-		if (none != null)
-		{
-			none = none.trim().replace("；", ";");
-			none = none.replace(",", ";");
-			none = none.replace("，", ";");
-			none = none.replace("\n", ";");
-			authenticationNones = none.trim().split(";");
-			for (int i = 0; i < authenticationNones.length; i++)
-			{
-				authenticationNones[i] = authenticationNones[i].trim();
-			}
-		}
-	}
-
-	protected boolean isIgnore(String url)
-	{
-		if (authenticationNones != null)
-		{
-			for (String pattern : authenticationNones)
-			{
-				if (urlMatcher.pathMatchesUrl(pattern.trim(), url))
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	protected void initInternal(final FilterConfig filterConfig) throws ServletException
-	{
-		initIgnore(filterConfig);
-		setServerName(getInitParameter(filterConfig, "serverName", null));
-		log.trace("Loading serverName property: " + this.serverName);
-		setService(getInitParameter(filterConfig, serviceParameter, null));
-		log.trace("Loaded " + serviceParameter + " parameter: " + this.getService());
-		setServerUrl(getInitParameter(filterConfig, serviceParameter, null));
-		log.trace("Loaded " + serverUrlParameter + " parameter: " + this.getServerUrl());
-		setEncodeServiceUrl(CommonUtils.parseBoolean(getInitParameter(filterConfig, "encodeServiceUrl", "true")));
-		log.trace("Loading encodeServiceUrl property: " + this.encodeServiceUrl);
-	}
-
-	protected Ticket getTicketFromSessionOrRequest(final ServletRequest servletRequest)
-	{
-		final HttpServletRequest request = (HttpServletRequest) servletRequest;
-		final HttpSession session = request.getSession(false);
-		final Ticket ticket = (Ticket) (session == null ? request.getAttribute(Ticket.CONST_TICKET) : session.getAttribute(Ticket.CONST_TICKET));
-		return ticket;
-	}
-
-	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
-	{
-		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.ticketParameter, this.encodeServiceUrl);
-	}
-
-	protected final String getInitParameter(final FilterConfig filterConfig, final String propertyName, final String defaultValue)
-	{
-		String value = filterConfig.getInitParameter(propertyName);
-		if (CommonUtils.isNotBlank(value))
-		{
-			log.info("Property [" + propertyName + "] loaded from FilterConfig.getInitParameter with value [" + value + "]");
-			return value;
-		}
-		value = filterConfig.getServletContext().getInitParameter(propertyName);
-		if (CommonUtils.isNotBlank(value))
-		{
-			log.info("Property [" + propertyName + "] loaded from ServletContext.getInitParameter with value [" + value + "]");
-			return value;
-		}
-		if (CommonUtils.isEmpty(value))
-		{
-			value = defaultValue;
-		}
-		log.info("Property [" + propertyName + "] not found.  Using default value [" + defaultValue + "]");
-		return defaultValue;
-	}
 }
