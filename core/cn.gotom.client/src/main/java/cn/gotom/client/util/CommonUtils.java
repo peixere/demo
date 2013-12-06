@@ -73,9 +73,14 @@ public final class CommonUtils
 		}
 	}
 
-	public static boolean isEmpty(final String string)
+	public static boolean isEmpty(final String value)
 	{
-		return string == null || string.length() == 0;
+		return (value != null) ? (value.trim().length() == 0) : true;
+	}
+
+	public static boolean parseBoolean(final String value)
+	{
+		return ((value != null) && value.equalsIgnoreCase("true"));
 	}
 
 	public static boolean isNotEmpty(final String string)
@@ -93,11 +98,11 @@ public final class CommonUtils
 		return !isBlank(string);
 	}
 
-	public static String constructRedirectUrl(final String casServerLoginUrl, final String serviceParameterName, final String serviceUrl, final boolean renew, final boolean gateway)
+	public static String constructRedirectUrl(final String serverLoginUrl, final String serviceParameter, final String serviceUrl)
 	{
 		try
 		{
-			return casServerLoginUrl + (casServerLoginUrl.indexOf("?") != -1 ? "&" : "?") + serviceParameterName + "=" + URLEncoder.encode(serviceUrl, "UTF-8") + (renew ? "&renew=true" : "") + (gateway ? "&gateway=true" : "");
+			return serverLoginUrl + (serverLoginUrl.indexOf("?") != -1 ? "&" : "?") + serviceParameter + "=" + URLEncoder.encode(serviceUrl, "UTF-8");
 		}
 		catch (final UnsupportedEncodingException e)
 		{
@@ -159,23 +164,16 @@ public final class CommonUtils
 		return url.toString();
 	}
 
-	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String service, final String serverName, final String artifactParameterName, final boolean encode)
+	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String serviceUrl, final String ticketParameterName, final boolean encode)
 	{
-		if (CommonUtils.isNotBlank(service))
-		{
-			return encode ? response.encodeURL(service) : service;
-		}
-
 		final StringBuilder buffer = new StringBuilder();
-
-		if (CommonUtils.isNotBlank(serverName))
+		if (CommonUtils.isNotBlank(serviceUrl))
 		{
-			if (!serverName.startsWith("https://") && !serverName.startsWith("http://"))
+			if (!serviceUrl.startsWith("https://") && !serviceUrl.startsWith("http://"))
 			{
 				buffer.append(request.isSecure() ? "https://" : "http://");
 			}
-
-			buffer.append(serverName);
+			buffer.append(serviceUrl);
 		}
 		else
 		{
@@ -185,7 +183,7 @@ public final class CommonUtils
 
 		if (CommonUtils.isNotBlank(request.getQueryString()))
 		{
-			final int location = request.getQueryString().indexOf(artifactParameterName + "=");
+			final int location = request.getQueryString().indexOf(ticketParameterName + "=");
 
 			if (location == 0)
 			{
@@ -205,7 +203,7 @@ public final class CommonUtils
 			}
 			else if (location > 0)
 			{
-				final int actualLocation = request.getQueryString().indexOf("&" + artifactParameterName + "=");
+				final int actualLocation = request.getQueryString().indexOf("&" + ticketParameterName + "=");
 
 				if (actualLocation == -1)
 				{
