@@ -2,7 +2,7 @@ package cn.gotom.servlet;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.gotom.client.util.CommonUtils;
+import cn.gotom.sso.util.CommonUtils;
 
 public class RequestUtils
 {
