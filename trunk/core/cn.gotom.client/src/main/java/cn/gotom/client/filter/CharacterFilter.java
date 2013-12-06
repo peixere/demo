@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import cn.gotom.client.util.CommonUtils;
+
 public class CharacterFilter extends AbstractConfigurationFilter
 {
 	private String encoding;
@@ -49,6 +51,6 @@ public class CharacterFilter extends AbstractConfigurationFilter
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		setEncoding(getInitParameter(filterConfig, "encoding", null));
-		setForceEncoding(parseBoolean(getInitParameter(filterConfig, "forceEncoding", null)));
+		setForceEncoding(CommonUtils.parseBoolean(getInitParameter(filterConfig, "forceEncoding", null)));
 	}
 }
