@@ -16,6 +16,7 @@ import cn.gotom.sso.util.UrlUtils;
 
 public class AuthenticationFilter extends AbstractConfigurationFilter
 {
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
@@ -62,6 +63,6 @@ public class AuthenticationFilter extends AbstractConfigurationFilter
 	public void destroy()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }
