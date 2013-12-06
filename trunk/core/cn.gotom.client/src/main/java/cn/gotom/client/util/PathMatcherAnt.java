@@ -96,8 +96,8 @@ public class PathMatcherAnt implements PathMatcher
 			return false;
 		}
 
-		String[] pattDirs = StringUtils.tokenizeToStringArray(pattern, this.pathSeparator, this.trimTokens, true);
-		String[] pathDirs = StringUtils.tokenizeToStringArray(path, this.pathSeparator, this.trimTokens, true);
+		String[] pattDirs = CommonUtils.tokenizeToStringArray(pattern, this.pathSeparator, this.trimTokens, true);
+		String[] pathDirs = CommonUtils.tokenizeToStringArray(path, this.pathSeparator, this.trimTokens, true);
 
 		int pattIdxStart = 0;
 		int pattIdxEnd = pattDirs.length - 1;
@@ -283,8 +283,8 @@ public class PathMatcherAnt implements PathMatcher
 	@Override
 	public String extractPathWithinPattern(String pattern, String path)
 	{
-		String[] patternParts = StringUtils.tokenizeToStringArray(pattern, this.pathSeparator, this.trimTokens, true);
-		String[] pathParts = StringUtils.tokenizeToStringArray(path, this.pathSeparator, this.trimTokens, true);
+		String[] patternParts = CommonUtils.tokenizeToStringArray(pattern, this.pathSeparator, this.trimTokens, true);
+		String[] pathParts = CommonUtils.tokenizeToStringArray(path, this.pathSeparator, this.trimTokens, true);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -414,15 +414,15 @@ public class PathMatcherAnt implements PathMatcher
 	@Override
 	public String combine(String pattern1, String pattern2)
 	{
-		if (!StringUtils.hasText(pattern1) && !StringUtils.hasText(pattern2))
+		if (!CommonUtils.hasText(pattern1) && !CommonUtils.hasText(pattern2))
 		{
 			return "";
 		}
-		else if (!StringUtils.hasText(pattern1))
+		else if (!CommonUtils.hasText(pattern1))
 		{
 			return pattern2;
 		}
-		else if (!StringUtils.hasText(pattern2))
+		else if (!CommonUtils.hasText(pattern2))
 		{
 			return pattern1;
 		}
@@ -562,8 +562,8 @@ public class PathMatcherAnt implements PathMatcher
 			int wildCardCount1 = getWildCardCount(pattern1);
 			int wildCardCount2 = getWildCardCount(pattern2);
 
-			int bracketCount1 = StringUtils.countOccurrencesOf(pattern1, "{");
-			int bracketCount2 = StringUtils.countOccurrencesOf(pattern2, "{");
+			int bracketCount1 = CommonUtils.countOccurrencesOf(pattern1, "{");
+			int bracketCount2 = CommonUtils.countOccurrencesOf(pattern2, "{");
 
 			int totalCount1 = wildCardCount1 + bracketCount1;
 			int totalCount2 = wildCardCount2 + bracketCount2;
@@ -608,7 +608,7 @@ public class PathMatcherAnt implements PathMatcher
 			{
 				pattern = pattern.substring(0, pattern.length() - 2);
 			}
-			return StringUtils.countOccurrencesOf(pattern, "*");
+			return CommonUtils.countOccurrencesOf(pattern, "*");
 		}
 
 		/**
