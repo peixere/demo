@@ -1,7 +1,10 @@
 package cn.gotom.client.util;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
@@ -22,7 +26,16 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSON;
+import net.sf.json.JsonConfig;
+import net.sf.json.processors.JsonValueProcessor;
+import net.sf.json.util.CycleDetectionStrategy;
+
 import org.apache.log4j.Logger;
+import org.dom4j.Document;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 /**
  * Common utilities so that we don't need to include log4j
@@ -34,7 +47,7 @@ import org.apache.log4j.Logger;
 public final class CommonUtils
 {
 
-	private static final Logger LOG = Logger.getLogger(CommonUtils.class);
+	private static final Logger log = Logger.getLogger(CommonUtils.class);
 
 	private CommonUtils()
 	{
@@ -160,20 +173,25 @@ public final class CommonUtils
 				url.append(":").append(serverPort);
 			}
 		}
-		LOG.info(url);
+		log.info(url);
 		return url.toString();
 	}
 
-	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String serviceUrl, final String ticketParameterName, final boolean encode)
+	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String service,final String serverName, final String ticketParameterName, final boolean encode)
 	{
-		final StringBuilder buffer = new StringBuilder();
-		if (CommonUtils.isNotBlank(serviceUrl))
+		if (CommonUtils.isNotBlank(service))
 		{
-			if (!serviceUrl.startsWith("https://") && !serviceUrl.startsWith("http://"))
+			return encode ? response.encodeURL(service) : service;
+		}
+		final StringBuilder buffer = new StringBuilder();
+		if (CommonUtils.isNotBlank(serverName))
+		{
+			if (!serverName.startsWith("https://") && !serverName.startsWith("http://"))
 			{
 				buffer.append(request.isSecure() ? "https://" : "http://");
 			}
-			buffer.append(serviceUrl);
+
+			buffer.append(serverName);
 		}
 		else
 		{
@@ -188,9 +206,9 @@ public final class CommonUtils
 			if (location == 0)
 			{
 				final String returnValue = encode ? response.encodeURL(buffer.toString()) : buffer.toString();
-				if (LOG.isDebugEnabled())
+				if (log.isDebugEnabled())
 				{
-					LOG.debug("serviceUrl generated: " + returnValue);
+					log.debug("serviceUrl generated: " + returnValue);
 				}
 				return returnValue;
 			}
@@ -217,9 +235,9 @@ public final class CommonUtils
 		}
 
 		final String returnValue = encode ? response.encodeURL(buffer.toString()) : buffer.toString();
-		if (LOG.isDebugEnabled())
+		if (log.isDebugEnabled())
 		{
-			LOG.debug("serviceUrl generated: " + returnValue);
+			log.debug("serviceUrl generated: " + returnValue);
 		}
 		return returnValue;
 	}
@@ -228,7 +246,7 @@ public final class CommonUtils
 	{
 		if ("POST".equals(request.getMethod()) && "logoutRequest".equals(parameter))
 		{
-			LOG.debug("safeGetParameter called on a POST HttpServletRequest for LogoutRequest.  Cannot complete check safely.  Reverting to standard behavior for this Parameter");
+			log.debug("safeGetParameter called on a POST HttpServletRequest for LogoutRequest.  Cannot complete check safely.  Reverting to standard behavior for this Parameter");
 			return request.getParameter(parameter);
 		}
 		return request.getQueryString() == null || request.getQueryString().indexOf(parameter) == -1 ? null : request.getParameter(parameter);
@@ -272,7 +290,7 @@ public final class CommonUtils
 		}
 		catch (final Exception e)
 		{
-			LOG.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
 		finally
@@ -317,7 +335,7 @@ public final class CommonUtils
 		}
 		catch (final Exception e)
 		{
-			LOG.warn(e.getMessage(), e);
+			log.warn(e.getMessage(), e);
 		}
 
 	}
@@ -401,5 +419,99 @@ public final class CommonUtils
 			}
 		}
 		return false;
+	}
+
+	public static void printParameters(HttpServletRequest request)
+	{
+		Map<String, String[]> params = request.getParameterMap();
+		StringBuffer sb = new StringBuffer();
+		for (String key : params.keySet())
+		{
+			sb.append("\n" + key + "=");
+			String[] values = params.get(key);
+			for (String value : values)
+			{
+				sb.append(value + ",");
+			}
+		}
+		log.debug(sb);
+	}
+
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
+	{
+		JsonConfig config = new JsonConfig();
+		config.setIgnoreDefaultExcludes(false);
+		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+		if (dateFormat != null && dateFormat.trim().length() > 0)
+		{
+			JsonValueProcessor dateValueProcessor = new JsonDateValueProcessor();
+			config.registerJsonValueProcessor(java.sql.Timestamp.class, dateValueProcessor);
+			config.registerJsonValueProcessor(java.util.Date.class, dateValueProcessor);
+		}
+		JSON json = net.sf.json.JSONSerializer.toJSON(value, config);
+		String encoing = request.getCharacterEncoding();
+		// response.setContentType("text/html;charset=" + encoing);
+		response.setContentType("application/json;charset=" + encoing);
+		try
+		{
+			response.getWriter().println(json.toString());
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			log.error("输出JSON异常 " + value);
+		}
+		finally
+		{
+			try
+			{
+				response.getWriter().flush();
+				response.getWriter().close();
+			}
+			catch (IOException e)
+			{
+				log.error("输出JSON异常 " + value);
+			}
+		}
+	}
+
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value)
+	{
+		toJSON(request, response, value, null);
+	}
+
+	public static String formatXML(String inputXML)
+	{
+		SAXReader reader = new SAXReader();
+		XMLWriter writer = null;
+		try
+		{
+			Document document = (Document) reader.read(new StringReader(inputXML));
+			StringWriter stringWriter = new StringWriter();
+			OutputFormat format = new OutputFormat(" ", true);
+			writer = new XMLWriter(stringWriter, format);
+			writer.write(document);
+			writer.flush();
+			inputXML = stringWriter.getBuffer().toString();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+		finally
+		{
+			if (writer != null)
+			{
+				try
+				{
+					writer.close();
+				}
+				catch (IOException e)
+				{
+				}
+			}
+		}
+		return inputXML;
 	}
 }
