@@ -52,7 +52,7 @@ public class AuthenticationFilter extends AbstractFilter
 			log.debug("Constructed service url: " + serviceUrl);
 		}
 
-		final String urlToRedirectTo = constructRedirectUrl(request, response);
+		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(this.getServerUrl(), serviceParameter, this.getService());
 
 		if (log.isDebugEnabled())
 		{
