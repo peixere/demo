@@ -11,11 +11,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.gotom.client.filter.AbstractConfigurationFilter;
-import cn.gotom.client.util.UrlUtils;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
 import cn.gotom.service.IUrlMatcher;
+import cn.gotom.sso.filter.AbstractConfigurationFilter;
+import cn.gotom.sso.util.UrlUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

@@ -4,8 +4,8 @@ import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 
-import cn.gotom.client.authentication.AuthenticationFilter;
-import cn.gotom.client.filter.CharacterFilter;
+import cn.gotom.sso.authentication.AuthenticationFilter;
+import cn.gotom.sso.filter.CharacterFilter;
 
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
