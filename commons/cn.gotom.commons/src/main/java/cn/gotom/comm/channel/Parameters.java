@@ -47,6 +47,22 @@ public class Parameters
 		this.hidPID = hidPID;
 	}
 
+	public Parameters(String portName, int baudRate, int databits, int stopbits, int parity)
+	{
+		this(portName, baudRate, 0, 0, baudRate, databits, parity);
+	}
+
+	public Parameters(String portName, int baudRate, int flowControlIn, int flowControlOut, int databits, int stopbits, int parity)
+	{
+		this.setPortName(portName);
+		this.setBaudRate(baudRate);
+		this.setFlowControlIn(flowControlIn);
+		this.setFlowControlOut(flowControlOut);
+		this.setDatabits(databits);
+		this.setParity(parity);
+		this.setStopbits(stopbits);
+	}
+
 	public String getAddress()
 	{
 		return address;
