@@ -10,11 +10,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
+import cn.gotom.sso.TicketImpl;
+import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 
-public class AuthenticationFilter extends AbstractConfigurationFilter
+public class AuthenticationFilter extends AbstractConfigurationFilter implements TicketValidator
 {
 
 	@Override
@@ -34,14 +37,20 @@ public class AuthenticationFilter extends AbstractConfigurationFilter
 			filterChain.doFilter(request, response);
 			return;
 		}
-		final Ticket ticket = getTicketFromSessionOrRequest(request);
-		if (ticket != null)
+		Ticket ticket = getTicketFromSessionOrRequest(request);
+		if (ticket == null)
 		{
-			filterChain.doFilter(request, response);
-			return;
+			final String ticketName = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
+			try
+			{
+				ticket = validate(ticketName, this.getServerUrl());
+			}
+			catch (SSOException e)
+			{
+				log.error("validate ticket [" + ticketName + "] error", e);
+			}
 		}
-		final String ticketName = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
-		if (CommonUtils.isNotBlank(ticketName))
+		if (ticket != null)
 		{
 			filterChain.doFilter(request, response);
 			return;
@@ -62,7 +71,12 @@ public class AuthenticationFilter extends AbstractConfigurationFilter
 	@Override
 	public void destroy()
 	{
-		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Ticket validate(String ticketName, String serverUrl) throws SSOException
+	{
+		return new TicketImpl(ticketName);
 	}
 }

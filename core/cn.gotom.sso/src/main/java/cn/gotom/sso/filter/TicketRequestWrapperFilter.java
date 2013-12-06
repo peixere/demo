@@ -8,13 +8,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import cn.gotom.sso.Ticket;
+import cn.gotom.sso.TicketImpl;
 
 public final class TicketRequestWrapperFilter extends AbstractConfigurationFilter
 {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
 	{
-		final Ticket ticket = getTicketFromSessionOrRequest(request);
+		final TicketImpl ticket = getTicketFromSessionOrRequest(request);
 		filterChain.doFilter(new TicketRequestWrapper((HttpServletRequest) request, ticket), response);
 	}
 

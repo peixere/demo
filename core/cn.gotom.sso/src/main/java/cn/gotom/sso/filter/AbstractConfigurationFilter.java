@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.sso.Ticket;
+import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PathMatcher;
 import cn.gotom.sso.util.PathMatcherAnt;
@@ -106,11 +106,11 @@ public abstract class AbstractConfigurationFilter implements Filter
 		log.trace("Loading encodeServiceUrl property: " + this.encodeServiceUrl);
 	}
 
-	protected Ticket getTicketFromSessionOrRequest(final ServletRequest servletRequest)
+	protected TicketImpl getTicketFromSessionOrRequest(final ServletRequest servletRequest)
 	{
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		final HttpSession session = request.getSession(false);
-		final Ticket ticket = (Ticket) (session == null ? request.getAttribute(getTicketParameterName()) : session.getAttribute(getTicketParameterName()));
+		final TicketImpl ticket = (TicketImpl) (session == null ? request.getAttribute(getTicketParameterName()) : session.getAttribute(getTicketParameterName()));
 		return ticket;
 	}
 

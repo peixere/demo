@@ -2,90 +2,22 @@ package cn.gotom.sso;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
-import cn.gotom.sso.util.CommonUtils;
-
-public class Ticket implements Serializable
+public interface Ticket extends Serializable
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private String url;
-	private String user;
-	private Date createDate = new Date();
 
-	public Ticket(String name)
-	{
-		this.name = name;
-		CommonUtils.assertNotNull(this.name, "name cannot be null.");
-	}
+	String getName();
 
-	public String toString()
-	{
-		return getName();
-	}
+	String getUser();
 
-	public boolean equals(final Object o)
-	{
-		if (o == null)
-		{
-			return false;
-		}
-		else if (!(o instanceof Ticket))
-		{
-			return false;
-		}
-		else
-		{
-			return getName().equals(((Ticket) o).getName());
-		}
-	}
+	String getServiceUrl();
 
-	public int hashCode()
-	{
-		return 37 * getName().hashCode();
-	}
+	Date getCreateDate();
+	
+	Date getValidFromDate();
 
-	public String getName()
-	{
-		return name;
-	}
+	Date getValidUntilDate();
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
-	public String getUrl()
-	{
-		return url;
-	}
-
-	public void setUrl(String url)
-	{
-		this.url = url;
-	}
-
-	public String getUser()
-	{
-		return user;
-	}
-
-	public void setUser(String user)
-	{
-		this.user = user;
-	}
-
-	public Date getCreateDate()
-	{
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate)
-	{
-		this.createDate = createDate;
-	}
-
+	Map<String, Object> getAttributes();
 }
