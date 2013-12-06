@@ -15,18 +15,16 @@ import cn.gotom.client.util.PathMatcherAnt;
 abstract class AbstractFilter extends AbstractConfigurationFilter
 {
 
-	protected final String serviceParameter = "service";
-	
 	/**
 	 * 验证退回URL，为空测从哪来回哪去
 	 */
-	protected final String serviceUrlParameter = "serviceUrl";
-	
+	protected final String serviceParameter = "service";
+
 	/**
 	 * 验证服务器URL
 	 */
 	protected final String serverUrlParameter = "serverUrl";
-	
+
 	/**
 	 * 忽列验证的路径
 	 */
@@ -41,8 +39,8 @@ abstract class AbstractFilter extends AbstractConfigurationFilter
 
 	private boolean encodeServiceUrl = true;
 
-	private String serviceUrl;
-	
+	private String service;
+
 	private String serverUrl;
 
 	private String[] authenticationNones;
@@ -58,15 +56,14 @@ abstract class AbstractFilter extends AbstractConfigurationFilter
 	{
 	}
 
-
-	public String getServiceUrl()
+	public String getService()
 	{
-		return serviceUrl;
+		return service;
 	}
 
-	public void setServiceUrl(String serviceUrl)
+	public void setService(String service)
 	{
-		this.serviceUrl = serviceUrl;
+		this.service = service;
 	}
 
 	public String getServerUrl()
@@ -135,10 +132,10 @@ abstract class AbstractFilter extends AbstractConfigurationFilter
 	protected void initInternal(final FilterConfig filterConfig) throws ServletException
 	{
 		initAuthenticationNone(filterConfig);
-		setServiceUrl(getInitParameter(filterConfig, serviceUrlParameter, null));
-		log.trace("Loaded " + serviceUrlParameter + " parameter: " + this.getServiceUrl());
-		setServerUrl(getInitParameter(filterConfig, serviceUrlParameter, null));
-		log.trace("Loaded " + serverUrlParameter + " parameter: " + this.getServerUrl());		
+		setService(getInitParameter(filterConfig, serviceParameter, null));
+		log.trace("Loaded " + serviceParameter + " parameter: " + this.getService());
+		setServerUrl(getInitParameter(filterConfig, serviceParameter, null));
+		log.trace("Loaded " + serverUrlParameter + " parameter: " + this.getServerUrl());
 		setEncodeServiceUrl(CommonUtils.parseBoolean(getInitParameter(filterConfig, "encodeServiceUrl", "true")));
 		log.trace("Loading encodeServiceUrl property: " + this.encodeServiceUrl);
 	}
@@ -153,10 +150,6 @@ abstract class AbstractFilter extends AbstractConfigurationFilter
 
 	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		return CommonUtils.constructServiceUrl(request, response, this.serviceUrl, this.ticketParameterName, this.encodeServiceUrl);
-	}
-	protected final String constructRedirectUrl(final HttpServletRequest request, final HttpServletResponse response)
-	{
-		return CommonUtils.constructRedirectUrl(this.getServerUrl(), serviceParameter, this.getServiceUrl());
+		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.ticketParameterName, this.encodeServiceUrl);
 	}
 }
