@@ -1,4 +1,4 @@
-package cn.gotom.client.filter;
+package cn.gotom.sso.filter;
 
 import java.io.IOException;
 
@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.gotom.client.Ticket;
-import cn.gotom.client.util.CommonUtils;
-import cn.gotom.client.util.UrlUtils;
+import cn.gotom.sso.Ticket;
+import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.sso.util.UrlUtils;
 
 public class AuthenticationFilter extends AbstractConfigurationFilter
 {

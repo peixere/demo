@@ -1,4 +1,4 @@
-package cn.gotom.client.authentication;
+package cn.gotom.sso.authentication;
 
 import java.io.IOException;
 
@@ -18,9 +18,9 @@ import org.jasig.cas.client.util.AbstractCasFilter;
 import org.jasig.cas.client.util.CommonUtils;
 import org.jasig.cas.client.validation.Assertion;
 
-import cn.gotom.client.util.PathMatcher;
-import cn.gotom.client.util.PathMatcherAnt;
-import cn.gotom.client.util.UrlUtils;
+import cn.gotom.sso.util.PathMatcher;
+import cn.gotom.sso.util.PathMatcherAnt;
+import cn.gotom.sso.util.UrlUtils;
 
 public class AuthenticationFilter extends AbstractCasFilter
 {

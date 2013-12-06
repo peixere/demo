@@ -1,4 +1,4 @@
-package cn.gotom.client.session;
+package cn.gotom.sso.session;
 
 import java.io.IOException;
 

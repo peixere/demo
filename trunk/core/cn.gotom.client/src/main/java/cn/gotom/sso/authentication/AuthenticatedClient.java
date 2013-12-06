@@ -1,4 +1,4 @@
-package cn.gotom.client.authentication;
+package cn.gotom.sso.authentication;
 
 import java.io.BufferedReader;
 import java.io.IOException;
