@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
-import cn.gotom.service.IUrlMatcher;
 import cn.gotom.sso.filter.AbstractConfigurationFilter;
 import cn.gotom.sso.util.UrlUtils;
 
@@ -30,16 +29,12 @@ public class ValidationFilter extends AbstractConfigurationFilter
 	@Inject
 	protected DataInitializeService dataInitializeService;
 
-	@Inject
-	private IUrlMatcher urlMatcher;
-
 	private FilterConfig filterConfig;
 
 	private String[] pluginsPaths;
 
 	private String plugins;
 
-	private String[] authenticationNones;
 
 	public void destroy()
 	{
@@ -54,7 +49,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 			final HttpServletResponse response = (HttpServletResponse) sResponse;
 			setPlugins(request);
 			String url = UrlUtils.buildUrl(request);
-			if (authenticationNone(url) || authService.validation(request.getRemoteUser(), url))
+			if (this.isIgnore(url) || authService.validation(request.getRemoteUser(), url))
 			{
 				filterChain.doFilter(sRequest, sResponse);
 			}
@@ -70,38 +65,6 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		{
 
 		}
-	}
-
-	private void initAuthenticationNone()
-	{
-		String none = getInitParameter(filterConfig, "authenticationNone", null);
-		if (none != null)
-		{
-			none = none.trim().replace("；", ";");
-			none = none.replace(",", ";");
-			none = none.replace("，", ";");
-			none = none.replace("\n", ";");
-			authenticationNones = none.trim().split(";");
-			for (int i = 0; i < authenticationNones.length; i++)
-			{
-				authenticationNones[i] = authenticationNones[i].trim();
-			}
-		}
-	}
-
-	private boolean authenticationNone(String url)
-	{
-		if (authenticationNones != null)
-		{
-			for (String pattern : authenticationNones)
-			{
-				if (urlMatcher.pathMatchesUrl(pattern.trim(), url))
-				{
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	private void initPlugins()
@@ -130,10 +93,11 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		request.setAttribute("plugins", plugins);
 	}
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		this.filterConfig = filterConfig;
-		initAuthenticationNone();
+		super.init(filterConfig);
 		initPlugins();
 		dataInitializeService.init();
 	}
