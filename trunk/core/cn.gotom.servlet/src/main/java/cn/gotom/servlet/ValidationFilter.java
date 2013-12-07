@@ -55,7 +55,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 			}
 			else
 			{
-				log.warn(request.getRemoteUser() + " 403：" + url);
+				log.warn(request.getRemoteUser() + " 403: " + url);
 				response.setStatus(403);
 				request.setAttribute("url", url);
 				request.getRequestDispatcher("/WEB-INF/view/error/403.jsp").forward(request, response);
@@ -88,7 +88,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 			{
 				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
 			}
-			log.info("plugins：" + plugins);
+			log.info("plugins: " + plugins);
 		}
 		request.setAttribute("plugins", plugins);
 	}
