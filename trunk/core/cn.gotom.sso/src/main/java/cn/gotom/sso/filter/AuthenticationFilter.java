@@ -17,7 +17,7 @@ import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 
-public class AuthenticationFilter extends AbstractConfigurationFilter implements TicketValidator
+public class AuthenticationFilter extends AbstractAuthenticationFilter implements TicketValidator
 {
 
 	@Override

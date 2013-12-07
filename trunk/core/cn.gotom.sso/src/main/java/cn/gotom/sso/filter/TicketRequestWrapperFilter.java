@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.gotom.sso.TicketImpl;
 
-public final class TicketRequestWrapperFilter extends AbstractConfigurationFilter
+public final class TicketRequestWrapperFilter extends AbstractAuthenticationFilter
 {
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
 	{

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
-import cn.gotom.sso.filter.AbstractConfigurationFilter;
+import cn.gotom.sso.filter.AbstractAuthenticationFilter;
 import cn.gotom.sso.util.UrlUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ValidationFilter extends AbstractConfigurationFilter
+public class ValidationFilter extends AbstractAuthenticationFilter
 {
 
 	@Inject
@@ -35,23 +35,22 @@ public class ValidationFilter extends AbstractConfigurationFilter
 
 	private String plugins;
 
-
 	public void destroy()
 	{
 
 	}
 
-	public void doFilter(final ServletRequest sRequest, final ServletResponse sResponse, final FilterChain filterChain) throws IOException, ServletException
+	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
 	{
 		try
 		{
-			final HttpServletRequest request = (HttpServletRequest) sRequest;
-			final HttpServletResponse response = (HttpServletResponse) sResponse;
+			final HttpServletRequest request = (HttpServletRequest) req;		
+			final HttpServletResponse response = (HttpServletResponse) res;
 			setPlugins(request);
 			String url = UrlUtils.buildUrl(request);
 			if (this.isIgnore(url) || authService.validation(request.getRemoteUser(), url))
 			{
-				filterChain.doFilter(sRequest, sResponse);
+				filterChain.doFilter(req, res);
 			}
 			else
 			{
@@ -100,6 +99,7 @@ public class ValidationFilter extends AbstractConfigurationFilter
 		super.init(filterConfig);
 		initPlugins();
 		dataInitializeService.init();
+		log.debug("init");
 	}
 
 }
