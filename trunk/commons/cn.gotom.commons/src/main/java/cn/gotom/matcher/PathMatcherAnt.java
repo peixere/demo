@@ -1,6 +1,7 @@
 package cn.gotom.matcher;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,12 +10,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cn.gotom.util.Assert;
 import cn.gotom.util.StringUtils;
 
 public class PathMatcherAnt implements PathMatcher
 {
-
+	public static void main(String[] args)
+	{
+		Map<String, String> resMap = new HashMap<String, String>();
+		resMap.put("/admin/**/*.jsp", "ADMIN");
+		resMap.put("/*.html", "ADMIN");
+		PathMatcher matcher = new PathMatcherAnt();
+		for (String res : resMap.keySet())
+		{
+			if (matcher.pathMatchesUrl(res, "/admin/aaa/bb/index.jsp"))
+			{
+				System.out.println(res);
+			}
+		}
+	} 
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{[^/]+?\\}");
 
 	/** Default path separator: "/" */
@@ -42,6 +55,16 @@ public class PathMatcherAnt implements PathMatcher
 	public boolean isPattern(String path)
 	{
 		return (path.indexOf('*') != -1 || path.indexOf('?') != -1);
+	}
+
+	@Override
+	public boolean pathMatchesUrl(Object path, String url)
+	{
+		if ("/**".equals(path) || "**".equals(path))
+		{
+			return true;
+		}
+		return match((String) path, url);
 	}
 
 	@Override
@@ -301,7 +324,10 @@ public class PathMatcherAnt implements PathMatcher
 	{
 		Map<String, String> variables = new LinkedHashMap<String, String>();
 		boolean result = doMatch(pattern, path, true, variables);
-		Assert.state(result, "Pattern \"" + pattern + "\" is not a match for \"" + path + "\"");
+		if (!result)
+		{
+			throw new IllegalStateException("Pattern \"" + pattern + "\" is not a match for \"" + path + "\"");
+		}
 		return variables;
 	}
 
@@ -479,7 +505,7 @@ public class PathMatcherAnt implements PathMatcher
 	 * The returned {@code Comparator} will {@linkplain java.util.Collections#sort(java.util.List, java.util.Comparator) sort} a list so that more specific patterns (without uri templates or wild cards) come before generic patterns. So given a list with the following patterns:
 	 * <ol>
 	 * <li>{@code /hotels/new}</li>
-	 * <li>{@code /hotels/ hotel}}</li>
+	 * <li>{@code /hotels/ hotel}</li>
 	 * <li>{@code /hotels/*}</li>
 	 * </ol>
 	 * the returned comparator will sort this list so that the order will be as indicated.
@@ -676,8 +702,11 @@ public class PathMatcherAnt implements PathMatcher
 				if (uriTemplateVariables != null)
 				{
 					// SPR-8455
-					Assert.isTrue(this.variableNames.size() == matcher.groupCount(), "The number of capturing groups in the pattern segment " + this.pattern + " does not match the number of URI template variables it defines, which can occur if "
-							+ " capturing groups are used in a URI template regex. Use non-capturing groups instead.");
+					if (this.variableNames.size() == matcher.groupCount())
+					{
+						throw new IllegalArgumentException("The number of capturing groups in the pattern segment " + this.pattern + " does not match the number of URI template variables it defines, which can occur if "
+								+ " capturing groups are used in a URI template regex. Use non-capturing groups instead.");
+					}
 					for (int i = 1; i <= matcher.groupCount(); i++)
 					{
 						String name = this.variableNames.get(i - 1);
