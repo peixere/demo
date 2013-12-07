@@ -96,4 +96,6 @@ public interface PathMatcher
 	 *             when the two patterns cannot be combined
 	 */
 	String combine(String pattern1, String pattern2);
+
+	boolean pathMatchesUrl(Object path, String url);
 }
