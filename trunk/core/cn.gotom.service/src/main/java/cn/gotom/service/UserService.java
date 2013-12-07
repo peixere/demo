@@ -8,7 +8,5 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(UserServiceImpl.class)
 public interface UserService extends GenericService<User, String>
 {
-	public void init();
-
 	public User getByUsername(String username);
 }

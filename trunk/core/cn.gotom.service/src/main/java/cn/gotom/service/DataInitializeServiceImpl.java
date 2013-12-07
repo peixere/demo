@@ -11,6 +11,9 @@ import net.sf.json.JsonConfig;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.pojos.User;
+import cn.gotom.util.PasswordEncoder;
+
 import com.google.inject.Inject;
 
 public class DataInitializeServiceImpl implements DataInitializeService
@@ -21,6 +24,9 @@ public class DataInitializeServiceImpl implements DataInitializeService
 	UniversalService universalService;
 
 	@Inject
+	PasswordEncoder passwordEncoder;
+
+	@Inject
 	private UserService userService;
 
 	public void init()
@@ -29,10 +35,24 @@ public class DataInitializeServiceImpl implements DataInitializeService
 		defalutData();
 	}
 
-
 	private void initUser()
 	{
-		userService.init();
+		try
+		{
+			User user = userService.getByUsername(User.ROOT);
+			if (user == null)
+			{
+				user = new User();
+				user.setUsername(User.ROOT);
+				user.setName("超级管理员");
+				user.setPassword(passwordEncoder.encode("888888"));
+				userService.save(user);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
 	}
 
 	private void defalutData()
