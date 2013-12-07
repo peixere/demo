@@ -16,6 +16,7 @@ import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.PasswordEncoder;
+import cn.gotom.util.PasswordEncoderMessageDigest;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.TreeCheckedModel;
 
@@ -106,7 +107,7 @@ public class UserAction
 			}
 			else
 			{
-				PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
+				PasswordEncoder passwordEncoder = new PasswordEncoderMessageDigest("MD5");
 				user.setPassword(passwordEncoder.encode("123456"));
 			}
 			List<Role> userRoles = new ArrayList<Role>();

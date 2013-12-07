@@ -1,8 +1,8 @@
 package cn.gotom.injector;
 
 import cn.gotom.dao.jpa.UniversalDaoJpa;
-import cn.gotom.service.IAntUrlPathMatcher;
-import cn.gotom.service.IUrlMatcher;
+import cn.gotom.matcher.UrlMatcher;
+import cn.gotom.matcher.UrlMatcherAnt;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
@@ -30,8 +30,8 @@ public class CorePersistModule extends PrivateModule
 		expose(CorePersistence.class).annotatedWith(CoreAnnotation.class);
 		bind(CorePersistService.class).asEagerSingleton();
 		expose(CorePersistService.class);
-		bind(IUrlMatcher.class).to(IAntUrlPathMatcher.class).asEagerSingleton();
-		expose(IUrlMatcher.class);
+		bind(UrlMatcher.class).to(UrlMatcherAnt.class).asEagerSingleton();
+		expose(UrlMatcher.class);
 
 		bind(UniversalDaoJpa.class).asEagerSingleton();
 		expose(UniversalDaoJpa.class);

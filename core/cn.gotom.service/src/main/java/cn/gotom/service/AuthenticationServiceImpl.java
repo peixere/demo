@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.matcher.UrlMatcher;
 import cn.gotom.pojos.App;
 import cn.gotom.pojos.ResourceConfig;
 import cn.gotom.pojos.ResourceName;
@@ -28,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	private RightService rightService;
 
 	@Inject
-	private IUrlMatcher urlMatcher;
+	private UrlMatcher urlMatcher;
 
 	@Inject
 	private ResourceConfigService resourceConfigService;

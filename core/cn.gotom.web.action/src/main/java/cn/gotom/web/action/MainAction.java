@@ -39,6 +39,8 @@ public class MainAction
 	@Inject
 	private UserService userService;
 	@Inject
+	private PasswordEncoder passwordEncoder;
+	@Inject
 	private ResourceConfigService configService;
 
 	private String id;
@@ -109,7 +111,6 @@ public class MainAction
 
 	public void password()
 	{
-		PasswordEncoder passwordEncoder = new PasswordEncoder("MD5");
 		String password = ServletActionContext.getRequest().getParameter("password");
 		String newpass = ServletActionContext.getRequest().getParameter("newpass");
 		String newpassCheck = ServletActionContext.getRequest().getParameter("newpassCheck");
