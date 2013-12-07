@@ -8,7 +8,7 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 {
 	private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-	private final String encodingAlgorithm;
+	private String encodingAlgorithm;
 
 	private String characterEncoding;
 
@@ -17,11 +17,6 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 		this.encodingAlgorithm = encodingAlgorithm;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see cn.gotom.sso.util.PasswordEncode#encode(java.lang.String)
-	 */
 	@Override
 	public String encode(final String password)
 	{
@@ -33,7 +28,7 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 		{
 			MessageDigest messageDigest = MessageDigest.getInstance(this.encodingAlgorithm);
 
-			if (CommonUtils.hasText(this.characterEncoding))
+			if (this.characterEncoding != null && this.characterEncoding.length() > 0)
 			{
 				messageDigest.update(password.getBytes(this.characterEncoding));
 			}
@@ -75,9 +70,26 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 		return buf.toString();
 	}
 
+	public String getEncodingAlgorithm()
+	{
+		return encodingAlgorithm;
+	}
+
+	public String getCharacterEncoding()
+	{
+		return characterEncoding;
+	}
+	
+	@Override
 	public void setCharacterEncoding(final String characterEncoding)
 	{
 		this.characterEncoding = characterEncoding;
+	}
+
+	@Override
+	public void setEncodingAlgorithm(String encodingAlgorithm)
+	{
+		this.encodingAlgorithm = encodingAlgorithm;
 	}
 
 	/**
