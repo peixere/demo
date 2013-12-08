@@ -1,6 +1,5 @@
 package cn.gotom.websocket;
 
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +23,6 @@ public class SocketServlet extends WebSocketServlet
 	protected final Logger log = Logger.getLogger(getClass());
 
 	private static final List<MessageInbound> socketList = new ArrayList<MessageInbound>();
-	private final MessageListener<Message, CharBuffer> messageListener = new MessageListener<Message, CharBuffer>()
-	{
-
-		@Override
-		public void onListener(Message sender, CharBuffer msg)
-		{
-			log.debug(msg.toString());
-		}
-
-	};
 
 	public static List<MessageInbound> getMessageInboundList()
 	{
@@ -60,7 +49,6 @@ public class SocketServlet extends WebSocketServlet
 		request.getHeaderNames();
 		log.debug(arg0);
 		Message message = new Message(request.getHeaderNames());
-		message.setMessageListener(messageListener);
 		return message;
 	}
 

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
-import cn.gotom.sso.TicketSessionMap;
+import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.filter.AbstractAuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
@@ -34,11 +34,11 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	private String loginSQL;
 	private String encodingAlgorithm;
 
-	private static TicketSessionMap ticketSessionMap;
+	private static final TicketMap ticketMap = new TicketMap();
 
-	public static TicketSessionMap getTicketSessionMap()
+	public static TicketMap getTicketMap()
 	{
-		return ticketSessionMap;
+		return ticketMap;
 	}
 
 	@Override
@@ -53,23 +53,21 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	@Override
 	public void destroy()
 	{
-		// TODO Auto-generated method stub
+
 	}
 
+	@Override
 	public final void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
 	{
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse res = (HttpServletResponse) response;
+		req.setAttribute("serviceParameterName", getServiceParameterName());
 		String muthod = req.getHeader(Muthod);
 		if (muthod == null || muthod.trim().length() == 0)
 		{
 			muthod = req.getParameter(Muthod);
 		}
-		if (Login.equalsIgnoreCase(muthod))
-		{
-			doLogin(req, res);
-		}
-		else if (Logout.equalsIgnoreCase(muthod))
+		if (Logout.equalsIgnoreCase(muthod))
 		{
 			doLogout(req, res);
 		}
@@ -77,9 +75,23 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		{
 			doValidate(req, res);
 		}
+		else if (Login.equalsIgnoreCase(muthod))
+		{
+			doLogin(req, res);
+		}
 		else
 		{
-			doLogout(req, res);
+			Ticket ticket = ticketMap.get(req.getSession().getId());
+			String serviceUrl = req.getParameter(getServiceParameterName());
+			req.setAttribute(getServiceParameterName(), serviceUrl);
+			if (ticket == null)
+			{
+				req.getRequestDispatcher("/WEB-INF/view/login.jsp");
+			}
+			else
+			{
+				req.getRequestDispatcher("/WEB-INF/view/success.jsp");
+			}
 		}
 	}
 
@@ -88,18 +100,25 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		TicketImpl ticket = new TicketImpl(req.getSession().getId());
+		String serviceUrl = req.getParameter(getServiceParameterName());
+		req.setAttribute(getServiceParameterName(), serviceUrl);
 		if (login(username, password))
 		{
-			String serviceUrl = req.getParameter(getServiceParameterName());
 			ticket.setSuccess(true);
 			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "?" : "&") + this.getTicketParameterName() + "=" + ticket.getId());
-			getTicketSessionMap().put(ticket.getId(), ticket);
+			getTicketMap().put(ticket.getId(), ticket);
 			// res.sendRedirect(ticket.getRedirect());
+			req.getRequestDispatcher("/WEB-INF/view/success.jsp");
 		}
-		ticket.setSuccess(false);
-		CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+		else
+		{
+			ticket.setSuccess(false);
+			req.setAttribute("errorMsg", "登录失败，请检查你的用户名或密码是否正确！");
+			req.getRequestDispatcher("/WEB-INF/view/login.jsp");
+		}
+		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 	}
 
 	private boolean login(String username, String password)
@@ -145,15 +164,18 @@ public class ServerFilter extends AbstractAuthenticationFilter
 
 	protected void doLogout(HttpServletRequest req, HttpServletResponse res)
 	{
-		getTicketSessionMap().remove(req.getSession().getId());
+		getTicketMap().remove(req.getSession().getId());
+		String serviceUrl = req.getParameter(getServiceParameterName());
+		req.setAttribute(getServiceParameterName(), serviceUrl);
+		req.getRequestDispatcher("/WEB-INF/view/logout.jsp");
 	}
 
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)
 	{
 		String ticketName = req.getParameter(this.getTicketParameterName());
-		if (getTicketSessionMap().containsKey(ticketName))
+		if (getTicketMap().containsKey(ticketName))
 		{
-			Ticket ticket = getTicketSessionMap().get(ticketName);
+			Ticket ticket = getTicketMap().get(ticketName);
 			CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 		}
 	}
