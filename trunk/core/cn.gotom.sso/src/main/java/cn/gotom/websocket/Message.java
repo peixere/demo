@@ -3,6 +3,7 @@ package cn.gotom.websocket;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.util.Enumeration;
 
 import org.apache.catalina.websocket.MessageInbound;
 import org.apache.catalina.websocket.WsOutbound;
@@ -11,7 +12,13 @@ import org.apache.log4j.Logger;
 public class Message extends MessageInbound
 {
 	protected final Logger log = Logger.getLogger(getClass());
+	private final Enumeration<String> headers;
 	private MessageListener<Message, CharBuffer> messageListener;
+
+	public Message(Enumeration<String> headers)
+	{
+		this.headers = headers;
+	}
 
 	@Override
 	protected void onBinaryMessage(ByteBuffer arg0) throws IOException
@@ -28,6 +35,10 @@ public class Message extends MessageInbound
 		if (messageListener != null)
 		{
 			messageListener.onListener(this, msg);
+		}
+		else
+		{
+			log.debug(msg.toString());
 		}
 	}
 
@@ -55,6 +66,11 @@ public class Message extends MessageInbound
 	public void setMessageListener(MessageListener<Message, CharBuffer> messageListener)
 	{
 		this.messageListener = messageListener;
+	}
+
+	public Enumeration<String> getHeaders()
+	{
+		return headers;
 	}
 
 }
