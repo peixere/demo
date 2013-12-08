@@ -6,18 +6,23 @@ import java.util.Map;
 
 public interface Ticket extends Serializable
 {
+	public static String DateFromat = "yyyy-MM-dd HH:mm:ss.SSS";
 
-	String getName();
+	String getId();
 
 	String getUser();
 
 	String getServiceUrl();
 
 	Date getCreateDate();
-	
+
 	Date getValidFromDate();
 
 	Date getValidUntilDate();
 
+	String getRedirect();
+
 	Map<String, Object> getAttributes();
+
+	boolean getSuccess();
 }

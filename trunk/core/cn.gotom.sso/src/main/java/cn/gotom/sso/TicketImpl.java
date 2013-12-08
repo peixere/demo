@@ -11,23 +11,25 @@ public class TicketImpl implements Ticket
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private String name;
+
+	private final String id;
 	private String serviceUrl;
+	private String redirect;
 	private String user;
 	private Date createDate = new Date();
-	private Date validFromDate;
-	private Date validUntilDate;
+	private Date validFromDate = new Date();
+	private Date validUntilDate = new Date();
+	private boolean success;
 
-	public TicketImpl(String name)
+	public TicketImpl(String id)
 	{
-		this.name = name;
-		CommonUtils.assertNotNull(this.name, "name cannot be null.");
+		this.id = id;
+		CommonUtils.assertNotNull(this.id, "id cannot be null.");
 	}
 
 	public String toString()
 	{
-		return getName();
+		return getId();
 	}
 
 	public boolean equals(final Object o)
@@ -42,18 +44,13 @@ public class TicketImpl implements Ticket
 		}
 		else
 		{
-			return getName().equals(((TicketImpl) o).getName());
+			return getId().equals(((TicketImpl) o).getId());
 		}
 	}
 
 	public int hashCode()
 	{
-		return 37 * getName().hashCode();
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
+		return 37 * getId().hashCode();
 	}
 
 	public void setServiceUrl(String serviceUrl)
@@ -81,10 +78,26 @@ public class TicketImpl implements Ticket
 		this.validUntilDate = validUntilDate;
 	}
 
-	@Override
-	public String getName()
+	public void setRedirect(String redirect)
 	{
-		return this.name;
+		this.redirect = redirect;
+	}
+
+	@Override
+	public boolean getSuccess()
+	{
+		return success;
+	}
+
+	public void setSuccess(boolean success)
+	{
+		this.success = success;
+	}
+
+	@Override
+	public String getId()
+	{
+		return this.id;
 	}
 
 	@Override
@@ -121,6 +134,12 @@ public class TicketImpl implements Ticket
 	public Map<String, Object> getAttributes()
 	{
 		return null;
+	}
+
+	@Override
+	public String getRedirect()
+	{
+		return this.redirect;
 	}
 
 }

@@ -1,4 +1,4 @@
-package cn.gotom.sso.filter;
+package cn.gotom.sso.client;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
