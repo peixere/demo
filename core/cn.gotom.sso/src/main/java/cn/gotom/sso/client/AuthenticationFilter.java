@@ -1,4 +1,4 @@
-package cn.gotom.sso.filter;
+package cn.gotom.sso.client;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketValidator;
+import cn.gotom.sso.filter.AbstractAuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 

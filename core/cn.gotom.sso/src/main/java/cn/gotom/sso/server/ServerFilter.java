@@ -1,4 +1,4 @@
-package cn.gotom.sso.filter;
+package cn.gotom.sso.server;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,7 +14,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.gotom.sso.server.JDBCConnection;
+import cn.gotom.sso.Ticket;
+import cn.gotom.sso.TicketImpl;
+import cn.gotom.sso.TicketSessionMap;
+import cn.gotom.sso.filter.AbstractAuthenticationFilter;
+import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
 import cn.gotom.sso.util.PasswordEncoderMessageDigest;
 
@@ -25,11 +29,17 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	private static final String Logout = "logout";
 	private static final String Validate = "validate";
 	private static final String sqlPropertyName = "loginsql";
-
 	private static final JDBCConnection connection = JDBCConnection.single;
 	private PasswordEncoder passwordEncoder;
 	private String loginSQL;
 	private String encodingAlgorithm;
+
+	private static TicketSessionMap ticketSessionMap;
+
+	public static TicketSessionMap getTicketSessionMap()
+	{
+		return ticketSessionMap;
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -77,11 +87,19 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
+		TicketImpl ticket = new TicketImpl(req.getSession().getId());
 		if (login(username, password))
 		{
 			String serviceUrl = req.getParameter(getServiceParameterName());
-			res.sendRedirect(serviceUrl);
+			ticket.setSuccess(true);
+			ticket.setUser(username);
+			ticket.setServiceUrl(serviceUrl);
+			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "?" : "&") + this.getTicketParameterName() + "=" + ticket.getId());
+			getTicketSessionMap().put(ticket.getId(), ticket);
+			// res.sendRedirect(ticket.getRedirect());
 		}
+		ticket.setSuccess(false);
+		CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 	}
 
 	private boolean login(String username, String password)
@@ -127,12 +145,17 @@ public class ServerFilter extends AbstractAuthenticationFilter
 
 	protected void doLogout(HttpServletRequest req, HttpServletResponse res)
 	{
-
+		getTicketSessionMap().remove(req.getSession().getId());
 	}
 
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)
 	{
-
+		String ticketName = req.getParameter(this.getTicketParameterName());
+		if (getTicketSessionMap().containsKey(ticketName))
+		{
+			Ticket ticket = getTicketSessionMap().get(ticketName);
+			CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+		}
 	}
 
 	public String getLoginSQL()

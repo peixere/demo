@@ -1,4 +1,4 @@
-package cn.gotom.sso.filter;
+package cn.gotom.sso.client;
 
 import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
