@@ -66,6 +66,7 @@ public class Client extends WebSocketClient
 	@Override
 	public void onOpen(ServerHandshake handshakedata)
 	{
+		//this.send("");
 		setOpen(true);
 		if (keepTimerTask != null)
 		{

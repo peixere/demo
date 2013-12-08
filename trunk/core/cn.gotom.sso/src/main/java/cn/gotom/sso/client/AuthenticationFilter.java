@@ -28,7 +28,8 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		CommonUtils.assertNotNull(this.getServerUrl(), serverUrlParameter + " cannot be null.");
 	}
 
-	public final void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException
+	@Override
+	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException
 	{
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		final HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -41,14 +42,14 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		Ticket ticket = getTicketFromSessionOrRequest(request);
 		if (ticket == null)
 		{
-			final String ticketName = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
+			final String ticketId = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
 			try
 			{
-				ticket = validate(ticketName, this.getServerUrl());
+				ticket = validate(ticketId, this.getServerUrl());
 			}
 			catch (SSOException e)
 			{
-				log.error("validate ticket [" + ticketName + "] error", e);
+				log.error("validate ticket [" + ticketId + "] error", e);
 			}
 		}
 		if (ticket != null)
@@ -76,8 +77,8 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	}
 
 	@Override
-	public Ticket validate(String ticketName, String serverUrl) throws SSOException
+	public Ticket validate(String ticketId, String serverUrl) throws SSOException
 	{
-		return new TicketImpl(ticketName);
+		return new TicketImpl(ticketId);
 	}
 }
