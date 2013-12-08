@@ -4,11 +4,13 @@ import java.net.URI;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 public class Client extends WebSocketClient
 {
+	protected final Logger log = Logger.getLogger(getClass());
 
 	class KeepTimerTask extends TimerTask
 	{
@@ -77,6 +79,10 @@ public class Client extends WebSocketClient
 		if (messageListener != null)
 		{
 			messageListener.onListener(this, message);
+		}
+		else
+		{
+			log.debug(message);
 		}
 	}
 
