@@ -25,4 +25,6 @@ public interface Ticket extends Serializable
 	Map<String, Object> getAttributes();
 
 	boolean getSuccess();
+
+	String toJSON();
 }

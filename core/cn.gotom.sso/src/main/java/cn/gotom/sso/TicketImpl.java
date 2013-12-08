@@ -3,6 +3,9 @@ package cn.gotom.sso;
 import java.util.Date;
 import java.util.Map;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
 import cn.gotom.sso.util.CommonUtils;
 
 public class TicketImpl implements Ticket
@@ -30,6 +33,20 @@ public class TicketImpl implements Ticket
 	public String toString()
 	{
 		return getId();
+	}
+
+	public static TicketImpl parseFromJSON(String jsonString)
+	{
+		JSON json = JSONSerializer.toJSON(jsonString);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setRootClass(TicketImpl.class);
+		return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+	}
+
+	@Override
+	public String toJSON()
+	{
+		return JSONSerializer.toJSON(this).toString();
 	}
 
 	public boolean equals(final Object o)
