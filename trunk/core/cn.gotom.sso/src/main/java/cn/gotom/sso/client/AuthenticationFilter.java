@@ -117,7 +117,7 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 
 	protected Ticket getTicket(final HttpServletRequest request)
 	{
-		final HttpSession session = request.getSession(false);
+		final HttpSession session = request.getSession();
 		String id = getTicketParameterName();
 		final TicketImpl ticket = (TicketImpl) (session == null ? request.getAttribute(id) : session.getAttribute(id));
 		return ticket;
@@ -127,7 +127,7 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	{
 		if (ticket != null)
 		{
-			final HttpSession session = request.getSession(false);
+			final HttpSession session = request.getSession();
 			String id = getTicketParameterName();
 			session.setAttribute(id, ticket);
 		}
