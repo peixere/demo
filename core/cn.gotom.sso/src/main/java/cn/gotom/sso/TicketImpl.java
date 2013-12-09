@@ -27,6 +27,11 @@ public class TicketImpl implements Ticket
 	private Date validUntilDate = new Date();
 	private boolean success;
 
+	protected TicketImpl()
+	{
+		this("");
+	}
+
 	public TicketImpl(String id)
 	{
 		this.id = id;

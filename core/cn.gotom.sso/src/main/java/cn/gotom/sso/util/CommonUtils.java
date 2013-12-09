@@ -173,11 +173,11 @@ public final class CommonUtils
 				url.append(":").append(serverPort);
 			}
 		}
-		log.info(url);
+		log.debug(url);
 		return url.toString();
 	}
 
-	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String service,final String serverName, final String ticketParameterName, final boolean encode)
+	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String service, final String serverName, final String ticketParameterName, final boolean encode)
 	{
 		if (CommonUtils.isNotBlank(service))
 		{
@@ -450,6 +450,10 @@ public final class CommonUtils
 		}
 		JSON json = net.sf.json.JSONSerializer.toJSON(value, config);
 		String encoing = request.getCharacterEncoding();
+		if (CommonUtils.isEmpty(encoing))
+		{
+			encoing = "utf-8";
+		}
 		// response.setContentType("text/html;charset=" + encoing);
 		response.setContentType("application/json;charset=" + encoing);
 		try
