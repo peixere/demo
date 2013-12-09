@@ -13,7 +13,7 @@ public class Message extends MessageInbound
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	private final Enumeration<String> headers;
-	private MessageListener<Message, CharBuffer> messageListener;
+	private Listener<Message, CharBuffer> receiveListener;
 
 	public Message(Enumeration<String> headers)
 	{
@@ -32,9 +32,9 @@ public class Message extends MessageInbound
 	@Override
 	protected void onTextMessage(CharBuffer msg) throws IOException
 	{
-		if (messageListener != null)
+		if (receiveListener != null)
 		{
-			messageListener.onListener(this, msg);
+			receiveListener.onListener(this, msg);
 		}
 		else
 		{
@@ -58,14 +58,14 @@ public class Message extends MessageInbound
 		SocketServlet.getMessageInboundList().add(this);
 	}
 
-	public MessageListener<Message, CharBuffer> getMessageListener()
+	public Listener<Message, CharBuffer> getReceiveListener()
 	{
-		return messageListener;
+		return receiveListener;
 	}
 
-	public void setMessageListener(MessageListener<Message, CharBuffer> messageListener)
+	public void setReceiveListener(Listener<Message, CharBuffer> receiveListener)
 	{
-		this.messageListener = messageListener;
+		this.receiveListener = receiveListener;
 	}
 
 	public Enumeration<String> getHeaders()
