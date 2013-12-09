@@ -79,7 +79,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		else
 		{
 			Ticket ticket = ticketMap.get(req.getSession().getId());
-			String serviceUrl = req.getParameter(getServiceParameterName());
+			String serviceUrl = getServiceUrl(req);
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			if (ticket == null)
 			{
@@ -97,7 +97,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		TicketImpl ticket = new TicketImpl(req.getSession().getId());
-		String serviceUrl = req.getParameter(getServiceParameterName());
+		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
 		if (login(username, password))
 		{
@@ -116,6 +116,16 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			req.getRequestDispatcher("/WEB-INF/view/login.jsp");
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+	}
+
+	private String getServiceUrl(HttpServletRequest req)
+	{
+		String serviceUrl = req.getParameter(getServiceParameterName());
+		if (CommonUtils.isEmpty(serviceUrl))
+		{
+			serviceUrl = "/";
+		}
+		return serviceUrl;
 	}
 
 	private boolean login(String username, String password)
@@ -162,7 +172,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	protected void doLogout(HttpServletRequest req, HttpServletResponse res)
 	{
 		getTicketMap().remove(req.getSession().getId());
-		String serviceUrl = req.getParameter(getServiceParameterName());
+		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
 		req.getRequestDispatcher("/WEB-INF/view/logout.jsp");
 	}
