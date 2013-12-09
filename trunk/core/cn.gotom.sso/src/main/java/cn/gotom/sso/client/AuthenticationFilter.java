@@ -44,17 +44,21 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		if (ticket == null)
 		{
 			final String ticketId = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
-			try
+			if (!CommonUtils.isEmpty(ticketId))
 			{
-				ticket = validate(ticketId, this.getServerUrl());
-				if (ticket != null)
+				try
 				{
-					this.addTicket(request, ticket);
+					final String serverUrl = constructServerUrl(request, response);
+					ticket = validate(ticketId, serverUrl);
+					if (ticket != null)
+					{
+						this.addTicket(request, ticket);
+					}
 				}
-			}
-			catch (SSOException e)
-			{
-				log.error("validate ticket [" + ticketId + "] error", e);
+				catch (SSOException e)
+				{
+					log.error("validate ticket [" + ticketId + "] error", e);
+				}
 			}
 		}
 		if (ticket != null)
@@ -63,16 +67,34 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 			return;
 		}
 		final String serviceUrl = constructServiceUrl(request, response);
-		if (log.isDebugEnabled())
-		{
-			log.debug("Constructed service url: " + serviceUrl);
-		}
-		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(this.getServerUrl(), serviceParameter, serviceUrl);
+		log.debug("Constructed service url: " + serviceUrl);
+		final String serverUrl = constructServerUrl(request, response);
+		log.debug("Constructed server url: " + serverUrl);
+		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, serviceParameter, serviceUrl);
 		if (log.isDebugEnabled())
 		{
 			log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		}
 		response.sendRedirect(urlToRedirectTo);
+	}
+
+	private String constructServerUrl(HttpServletRequest request, HttpServletResponse response)
+	{
+		String serverUrl = this.getServerUrl();
+		final StringBuilder buffer = new StringBuilder();
+		if (CommonUtils.isNotBlank(serverUrl))
+		{
+			if (!serverUrl.startsWith("https://") && !serverUrl.startsWith("http://"))
+			{
+				buffer.append(CommonUtils.getServerName(request));
+			}
+		}
+		else
+		{
+			buffer.append(CommonUtils.getServerName(request));
+		}
+		buffer.append(serverUrl);
+		return buffer.toString();
 	}
 
 	@Override
@@ -85,7 +107,8 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	public Ticket validate(String ticketId, String serverUrl) throws SSOException
 	{
 		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
-		String url = serverUrl.indexOf("?") >= 0 ? "&" : "?" + queryString;
+		String url = serverUrl + (serverUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
+		log.debug("validateUrl generated: " + url);
 		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8");
 		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
 		return ticket;

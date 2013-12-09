@@ -45,6 +45,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
 		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
+		log.info("init");
 	}
 
 	@Override
@@ -80,13 +81,15 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		{
 			Ticket ticket = ticketMap.get(req.getSession().getId());
 			String serviceUrl = getServiceUrl(req);
-			req.setAttribute(getServiceParameterName(), serviceUrl);
 			if (ticket == null)
 			{
+				req.setAttribute(getServiceParameterName(), serviceUrl);
 				req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 			}
 			else
 			{
+				serviceUrl = serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId();
+				req.setAttribute(getServiceParameterName(), serviceUrl);
 				req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(request, response);
 			}
 		}
@@ -98,19 +101,20 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		String password = req.getParameter("password");
 		TicketImpl ticket = new TicketImpl(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
-		req.setAttribute(getServiceParameterName(), serviceUrl);
 		if (login(username, password))
 		{
 			ticket.setSuccess(true);
 			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
-			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "?" : "&") + this.getTicketParameterName() + "=" + ticket.getId());
+			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
+			req.setAttribute(getServiceParameterName(), ticket.getRedirect());
 			getTicketMap().put(ticket.getId(), ticket);
 			// res.sendRedirect(ticket.getRedirect());
 			req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(req, res);
 		}
 		else
 		{
+			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
 			req.setAttribute("errorMsg", "登录失败，请检查你的用户名或密码是否正确！");
 			req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);

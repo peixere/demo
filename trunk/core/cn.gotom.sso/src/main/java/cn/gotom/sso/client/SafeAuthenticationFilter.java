@@ -52,6 +52,7 @@ public class SafeAuthenticationFilter extends AuthenticationFilter implements Ti
 		super.initInternal(filterConfig);
 		setWebSocketUrl(getInitParameter(filterConfig, "webSocketUrl", null));
 		CommonUtils.assertNotNull(this.getWebSocketUrl(), "webSocketUrl cannot be null.");
+		log.debug("initInternal");
 	}
 
 	@Override
@@ -87,9 +88,9 @@ public class SafeAuthenticationFilter extends AuthenticationFilter implements Ti
 	}
 
 	@Override
-	public Ticket validate(String ticketId, String service) throws SSOException
+	public Ticket validate(String ticketId, String serverUrl) throws SSOException
 	{
-		Ticket ticket = super.validate(ticketId, service);
+		Ticket ticket = super.validate(ticketId, serverUrl);
 		if (ticket != null)
 		{
 			ticketMap.put(ticket.getId(), ticket);
