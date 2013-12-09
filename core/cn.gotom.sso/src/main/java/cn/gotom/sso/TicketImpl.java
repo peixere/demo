@@ -18,7 +18,7 @@ public class TicketImpl implements Ticket
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final String id;
+	private String id;
 	private String serviceUrl;
 	private String redirect;
 	private String user;
@@ -135,6 +135,11 @@ public class TicketImpl implements Ticket
 	public String getId()
 	{
 		return this.id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
 	}
 
 	@Override
