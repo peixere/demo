@@ -52,7 +52,7 @@ public class JDBCConnection
 			{
 				conn = create();
 				connectionPool.set(conn);
-				log.debug("[" + Thread.currentThread().getName() + "]Open：" + conn);
+				log.debug("Open：" + conn);
 			}
 		}
 		catch (SQLException ex)
@@ -66,7 +66,6 @@ public class JDBCConnection
 	{
 		try
 		{
-			log.debug(getDriver());
 			Class.forName(getDriver());
 		}
 		catch (Exception e)
@@ -87,7 +86,7 @@ public class JDBCConnection
 			connectionPool.set(null);
 			try
 			{
-				log.debug("[" + Thread.currentThread().getName() + "]Close：" + conn);
+				log.debug("Close：" + conn);
 				conn.close();
 			}
 			catch (SQLException ex)
