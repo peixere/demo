@@ -56,7 +56,8 @@ public class WSClient extends WebSocketClient
 	private boolean open;
 	private boolean closed;
 	private boolean keepAlive = true;
-	private MessageListener<WSClient, String> messageListener;
+	private int periodMinutes = 3000;
+	private Listener<WSClient, String> receiveListener;
 
 	public WSClient(URI serverURI)
 	{
@@ -66,7 +67,7 @@ public class WSClient extends WebSocketClient
 	@Override
 	public void onOpen(ServerHandshake handshakedata)
 	{
-		//this.send("");
+		// this.send("");
 		setOpen(true);
 		if (keepTimerTask != null)
 		{
@@ -77,9 +78,9 @@ public class WSClient extends WebSocketClient
 	@Override
 	public void onMessage(String message)
 	{
-		if (messageListener != null)
+		if (receiveListener != null)
 		{
-			messageListener.onListener(this, message);
+			receiveListener.onListener(this, message);
 		}
 		else
 		{
@@ -100,7 +101,7 @@ public class WSClient extends WebSocketClient
 		if (this.keepAlive && !closed)
 		{
 			keepTimerTask = new KeepTimerTask(this);
-			keepTimerTask.schedule(1000, 1000);
+			keepTimerTask.schedule(3000, periodMinutes);
 		}
 	}
 
@@ -130,14 +131,24 @@ public class WSClient extends WebSocketClient
 		this.keepAlive = keepAlive;
 	}
 
-	public MessageListener<WSClient, String> getMessageListener()
+	public Listener<WSClient, String> getReceiveListener()
 	{
-		return messageListener;
+		return receiveListener;
 	}
 
-	public void setMessageListener(MessageListener<WSClient, String> messageListener)
+	public void setReceiveListener(Listener<WSClient, String> receiveListener)
 	{
-		this.messageListener = messageListener;
+		this.receiveListener = receiveListener;
+	}
+
+	public int getPeriodMinutes()
+	{
+		return periodMinutes;
+	}
+
+	public void setPeriodMinutes(int periodMinutes)
+	{
+		this.periodMinutes = periodMinutes;
 	}
 
 }

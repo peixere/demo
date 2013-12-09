@@ -9,19 +9,42 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
+import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.websocket.Listener;
 import cn.gotom.websocket.WSClient;
 
-public class TicketValidationWebSocketFilter extends AuthenticationFilter implements TicketValidator
+public class SafeAuthenticationFilter extends AuthenticationFilter implements TicketValidator
 {
+	private final TicketMap ticketMap = new TicketMap();
+
+	public TicketMap getTicketMap()
+	{
+		return ticketMap;
+	}
 
 	private WSClient client;
 	private String webSocketUrl;
+	private final Listener<WSClient, String> receiveListener = new Listener<WSClient, String>()
+	{
+
+		@Override
+		public void onListener(WSClient sender, String msg)
+		{
+			Ticket ticket = TicketImpl.parseFromJSON(msg);
+			if (ticket != null && getTicketMap().containsKey(ticket.getId()))
+			{
+				getTicketMap().remove(ticket.getId());
+			}
+		}
+
+	};
 
 	@Override
 	protected void initInternal(FilterConfig filterConfig) throws ServletException
@@ -52,6 +75,7 @@ public class TicketValidationWebSocketFilter extends AuthenticationFilter implem
 			try
 			{
 				client = new WSClient(new URI(webSocketUrl));
+				client.setReceiveListener(receiveListener);
 				client.connect();
 			}
 			catch (URISyntaxException e)
@@ -64,9 +88,33 @@ public class TicketValidationWebSocketFilter extends AuthenticationFilter implem
 	@Override
 	public Ticket validate(String ticketId, String service) throws SSOException
 	{
-		Ticket ticket = new TicketImpl(ticketId);
-		client.send(ticket.toJSON());
-		return null;
+		Ticket ticket = super.validate(ticketId, service);
+		if (ticket != null)
+		{
+			ticketMap.put(ticket.getId(), ticket);
+		}
+		return ticket;
+	}
+
+	@Override
+	protected Ticket getTicket(final HttpServletRequest request)
+	{
+		Ticket ticket = super.getTicket(request);
+		if (ticket != null)
+		{
+			ticket = this.getTicketMap().get(ticket.getId());
+		}
+		return ticket;
+	}
+
+	@Override
+	protected void addTicket(final HttpServletRequest request, Ticket ticket)
+	{
+		if (ticket != null)
+		{
+			super.addTicket(request, ticket);
+			this.getTicketMap().put(ticket.getId(), ticket);
+		}
 	}
 
 	public String getWebSocketUrl()

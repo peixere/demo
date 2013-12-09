@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
@@ -39,13 +40,17 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 			filterChain.doFilter(request, response);
 			return;
 		}
-		Ticket ticket = getTicketFromSessionOrRequest(request);
+		Ticket ticket = getTicket(request);
 		if (ticket == null)
 		{
 			final String ticketId = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
 			try
 			{
 				ticket = validate(ticketId, this.getServerUrl());
+				if (ticket != null)
+				{
+					this.addTicket(request, ticket);
+				}
 			}
 			catch (SSOException e)
 			{
@@ -54,7 +59,7 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		}
 		if (ticket != null)
 		{
-			filterChain.doFilter(request, response);
+			filterChain.doFilter(new TicketRequestWrapper(request, ticket), response);
 			return;
 		}
 		final String serviceUrl = constructServiceUrl(request, response);
@@ -79,6 +84,33 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	@Override
 	public Ticket validate(String ticketId, String serverUrl) throws SSOException
 	{
-		return new TicketImpl(ticketId);
+		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
+		String url = serverUrl.indexOf("?") >= 0 ? "&" : "?" + queryString;
+		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8");
+		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
+		return ticket;
+	}
+
+	protected Ticket getTicket(final HttpServletRequest request)
+	{
+		final HttpSession session = request.getSession(false);
+		String id = getTicketParameterName();
+		final TicketImpl ticket = (TicketImpl) (session == null ? request.getAttribute(id) : session.getAttribute(id));
+		return ticket;
+	}
+
+	protected void addTicket(final HttpServletRequest request, Ticket ticket)
+	{
+		if (ticket != null)
+		{
+			final HttpSession session = request.getSession(false);
+			String id = getTicketParameterName();
+			session.setAttribute(id, ticket);
+		}
+	}
+
+	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
+	{
+		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.getTicketParameterName(), this.getEncodeServiceUrl());
 	}
 }

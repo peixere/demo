@@ -2,14 +2,9 @@ package cn.gotom.sso.filter;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PathMatcher;
 import cn.gotom.sso.util.PathMatcherAnt;
@@ -105,20 +100,7 @@ public abstract class AbstractAuthenticationFilter extends AbstractConfiguration
 		log.trace("Loading encodeServiceUrl property: " + this.encodeServiceUrl);
 	}
 
-	protected TicketImpl getTicketFromSessionOrRequest(final ServletRequest servletRequest)
-	{
-		final HttpServletRequest request = (HttpServletRequest) servletRequest;
-		final HttpSession session = request.getSession(false);
-		final TicketImpl ticket = (TicketImpl) (session == null ? request.getAttribute(getTicketParameterName()) : session.getAttribute(getTicketParameterName()));
-		return ticket;
-	}
-
-	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
-	{
-		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.getTicketParameterName(), this.encodeServiceUrl);
-	}
-
-	public boolean isEncodeServiceUrl()
+	public boolean getEncodeServiceUrl()
 	{
 		return encodeServiceUrl;
 	}

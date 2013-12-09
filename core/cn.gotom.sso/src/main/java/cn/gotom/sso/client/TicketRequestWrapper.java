@@ -3,20 +3,20 @@ package cn.gotom.sso.client;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import cn.gotom.sso.TicketImpl;
+import cn.gotom.sso.Ticket;
 
 public class TicketRequestWrapper extends HttpServletRequestWrapper
 {
 
-	private final TicketImpl ticket;
+	private final Ticket ticket;
 
-	public TicketRequestWrapper(HttpServletRequest request, TicketImpl ticket)
+	public TicketRequestWrapper(HttpServletRequest request, Ticket ticket)
 	{
 		super(request);
 		this.ticket = ticket;
 	}
 
-	public TicketImpl getTicket()
+	public Ticket getTicket()
 	{
 		return ticket;
 	}
