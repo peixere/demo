@@ -27,6 +27,7 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	{
 		super.init(filterConfig);
 		CommonUtils.assertNotNull(this.getServerUrl(), serverUrlParameter + " cannot be null.");
+		log.debug("init");
 	}
 
 	@Override
