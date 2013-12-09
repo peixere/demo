@@ -1,6 +1,5 @@
 package cn.gotom.servlet;
 
-import cn.gotom.auth.server.AuthenticationServiceFilter;
 import cn.gotom.websocket.WebSocket;
 
 import com.google.inject.Singleton;
@@ -16,8 +15,8 @@ public class CoreServletModule extends AbsServletModule
 
 	protected void configureRemoteAuthServiceServlets()
 	{
-		bind(AuthenticationServiceFilter.class).in(Singleton.class);
-		filter("/authService").through(AuthenticationServiceFilter.class);
+//		bind(AuthenticationServiceFilter.class).in(Singleton.class);
+//		filter("/authService").through(AuthenticationServiceFilter.class);
 	}
 
 	protected void configureValidationFilter()
