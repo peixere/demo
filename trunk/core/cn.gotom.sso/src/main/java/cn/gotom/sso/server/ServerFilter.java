@@ -83,16 +83,16 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			if (ticket == null)
 			{
-				req.getRequestDispatcher("/WEB-INF/view/login.jsp");
+				req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 			}
 			else
 			{
-				req.getRequestDispatcher("/WEB-INF/view/success.jsp");
+				req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(request, response);
 			}
 		}
 	}
 
-	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException
+	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
@@ -107,7 +107,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "?" : "&") + this.getTicketParameterName() + "=" + ticket.getId());
 			getTicketMap().put(ticket.getId(), ticket);
 			// res.sendRedirect(ticket.getRedirect());
-			req.getRequestDispatcher("/WEB-INF/view/success.jsp");
+			req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(req, res);
 		}
 		else
 		{
@@ -169,12 +169,12 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		return false;
 	}
 
-	protected void doLogout(HttpServletRequest req, HttpServletResponse res)
+	protected void doLogout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
 	{
 		getTicketMap().remove(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
-		req.getRequestDispatcher("/WEB-INF/view/logout.jsp");
+		req.getRequestDispatcher("/WEB-INF/view/logout.jsp").forward(req, res);
 	}
 
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)
