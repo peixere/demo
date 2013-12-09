@@ -62,16 +62,14 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 			{
 				log.error("validate ticket [" + ticketId + "] error", e);
 			}
-		}		
+		}
 		if (ticket != null)
 		{
 			filterChain.doFilter(new TicketRequestWrapper(request, ticket), response);
 			return;
 		}
 		final String serviceUrl = constructServiceUrl(request, response);
-		log.debug("Constructed service url: " + serviceUrl);
 		final String serverUrl = constructServerUrl(request, response);
-		log.debug("Constructed server url: " + serverUrl);
 		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, serviceParameter, serviceUrl);
 		if (log.isDebugEnabled())
 		{
@@ -110,9 +108,9 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	{
 		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
 		String url = serverUrl + (serverUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
-		log.debug("validateUrl generated: " + url);
 		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8");
 		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
+		log.debug(ticket + " validateUrl: " + url);
 		return ticket;
 	}
 

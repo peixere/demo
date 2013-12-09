@@ -173,7 +173,6 @@ public final class CommonUtils
 				url.append(":").append(serverPort);
 			}
 		}
-		log.debug(url);
 		return url.toString();
 	}
 
@@ -206,10 +205,6 @@ public final class CommonUtils
 			if (location == 0)
 			{
 				final String returnValue = encode ? response.encodeURL(buffer.toString()) : buffer.toString();
-				if (log.isDebugEnabled())
-				{
-					log.debug("serviceUrl generated: " + returnValue);
-				}
 				return returnValue;
 			}
 
@@ -235,10 +230,6 @@ public final class CommonUtils
 		}
 
 		final String returnValue = encode ? response.encodeURL(buffer.toString()) : buffer.toString();
-		if (log.isDebugEnabled())
-		{
-			log.debug("serviceUrl generated: " + returnValue);
-		}
 		return returnValue;
 	}
 
