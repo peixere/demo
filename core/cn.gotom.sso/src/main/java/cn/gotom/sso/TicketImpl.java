@@ -17,7 +17,7 @@ public class TicketImpl implements Ticket
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private final String id;
 	private String serviceUrl;
 	private String redirect;
@@ -42,10 +42,14 @@ public class TicketImpl implements Ticket
 	{
 		try
 		{
-			JSON json = JSONSerializer.toJSON(jsonString);
-			JsonConfig jsonConfig = new JsonConfig();
-			jsonConfig.setRootClass(TicketImpl.class);
-			return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+			if (CommonUtils.isNotEmpty(jsonString))
+			{
+				JSON json = JSONSerializer.toJSON(jsonString);
+				JsonConfig jsonConfig = new JsonConfig();
+				jsonConfig.setRootClass(TicketImpl.class);
+				return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+			}
+			return null;
 		}
 		catch (Exception ex)
 		{
