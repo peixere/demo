@@ -42,26 +42,27 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 			return;
 		}
 		Ticket ticket = getTicket(request);
-		if (ticket == null)
+		String ticketId = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
+		if (ticket != null && CommonUtils.isBlank(ticketId))
 		{
-			final String ticketId = CommonUtils.safeGetParameter(request, this.getTicketParameterName());
-			if (!CommonUtils.isEmpty(ticketId))
+			ticketId = ticket.getId();
+		}
+		if (!CommonUtils.isEmpty(ticketId))
+		{
+			try
 			{
-				try
+				final String serverUrl = constructServerUrl(request, response);
+				ticket = validate(ticketId, serverUrl);
+				if (ticket != null)
 				{
-					final String serverUrl = constructServerUrl(request, response);
-					ticket = validate(ticketId, serverUrl);
-					if (ticket != null)
-					{
-						this.addTicket(request, ticket);
-					}
-				}
-				catch (SSOException e)
-				{
-					log.error("validate ticket [" + ticketId + "] error", e);
+					this.addTicket(request, ticket);
 				}
 			}
-		}
+			catch (SSOException e)
+			{
+				log.error("validate ticket [" + ticketId + "] error", e);
+			}
+		}		
 		if (ticket != null)
 		{
 			filterChain.doFilter(new TicketRequestWrapper(request, ticket), response);
