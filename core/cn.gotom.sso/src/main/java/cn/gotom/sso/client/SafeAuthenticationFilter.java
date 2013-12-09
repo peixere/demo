@@ -74,6 +74,7 @@ public class SafeAuthenticationFilter extends AuthenticationFilter implements Ti
 			}
 			try
 			{
+				log.debug("webSocketUrl " + webSocketUrl);
 				client = new WSClient(new URI(webSocketUrl));
 				client.setReceiveListener(receiveListener);
 				client.connect();
