@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketMap;
+import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.filter.AbstractAuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
@@ -24,10 +25,6 @@ import cn.gotom.sso.util.PasswordEncoderMessageDigest;
 
 public class ServerFilter extends AbstractAuthenticationFilter
 {
-	private static final String Muthod = "muthod";
-	private static final String Login = "login";
-	private static final String Logout = "logout";
-	private static final String Validate = "validate";
 	private static final String sqlPropertyName = "loginsql";
 	private static final JDBCConnection connection = JDBCConnection.single;
 	private PasswordEncoder passwordEncoder;
@@ -62,20 +59,20 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse res = (HttpServletResponse) response;
 		req.setAttribute("serviceParameterName", getServiceParameterName());
-		String muthod = req.getHeader(Muthod);
+		String muthod = req.getHeader(TicketValidator.Method);
 		if (muthod == null || muthod.trim().length() == 0)
 		{
-			muthod = req.getParameter(Muthod);
+			muthod = req.getParameter(TicketValidator.Method);
 		}
-		if (Logout.equalsIgnoreCase(muthod))
+		if (TicketValidator.Logout.equalsIgnoreCase(muthod))
 		{
 			doLogout(req, res);
 		}
-		else if (Validate.equalsIgnoreCase(muthod))
+		else if (TicketValidator.Validate.equalsIgnoreCase(muthod))
 		{
 			doValidate(req, res);
 		}
-		else if (Login.equalsIgnoreCase(muthod))
+		else if (TicketValidator.Login.equalsIgnoreCase(muthod))
 		{
 			doLogin(req, res);
 		}

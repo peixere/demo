@@ -6,6 +6,9 @@ import java.util.Map;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JsonConfig;
+
+import org.apache.log4j.Logger;
+
 import cn.gotom.sso.util.CommonUtils;
 
 public class TicketImpl implements Ticket
@@ -14,7 +17,7 @@ public class TicketImpl implements Ticket
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private final String id;
 	private String serviceUrl;
 	private String redirect;
@@ -37,10 +40,18 @@ public class TicketImpl implements Ticket
 
 	public static TicketImpl parseFromJSON(String jsonString)
 	{
-		JSON json = JSONSerializer.toJSON(jsonString);
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.setRootClass(TicketImpl.class);
-		return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+		try
+		{
+			JSON json = JSONSerializer.toJSON(jsonString);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.setRootClass(TicketImpl.class);
+			return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+		}
+		catch (Exception ex)
+		{
+			Logger.getLogger(Ticket.class).error("", ex);
+			return null;
+		}
 	}
 
 	@Override

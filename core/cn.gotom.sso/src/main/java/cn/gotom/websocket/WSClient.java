@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-public class Client extends WebSocketClient
+public class WSClient extends WebSocketClient
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -16,9 +16,9 @@ public class Client extends WebSocketClient
 	{
 		private final Timer timer = new Timer();
 
-		private final Client client;
+		private final WSClient client;
 
-		public KeepTimerTask(Client client)
+		public KeepTimerTask(WSClient client)
 		{
 			this.client = client;
 		}
@@ -56,9 +56,9 @@ public class Client extends WebSocketClient
 	private boolean open;
 	private boolean closed;
 	private boolean keepAlive = true;
-	private MessageListener<Client, String> messageListener;
+	private MessageListener<WSClient, String> messageListener;
 
-	public Client(URI serverURI)
+	public WSClient(URI serverURI)
 	{
 		super(serverURI);
 	}
@@ -130,12 +130,12 @@ public class Client extends WebSocketClient
 		this.keepAlive = keepAlive;
 	}
 
-	public MessageListener<Client, String> getMessageListener()
+	public MessageListener<WSClient, String> getMessageListener()
 	{
 		return messageListener;
 	}
 
-	public void setMessageListener(MessageListener<Client, String> messageListener)
+	public void setMessageListener(MessageListener<WSClient, String> messageListener)
 	{
 		this.messageListener = messageListener;
 	}
