@@ -65,6 +65,16 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		}
 		if (ticket != null)
 		{
+			if (CommonUtils.isNotBlank(request.getQueryString()))
+			{
+				int location = request.getQueryString().indexOf(getTicketParameterName() + "=");
+				if (location != -1)
+				{
+					String serviceUrl = constructServiceUrl(request, response);
+					response.sendRedirect(serviceUrl);
+					return;
+				}
+			}
 			filterChain.doFilter(new TicketRequestWrapper(request, ticket), response);
 			return;
 		}
