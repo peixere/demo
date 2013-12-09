@@ -59,20 +59,20 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse res = (HttpServletResponse) response;
 		req.setAttribute("serviceParameterName", getServiceParameterName());
-		String muthod = req.getHeader(TicketValidator.Method);
-		if (muthod == null || muthod.trim().length() == 0)
+		String method = req.getHeader(TicketValidator.Method);
+		if (method == null || method.trim().length() == 0)
 		{
-			muthod = req.getParameter(TicketValidator.Method);
+			method = req.getParameter(TicketValidator.Method);
 		}
-		if (TicketValidator.Logout.equalsIgnoreCase(muthod))
+		if (TicketValidator.Logout.equalsIgnoreCase(method))
 		{
 			doLogout(req, res);
 		}
-		else if (TicketValidator.Validate.equalsIgnoreCase(muthod))
+		else if (TicketValidator.Validate.equalsIgnoreCase(method))
 		{
 			doValidate(req, res);
 		}
-		else if (TicketValidator.Login.equalsIgnoreCase(muthod))
+		else if (TicketValidator.Login.equalsIgnoreCase(method))
 		{
 			doLogin(req, res);
 		}
@@ -113,7 +113,7 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		{
 			ticket.setSuccess(false);
 			req.setAttribute("errorMsg", "登录失败，请检查你的用户名或密码是否正确！");
-			req.getRequestDispatcher("/WEB-INF/view/login.jsp");
+			req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 	}
@@ -137,11 +137,11 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			password = passwordEncoder.encode(password);
 			Connection conn = connection.connection();
 			stmt = conn.prepareStatement(loginSQL);
-			stmt.setString(0, username);
+			stmt.setString(1, username);
 			rs = stmt.executeQuery();
 			if (rs.next())
 			{
-				if (password.equals(rs.getString(0)))
+				if (password.equals(rs.getString(1)))
 				{
 					return true;
 				}
