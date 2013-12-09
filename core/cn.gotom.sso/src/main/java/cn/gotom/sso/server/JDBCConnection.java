@@ -52,12 +52,12 @@ public class JDBCConnection
 			{
 				conn = create();
 				connectionPool.set(conn);
-				log.debug("Open：" + conn);
+				log.debug("Open: " + conn);
 			}
 		}
 		catch (SQLException ex)
 		{
-			log.error("打开数据库连接失败！" + ex.getMessage());
+			log.error(ex.getMessage());
 		}
 		return conn;
 	}
@@ -86,7 +86,7 @@ public class JDBCConnection
 			connectionPool.set(null);
 			try
 			{
-				log.debug("Close：" + conn);
+				log.debug("Close:" + conn);
 				conn.close();
 			}
 			catch (SQLException ex)
