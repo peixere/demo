@@ -38,7 +38,17 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		setServerName(getInitParameter(filterConfig, "serverName", null));
 		setService(getInitParameter(filterConfig, "service", null));
 		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
+		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
+		if (this.getServerLoginUrl().startsWith(contextPath))
+		{
+			setServerLoginUrl(getServerLoginUrl().replaceAll(contextPath, filterConfig.getServletContext().getContextPath()));
+		}
 		log.debug("init");
+	}
+
+	protected void doValidate(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
+	{
+		filterChain.doFilter(request, response);
 	}
 
 	@Override
@@ -86,16 +96,14 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 					return;
 				}
 			}
-			filterChain.doFilter(new TicketRequestWrapper(request, ticket), response);
+			doValidate(new TicketRequestWrapper(request, ticket), response, filterChain);
 			return;
 		}
 		final String serviceUrl = constructServiceUrl(request, response);
+		log.debug("serviceUrl to \"" + serviceUrl + "\"");
 		final String serverUrl = constructServerUrl(request, response);
 		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, this.getServiceParameterName(), serviceUrl);
-		if (log.isDebugEnabled())
-		{
-			log.debug("redirecting to \"" + urlToRedirectTo + "\"");
-		}
+		log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		response.sendRedirect(urlToRedirectTo);
 	}
 

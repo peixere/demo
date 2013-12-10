@@ -11,7 +11,8 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	protected static final String serverLoginUrlParameter = "serverLoginUrl";
-	
+	protected static final String contextPath = "${this}";
+
 	private String ticketParameterName = "ticket";
 
 	private String serviceParameterName = "service";
@@ -21,7 +22,7 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 	 * 必选，验证服务器URL
 	 */
 	private String serverLoginUrl;
-	
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
@@ -33,7 +34,7 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 		setTicketParameterName(getInitParameter(filterConfig, "ticketParameterName", "ticket"));
 		setServiceParameterName(getInitParameter(filterConfig, "serviceParameterName", "service"));
 		setEncodeServiceUrl(CommonUtils.parseBoolean(getInitParameter(filterConfig, "encodeServiceUrl", "true")));
-		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));			
+		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
 	}
 
 	public boolean getEncodeServiceUrl()

@@ -17,8 +17,8 @@ import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.util.CommonUtils;
-import cn.gotom.websocket.Listener;
-import cn.gotom.websocket.WSClient;
+import cn.gotom.sso.websocket.Listener;
+import cn.gotom.sso.websocket.WSClient;
 
 public class SafeAuthenticationFilter extends AuthenticationFilter implements TicketValidator
 {

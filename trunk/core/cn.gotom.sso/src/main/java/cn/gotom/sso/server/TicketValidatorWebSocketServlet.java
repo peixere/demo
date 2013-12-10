@@ -13,9 +13,9 @@ import org.apache.catalina.websocket.WsOutbound;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketMap;
-import cn.gotom.websocket.Listener;
-import cn.gotom.websocket.Message;
-import cn.gotom.websocket.SocketServlet;
+import cn.gotom.sso.websocket.Listener;
+import cn.gotom.sso.websocket.Message;
+import cn.gotom.sso.websocket.SocketServlet;
 
 public class TicketValidatorWebSocketServlet extends SocketServlet
 {

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
-import cn.gotom.sso.filter.AbstractAuthenticationFilter;
+import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.util.UrlUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ValidationFilter extends AbstractAuthenticationFilter
+public class ValidationFilter extends AuthenticationFilter
 {
 
 	@Inject
@@ -35,34 +35,32 @@ public class ValidationFilter extends AbstractAuthenticationFilter
 
 	private String plugins;
 
-	public void destroy()
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException
 	{
-
+		this.filterConfig = filterConfig;
+		super.init(filterConfig);
+		initPlugins();
+		dataInitializeService.init();
+		log.debug("init");
 	}
 
-	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
+	protected void doValidate(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
 	{
-		try
+		final HttpServletRequest request = (HttpServletRequest) req;
+		final HttpServletResponse response = (HttpServletResponse) res;
+		setPlugins(request);
+		String url = UrlUtils.buildUrl(request);
+		if (authService.validation(request.getRemoteUser(), url))
 		{
-			final HttpServletRequest request = (HttpServletRequest) req;		
-			final HttpServletResponse response = (HttpServletResponse) res;
-			setPlugins(request);
-			String url = UrlUtils.buildUrl(request);
-			if (this.isIgnore(url) || authService.validation(request.getRemoteUser(), url))
-			{
-				filterChain.doFilter(req, res);
-			}
-			else
-			{
-				log.warn(request.getRemoteUser() + " 403: " + url);
-				response.setStatus(403);
-				request.setAttribute("url", url);
-				request.getRequestDispatcher("/WEB-INF/view/error/403.jsp").forward(request, response);
-			}
+			filterChain.doFilter(req, res);
 		}
-		finally
+		else
 		{
-
+			log.warn(request.getRemoteUser() + " 403: " + url);
+			response.setStatus(403);
+			request.setAttribute("url", url);
+			request.getRequestDispatcher("/WEB-INF/view/error/403.jsp").forward(request, response);
 		}
 	}
 
@@ -90,16 +88,6 @@ public class ValidationFilter extends AbstractAuthenticationFilter
 			log.info("plugins: " + plugins);
 		}
 		request.setAttribute("plugins", plugins);
-	}
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException
-	{
-		this.filterConfig = filterConfig;
-		super.init(filterConfig);
-		initPlugins();
-		dataInitializeService.init();
-		log.debug("init");
 	}
 
 }
