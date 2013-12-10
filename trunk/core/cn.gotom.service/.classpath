@@ -6,7 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.dao"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/javax.inject.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/guice-persist-3.0.jar" sourcepath="D:/Program Files/eclipse/guice-3.0-src.zip"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/guice-persist-3.0.jar" sourcepath="/guice-persist"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/ant-1.6.5.jar"/>

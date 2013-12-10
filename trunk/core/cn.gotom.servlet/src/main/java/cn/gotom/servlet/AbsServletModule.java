@@ -4,12 +4,8 @@ import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 
-import cn.gotom.matcher.UrlMatcher;
-import cn.gotom.matcher.UrlMatcherAnt;
 import cn.gotom.sso.authentication.AuthenticationFilter;
 import cn.gotom.sso.filter.CharacterFilter;
-import cn.gotom.util.PasswordEncoder;
-import cn.gotom.util.PasswordEncoderMessageDigest;
 
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
@@ -19,8 +15,6 @@ public abstract class AbsServletModule extends ServletModule
 	@Override
 	protected void configureServlets()
 	{
-		bind(UrlMatcher.class).to(UrlMatcherAnt.class).asEagerSingleton();
-		bind(PasswordEncoder.class).to(PasswordEncoderMessageDigest.class).asEagerSingleton();
 		bind(CharacterFilter.class).in(Singleton.class);
 		filter("/*").through(CharacterFilter.class);
 		configureGuicePersistServlets();
