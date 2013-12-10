@@ -13,12 +13,10 @@ body {
 	background-color: #eee;
 }
 #view-container {
-	width: 98%; 
 	margin: 0 auto; 
+	width: 98%; 
+	height: 100%;
 	background-color: #ffffff;
-	-webkit-border-radius: 5px; 
-	-moz-border-radius: 5px; 
-	border-radius: 5px; 
 	border: 1px solid #cccccc; 
 }
 #form {
@@ -30,6 +28,7 @@ body {
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
 	border: 1px solid #cccccc; 
+	margin-bottom: 30px;
 }
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #cccccc; padding: 0; }
 #company-name { 

@@ -53,9 +53,10 @@ public class ServerFilter extends AbstractCommonFilter
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
 		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
-		if (this.getServerLoginUrl().startsWith(contextPath))
+		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(contextPath))
 		{
-			setServerLoginUrl(getServerLoginUrl().replaceAll(contextPath, ""));
+			setServerLoginUrl(serverLoginUrl.substring(contextPath.length(), serverLoginUrl.length()));
+			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
 		log.info("init");
 	}
@@ -71,10 +72,18 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse res = (HttpServletResponse) response;
+		if (CommonUtils.isNotEmpty(getServerLoginUrl()))
+		{
+			String url = UrlUtils.buildUrl(req);
+			if (!url.equals(this.getServerLoginUrl()))
+			{
+				filterChain.doFilter(request, response);
+				return;
+			}
+		}
 		req.setAttribute("serviceParameterName", getServiceParameterName());
 		String method = req.getHeader(TicketValidator.Method);
-		String url = UrlUtils.buildFullRequestUrl(req);
-		log.debug(url);
+
 		if (method == null || method.trim().length() == 0)
 		{
 			method = req.getParameter(TicketValidator.Method);

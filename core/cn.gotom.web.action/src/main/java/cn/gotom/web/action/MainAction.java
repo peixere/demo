@@ -20,6 +20,7 @@ import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.UserService;
 import cn.gotom.servlet.ResponseUtils;
+import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.JsonResponse;
@@ -68,7 +69,7 @@ public class MainAction
 			configService.save(appTitle);
 		}
 		mainInfo.setTitle(appTitle.getValue());
-		mainInfo.setLogoutUrl(ServletActionContext.getServletContext().getInitParameter("casServerLogoutUrl"));
+		mainInfo.setLogoutUrl(AuthenticationFilter.getServerLogoutUrl());
 		ResponseUtils.toJSON(mainInfo);
 	}
 
