@@ -30,6 +30,9 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	private PasswordEncoder passwordEncoder;
 	private String loginSQL;
 	private String encodingAlgorithm;
+	private String loginPath;
+	private String logoutPath;
+	private String successPath;
 
 	private static final TicketMap ticketMap = new TicketMap();
 
@@ -43,6 +46,9 @@ public class ServerFilter extends AbstractAuthenticationFilter
 	{
 		super.init(filterConfig);
 		encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
+		loginPath = this.getInitParameter(filterConfig, "login", "/WEB-INF/sso/login.jsp");
+		logoutPath = this.getInitParameter(filterConfig, "logout", loginPath);
+		successPath = this.getInitParameter(filterConfig, "success", null);
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
 		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 		log.info("init");
@@ -84,13 +90,14 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			if (ticket == null)
 			{
 				req.setAttribute(getServiceParameterName(), serviceUrl);
-				req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+				req.getRequestDispatcher(loginPath).forward(request, response);
 			}
 			else
 			{
-				serviceUrl = serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId();
-				req.setAttribute(getServiceParameterName(), serviceUrl);
-				req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(request, response);
+
+				String redirectUrl = serviceUrl;
+				redirectUrl = redirectUrl + (redirectUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId();
+				success(req, res, redirectUrl);
 			}
 		}
 	}
@@ -107,19 +114,30 @@ public class ServerFilter extends AbstractAuthenticationFilter
 			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
-			req.setAttribute(getServiceParameterName(), ticket.getRedirect());
 			getTicketMap().put(ticket.getId(), ticket);
-			// res.sendRedirect(ticket.getRedirect());
-			req.getRequestDispatcher("/WEB-INF/view/success.jsp").forward(req, res);
+			success(req, res, ticket.getRedirect());
 		}
 		else
 		{
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
 			req.setAttribute("errorMsg", "登录失败，请检查你的用户名或密码是否正确！");
-			req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, res);
+			req.getRequestDispatcher(loginPath).forward(req, res);
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+	}
+
+	private void success(HttpServletRequest req, HttpServletResponse res, String redirectUrl) throws IOException, ServletException
+	{
+		req.setAttribute(getServiceParameterName(), redirectUrl);
+		if (CommonUtils.isEmpty(successPath))
+		{
+			res.sendRedirect(redirectUrl);
+		}
+		else
+		{
+			req.getRequestDispatcher(successPath).forward(req, res);
+		}
 	}
 
 	private String getServiceUrl(HttpServletRequest req)
@@ -178,7 +196,8 @@ public class ServerFilter extends AbstractAuthenticationFilter
 		getTicketMap().remove(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
-		req.getRequestDispatcher("/WEB-INF/view/logout.jsp").forward(req, res);
+		req.setAttribute("errorMsg", "注消成功！");
+		req.getRequestDispatcher(logoutPath).forward(req, res);
 	}
 
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)
