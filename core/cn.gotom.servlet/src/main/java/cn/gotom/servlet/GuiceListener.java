@@ -6,6 +6,8 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.service.ServiceModule;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -50,6 +52,7 @@ public class GuiceListener extends GuiceServletContextListener
 		}
 		moduleList.add(jpm);
 		// moduleList.add(new CorePersistModule());
+		moduleList.add(new ServiceModule());
 		moduleList.add(new CoreServletModule());
 		moduleList.add(new Struts2GuicePluginModule());
 		return moduleList;
