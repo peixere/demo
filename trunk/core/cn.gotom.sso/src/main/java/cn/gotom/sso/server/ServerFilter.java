@@ -18,12 +18,12 @@ import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
-import cn.gotom.sso.filter.AbstractAuthenticationFilter;
+import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
 import cn.gotom.sso.util.PasswordEncoderMessageDigest;
 
-public class ServerFilter extends AbstractAuthenticationFilter
+public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
 	private static final JDBCConnection connection = JDBCConnection.single;

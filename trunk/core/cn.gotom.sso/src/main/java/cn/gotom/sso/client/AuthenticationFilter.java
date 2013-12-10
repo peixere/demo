@@ -15,18 +15,29 @@ import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketValidator;
-import cn.gotom.sso.filter.AbstractAuthenticationFilter;
+import cn.gotom.sso.filter.AuthenticationIgnoreFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 
-public class AuthenticationFilter extends AbstractAuthenticationFilter implements TicketValidator
+public class AuthenticationFilter extends AuthenticationIgnoreFilter implements TicketValidator
 {
+
+	/**
+	 * 可选，接入服务器名，为空测从哪来回哪去
+	 */
+	private String serverName;
+	/**
+	 * 可选，接入服务验证返回URL，为空测从哪来回哪去
+	 */
+	private String service;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		super.init(filterConfig);
-		CommonUtils.assertNotNull(this.getServerUrl(), serverUrlParameter + " cannot be null.");
+		setServerName(getInitParameter(filterConfig, "serverName", null));
+		setService(getInitParameter(filterConfig, "service", null));
+		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
 		log.debug("init");
 	}
 
@@ -80,31 +91,12 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 		}
 		final String serviceUrl = constructServiceUrl(request, response);
 		final String serverUrl = constructServerUrl(request, response);
-		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, serviceParameter, serviceUrl);
+		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, this.getServiceParameterName(), serviceUrl);
 		if (log.isDebugEnabled())
 		{
 			log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		}
 		response.sendRedirect(urlToRedirectTo);
-	}
-
-	private String constructServerUrl(HttpServletRequest request, HttpServletResponse response)
-	{
-		String serverUrl = this.getServerUrl();
-		final StringBuilder buffer = new StringBuilder();
-		if (CommonUtils.isNotBlank(serverUrl))
-		{
-			if (!serverUrl.startsWith("https://") && !serverUrl.startsWith("http://"))
-			{
-				buffer.append(CommonUtils.getServerName(request));
-			}
-		}
-		else
-		{
-			buffer.append(CommonUtils.getServerName(request));
-		}
-		buffer.append(serverUrl);
-		return buffer.toString();
 	}
 
 	@Override
@@ -114,13 +106,16 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	}
 
 	@Override
-	public Ticket validate(String ticketId, String serverUrl) throws SSOException
+	public Ticket validate(String ticketId, String serverLoginUrl) throws SSOException
 	{
 		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
-		String url = serverUrl + (serverUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
+		String url = serverLoginUrl + (serverLoginUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
 		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8");
 		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
-		log.debug(ticket + " validateUrl: " + url);
+		if (ticket == null)
+		{
+			log.debug(" validateUrl: " + url);
+		}
 		return ticket;
 	}
 
@@ -146,4 +141,63 @@ public class AuthenticationFilter extends AbstractAuthenticationFilter implement
 	{
 		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.getTicketParameterName(), this.getEncodeServiceUrl());
 	}
+
+	protected final String constructServerUrl(HttpServletRequest request, HttpServletResponse response)
+	{
+		String serverLoginUrl = this.getServerLoginUrl();
+		final StringBuilder buffer = new StringBuilder();
+		if (CommonUtils.isNotBlank(serverLoginUrl))
+		{
+			if (!serverLoginUrl.startsWith("https://") && !serverLoginUrl.startsWith("http://"))
+			{
+				buffer.append(constructServerName(request));
+			}
+		}
+		else
+		{
+			buffer.append(constructServerName(request));
+		}
+		buffer.append(serverLoginUrl);
+		return buffer.toString();
+	}
+
+	protected final String constructServerName(HttpServletRequest request)
+	{
+		final StringBuilder buffer = new StringBuilder();
+		String serverName = this.getServerName();
+		if (CommonUtils.isNotBlank(serverName))
+		{
+			if (!serverName.startsWith("https://") && !serverName.startsWith("http://"))
+			{
+				buffer.append(request.isSecure() ? "https://" : "http://");
+			}
+			buffer.append(serverName);
+		}
+		else
+		{
+			buffer.append(CommonUtils.getServerName(request));
+		}
+		return buffer.toString();
+	}
+
+	public String getServerName()
+	{
+		return serverName;
+	}
+
+	public void setServerName(String serverName)
+	{
+		this.serverName = serverName;
+	}
+
+	public String getService()
+	{
+		return service;
+	}
+
+	public void setService(String service)
+	{
+		this.service = service;
+	}
+
 }
