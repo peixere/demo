@@ -72,15 +72,13 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		final HttpServletRequest req = (HttpServletRequest) request;
 		final HttpServletResponse res = (HttpServletResponse) response;
-		if (CommonUtils.isNotEmpty(getServerLoginUrl()))
+		String url = UrlUtils.buildUrl(req);
+		if (CommonUtils.isNotEmpty(getServerLoginUrl()) && !url.equals(this.getServerLoginUrl()))
 		{
-			String url = UrlUtils.buildUrl(req);
-			if (!url.equals(this.getServerLoginUrl()))
-			{
-				filterChain.doFilter(request, response);
-				return;
-			}
+			filterChain.doFilter(request, response);
+			return;
 		}
+		req.setAttribute("serverLoginUrl", url);
 		req.setAttribute("serviceParameterName", getServiceParameterName());
 		String method = req.getHeader(TicketValidator.Method);
 
