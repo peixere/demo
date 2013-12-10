@@ -2,6 +2,7 @@ package cn.gotom.servlet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -37,8 +38,18 @@ public class GuiceListener extends GuiceServletContextListener
 	{
 		List<Module> moduleList = new ArrayList<Module>();
 		JpaPersistModule jpm = new JpaPersistModule("AppEntityManager");
+		try
+		{
+			Properties properties = new Properties();
+			properties.load(this.getClass().getResourceAsStream("/jdbc.properties"));
+			jpm.properties(properties);
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
 		moduleList.add(jpm);
-		//moduleList.add(new CorePersistModule());
+		// moduleList.add(new CorePersistModule());
 		moduleList.add(new CoreServletModule());
 		moduleList.add(new Struts2GuicePluginModule());
 		return moduleList;
