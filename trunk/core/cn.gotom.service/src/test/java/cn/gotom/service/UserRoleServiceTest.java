@@ -2,6 +2,7 @@ package cn.gotom.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.dao.JdbcUtils;
 import cn.gotom.dao.Persistence;
+import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
@@ -33,8 +35,12 @@ public class UserRoleServiceTest extends TestCase
 			System.out.println("------------------- setUp -----------------------");
 			userList();
 			roleList();
-			injector = Guice.createInjector(new JpaPersistModule("AppEntityManager"));
-			injector.getInstance(Persistence.class).startService();
+			JpaPersistModule jpm = new JpaPersistModule("AppEntityManager");
+			Properties properties = new Properties();
+			properties.load(this.getClass().getResourceAsStream("/jdbc.properties"));
+			jpm.properties(properties);
+			injector = Guice.createInjector(jpm,new ServiceModule());
+			injector.getInstance(PersistenceLifeCycle.class).startService();
 		}
 		catch (Exception ex)
 		{
