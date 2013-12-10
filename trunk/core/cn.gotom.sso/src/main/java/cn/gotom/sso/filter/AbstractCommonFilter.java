@@ -21,7 +21,7 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 	/**
 	 * 必选，验证服务器URL
 	 */
-	private String serverLoginUrl;
+	protected String serverLoginUrl;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException

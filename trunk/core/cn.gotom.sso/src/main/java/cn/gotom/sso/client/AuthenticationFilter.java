@@ -31,6 +31,13 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	 */
 	private String service;
 
+	private static String serverLogoutUrl;
+
+	public static String getServerLogoutUrl()
+	{
+		return serverLogoutUrl;
+	}
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
@@ -41,8 +48,10 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
 		if (this.getServerLoginUrl().startsWith(contextPath))
 		{
-			setServerLoginUrl(getServerLoginUrl().replaceAll(contextPath, filterConfig.getServletContext().getContextPath()));
+			setServerLoginUrl(filterConfig.getServletContext().getContextPath() + serverLoginUrl.substring(contextPath.length(), serverLoginUrl.length()));
+			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
+		serverLogoutUrl = this.getServerLoginUrl() + (getServerLoginUrl().indexOf("?") == -1 ? "?" : "&") + TicketValidator.Method + "=" + TicketValidator.Logout;
 		log.debug("init");
 	}
 

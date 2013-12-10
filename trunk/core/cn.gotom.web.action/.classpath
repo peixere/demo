@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/xwork-core-2.3.1.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/cn.gotom.commons.jar" sourcepath="/cn.gotom.commons"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/cas-client-core-3.2.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.servlet"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
@@ -28,5 +27,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/batik-transcoder.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/pdf-transcoder.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.sso"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

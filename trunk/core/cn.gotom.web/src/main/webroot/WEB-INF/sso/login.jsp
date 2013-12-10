@@ -6,8 +6,9 @@
 <%@ include file="inc/meta.jsp"%>
 </head>
 <body>
+<div id="view-container">
 	<%@ include file="inc/header.jsp"%>
-	<form id="form" action="${ctxp}/login.do" method="POST">
+	<form id="form" method="POST">
 		<div>请输入你的的用户名和密码.<hr/></div>		
 		<p>
 		<c:if test="${errorMsg != null}">
@@ -23,6 +24,8 @@
 		<hr/>
 		<div id="button"><input type="submit" value="" id="submit" style="background-image:url('resources/icons/login.gif');padding:0px"/></div>
 	</form>
+	</div>
 	<%@ include file="inc/footer.jsp"%>
+	
 </body>
 </html>
