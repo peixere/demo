@@ -2,7 +2,7 @@ package cn.gotom.sso;
 
 import java.util.HashMap;
 
-import cn.gotom.websocket.Listener;
+import cn.gotom.sso.websocket.Listener;
 
 public class TicketMap extends HashMap<String, Ticket>
 {

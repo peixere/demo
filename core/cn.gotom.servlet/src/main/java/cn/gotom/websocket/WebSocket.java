@@ -32,7 +32,7 @@ public class WebSocket extends WebSocketServlet
 		socketServer.schedule(10000, 1000);
 		log.debug("init");
 	}
-	
+
 	@Override
 	public void destroy()
 	{
@@ -40,7 +40,7 @@ public class WebSocket extends WebSocketServlet
 		socketServer.cancel();
 		super.destroy();
 	}
-	
+
 	@Override
 	protected StreamInbound createWebSocketInbound(String arg0, HttpServletRequest request)
 	{

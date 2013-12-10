@@ -1,4 +1,4 @@
-package cn.gotom.websocket;
+package cn.gotom.sso.websocket;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

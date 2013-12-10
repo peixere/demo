@@ -22,6 +22,7 @@ import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
 import cn.gotom.sso.util.PasswordEncoderMessageDigest;
+import cn.gotom.sso.util.UrlUtils;
 
 public class ServerFilter extends AbstractCommonFilter
 {
@@ -51,6 +52,11 @@ public class ServerFilter extends AbstractCommonFilter
 		successPath = this.getInitParameter(filterConfig, "success", null);
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
 		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
+		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
+		if (this.getServerLoginUrl().startsWith(contextPath))
+		{
+			setServerLoginUrl(getServerLoginUrl().replaceAll(contextPath, ""));
+		}
 		log.info("init");
 	}
 
@@ -67,6 +73,8 @@ public class ServerFilter extends AbstractCommonFilter
 		final HttpServletResponse res = (HttpServletResponse) response;
 		req.setAttribute("serviceParameterName", getServiceParameterName());
 		String method = req.getHeader(TicketValidator.Method);
+		String url = UrlUtils.buildFullRequestUrl(req);
+		log.debug(url);
 		if (method == null || method.trim().length() == 0)
 		{
 			method = req.getParameter(TicketValidator.Method);

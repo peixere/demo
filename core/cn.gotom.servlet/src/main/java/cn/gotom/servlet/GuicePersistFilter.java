@@ -18,7 +18,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class GuicePersistFilter extends AbstractConfigurationFilter
+class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
 
