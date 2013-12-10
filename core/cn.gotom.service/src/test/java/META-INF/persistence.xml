@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="AppEntityManager"
 		transaction-type="RESOURCE_LOCAL">
-		<provider>cn.gotom.dao.jpa.ScanClassesHibernatePersistence</provider>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>cn.gotom.pojos.SuperEntity</class>
 		<class>cn.gotom.pojos.ResourceConfig</class>
 		
@@ -18,10 +18,10 @@
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/extdemo?Unicode=true&amp;characterEncoding=utf8" />
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.connection.driver_class" value="${jdbc.driver}" />
+			<property name="hibernate.connection.url" value="${jdbc.url}" />
+			<property name="hibernate.connection.username" value="${jdbc.username}" />
+			<property name="hibernate.connection.password" value="${jdbc.password}" />
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
@@ -52,10 +52,10 @@
 		<properties>
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/auth2?Unicode=true&amp;characterEncoding=utf8" />
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.connection.driver_class" value="${jdbc.driver}" />
+			<property name="hibernate.connection.url" value="${jdbc.url" />
+			<property name="hibernate.connection.username" value="${jdbc.username" />
+			<property name="hibernate.connection.password" value="${jdbc.password" />
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
