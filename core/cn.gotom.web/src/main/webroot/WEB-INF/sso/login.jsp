@@ -8,7 +8,7 @@
 <body>
 <div id="view-container">
 	<%@ include file="inc/header.jsp"%>
-	<form id="form" method="POST">
+	<form id="form" action="${ctxp}${serverLoginUrl}" method="POST">
 		<div>请输入你的的用户名和密码.<hr/></div>		
 		<p>
 		<c:if test="${errorMsg != null}">
