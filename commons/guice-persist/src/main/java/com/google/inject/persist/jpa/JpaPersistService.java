@@ -102,6 +102,26 @@ class JpaPersistService implements Provider<EntityManager>, UnitOfWork, PersistS
 		// {
 		// this.emFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
 		// }
+		if (persistenceProperties != null)
+		{
+			if (persistenceProperties.containsKey("jdbc.driver"))
+			{
+				persistenceProperties.put("hibernate.connection.driver_class", persistenceProperties.get("jdbc.driver"));
+			}
+			if (persistenceProperties.containsKey("jdbc.url"))
+			{
+				persistenceProperties.put("hibernate.connection.url", persistenceProperties.get("jdbc.url"));
+			}
+			if (persistenceProperties.containsKey("jdbc.username"))
+			{
+				persistenceProperties.put("hibernate.connection.username", persistenceProperties.get("jdbc.username"));
+			}
+			if (persistenceProperties.containsKey("jdbc.password"))
+			{
+				persistenceProperties.put("hibernate.connection.password", persistenceProperties.get("jdbc.password"));
+			}
+		}
+
 		Ejb3Configuration cfg = new Ejb3Configuration();
 		Ejb3Configuration configured = cfg.configure(persistenceUnitName, persistenceProperties);
 		for (Class<?> persistentClass : annotatedClasses)
