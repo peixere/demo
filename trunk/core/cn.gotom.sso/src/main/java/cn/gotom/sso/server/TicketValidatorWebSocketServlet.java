@@ -54,9 +54,9 @@ public class TicketValidatorWebSocketServlet extends SocketServlet
 			{
 				if (request != null)
 				{
-					if (ServerFilter.getTicketMap().containsKey(request.getId()))
+					if (TicketMap.instance.containsKey(request.getId()))
 					{
-						response = ServerFilter.getTicketMap().get(request.getId());
+						response = TicketMap.instance.get(request.getId());
 					}
 				}
 				if (response == null)
@@ -105,7 +105,7 @@ public class TicketValidatorWebSocketServlet extends SocketServlet
 	@Override
 	public void init(ServletConfig config) throws ServletException
 	{
-		ServerFilter.getTicketMap().setRemoveListener(removeListener);
+		TicketMap.instance.setRemoveListener(removeListener);
 		super.init(config);
 		log.debug("init");
 	}

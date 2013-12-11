@@ -6,7 +6,7 @@ import cn.gotom.sso.websocket.Listener;
 
 public class TicketMap extends HashMap<String, Ticket>
 {
-
+	public static final TicketMap instance = new TicketMap();  
 	/**
 	 * 
 	 */
