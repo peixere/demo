@@ -32,6 +32,9 @@
 		<param-value>${this}/login.do</param-value>
 	</context-param>	
 	<listener>
+		<listener-class>cn.gotom.sso.server.TicketHttpSessionListener</listener-class>
+	</listener>		
+	<listener>
 		<listener-class>cn.gotom.servlet.GuiceListener</listener-class>
 	</listener>	
 	<filter>
