@@ -15,6 +15,10 @@ Ext.define('Common', {
                 var result = Ext.JSON.decode(response.responseText);
                 Ext.Msg.alert('操作异常 '+response.status, result.data);
             }
+            else if(response.status === 401)
+            {
+                window.location.href = ctxp;
+            }
             else
             {
                 Ext.Msg.alert('操作异常 '+response.status, response.responseText);
@@ -22,15 +26,7 @@ Ext.define('Common', {
         },
 
         onProxyException: function(proxy, response, operation, eOpts) {
-            if(response.status === 200)
-            {
-                var result = Ext.JSON.decode(response.responseText);
-                Ext.Msg.alert('操作异常 '+response.status, result.data);
-            }
-            else
-            {
-                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
-            }
+            onAjaxException(response,'');
         },
 
         ajax: function(config) {

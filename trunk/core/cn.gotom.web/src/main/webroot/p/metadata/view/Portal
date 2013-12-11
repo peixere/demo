@@ -353,11 +353,12 @@
                 "implHandler": [
                     "me = this;\r",
                     "Common.ajax({\r",
-                    "    component : Ext.getCmp('app-header'),\r",
+                    "    //component : Ext.getCmp('app-header'),\r",
                     "    message : '加载头信息...',    \r",
                     "    url : ctxp+'/p/main!main.do',\r",
                     "    callback : me.callbackHeader\r",
-                    "});"
+                    "});\r",
+                    "//Ext.defer(function(){me.setHeader();}, 1000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
@@ -388,7 +389,8 @@
                     "htmlStr += '<a href=\"javascript:Ext.getCmp(\\'app-viewport\\').settingPassword();\">修改密码</a>　';\r",
                     "htmlStr += '<a href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
                     "htmlStr += '</div>';\r",
-                    "header.update(htmlStr);"
+                    "header.update(htmlStr);\r",
+                    ""
                 ]
             },
             "designerId": "484b5059-8015-4655-aeec-1c8c0f005f8d"

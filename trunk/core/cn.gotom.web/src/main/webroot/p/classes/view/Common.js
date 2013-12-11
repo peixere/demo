@@ -30,6 +30,10 @@ Ext.define('Gotom.view.Common', {
                 var result = Ext.JSON.decode(response.responseText);
                 Ext.Msg.alert('操作异常 '+response.status, result.data);
             }
+            else if(response.status === 401)
+            {
+                window.location.href = ctxp;
+            }
             else
             {
                 Ext.Msg.alert('操作异常 '+response.status, response.responseText);

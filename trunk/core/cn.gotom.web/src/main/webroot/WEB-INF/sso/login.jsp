@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=utf-8"%>
+<%response.setStatus(401);%>
 <%@ include file="inc/inc.jsp"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
