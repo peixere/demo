@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.sso.TicketMap;
+
 public class TicketHttpSessionListener implements HttpSessionListener
 {
 	protected final Logger log = Logger.getLogger(getClass());
@@ -14,7 +16,7 @@ public class TicketHttpSessionListener implements HttpSessionListener
 	@Override
 	public void sessionCreated(HttpSessionEvent se)
 	{
-		log.info(se.getSession().getId());
+		log.debug(se.getSession().getId());
 		Enumeration<String> names = se.getSession().getAttributeNames();
 		while(names.hasMoreElements())
 		{
@@ -26,12 +28,13 @@ public class TicketHttpSessionListener implements HttpSessionListener
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se)
 	{
-		log.info(se.getSession().getId());
+		log.debug(se.getSession().getId());
+		TicketMap.instance.remove(se.getSession().getId());
 		Enumeration<String> names = se.getSession().getAttributeNames();
 		while(names.hasMoreElements())
 		{
 			String name = names.nextElement();
-			ServerFilter.getTicketMap().remove(name);
+			TicketMap.instance.remove(name);
 			log.info(name + "=" + se.getSession().getAttribute(name));
 		}
 	}

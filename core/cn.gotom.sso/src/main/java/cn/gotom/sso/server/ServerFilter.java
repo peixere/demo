@@ -35,13 +35,6 @@ public class ServerFilter extends AbstractCommonFilter
 	private String logoutPath;
 	private String successPath;
 
-	private static final TicketMap ticketMap = new TicketMap();
-
-	public static TicketMap getTicketMap()
-	{
-		return ticketMap;
-	}
-
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
@@ -104,7 +97,7 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		else
 		{
-			Ticket ticket = ticketMap.get(req.getSession().getId());
+			Ticket ticket = TicketMap.instance.get(req.getSession().getId());
 			String serviceUrl = getServiceUrl(req);
 			if (ticket == null)
 			{
@@ -133,7 +126,7 @@ public class ServerFilter extends AbstractCommonFilter
 			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
-			getTicketMap().put(ticket.getId(), ticket);
+			TicketMap.instance.put(ticket.getId(), ticket);
 			success(req, res, ticket.getRedirect());
 		}
 		else
@@ -212,7 +205,7 @@ public class ServerFilter extends AbstractCommonFilter
 
 	protected void doLogout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
 	{
-		getTicketMap().remove(req.getSession().getId());
+		TicketMap.instance.remove(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
 		req.setAttribute("errorMsg", "注消成功！");
@@ -222,9 +215,9 @@ public class ServerFilter extends AbstractCommonFilter
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)
 	{
 		String ticketName = req.getParameter(this.getTicketParameterName());
-		if (getTicketMap().containsKey(ticketName))
+		if (TicketMap.instance.containsKey(ticketName))
 		{
-			Ticket ticket = getTicketMap().get(ticketName);
+			Ticket ticket = TicketMap.instance.get(ticketName);
 			CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 		}
 	}
