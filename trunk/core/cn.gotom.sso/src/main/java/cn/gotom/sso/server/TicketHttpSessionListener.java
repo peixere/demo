@@ -14,6 +14,7 @@ public class TicketHttpSessionListener implements HttpSessionListener
 	@Override
 	public void sessionCreated(HttpSessionEvent se)
 	{
+		log.info(se.getSession().getId());
 		Enumeration<String> names = se.getSession().getAttributeNames();
 		while(names.hasMoreElements())
 		{
@@ -25,10 +26,12 @@ public class TicketHttpSessionListener implements HttpSessionListener
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se)
 	{
+		log.info(se.getSession().getId());
 		Enumeration<String> names = se.getSession().getAttributeNames();
 		while(names.hasMoreElements())
 		{
 			String name = names.nextElement();
+			ServerFilter.getTicketMap().remove(name);
 			log.info(name + "=" + se.getSession().getAttribute(name));
 		}
 	}
