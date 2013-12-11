@@ -17,6 +17,7 @@ public class TicketHttpSessionListener implements HttpSessionListener
 	public void sessionCreated(HttpSessionEvent se)
 	{
 		log.debug(se.getSession().getId());
+		log.debug("OnLine count : "+TicketMap.instance.size());
 		Enumeration<String> names = se.getSession().getAttributeNames();
 		while(names.hasMoreElements())
 		{
