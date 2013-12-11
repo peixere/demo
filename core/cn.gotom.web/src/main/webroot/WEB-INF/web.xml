@@ -19,7 +19,8 @@
 		<param-name>authenticationNone</param-name>
 		<param-value>
 		    /ext4/**,
-		    /resources/**
+		    /resources/**,
+		    /**/**.js
 		</param-value>
 	</context-param>
 	<context-param>
@@ -45,7 +46,9 @@
 		<filter-name>GuiceFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	<session-config>  
+         <session-timeout>1</session-timeout>  
+   	</session-config>
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

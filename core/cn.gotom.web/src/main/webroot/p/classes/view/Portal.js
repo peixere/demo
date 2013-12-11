@@ -249,11 +249,12 @@ Ext.define('Gotom.view.Portal', {
     setHeader: function() {
         me = this;
         Common.ajax({
-            component : Ext.getCmp('app-header'),
+            //component : Ext.getCmp('app-header'),
             message : '加载头信息...',    
             url : ctxp+'/p/main!main.do',
             callback : me.callbackHeader
         });
+        //Ext.defer(function(){me.setHeader();}, 1000);
     },
 
     callbackHeader: function(data) {
@@ -271,6 +272,7 @@ Ext.define('Gotom.view.Portal', {
         htmlStr += '<a href="' + data.logoutUrl + '">注销登录</a>';
         htmlStr += '</div>';
         header.update(htmlStr);
+
     },
 
     setOptions: function() {
