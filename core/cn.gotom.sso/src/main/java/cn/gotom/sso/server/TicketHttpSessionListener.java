@@ -21,7 +21,7 @@ public class TicketHttpSessionListener implements HttpSessionListener
 		while(names.hasMoreElements())
 		{
 			String name = names.nextElement();
-			log.info(name + "=" + se.getSession().getAttribute(name));
+			log.debug(name + "=" + se.getSession().getAttribute(name));
 		}
 	}
 
@@ -35,7 +35,7 @@ public class TicketHttpSessionListener implements HttpSessionListener
 		{
 			String name = names.nextElement();
 			TicketMap.instance.remove(name);
-			log.info(name + "=" + se.getSession().getAttribute(name));
+			log.debug(name + "=" + se.getSession().getAttribute(name));
 		}
 	}
 
