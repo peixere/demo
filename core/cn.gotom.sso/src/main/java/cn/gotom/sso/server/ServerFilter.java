@@ -126,6 +126,7 @@ public class ServerFilter extends AbstractCommonFilter
 			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
+			req.getSession().setAttribute(ticket.getId(), ticket);
 			TicketMap.instance.put(ticket.getId(), ticket);
 			success(req, res, ticket.getRedirect());
 		}
@@ -205,6 +206,7 @@ public class ServerFilter extends AbstractCommonFilter
 
 	protected void doLogout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
 	{
+		req.getSession().removeAttribute(req.getSession().getId());
 		TicketMap.instance.remove(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
 		req.setAttribute(getServiceParameterName(), serviceUrl);
