@@ -56,8 +56,8 @@ public abstract class ChannelImpl extends ChannelBase
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		onMessageListener(bytes, true);
 		out.write(bytes);
+		onMessageListener(bytes, true);
 	}
 
 	@Override

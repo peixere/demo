@@ -76,9 +76,9 @@ public class UdpChannel extends ChannelImpl
 	{
 		try
 		{
-			onMessageListener(bytes,true);
 			DatagramPacket dp = new DatagramPacket(bytes, bytes.length, new InetSocketAddress(parameters.getAddress(), parameters.getPort()));
 			socket.send(dp);
+			onMessageListener(bytes,true);
 		}
 		catch (Exception ex)
 		{
