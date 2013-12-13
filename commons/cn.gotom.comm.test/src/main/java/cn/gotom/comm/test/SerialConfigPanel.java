@@ -14,6 +14,8 @@ import cn.gotom.comm.channel.ParametersConfig;
 import cn.gotom.comm.channel.SerialParameters;
 import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.util.StringUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SerialConfigPanel extends JPanel implements ItemListener, ParametersConfig
 {
@@ -47,6 +49,12 @@ public class SerialConfigPanel extends JPanel implements ItemListener, Parameter
 		portNameLabel = new JLabel("portName", Label.LEFT);
 		add(portNameLabel);
 		portChoice = new Choice();
+		portChoice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				listPortChoices();
+			}
+		});
 		portChoice.addItemListener(this);
 		portChoice.add("");
 		add(portChoice);
@@ -162,6 +170,7 @@ public class SerialConfigPanel extends JPanel implements ItemListener, Parameter
 	{
 		try
 		{
+			portChoice.removeAll();
 			for (String name : SerialPortChannel.listPort())
 			{
 				portChoice.addItem(name);
