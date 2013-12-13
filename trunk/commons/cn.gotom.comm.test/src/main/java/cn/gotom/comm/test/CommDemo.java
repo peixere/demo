@@ -30,6 +30,8 @@ import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Converter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 class CommDemo extends JFrame
 {
@@ -125,6 +127,12 @@ class CommDemo extends JFrame
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 		config = new SerialConfigPanel();
+		config.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+		});
 		tabbedPane.addTab("串口", null, config, null);
 
 		panelTcp = new JPanel();
