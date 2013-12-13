@@ -1,4 +1,4 @@
-package cn.gotom.comm.nettest;
+package cn.gotom.comm.test;
 
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -16,23 +16,24 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
+import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.Converter;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 
 class TcpDemo extends JFrame
 {
 	public static void main(String[] agrs)
 	{
+		System.out.println(ClassLoaderUtils.getPath(ClassLoaderUtils.class));
 		byte b = (byte) 127;
 		int i = b;
 		if (i < 0)
