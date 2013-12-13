@@ -58,10 +58,9 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		try
 		{
 			removeEventListener();
-			if (sPort != null)
+			if (sPort != null && sPort.isOpened())
 			{
 				sPort.closePort();
-				sPort = null;
 				log.info("closed[" + getId() + "]");
 			}
 		}
@@ -69,6 +68,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		{
 			log.error("closed[" + getId() + "]" + e.getMessage());
 		}
+		sPort = null;
 		super.close();
 	}
 
@@ -177,8 +177,8 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	{
 		try
 		{
-			onMessageListener(bytes, true);
 			sPort.writeBytes(bytes);
+			onMessageListener(bytes, true);
 		}
 		catch (SerialPortException e)
 		{
