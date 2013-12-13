@@ -9,13 +9,13 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.FileUtils;
-import cn.gotom.util.SysProperty;
+import cn.gotom.util.SystemProperty;
 
 public class SerialPortLibrary
 {
 	protected static final Logger log = Logger.getLogger(SerialPortLibrary.class);
 
-	private final static String javaHome = SysProperty.java_home;
+	private final static String javaHome = SystemProperty.java_home;
 
 	public static boolean init() throws IOException
 	{
@@ -28,7 +28,7 @@ public class SerialPortLibrary
 		log.debug(systemProperties);
 		System.out.println(systemProperties);
 		boolean flag = false;
-		switch (SysProperty.os)
+		switch (SystemProperty.os)
 		{
 			case SunOS:
 				flag = sunos();
@@ -55,21 +55,21 @@ public class SerialPortLibrary
 		fromfile = getFile("native/sunos/javax.comm.properties");
 		tofile = javaHome + "/lib/javax.comm.properties";
 		FileUtils.cover(fromfile, tofile);
-		if (SysProperty.os_arch.indexOf("x86") > -1)
+		if (SystemProperty.os_arch.indexOf("x86") > -1)
 		{
 			fromfile = getFile("native/sunos/comm3x86/libSolarisSerialParallel.so");
 			tofile = javaHome + "/lib/i386/libSolarisSerialParallel.so";
 			FileUtils.cover(fromfile, tofile);
 			return true;
 		}
-		else if (SysProperty.os_arch.indexOf("sparc") > -1)
+		else if (SystemProperty.os_arch.indexOf("sparc") > -1)
 		{
 			fromfile = getFile("native/sunos/comm3sparc/libSolarisSerialParallel.so");
 			tofile = javaHome + "/lib/i386/libSolarisSerialParallel.so";
 			FileUtils.cover(fromfile, tofile);
 			return true;
 		}
-		else if (SysProperty.os_arch.indexOf("i586") > -1)
+		else if (SystemProperty.os_arch.indexOf("i586") > -1)
 		{
 			fromfile = getFile("native/sunos/comm3i586/libSolarisSerialParallel.so");
 			tofile = javaHome + "/lib/i386/libSolarisSerialParallel.so";
@@ -83,9 +83,9 @@ public class SerialPortLibrary
 	{
 		String fromfile;
 		String tofile;
-		if (SysProperty.os_arch.indexOf("x86") > -1)
+		if (SystemProperty.os_arch.indexOf("x86") > -1)
 		{
-			if (SysProperty.arch_data_model.indexOf("64") > -1)
+			if (SystemProperty.arch_data_model.indexOf("64") > -1)
 			{
 				fromfile = getFile("native/linux/x86_64/rxtxSerial.dll");
 				tofile = javaHome + "/lib/i386/rxtxSerial.dll";
@@ -103,7 +103,7 @@ public class SerialPortLibrary
 				return true;
 			}
 		}
-		else if (SysProperty.os_arch.indexOf("ia64") > -1)
+		else if (SystemProperty.os_arch.indexOf("ia64") > -1)
 		{
 			fromfile = getFile("native/linux/ia64/rxtxSerial.dll");
 			tofile = javaHome + "/lib/i386/rxtxSerial.dll";
@@ -136,9 +136,9 @@ public class SerialPortLibrary
 	{
 		String fromfile;
 		String tofile;
-		if (SysProperty.os_arch.indexOf("x86") > -1)
+		if (SystemProperty.os_arch.indexOf("x86") > -1)
 		{
-			if (SysProperty.arch_data_model.indexOf("32") > -1)
+			if (SystemProperty.arch_data_model.indexOf("32") > -1)
 			{
 				fromfile = getFile("native/win/x86_32/rxtxParallel.dll");
 				tofile = javaHome + "/bin/rxtxParallel.dll";
@@ -148,7 +148,7 @@ public class SerialPortLibrary
 				FileUtils.cover(fromfile, tofile);
 				return true;
 			}
-			else if (SysProperty.arch_data_model.indexOf("64") > -1)
+			else if (SystemProperty.arch_data_model.indexOf("64") > -1)
 			{
 				fromfile = getFile("native/win/x86_64/rxtxParallel.dll");
 				tofile = javaHome + "/bin/rxtxParallel.dll";
