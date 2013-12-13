@@ -11,7 +11,12 @@ import javax.swing.JPanel;
 
 import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.ParametersConfig;
+import cn.gotom.comm.channel.SerialParameters;
+import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.util.StringUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class SerialConfigPanel extends JPanel implements ItemListener, ParametersConfig
 {
@@ -38,6 +43,12 @@ public class SerialConfigPanel extends JPanel implements ItemListener, Parameter
 
 	public SerialConfigPanel()
 	{
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				listPortChoices();
+			}
+		});
 		parameters = new SerialParameters();
 		GridLayout gridLayout = new GridLayout(3, 4);
 		gridLayout.setVgap(5);
@@ -45,6 +56,14 @@ public class SerialConfigPanel extends JPanel implements ItemListener, Parameter
 		portNameLabel = new JLabel("portName", Label.LEFT);
 		add(portNameLabel);
 		portChoice = new Choice();
+		portChoice.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseEntered(MouseEvent e)
+			{
+				
+			}
+		});
 		portChoice.addItemListener(this);
 		portChoice.add("");
 		add(portChoice);
@@ -160,22 +179,20 @@ public class SerialConfigPanel extends JPanel implements ItemListener, Parameter
 	{
 		try
 		{
+			portChoice.removeAll();
+			int selectIndex = 0;
+			int i = 0;
 			for (String name : SerialPortChannel.listPort())
 			{
 				portChoice.addItem(name);
-			}
-			if (StringUtils.isNullOrEmpty(parameters.getPortName()))
-			{
-				if (portChoice.getItemCount() > 0)
+				if (name.equals(parameters.getPortName()))
 				{
-					parameters.setPortName(portChoice.getItem(0));
-					portChoice.select(0);
+					selectIndex = i;
 				}
+				i++;
 			}
-			else
-			{
-				portChoice.select(parameters.getPortName());
-			}
+			parameters.setPortName(portChoice.getItem(selectIndex));
+			portChoice.select(selectIndex);
 		}
 		catch (Exception ex)
 		{
