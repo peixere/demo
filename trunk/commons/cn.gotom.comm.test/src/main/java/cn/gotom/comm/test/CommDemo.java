@@ -152,7 +152,6 @@ class CommDemo extends JFrame
 		panelTcp.add(portField);
 
 		textAreaIn = new JTextArea();
-		textAreaIn.setEditable(false);
 		scrollPaneIn.setViewportView(textAreaIn);
 
 		textAreaOut = new JTextArea();
