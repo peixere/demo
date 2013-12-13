@@ -16,16 +16,21 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.SerialPortChannel;
+import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Converter;
 
-class SerialDemo extends JFrame
+class CommDemo extends JFrame
 {
 	public static void main(String[] agrs)
 	{
@@ -57,7 +62,7 @@ class SerialDemo extends JFrame
 			{
 				try
 				{
-					JFrame frame = new SerialDemo();
+					JFrame frame = new CommDemo();
 					frame.setVisible(true);
 				}
 				catch (Exception e)
@@ -68,23 +73,22 @@ class SerialDemo extends JFrame
 		});
 	}
 
-	public SerialDemo()
+	public CommDemo()
 	{
 		addWindowListener(new WindowAdapter()
 		{
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				if (client != null && client.connected())
+				if (channel != null && channel.connected())
 				{
-					client.close();
+					channel.close();
 				}
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		this.setMinimumSize(new Dimension(360, 430));
-		config = new SerialConfigPanel();
+		this.setMinimumSize(new Dimension(600, 500));
 
 		btnConn = new JButton("Open");
 		btnConn.setActionCommand("conn");
@@ -92,7 +96,7 @@ class SerialDemo extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				SerialDemo.this.actionPerformed(e);
+				CommDemo.this.actionConn(e);
 			}
 		});
 
@@ -102,20 +106,49 @@ class SerialDemo extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				SerialDemo.this.actionPerformed(e);
+				CommDemo.this.actionSend(e);
 			}
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
 
 		JScrollPane scrollPaneIn = new JScrollPane();
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(config, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(123).addComponent(btnConn).addPreferredGap(ComponentPlacement.RELATED).addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE).addComponent(scrollPaneIn, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE));
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE).addComponent(scrollPaneIn, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE).addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(btnConn).addPreferredGap(ComponentPlacement.RELATED).addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE).addContainerGap(560, Short.MAX_VALUE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout.createSequentialGroup().addContainerGap().addComponent(config, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE).addGap(10).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnConn).addComponent(btnSend)).addGap(4)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+				groupLayout.createSequentialGroup().addContainerGap().addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE).addGap(5).addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(btnSend).addComponent(btnConn))
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap()));
+		config = new SerialConfigPanel();
+		tabbedPane.addTab("串口", null, config, null);
+
+		panelTcp = new JPanel();
+		panelTcp.setLayout(null);
+		tabbedPane.addTab("TCP", null, panelTcp, null);
+
+		addressField = new JTextField();
+		addressField.setText("192.168.0.114");
+		addressField.setColumns(10);
+		addressField.setBounds(31, 10, 145, 32);
+		panelTcp.add(addressField);
+
+		label = new JLabel("IP:");
+		label.setBounds(10, 18, 54, 15);
+		panelTcp.add(label);
+
+		label_1 = new JLabel("Port:");
+		label_1.setBounds(186, 18, 54, 15);
+		panelTcp.add(label_1);
+
+		portField = new JTextField();
+		portField.setText("4000");
+		portField.setColumns(10);
+		portField.setBounds(218, 10, 66, 32);
+		panelTcp.add(portField);
 
 		textAreaIn = new JTextArea();
 		textAreaIn.setEditable(false);
@@ -127,48 +160,56 @@ class SerialDemo extends JFrame
 		getContentPane().setLayout(groupLayout);
 	}
 
-	public void actionPerformed(ActionEvent e)
+	private void actionSend(ActionEvent e)
 	{
-		if (e.getSource().equals(btnConn))
+		byte[] buffer = Converter.toBytes(textAreaOut.getText());
+		try
 		{
-			if (client != null && client.connected())
-			{
-				client.close();
-				btnConn.setText("Open");
-			}
-			else
-			{
-				client = new SerialPortChannel(config.getParameters());
-				try
-				{
-					client.addReceiveListener(new Listener<byte[]>()
-					{
-						@Override
-						public void onListener(Object sender, byte[] e)
-						{
-							receiveListener(sender, e);
-						}
-					});
-					client.connect();
-					btnConn.setText("Close");
-				}
-				catch (IOException ex)
-				{
-					Alert.showDialog(this, "连接异常", ex.getMessage());
-					ex.printStackTrace();
-				}
-			}
+			channel.write(buffer);
 		}
-		else if (e.getSource().equals(btnSend))
+		catch (IOException ex)
 		{
-			byte[] buffer = Converter.toBytes(textAreaOut.getText());
+			Alert.showDialog(this, "发送异常", ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+	private void actionConn(ActionEvent e)
+	{
+		if (channel != null && channel.connected())
+		{
+			channel.close();
+			btnConn.setText("Open");
+		}
+		else
+		{
+			switch (this.getTabbedPane().getSelectedIndex())
+			{
+				case 1:
+					int port = Integer.parseInt(this.portField.getText());
+					channel = new TcpChannel(this.addressField.getText(), port);
+					break;
+				default:
+					channel = new SerialPortChannel(config.getParameters());
+					break;
+			}
+
 			try
 			{
-				client.write(buffer);
+				channel.addReceiveListener(new Listener<byte[]>()
+				{
+					@Override
+					public void onListener(Object sender, byte[] e)
+					{
+						receiveListener(sender, e);
+					}
+				});
+				channel.connect();
+				btnConn.setText("Close");
 			}
 			catch (IOException ex)
 			{
-				Alert.showDialog(this, "发送异常", ex.getMessage());
+				Alert.showDialog(this, "连接异常", ex.getMessage());
 				ex.printStackTrace();
 			}
 		}
@@ -192,10 +233,16 @@ class SerialDemo extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JButton btnConn;
 	private JButton btnSend;
-	private Channel client;
+	private Channel channel;
 	private SerialConfigPanel config;
 	private JTextArea textAreaIn;
 	private JTextArea textAreaOut;
+	private JPanel panelTcp;
+	private JTextField addressField;
+	private JLabel label;
+	private JLabel label_1;
+	private JTextField portField;
+	private JTabbedPane tabbedPane;
 
 	public JTextArea getTextAreaIn()
 	{
@@ -284,5 +331,10 @@ class SerialDemo extends JFrame
 			setVisible(false);
 			dispose();
 		}
+	}
+
+	protected JTabbedPane getTabbedPane()
+	{
+		return tabbedPane;
 	}
 }

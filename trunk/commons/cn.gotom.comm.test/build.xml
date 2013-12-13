@@ -24,7 +24,7 @@
 	<target name="jar">
 		<jar destfile="${outputjar}" filesetmanifest="mergewithoutmain">
 			<manifest>
-				<attribute name="Main-Class" value="cn.gotom.comm.test.TcpDemo" />
+				<attribute name="Main-Class" value="cn.gotom.comm.test.CommDemo" />
 				<attribute name="Class-Path"
 					value=". log4j-1.2.17.jar cn.gotom.commons.jar jssc.jar" />
 			</manifest>
