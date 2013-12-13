@@ -87,12 +87,6 @@ public class TcpChannel extends ChannelImpl
 	}
 
 	@Override
-	public String getId()
-	{
-		return this.parameters.toTcpString();
-	}
-
-	@Override
 	public void setParameters(String... parameters)
 	{
 		String host = parameters[0];

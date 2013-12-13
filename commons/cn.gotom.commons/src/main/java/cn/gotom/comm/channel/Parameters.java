@@ -19,18 +19,22 @@ public class Parameters
 	private int hidVID;
 	private int hidPID;
 
+	private ChannelTypeEnum channelType = ChannelTypeEnum.TCP;
+
 	public Parameters()
 	{
-
+		channelType = ChannelTypeEnum.TCP;
 	}
 
 	public Parameters(UUID bluePort)
 	{
+		channelType = ChannelTypeEnum.Bluetooth;
 		BluePort = bluePort.toString();
 	}
 
 	public Parameters(String host, int port)
 	{
+		channelType = ChannelTypeEnum.TCP;
 		this.address = host;
 		this.port = port;
 	}
@@ -39,12 +43,14 @@ public class Parameters
 	{
 		this(host, port);
 		this.localPort = localPort;
+		channelType = ChannelTypeEnum.UDP;
 	}
 
 	public Parameters(int hidVID, int hidPID)
 	{
 		this.hidVID = hidVID;
 		this.hidPID = hidPID;
+		channelType = ChannelTypeEnum.HID;
 	}
 
 	public Parameters(String portName, int baudRate, int databits, int stopbits, int parity)
@@ -61,6 +67,7 @@ public class Parameters
 		this.setDatabits(databits);
 		this.setParity(parity);
 		this.setStopbits(stopbits);
+		channelType = ChannelTypeEnum.SerialPort;
 	}
 
 	public String getAddress()
@@ -91,6 +98,7 @@ public class Parameters
 	public void setPortName(String portName)
 	{
 		this.portName = portName;
+		this.channelType = ChannelTypeEnum.SerialPort;
 	}
 
 	public int getBaudRate()
@@ -201,6 +209,40 @@ public class Parameters
 	public void setHidPID(int hidPID)
 	{
 		this.hidPID = hidPID;
+	}
+
+	public ChannelTypeEnum getChannelType()
+	{
+		return channelType;
+	}
+
+	public void setChannelType(ChannelTypeEnum channelType)
+	{
+		this.channelType = channelType;
+	}
+
+	@Override
+	public String toString()
+	{
+		switch (channelType)
+		{
+			case SerialPort:
+				return toSerialString();
+			case TCP:
+				return toTcpString();
+			case UDP:
+				return toUdpString();
+			case Bluetooth:
+				return toBlueString();
+			case HID:
+				return this.toHidString();
+		}
+		return super.toString();
+	}
+
+	public String toBlueString()
+	{
+		return "Bluetooth{" + BluePort + "}";
 	}
 
 	public String toTcpString()

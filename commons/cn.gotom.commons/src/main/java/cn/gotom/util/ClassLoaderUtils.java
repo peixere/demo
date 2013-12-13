@@ -1,10 +1,12 @@
 package cn.gotom.util;
 
 import java.io.File;
+import java.io.FilePermission;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -139,26 +141,43 @@ public class ClassLoaderUtils
 	 */
 	public static String getDomainPath(Class<?> clazz)
 	{
-		String domainPath = "";
-		URL url = clazz.getClassLoader().getResource("");
-		if (url != null)
+		String domainPath = getPath(clazz);
+		File file = new File(domainPath);
+		if (!file.isDirectory())
 		{
-			domainPath = url.getPath();
+			domainPath = domainPath.substring(0, domainPath.length() - file.getName().length());
 		}
-		if (domainPath.isEmpty() || domainPath.equals("/"))
-		{
-			domainPath = clazz.getProtectionDomain().getCodeSource().getLocation().getPath();
-			File file = new File(domainPath);
-			if (!file.isDirectory())
-			{
-				domainPath = domainPath.substring(0, domainPath.length() - file.getName().length());
-			}
-		}
-		if (domainPath.endsWith("/"))
+		if (domainPath.endsWith("/") || domainPath.endsWith("\\"))
 		{
 			domainPath = domainPath.substring(0, domainPath.length() - 1);
 		}
 		return domainPath;
+	}
+
+	/**
+	 * 取clazz所在的目录或jar文件路径
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static String getPath(Class<?> clazz)
+	{
+		String path = null;
+		Enumeration<Permission> permissions = clazz.getProtectionDomain().getPermissions().elements();
+		while (permissions.hasMoreElements())
+		{
+			Permission permission = permissions.nextElement();
+			if (permission instanceof FilePermission)
+			{
+				path = permission.getName();
+				break;
+			}
+		}
+		if (path.endsWith("-"))
+		{
+			path = path.substring(0, path.length() - 1);
+		}
+		return path;
 	}
 
 	/**

@@ -5,6 +5,12 @@ import java.io.IOException;
 import cn.gotom.annotation.Description;
 import cn.gotom.commons.Listener;
 
+/**
+ * 通道接口
+ * 
+ * @author <a href="mailto:pqixere@qq.com">裴绍国</a>
+ * @version 2013-10-16
+ */
 @Description("通道接口")
 public interface Channel extends java.io.Serializable
 {
