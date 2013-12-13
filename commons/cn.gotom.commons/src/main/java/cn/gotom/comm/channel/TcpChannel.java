@@ -32,6 +32,22 @@ public class TcpChannel extends ChannelImpl
 	}
 
 	@Override
+	public void write(byte[] bytes) throws IOException
+	{
+		try
+		{
+			out.write(bytes);
+			onMessageListener(bytes, true);
+		}
+		catch (java.net.SocketException ex)
+		{
+			log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+			this.close();
+			this.connect();
+		}
+	}
+
+	@Override
 	public synchronized void connect() throws IOException
 	{
 		try
