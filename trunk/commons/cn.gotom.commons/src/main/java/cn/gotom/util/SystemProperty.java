@@ -1,7 +1,7 @@
 package cn.gotom.util;
 
 
-public abstract class SysProperty
+public abstract class SystemProperty
 {
 
 	public final static SystemType os = SystemType.current();

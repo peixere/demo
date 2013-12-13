@@ -15,26 +15,74 @@ public class FileUtils
 {
 	protected static final Logger log = Logger.getLogger(FileUtils.class);
 
-	public static void cover(String from, String to) throws IOException
+	/**
+	 * 复制文件，如目标文件存在并文件长度一样没不覆盖文件，否则覆盖文件
+	 * 
+	 * @param from
+	 * @param to
+	 * @throws IOException
+	 */
+	public static void copy(String from, String to)
 	{
 		try
 		{
 			File fromFile = new File(from);
-			File toFile = new File(to);
 			if (fromFile.exists() && fromFile.isFile())
 			{
+				File toFile = new File(to);
 				if (toFile.exists() && toFile.isFile())
 				{
 					if (toFile.length() == fromFile.length())
 					{
-						log.warn(toFile.getAbsolutePath() + " file exists");
+						log.info(toFile.getAbsolutePath() + " 文件已存在！");
 						return;
 					}
 					else
 					{
-						log.warn(toFile.getAbsolutePath() + " deleteOnExit");
+						log.info(toFile.getAbsolutePath() + " 删除文件！");
 						toFile.deleteOnExit();
 					}
+				}
+				log.info("copy " + from + " to " + to);
+				InputStream in = new BufferedInputStream(new FileInputStream(fromFile));
+				OutputStream out = new BufferedOutputStream(new FileOutputStream(to));
+				for (int b = in.read(); b != -1; b = in.read())
+				{
+					out.write(b);
+				}
+				in.close();
+				out.close();
+			}
+			else
+			{
+				log.warn(" not exists file : " + from);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("copy " + from + " to " + to, ex);
+		}
+	}
+
+	/**
+	 * 
+	 * 直接覆盖文件
+	 * 
+	 * @param from
+	 * @param to
+	 * @throws IOException
+	 */
+	public static void cover(String from, String to)
+	{
+		try
+		{
+			File fromFile = new File(from);
+			if (fromFile.exists() && fromFile.isFile())
+			{
+				File toFile = new File(to);
+				if (toFile.exists() && toFile.isFile())
+				{
+					toFile.deleteOnExit();
 				}
 				log.warn("cover " + from + " to " + to);
 				InputStream in = new BufferedInputStream(new FileInputStream(fromFile));
@@ -46,10 +94,14 @@ public class FileUtils
 				in.close();
 				out.close();
 			}
+			else
+			{
+				log.warn(" not exists file : " + from);
+			}
 		}
 		catch (Exception ex)
 		{
-			log.error("copy " + from + " to " + to, ex);
+			log.error("cover " + from + " to " + to, ex);
 		}
 	}
 }
