@@ -5,17 +5,14 @@
 	<path id="lib">
 		<fileset dir="../build">
 			<include name="**/**.jar" />
-		</fileset>	
-		<fileset dir="./lib">
-			<include name="**/**.jar" />
-		</fileset>		
+		</fileset>
 	</path>
 
 	<target name="init">
 		<property name="dirs.base" value="${basedir}" />
 		<property name="targetdir" value="${dirs.base}/bin" />
 		<property name="src" value="${dirs.base}/src/main/java" />
-		<property name="outputjar" value="../build/cn.gotom.comm.nettest.jar" />
+		<property name="outputjar" value="../build/cn.gotom.comm.test.jar" />
 		<mkdir dir="${targetdir}" />
 	</target>
 	<target name="compile" depends="init">
@@ -27,9 +24,9 @@
 	<target name="jar">
 		<jar destfile="${outputjar}" filesetmanifest="mergewithoutmain">
 			<manifest>
-				<attribute name="Main-Class" value="cn.gotom.comm.nettest.TcpDemo" />
+				<attribute name="Main-Class" value="cn.gotom.comm.test.TcpDemo" />
 				<attribute name="Class-Path"
-					value=". log4j-1.2.17.jar cn.gotom.commons.jar" />
+					value=". log4j-1.2.17.jar cn.gotom.commons.jar jssc.jar" />
 			</manifest>
 			<fileset dir="${targetdir}" />
 		</jar>
