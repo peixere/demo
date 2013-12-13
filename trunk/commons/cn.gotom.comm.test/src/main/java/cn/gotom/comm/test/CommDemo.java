@@ -180,6 +180,7 @@ class CommDemo extends JFrame
 		{
 			channel.close();
 			btnConn.setText("Open");
+			this.getTabbedPane().setEnabled(true);
 		}
 		else
 		{
@@ -206,6 +207,7 @@ class CommDemo extends JFrame
 				});
 				channel.connect();
 				btnConn.setText("Close");
+				this.getTabbedPane().setEnabled(false);
 			}
 			catch (IOException ex)
 			{
