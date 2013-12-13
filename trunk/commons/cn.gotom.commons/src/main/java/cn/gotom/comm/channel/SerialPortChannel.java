@@ -67,7 +67,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		}
 		catch (SerialPortException e)
 		{
-			log.error("closed[" + getId() + "]", e);
+			log.error("closed[" + getId() + "]" + e.getMessage());
 		}
 		super.close();
 	}
