@@ -1,11 +1,14 @@
 package cn.gotom.comm.channel;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+import jssc.SerialPortList;
 import cn.gotom.annotation.Description;
 import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.Converter;
@@ -54,9 +57,9 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	{
 		try
 		{
+			removeEventListener();
 			if (sPort != null)
 			{
-				sPort.removeEventListener();
 				sPort.closePort();
 				sPort = null;
 				log.info("closed[" + getId() + "]");
@@ -78,9 +81,9 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 			{
 				removeEventListener();
 				sPort = new SerialPort(parameters.getPortName());
-				sPort.setParams(parameters.getBaudRate(), parameters.getDatabits(), parameters.getStopbits(), parameters.getParity());
 				this.onState(State.Connecting);
 				sPort.openPort();
+				sPort.setParams(parameters.getBaudRate(), parameters.getDatabits(), parameters.getStopbits(), parameters.getParity());
 				sPort.setFlowControlMode(parameters.getFlowControlIn() | parameters.getFlowControlOut());
 				int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;
 				sPort.setEventsMask(mask);
@@ -181,5 +184,16 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		{
 			throw new IOException(e.getMessage(), e);
 		}
+	}
+
+	public static List<String> listPort()
+	{
+		List<String> listPort = new ArrayList<String>();
+		String[] portNames = SerialPortList.getPortNames();
+		for (int i = 0; i < portNames.length; i++)
+		{
+			listPort.add(portNames[i]);
+		}
+		return listPort;
 	}
 }
