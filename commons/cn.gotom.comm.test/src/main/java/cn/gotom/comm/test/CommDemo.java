@@ -6,6 +6,8 @@ import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -30,17 +32,11 @@ import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Converter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 class CommDemo extends JFrame
 {
 	public static void main(String[] agrs)
 	{
-		byte b = (byte) 127;
-		int i = b;
-		if (i < 0)
-			i = 256 + i;
 		try
 		{
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())

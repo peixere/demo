@@ -1,8 +1,6 @@
 package cn.gotom.comm.channel;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
@@ -80,7 +78,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 			if (!connected())
 			{
 				removeEventListener();
-				sPort = new SerialPort(parameters.getPortName());
+				sPort = new SerialPortJssc(parameters.getPortName());
 				this.onState(State.Connecting);
 				sPort.openPort();
 				sPort.setParams(parameters.getBaudRate(), parameters.getDatabits(), parameters.getStopbits(), parameters.getParity());
@@ -186,14 +184,8 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		}
 	}
 
-	public static List<String> listPort()
+	public static String[] listPort()
 	{
-		List<String> listPort = new ArrayList<String>();
-		String[] portNames = SerialPortList.getPortNames();
-		for (int i = 0; i < portNames.length; i++)
-		{
-			listPort.add(portNames[i]);
-		}
-		return listPort;
+		return SerialPortList.getPortNames();
 	}
 }
