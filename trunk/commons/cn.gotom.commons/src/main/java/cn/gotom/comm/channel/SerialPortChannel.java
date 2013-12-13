@@ -7,9 +7,9 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 import cn.gotom.annotation.Description;
+import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.Converter;
 import cn.gotom.util.FileUtils;
-import cn.gotom.util.SystemType;
 
 @Description("串口")
 @ChannelType(ChannelTypeEnum.SerialPort)
@@ -34,12 +34,11 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		log.info("os.name=" + System.getProperty("os.name"));
 		log.info("os.arch=" + System.getProperty("os.arch"));
 		log.info("java.home=" + System.getProperty("java.home"));
-		SystemType.current();
-		// SystemType systemType = SystemType.current();
+		// SystemType.current();
 		String javaHome = System.getProperty("java.home");
 		String fromfile = null;
 		String tofile = null;
-		fromfile = SerialPort.class.getProtectionDomain().getPermissions().toString();//.getLocation().getPath();
+		fromfile = ClassLoaderUtils.getPath(SerialPort.class);
 		tofile = javaHome + "/lib/ext/jssc.jar";
 		FileUtils.cover(fromfile, tofile);
 	}
