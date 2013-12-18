@@ -180,20 +180,6 @@ class CommDemo extends JFrame
 		}
 	}
 
-	private Listener<State> stateListener = new Listener<State>()
-	{
-
-		@Override
-		public void onListener(Object sender, State e)
-		{
-			if (e == State.Close)
-			{
-				btnConn.setText("Open");
-			}
-		}
-
-	};
-
 	private void actionConn(ActionEvent e)
 	{
 		if (!btnConn.getText().equalsIgnoreCase("Open"))
@@ -201,7 +187,8 @@ class CommDemo extends JFrame
 			if (channel != null)
 			{
 
-				channel.removeStateListener(stateListener);
+				channel.removeAllReceiveListener();
+				channel.removeAllStateListener();
 				channel.close();
 			}
 			btnConn.setText("Open");
@@ -228,6 +215,17 @@ class CommDemo extends JFrame
 					public void onListener(Object sender, byte[] e)
 					{
 						receiveListener(sender, e);
+					}
+				});
+				channel.addStateListener(new Listener<State>()
+				{
+					@Override
+					public void onListener(Object sender, State state)
+					{
+						if (state.ordinal() > 1)
+						{
+							btnConn.setText("Open");
+						}
 					}
 				});
 				channel.connect();
