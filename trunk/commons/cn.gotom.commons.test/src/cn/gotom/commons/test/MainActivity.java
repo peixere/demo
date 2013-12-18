@@ -62,7 +62,7 @@ public class MainActivity extends Activity
 		@Override
 		public void onListener(Object arg0, State state)
 		{
-			log.debug(state);
+			onStateListener(arg0, state);
 		}
 	};
 
@@ -70,6 +70,16 @@ public class MainActivity extends Activity
 	{
 		super();
 		Log.d("MainActivity", "new MainActivity()");
+	}
+
+	public void onStateListener(Object arg0, State state)
+	{
+		log.debug(state);
+		if (state.ordinal() > 1)
+		{
+			Button conn = (Button) this.findViewById(R.id.buttonConn);
+			conn.setText(R.string.buttonConn);
+		}
 	}
 
 	@Override
@@ -90,7 +100,7 @@ public class MainActivity extends Activity
 		}
 		// this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		log.debug("onCreate");
-		Button conn = (Button) this.findViewById(R.id.buttonConn);
+		final Button conn = (Button) this.findViewById(R.id.buttonConn);
 		conn.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -118,7 +128,7 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		//getMenuInflater().inflate(R.menu.main, menu);
+		// getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -131,6 +141,8 @@ public class MainActivity extends Activity
 			log.debug("onDestroy");
 			if (channel != null)
 			{
+				channel.removeAllStateListener();
+				channel.removeAllReceiveListener();
 				channel.close();
 			}
 		}
@@ -144,17 +156,30 @@ public class MainActivity extends Activity
 	{
 		try
 		{
-			if (channel != null)
+			Button conn = (Button) v;
+			if (conn.getText().equals(getResources().getString(R.string.buttonConn)))
 			{
-				channel.close();
+				conn.setText(R.string.buttonClose);
+				if (channel != null)
+				{
+					channel.close();
+				}
+				log.debug("channel.connect()");
+				EditText addressView = (EditText) this.findViewById(R.id.textAddress);
+				String address = addressView.getText().toString();
+				EditText portView = (EditText) this.findViewById(R.id.textPort);
+				String port = portView.getText().toString();
+				channel.setParameters(address, port);
+				channel.connect();
 			}
-			log.debug("channel.connect()");
-			EditText addressView = (EditText) this.findViewById(R.id.textAddress);
-			String address = addressView.getText().toString();
-			EditText portView = (EditText) this.findViewById(R.id.textPort);
-			String port = portView.getText().toString();
-			channel.setParameters(address, port);
-			channel.connect();
+			else
+			{
+				conn.setText(R.string.buttonConn);
+				if (channel != null)
+				{
+					channel.close();
+				}
+			}
 		}
 		catch (Exception e)
 		{
