@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/textAddress"
-            android:layout_width="170dp"
+            android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
@@ -29,7 +29,7 @@
 
         <EditText
             android:id="@+id/textPort"
-            android:layout_width="100dp"
+            android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
