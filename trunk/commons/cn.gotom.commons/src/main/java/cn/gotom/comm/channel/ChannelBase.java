@@ -49,7 +49,7 @@ public abstract class ChannelBase implements Channel
 		if (this.state != state)
 		{
 			this.state = state;
-			if (stateListeners != null)
+			if (stateListeners.size() > 0)
 			{
 				stateListeners.post(this, state);
 			}
@@ -59,10 +59,13 @@ public abstract class ChannelBase implements Channel
 	protected void onMessageListener(byte[] buffer, boolean send)
 	{
 		String hexString = (send ? ">>" : "<<") + Converter.toHexString(buffer);
-		log.debug(hexString);
 		if (this.messageListener != null)
 		{
 			messageListener.onListener(this, hexString);
+		}
+		else
+		{
+			log.debug(hexString);
 		}
 	}
 
@@ -78,7 +81,7 @@ public abstract class ChannelBase implements Channel
 					byte[] buffer = new byte[readBytes];
 					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
 					onMessageListener(buffer, false);
-					if (receiveListener != null)
+					if (receiveListener.size() > 0)
 					{
 						receiveListener.post(this, buffer);
 					}
@@ -142,6 +145,12 @@ public abstract class ChannelBase implements Channel
 		stateListeners.remove(stateListener);
 	}
 
+	@Override
+	public void removeAllStateListener()
+	{
+		stateListeners.clear();
+	}
+
 	@Description("设置接收数据监听器")
 	@Override
 	public void addReceiveListener(Listener<byte[]> listener)
@@ -154,6 +163,12 @@ public abstract class ChannelBase implements Channel
 	public void removeReceiveListener(Listener<byte[]> listener)
 	{
 		receiveListener.remove(listener);
+	}
+
+	@Override
+	public void removeAllReceiveListener()
+	{
+		receiveListener.clear();
 	}
 
 	@Override
