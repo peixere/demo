@@ -10,11 +10,7 @@
 <!--//
 if(window.top.location.href != window.location.href)
 {
-	var href = window.location.href;
-	href = jcontext.removeQueryParam(href,'${serviceParameterName}');
-	alert(href);
-	href = jcontext.addQueryParam(href,'${serviceParameterName}',window.top.location.href);
-	window.top.location.href = href;
+	window.top.location.href = window.top.location.href;
 }
 -->
 </script>
