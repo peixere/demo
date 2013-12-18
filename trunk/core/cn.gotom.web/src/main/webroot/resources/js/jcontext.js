@@ -1,6 +1,6 @@
 var jcontext = (function(){
     var context = {
-		getQueryParam : function(name) 
+	getQueryParam : function(name) 
 		{
             var regex = RegExp('[?&]' + name + '=([^&]*)');
             var match = regex.exec(location.search) || regex.exec(path);
