@@ -243,12 +243,12 @@ public final class CommonUtils
 		return request.getQueryString() == null || request.getQueryString().indexOf(parameter) == -1 ? null : request.getParameter(parameter);
 	}
 
-	public static String getResponseFromServer(final URL constructedUrl, final String encoding)
+	public static String getResponseFromServer(final URL constructedUrl, final String encoding, final String sessionId)
 	{
-		return getResponseFromServer(constructedUrl, HttpsURLConnection.getDefaultHostnameVerifier(), encoding);
+		return getResponseFromServer(constructedUrl, HttpsURLConnection.getDefaultHostnameVerifier(), encoding, sessionId);
 	}
 
-	public static String getResponseFromServer(final URL constructedUrl, final HostnameVerifier hostnameVerifier, final String encoding)
+	public static String getResponseFromServer(final URL constructedUrl, final HostnameVerifier hostnameVerifier, final String encoding, final String sessionId)
 	{
 		URLConnection conn = null;
 		try
@@ -257,6 +257,7 @@ public final class CommonUtils
 			if (conn instanceof HttpsURLConnection)
 			{
 				((HttpsURLConnection) conn).setHostnameVerifier(hostnameVerifier);
+				((HttpsURLConnection) conn).setRequestProperty("Cookie", sessionId);
 			}
 			final BufferedReader in;
 
@@ -294,11 +295,11 @@ public final class CommonUtils
 
 	}
 
-	public static String getResponseFromServer(final String url, String encoding)
+	public static String getResponseFromServer(final String url, String encoding, final String sessionId)
 	{
 		try
 		{
-			return getResponseFromServer(new URL(url), encoding);
+			return getResponseFromServer(new URL(url), encoding, sessionId);
 		}
 		catch (final MalformedURLException e)
 		{
