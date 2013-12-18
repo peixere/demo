@@ -29,6 +29,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.SerialPortChannel;
+import cn.gotom.comm.channel.State;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Converter;
@@ -123,10 +124,12 @@ class CommDemo extends JFrame
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 		config = new SerialConfigPanel();
-		config.addMouseListener(new MouseAdapter() {
+		config.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				
+			public void mouseEntered(MouseEvent e)
+			{
+
 			}
 		});
 		tabbedPane.addTab("串口", null, config, null);
@@ -171,17 +174,36 @@ class CommDemo extends JFrame
 		{
 			channel.write(buffer);
 		}
-		catch (IOException ex)
+		catch (Exception ex)
 		{
 			Alert.showDialog(this, "发送异常", ex);
 		}
 	}
 
+	private Listener<State> stateListener = new Listener<State>()
+	{
+
+		@Override
+		public void onListener(Object sender, State e)
+		{
+			if (e == State.Close)
+			{
+				btnConn.setText("Open");
+			}
+		}
+
+	};
+
 	private void actionConn(ActionEvent e)
 	{
-		if (channel != null && channel.connected())
+		if (!btnConn.getText().equalsIgnoreCase("Open"))
 		{
-			channel.close();
+			if (channel != null)
+			{
+
+				channel.removeStateListener(stateListener);
+				channel.close();
+			}
 			btnConn.setText("Open");
 			this.getTabbedPane().setEnabled(true);
 		}
