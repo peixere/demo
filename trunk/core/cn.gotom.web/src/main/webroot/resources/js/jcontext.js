@@ -1,10 +1,40 @@
 var jcontext = (function(){
     var context = {
-	getQueryParam : function(name) 
-	{
+		getQueryParam : function(name) 
+		{
             var regex = RegExp('[?&]' + name + '=([^&]*)');
             var match = regex.exec(location.search) || regex.exec(path);
             return match && decodeURIComponent(match[1]);
+        },
+
+        addQueryParam: function(url, name, value) {
+            var path = url;
+            if (value !== null && value.length > 0)
+            {
+                if (url.indexOf('?') >= 0)
+                {
+                    path = url + '&' + name + '=' + value;
+                }
+                else
+                {
+                    path = url + '?' + name + '=' + value;
+                }
+            }
+            return path;
+        },
+
+        removeQueryParam: function(url, name) {
+            var path = url;
+			alert(name);
+			var value = jcontext.getQueryParam(name);
+			if (value !== null && value.length > 0)
+            {
+				var tmp = name+'='+value;
+				alert(tmp);
+				int index = path.indexOf(tmp);
+                path = path.substring(0,index) + path.substring(index+tmp.length,path.length);
+            }
+            return path;
         },
 
         hasOption : function(opt, queryString) 
