@@ -5,6 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <%@ include file="inc/meta.jsp"%>
+<script type="text/javascript" src="${ctxp}/resources/js/jcontext.js"></script>
+<script type="text/javascript">
+<!--//
+if(window.top.location.href != window.location.href)
+{
+	var href = window.location.href;
+	href = jcontext.removeQueryParam(href,'${serviceParameterName}');
+	alert(href);
+	href = jcontext.addQueryParam(href,'${serviceParameterName}',window.top.location.href);
+	window.top.location.href = href;
+}
+-->
+</script>
 </head>
 <body>
 <div id="view-container">
