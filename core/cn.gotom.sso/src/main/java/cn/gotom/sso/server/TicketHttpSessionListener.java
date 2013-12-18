@@ -18,20 +18,12 @@ public class TicketHttpSessionListener implements HttpSessionListener, HttpSessi
 	@Override
 	public void sessionCreated(HttpSessionEvent se)
 	{
-		log.debug(se.getSession().getId());
 		log.debug("OnLine count : " + TicketMap.instance.size());
-		Enumeration<String> names = se.getSession().getAttributeNames();
-		while (names.hasMoreElements())
-		{
-			String name = names.nextElement();
-			log.debug(name + "=" + se.getSession().getAttribute(name));
-		}
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se)
 	{
-		log.debug(se.getSession().getId());
 		TicketMap.instance.remove(se.getSession().getId());
 		log.debug("OnLine count : " + TicketMap.instance.size());
 		Enumeration<String> names = se.getSession().getAttributeNames();
@@ -39,15 +31,12 @@ public class TicketHttpSessionListener implements HttpSessionListener, HttpSessi
 		{
 			String name = names.nextElement();
 			TicketMap.instance.remove(name);
-			log.debug(name + "=" + se.getSession().getAttribute(name));
 		}
 	}
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent se)
 	{
-		log.debug(se.getSession().getId());
-		log.debug(se.getName());
 		if (TicketMap.instance.containsKey(se.getName()))
 		{
 			log.debug(se.getName() + "=" + TicketMap.instance.get(se.getName()).getUser());
@@ -57,10 +46,9 @@ public class TicketHttpSessionListener implements HttpSessionListener, HttpSessi
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent se)
 	{
-
 		if (TicketMap.instance.containsKey(se.getName()))
 		{
-			log.debug(se.getName());
+			log.debug("remove ticket : "+se.getName());
 			TicketMap.instance.remove(se.getName());
 		}
 	}
