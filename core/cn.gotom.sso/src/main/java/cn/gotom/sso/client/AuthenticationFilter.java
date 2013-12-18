@@ -127,7 +127,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	{
 		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
 		String url = serverLoginUrl + (serverLoginUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
-		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8");
+		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8", ticketId);
 		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
 		if (ticket == null)
 		{
