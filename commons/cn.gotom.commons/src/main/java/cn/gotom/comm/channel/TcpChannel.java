@@ -36,6 +36,10 @@ public class TcpChannel extends ChannelImpl
 	{
 		try
 		{
+			if (!connected())
+			{
+				this.connect();
+			}
 			out.write(bytes);
 			onMessageListener(bytes, true);
 		}
@@ -43,7 +47,7 @@ public class TcpChannel extends ChannelImpl
 		{
 			log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
 			this.close();
-			this.connect();
+			throw new IOException(ex.getMessage(), ex);
 		}
 	}
 

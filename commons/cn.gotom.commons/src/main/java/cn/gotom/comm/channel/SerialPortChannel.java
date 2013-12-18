@@ -22,7 +22,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private SerialPort sPort;
+	private SerialPortJssc sPort;
 
 	public SerialPortChannel()
 	{
@@ -178,14 +178,58 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 			sPort.writeBytes(bytes);
 			onMessageListener(bytes, true);
 		}
-		catch (SerialPortException e)
+		catch (SerialPortException ex)
 		{
-			throw new IOException(e.getMessage(), e);
+			log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+			this.close();
+			throw new IOException(ex.getMessage(), ex);
 		}
 	}
 
 	public static String[] listPort()
 	{
 		return SerialPortList.getPortNames();
+	}
+
+	private class SerialPortJssc extends SerialPort
+	{
+		public SerialPortJssc(String portName)
+		{
+			super(portName);
+		}
+
+		@Override
+		public boolean writeBytes(byte[] buffer) throws SerialPortException
+		{
+			if (!checkPortOpened(this.getPortName()))
+			{
+				try
+				{
+					this.closePort();
+				}
+				catch (SerialPortException e)
+				{
+					log.error(e.getMessage());
+				}
+				throw new SerialPortException(getPortName(), "writeBytes()", SerialPortException.TYPE_PORT_NOT_FOUND);
+			}
+			return super.writeBytes(buffer);
+		}
+
+		private boolean checkPortOpened(String portName)
+		{
+			if (this.isOpened())
+			{
+				String[] portNames = SerialPortList.getPortNames();
+				for (int i = 0; i < portNames.length; i++)
+				{
+					if (portNames[i].equalsIgnoreCase(portName))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	}
 }
