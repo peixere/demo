@@ -179,6 +179,7 @@ public class Parameters
 	public void setBluePort(String bluePort)
 	{
 		BluePort = bluePort;
+		this.channelType = ChannelTypeEnum.Bluetooth;
 	}
 
 	public int getSoTimeout()
@@ -219,6 +220,24 @@ public class Parameters
 	public void setChannelType(ChannelTypeEnum channelType)
 	{
 		this.channelType = channelType;
+	}
+
+	public String getId()
+	{
+		switch (channelType)
+		{
+			case SerialPort:
+				return portName;
+			case TCP:
+				return address + ":" + port;
+			case UDP:
+				return address + ":" + port + ";" + localPort;
+			case Bluetooth:
+				return BluePort;
+			case HID:
+				return "vid=" + hidVID + ";pid=" + hidPID;
+		}
+		return super.toString();
 	}
 
 	@Override

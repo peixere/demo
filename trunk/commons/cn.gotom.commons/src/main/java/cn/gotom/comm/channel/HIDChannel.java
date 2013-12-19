@@ -118,8 +118,15 @@ public class HIDChannel extends ChannelImpl
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		onMessageListener(bytes,true);
+		onMessageListener(bytes, true);
 		hd.write(bytes);
+	}
+
+	@Override
+	public void setParameters(Parameters parameters)
+	{
+		super.setParameters(parameters);
+		this.parameters.setChannelType(ChannelTypeEnum.HID);
 	}
 
 	@Override
@@ -129,5 +136,6 @@ public class HIDChannel extends ChannelImpl
 		int hidPID = Integer.parseInt(parameters[1]);
 		this.parameters.setHidVID(hidVID);
 		this.parameters.setHidPID(hidPID);
+		this.parameters.setChannelType(ChannelTypeEnum.HID);
 	}
 }
