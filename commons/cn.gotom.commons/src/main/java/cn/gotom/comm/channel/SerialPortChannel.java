@@ -11,6 +11,7 @@ import cn.gotom.annotation.Description;
 import cn.gotom.util.ClassLoaderUtils;
 import cn.gotom.util.Converter;
 import cn.gotom.util.FileUtils;
+import cn.gotom.util.SystemType;
 
 @Description("串口")
 @ChannelType(ChannelTypeEnum.SerialPort)
@@ -32,6 +33,10 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 
 	private void initJni()
 	{
+		if (SystemType.Android == SystemType.current())
+		{
+			throw new UnsupportedOperationException("this os Unsupported");
+		}
 		log.info("os.name=" + System.getProperty("os.name"));
 		log.info("os.arch=" + System.getProperty("os.arch"));
 		log.info("java.home=" + System.getProperty("java.home"));
