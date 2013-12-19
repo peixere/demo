@@ -118,16 +118,21 @@ public abstract class ChannelBase implements Channel
 			{
 				byte[] buffer = new byte[readByteCount];
 				System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
-				onMessageListener(buffer, false);
-				if (receiveListener.size() > 0)
-				{
-					receiveListener.post(this, buffer);
-				}
+				onReceiveListener(buffer);
 			}
 		}
 		catch (Throwable ex)
 		{
 			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]数据处理异常：" + ex.getMessage(), ex);
+		}
+	}
+
+	protected void onReceiveListener(byte[] buffer)
+	{
+		onMessageListener(buffer, false);
+		if (receiveListener.size() > 0)
+		{
+			receiveListener.post(this, buffer);
 		}
 	}
 
