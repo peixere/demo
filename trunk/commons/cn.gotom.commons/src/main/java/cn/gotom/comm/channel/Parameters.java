@@ -229,6 +229,7 @@ public class Parameters
 			case SerialPort:
 				return portName;
 			case TCP:
+			case TCPServer:
 				return address + ":" + port;
 			case UDP:
 				return address + ":" + port + ";" + localPort;
@@ -248,6 +249,7 @@ public class Parameters
 			case SerialPort:
 				return toSerialString();
 			case TCP:
+			case TCPServer:
 				return toTcpString();
 			case UDP:
 				return toUdpString();
