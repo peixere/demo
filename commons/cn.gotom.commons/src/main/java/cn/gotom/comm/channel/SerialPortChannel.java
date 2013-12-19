@@ -51,7 +51,6 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 
 	public SerialPortChannel(Parameters parameters)
 	{
-		super();
 		this.parameters = parameters;
 	}
 
@@ -115,6 +114,13 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		{
 			log.error("通道[" + getId() + "]异常：" + e.getMessage());
 		}
+	}
+
+	@Override
+	public void setParameters(Parameters parameters)
+	{
+		super.setParameters(parameters);
+		this.parameters.setChannelType(ChannelTypeEnum.SerialPort);
 	}
 
 	@Override

@@ -21,14 +21,15 @@ public class TcpChannel extends ChannelImpl
 
 	public TcpChannel()
 	{
-		super();
+		this("127.0.0.1", 8000);
 	}
 
 	public TcpChannel(String host, int port)
 	{
 		super();
-		this.parameters = new Parameters(host, port);
-		log.debug("new TcpChannel()");
+		this.parameters.setAddress(host);
+		this.parameters.setPort(port);
+		parameters.setChannelType(ChannelTypeEnum.UDP);
 	}
 
 	@Override
@@ -107,17 +108,20 @@ public class TcpChannel extends ChannelImpl
 	}
 
 	@Override
+	public void setParameters(Parameters parameters)
+	{
+		super.setParameters(parameters);
+		this.parameters.setChannelType(ChannelTypeEnum.TCP);
+	}
+
+	@Override
 	public void setParameters(String... parameters)
 	{
 		String host = parameters[0];
 		int port = Integer.parseInt(parameters[1]);
-		this.parameters = new Parameters(host, port);
-	}
-
-	public static void main(String[] args) throws Exception
-	{
-		Channel channel = new TcpChannel("127.0.0.1", 8090);
-		ChannelTest.start(channel);
+		this.parameters.setAddress(host);
+		this.parameters.setPort(port);
+		this.parameters.setChannelType(ChannelTypeEnum.TCP);
 	}
 
 }

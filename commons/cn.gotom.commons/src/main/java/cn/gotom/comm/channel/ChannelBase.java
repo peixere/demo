@@ -192,13 +192,13 @@ public abstract class ChannelBase implements Channel
 	@Override
 	public String getId()
 	{
-		return this.parameters.toString();
+		return this.parameters.getId();
 	}
 
 	@Override
 	public String toString()
 	{
-		return getId();
+		return parameters.toString();
 	}
 
 	@Override

@@ -19,13 +19,16 @@ public class UdpChannel extends ChannelImpl
 
 	public UdpChannel()
 	{
-		super();
+		this("127.0.0.1", 8000, 8001);
 	}
 
 	public UdpChannel(String host, int port, int localPort)
 	{
 		super();
-		this.parameters = new Parameters(host, port, localPort);
+		this.parameters.setLocalPort(localPort);
+		this.parameters.setAddress(host);
+		this.parameters.setPort(port);
+		parameters.setChannelType(ChannelTypeEnum.UDP);
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class UdpChannel extends ChannelImpl
 		{
 			DatagramPacket dp = new DatagramPacket(bytes, bytes.length, new InetSocketAddress(parameters.getAddress(), parameters.getPort()));
 			socket.send(dp);
-			onMessageListener(bytes,true);
+			onMessageListener(bytes, true);
 		}
 		catch (Exception ex)
 		{
@@ -113,9 +116,10 @@ public class UdpChannel extends ChannelImpl
 	}
 
 	@Override
-	public String getId()
+	public void setParameters(Parameters parameters)
 	{
-		return this.parameters.toUdpString();
+		super.setParameters(parameters);
+		this.parameters.setChannelType(ChannelTypeEnum.UDP);
 	}
 
 	@Override
@@ -124,12 +128,9 @@ public class UdpChannel extends ChannelImpl
 		String host = parameters[0];
 		int port = Integer.parseInt(parameters[1]);
 		int localPort = Integer.parseInt(parameters[2]);
-		this.parameters = new Parameters(host, port, localPort);
-	}
-
-	public static void main(String[] args) throws Exception
-	{
-		Channel channel = new UdpChannel("127.0.0.1", 40001, 40002);
-		ChannelTest.start(channel);
+		this.parameters.setLocalPort(localPort);
+		this.parameters.setAddress(host);
+		this.parameters.setPort(port);
+		this.parameters.setChannelType(ChannelTypeEnum.UDP);
 	}
 }
