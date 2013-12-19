@@ -75,10 +75,14 @@ public class MainActivity extends Activity
 	public void onStateListener(Object arg0, State state)
 	{
 		log.debug(state);
+		Button conn = (Button) this.findViewById(R.id.buttonConn);
 		if (state.ordinal() > 1)
 		{
-			Button conn = (Button) this.findViewById(R.id.buttonConn);
 			conn.setText(R.string.buttonConn);
+		}
+		else
+		{
+			conn.setText(R.string.buttonClose);
 		}
 	}
 
