@@ -27,8 +27,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 
 	public SerialPortChannel()
 	{
-		super();
-		initJni();
+		this(new Parameters());
 	}
 
 	private void initJni()
@@ -51,7 +50,9 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 
 	public SerialPortChannel(Parameters parameters)
 	{
-		this.parameters = parameters;
+		super();
+		initJni();
+		setParameters(parameters);
 	}
 
 	@Override
