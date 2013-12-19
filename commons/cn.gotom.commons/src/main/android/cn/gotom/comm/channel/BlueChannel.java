@@ -32,7 +32,6 @@ public class BlueChannel extends ChannelImpl
 	private BluetoothDevice device;
 	private BluetoothSocket socket;
 	private int maxConnectCount = 1;
-	private boolean connected = false;
 
 	public BlueChannel(String blueAddress)
 	{
@@ -73,7 +72,6 @@ public class BlueChannel extends ChannelImpl
 			log.debug("[" + this.getId() + "]连接蓝牙成功");
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
-			connected = true;
 			this.onState(State.Connected);
 			super.connect();
 		}
@@ -86,7 +84,6 @@ public class BlueChannel extends ChannelImpl
 			{
 				close();
 			}
-			connected = false;
 			this.onState(State.Fail);
 			throw ex;
 		}
@@ -101,16 +98,15 @@ public class BlueChannel extends ChannelImpl
 	@Override
 	public boolean connected()
 	{
-		return socket != null && connected;
+		return socket != null && this.getState() == State.Connected;
 	}
 
 	@Override
 	public void close()
 	{
-		super.close();
+
 		try
 		{
-			connected = false;
 			if (socket != null)
 			{
 				socket.close();
@@ -122,6 +118,7 @@ public class BlueChannel extends ChannelImpl
 		{
 			log.debug("close[" + getId() + "]", e);
 		}
+		super.close();
 	}
 
 	private String getAddress()
