@@ -47,7 +47,7 @@ public class HIDChannel extends ChannelImpl
 	@Override
 	public String getId()
 	{
-		return this.parameters.toHidString();
+		return this.parameters.getId();
 	}
 
 	@Override

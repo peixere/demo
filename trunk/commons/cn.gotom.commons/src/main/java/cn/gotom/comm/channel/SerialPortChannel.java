@@ -151,7 +151,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	@Override
 	public String getId()
 	{
-		return this.parameters.toSerialString();
+		return this.parameters.getId();
 	}
 
 	@Override
