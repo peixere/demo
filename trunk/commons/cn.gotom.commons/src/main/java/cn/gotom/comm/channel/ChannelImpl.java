@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import cn.gotom.commons.Listener;
 
 /**
- * 通道接口
+ * 通道定时接收虚类
  * 
  * @author <a href="mailto:pqixere@qq.com">裴绍国</a>
  * @version 2013-10-16
