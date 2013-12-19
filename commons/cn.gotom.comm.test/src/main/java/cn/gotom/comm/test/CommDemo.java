@@ -217,15 +217,15 @@ class CommDemo extends JFrame
 
 	private void actionConn(ActionEvent e)
 	{
+		if (channel != null)
+		{
+
+			channel.removeAllReceiveListener();
+			channel.removeAllStateListener();
+			channel.close();
+		}
 		if (!btnConn.getText().equalsIgnoreCase("Open"))
 		{
-			if (channel != null)
-			{
-
-				channel.removeAllReceiveListener();
-				channel.removeAllStateListener();
-				channel.close();
-			}
 			btnConn.setText("Open");
 			this.getTabbedPane().setEnabled(true);
 		}
