@@ -69,6 +69,8 @@ public abstract class ChannelBase implements Channel
 		}
 	}
 
+	private long lastTimeMillis = System.currentTimeMillis();
+
 	protected void receive()
 	{
 		try
@@ -94,12 +96,15 @@ public abstract class ChannelBase implements Channel
 		}
 		catch (PortUnreachableException ex)
 		{
-			// UDP目标未打开
-			// log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：PortUnreachableException " + ex.getMessage());
+			log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：PortUnreachableException " + ex.getMessage());
 		}
 		catch (SocketTimeoutException ex)
 		{
-			// log.info(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
+			if ((System.currentTimeMillis() - lastTimeMillis) / 1000 > 3)
+			{
+				log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
+				lastTimeMillis = System.currentTimeMillis();
+			}
 		}
 		catch (java.net.SocketException ex)
 		{
