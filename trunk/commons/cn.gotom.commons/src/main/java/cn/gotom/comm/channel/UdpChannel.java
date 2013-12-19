@@ -3,7 +3,6 @@ package cn.gotom.comm.channel;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 import cn.gotom.annotation.Description;
@@ -64,10 +63,10 @@ public class UdpChannel extends ChannelImpl
 	{
 		if (connected())
 		{
-			String address = this.getParameters().getAddress();
-			int port = this.getParameters().getPort();
-			DatagramPacket dp = new DatagramPacket(bytes, bytes.length, InetAddress.getByName(address), port);
-			//DatagramPacket dp = new DatagramPacket(bytes, bytes.length);
+			// String address = this.getParameters().getAddress();
+			// int port = this.getParameters().getPort();
+			// DatagramPacket dp = new DatagramPacket(bytes, bytes.length, InetAddress.getByName(address), port);
+			DatagramPacket dp = new DatagramPacket(bytes, bytes.length);
 			socket.receive(dp);
 			return dp.getLength();
 		}

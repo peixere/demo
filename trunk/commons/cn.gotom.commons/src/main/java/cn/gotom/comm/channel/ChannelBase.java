@@ -71,28 +71,18 @@ public abstract class ChannelBase implements Channel
 
 	private long lastTimeMillis = System.currentTimeMillis();
 
+	private int readByteCount = -1;
+
 	protected void receive()
 	{
+		readByteCount = -1;
 		try
 		{
 			if (connected() && state == State.Connected)
 			{
-				int readBytes = read(receiveBuffer);
-				if (readBytes > 0)
-				{
-					byte[] buffer = new byte[readBytes];
-					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
-					onMessageListener(buffer, false);
-					if (receiveListener.size() > 0)
-					{
-						receiveListener.post(this, buffer);
-					}
-					else
-					{
-						log.warn(Converter.toHexString(buffer));
-					}
-				}
+				readByteCount = read(receiveBuffer);
 			}
+			lastTimeMillis = System.currentTimeMillis();
 		}
 		catch (PortUnreachableException ex)
 		{
@@ -121,6 +111,23 @@ public abstract class ChannelBase implements Channel
 			{
 				log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
 			}
+		}
+		try
+		{
+			if (readByteCount > 0)
+			{
+				byte[] buffer = new byte[readByteCount];
+				System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
+				onMessageListener(buffer, false);
+				if (receiveListener.size() > 0)
+				{
+					receiveListener.post(this, buffer);
+				}
+			}
+		}
+		catch (Throwable ex)
+		{
+			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]数据处理异常：" + ex.getMessage(), ex);
 		}
 	}
 
