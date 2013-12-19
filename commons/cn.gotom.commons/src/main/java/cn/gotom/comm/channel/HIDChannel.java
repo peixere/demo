@@ -121,8 +121,8 @@ public class HIDChannel extends ChannelImpl
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		onMessageListener(bytes, true);
 		hd.write(bytes);
+		onMessageListener(bytes, true);
 	}
 
 	@Override
