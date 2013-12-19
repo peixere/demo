@@ -26,7 +26,7 @@
 			<manifest>
 				<attribute name="Main-Class" value="cn.gotom.comm.test.CommDemo" />
 				<attribute name="Class-Path"
-					value=". log4j-1.2.17.jar cn.gotom.commons.jar jssc.jar" />
+					value=". log4j-1.2.17.jar cn.gotom.commons.jar jssc.jar hidapi-1.1.jar" />
 			</manifest>
 			<fileset dir="${targetdir}" />
 		</jar>
