@@ -2,6 +2,7 @@ package cn.gotom.comm.channel;
 
 import java.io.IOException;
 
+import cn.gotom.annotation.Description;
 import cn.gotom.comm.channel.ChannelImpl;
 import cn.gotom.comm.channel.State;
 import cn.gotom.util.SystemType;
@@ -10,6 +11,8 @@ import com.codeminders.hidapi.ClassPathLibraryLoader;
 import com.codeminders.hidapi.HIDDevice;
 import com.codeminders.hidapi.HIDManager;
 
+@Description("USBHID客户端")
+@ChannelType(ChannelTypeEnum.HID)
 public class HIDChannel extends ChannelImpl
 {
 

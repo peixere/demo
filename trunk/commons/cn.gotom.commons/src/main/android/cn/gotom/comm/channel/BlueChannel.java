@@ -14,6 +14,7 @@ import android.bluetooth.BluetoothSocket;
 import cn.gotom.annotation.Description;
 
 @Description("蓝牙通道实现")
+@ChannelType(ChannelTypeEnum.Bluetooth)
 public class BlueChannel extends ChannelImpl
 {
 
