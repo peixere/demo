@@ -31,6 +31,7 @@ import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.comm.channel.State;
 import cn.gotom.comm.channel.TcpChannel;
+import cn.gotom.comm.channel.UdpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Converter;
 
@@ -158,6 +159,40 @@ class CommDemo extends JFrame
 		portField.setBounds(218, 10, 66, 32);
 		panelTcp.add(portField);
 
+		JPanel panelUdp = new JPanel();
+		panelUdp.setLayout(null);
+		tabbedPane.addTab("UDP", null, panelUdp, null);
+
+		textUdpAddress = new JTextField();
+		textUdpAddress.setText("192.168.0.114");
+		textUdpAddress.setColumns(10);
+		textUdpAddress.setBounds(31, 10, 145, 32);
+		panelUdp.add(textUdpAddress);
+
+		JLabel label_2 = new JLabel("IP:");
+		label_2.setBounds(10, 18, 54, 15);
+		panelUdp.add(label_2);
+
+		JLabel label_3 = new JLabel("Port:");
+		label_3.setBounds(186, 18, 54, 15);
+		panelUdp.add(label_3);
+
+		textUdpPort = new JTextField();
+		textUdpPort.setText("8000");
+		textUdpPort.setColumns(10);
+		textUdpPort.setBounds(218, 10, 66, 32);
+		panelUdp.add(textUdpPort);
+
+		textLocalPort = new JTextField();
+		textLocalPort.setText("8001");
+		textLocalPort.setColumns(10);
+		textLocalPort.setBounds(333, 10, 66, 32);
+		panelUdp.add(textLocalPort);
+
+		JLabel labelLocalPort = new JLabel("Local:");
+		labelLocalPort.setBounds(294, 18, 54, 15);
+		panelUdp.add(labelLocalPort);
+
 		textAreaIn = new JTextArea();
 		scrollPaneIn.setViewportView(textAreaIn);
 
@@ -201,6 +236,11 @@ class CommDemo extends JFrame
 				case 1:
 					int port = Integer.parseInt(this.portField.getText());
 					channel = new TcpChannel(this.addressField.getText(), port);
+					break;
+				case 2:
+					int localPort = Integer.parseInt(this.textLocalPort.getText());
+					int udpport = Integer.parseInt(this.textUdpPort.getText());
+					channel = new UdpChannel(this.textUdpAddress.getText(), udpport, localPort);
 					break;
 				default:
 					channel = new SerialPortChannel(config.getParameters());
@@ -267,6 +307,9 @@ class CommDemo extends JFrame
 	private JLabel label_1;
 	private JTextField portField;
 	private JTabbedPane tabbedPane;
+	private JTextField textUdpAddress;
+	private JTextField textUdpPort;
+	private JTextField textLocalPort;
 
 	public JTextArea getTextAreaIn()
 	{
