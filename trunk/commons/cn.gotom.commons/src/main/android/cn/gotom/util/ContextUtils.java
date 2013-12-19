@@ -7,6 +7,7 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.util.Log;
 import cn.gotom.annotation.Description;
 
@@ -26,7 +27,17 @@ public class ContextUtils
 		intent.setClass(ctx.getApplicationContext(), claz);
 		ctx.startActivity(intent);
 	}
-	
+
+	@Description("Open URL")
+	public static void openURL(Context ctx, Uri uri)
+	{
+		Intent intent = new Intent();
+		intent.setAction("android.intent.action.VIEW");
+		// Uri url = Uri.parse("http://183.234.21.26:8080/hmew/");
+		intent.setData(uri);
+		ctx.startActivity(intent);
+	}
+
 	/**
 	 * 
 	 * 
@@ -101,7 +112,7 @@ public class ContextUtils
 	public static void unbindService(Context context, ServiceConnection conn)
 	{
 		try
-		{ 
+		{
 			context.getApplicationContext().unbindService(conn);
 		}
 		catch (Exception e)
