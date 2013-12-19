@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 注释
+ * 通道类型注释
  * 
  * @author 裴绍国
  * 
