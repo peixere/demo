@@ -134,10 +134,11 @@ public class TcpServer extends ChannelBase
 				{
 					terminal.close();
 				}
+				log.info("terminal count : " + terminalList.size());
 			}
 			catch (IOException e)
 			{
-				
+
 			}
 		}
 	}
@@ -180,7 +181,7 @@ public class TcpServer extends ChannelBase
 	@Override
 	protected int read(byte[] bytes) throws Exception
 	{
-		return 0;
+		return -1;
 	}
 
 	class Terminal extends ChannelImpl
@@ -254,6 +255,7 @@ public class TcpServer extends ChannelBase
 				{
 					terminalPool.remove();
 				}
+				log.info("terminal count : " + terminalList.size());
 				if (socket != null)
 				{
 					if (socket.isConnected())
