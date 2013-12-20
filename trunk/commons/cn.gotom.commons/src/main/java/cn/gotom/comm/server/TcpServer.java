@@ -78,8 +78,8 @@ public class TcpServer extends ChannelBase
 			{
 				this.onState(State.Connecting);
 				socket = new ServerSocket();
-				socket.bind(InetSocketAddress.createUnresolved(parameters.getAddress(), parameters.getPort()));
-				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
+				socket.bind(new InetSocketAddress(parameters.getAddress(), parameters.getPort()));
+				log.info("启动成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				socket.setSoTimeout(parameters.getSoTimeout());
 				// super.connect();
@@ -121,7 +121,7 @@ public class TcpServer extends ChannelBase
 
 	private void receiveTerminal()
 	{
-		if (!connected())
+		if (connected())
 		{
 			try
 			{
@@ -137,7 +137,7 @@ public class TcpServer extends ChannelBase
 			}
 			catch (IOException e)
 			{
-				e.printStackTrace();
+				
 			}
 		}
 	}
@@ -195,8 +195,10 @@ public class TcpServer extends ChannelBase
 		public Terminal(Socket socket)
 		{
 			this.socket = socket;
-			this.parameters.setAddress(socket.getRemoteSocketAddress().toString());
+			this.parameters.setAddress(socket.getInetAddress().getHostAddress());
 			this.parameters.setPort(socket.getPort());
+			this.parameters.setLocalPort(socket.getLocalPort());
+			this.parameters.setChannelType(ChannelTypeEnum.TCPServer);
 			this.connect();
 		}
 
@@ -207,6 +209,8 @@ public class TcpServer extends ChannelBase
 			{
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
+				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
+				this.onState(State.Connected);				
 				super.connect();
 			}
 			catch (IOException e)
