@@ -1,6 +1,7 @@
 package cn.gotom.comm.server;
 
 import java.io.IOException;
+import java.util.List;
 
 import cn.gotom.annotation.Description;
 import cn.gotom.comm.channel.Channel;
@@ -23,5 +24,5 @@ public interface Server extends Channel
 	void stop();
 
 	@Description("连接上的终端")
-	Channel[] getTerminal();
+	List<Channel> getClientList();
 }
