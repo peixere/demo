@@ -21,9 +21,6 @@ public interface Channel extends java.io.Serializable
 	@Description("设置通道参数")
 	void setParameters(Parameters parameters);
 
-	@Description("设置通道参数")
-	void setParameters(String... parameters);
-
 	@Description("通道Id")
 	String getId();
 

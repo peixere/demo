@@ -114,14 +114,4 @@ public class TcpChannel extends ChannelImpl
 		this.parameters.setChannelType(ChannelTypeEnum.TCP);
 	}
 
-	@Override
-	public void setParameters(String... parameters)
-	{
-		String host = parameters[0];
-		int port = Integer.parseInt(parameters[1]);
-		this.parameters.setAddress(host);
-		this.parameters.setPort(port);
-		this.parameters.setChannelType(ChannelTypeEnum.TCP);
-	}
-
 }
