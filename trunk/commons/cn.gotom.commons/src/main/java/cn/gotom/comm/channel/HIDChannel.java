@@ -131,14 +131,4 @@ public class HIDChannel extends ChannelImpl
 		super.setParameters(parameters);
 		this.parameters.setChannelType(ChannelTypeEnum.HID);
 	}
-
-	@Override
-	public void setParameters(String... parameters)
-	{
-		int hidVID = Integer.parseInt(parameters[0]);
-		int hidPID = Integer.parseInt(parameters[1]);
-		this.parameters.setHidVID(hidVID);
-		this.parameters.setHidPID(hidPID);
-		this.parameters.setChannelType(ChannelTypeEnum.HID);
-	}
 }

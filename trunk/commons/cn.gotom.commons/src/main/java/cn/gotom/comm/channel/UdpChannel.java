@@ -123,16 +123,4 @@ public class UdpChannel extends ChannelImpl
 		super.setParameters(parameters);
 		this.parameters.setChannelType(ChannelTypeEnum.UDP);
 	}
-
-	@Override
-	public void setParameters(String... parameters)
-	{
-		String host = parameters[0];
-		int port = Integer.parseInt(parameters[1]);
-		int localPort = Integer.parseInt(parameters[2]);
-		this.parameters.setLocalPort(localPort);
-		this.parameters.setAddress(host);
-		this.parameters.setPort(port);
-		this.parameters.setChannelType(ChannelTypeEnum.UDP);
-	}
 }

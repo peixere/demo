@@ -11,14 +11,18 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.gotom.annotation.Description;
 import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.ChannelBase;
 import cn.gotom.comm.channel.ChannelImpl;
+import cn.gotom.comm.channel.ChannelType;
 import cn.gotom.comm.channel.ChannelTypeEnum;
 import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.State;
 
-public class TcpServer extends ChannelBase
+@Description("TCP服务端")
+@ChannelType(ChannelTypeEnum.TCPServer)
+public class TcpServer extends ChannelBase implements Server
 {
 	/**
 	 * 
@@ -51,16 +55,6 @@ public class TcpServer extends ChannelBase
 	{
 		super.setParameters(parameters);
 		this.parameters.setChannelType(ChannelTypeEnum.TCPServer);
-	}
-
-	@Override
-	public void setParameters(String... parameters)
-	{
-		String host = parameters[0];
-		int port = Integer.parseInt(parameters[1]);
-		this.parameters.setAddress(host);
-		this.parameters.setPort(port);
-		this.setParameters(parameters);
 	}
 
 	@Override
@@ -184,6 +178,24 @@ public class TcpServer extends ChannelBase
 		return -1;
 	}
 
+	@Override
+	public boolean started()
+	{
+		return this.connected();
+	}
+
+	@Override
+	public void start() throws IOException
+	{
+		this.connect();
+	}
+
+	@Override
+	public void stop()
+	{
+		this.close();
+	}
+
 	class Terminal extends ChannelImpl
 	{
 
@@ -213,6 +225,10 @@ public class TcpServer extends ChannelBase
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				super.connect();
+				if (TcpServer.this.stateListeners.size() > 0)
+				{
+					TcpServer.this.stateListeners.post(this, State.Connected);
+				}
 			}
 			catch (IOException e)
 			{
@@ -229,6 +245,10 @@ public class TcpServer extends ChannelBase
 		@Override
 		protected int receive()
 		{
+			if (null == terminalPool.get())
+			{
+				terminalPool.set(this);
+			}
 			int receiveCount = super.receive();
 			if (receiveCount == -1)
 			{// 发送心跳
@@ -269,15 +289,15 @@ public class TcpServer extends ChannelBase
 				log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
 			}
 			super.close();
+			if (TcpServer.this.stateListeners.size() > 0)
+			{
+				TcpServer.this.stateListeners.post(this, State.Close);
+			}
 		}
 
 		@Override
 		protected void onReceiveListener(byte[] buffer)
 		{
-			if (null == terminalPool.get())
-			{
-				terminalPool.set(this);
-			}
 			TcpServer.this.onMessageListener(buffer, false);
 			if (TcpServer.this.receiveListener.size() > 0)
 			{
@@ -286,9 +306,10 @@ public class TcpServer extends ChannelBase
 		}
 
 		@Override
-		public void setParameters(String... parameters)
+		public void setParameters(Parameters parameters)
 		{
-
+			super.setParameters(parameters);
+			this.parameters.setChannelType(ChannelTypeEnum.TCPServer);
 		}
 	}
 }

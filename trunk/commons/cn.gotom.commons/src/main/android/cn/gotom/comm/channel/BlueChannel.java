@@ -38,15 +38,9 @@ public class BlueChannel extends ChannelImpl
 		super();
 		if (blueAdapter == null)
 			blueAdapter = BluetoothAdapter.getDefaultAdapter();
-		this.setParameters(blueAddress);
+		parameters.setBluePort(blueAddress);
+		setParameters(parameters);
 		device = getRemoteDevice();
-	}
-
-	@Override
-	public void setParameters(String... parameters)
-	{
-		this.parameters.setBluePort(parameters[0]);
-		this.parameters.setChannelType(ChannelTypeEnum.Bluetooth);
 	}
 
 	@Override
