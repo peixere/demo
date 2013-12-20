@@ -95,11 +95,11 @@ public class TcpServer extends ChannelBase
 		}
 	}
 
-	// @Override
-	// protected void receive()
-	// {
-	//
-	// }
+	@Override
+	protected int receive()
+	{
+		return -1;
+	}
 
 	private void terminalTimerStart()
 	{
