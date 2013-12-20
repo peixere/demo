@@ -73,7 +73,7 @@ public abstract class ChannelBase implements Channel
 
 	private int readByteCount = -1;
 
-	protected void receive()
+	protected int receive()
 	{
 		readByteCount = -1;
 		try
@@ -125,6 +125,7 @@ public abstract class ChannelBase implements Channel
 		{
 			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]数据处理异常：" + ex.getMessage(), ex);
 		}
+		return readByteCount;
 	}
 
 	protected void onReceiveListener(byte[] buffer)

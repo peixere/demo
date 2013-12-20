@@ -30,9 +30,9 @@ public class TcpServer extends ChannelBase
 	private Timer terminalTimer;
 	private List<Terminal> terminalList = new ArrayList<Terminal>();
 	public static final ThreadLocal<Channel> terminalPool = new ThreadLocal<Channel>();
-	
+
 	private int maxTerminalSize = 1024;
-	
+
 	public TcpServer(int port)
 	{
 		this("0.0.0.0", port);
@@ -137,7 +137,7 @@ public class TcpServer extends ChannelBase
 			}
 			catch (IOException e)
 			{
-				
+
 			}
 		}
 	}
@@ -210,7 +210,7 @@ public class TcpServer extends ChannelBase
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
-				this.onState(State.Connected);				
+				this.onState(State.Connected);
 				super.connect();
 			}
 			catch (IOException e)
@@ -223,6 +223,25 @@ public class TcpServer extends ChannelBase
 		public boolean connected()
 		{
 			return socket != null && socket.isConnected() && !socket.isClosed();
+		}
+
+		@Override
+		protected int receive()
+		{
+			int receiveCount = super.receive();
+			if (receiveCount == -1)
+			{// 发送心跳
+				try
+				{
+					this.write(new byte[] { (byte) 0xff, (byte) 0xff });
+				}
+				catch (IOException e)
+				{
+					log.error(e.getMessage());
+					this.close();
+				}
+			}
+			return receiveCount;
 		}
 
 		@Override
