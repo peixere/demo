@@ -197,9 +197,9 @@ public class TcpServer extends ChannelBase implements Server
 	}
 
 	@Override
-	public Channel[] getTerminal()
+	public List<Channel> getClientList()
 	{
-		return (Channel[]) this.terminalList.toArray();
+		return new ArrayList<Channel>(terminalList);
 	}
 
 	class Terminal extends ChannelImpl
