@@ -21,4 +21,7 @@ public interface Server extends Channel
 
 	@Description("关闭")
 	void stop();
+
+	@Description("连接上的终端")
+	Channel[] getTerminal();
 }

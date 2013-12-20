@@ -196,6 +196,12 @@ public class TcpServer extends ChannelBase implements Server
 		this.close();
 	}
 
+	@Override
+	public Channel[] getTerminal()
+	{
+		return (Channel[]) this.terminalList.toArray();
+	}
+
 	class Terminal extends ChannelImpl
 	{
 
@@ -312,4 +318,5 @@ public class TcpServer extends ChannelBase implements Server
 			this.parameters.setChannelType(ChannelTypeEnum.TCPServer);
 		}
 	}
+
 }
