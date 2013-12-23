@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import cn.gotom.comm.channel.Channel;
+import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.State;
 import cn.gotom.comm.channel.TcpChannel;
 import cn.gotom.commons.Listener;
@@ -172,8 +173,8 @@ public class MainActivity extends Activity
 				EditText addressView = (EditText) this.findViewById(R.id.textAddress);
 				String address = addressView.getText().toString();
 				EditText portView = (EditText) this.findViewById(R.id.textPort);
-				String port = portView.getText().toString();
-				channel.setParameters(address, port);
+				int port = Integer.parseInt(portView.getText().toString());
+				channel.setParameters(new Parameters(address, port));
 				channel.connect();
 			}
 			else
