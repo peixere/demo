@@ -57,7 +57,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			this.manager.beginUnitOfWork();
 			filterChain.doFilter(request, response);
 		}
-		catch (Exception ex)
+		catch (Throwable ex)
 		{
 			String url = UrlUtils.buildUrl(request);
 			log.warn(request.getRemoteUser() + " Exception：" + url);
