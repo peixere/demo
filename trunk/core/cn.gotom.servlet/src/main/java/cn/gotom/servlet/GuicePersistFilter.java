@@ -57,20 +57,29 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			this.manager.beginUnitOfWork();
 			filterChain.doFilter(request, response);
 		}
+		catch (Error ex)
+		{
+			forwardError(request, response, ex);
+		}
 		catch (Throwable ex)
 		{
-			String url = UrlUtils.buildUrl(request);
-			log.warn(request.getRemoteUser() + " Exception：" + url);
-			request.setAttribute("url", url);
-			request.setAttribute("errorMsg", ex.getMessage());
-			log.error("程序异常", ex);
-			response.setStatus(500);
-			// request.setAttribute("java.lang.Throwable", ex);
-			request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
+			forwardError(request, response, ex);
 		}
 		finally
 		{
 			this.manager.endUnitOfWork();
 		}
+	}
+
+	private void forwardError(final HttpServletRequest request, final HttpServletResponse response, Throwable ex) throws ServletException, IOException
+	{
+		String url = UrlUtils.buildUrl(request);
+		log.warn(request.getRemoteUser() + " Exception：" + url);
+		request.setAttribute("url", url);
+		request.setAttribute("errorMsg", ex.getMessage());
+		log.error("程序异常", ex);
+		response.setStatus(500);
+		// request.setAttribute("java.lang.Throwable", ex);
+		request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
 	}
 }
