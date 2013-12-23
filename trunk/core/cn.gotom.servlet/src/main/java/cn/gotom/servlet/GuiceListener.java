@@ -58,6 +58,9 @@ public class GuiceListener extends GuiceServletContextListener
 			@Override
 			protected void configureServlets()
 			{
+				bind(WebSocket.class).in(Singleton.class);
+				serve("/websocket.do").with(WebSocket.class);
+				
 				bind(CharacterFilter.class).in(Singleton.class);
 				filter("/*").through(CharacterFilter.class);
 
@@ -75,8 +78,6 @@ public class GuiceListener extends GuiceServletContextListener
 				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 				filter("/*").through(StrutsPrepareAndExecuteFilter.class);
 
-				bind(WebSocket.class).in(Singleton.class);
-				serve("/websocket.do").with(WebSocket.class);
 			}
 		};
 		List<Module> moduleList = new ArrayList<Module>();
