@@ -33,16 +33,13 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 			log.error("Unsupported on " + System.getProperty("os.name"));
 			throw new UnsupportedOperationException("this os Unsupported");
 		}
-		log.info("os.name=" + System.getProperty("os.name"));
-		log.info("os.arch=" + System.getProperty("os.arch"));
-		log.info("java.home=" + System.getProperty("java.home"));
-		// SystemType.current();
 		String javaHome = System.getProperty("java.home");
 		String fromfile = null;
 		String tofile = null;
 		fromfile = ClassLoaderUtils.getPath(SerialPort.class);
 		tofile = javaHome + "/lib/ext/jssc.jar";
 		FileUtils.cover(fromfile, tofile);
+		log.info("load Native Jssc Library");
 	}
 
 	public SerialPortChannel()
