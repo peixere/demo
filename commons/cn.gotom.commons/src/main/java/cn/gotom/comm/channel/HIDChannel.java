@@ -2,6 +2,8 @@ package cn.gotom.comm.channel;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import cn.gotom.annotation.Description;
 import cn.gotom.comm.channel.ChannelImpl;
 import cn.gotom.comm.channel.State;
@@ -20,7 +22,7 @@ public class HIDChannel extends ChannelImpl
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger log = Logger.getLogger(SerialPortChannel.class);
 	private HIDManager hm;
 	private HIDDevice hd;
 
@@ -31,7 +33,7 @@ public class HIDChannel extends ChannelImpl
 			throw new UnsupportedOperationException("this os Unsupported");
 		}
 		ClassPathLibraryLoader.loadNativeHIDLibrary();
-		System.out.println("ClassPathLibraryLoader.loadNativeHIDLibrary()");
+		log.info("ClassPathLibraryLoader.loadNativeHIDLibrary()");
 	}
 
 	public HIDChannel()
