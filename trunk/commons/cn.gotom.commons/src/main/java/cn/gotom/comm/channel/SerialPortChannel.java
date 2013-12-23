@@ -2,6 +2,8 @@ package cn.gotom.comm.channel;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -21,18 +23,14 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(SerialPortChannel.class);
 
 	private SerialPortJssc sPort;
-
-	public SerialPortChannel()
-	{
-		this(new Parameters());
-	}
-
-	private void initJni()
+	static
 	{
 		if (SystemType.Android == SystemType.current())
 		{
+			log.error("Unsupported on " + System.getProperty("os.name"));
 			throw new UnsupportedOperationException("this os Unsupported");
 		}
 		log.info("os.name=" + System.getProperty("os.name"));
@@ -47,10 +45,14 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		FileUtils.cover(fromfile, tofile);
 	}
 
+	public SerialPortChannel()
+	{
+		this(new Parameters());
+	}
+
 	public SerialPortChannel(Parameters parameters)
 	{
 		super();
-		initJni();
 		setParameters(parameters);
 	}
 
@@ -123,30 +125,30 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		this.parameters.setChannelType(ChannelTypeEnum.SerialPort);
 	}
 
-//	@Override
-//	public void setParameters(String... params)
-//	{
-//		String portName = params[0];
-//		int baudRate = Converter.parseInt(params[1]);
-//		int flowControlIn = Converter.parseInt(params[2]);
-//		int flowControlOut = Converter.parseInt(params[3]);
-//		int databits = Converter.parseInt(params[4]);
-//		int stopbits = Converter.parseInt(params[5]);
-//		int parity = Converter.parseInt(params[6]);
-//		parameters.setPortName(portName);
-//		if (baudRate > 0)
-//			parameters.setBaudRate(baudRate);
-//		if (flowControlIn > 0)
-//			parameters.setFlowControlIn(flowControlIn);
-//		if (flowControlOut > 0)
-//			parameters.setFlowControlOut(flowControlOut);
-//		if (flowControlOut > 0)
-//			parameters.setDatabits(databits);
-//		if (stopbits > 0)
-//			parameters.setStopbits(stopbits);
-//		if (parity > 0)
-//			parameters.setParity(parity);
-//	}
+	// @Override
+	// public void setParameters(String... params)
+	// {
+	// String portName = params[0];
+	// int baudRate = Converter.parseInt(params[1]);
+	// int flowControlIn = Converter.parseInt(params[2]);
+	// int flowControlOut = Converter.parseInt(params[3]);
+	// int databits = Converter.parseInt(params[4]);
+	// int stopbits = Converter.parseInt(params[5]);
+	// int parity = Converter.parseInt(params[6]);
+	// parameters.setPortName(portName);
+	// if (baudRate > 0)
+	// parameters.setBaudRate(baudRate);
+	// if (flowControlIn > 0)
+	// parameters.setFlowControlIn(flowControlIn);
+	// if (flowControlOut > 0)
+	// parameters.setFlowControlOut(flowControlOut);
+	// if (flowControlOut > 0)
+	// parameters.setDatabits(databits);
+	// if (stopbits > 0)
+	// parameters.setStopbits(stopbits);
+	// if (parity > 0)
+	// parameters.setParity(parity);
+	// }
 
 	@Override
 	public String getId()
