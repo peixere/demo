@@ -16,7 +16,7 @@ public interface AuthenticationService
 	public abstract boolean validation(String username, String url, String appCode);
 
 	public abstract boolean validation(User user, String url, String appCode);
-	
+
 	/**
 	 * 
 	 * @param username
@@ -25,6 +25,6 @@ public interface AuthenticationService
 	 */
 	public abstract List<Right> findRightList(String username, String parentId);
 
-	
+	public abstract boolean isIgnore(String url);
 
 }
