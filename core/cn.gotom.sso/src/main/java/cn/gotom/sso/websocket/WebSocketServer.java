@@ -16,7 +16,7 @@ import org.apache.catalina.websocket.WebSocketServlet;
 import org.apache.catalina.websocket.WsOutbound;
 import org.apache.log4j.Logger;
 
-public class SocketServlet extends WebSocketServlet implements Runnable
+public class WebSocketServer extends WebSocketServlet implements Runnable
 {
 
 	/**
@@ -27,12 +27,36 @@ public class SocketServlet extends WebSocketServlet implements Runnable
 	protected final Logger log = Logger.getLogger(getClass());
 
 	private static final List<MessageInbound> socketList = new ArrayList<MessageInbound>();
+	private final Listener<Message, CharBuffer> receiveListener = new Listener<Message, CharBuffer>()
+	{
 
-	private boolean terminateRunnable = true;
+		@Override
+		public void onListener(Message sender, CharBuffer msg)
+		{
+			receive(sender, msg);
+		}
+	};
+	protected boolean terminateRunnable = true;
 
-	private void terminateRunnable()
+	protected void terminateRunnable()
 	{
 		terminateRunnable = false;
+	}
+
+	public void receive(Message sender, CharBuffer buffer)
+	{
+		log.debug(buffer.toString());
+		WsOutbound outbound = sender.getWsOutbound();
+		try
+		{
+			outbound.writeTextMessage(buffer);
+			outbound.flush();
+		}
+		catch (IOException e)
+		{
+			log.error("", e);
+		}
+
 	}
 
 	@Override
@@ -42,7 +66,7 @@ public class SocketServlet extends WebSocketServlet implements Runnable
 		{
 			try
 			{
-				List<MessageInbound> messageList = getMessageInboundList();
+				List<MessageInbound> messageList = getMessageList();
 				for (MessageInbound messageInbound : messageList)
 				{
 					CharBuffer buffer = CharBuffer.wrap("当前时间：" + new Date());
@@ -58,10 +82,20 @@ public class SocketServlet extends WebSocketServlet implements Runnable
 		}
 	}
 
-	public static List<MessageInbound> getMessageInboundList()
+	public static List<MessageInbound> getMessageList()
 	{
 		List<MessageInbound> messageList = new ArrayList<MessageInbound>(socketList);
 		return messageList;
+	}
+
+	public void add(MessageInbound messageInbound)
+	{
+		socketList.add(messageInbound);
+	}
+
+	public void remove(MessageInbound messageInbound)
+	{
+		socketList.remove(messageInbound);
 	}
 
 	@Override
@@ -85,7 +119,8 @@ public class SocketServlet extends WebSocketServlet implements Runnable
 	{
 		request.getHeaderNames();
 		log.debug(arg0);
-		Message message = new Message(request.getHeaderNames());
+		Message message = new Message(this, request.getHeaderNames());
+		message.setReceiveListener(receiveListener);
 		return message;
 	}
 

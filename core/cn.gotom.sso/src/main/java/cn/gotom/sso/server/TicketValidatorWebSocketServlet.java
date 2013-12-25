@@ -4,10 +4,8 @@ import java.nio.CharBuffer;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.websocket.MessageInbound;
-import org.apache.catalina.websocket.StreamInbound;
 import org.apache.catalina.websocket.WsOutbound;
 
 import cn.gotom.sso.Ticket;
@@ -15,9 +13,9 @@ import cn.gotom.sso.TicketImpl;
 import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.websocket.Listener;
 import cn.gotom.sso.websocket.Message;
-import cn.gotom.sso.websocket.SocketServlet;
+import cn.gotom.sso.websocket.WebSocketServer;
 
-public class TicketValidatorWebSocketServlet extends SocketServlet
+public class TicketValidatorWebSocketServlet extends WebSocketServer
 {
 
 	/**
@@ -34,57 +32,53 @@ public class TicketValidatorWebSocketServlet extends SocketServlet
 		}
 
 	};
-	private final Listener<Message, CharBuffer> receiveListener = new Listener<Message, CharBuffer>()
+
+	@Override
+	public void receive(Message sender, CharBuffer msg)
 	{
-
-		@Override
-		public void onListener(Message sender, CharBuffer msg)
+		Ticket response = null;
+		Ticket request = null;
+		try
 		{
-			Ticket response = null;
-			Ticket request = null;
-			try
-			{
-				request = TicketImpl.parseFromJSON(msg.toString());
-			}
-			catch (Exception ex)
-			{
-				log.error("", ex);
-			}
-			try
-			{
-				if (request != null)
-				{
-					if (TicketMap.instance.containsKey(request.getId()))
-					{
-						response = TicketMap.instance.get(request.getId());
-					}
-				}
-				if (response == null)
-				{
-					response = new TicketImpl("");
-				}
-				CharBuffer buffer = CharBuffer.wrap(response.toJSON());
-				WsOutbound outbound = sender.getWsOutbound();
-				outbound.writeTextMessage(buffer);
-				outbound.flush();
-			}
-			catch (Exception ex)
-			{
-				log.error("", ex);
-			}
+			request = TicketImpl.parseFromJSON(msg.toString());
 		}
-
-	};
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
+		try
+		{
+			if (request != null)
+			{
+				if (TicketMap.instance.containsKey(request.getId()))
+				{
+					response = TicketMap.instance.get(request.getId());
+				}
+			}
+			if (response == null)
+			{
+				response = new TicketImpl("");
+			}
+			CharBuffer buffer = CharBuffer.wrap(response.toJSON());
+			WsOutbound outbound = sender.getWsOutbound();
+			outbound.writeTextMessage(buffer);
+			outbound.flush();
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
+	}
 
 	public void broadcast(Ticket ticket)
 	{
 		try
 		{
-			for (int i = getMessageInboundList().size() - 1; i >= 0; i--)
+			for (int i = getMessageList().size() - 1; i >= 0; i--)
 			{
 				try
 				{
-					MessageInbound message = getMessageInboundList().get(i);
+					MessageInbound message = getMessageList().get(i);
 					CharBuffer buffer = CharBuffer.wrap(ticket.toJSON());
 					WsOutbound outbound = message.getWsOutbound();
 					outbound.writeTextMessage(buffer);
@@ -108,15 +102,5 @@ public class TicketValidatorWebSocketServlet extends SocketServlet
 		TicketMap.instance.setRemoveListener(removeListener);
 		super.init(config);
 		log.debug("init");
-	}
-
-	@Override
-	protected StreamInbound createWebSocketInbound(String arg0, HttpServletRequest request)
-	{
-		request.getHeaderNames();
-		log.debug(arg0);
-		Message message = new Message(request.getHeaderNames());
-		message.setReceiveListener(receiveListener);
-		return message;
 	}
 }
