@@ -14,7 +14,7 @@ import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
 import cn.gotom.sso.server.ServerFilter;
 import cn.gotom.sso.util.CommonUtils;
-import cn.gotom.websocket.WebSocket;
+import cn.gotom.sso.websocket.WebSocketServer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -71,8 +71,8 @@ public class GuiceListener extends GuiceServletContextListener
 			@Override
 			protected void configureServlets()
 			{
-				bind(WebSocket.class).in(Singleton.class);
-				serve("/websocket.do").with(WebSocket.class);
+				bind(WebSocketServer.class).in(Singleton.class);
+				serve("/websocket.do").with(WebSocketServer.class);
 
 				bind(CharacterFilter.class).in(Singleton.class);
 				filter("/*").through(CharacterFilter.class);
