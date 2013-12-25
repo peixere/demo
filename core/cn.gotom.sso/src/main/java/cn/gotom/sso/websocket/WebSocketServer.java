@@ -3,10 +3,7 @@ package cn.gotom.sso.websocket;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,6 +25,9 @@ public class WebSocketServer extends WebSocketServlet
 
 	protected final Logger log = Logger.getLogger(getClass());
 
+	/**
+	 * 客户端集合
+	 */
 	private static final List<MessageInbound> socketList = new ArrayList<MessageInbound>();
 
 	private final Listener<Message, CharBuffer> receiveListener = new Listener<Message, CharBuffer>()
@@ -39,34 +39,6 @@ public class WebSocketServer extends WebSocketServlet
 			receive(sender, msg);
 		}
 	};
-	private Timer timer;
-
-	protected void startTimer()
-	{
-		if (timer != null)
-		{
-			timer.cancel();
-		}
-		timer = new Timer("Timer");
-		TimerTask task = new TimerTask()
-		{
-			@Override
-			public void run()
-			{
-				timer();
-			}
-		};
-		timer.schedule(task, 1000, 1);
-	}
-
-	protected void stopTimer()
-	{
-		if (timer != null)
-		{
-			timer.cancel();
-		}
-		timer = null;
-	}
 
 	protected void receive(Message sender, CharBuffer buffer)
 	{
@@ -74,7 +46,7 @@ public class WebSocketServer extends WebSocketServlet
 		WsOutbound outbound = sender.getWsOutbound();
 		try
 		{
-			outbound.writeTextMessage(buffer);
+			outbound.writeTextMessage(buffer.append(" ok "));
 			outbound.flush();
 		}
 		catch (IOException e)
@@ -82,25 +54,6 @@ public class WebSocketServer extends WebSocketServlet
 			log.error("", e);
 		}
 
-	}
-
-	protected void timer()
-	{
-		try
-		{
-			List<MessageInbound> messageList = getMessageList();
-			for (MessageInbound messageInbound : messageList)
-			{
-				CharBuffer buffer = CharBuffer.wrap("当前时间：" + new Date());
-				WsOutbound outbound = messageInbound.getWsOutbound();
-				outbound.writeTextMessage(buffer);
-				outbound.flush();
-			}
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
 	}
 
 	public static List<MessageInbound> getMessageList()
@@ -123,14 +76,12 @@ public class WebSocketServer extends WebSocketServlet
 	public void init(ServletConfig config) throws ServletException
 	{
 		super.init(config);
-		startTimer();
 		log.debug("init");
 	}
 
 	@Override
 	public void destroy()
 	{
-		stopTimer();
 		log.debug("destroy");
 		super.destroy();
 	}
