@@ -68,7 +68,7 @@ public class WebSocketServer extends WebSocketServlet
 		timer = null;
 	}
 
-	public void receive(Message sender, CharBuffer buffer)
+	protected void receive(Message sender, CharBuffer buffer)
 	{
 		log.debug(buffer.toString());
 		WsOutbound outbound = sender.getWsOutbound();
