@@ -5,6 +5,8 @@ import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,7 +18,7 @@ import org.apache.catalina.websocket.WebSocketServlet;
 import org.apache.catalina.websocket.WsOutbound;
 import org.apache.log4j.Logger;
 
-public class WebSocketServer extends WebSocketServlet implements Runnable
+public class WebSocketServer extends WebSocketServlet
 {
 
 	/**
@@ -27,6 +29,7 @@ public class WebSocketServer extends WebSocketServlet implements Runnable
 	protected final Logger log = Logger.getLogger(getClass());
 
 	private static final List<MessageInbound> socketList = new ArrayList<MessageInbound>();
+
 	private final Listener<Message, CharBuffer> receiveListener = new Listener<Message, CharBuffer>()
 	{
 
@@ -36,11 +39,33 @@ public class WebSocketServer extends WebSocketServlet implements Runnable
 			receive(sender, msg);
 		}
 	};
-	protected boolean terminateRunnable = true;
+	private Timer timer;
 
-	protected void terminateRunnable()
+	protected void startTimer()
 	{
-		terminateRunnable = false;
+		if (timer != null)
+		{
+			timer.cancel();
+		}
+		timer = new Timer("Timer");
+		TimerTask task = new TimerTask()
+		{
+			@Override
+			public void run()
+			{
+				timer();
+			}
+		};
+		timer.schedule(task, 1000, 1);
+	}
+
+	protected void stopTimer()
+	{
+		if (timer != null)
+		{
+			timer.cancel();
+		}
+		timer = null;
 	}
 
 	public void receive(Message sender, CharBuffer buffer)
@@ -59,26 +84,22 @@ public class WebSocketServer extends WebSocketServlet implements Runnable
 
 	}
 
-	@Override
-	public void run()
+	protected void timer()
 	{
-		while (terminateRunnable)
+		try
 		{
-			try
+			List<MessageInbound> messageList = getMessageList();
+			for (MessageInbound messageInbound : messageList)
 			{
-				List<MessageInbound> messageList = getMessageList();
-				for (MessageInbound messageInbound : messageList)
-				{
-					CharBuffer buffer = CharBuffer.wrap("当前时间：" + new Date());
-					WsOutbound outbound = messageInbound.getWsOutbound();
-					outbound.writeTextMessage(buffer);
-					outbound.flush();
-				}
+				CharBuffer buffer = CharBuffer.wrap("当前时间：" + new Date());
+				WsOutbound outbound = messageInbound.getWsOutbound();
+				outbound.writeTextMessage(buffer);
+				outbound.flush();
 			}
-			catch (IOException ex)
-			{
-				ex.printStackTrace();
-			}
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 
@@ -102,15 +123,15 @@ public class WebSocketServer extends WebSocketServlet implements Runnable
 	public void init(ServletConfig config) throws ServletException
 	{
 		super.init(config);
-		new Thread(this).start();
+		startTimer();
 		log.debug("init");
 	}
 
 	@Override
 	public void destroy()
 	{
+		stopTimer();
 		log.debug("destroy");
-		terminateRunnable();
 		super.destroy();
 	}
 
