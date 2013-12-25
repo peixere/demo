@@ -45,17 +45,17 @@ public class ValidationFilter extends AuthenticationFilter
 		log.debug("init");
 	}
 
-	protected boolean isIgnore(String url)
-	{
-		if (!super.isIgnore(url))
-		{
-			return authService.isIgnore(url);
-		}
-		else
-		{
-			return true;
-		}
-	}
+//	protected boolean isIgnore(String url)
+//	{
+//		if (!super.isIgnore(url))
+//		{
+//			return authService.isIgnore(url);
+//		}
+//		else
+//		{
+//			return true;
+//		}
+//	}
 
 	protected void doValidate(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
 	{
