@@ -46,7 +46,7 @@ public class WebSocketServer extends WebSocketServlet
 		WsOutbound outbound = sender.getWsOutbound();
 		try
 		{
-			outbound.writeTextMessage(buffer.append(" ok "));
+			outbound.writeTextMessage(CharBuffer.wrap(buffer.toString() + (" ok ")));
 			outbound.flush();
 		}
 		catch (IOException e)
