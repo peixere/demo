@@ -14,9 +14,11 @@ public class Message extends MessageInbound
 	protected final Logger log = Logger.getLogger(getClass());
 	private final Enumeration<String> headers;
 	private Listener<Message, CharBuffer> receiveListener;
+	private WebSocketServer server;
 
-	public Message(Enumeration<String> headers)
+	public Message(WebSocketServer server, Enumeration<String> headers)
 	{
+		this.server = server;
 		this.headers = headers;
 	}
 
@@ -46,7 +48,8 @@ public class Message extends MessageInbound
 	protected void onClose(int status)
 	{
 		log.debug(this);
-		SocketServlet.getMessageInboundList().remove(this);
+		setReceiveListener(null);
+		server.remove(this);
 		super.onClose(status);
 	}
 
@@ -55,7 +58,7 @@ public class Message extends MessageInbound
 	{
 		log.debug(outbound);
 		super.onOpen(outbound);
-		SocketServlet.getMessageInboundList().add(this);
+		server.add(this);
 	}
 
 	public Listener<Message, CharBuffer> getReceiveListener()
