@@ -100,6 +100,12 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		return false;
 	}
 
+	@Override
+	public boolean isIgnore(String url)
+	{
+		return without(url);
+	}
+
 	private boolean without(String url)
 	{
 		ResourceConfig without = resourceConfigService.getByName(ResourceName.validation_without);
