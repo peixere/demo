@@ -10,8 +10,8 @@ import cn.gotom.sso.util.CommonUtils;
 public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 {
 	protected final Logger log = Logger.getLogger(getClass());
-	protected static final String serverLoginUrlParameter = "serverLoginUrl";
-	protected static final String contextPath = "${this}";
+	public static final String serverLoginUrlParameter = "serverLoginUrl";
+	public static final String contextPath = "${this}";
 
 	private String ticketParameterName = "ticket";
 
