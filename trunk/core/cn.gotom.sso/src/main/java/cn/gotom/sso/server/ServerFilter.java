@@ -51,6 +51,7 @@ public class ServerFilter extends AbstractCommonFilter
 			setServerLoginUrl(serverLoginUrl.substring(contextPath.length(), serverLoginUrl.length()));
 			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
+		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
 		log.info("init");
 	}
 
