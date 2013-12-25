@@ -10,8 +10,10 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 
 import cn.gotom.service.ServiceModule;
+import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
 import cn.gotom.sso.server.ServerFilter;
+import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.websocket.WebSocketServer;
 
 import com.google.inject.Guice;
@@ -34,9 +36,20 @@ public class GuiceListener extends GuiceServletContextListener
 
 	protected static Injector injector;
 
+	private String serverLoginUrl;
+
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent)
 	{
+		serverLoginUrl = servletContextEvent.getServletContext().getInitParameter(AbstractCommonFilter.serverLoginUrlParameter);
+		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(AbstractCommonFilter.contextPath))
+		{
+			serverLoginUrl = serverLoginUrl.substring(AbstractCommonFilter.contextPath.length(), serverLoginUrl.length());
+		}
+		if (CommonUtils.isEmpty(serverLoginUrl))
+		{
+			serverLoginUrl = "/login.do";
+		}
 		super.contextInitialized(servletContextEvent);
 		log.info("contextInitialized");
 	}
@@ -71,9 +84,7 @@ public class GuiceListener extends GuiceServletContextListener
 				// filter("/authService").through(AuthenticationServiceFilter.class);
 
 				bind(ServerFilter.class).in(Singleton.class);
-				ServerFilter server = (ServerFilter) this.getMembersInjector(ServerFilter.class);
-				filter(server.getServerLoginUrl()).through(ServerFilter.class);
-
+				filter(serverLoginUrl).through(ServerFilter.class);
 				bind(ValidationFilter.class).in(Singleton.class);
 				filter("/*").through(ValidationFilter.class);
 
