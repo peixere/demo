@@ -41,8 +41,6 @@ public class GuiceListener extends GuiceServletContextListener
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent)
 	{
-		super.contextInitialized(servletContextEvent);
-		log.info("contextInitialized");
 		serverLoginUrl = servletContextEvent.getServletContext().getInitParameter(AbstractCommonFilter.serverLoginUrlParameter);
 		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(AbstractCommonFilter.contextPath))
 		{
@@ -52,6 +50,8 @@ public class GuiceListener extends GuiceServletContextListener
 		{
 			serverLoginUrl = "/login.do";
 		}
+		super.contextInitialized(servletContextEvent);
+		log.info("contextInitialized");
 	}
 
 	@Override
