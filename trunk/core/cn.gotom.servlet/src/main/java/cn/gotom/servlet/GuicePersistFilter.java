@@ -57,11 +57,12 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			this.manager.beginUnitOfWork();
 			filterChain.doFilter(request, response);
 		}
+
 		catch (Error ex)
 		{
 			forwardError(request, response, ex);
 		}
-		catch (Throwable ex)
+		catch (Exception ex)
 		{
 			forwardError(request, response, ex);
 		}
