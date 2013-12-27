@@ -14,7 +14,6 @@ import cn.gotom.pojos.Role;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.model.RightChecked;
-import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
