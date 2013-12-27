@@ -72,7 +72,6 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		}
 		finally
 		{
-
 			this.manager.endUnitOfWork();
 		}
 	}
@@ -85,7 +84,14 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		request.setAttribute("errorMsg", ex.getMessage());
 		log.error("程序异常", ex);
 		response.setStatus(500);
-		// request.setAttribute("java.lang.Throwable", ex);
-		request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
+		try
+		{
+			request.setAttribute("java.lang.Throwable", ex);
+			request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
+			return;
+		}
+		catch (Exception e)
+		{
+		}
 	}
 }
