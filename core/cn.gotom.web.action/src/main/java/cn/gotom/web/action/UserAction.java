@@ -14,7 +14,6 @@ import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
-import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.PasswordEncoderMessageDigest;
 import cn.gotom.util.StringUtils;

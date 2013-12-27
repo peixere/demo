@@ -14,7 +14,6 @@ import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.Organization;
 import cn.gotom.service.OrganizationService;
-import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;

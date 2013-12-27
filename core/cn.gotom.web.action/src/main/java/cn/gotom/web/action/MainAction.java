@@ -19,7 +19,6 @@ import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.ResourceConfigService;
 import cn.gotom.service.UserService;
-import cn.gotom.servlet.ResponseUtils;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
