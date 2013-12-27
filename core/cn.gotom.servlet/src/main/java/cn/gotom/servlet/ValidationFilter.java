@@ -31,6 +31,8 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private FilterConfig filterConfig;
 
+	private String pluginsPath;
+
 	private String[] pluginsPaths;
 
 	private String plugins;
@@ -45,18 +47,26 @@ public class ValidationFilter extends AuthenticationFilter
 		log.debug("init");
 	}
 
-//	protected boolean isIgnore(String url)
-//	{
-//		if (!super.isIgnore(url))
-//		{
-//			return authService.isIgnore(url);
-//		}
-//		else
-//		{
-//			return true;
-//		}
-//	}
+	// protected boolean isIgnore(String url)
+	// {
+	// if (!super.isIgnore(url))
+	// {
+	// return authService.isIgnore(url);
+	// }
+	// else
+	// {
+	// return true;
+	// }
+	// }
 
+	@Override
+	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException
+	{
+		setPlugins((HttpServletRequest) servletRequest);
+		super.doFilter(servletRequest, servletResponse, filterChain);
+	}
+
+	@Override
 	protected void doValidate(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
 	{
 		final HttpServletRequest request = (HttpServletRequest) req;
@@ -78,7 +88,11 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private void initPlugins()
 	{
-		String pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
+		pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
+		if (!pluginsPath.endsWith("/"))
+		{
+			pluginsPath = pluginsPath + "/";
+		}
 		log.info("pluginsPath=" + pluginsPath);
 		String path = filterConfig.getServletContext().getRealPath(pluginsPath);
 		File file = new File(path);
@@ -92,10 +106,21 @@ public class ValidationFilter extends AuthenticationFilter
 	{
 		if (plugins == null && pluginsPaths != null)
 		{
-			plugins = "";
+			plugins = "\n\t";
 			for (String name : pluginsPaths)
 			{
-				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + "/plugins/" + name + "/classes');\n\t";
+				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + pluginsPath + name + "/classes');\n\t";
+				String path = filterConfig.getServletContext().getRealPath(pluginsPath + name + "/classes/view/");
+				File file = new File(path);
+				if (file.exists() && file.isDirectory())
+				{
+					String[] views = file.list();
+					for (String view : views)
+					{
+						view = view.substring(0, view.length() - 3);
+						plugins += "Ext.require('" + name + ".view." + view + "');\n\t";
+					}
+				}
 			}
 			log.info("plugins: " + plugins);
 		}
