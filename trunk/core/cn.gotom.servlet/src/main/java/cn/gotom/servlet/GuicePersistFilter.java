@@ -56,8 +56,12 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		{
 			this.manager.beginUnitOfWork();
 			filterChain.doFilter(request, response);
+			Exception e = (Exception) request.getAttribute("javax.servlet.error.exception");
+			if (e != null)
+			{
+				forwardError(request, response, e);
+			}
 		}
-
 		catch (Error ex)
 		{
 			forwardError(request, response, ex);
@@ -68,6 +72,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		}
 		finally
 		{
+
 			this.manager.endUnitOfWork();
 		}
 	}
