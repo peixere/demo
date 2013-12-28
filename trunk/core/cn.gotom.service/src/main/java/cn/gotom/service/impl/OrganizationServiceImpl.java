@@ -97,4 +97,16 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		}
 	}
 
+	@Override
+	public Organization getByCode(String code)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
+		jpql.append(" WHERE p.code=:code");
+		Query q = getEntityManager().createQuery(jpql.toString()); 
+		q.setParameter("code", code);
+		Object obj = q.getSingleResult();
+		return obj == null ? null : (Organization) obj;
+	}
+
 }

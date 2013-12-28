@@ -17,4 +17,6 @@ public interface OrganizationService extends GenericService<Organization, String
 	List<Organization> loadTreeByParentId(String parentId);
 	
 	Organization findParentByCode(String code);
+	
+	Organization getByCode(String code);
 }
