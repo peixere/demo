@@ -6,6 +6,11 @@ import org.apache.commons.beanutils.converters.DateTimeConverter;
 
 public class DateConverter extends DateTimeConverter
 {
+	public DateConverter()
+	{
+		setDefaultValue(new Date());
+	}
+
 	@Override
 	public Object convert(@SuppressWarnings("rawtypes") Class type, Object value)
 	{
