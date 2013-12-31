@@ -11,7 +11,7 @@ public class DateConverter extends DateTimeConverter
 	{
 		if (value == null)
 		{
-			return value;
+			value = new Date();
 		}
 		return super.convert(type, value);
 	}
