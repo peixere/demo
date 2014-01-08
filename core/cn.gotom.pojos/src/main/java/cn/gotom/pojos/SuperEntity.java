@@ -30,10 +30,10 @@ public abstract class SuperEntity implements Serializable
 	@Column(name = "id", nullable = false, columnDefinition = "char(36)", length = 36)
 	private String id = UUID.randomUUID().toString();
 
-	@Column(name = "version_nom",updatable=false)
+	@Column(name = "version_nom")
 	private long versionNow;
 
-	@Column(name = "version_create")
+	@Column(name = "version_create", updatable = false)
 	private long versionCreate;
 
 	@Transient
