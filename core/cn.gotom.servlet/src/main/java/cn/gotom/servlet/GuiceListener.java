@@ -78,7 +78,7 @@ public class GuiceListener extends GuiceServletContextListener
 				filter("/*").through(CharacterFilter.class);
 
 				bind(GZIPFilter.class).in(Singleton.class);
-				filter("/*").through(GZIPFilter.class);
+				filter("*.js").through(GZIPFilter.class);
 
 				// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
 				filter("/*").through(GuicePersistFilter.class);
