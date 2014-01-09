@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.DataInitializeService;
 import cn.gotom.sso.client.AuthenticationFilter;
+import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 
 import com.google.inject.Inject;
@@ -36,6 +37,8 @@ public class ValidationFilter extends AuthenticationFilter
 	private String[] pluginsPaths;
 
 	private String plugins;
+
+	private boolean debugScript;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -71,7 +74,6 @@ public class ValidationFilter extends AuthenticationFilter
 	{
 		final HttpServletRequest request = (HttpServletRequest) req;
 		final HttpServletResponse response = (HttpServletResponse) res;
-		setPlugins(request);
 		String url = UrlUtils.buildUrl(request);
 		if (authService.validation(request.getRemoteUser(), url))
 		{
@@ -89,6 +91,7 @@ public class ValidationFilter extends AuthenticationFilter
 	private void initPlugins()
 	{
 		pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
+		debugScript = CommonUtils.parseBoolean(getInitParameter(filterConfig, "debugScript", "false"));
 		if (!pluginsPath.endsWith("/"))
 		{
 			pluginsPath = pluginsPath + "/";
@@ -104,21 +107,25 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private void setPlugins(final HttpServletRequest request)
 	{
-		if (plugins == null && pluginsPaths != null)
+		boolean debug = CommonUtils.parseBoolean(request.getParameter("debug"));
+		if ((plugins == null && pluginsPaths != null) || debug)
 		{
 			plugins = "\n\t";
 			for (String name : pluginsPaths)
 			{
 				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + pluginsPath + name + "/classes');\n\t";
-				String path = filterConfig.getServletContext().getRealPath(pluginsPath + name + "/classes/view/");
-				File file = new File(path);
-				if (file.exists() && file.isDirectory())
+				if (debugScript || debug)
 				{
-					String[] views = file.list();
-					for (String view : views)
+					String path = filterConfig.getServletContext().getRealPath(pluginsPath + name + "/classes/view/");
+					File file = new File(path);
+					if (file.exists() && file.isDirectory())
 					{
-						view = view.substring(0, view.length() - 3);
-						plugins += "Ext.require('" + name + ".view." + view + "');\n\t";
+						String[] views = file.list();
+						for (String view : views)
+						{
+							view = view.substring(0, view.length() - 3);
+							plugins += "Ext.require('" + name + ".view." + view + "');\n\t";
+						}
 					}
 				}
 			}
