@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.sso.filter.AbstractConfigurationFilter;
 import cn.gotom.sso.util.UrlUtils;
+import cn.gotom.util.PasswordEncoder;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -21,6 +22,9 @@ import com.google.inject.Singleton;
 class GuicePersistFilter extends AbstractConfigurationFilter
 {
 	protected PersistenceLifeCycle manager;
+
+	@Inject
+	protected PasswordEncoder passwordEncoder;
 
 	@Inject
 	public GuicePersistFilter(PersistenceLifeCycle manager)
@@ -33,6 +37,8 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			this.manager.startService();
+			String encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
+			passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
 			log.info("startService");
 		}
 		catch (Exception ex)

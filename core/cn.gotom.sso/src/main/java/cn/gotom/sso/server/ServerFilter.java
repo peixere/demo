@@ -119,9 +119,10 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
+		boolean passwordencoding = CommonUtils.parseBoolean(req.getParameter("passwordencoding"));
 		TicketImpl ticket = new TicketImpl(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
-		if (login(username, password))
+		if (login(username, password, passwordencoding))
 		{
 			ticket.setSuccess(true);
 			ticket.setUser(username);
@@ -164,13 +165,16 @@ public class ServerFilter extends AbstractCommonFilter
 		return serviceUrl;
 	}
 
-	private boolean login(String username, String password)
+	private boolean login(String username, String password, boolean passwordencoding)
 	{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try
 		{
-			password = passwordEncoder.encode(password);
+			if (!passwordencoding)
+			{
+				password = passwordEncoder.encode(password);
+			}
 			Connection conn = connection.connection();
 			stmt = conn.prepareStatement(loginSQL);
 			stmt.setString(1, username);

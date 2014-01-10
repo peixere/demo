@@ -16,6 +16,7 @@ import cn.gotom.service.DataInitializeService;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
+import cn.gotom.util.PasswordEncoder;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -23,6 +24,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class ValidationFilter extends AuthenticationFilter
 {
+
+	@Inject
+	protected PasswordEncoder passwordEncoder;
 
 	@Inject
 	protected AuthenticationService authService;
@@ -45,7 +49,9 @@ public class ValidationFilter extends AuthenticationFilter
 	{
 		this.filterConfig = filterConfig;
 		super.init(filterConfig);
+		String encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		initPlugins();
+		passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
 		dataInitializeService.init();
 		log.debug("init");
 	}
