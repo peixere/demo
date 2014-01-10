@@ -31,6 +31,10 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 		}
 		try
 		{
+			if (encodingAlgorithm == null || encodingAlgorithm.trim().length() == 0 || encodingAlgorithm.equalsIgnoreCase("none"))
+			{
+				return password;
+			}
 			MessageDigest messageDigest = MessageDigest.getInstance(this.encodingAlgorithm);
 
 			if (this.characterEncoding != null && this.characterEncoding.length() > 0)
