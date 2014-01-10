@@ -12,6 +12,11 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 
 	private String characterEncoding;
 
+	public PasswordEncoderMessageDigest()
+	{
+		this("MD5");
+	}
+
 	public PasswordEncoderMessageDigest(final String encodingAlgorithm)
 	{
 		this.encodingAlgorithm = encodingAlgorithm;
@@ -26,6 +31,10 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 		}
 		try
 		{
+			if (encodingAlgorithm == null || encodingAlgorithm.trim().length() == 0 || encodingAlgorithm.equalsIgnoreCase("none"))
+			{
+				return password;
+			}
 			MessageDigest messageDigest = MessageDigest.getInstance(this.encodingAlgorithm);
 
 			if (this.characterEncoding != null && this.characterEncoding.length() > 0)
@@ -79,7 +88,7 @@ public class PasswordEncoderMessageDigest implements PasswordEncoder
 	{
 		return characterEncoding;
 	}
-	
+
 	@Override
 	public void setCharacterEncoding(final String characterEncoding)
 	{
