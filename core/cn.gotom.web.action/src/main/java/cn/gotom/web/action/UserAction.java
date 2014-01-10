@@ -15,7 +15,6 @@ import cn.gotom.pojos.User;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
-import cn.gotom.util.PasswordEncoderMessageDigest;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.TreeCheckedModel;
 
@@ -27,11 +26,15 @@ import com.google.inject.Inject;
 public class UserAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
+	
 	@Inject
 	private RoleService roleService;
 
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	PasswordEncoder passwordEncoder;
 
 	public String json()
 	{
@@ -106,7 +109,6 @@ public class UserAction
 			}
 			else
 			{
-				PasswordEncoder passwordEncoder = new PasswordEncoderMessageDigest("MD5");
 				user.setPassword(passwordEncoder.encode("123456"));
 			}
 			List<Role> userRoles = new ArrayList<Role>();
@@ -136,12 +138,12 @@ public class UserAction
 	{
 		return settingStatus(Status.Delete);
 	}
-	
+
 	public String banned()
 	{
 		return settingStatus(Status.Banned);
 	}
-	
+
 	public String normal()
 	{
 		return settingStatus(Status.Normal);
@@ -168,6 +170,7 @@ public class UserAction
 		}
 		return "success";
 	}
+
 	private User user;
 
 	private boolean success = true;
