@@ -13,8 +13,9 @@ if(window.top.location.href != window.location.href)
 {
 	window.top.location.href = window.top.location.href;
 }
-function encoding(){
+function passwordEncoding(){
     document.getElementById('password').value = hex_md5(document.getElementById('passwordinput').value);
+    document.getElementById('passwordinput').value = '';
 }
 -->
 </script>
@@ -22,7 +23,7 @@ function encoding(){
 <body>
 <div id="view-container">
 	<%@ include file="inc/header.jsp"%>
-	<form id="form" action="${ctxp}${serverLoginUrl}" method="POST" onsubmit="encoding();">
+	<form id="form" action="${ctxp}${serverLoginUrl}" method="POST" onsubmit="passwordEncoding();">
 		<div>请输入你的的用户名和密码.<hr/></div>		
 		<p>
 		<c:if test="${errorMsg != null}">
