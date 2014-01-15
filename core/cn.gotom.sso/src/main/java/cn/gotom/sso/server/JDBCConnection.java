@@ -43,21 +43,14 @@ public class JDBCConnection
 	 * 
 	 * @return
 	 */
-	public Connection connection()
+	public Connection connection() throws SQLException
 	{
 		Connection conn = connectionPool.get();
-		try
+		if (null == conn || conn.isClosed())
 		{
-			if (null == conn || conn.isClosed())
-			{
-				conn = create();
-				connectionPool.set(conn);
-				log.debug("Open: " + conn);
-			}
-		}
-		catch (SQLException ex)
-		{
-			log.error(ex.getMessage());
+			conn = create();
+			connectionPool.set(conn);
+			log.debug("Open: " + conn);
 		}
 		return conn;
 	}
