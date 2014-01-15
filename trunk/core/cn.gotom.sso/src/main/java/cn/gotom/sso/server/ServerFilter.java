@@ -34,6 +34,7 @@ public class ServerFilter extends AbstractCommonFilter
 	private String loginPath;
 	private String logoutPath;
 	private String successPath;
+	private String errorMsg = "登录失败，请检查你的用户名或密码是否正确！";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -136,7 +137,7 @@ public class ServerFilter extends AbstractCommonFilter
 		{
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
-			req.setAttribute("errorMsg", "登录失败，请检查你的用户名或密码是否正确！");
+			req.setAttribute("errorMsg", errorMsg);
 			req.getRequestDispatcher(loginPath).forward(req, res);
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
@@ -189,7 +190,8 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			errorMsg = ex.getMessage();
+			log.error("", ex);
 		}
 		finally
 		{
