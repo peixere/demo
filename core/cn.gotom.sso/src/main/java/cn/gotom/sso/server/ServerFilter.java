@@ -190,7 +190,7 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		catch (Exception ex)
 		{
-			errorMsg = ex.getMessage();
+			errorMsg = "服务器程序异常："+ex.getMessage();
 			log.error("", ex);
 		}
 		finally
