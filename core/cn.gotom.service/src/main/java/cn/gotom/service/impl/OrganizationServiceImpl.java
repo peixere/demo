@@ -1,19 +1,18 @@
 package cn.gotom.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Organization;
+import cn.gotom.pojos.User;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.util.StringUtils;
 
-import com.google.inject.Inject;
-
 public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String> implements OrganizationService
 {
-	@Inject
 	public OrganizationServiceImpl()
 	{
 		super(Organization.class);
@@ -49,20 +48,21 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 	}
 
 	@Override
-	public Organization findParentByCode(String code)
+	public List<Organization> findAllByParentId(String parentId)
 	{
-		// SELECT * FROM core_organization p WHERE p.id IN
-		// (SELECT parent_id FROM core_organization WHERE `code`='420100')
-		// AND (p.parent_id IS NULL OR p.parent_id = '' OR p.parent_id = '0')
-		StringBuffer jpql = new StringBuffer();
-		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
-		jpql.append(" where 1 = 1");
-		jpql.append(" and p.id IN (SELECT parentId FROM  " + persistentClass.getSimpleName() + " WHERE code=:code) ");
-		jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0')");
-		Query q = getEntityManager().createQuery(jpql.toString()); 
-		q.setParameter("code", code);
-		Object obj = q.getSingleResult();
-		return obj == null ? null : (Organization) obj;
+		List<Organization> list = new ArrayList<Organization>();
+		findByParentIdCallback(list, parentId);
+		return list;
+	}
+
+	private void findByParentIdCallback(List<Organization> orgList, String parentId)
+	{
+		List<Organization> list = findByParentId(parentId);
+		orgList.addAll(list);
+		for (Organization org : list)
+		{
+			findByParentIdCallback(orgList, org.getId());
+		}
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		return list;
 	}
 
-	@Override
+	//@Override
 	public List<Organization> loadTreeByParentId(String parentId)
 	{
 		List<Organization> list = findByParentId(parentId);
@@ -103,10 +103,34 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		StringBuffer jpql = new StringBuffer();
 		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
 		jpql.append(" WHERE p.code=:code");
-		Query q = getEntityManager().createQuery(jpql.toString()); 
+		Query q = getEntityManager().createQuery(jpql.toString());
 		q.setParameter("code", code);
 		Object obj = q.getSingleResult();
 		return obj == null ? null : (Organization) obj;
+	}
+
+	@Override
+	public List<Organization> findByUser(User user)
+	{
+		List<Organization> userOrgList = null;
+		if (User.ROOT.equals(user.getUsername()))
+		{
+			userOrgList = this.findAll();
+		}
+		else
+		{
+			userOrgList = user.getOrganizations();
+			if (userOrgList == null || userOrgList.size() == 0)
+			{
+				User u = this.get(User.class, user.getId());
+				userOrgList = u.getOrganizations();
+			}
+			for (Organization org : userOrgList)
+			{
+				findByParentIdCallback(userOrgList, org.getId());
+			}
+		}
+		return userOrgList;
 	}
 
 }
