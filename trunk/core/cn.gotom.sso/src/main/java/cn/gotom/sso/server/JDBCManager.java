@@ -8,10 +8,10 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-public class JDBCConnection
+public class JDBCManager
 {
-	protected final static Logger log = Logger.getLogger(JDBCConnection.class);
-	public static final JDBCConnection single = new JDBCConnection();
+	protected final static Logger log = Logger.getLogger(JDBCManager.class);
+	public static final JDBCManager single = new JDBCManager();
 	public static final ThreadLocal<Connection> connectionPool = new ThreadLocal<Connection>();
 	public static final String jdbc_driver = "jdbc.driver";
 	public static final String jdbc_url = "jdbc.url";
@@ -22,7 +22,7 @@ public class JDBCConnection
 	private String username;
 	private String password;
 
-	public JDBCConnection()
+	public JDBCManager()
 	{
 		try
 		{
