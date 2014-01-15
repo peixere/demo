@@ -12,6 +12,7 @@ import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 import cn.gotom.service.ServiceModule;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
+import cn.gotom.sso.server.JDBCManager;
 import cn.gotom.sso.server.ServerFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.websocket.WebSocketServer;
@@ -102,6 +103,25 @@ public class GuiceListener extends GuiceServletContextListener
 		{
 			Properties properties = new Properties();
 			properties.load(this.getClass().getResourceAsStream("/jdbc.properties"));
+			if (properties != null)
+			{
+				if (properties.containsKey(JDBCManager.jdbc_driver))
+				{
+					properties.put("hibernate.connection.driver_class", properties.get(JDBCManager.jdbc_driver));
+				}
+				if (properties.containsKey(JDBCManager.jdbc_url))
+				{
+					properties.put("hibernate.connection.url", properties.get(JDBCManager.jdbc_url));
+				}
+				if (properties.containsKey(JDBCManager.jdbc_username))
+				{
+					properties.put("hibernate.connection.username", properties.get(JDBCManager.jdbc_username));
+				}
+				if (properties.containsKey(JDBCManager.jdbc_password))
+				{
+					properties.put("hibernate.connection.password", properties.get(JDBCManager.jdbc_password));
+				}
+			}			
 			jpm.properties(properties);
 		}
 		catch (Exception ex)
