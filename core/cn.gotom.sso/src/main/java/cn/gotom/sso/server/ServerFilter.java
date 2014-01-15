@@ -1,10 +1,6 @@
 package cn.gotom.sso.server;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -27,7 +23,7 @@ import cn.gotom.sso.util.UrlUtils;
 public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
-	private static final JDBCConnection connection = JDBCConnection.single;
+	private SSOService ssoService;
 	private PasswordEncoder passwordEncoder;
 	private String loginSQL;
 	private String encodingAlgorithm;
@@ -35,6 +31,12 @@ public class ServerFilter extends AbstractCommonFilter
 	private String logoutPath;
 	private String successPath;
 	private String errorMsg = "登录失败，请检查你的用户名或密码是否正确！";
+
+	protected void initService()
+	{
+		ssoService = new SSOServiceImpl();
+		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -45,7 +47,6 @@ public class ServerFilter extends AbstractCommonFilter
 		logoutPath = this.getInitParameter(filterConfig, "logout", loginPath);
 		successPath = this.getInitParameter(filterConfig, "success", null);
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
-		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
 		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(contextPath))
 		{
@@ -53,6 +54,7 @@ public class ServerFilter extends AbstractCommonFilter
 			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
 		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
+		initService();
 		log.info("init");
 	}
 
@@ -168,45 +170,18 @@ public class ServerFilter extends AbstractCommonFilter
 
 	private boolean login(String username, String password, boolean passwordencoding)
 	{
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try
 		{
 			if (!passwordencoding)
 			{
 				password = passwordEncoder.encode(password);
 			}
-			Connection conn = connection.connection();
-			stmt = conn.prepareStatement(loginSQL);
-			stmt.setString(1, username);
-			rs = stmt.executeQuery();
-			if (rs.next())
-			{
-				if (password.equals(rs.getString(1)))
-				{
-					return true;
-				}
-			}
+			return ssoService.login(username, password, loginSQL);
 		}
 		catch (Exception ex)
 		{
-			errorMsg = "服务器程序异常："+ex.getMessage();
+			errorMsg = ex.getMessage();
 			log.error("", ex);
-		}
-		finally
-		{
-			try
-			{
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-			connection.close();
 		}
 		return false;
 	}
