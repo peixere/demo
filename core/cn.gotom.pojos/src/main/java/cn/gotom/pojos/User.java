@@ -35,11 +35,6 @@ public class User extends SuperEntity implements Serializable
 	@Column(unique = true, nullable = false, length = 100,updatable = true)
 	private String username;
 
-	@Column(nullable = true, length = 100)
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "organization_id", referencedColumnName = "id")	
-	private String organization = "";
-
 	/**
 	 * 0:正常;1:挂起;2:删除
 	 */
@@ -82,16 +77,6 @@ public class User extends SuperEntity implements Serializable
 	public void setUsername(String username)
 	{
 		this.username = username;
-	}
-
-	public String getOrganization()
-	{
-		return organization;
-	}
-
-	public void setOrganization(String organization)
-	{
-		this.organization = organization;
 	}
 
 	public Status getStatus()
