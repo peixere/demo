@@ -40,11 +40,15 @@ public class User extends SuperEntity implements Serializable
 	 */
 	@Column(nullable = true, length = 11)
 	private Status status = Status.Normal;
-
+	
 	@ManyToMany
 	@JoinTable(name = "core_user_role", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
 	private java.util.List<Role> roles;
 
+	@ManyToMany
+	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "org_id", nullable = false) })
+	private java.util.List<Organization> organizations;
+	
 	public User()
 	{
 	}
@@ -97,6 +101,16 @@ public class User extends SuperEntity implements Serializable
 	public void setRoles(java.util.List<Role> roles)
 	{
 		this.roles = roles;
+	}
+
+	public java.util.List<Organization> getOrganizations()
+	{
+		return organizations;
+	}
+
+	public void setOrganizations(java.util.List<Organization> organizations)
+	{
+		this.organizations = organizations;
 	}
 
 }
