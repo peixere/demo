@@ -23,8 +23,8 @@ import cn.gotom.sso.util.UrlUtils;
 public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
-	private SSOService ssoService;
-	private PasswordEncoder passwordEncoder;
+	protected SSOService ssoService;
+	protected PasswordEncoder passwordEncoder;
 	private String loginSQL;
 	private String encodingAlgorithm;
 	private String loginPath;
