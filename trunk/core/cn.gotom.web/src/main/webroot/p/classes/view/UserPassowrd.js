@@ -35,8 +35,9 @@ Ext.define('Gotom.view.UserPassowrd', {
                     xtype: 'form',
                     region: 'center',
                     border: false,
-                    id: 'PasswordForm',
                     bodyPadding: 10,
+                    header: false,
+                    title: 'PasswordForm',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -66,7 +67,6 @@ Ext.define('Gotom.view.UserPassowrd', {
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            id: 'user.password',
                             fieldLabel: '原 密 码',
                             msgTarget: 'side',
                             name: 'password',
@@ -83,7 +83,6 @@ Ext.define('Gotom.view.UserPassowrd', {
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            id: 'user.newpass',
                             fieldLabel: '新 密 码',
                             msgTarget: 'side',
                             name: 'newpass',
@@ -99,9 +98,8 @@ Ext.define('Gotom.view.UserPassowrd', {
                         },
                         {
                             xtype: 'textfield',
-                            confirmPwd: 'user.newpass',
+                            confirmPwd: 'newpass',
                             anchor: '100%',
-                            id: 'user.newpassCheck',
                             fieldLabel: '确认密码',
                             msgTarget: 'side',
                             name: 'newpassCheck',
@@ -126,28 +124,30 @@ Ext.define('Gotom.view.UserPassowrd', {
     },
 
     onButtonClick: function(button, e, eOpts) {
-        var me = this;
-        var form = Ext.getCmp('PasswordForm');
-        if (form.isValid())
-        {
-            form.submit({
-                url : ctxp + '/p/main!password.do',
-                method : 'POST',
-                waitMsg : '正在保存数据，稍后...',
-                success : function(f, action){
-                    me.close();
-                    form.reset();
-                    Ext.Msg.show({
-                        title:'操作提示',
-                        msg:'保存成功',
-                        icon: Ext.Msg.INFO,
-                        wait:true,
-                        waitConfig:{
-                            interval:600,
-                            duration:1000,
-                            fn:function(){
-                                Ext.MessageBox.hide();
-                            }},
+        try{
+            var me = this;
+            var form = me.items.get(0);//Ext.getCmp('PasswordForm');
+            if (form.isValid())
+            {
+                form.submit({
+                    url : ctxp + '/p/main!password.do',
+                    method : 'POST',
+                    waitMsg : '正在保存数据，稍后...',
+                    success : function(f, action){
+                        me.close();
+                        form.reset();
+                        Ext.Msg.show({
+                            title:'操作提示',
+                            msg:'保存成功',
+                            icon: Ext.Msg.INFO,
+                            wait:true,
+                            waitConfig:{
+                                interval:600,
+                                duration:1000,
+                                fn:function(){
+                                    Ext.MessageBox.hide();
+                                }
+                            },
                             closable:true
                         });
                     },
@@ -157,13 +157,17 @@ Ext.define('Gotom.view.UserPassowrd', {
                     }
                 });
             }
+        }catch(error){
+            alert(error);
+        }
     },
 
     onnewpassCheckChange: function(field, newValue, oldValue, eOpts) {
+        var form = this.items.get(0);
         Ext.apply(Ext.form.VTypes, {
             password : function(val, field) {
                 if (field.confirmPwd) {
-                    var pwd = Ext.getCmp(field.confirmPwd);
+                    var pwd = form.getForm().findField(field.confirmPwd);//Ext.getCmp(field.confirmPwd);
                     return (val == pwd.getValue());
                 }
                 return true;

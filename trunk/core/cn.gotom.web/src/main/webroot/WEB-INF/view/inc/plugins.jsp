@@ -3,8 +3,8 @@
     <script type="text/javascript">  
     <!--//  
     Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');
-        ${plugins}
-   	Ext.require('Gotom.view.PortalView');
+   	//Ext.require('Gotom.view.PortalView');
     Ext.onReady(function(){Ext.create('Gotom.view.PortalView');});
+    	${plugins}
     //-->
     </script>    

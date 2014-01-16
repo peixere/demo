@@ -457,7 +457,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|anchor": "100%",
-                                "id": "user.id",
+                                "id": null,
                                 "fieldLabel": "Label",
                                 "name": "user.id"
                             },
@@ -472,7 +472,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|anchor": "100%",
-                                "id": "user.username",
+                                "id": null,
                                 "fieldLabel": "登录帐号",
                                 "name": "user.username",
                                 "allowBlank": false,
@@ -491,7 +491,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|anchor": "100%",
-                                "id": "user.name",
+                                "id": null,
                                 "fieldLabel": "用户名称",
                                 "name": "user.name",
                                 "allowBlank": false,
@@ -600,15 +600,16 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
+                    "var from = Ext.getCmp('UserForm');\r",
                     "Common.ajax({\r",
                     "    params:{'user.id':id},\r",
-                    "    component : Ext.getCmp('UserForm'),\r",
+                    "    component : from,\r",
                     "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/user.do',\r",
                     "    callback : function(result) {\r",
-                    "        Ext.getCmp('user.id').setValue(result.user.id);\r",
-                    "        Ext.getCmp('user.name').setValue(result.user.name);                \r",
-                    "        Ext.getCmp('user.username').setValue(result.user.username);  \r",
+                    "        from.getForm().findField('user.id').setValue(result.user.id);\r",
+                    "        from.getForm().findField('user.name').setValue(result.user.name);                \r",
+                    "        from.getForm().findField('user.username').setValue(result.user.username);  \r",
                     "        me.bindRoleTree(result.user.id);\r",
                     "    }\r",
                     "});"
@@ -733,11 +734,12 @@
                 "fn": "saveForm",
                 "implHandler": [
                     "var me = this;\r",
+                    "var from = Ext.getCmp('UserForm').getForm();\r",
                     "if (Ext.getCmp('UserForm').isValid())\r",
                     "{\r",
-                    "    var userId = Ext.getCmp('user.id').getValue();\r",
-                    "    var name = Ext.getCmp('user.name').getValue();                \r",
-                    "    var username = Ext.getCmp('user.username').getValue();\r",
+                    "    var userId = from.findField('user.id').getValue();\r",
+                    "    var name = from.findField('user.name').getValue();                \r",
+                    "    var username = from.findField('user.username').getValue();\r",
                     "    var pkIds = [];\r",
                     "    var tree = Ext.getCmp('RoleTreePanel');\r",
                     "    var items = tree.getSelectionModel().store.data.items;\r",

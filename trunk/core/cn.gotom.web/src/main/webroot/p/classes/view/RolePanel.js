@@ -35,7 +35,6 @@ Ext.define('Gotom.view.RolePanel', {
                     items: [
                         {
                             xtype: 'button',
-                            id: 'btnNew',
                             iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
@@ -47,7 +46,6 @@ Ext.define('Gotom.view.RolePanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnEdit',
                             iconCls: 'icon-edit',
                             text: '修改',
                             listeners: {
@@ -59,7 +57,6 @@ Ext.define('Gotom.view.RolePanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnDel',
                             iconCls: 'icon-del',
                             text: '删除',
                             listeners: {
@@ -71,7 +68,6 @@ Ext.define('Gotom.view.RolePanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnSave1',
                             iconCls: 'icon-save',
                             text: '保存',
                             listeners: {
@@ -83,7 +79,6 @@ Ext.define('Gotom.view.RolePanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnRef',
                             iconCls: 'icon-refresh',
                             text: '刷新',
                             listeners: {
@@ -165,14 +160,18 @@ Ext.define('Gotom.view.RolePanel', {
                                 {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
-                                    id: 'role.id',
                                     fieldLabel: 'Label',
                                     name: 'role.id'
                                 },
                                 {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'rightIds'
+                                },
+                                {
                                     xtype: 'textfield',
                                     anchor: '100%',
-                                    id: 'role.name',
                                     fieldLabel: '权限名称',
                                     name: 'role.name',
                                     allowBlank: false,
@@ -183,7 +182,6 @@ Ext.define('Gotom.view.RolePanel', {
                                 {
                                     xtype: 'numberfield',
                                     anchor: '100%',
-                                    id: 'role.sort',
                                     fieldLabel: '排列顺序',
                                     name: 'role.sort'
                                 }
@@ -286,42 +284,32 @@ Ext.define('Gotom.view.RolePanel', {
 
     loadFormData: function(roleId) {
         var me = this;
-        var wait = Ext.Msg.wait("正在加载......", "操作提示");
-        Ext.Ajax.request(
-        {
-            url : ctxp+'/p/role.do',
-            method : 'POST',
-            params:{'role.id':roleId},  
-            success : function(response, options)
-            {
-                wait.close();
-                var result = Ext.JSON.decode(response.responseText); 
-                if(result.success)
+        var form = Ext.getCmp('RoleForm');
+        try{
+
+            Common.ajax({
+                component : me,
+                params:{'role.id':roleId},  
+                message : '加载信息...',    
+                url : ctxp+'/p/role.do',
+                callback : function(result)
                 {
-                    me.bindRightTree(result.role.id);
-                    Ext.getCmp('role.id').setValue(result.role.id);
-                    Ext.getCmp('role.name').setValue(result.role.name);                
-                    Ext.getCmp('role.sort').setValue(result.role.sort);  
+                    if(result.success)
+                    {
+                        me.bindRightTree(result.role.id);
+                        form.getForm().findField('role.id').setValue(result.role.id);
+                        form.getForm().findField('role.name').setValue(result.role.name);                
+                        form.getForm().findField('role.sort').setValue(result.role.sort);  
+                    }
+                    else
+                    {
+                        Ext.Msg.alert('信息提示', result.data);
+                    }    	
                 }
-                else
-                {
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-            },
-            failure : function(response, options)
-            {
-                wait.close();
-                if(response.status == 200)
-                {
-                    var result = Ext.JSON.decode(response.responseText);
-                    Ext.Msg.alert('信息提示', result.data);
-                }
-                else
-                {
-                    Ext.Msg.alert('信息提示', response.responseText);
-                }
-            }
-        });
+            });
+        }catch(error){
+            alert(error);
+        }
     },
 
     bindRightTree: function(roleId) {
@@ -432,11 +420,9 @@ Ext.define('Gotom.view.RolePanel', {
 
     saveForm: function() {
         var me = this;
-        if (Ext.getCmp('RoleForm').isValid())
-        {
-            var roleId = Ext.getCmp('role.id').getValue();
-            var name = Ext.getCmp('role.name').getValue();                
-            var sort = Ext.getCmp('role.sort').getValue();
+        var form = Ext.getCmp('RoleForm');
+
+        try{
             var rightIds = [];
             var tree = Ext.getCmp('RoleRightTreePanel');
             var items = tree.getSelectionModel().store.data.items;
@@ -447,47 +433,26 @@ Ext.define('Gotom.view.RolePanel', {
                 {
                     rightIds.push(nd.data.id);
                 }
-            });
-            var wait = Ext.Msg.wait("正在加载......", "操作提示");
-            Ext.Ajax.request(
-            {
+            });    
+            form.getForm().findField('rightIds').setValue(rightIds);
+            Common.formSubmit({  
                 url : ctxp+'/p/role!save.do',
-                method : 'POST',
-                params:{
-                    'role.id':roleId,
-                    'role.name':name,
-                    'role.sort':sort,
-                    'rightIds':rightIds
-                },  
-                success : function(response, options)
+                form:form,
+                callback : function(result)
                 {
-                    wait.close();
-                    var result = Ext.JSON.decode(response.responseText); 
                     if(result.success)
                     {
                         me.loadRoleGrid();
                         me.loadFormData('');
-                    }
-                    else
-                    {
+                    }else{
                         Ext.Msg.alert('信息提示', result.data);
-                    }
-                },
-                failure : function(response, options)
-                {
-                    wait.close();
-                    if(response.status == 200)
-                    {
-                        var result = Ext.JSON.decode(response.responseText);
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }
+                    }	
                 }
             });
+        }catch(error){
+            alert(error);
         }
+
     },
 
     deleteRole: function() {
