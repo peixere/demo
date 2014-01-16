@@ -97,7 +97,6 @@ public class ValidationFilter extends AuthenticationFilter
 	private void initPlugins()
 	{
 		pluginsPath = getInitParameter(filterConfig, "pluginsPath", "/plugins");
-		debugScript = CommonUtils.parseBoolean(getInitParameter(filterConfig, "debugScript", "false"));
 		if (!pluginsPath.endsWith("/"))
 		{
 			pluginsPath = pluginsPath + "/";
@@ -114,13 +113,18 @@ public class ValidationFilter extends AuthenticationFilter
 	private void setPlugins(final HttpServletRequest request)
 	{
 		boolean debug = CommonUtils.parseBoolean(request.getParameter("debug"));
-		if ((plugins == null && pluginsPaths != null) || debug)
+		if (debugScript != debug)
+		{
+			debugScript = debug;
+			plugins = null;
+		}
+		if ((plugins == null && pluginsPaths != null))
 		{
 			plugins = "\n\t";
 			for (String name : pluginsPaths)
 			{
 				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + pluginsPath + name + "/classes');\n\t";
-				if (debugScript || debug)
+				if (debugScript)
 				{
 					String path = filterConfig.getServletContext().getRealPath(pluginsPath + name + "/classes/view/");
 					File file = new File(path);
