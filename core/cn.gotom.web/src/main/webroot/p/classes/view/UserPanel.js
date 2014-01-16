@@ -195,14 +195,12 @@ Ext.define('Gotom.view.UserPanel', {
                                 {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
-                                    id: 'user.id',
                                     fieldLabel: 'Label',
                                     name: 'user.id'
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
-                                    id: 'user.username',
                                     fieldLabel: '登录帐号',
                                     name: 'user.username',
                                     allowBlank: false,
@@ -213,7 +211,6 @@ Ext.define('Gotom.view.UserPanel', {
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
-                                    id: 'user.name',
                                     fieldLabel: '用户名称',
                                     name: 'user.name',
                                     allowBlank: false,
@@ -335,15 +332,16 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadFormData: function(id) {
         var me = this;
+        var from = Ext.getCmp('UserForm');
         Common.ajax({
             params:{'user.id':id},
-            component : Ext.getCmp('UserForm'),
+            component : from,
             message : '正在加载......',    
             url : ctxp+'/p/user.do',
             callback : function(result) {
-                Ext.getCmp('user.id').setValue(result.user.id);
-                Ext.getCmp('user.name').setValue(result.user.name);                
-                Ext.getCmp('user.username').setValue(result.user.username);  
+                from.getForm().findField('user.id').setValue(result.user.id);
+                from.getForm().findField('user.name').setValue(result.user.name);                
+                from.getForm().findField('user.username').setValue(result.user.username);  
                 me.bindRoleTree(result.user.id);
             }
         });
@@ -443,11 +441,12 @@ Ext.define('Gotom.view.UserPanel', {
 
     saveForm: function() {
         var me = this;
+        var from = Ext.getCmp('UserForm').getForm();
         if (Ext.getCmp('UserForm').isValid())
         {
-            var userId = Ext.getCmp('user.id').getValue();
-            var name = Ext.getCmp('user.name').getValue();                
-            var username = Ext.getCmp('user.username').getValue();
+            var userId = from.findField('user.id').getValue();
+            var name = from.findField('user.name').getValue();                
+            var username = from.findField('user.username').getValue();
             var pkIds = [];
             var tree = Ext.getCmp('RoleTreePanel');
             var items = tree.getSelectionModel().store.data.items;

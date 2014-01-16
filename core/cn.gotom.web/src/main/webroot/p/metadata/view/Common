@@ -135,6 +135,43 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "formSubmit",
+                "designer|params": [
+                    "config"
+                ],
+                "implHandler": [
+                    "if (config.form.isValid())\r",
+                    "            {\r",
+                    "                var msg = '正在保存数据，稍后...';\r",
+                    "                if(config.msg){\r",
+                    "                    msg = config.msg;\r",
+                    "                }\r",
+                    "                config.form.submit(\r",
+                    "                {\r",
+                    "                    url : config.url,\r",
+                    "                    method : 'POST',\r",
+                    "                    waitMsg : msg,\r",
+                    "                    success : function(f, action){\r",
+                    "                \t\tconfig.callback(action.result);// 调用回调函数\r",
+                    "                    },\r",
+                    "                    failure : function(f, action)\r",
+                    "                    {\r",
+                    "                        Common.onAjaxException(action.response);          \r",
+                    "                    }\r",
+                    "                });\r",
+                    "            }"
+                ]
+            },
+            "designerId": "19693179-bccf-418b-8999-316807befb3d"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "createTreeStore",
                 "designer|params": [
                     "URL",
@@ -332,32 +369,12 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "formSubmit",
-                "designer|params": [
-                    "config"
-                ],
+                "fn": "sss",
                 "implHandler": [
-                    "if (config.form().isValid())\r",
-                    "{\r",
-                    "    var msg = '正在保存数据，稍后...';\r",
-                    "    if(config.msg){\r",
-                    "        msg = config.msg;\r",
-                    "    }\r",
-                    "    config.form().submit(\r",
-                    "    {\r",
-                    "        url : config.url,\r",
-                    "        method : 'POST',\r",
-                    "        waitMsg : msg,\r",
-                    "        success : config.callback,\r",
-                    "        failure : function(f, action)\r",
-                    "        {\r",
-                    "            Common.onAjaxException(action.response);          \r",
-                    "        }\r",
-                    "    });\r",
-                    "}"
+                    ""
                 ]
             },
-            "designerId": "19693179-bccf-418b-8999-316807befb3d"
+            "designerId": "9261d6e2-0c20-49a5-993f-fee4b1fb5623"
         }
     ]
 }
