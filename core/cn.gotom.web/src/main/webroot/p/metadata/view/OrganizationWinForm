@@ -145,7 +145,7 @@
                         "container|pack": "end",
                         "container|padding": 3,
                         "frame": false,
-                        "id": "toobar",
+                        "id": null,
                         "shadowOffset": 10
                     },
                     "designerId": "8e87d03c-79df-46a9-9911-2d1d59c87e42",
@@ -159,7 +159,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "id": "btnSave",
+                                "id": null,
                                 "iconCls": "icon-save",
                                 "text": "保存"
                             },
@@ -214,7 +214,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "id": "btnCancel",
+                                "id": null,
                                 "iconCls": "icon-cancel",
                                 "text": "取消"
                             },

@@ -360,21 +360,6 @@
                 ]
             },
             "designerId": "d7756e68-84b4-4d27-a50a-1d42708f5d49"
-        },
-        {
-            "type": "staticfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "sss",
-                "implHandler": [
-                    ""
-                ]
-            },
-            "designerId": "9261d6e2-0c20-49a5-993f-fee4b1fb5623"
         }
     ]
 }
