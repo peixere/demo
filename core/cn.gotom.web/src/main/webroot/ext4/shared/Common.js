@@ -26,7 +26,15 @@ Ext.define('Common', {
         },
 
         onProxyException: function(proxy, response, operation, eOpts) {
-            onAjaxException(response,'');
+            if(response.status === 200)
+            {
+                var result = Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert('操作异常 '+response.status, result.data);
+            }
+            else
+            {
+                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
+            }
         },
 
         ajax: function(config) {
@@ -63,6 +71,29 @@ Ext.define('Common', {
                     }
                 }
             });
+        },
+
+        formSubmit: function(config) {
+            if (config.form.isValid())
+            {
+                var msg = '正在保存数据，稍后...';
+                if(config.msg){
+                    msg = config.msg;
+                }
+                config.form.submit(
+                {
+                    url : config.url,
+                    method : 'POST',
+                    waitMsg : msg,
+                    success : function(f, action){
+                        config.callback(action.result);// 调用回调函数
+                    },
+                    failure : function(f, action)
+                    {
+                        Common.onAjaxException(action.response);          
+                    }
+                });
+            }
         },
 
         createTreeStore: function(URL, pid) {
@@ -170,27 +201,6 @@ Ext.define('Common', {
             Common.onTreeChildNodesChecked(node,checked);
             Common.onTreeParentNodeChecked(node,checked);
 
-        },
-
-        formSubmit: function(config) {
-            if (config.form().isValid())
-            {
-                var msg = '正在保存数据，稍后...';
-                if(config.msg){
-                    msg = config.msg;
-                }
-                config.form().submit(
-                {
-                    url : config.url,
-                    method : 'POST',
-                    waitMsg : msg,
-                    success : config.callback,
-                    failure : function(f, action)
-                    {
-                        Common.onAjaxException(action.response);          
-                    }
-                });
-            }
         }
     }
 });
