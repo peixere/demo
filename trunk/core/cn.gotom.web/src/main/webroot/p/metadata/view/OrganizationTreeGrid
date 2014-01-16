@@ -74,7 +74,7 @@
             "codeClass": null,
             "userConfig": {
                 "dock": "top",
-                "id": "treeGridTBar"
+                "id": null
             },
             "designerId": "19ef81a6-62af-4b60-9364-0278c2875fe3",
             "cn": [
@@ -87,7 +87,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "id": "btnRef1",
+                        "id": null,
                         "iconCls": "icon-refresh",
                         "text": "刷新"
                     },
@@ -123,7 +123,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "id": "btnNew1",
+                        "id": null,
                         "iconCls": "icon-add",
                         "text": "新增"
                     },
@@ -171,7 +171,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "id": "btnEdit1",
+                        "id": null,
                         "iconCls": "icon-edit",
                         "text": "修改"
                     },
@@ -210,7 +210,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "id": "btnDel1",
+                        "id": null,
                         "iconCls": "icon-del",
                         "text": "删除"
                     },

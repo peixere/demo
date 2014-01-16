@@ -124,7 +124,6 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             xtype: 'toolbar',
                             dock: 'bottom',
                             frame: false,
-                            id: 'toobar',
                             shadowOffset: 10,
                             layout: {
                                 pack: 'end',
@@ -134,7 +133,6 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    id: 'btnSave',
                                     iconCls: 'icon-save',
                                     text: '保存',
                                     listeners: {
@@ -146,7 +144,6 @@ Ext.define('Gotom.view.OrganizationWinForm', {
                                 },
                                 {
                                     xtype: 'button',
-                                    id: 'btnCancel',
                                     iconCls: 'icon-cancel',
                                     text: '取消',
                                     listeners: {

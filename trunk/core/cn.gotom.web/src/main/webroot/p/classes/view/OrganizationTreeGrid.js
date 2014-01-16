@@ -51,11 +51,9 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    id: 'treeGridTBar',
                     items: [
                         {
                             xtype: 'button',
-                            id: 'btnRef1',
                             iconCls: 'icon-refresh',
                             text: '刷新',
                             listeners: {
@@ -67,7 +65,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnNew1',
                             iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
@@ -79,7 +76,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnEdit1',
                             iconCls: 'icon-edit',
                             text: '修改',
                             listeners: {
@@ -91,7 +87,6 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnDel1',
                             iconCls: 'icon-del',
                             text: '删除',
                             listeners: {
