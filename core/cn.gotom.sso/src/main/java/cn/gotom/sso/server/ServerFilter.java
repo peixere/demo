@@ -120,6 +120,7 @@ public class ServerFilter extends AbstractCommonFilter
 
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
+		boolean noScript = CommonUtils.parseBoolean("noScript");
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		boolean passwordencoding = CommonUtils.parseBoolean(req.getParameter("passwordencoding"));
@@ -137,6 +138,10 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		else
 		{
+			if (!noScript)
+			{
+				errorMsg = "请开启浏览器的Javascript功能";
+			}
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
 			req.setAttribute("errorMsg", errorMsg);
