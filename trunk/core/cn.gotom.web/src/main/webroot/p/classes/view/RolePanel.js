@@ -142,7 +142,6 @@ Ext.define('Gotom.view.RolePanel', {
                 {
                     xtype: 'panel',
                     region: 'center',
-                    border: false,
                     id: 'CenterPanel',
                     layout: {
                         type: 'border'

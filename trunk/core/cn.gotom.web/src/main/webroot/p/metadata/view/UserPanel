@@ -24,7 +24,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dock": "top"
+                "dock": "top",
+                "border": false
             },
             "designerId": "efab0064-76b1-4a32-a08a-2fd9732cf75e",
             "cn": [
@@ -287,7 +288,6 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "west",
-                "border": null,
                 "id": "UserGridPanel",
                 "width": 326,
                 "bodyBorder": false,
@@ -336,7 +336,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "width": null,
-                        "defaultWidth": 50,
+                        "defaultWidth": 40,
                         "dataIndex": "status",
                         "text": "状态"
                     },
@@ -425,7 +425,6 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
-                "border": false,
                 "id": "UserCenterPanel",
                 "layout": "border",
                 "title": null
@@ -440,9 +439,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|region": "north",
-                        "height": 98,
+                        "layout|region": "center",
+                        "border": false,
                         "id": "UserForm",
+                        "autoScroll": true,
                         "bodyPadding": 10,
                         "title": "编辑用户"
                     },
@@ -464,6 +464,22 @@
                             "designerId": "add902a0-f590-4188-b3fe-781398d476a7"
                         },
                         {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": null,
+                                "fieldLabel": null,
+                                "labelWidth": 60,
+                                "name": "orgIds"
+                            },
+                            "designerId": "e0899fa6-098a-4d96-898a-916aadea29f8"
+                        },
+                        {
                             "type": "Ext.form.field.Text",
                             "reference": {
                                 "name": "items",
@@ -474,6 +490,7 @@
                                 "layout|anchor": "100%",
                                 "id": null,
                                 "fieldLabel": "登录帐号",
+                                "labelWidth": 60,
                                 "name": "user.username",
                                 "allowBlank": false,
                                 "enforceMaxLength": true,
@@ -493,6 +510,7 @@
                                 "layout|anchor": "100%",
                                 "id": null,
                                 "fieldLabel": "用户名称",
+                                "labelWidth": 60,
                                 "name": "user.name",
                                 "allowBlank": false,
                                 "enforceMaxLength": false,
@@ -500,6 +518,79 @@
                                 "minLength": 2
                             },
                             "designerId": "fd8b0694-83a6-4df7-8325-ece3e242a9ed"
+                        },
+                        {
+                            "type": "Ext.form.CheckboxGroup",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "UserRoleCheckboxGroup",
+                                "fieldLabel": "用户角色",
+                                "labelWidth": 60,
+                                "columns": 2
+                            },
+                            "configAlternates": {
+                                "columns": "number"
+                            },
+                            "designerId": "95a3e44b-420e-4b9f-8143-d25d7d7948e5",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": null,
+                                        "boxLabel": "Box Label"
+                                    },
+                                    "designerId": "37f0822c-554e-4f96-81b7-9dad2cb067a0"
+                                },
+                                {
+                                    "type": "Ext.form.field.Checkbox",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fieldLabel": null,
+                                        "boxLabel": "Box Label"
+                                    },
+                                    "designerId": "66ba1ed2-844f-4c3d-b5de-7626aceda7d7"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onUserFormAfterLayout",
+                                "implHandler": [
+                                    "var role = container.items.get(4);\r",
+                                    "container.items.remove(4);\r",
+                                    "container.items.add(Ext.create('Gotom.view.TreeComboBox', {\r",
+                                    "    url : ctxp+'/p/role!list.do',\r",
+                                    "    anchor: '100%',\r",
+                                    "    fieldLabel: '所在部门',\r",
+                                    "    labelWidth: 60,\r",
+                                    "    name: 'orgname'    \r",
+                                    "}));\r",
+                                    "container.items.add(role);"
+                                ],
+                                "single": true,
+                                "name": "afterlayout",
+                                "scope": "me"
+                            },
+                            "designerId": "fed61e69-625d-4f56-a125-478a9208a118"
                         }
                     ]
                 }
@@ -610,7 +701,14 @@
                     "        from.getForm().findField('user.id').setValue(result.user.id);\r",
                     "        from.getForm().findField('user.name').setValue(result.user.name);                \r",
                     "        from.getForm().findField('user.username').setValue(result.user.username);  \r",
-                    "        me.bindRoleTree(result.user.id);\r",
+                    "        var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');\r",
+                    "        roleCheckbox.removeAll();\r",
+                    "        var items = result.data;\r",
+                    "        Ext.each(items, function()\r",
+                    "        {\r",
+                    "            var nd = this;\r",
+                    "            roleCheckbox.add({xtype: 'checkboxfield',name: 'roleIds',boxLabel: nd.text,inputValue: nd.id,checked: nd.checked});\r",
+                    "        });  \r",
                     "    }\r",
                     "});"
                 ]
@@ -625,171 +723,27 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "bindRoleTree",
-                "designer|params": [
-                    "userId"
-                ],
-                "implHandler": [
-                    "var me = this;\r",
-                    "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
-                    "    {\r",
-                    "        defaultRootId : userId,\r",
-                    "        clearOnLoad : true,\r",
-                    "        nodeParam : 'user.id',\r",
-                    "        fields: [\r",
-                    "        {\r",
-                    "            name: 'id'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'text'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'sort',\r",
-                    "            type: 'int'\r",
-                    "        },\r",
-                    "        {\r",
-                    "            name: 'checked',\r",
-                    "            type: 'boolean'\r",
-                    "        }\r",
-                    "        ],\r",
-                    "        proxy :\r",
-                    "        {\r",
-                    "            type : 'ajax',\r",
-                    "            url : ctxp+'/p/user!tree.do', \r",
-                    "            listeners: {\r",
-                    "                exception: {\r",
-                    "                    fn: Common.onAjaxException,\r",
-                    "                    scope: me\r",
-                    "                }\r",
-                    "            }             \r",
-                    "        }                      \r",
-                    "    });\r",
-                    "var tree = Ext.create('Ext.tree.Panel',\r",
-                    "    {\r",
-                    "        region: 'center',\r",
-                    "        id: 'RoleTreePanel',\r",
-                    "        title: '用户角色',\r",
-                    "        animate : true,\r",
-                    "        border : false,\r",
-                    "        bodyborder : false,\r",
-                    "        lines : true,\r",
-                    "        split : true,\r",
-                    "        stateful : true,\r",
-                    "        collapsible : false,\r",
-                    "        frame : false,\r",
-                    "        enableDD : true,\r",
-                    "        autoScroll : true,\r",
-                    "        autoHeight : false,\r",
-                    "        rootVisible : false,\r",
-                    "        multiSelect : false,\r",
-                    "        store:myStore,\r",
-                    "        root :\r",
-                    "        {\r",
-                    "            expanded : true\r",
-                    "        },\r",
-                    "        listeners: {\r",
-                    "            itemclick: \r",
-                    "            {\r",
-                    "                fn: me.onTreeItemClick,\r",
-                    "                scope: me\r",
-                    "            },\r",
-                    "            checkchange: \r",
-                    "            {\r",
-                    "                fn: Common.onTreePanelCheckChange,\r",
-                    "                scope: me\r",
-                    "            }\r",
-                    "        },        \r",
-                    "        columns : [\r",
-                    "        {\r",
-                    "            xtype : 'treecolumn',\r",
-                    "            dataIndex : 'text',\r",
-                    "            text : '角色名称',\r",
-                    "            sortable : false,\r",
-                    "            flex : 1,\r",
-                    "            width:300,\r",
-                    "            menuDisabled : true\r",
-                    "        },\r",
-                    "        {\r",
-                    "            xtype : 'gridcolumn',\r",
-                    "            dataIndex : 'sort',\r",
-                    "            text : '排列顺序'\r",
-                    "        }]\r",
-                    "    });\r",
-                    "tree.expandAll();\r",
-                    "Ext.getCmp('UserCenterPanel').remove(1);\r",
-                    "Ext.getCmp('UserCenterPanel').add(tree);\r",
-                    ""
-                ]
-            },
-            "designerId": "fc88e6a9-1f71-4416-a522-99bff485ad3e"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "fn": "saveForm",
                 "implHandler": [
                     "var me = this;\r",
-                    "var from = Ext.getCmp('UserForm').getForm();\r",
-                    "if (Ext.getCmp('UserForm').isValid())\r",
-                    "{\r",
-                    "    var userId = from.findField('user.id').getValue();\r",
-                    "    var name = from.findField('user.name').getValue();                \r",
-                    "    var username = from.findField('user.username').getValue();\r",
-                    "    var pkIds = [];\r",
-                    "    var tree = Ext.getCmp('RoleTreePanel');\r",
-                    "    var items = tree.getSelectionModel().store.data.items;\r",
-                    "    Ext.each(items, function()\r",
-                    "    {\r",
-                    "        var nd = this;\r",
-                    "        if(nd.data.checked)\r",
-                    "        {\r",
-                    "            pkIds.push(nd.data.id);\r",
-                    "        }\r",
-                    "    });\r",
-                    "    var wait = Ext.Msg.wait(\"正在加载......\", \"操作提示\");\r",
-                    "    Ext.Ajax.request(\r",
-                    "    {\r",
+                    "try{\r",
+                    "    var form = Ext.getCmp('UserForm');\r",
+                    "    Common.formSubmit({  \r",
                     "        url : ctxp+'/p/user!save.do',\r",
-                    "        method : 'POST',\r",
-                    "        params:{\r",
-                    "            'user.id':userId,\r",
-                    "            'user.name':name,\r",
-                    "            'user.username':username,\r",
-                    "            'roleIds':pkIds\r",
-                    "        },  \r",
-                    "        success : function(response, options)\r",
+                    "        form:form,\r",
+                    "        callback : function(result)\r",
                     "        {\r",
-                    "            wait.close();\r",
-                    "            var result = Ext.JSON.decode(response.responseText); \r",
                     "            if(result.success)\r",
                     "            {\r",
                     "                me.loadGrid();\r",
                     "                me.loadFormData('');\r",
-                    "            }\r",
-                    "            else\r",
-                    "            {\r",
+                    "            }else{\r",
                     "                Ext.Msg.alert('信息提示', result.data);\r",
-                    "            }\r",
-                    "        },\r",
-                    "        failure : function(response, options)\r",
-                    "        {\r",
-                    "            wait.close();\r",
-                    "            if(response.status == 200)\r",
-                    "            {\r",
-                    "                var result = Ext.JSON.decode(response.responseText);\r",
-                    "                Ext.Msg.alert('信息提示', result.data);\r",
-                    "            }\r",
-                    "            else\r",
-                    "            {\r",
-                    "                Ext.Msg.alert('信息提示', response.responseText);\r",
-                    "            }\r",
+                    "            }\t\r",
                     "        }\r",
                     "    });\r",
+                    "}catch(error){\r",
+                    "    alert(error);\r",
                     "}"
                 ]
             },
