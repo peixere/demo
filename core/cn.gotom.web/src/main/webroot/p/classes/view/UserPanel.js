@@ -33,6 +33,7 @@ Ext.define('Gotom.view.UserPanel', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
+                    border: false,
                     items: [
                         {
                             xtype: 'button',
@@ -144,7 +145,7 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'gridcolumn',
-                            defaultWidth: 50,
+                            defaultWidth: 40,
                             dataIndex: 'status',
                             text: '状态'
                         }
@@ -178,7 +179,6 @@ Ext.define('Gotom.view.UserPanel', {
                 {
                     xtype: 'panel',
                     region: 'center',
-                    border: false,
                     id: 'UserCenterPanel',
                     layout: {
                         type: 'border'
@@ -186,9 +186,10 @@ Ext.define('Gotom.view.UserPanel', {
                     items: [
                         {
                             xtype: 'form',
-                            region: 'north',
-                            height: 98,
+                            region: 'center',
+                            border: false,
                             id: 'UserForm',
+                            autoScroll: true,
                             bodyPadding: 10,
                             title: '编辑用户',
                             items: [
@@ -199,9 +200,16 @@ Ext.define('Gotom.view.UserPanel', {
                                     name: 'user.id'
                                 },
                                 {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    labelWidth: 60,
+                                    name: 'orgIds'
+                                },
+                                {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: '登录帐号',
+                                    labelWidth: 60,
                                     name: 'user.username',
                                     allowBlank: false,
                                     enforceMaxLength: true,
@@ -212,13 +220,38 @@ Ext.define('Gotom.view.UserPanel', {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: '用户名称',
+                                    labelWidth: 60,
                                     name: 'user.name',
                                     allowBlank: false,
                                     enforceMaxLength: false,
                                     maxLength: 50,
                                     minLength: 2
+                                },
+                                {
+                                    xtype: 'checkboxgroup',
+                                    id: 'UserRoleCheckboxGroup',
+                                    fieldLabel: '用户角色',
+                                    labelWidth: 60,
+                                    columns: 2,
+                                    items: [
+                                        {
+                                            xtype: 'checkboxfield',
+                                            boxLabel: 'Box Label'
+                                        },
+                                        {
+                                            xtype: 'checkboxfield',
+                                            boxLabel: 'Box Label'
+                                        }
+                                    ]
                                 }
-                            ]
+                            ],
+                            listeners: {
+                                afterlayout: {
+                                    fn: me.onUserFormAfterLayout,
+                                    single: true,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -279,6 +312,19 @@ Ext.define('Gotom.view.UserPanel', {
 
     onToolClick: function(tool, e, eOpts) {
         this.loadGrid();
+    },
+
+    onUserFormAfterLayout: function(container, layout, eOpts) {
+        var role = container.items.get(4);
+        container.items.remove(4);
+        container.items.add(Ext.create('Gotom.view.TreeComboBox', {
+            url : ctxp+'/p/role!list.do',
+            anchor: '100%',
+            fieldLabel: '所在部门',
+            labelWidth: 60,
+            name: 'orgname'    
+        }));
+        container.items.add(role);
     },
 
     onPanelAfterLayout: function(container, layout, eOpts) {
@@ -342,161 +388,38 @@ Ext.define('Gotom.view.UserPanel', {
                 from.getForm().findField('user.id').setValue(result.user.id);
                 from.getForm().findField('user.name').setValue(result.user.name);                
                 from.getForm().findField('user.username').setValue(result.user.username);  
-                me.bindRoleTree(result.user.id);
+                var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');
+                roleCheckbox.removeAll();
+                var items = result.data;
+                Ext.each(items, function()
+                {
+                    var nd = this;
+                    roleCheckbox.add({xtype: 'checkboxfield',name: 'roleIds',boxLabel: nd.text,inputValue: nd.id,checked: nd.checked});
+                });  
             }
         });
     },
 
-    bindRoleTree: function(userId) {
-        var me = this;
-        var myStore = Ext.create("Ext.data.TreeStore",
-            {
-                defaultRootId : userId,
-                clearOnLoad : true,
-                nodeParam : 'user.id',
-                fields: [
-                {
-                    name: 'id'
-                },
-                {
-                    name: 'text'
-                },
-                {
-                    name: 'sort',
-                    type: 'int'
-                },
-                {
-                    name: 'checked',
-                    type: 'boolean'
-                }
-                ],
-                proxy :
-                {
-                    type : 'ajax',
-                    url : ctxp+'/p/user!tree.do', 
-                    listeners: {
-                        exception: {
-                            fn: Common.onAjaxException,
-                            scope: me
-                        }
-                    }             
-                }                      
-            });
-        var tree = Ext.create('Ext.tree.Panel',
-            {
-                region: 'center',
-                id: 'RoleTreePanel',
-                title: '用户角色',
-                animate : true,
-                border : false,
-                bodyborder : false,
-                lines : true,
-                split : true,
-                stateful : true,
-                collapsible : false,
-                frame : false,
-                enableDD : true,
-                autoScroll : true,
-                autoHeight : false,
-                rootVisible : false,
-                multiSelect : false,
-                store:myStore,
-                root :
-                {
-                    expanded : true
-                },
-                listeners: {
-                    itemclick: 
-                    {
-                        fn: me.onTreeItemClick,
-                        scope: me
-                    },
-                    checkchange: 
-                    {
-                        fn: Common.onTreePanelCheckChange,
-                        scope: me
-                    }
-                },        
-                columns : [
-                {
-                    xtype : 'treecolumn',
-                    dataIndex : 'text',
-                    text : '角色名称',
-                    sortable : false,
-                    flex : 1,
-                    width:300,
-                    menuDisabled : true
-                },
-                {
-                    xtype : 'gridcolumn',
-                    dataIndex : 'sort',
-                    text : '排列顺序'
-                }]
-            });
-        tree.expandAll();
-        Ext.getCmp('UserCenterPanel').remove(1);
-        Ext.getCmp('UserCenterPanel').add(tree);
-
-    },
-
     saveForm: function() {
         var me = this;
-        var from = Ext.getCmp('UserForm').getForm();
-        if (Ext.getCmp('UserForm').isValid())
-        {
-            var userId = from.findField('user.id').getValue();
-            var name = from.findField('user.name').getValue();                
-            var username = from.findField('user.username').getValue();
-            var pkIds = [];
-            var tree = Ext.getCmp('RoleTreePanel');
-            var items = tree.getSelectionModel().store.data.items;
-            Ext.each(items, function()
-            {
-                var nd = this;
-                if(nd.data.checked)
-                {
-                    pkIds.push(nd.data.id);
-                }
-            });
-            var wait = Ext.Msg.wait("正在加载......", "操作提示");
-            Ext.Ajax.request(
-            {
+        try{
+            var form = Ext.getCmp('UserForm');
+            Common.formSubmit({  
                 url : ctxp+'/p/user!save.do',
-                method : 'POST',
-                params:{
-                    'user.id':userId,
-                    'user.name':name,
-                    'user.username':username,
-                    'roleIds':pkIds
-                },  
-                success : function(response, options)
+                form:form,
+                callback : function(result)
                 {
-                    wait.close();
-                    var result = Ext.JSON.decode(response.responseText); 
                     if(result.success)
                     {
                         me.loadGrid();
                         me.loadFormData('');
-                    }
-                    else
-                    {
+                    }else{
                         Ext.Msg.alert('信息提示', result.data);
-                    }
-                },
-                failure : function(response, options)
-                {
-                    wait.close();
-                    if(response.status == 200)
-                    {
-                        var result = Ext.JSON.decode(response.responseText);
-                        Ext.Msg.alert('信息提示', result.data);
-                    }
-                    else
-                    {
-                        Ext.Msg.alert('信息提示', response.responseText);
-                    }
+                    }	
                 }
             });
+        }catch(error){
+            alert(error);
         }
     },
 

@@ -334,7 +334,6 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
-                "border": false,
                 "id": "CenterPanel",
                 "layout": "border",
                 "title": null
@@ -504,7 +503,7 @@
                     "var me = this;\r",
                     "var form = Ext.getCmp('RoleForm');\r",
                     "try{\r",
-                    "    \r",
+                    "\r",
                     "    Common.ajax({\r",
                     "        component : me,\r",
                     "        params:{'role.id':roleId},  \r",
@@ -523,7 +522,7 @@
                     "            {\r",
                     "                Ext.Msg.alert('信息提示', result.data);\r",
                     "            }    \t\r",
-                    "    \t}\r",
+                    "        }\r",
                     "    });\r",
                     "}catch(error){\r",
                     "    alert(error);\r",
