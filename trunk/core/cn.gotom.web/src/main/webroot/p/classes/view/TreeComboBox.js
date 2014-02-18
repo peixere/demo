@@ -2,10 +2,13 @@ Ext.define('Gotom.view.TreeComboBox', {
     extend: 'Ext.form.field.ComboBox',
 
     url: '',
+    selected:[],
+    selectedText:[],
     tree: {},
-    textProperty: 'text',
-    valueProperty: '',
-
+    //textProperty: 'text',
+    //valueProperty: '',
+    bodyBorder: false,
+    
     initComponent: function () {
         Ext.apply(this, {
             editable: false,
@@ -20,8 +23,19 @@ Ext.define('Gotom.view.TreeComboBox', {
         if (this.url) {
             var me = this;
             var store = Ext.create('Ext.data.TreeStore', {
+                defaultRootId: '',
+                defaultRootText: '',
+                nodeParam: 'id',        	
                 root: { expanded: true },
-                proxy: { type: 'ajax', url: this.url }
+                proxy: {
+                    type: 'ajax',
+                    url: me.url,
+                    reader: {
+                        type: 'json',
+                        idProperty: 'id'
+                    }  
+                }
+                //proxy: { type: 'ajax', url: this.url }
             });
             this.tree = Ext.create('Ext.tree.Panel', {
                 rootVisible: false,
@@ -30,8 +44,20 @@ Ext.define('Gotom.view.TreeComboBox', {
                 store: store
             });
             this.tree.on('itemclick', function (view, record) {
-                me.setValue(record);
-                me.collapse();
+        	for(var i = 0;i<me.selected.length;i++){
+        	    if(me.selected[i] === record.data.id){
+        		me.selected.splice(i,1);
+        		me.selectedText.splice(i,1);
+        		me.setValue(me.selectedText);
+        		record.set('checked', false);
+        		return;
+        	    }
+        	}
+        	record.set('checked', true);
+        	me.selectedText.push(record.data.text);
+        	me.selected.push(record.data.id);
+        	me.setValue(me.selectedText);
+                //me.collapse();
             });
             me.on('expand', function () {
                 if (!this.tree.rendered) {
