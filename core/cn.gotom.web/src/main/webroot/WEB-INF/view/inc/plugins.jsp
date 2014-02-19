@@ -4,7 +4,7 @@
     <!--//  
     Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');
    	Ext.require('Gotom.view.UserPanel');
-   	Ext.require('Gotom.view.TreeComboBox');
+   	Ext.require('Gotom.view.UserOrgTreeComboBox');
    	
     Ext.onReady(function(){Ext.create('Gotom.view.PortalView');});
     	${plugins}

@@ -1,4 +1,4 @@
-Ext.define('Gotom.view.TreeComboBox', {
+Ext.define('Gotom.view.UserOrgTreeComboBox', {
     extend: 'Ext.form.field.ComboBox',
 
     url: '',
