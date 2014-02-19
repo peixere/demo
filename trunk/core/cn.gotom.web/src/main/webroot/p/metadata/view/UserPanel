@@ -724,7 +724,7 @@
                 "implHandler": [
                     "var panel = Ext.getCmp('UserFormSelectedOrgs');\r",
                     "panel.removeAll();\r",
-                    "panel.items.add(Ext.create('Gotom.view.TreeComboBox', {\r",
+                    "panel.items.add(Ext.create('Gotom.view.UserOrgTreeComboBox', {\r",
                     "    url : ctxp+'/p/user!orgs.do?user.id='+userId,\r",
                     "    anchor: '100%',\r",
                     "    fieldLabel: '所在部门',\r",

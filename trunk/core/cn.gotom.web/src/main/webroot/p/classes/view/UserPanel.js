@@ -396,7 +396,7 @@ Ext.define('Gotom.view.UserPanel', {
     loadOrgTree: function(form, userId) {
         var panel = Ext.getCmp('UserFormSelectedOrgs');
         panel.removeAll();
-        panel.items.add(Ext.create('Gotom.view.TreeComboBox', {
+        panel.items.add(Ext.create('Gotom.view.UserOrgTreeComboBox', {
             url : ctxp+'/p/user!orgs.do?user.id='+userId,
             anchor: '100%',
             fieldLabel: '所在部门',
