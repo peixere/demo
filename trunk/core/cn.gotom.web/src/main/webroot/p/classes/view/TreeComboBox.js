@@ -44,19 +44,26 @@ Ext.define('Gotom.view.TreeComboBox', {
                 store: store
             });
             this.tree.on('itemclick', function (view, record) {
-        	for(var i = 0;i<me.selected.length;i++){
-        	    if(me.selected[i] === record.data.id){
-        		me.selected.splice(i,1);
-        		me.selectedText.splice(i,1);
-        		me.setValue(me.selectedText);
-        		record.set('checked', false);
-        		return;
-        	    }
-        	}
-        	record.set('checked', true);
-        	me.selectedText.push(record.data.text);
-        	me.selected.push(record.data.id);
-        	me.setValue(me.selectedText);
+        	var selectedIds = [];
+        	var selectedTexts = [];
+        	var checked = !record.data.checked;
+        	record.set('checked', checked);
+        	//Common.onTreePanelCheckChange(record,false);
+                Common.onTreeChildNodesChecked(record,false);
+                Common.setTreeParentNodeChecked(record,false);
+                var items = view.getSelectionModel().store.data.items;
+                Ext.each(items, function()
+                {
+                    var nd = this;
+                    if(nd.data.checked)
+                    {
+                	selectedIds.push(nd.data.id);
+                	selectedTexts.push(nd.data.text);
+                    }
+                });         	
+        	me.selectedText = selectedTexts;
+        	me.selected = selectedIds;
+        	me.setValue(selectedTexts);
                 //me.collapse();
             });
             me.on('expand', function () {
