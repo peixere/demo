@@ -520,6 +520,24 @@
                             "designerId": "fd8b0694-83a6-4df7-8325-ece3e242a9ed"
                         },
                         {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "border": false,
+                                "height": 30,
+                                "id": "UserFormSelectedOrgs",
+                                "layout": "anchor",
+                                "bodyPadding": 0,
+                                "header": false,
+                                "title": "My Panel"
+                            },
+                            "designerId": "40cb46cc-56a1-4bff-841e-3756703acd10"
+                        },
+                        {
                             "type": "Ext.form.CheckboxGroup",
                             "reference": {
                                 "name": "items",
@@ -535,7 +553,7 @@
                             "configAlternates": {
                                 "columns": "number"
                             },
-                            "designerId": "95a3e44b-420e-4b9f-8143-d25d7d7948e5",
+                            "designerId": "b6a2a447-6c2b-45ed-b07a-3f72deaf6091",
                             "cn": [
                                 {
                                     "type": "Ext.form.field.Checkbox",
@@ -545,10 +563,11 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "id": null,
                                         "fieldLabel": null,
                                         "boxLabel": "Box Label"
                                     },
-                                    "designerId": "37f0822c-554e-4f96-81b7-9dad2cb067a0"
+                                    "designerId": "b2017b60-d2f9-40d5-bf97-233f1d8db0c7"
                                 },
                                 {
                                     "type": "Ext.form.field.Checkbox",
@@ -561,36 +580,9 @@
                                         "fieldLabel": null,
                                         "boxLabel": "Box Label"
                                     },
-                                    "designerId": "66ba1ed2-844f-4c3d-b5de-7626aceda7d7"
+                                    "designerId": "d17c85e3-b6b8-487a-a893-7be64171edcf"
                                 }
                             ]
-                        },
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onUserFormAfterLayout",
-                                "implHandler": [
-                                    "var role = container.items.get(4);\r",
-                                    "container.items.remove(4);\r",
-                                    "container.items.add(Ext.create('Gotom.view.TreeComboBox', {\r",
-                                    "    url : ctxp+'/p/role!list.do',\r",
-                                    "    anchor: '100%',\r",
-                                    "    fieldLabel: '所在部门',\r",
-                                    "    labelWidth: 60,\r",
-                                    "    name: 'orgname'    \r",
-                                    "}));\r",
-                                    "container.items.add(role);"
-                                ],
-                                "single": true,
-                                "name": "afterlayout",
-                                "scope": "me"
-                            },
-                            "designerId": "fed61e69-625d-4f56-a125-478a9208a118"
                         }
                     ]
                 }
@@ -692,6 +684,7 @@
                 "implHandler": [
                     "var me = this;\r",
                     "var from = Ext.getCmp('UserForm');\r",
+                    "me.loadOrgTree(from,id);\r",
                     "Common.ajax({\r",
                     "    params:{'user.id':id},\r",
                     "    component : from,\r",
@@ -714,6 +707,33 @@
                 ]
             },
             "designerId": "f5884c7f-d347-4702-94e9-17ec148e4825"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadOrgTree",
+                "designer|params": [
+                    "form",
+                    "userId"
+                ],
+                "implHandler": [
+                    "var panel = Ext.getCmp('UserFormSelectedOrgs');\r",
+                    "panel.removeAll();\r",
+                    "panel.items.add(Ext.create('Gotom.view.TreeComboBox', {\r",
+                    "    url : ctxp+'/p/user!orgs.do?user.id='+userId,\r",
+                    "    anchor: '100%',\r",
+                    "    fieldLabel: '所在部门',\r",
+                    "    labelWidth: 60,\r",
+                    "    name: 'orgname'    \r",
+                    "}));"
+                ]
+            },
+            "designerId": "3cfb9f3c-42ba-4cff-88bd-d4b1c05137b1"
         },
         {
             "type": "basicfunction",

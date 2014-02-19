@@ -228,6 +228,18 @@ Ext.define('Gotom.view.UserPanel', {
                                     minLength: 2
                                 },
                                 {
+                                    xtype: 'panel',
+                                    border: false,
+                                    height: 30,
+                                    id: 'UserFormSelectedOrgs',
+                                    layout: {
+                                        type: 'anchor'
+                                    },
+                                    bodyPadding: 0,
+                                    header: false,
+                                    title: 'My Panel'
+                                },
+                                {
                                     xtype: 'checkboxgroup',
                                     id: 'UserRoleCheckboxGroup',
                                     fieldLabel: '用户角色',
@@ -244,14 +256,7 @@ Ext.define('Gotom.view.UserPanel', {
                                         }
                                     ]
                                 }
-                            ],
-                            listeners: {
-                                afterlayout: {
-                                    fn: me.onUserFormAfterLayout,
-                                    single: true,
-                                    scope: me
-                                }
-                            }
+                            ]
                         }
                     ]
                 }
@@ -314,19 +319,6 @@ Ext.define('Gotom.view.UserPanel', {
         this.loadGrid();
     },
 
-    onUserFormAfterLayout: function(container, layout, eOpts) {
-        var role = container.items.get(4);
-        container.items.remove(4);
-        container.items.add(Ext.create('Gotom.view.TreeComboBox', {
-            url : ctxp+'/p/role!list.do',
-            anchor: '100%',
-            fieldLabel: '所在部门',
-            labelWidth: 60,
-            name: 'orgname'    
-        }));
-        container.items.add(role);
-    },
-
     onPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
     },
@@ -379,6 +371,7 @@ Ext.define('Gotom.view.UserPanel', {
     loadFormData: function(id) {
         var me = this;
         var from = Ext.getCmp('UserForm');
+        me.loadOrgTree(from,id);
         Common.ajax({
             params:{'user.id':id},
             component : from,
@@ -398,6 +391,18 @@ Ext.define('Gotom.view.UserPanel', {
                 });  
             }
         });
+    },
+
+    loadOrgTree: function(form, userId) {
+        var panel = Ext.getCmp('UserFormSelectedOrgs');
+        panel.removeAll();
+        panel.items.add(Ext.create('Gotom.view.TreeComboBox', {
+            url : ctxp+'/p/user!orgs.do?user.id='+userId,
+            anchor: '100%',
+            fieldLabel: '所在部门',
+            labelWidth: 60,
+            name: 'orgname'    
+        }));
     },
 
     saveForm: function() {
