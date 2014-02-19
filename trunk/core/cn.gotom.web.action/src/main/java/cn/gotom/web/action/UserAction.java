@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
+import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
@@ -26,15 +29,17 @@ import com.google.inject.Inject;
 public class UserAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
-	
+
 	@Inject
 	private RoleService roleService;
 
 	@Inject
 	private UserService userService;
-	
+
 	@Inject
 	PasswordEncoder passwordEncoder;
+	@Inject
+	private OrganizationService orgService;
 
 	public String json()
 	{
@@ -91,6 +96,45 @@ public class UserAction
 		}
 		this.setData(list);
 		return "success";
+	}
+
+	public void orgs()
+	{
+		// TreeModel
+		// List<Role> roleList = roleService.f
+		String parentId = ServletActionContext.getRequest().getParameter("id");
+		if (user != null)
+		{
+			user = userService.get(user.getId());
+		}
+		List<Organization> orgList = orgService.findByParentId(parentId);
+		List<TreeCheckedModel> tree = new ArrayList<TreeCheckedModel>();
+		List<Organization> selectOrgs = new ArrayList<Organization>();
+		if (user != null)
+		{
+			if (user.getOrganizations() == null)
+			{
+				user.setOrganizations(orgService.findByUser(user));
+			}
+			selectOrgs = user.getOrganizations();
+		}
+		for (Organization o : orgList)
+		{
+			TreeCheckedModel e = new TreeCheckedModel();
+			for (Organization check : selectOrgs)
+			{
+				if (o.getId().equals(check.getId()))
+				{
+					e.setChecked(true);
+					break;
+				}
+			}
+			e.setId(o.getId());
+			e.setSort(o.getSort());
+			e.setText(o.getText());
+			tree.add(e);
+		}
+		ResponseUtils.toJSON(tree);
 	}
 
 	public String save()
