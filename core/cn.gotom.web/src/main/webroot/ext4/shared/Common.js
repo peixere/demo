@@ -179,12 +179,20 @@ Ext.define('Common', {
                             parentCheck = true;
                         }
                     });
-                    node.parentNode.set('checked', parentCheck);
-                    Common.onTreeParentNodeChecked(node.parentNode,checked);
                 }
+                node.parentNode.set('checked', parentCheck);
+                Common.onTreeParentNodeChecked(node.parentNode,checked);
             }
         },
-
+        
+        setTreeParentNodeChecked: function(node, checked) {
+            if(node.parentNode !== null)
+            {
+                node.parentNode.set('checked', checked);
+                Common.onTreeParentNodeChecked(node.parentNode,checked);
+            }
+        },
+        
         onTreeChildNodesChecked: function(node, checked) {
             Ext.each(node.childNodes,function(childNode)
             {
