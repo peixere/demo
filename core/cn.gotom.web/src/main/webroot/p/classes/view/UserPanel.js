@@ -410,7 +410,7 @@ Ext.define('Gotom.view.UserPanel', {
         try{
             var form = Ext.getCmp('UserForm');
             var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;
-            form.getForm().findField('orgids').setValue(selected);
+            form.getForm().findField('orgIds').setValue(selected);
             Common.formSubmit({  
                 url : ctxp+'/p/user!save.do',
                 form:form,
