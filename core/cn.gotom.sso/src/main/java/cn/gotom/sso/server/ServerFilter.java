@@ -120,7 +120,7 @@ public class ServerFilter extends AbstractCommonFilter
 
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
-		boolean noScript = CommonUtils.parseBoolean("noScript");
+		boolean noScript = CommonUtils.parseBoolean(req.getParameter("noScript"));
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		boolean passwordencoding = CommonUtils.parseBoolean(req.getParameter("passwordencoding"));
