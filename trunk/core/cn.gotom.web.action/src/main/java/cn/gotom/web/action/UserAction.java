@@ -16,6 +16,7 @@ import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RoleService;
+import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.TreeCheckedModel;
@@ -28,7 +29,8 @@ import com.google.inject.Inject;
 public class UserAction extends ServletAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
-
+	@Inject
+	protected UserService userService;
 	@Inject
 	private RoleService roleService;
 	@Inject
@@ -50,6 +52,22 @@ public class UserAction extends ServletAction
 		if (user == null)
 		{
 			user = new User();
+		}
+		if (user.getOrganizations() != null)
+		{
+			for (Organization o : user.getOrganizations())
+			{
+				this.orgIds += o.getId() + ",";
+				this.orgNames += o.getText() + ",";
+			}
+			if (orgIds.length() > 1)
+			{
+				orgIds = orgIds.substring(0, orgIds.length() - 1);
+			}
+			if (orgNames.length() > 1)
+			{
+				orgNames = orgNames.substring(0, orgNames.length() - 1);
+			}
 		}
 		List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
 		this.setData(roleList);
@@ -80,7 +98,7 @@ public class UserAction extends ServletAction
 
 	public String list()
 	{
-		User login = getLoginUser();
+		User login = userService.getByUsername(getUsername());
 		List<Organization> orgList = new ArrayList<Organization>();
 		List<User> list = new ArrayList<User>();
 		if (login.getUsername().equals(User.ROOT))
@@ -234,8 +252,9 @@ public class UserAction extends ServletAction
 
 	private Object data;
 
-	private String roleIds;
-	private String orgIds;
+	private String roleIds = "";
+	private String orgIds = "";
+	private String orgNames = "";
 
 	public User getUser()
 	{
@@ -285,6 +304,16 @@ public class UserAction extends ServletAction
 	public void setOrgIds(String orgIds)
 	{
 		this.orgIds = orgIds;
+	}
+
+	public String getOrgNames()
+	{
+		return orgNames;
+	}
+
+	public void setOrgNames(String orgNames)
+	{
+		this.orgNames = orgNames;
 	}
 
 }

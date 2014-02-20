@@ -5,16 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.gotom.pojos.User;
-import cn.gotom.service.UserService;
-
-import com.google.inject.Inject;
-
 public class ServletAction
 {
-
-	@Inject
-	protected UserService userService;
 
 	public HttpServletRequest getRequest()
 	{
@@ -31,8 +23,4 @@ public class ServletAction
 		return ServletActionContext.getRequest().getRemoteUser();
 	}
 
-	public User getLoginUser()
-	{
-		return userService.getByUsername(getUsername());
-	}
 }
