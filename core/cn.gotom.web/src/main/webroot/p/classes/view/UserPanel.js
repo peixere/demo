@@ -371,7 +371,16 @@ Ext.define('Gotom.view.UserPanel', {
     loadFormData: function(id) {
         var me = this;
         var from = Ext.getCmp('UserForm');
-        me.loadOrgTree(from,id);
+        var panel = Ext.getCmp('UserFormSelectedOrgs');
+        panel.removeAll();
+        var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {
+            url : ctxp+'/p/user!orgs.do?user.id='+id,
+            anchor: '100%',
+            fieldLabel: '所在部门',
+            labelWidth: 60,
+            name: 'orgname'    
+        });
+        panel.items.add(treeComboBox);
         Common.ajax({
             params:{'user.id':id},
             component : from,
@@ -381,7 +390,9 @@ Ext.define('Gotom.view.UserPanel', {
                 from.getForm().findField('user.id').setValue(result.user.id);
                 from.getForm().findField('user.name').setValue(result.user.name);                
                 from.getForm().findField('user.username').setValue(result.user.username); 
-                from.getForm().findField('orgIds').setValue(result.orgIds);    
+                from.getForm().findField('orgIds').setValue(result.orgIds);  
+                treeComboBox.selected = result.orgIds;
+                treeComboBox.setValue(result.orgNames);    
                 var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');
                 roleCheckbox.removeAll();
                 var items = result.data;
