@@ -380,7 +380,8 @@ Ext.define('Gotom.view.UserPanel', {
             callback : function(result) {
                 from.getForm().findField('user.id').setValue(result.user.id);
                 from.getForm().findField('user.name').setValue(result.user.name);                
-                from.getForm().findField('user.username').setValue(result.user.username);  
+                from.getForm().findField('user.username').setValue(result.user.username); 
+                from.getForm().findField('orgIds').setValue(result.orgIds);    
                 var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');
                 roleCheckbox.removeAll();
                 var items = result.data;
@@ -404,7 +405,6 @@ Ext.define('Gotom.view.UserPanel', {
             name: 'orgname'    
         });
         panel.items.add(treeComboBox);
-        //treeComboBox.treeRender();
     },
 
     saveForm: function() {

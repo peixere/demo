@@ -132,7 +132,7 @@ Ext.define('Gotom.view.Portal', {
                 Ext.defer(function()
                 {
                     portlet.setLoading(false);
-                }, 1000);
+                }, 20);
             }
         }
         ];
@@ -243,7 +243,7 @@ Ext.define('Gotom.view.Portal', {
                 });
             portalPanel.add(portalcolumn2);
             tabPanel.setLoading(false);
-        }, 100);
+        }, 10);
     },
 
     setHeader: function() {
@@ -288,7 +288,7 @@ Ext.define('Gotom.view.Portal', {
                 callback : me.callbackOptions
 
             });
-        }, 100);
+        }, 10);
     },
 
     callbackOptions: function(data) {
