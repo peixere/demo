@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -32,7 +33,7 @@ public class User extends SuperEntity implements Serializable
 	@Column(nullable = false, length = 50)
 	private String password;
 
-	@Column(unique = true, nullable = false, length = 100,updatable = true)
+	@Column(unique = true, nullable = false, length = 100, updatable = true)
 	private String username;
 
 	/**
@@ -40,15 +41,15 @@ public class User extends SuperEntity implements Serializable
 	 */
 	@Column(nullable = true, length = 11)
 	private Status status = Status.Normal;
-	
+
 	@ManyToMany
 	@JoinTable(name = "core_user_role", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
 	private java.util.List<Role> roles;
 
-	@ManyToMany
-	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "org_id", nullable = false) })
+	@ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	//@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "org_id", nullable = false) })
 	private java.util.List<Organization> organizations;
-	
+
 	public User()
 	{
 	}
