@@ -8,6 +8,7 @@ import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.User;
 import cn.gotom.service.UserService;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.Singleton;
 
@@ -41,12 +42,15 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 				orgIds = orgIds.substring(0, orgIds.length() - 1);
 			}
 		}
-		String sql = " select user_id from core_org_user where org_id in(" + orgIds + ")";
-		Object[] array = this.queryArray(sql);
 		StringBuffer userIds = new StringBuffer();
-		for (Object id : array)
+		if (StringUtils.isNotEmpty(orgIds))
 		{
-			userIds.append("'" + id + "',");
+			String sql = "select user_id from core_org_user where org_id in(" + orgIds + ")";
+			Object[] array = this.queryArray(sql);
+			for (Object id : array)
+			{
+				userIds.append("'" + id + "',");
+			}
 		}
 		if (userIds.length() == 0)
 			userIds.append("'',");
