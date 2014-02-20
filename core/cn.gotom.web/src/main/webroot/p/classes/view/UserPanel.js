@@ -73,6 +73,18 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
+                            iconCls: 'settings',
+                            text: '密码',
+                            tooltip: '设置为初始密码',
+                            listeners: {
+                                click: {
+                                    fn: me.onResetPassClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
                             id: 'btnBanned',
                             iconCls: 'icon-status-offline',
                             text: '挂起',
@@ -292,6 +304,54 @@ Ext.define('Gotom.view.UserPanel', {
 
     onBtnNormalClick: function(button, e, eOpts) {
         this.userStatus('normal');
+    },
+
+    onResetPassClick: function(button, e, eOpts) {
+        var me = this;
+        var selected = Ext.getCmp('UserGridPanel').getSelectionModel().selected;
+        var selecteditems = selected.items;
+        if (selecteditems.length === 0)
+        {
+            Ext.Msg.show(
+            {
+                title : "操作提示",
+                msg : "请选择节点!",
+                icon : Ext.Msg.WARNING
+            });
+            return;
+        }
+        var ids = [];
+        Ext.each(selecteditems, function()
+        {
+            var nd = this;
+            ids.push(nd.data.id);
+        });
+        Ext.Msg.confirm("警告", "确定将选取的用户初始密码为123456吗？", function(button)
+        {
+            if (button == "yes")
+            {
+                Ext.Msg.wait("正在执行......", "操作提示");
+                Ext.Ajax.request(
+                {
+                    url : ctxp+'/p/user!resetpass.do',
+                    method : 'POST',
+                    params :
+                    {
+                        'user.id' : ids.join(",")
+                    },
+                    success : function(response, options)
+                    {
+                        Ext.Msg.alert("操作提示", "操作成功");
+                        me.loadGrid();
+                        me.loadFormData('');
+                    },
+                    failure : function(response, options)
+                    {
+                        Ext.Msg.alert("操作提示", "操作失败<br/>"+response.responseText);
+                    }
+                });
+            }
+        });
     },
 
     onBtnBannedClick: function(button, e, eOpts) {

@@ -287,7 +287,6 @@
             "cn": [
                 {
                     "id": "efab0064-76b1-4a32-a08a-2fd9732cf75e",
-                    "expanded": false,
                     "cn": [
                         {
                             "id": "5177d03b-7593-4b02-b99a-84b97e5c3e48",
@@ -310,6 +309,14 @@
                             "cn": [
                                 {
                                     "id": "4416647c-d74e-45f0-a8fb-8d5fb07231c8"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "b4a4ae96-aecf-4226-8099-660181efc071",
+                            "cn": [
+                                {
+                                    "id": "ddac4c11-66bf-4b9e-bd7d-af8d44a60c40"
                                 }
                             ]
                         },
@@ -792,7 +799,7 @@
     },
     "inspectorState": {
         "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002",
-        "selectedInstance": "f5884c7f-d347-4702-94e9-17ec148e4825"
+        "selectedInstance": "ddac4c11-66bf-4b9e-bd7d-af8d44a60c40"
     },
     "codeState": {
         "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002"

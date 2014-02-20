@@ -149,6 +149,87 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
+                        "iconCls": "settings",
+                        "text": "密码",
+                        "tooltip": "设置为初始密码"
+                    },
+                    "configAlternates": {
+                        "tooltip": "string"
+                    },
+                    "designerId": "b4a4ae96-aecf-4226-8099-660181efc071",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onResetPassClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "var selected = Ext.getCmp('UserGridPanel').getSelectionModel().selected;\r",
+                                    "var selecteditems = selected.items;\r",
+                                    "if (selecteditems.length === 0)\r",
+                                    "{\r",
+                                    "    Ext.Msg.show(\r",
+                                    "    {\r",
+                                    "        title : \"操作提示\",\r",
+                                    "        msg : \"请选择节点!\",\r",
+                                    "        icon : Ext.Msg.WARNING\r",
+                                    "    });\r",
+                                    "    return;\r",
+                                    "}\r",
+                                    "var ids = [];\r",
+                                    "Ext.each(selecteditems, function()\r",
+                                    "{\r",
+                                    "    var nd = this;\r",
+                                    "    ids.push(nd.data.id);\r",
+                                    "});\r",
+                                    "Ext.Msg.confirm(\"警告\", \"确定将选取的用户初始密码为123456吗？\", function(button)\r",
+                                    "{\r",
+                                    "    if (button == \"yes\")\r",
+                                    "    {\r",
+                                    "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
+                                    "        Ext.Ajax.request(\r",
+                                    "        {\r",
+                                    "            url : ctxp+'/p/user!resetpass.do',\r",
+                                    "            method : 'POST',\r",
+                                    "            params :\r",
+                                    "            {\r",
+                                    "                'user.id' : ids.join(\",\")\r",
+                                    "            },\r",
+                                    "            success : function(response, options)\r",
+                                    "            {\r",
+                                    "                Ext.Msg.alert(\"操作提示\", \"操作成功\");\r",
+                                    "                me.loadGrid();\r",
+                                    "                me.loadFormData('');\r",
+                                    "            },\r",
+                                    "            failure : function(response, options)\r",
+                                    "            {\r",
+                                    "                Ext.Msg.alert(\"操作提示\", \"操作失败<br/>\"+response.responseText);\r",
+                                    "            }\r",
+                                    "        });\r",
+                                    "    }\r",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "ddac4c11-66bf-4b9e-bd7d-af8d44a60c40"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
                         "id": "btnBanned",
                         "iconCls": "icon-status-offline",
                         "text": "挂起"
