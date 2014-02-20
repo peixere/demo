@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +31,7 @@ public class Role extends SuperEntity implements Serializable
 
 	@Column(nullable = false)
 	private int sort;
-	
+
 	@ManyToMany
 	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "role_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "right_id", nullable = false) })
 	private java.util.List<Right> rights;
@@ -37,6 +39,10 @@ public class Role extends SuperEntity implements Serializable
 	@ManyToMany
 	@JoinTable(name = "core_user_role", joinColumns = { @JoinColumn(name = "role_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
 	private java.util.List<User> users;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "organization_id", referencedColumnName = "id")
+	private Organization organization;
 
 	public Role()
 	{
@@ -81,4 +87,15 @@ public class Role extends SuperEntity implements Serializable
 	{
 		this.users = users;
 	}
+
+	protected Organization getOrganization()
+	{
+		return organization;
+	}
+
+	protected void setOrganization(Organization organization)
+	{
+		this.organization = organization;
+	}
+
 }
