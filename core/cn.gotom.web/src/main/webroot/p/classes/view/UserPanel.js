@@ -465,24 +465,15 @@ Ext.define('Gotom.view.UserPanel', {
         });
     },
 
-    loadOrgTree: function(form, userId) {
-        var panel = Ext.getCmp('UserFormSelectedOrgs');
-        panel.removeAll();
-        var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {
-            url : ctxp+'/p/user!orgs.do?user.id='+userId,
-            anchor: '100%',
-            fieldLabel: '所在部门',
-            labelWidth: 60,
-            name: 'orgname'    
-        });
-        panel.items.add(treeComboBox);
-    },
-
     saveForm: function() {
         var me = this;
         try{
             var form = Ext.getCmp('UserForm');
             var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;
+            if(selected.length === 0){
+                Ext.Msg.alert('信息提示', '请选择所在部门！');
+                return;        
+            }
             form.getForm().findField('orgIds').setValue(selected);
             Common.formSubmit({  
                 url : ctxp+'/p/user!save.do',
