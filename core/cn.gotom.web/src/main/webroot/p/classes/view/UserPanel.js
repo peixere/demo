@@ -396,13 +396,15 @@ Ext.define('Gotom.view.UserPanel', {
     loadOrgTree: function(form, userId) {
         var panel = Ext.getCmp('UserFormSelectedOrgs');
         panel.removeAll();
-        panel.items.add(Ext.create('Gotom.view.UserOrgTreeComboBox', {
+        var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {
             url : ctxp+'/p/user!orgs.do?user.id='+userId,
             anchor: '100%',
             fieldLabel: '所在部门',
             labelWidth: 60,
             name: 'orgname'    
-        }));
+        });
+        panel.items.add(treeComboBox);
+        //treeComboBox.treeRender();
     },
 
     saveForm: function() {

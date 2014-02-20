@@ -724,13 +724,15 @@
                 "implHandler": [
                     "var panel = Ext.getCmp('UserFormSelectedOrgs');\r",
                     "panel.removeAll();\r",
-                    "panel.items.add(Ext.create('Gotom.view.UserOrgTreeComboBox', {\r",
+                    "var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {\r",
                     "    url : ctxp+'/p/user!orgs.do?user.id='+userId,\r",
                     "    anchor: '100%',\r",
                     "    fieldLabel: '所在部门',\r",
                     "    labelWidth: 60,\r",
                     "    name: 'orgname'    \r",
-                    "}));"
+                    "});\r",
+                    "panel.items.add(treeComboBox);\r",
+                    "//treeComboBox.treeRender();"
                 ]
             },
             "designerId": "3cfb9f3c-42ba-4cff-88bd-d4b1c05137b1"

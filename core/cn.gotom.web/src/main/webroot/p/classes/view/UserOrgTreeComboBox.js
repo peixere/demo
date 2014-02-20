@@ -8,7 +8,11 @@ Ext.define('Gotom.view.UserOrgTreeComboBox', {
     //textProperty: 'text',
     //valueProperty: '',
     bodyBorder: false,
-    
+    treeRender: function () {
+    	if (!this.tree.rendered) {
+	        this.tree.render(this.treeid);
+	    }
+    },
     initComponent: function () {
         Ext.apply(this, {
             editable: false,
@@ -67,9 +71,7 @@ Ext.define('Gotom.view.UserOrgTreeComboBox', {
                 //me.collapse();
             });
             me.on('expand', function () {
-                if (!this.tree.rendered) {
-                    this.tree.render(this.treeid);
-                }
+                me.treeRender();
             });
         }
         this.callParent(arguments);
