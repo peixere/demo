@@ -233,6 +233,20 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	}
 
 	@SuppressWarnings("unchecked")
+	protected Object[] queryArray(String sql)
+	{
+		Query query = this.getEntityManager().createNativeQuery(sql);
+		query.unwrap(org.hibernate.SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		List<Map<String, Object>> list = query.getResultList();
+		Object[] array = new Object[list.size()];
+		for (int i = 0; i < list.size(); i++)
+		{
+			array[i] = list.get(i).values().iterator().next();
+		}
+		return array;
+	}
+
+	@SuppressWarnings("unchecked")
 	protected List<Map<String, Object>> query(String sql)
 	{
 		Query query = this.getEntityManager().createNativeQuery(sql);
