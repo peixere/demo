@@ -2,6 +2,8 @@ package cn.gotom.service.impl;
 
 import java.util.List;
 
+import javax.persistence.JoinTable;
+
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.User;
@@ -27,7 +29,7 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	@Override
 	public List<User> findAllByOrg(List<Organization> orgList)
 	{
-		// TODO Auto-generated method stub
+		String sql = "";
 		return null;
 	}
 }
