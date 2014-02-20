@@ -42,7 +42,9 @@ public interface OrganizationService extends GenericService<Organization, String
 	 * @param user
 	 * @return
 	 */
-	List<Organization> findByUser(User user);
+	List<Organization> findAllByUser(User user);
 
 	Organization getByCode(String code);
+
+	List<Organization> findSelectedByUser(User user);
 }
