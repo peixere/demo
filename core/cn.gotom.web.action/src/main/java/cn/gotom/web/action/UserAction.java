@@ -221,7 +221,28 @@ public class UserAction extends ServletAction
 		}
 		return "success";
 	}
-
+	
+	public String resetpass()
+	{
+		try
+		{
+			String[] ids = user.getId().split(",");
+			for (String id : ids)
+			{
+				User user = userService.get(id.trim());
+				if (user != null)
+				{
+					user.setPassword(passwordEncoder.encode("123456"));
+					userService.save(user);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
+		return "success";
+	}
 	public String remove()
 	{
 		return settingStatus(Status.Delete);
