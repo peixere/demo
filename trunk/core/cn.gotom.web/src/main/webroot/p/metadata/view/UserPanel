@@ -693,7 +693,8 @@
                     "    callback : function(result) {\r",
                     "        from.getForm().findField('user.id').setValue(result.user.id);\r",
                     "        from.getForm().findField('user.name').setValue(result.user.name);                \r",
-                    "        from.getForm().findField('user.username').setValue(result.user.username);  \r",
+                    "        from.getForm().findField('user.username').setValue(result.user.username); \r",
+                    "    \tfrom.getForm().findField('orgIds').setValue(result.orgIds);    \r",
                     "        var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');\r",
                     "        roleCheckbox.removeAll();\r",
                     "        var items = result.data;\r",
@@ -731,8 +732,7 @@
                     "    labelWidth: 60,\r",
                     "    name: 'orgname'    \r",
                     "});\r",
-                    "panel.items.add(treeComboBox);\r",
-                    "//treeComboBox.treeRender();"
+                    "panel.items.add(treeComboBox);"
                 ]
             },
             "designerId": "3cfb9f3c-42ba-4cff-88bd-d4b1c05137b1"
