@@ -18,7 +18,6 @@ import cn.gotom.pojos.RightType;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.ResourceConfigService;
-import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
@@ -30,14 +29,12 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/main", results = { @Result(name = "success", location = "/WEB-INF/view/index.jsp") })
-public class MainAction
+public class MainAction extends ServletAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
 	private AuthenticationService authService;
-	@Inject
-	private UserService userService;
 	@Inject
 	private PasswordEncoder passwordEncoder;
 	@Inject
@@ -70,11 +67,6 @@ public class MainAction
 		mainInfo.setTitle(appTitle.getValue());
 		mainInfo.setLogoutUrl(AuthenticationFilter.getServerLogoutUrl());
 		ResponseUtils.toJSON(mainInfo);
-	}
-
-	private String getUsername()
-	{
-		return ServletActionContext.getRequest().getRemoteUser();
 	}
 
 	public void menu() throws IOException

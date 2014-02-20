@@ -16,7 +16,6 @@ import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RoleService;
-import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.TreeCheckedModel;
@@ -26,16 +25,12 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/user", results = { @Result(name = "success", type = "json") })
-public class UserAction
+public class UserAction extends ServletAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
 	private RoleService roleService;
-
-	@Inject
-	private UserService userService;
-
 	@Inject
 	PasswordEncoder passwordEncoder;
 	@Inject
@@ -85,7 +80,18 @@ public class UserAction
 
 	public String list()
 	{
-		List<User> list = userService.findAll();
+		User login = getLoginUser();
+		List<Organization> orgList = new ArrayList<Organization>();
+		List<User> list = new ArrayList<User>();
+		if (login.getUsername().equals(User.ROOT))
+		{
+			list = userService.findAll();
+		}
+		else
+		{
+			orgList = orgService.findAllByUser(login);
+			list = userService.findAllByOrg(orgList);
+		}
 		for (User u : list)
 		{
 			if (u.getUsername().equals(User.ROOT))
@@ -114,7 +120,7 @@ public class UserAction
 		{
 			if (user.getOrganizations() == null)
 			{
-				user.setOrganizations(orgService.findByUser(user));
+				user.setOrganizations(orgService.findSelectedByUser(user));
 			}
 			selectOrgs = user.getOrganizations();
 		}
@@ -172,6 +178,13 @@ public class UserAction
 					}
 				}
 			}
+			List<Organization> userOrgs = new ArrayList<Organization>();
+			if (StringUtils.isNotEmpty(orgIds))
+			{
+				String[] orgIdArray = orgIds.split(",");
+				userOrgs = orgService.findByIds(Organization.class, orgIdArray);
+			}
+			user.setOrganizations(userOrgs);
 			user.setRoles(userRoles);
 			userService.save(user);
 		}
@@ -222,6 +235,7 @@ public class UserAction
 	private Object data;
 
 	private String roleIds;
+	private String orgIds;
 
 	public User getUser()
 	{
@@ -261,6 +275,16 @@ public class UserAction
 	public void setRoleIds(String roleIds)
 	{
 		this.roleIds = roleIds;
+	}
+
+	public String getOrgIds()
+	{
+		return orgIds;
+	}
+
+	public void setOrgIds(String orgIds)
+	{
+		this.orgIds = orgIds;
 	}
 
 }
