@@ -809,40 +809,16 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "loadOrgTree",
-                "designer|params": [
-                    "form",
-                    "userId"
-                ],
-                "implHandler": [
-                    "var panel = Ext.getCmp('UserFormSelectedOrgs');\r",
-                    "panel.removeAll();\r",
-                    "var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {\r",
-                    "    url : ctxp+'/p/user!orgs.do?user.id='+userId,\r",
-                    "    anchor: '100%',\r",
-                    "    fieldLabel: '所在部门',\r",
-                    "    labelWidth: 60,\r",
-                    "    name: 'orgname'    \r",
-                    "});\r",
-                    "panel.items.add(treeComboBox);"
-                ]
-            },
-            "designerId": "3cfb9f3c-42ba-4cff-88bd-d4b1c05137b1"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "fn": "saveForm",
                 "implHandler": [
                     "var me = this;\r",
                     "try{\r",
                     "    var form = Ext.getCmp('UserForm');\r",
                     "    var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;\r",
+                    "    if(selected.length === 0){\r",
+                    "        Ext.Msg.alert('信息提示', '请选择所在部门！');\r",
+                    "    \treturn;        \r",
+                    "    }\r",
                     "    form.getForm().findField('orgIds').setValue(selected);\r",
                     "    Common.formSubmit({  \r",
                     "        url : ctxp+'/p/user!save.do',\r",
