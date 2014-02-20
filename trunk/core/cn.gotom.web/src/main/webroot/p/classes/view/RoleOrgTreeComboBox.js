@@ -1,9 +1,8 @@
-Ext.define('Gotom.view.UserOrgTreeComboBox', {
+Ext.define('Gotom.view.RoleOrgTreeComboBox', {
 			extend : 'Ext.form.field.ComboBox',
 
 			url : '',
-			selected : [],
-			selectedText : [],
+			selected : '',
 			tree : {},
 			// textProperty: 'text',
 			// valueProperty: '',
@@ -45,24 +44,9 @@ Ext.define('Gotom.view.UserOrgTreeComboBox', {
 								store : store
 							});
 					this.tree.on('itemclick', function(view, record) {
-								var selectedIds = [];
-								var selectedTexts = [];
-								var checked = !record.data.checked;
-								record.set('checked', checked);
-								Common.onTreeChildNodesChecked(record, false);
-								Common.setTreeParentNodeChecked(record, false);
-								var items = view.getSelectionModel().store.data.items;
-								Ext.each(items, function() {
-											var nd = this;
-											if (nd.data.checked) {
-												selectedIds.push(nd.data.id);
-												selectedTexts
-														.push(nd.data.text);
-											}
-										});
-								me.selectedText = selectedTexts;
-								me.selected = selectedIds;
-								me.setValue(selectedTexts);
+								me.selected = record.data.id;
+								me.setValue(record.data.text);
+								me.collapse();
 							});
 					me.on('expand', function() {
 								if (!this.tree.rendered) {
