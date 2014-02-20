@@ -18,6 +18,7 @@ import cn.gotom.pojos.RightType;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.ResourceConfigService;
+import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
@@ -32,7 +33,8 @@ import com.google.inject.Inject;
 public class MainAction extends ServletAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
-
+	@Inject
+	protected UserService userService;
 	@Inject
 	private AuthenticationService authService;
 	@Inject
@@ -145,5 +147,4 @@ public class MainAction extends ServletAction
 	{
 		this.id = id;
 	}
-
 }
