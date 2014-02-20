@@ -44,6 +44,8 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		String[] array = new String[]{"a","b"};
+		System.out.println(array.toString());
 		BCDToDateTime();
 		System.out.println(Pattern.matches("[^cat]", "one cat,two cats in the yard"));
 		

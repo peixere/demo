@@ -76,7 +76,7 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		return list;
 	}
 
-	//@Override
+	// @Override
 	public List<Organization> loadTreeByParentId(String parentId)
 	{
 		List<Organization> list = findByParentId(parentId);
@@ -112,27 +112,27 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 	@Override
 	public List<Organization> findAllByUser(User user)
 	{
-		List<Organization> userOrgList = null;
+		List<Organization> userOrgList = new ArrayList<Organization>();
 		if (User.ROOT.equals(user.getUsername()))
 		{
-			userOrgList = this.findAll();
+			userOrgList.addAll(this.findAll());
+			return userOrgList;
 		}
 		else
 		{
-			userOrgList = user.getOrganizations();
-			if (userOrgList == null || userOrgList.size() == 0)
+			if (user.getOrganizations() == null || user.getOrganizations().size() == 0)
 			{
-				User u = this.get(User.class, user.getId());
-				userOrgList = u.getOrganizations();
+				user = this.get(User.class, user.getId());
 			}
-			for (Organization org : userOrgList)
+			userOrgList.addAll(user.getOrganizations());
+			for (Organization org : user.getOrganizations())
 			{
 				findByParentIdCallback(userOrgList, org.getId());
 			}
 		}
 		return userOrgList;
 	}
-	
+
 	@Override
 	public List<Organization> findSelectedByUser(User user)
 	{
