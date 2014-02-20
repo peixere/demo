@@ -131,7 +131,20 @@ public class UserAction extends ServletAction
 		{
 			user = userService.get(user.getId());
 		}
-		List<Organization> orgList = orgService.findByParentId(parentId);
+		User login = userService.getByUsername(getUsername());
+		List<Organization> orgList = new ArrayList<Organization>();
+		if (User.ROOT.equals(login.getUsername()))
+		{
+			orgList = orgService.findByParentId(parentId);
+		}
+		else
+		{
+			orgList = login.getOrganizations();
+		}
+		if (StringUtils.isNotEmpty(parentId))
+		{
+			orgList = orgService.findByParentId(parentId);
+		}
 		List<TreeCheckedModel> tree = new ArrayList<TreeCheckedModel>();
 		List<Organization> selectOrgs = new ArrayList<Organization>();
 		if (user != null)
