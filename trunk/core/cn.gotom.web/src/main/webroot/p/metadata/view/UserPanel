@@ -749,7 +749,7 @@
                     "try{\r",
                     "    var form = Ext.getCmp('UserForm');\r",
                     "    var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;\r",
-                    "    form.getForm().findField('orgids').setValue(selected);\r",
+                    "    form.getForm().findField('orgIds').setValue(selected);\r",
                     "    Common.formSubmit({  \r",
                     "        url : ctxp+'/p/user!save.do',\r",
                     "        form:form,\r",
