@@ -110,7 +110,7 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 	}
 
 	@Override
-	public List<Organization> findByUser(User user)
+	public List<Organization> findAllByUser(User user)
 	{
 		List<Organization> userOrgList = null;
 		if (User.ROOT.equals(user.getUsername()))
@@ -132,5 +132,24 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		}
 		return userOrgList;
 	}
-
+	
+	@Override
+	public List<Organization> findSelectedByUser(User user)
+	{
+		List<Organization> userOrgList = null;
+		if (User.ROOT.equals(user.getUsername()))
+		{
+			userOrgList = this.findAll();
+		}
+		else
+		{
+			userOrgList = user.getOrganizations();
+			if (userOrgList == null || userOrgList.size() == 0)
+			{
+				User u = this.get(User.class, user.getId());
+				userOrgList = u.getOrganizations();
+			}
+		}
+		return userOrgList;
+	}
 }
