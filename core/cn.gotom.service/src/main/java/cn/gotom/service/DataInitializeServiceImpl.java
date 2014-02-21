@@ -65,6 +65,7 @@ public class DataInitializeServiceImpl implements DataInitializeService
 			if (o == null)
 			{
 				o = new Custom();
+				o.setId(Custom.Default);
 				o.setName("管理平台");
 				universalService.persist(o);
 			}
