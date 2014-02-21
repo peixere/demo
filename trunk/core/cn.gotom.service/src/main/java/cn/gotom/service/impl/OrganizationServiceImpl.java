@@ -152,4 +152,22 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 		}
 		return userOrgList;
 	}
+
+	@Override
+	public List<Organization> removeInUser(User user, List<Organization> oldOrgs)
+	{
+		List<Organization> orgList = findAllByUser(user);
+		for (Organization o : orgList)
+		{
+			for (Organization e : oldOrgs)
+			{
+				if (e.getId().equals(o.getId()))
+				{
+					oldOrgs.remove(e);
+					break;
+				}
+			}
+		}
+		return oldOrgs;
+	}
 }
