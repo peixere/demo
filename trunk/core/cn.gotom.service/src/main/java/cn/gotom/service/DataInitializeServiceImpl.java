@@ -11,6 +11,7 @@ import net.sf.json.JsonConfig;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.User;
 import cn.gotom.util.PasswordEncoder;
 
@@ -31,6 +32,7 @@ public class DataInitializeServiceImpl implements DataInitializeService
 
 	public void init()
 	{
+		defaultCustom();
 		initUser();
 		defalutData();
 	}
@@ -47,6 +49,24 @@ public class DataInitializeServiceImpl implements DataInitializeService
 				user.setName("超级管理员");
 				user.setPassword(passwordEncoder.encode("888888"));
 				userService.save(user);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
+		}
+	}
+
+	private void defaultCustom()
+	{
+		try
+		{
+			Custom o = universalService.get(Custom.class, Custom.Default);
+			if (o == null)
+			{
+				o = new Custom();
+				o.setName("管理平台");
+				universalService.persist(o);
 			}
 		}
 		catch (Exception ex)
