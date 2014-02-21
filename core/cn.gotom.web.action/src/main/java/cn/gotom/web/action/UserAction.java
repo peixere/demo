@@ -184,9 +184,11 @@ public class UserAction extends ServletAction
 		}
 		else
 		{
+			List<Organization> oldOrgs = new ArrayList<Organization>();
 			if (old != null)
 			{
 				user.setPassword(old.getPassword());
+				oldOrgs = old.getOrganizations();
 			}
 			else
 			{
@@ -209,19 +211,23 @@ public class UserAction extends ServletAction
 					}
 				}
 			}
+			User login = userService.getByUsername(getUsername());
+			// login.getOrganizations()
+			oldOrgs = orgService.removeInUser(login, oldOrgs);
 			List<Organization> userOrgs = new ArrayList<Organization>();
 			if (StringUtils.isNotEmpty(orgIds))
 			{
 				String[] orgIdArray = orgIds.split(",");
 				userOrgs = orgService.findByIds(Organization.class, orgIdArray);
 			}
+			userOrgs.addAll(oldOrgs);
 			user.setOrganizations(userOrgs);
 			user.setRoles(userRoles);
 			userService.save(user);
 		}
 		return "success";
 	}
-	
+
 	public String resetpass()
 	{
 		try
@@ -243,6 +249,7 @@ public class UserAction extends ServletAction
 		}
 		return "success";
 	}
+
 	public String remove()
 	{
 		return settingStatus(Status.Delete);
