@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -45,7 +46,11 @@ public class Organization extends SuperEntity implements Serializable
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "org_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
 	private java.util.List<User> users;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "custom_id", referencedColumnName = "id")
+	private Custom custom;
+	
 	@Transient
 	private java.util.List<Organization> children;
 
@@ -107,6 +112,16 @@ public class Organization extends SuperEntity implements Serializable
 	public void setChildren(java.util.List<Organization> children)
 	{
 		this.children = children;
+	}
+
+	protected Custom getCustom()
+	{
+		return custom;
+	}
+
+	protected void setCustom(Custom custom)
+	{
+		this.custom = custom;
 	}
 
 }
