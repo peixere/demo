@@ -47,4 +47,12 @@ public interface OrganizationService extends GenericService<Organization, String
 	Organization getByCode(String code);
 
 	List<Organization> findSelectedByUser(User user);
+
+	/**
+	 * 删除用户可见的数据，
+	 * @param login
+	 * @param oldOrgs
+	 * @return 用户不可见的数据
+	 */
+	List<Organization> removeInUser(User user, List<Organization> oldOrgs);
 }
