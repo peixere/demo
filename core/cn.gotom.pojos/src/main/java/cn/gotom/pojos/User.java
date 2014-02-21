@@ -48,6 +48,9 @@ public class User extends SuperEntity implements Serializable
 	@ManyToMany()
 	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "org_id", nullable = false) })
 	private java.util.List<Organization> organizations;
+	
+	@Column(name = "custom_id", nullable = false, columnDefinition = "char(36)", length = 36)
+	private String customId = Custom.Default;
 
 	public User()
 	{
@@ -111,6 +114,16 @@ public class User extends SuperEntity implements Serializable
 	public void setOrganizations(java.util.List<Organization> organizations)
 	{
 		this.organizations = organizations;
+	}
+
+	public String getCustomId()
+	{
+		return customId;
+	}
+
+	public void setCustomId(String customId)
+	{
+		this.customId = customId;
 	}
 
 }
