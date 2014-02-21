@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.service.AuthenticationService;
-import cn.gotom.service.DataInitializeService;
+import cn.gotom.service.Service;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
@@ -32,7 +32,7 @@ public class ValidationFilter extends AuthenticationFilter
 	protected AuthenticationService authService;
 
 	@Inject
-	protected DataInitializeService dataInitializeService;
+	protected Service service;
 
 	private FilterConfig filterConfig;
 
@@ -52,7 +52,7 @@ public class ValidationFilter extends AuthenticationFilter
 		String encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		initPlugins();
 		passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
-		dataInitializeService.init();
+		service.init();
 		log.debug("init");
 	}
 

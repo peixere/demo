@@ -17,7 +17,7 @@ import cn.gotom.util.PasswordEncoder;
 
 import com.google.inject.Inject;
 
-public class DataInitializeServiceImpl implements DataInitializeService
+public class ServiceImpl implements Service
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
