@@ -2,8 +2,8 @@ package cn.gotom.service;
 
 import java.util.List;
 
+import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.Organization;
-import cn.gotom.pojos.User;
 import cn.gotom.service.impl.OrganizationServiceImpl;
 
 import com.google.inject.ImplementedBy;
@@ -17,7 +17,7 @@ public interface OrganizationService extends GenericService<Organization, String
 	 * @param parentId
 	 * @return
 	 */
-	List<Organization> findByParentId(String parentId);
+	List<Organization> findByParentId(String customId, String parentId);
 
 	/**
 	 * 查询所有后代集合
@@ -25,34 +25,38 @@ public interface OrganizationService extends GenericService<Organization, String
 	 * @param parentId
 	 * @return
 	 */
-	List<Organization> findAllByParentId(String parentId);
+	List<Organization> findAllByParentId(String customId, String parentId);
 
 	/**
 	 * 加载树结构
 	 * 
 	 * @return
 	 */
-	List<Organization> loadTree();
+	List<Organization> loadTree(String customId);
 
-	// List<Organization> loadTreeByParentId(String parentId);
+	Organization getByCode(String customId, String code);
 
-	/**
-	 * 根据用户查询所有后代集合
-	 * 
-	 * @param user
-	 * @return
-	 */
-	List<Organization> findAllByUser(User user);
+	boolean hasChildren(String parentId);
 
-	Organization getByCode(String code);
+	void updateEmpty(Custom custom);
 
-	List<Organization> findSelectedByUser(User user);
-
-	/**
-	 * 删除用户可见的数据，
-	 * @param login
-	 * @param oldOrgs
-	 * @return 用户不可见的数据
-	 */
-	List<Organization> removeInUser(User user, List<Organization> oldOrgs);
+//
+//	/**
+//	 * 根据用户查询所有后代集合
+//	 * 
+//	 * @param user
+//	 * @return
+//	 */
+//	List<Organization> findAllByUser(User user);
+//
+//	List<Organization> findSelectedByUser(User user);
+//
+//	/**
+//	 * 删除用户可见的数据，
+//	 * 
+//	 * @param login
+//	 * @param oldOrgs
+//	 * @return 用户不可见的数据
+//	 */
+//	List<Organization> removeInUser(User user, List<Organization> oldOrgs);
 }

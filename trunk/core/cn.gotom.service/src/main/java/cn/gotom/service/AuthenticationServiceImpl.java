@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.matcher.UrlMatcher;
 import cn.gotom.pojos.App;
+import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.ResourceConfig;
 import cn.gotom.pojos.ResourceName;
 import cn.gotom.pojos.Right;
@@ -35,25 +36,18 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	private ResourceConfigService resourceConfigService;
 
 	@Override
-	public boolean validation(String username, String url)
+	public boolean validation(User user, String url)
 	{
-		return validation(username, url, App.ROOT);
-	}
-
-	@Override
-	public boolean validation(String username, String url, String appCode)
-	{
-		if (without(url))
-		{
-			return true;
-		}
-		User user = userService.get("username", username);
-		return validation(user, url, appCode);
+		return validation(user, url, App.ROOT);
 	}
 
 	@Override
 	public boolean validation(User user, String url, String appCode)
 	{
+		if (without(url))
+		{
+			return true;
+		}
 		if (user == null)
 		{
 			return false;
@@ -145,17 +139,24 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	}
 
 	@Override
-	public List<Right> findRightList(String username, String parentId)
+	public List<Right> findRightList(String parentId, String username, String customId)
 	{
 		List<Right> rightList = new ArrayList<Right>();
 		User user = userService.getByUsername(username);
 		if (user != null)
 		{
-			rightList = rightService.findByParentId(parentId);
+			if (User.ROOT.equalsIgnoreCase(user.getUsername()))
+			{
+				rightList = rightService.findByParentId(parentId);
+			}
+			else
+			{
+				rightList = rightService.findByParentId(parentId, customId);
+			}
 			for (int i = rightList.size() - 1; i >= 0; i--)
 			{
 				boolean find = false;
-				if (User.ROOT.equals(user.getUsername()))
+				if (User.ROOT.equalsIgnoreCase(user.getUsername()))
 				{
 					find = true;
 				}
@@ -177,5 +178,20 @@ public class AuthenticationServiceImpl implements AuthenticationService
 			}
 		}
 		return rightList;
+	}
+
+	@Override
+	public List<Custom> findCustomList(User user)
+	{
+		return userService.findCustomByUserIdList(user.getId());
+	}
+
+	@Override
+	public Custom getDefaultCustom(User user)
+	{
+		List<Custom> list = findCustomList(user);
+		if (list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 }

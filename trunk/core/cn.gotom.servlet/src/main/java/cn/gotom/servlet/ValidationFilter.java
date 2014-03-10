@@ -11,12 +11,17 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.gotom.pojos.App;
+import cn.gotom.pojos.Custom;
+import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.Service;
+import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 import cn.gotom.util.PasswordEncoder;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -27,7 +32,8 @@ public class ValidationFilter extends AuthenticationFilter
 
 	@Inject
 	protected PasswordEncoder passwordEncoder;
-
+	@Inject
+	protected UserService userService;
 	@Inject
 	protected AuthenticationService authService;
 
@@ -75,15 +81,60 @@ public class ValidationFilter extends AuthenticationFilter
 		super.doFilter(servletRequest, servletResponse, filterChain);
 	}
 
+	private boolean setCurrentCustomId(final HttpServletRequest request, User user)
+	{
+		String customId = (String) request.getSession().getAttribute(Custom.currentCustomId);
+		boolean hasAttribute = true;
+		if (StringUtils.isNullOrEmpty(customId))
+		{
+			hasAttribute = false;
+			customId = (String) request.getParameter("customId");
+		}
+		if (StringUtils.isNullOrEmpty(customId))
+		{
+			customId = user.getDefaultCustomId();
+		}
+		if (StringUtils.isNullOrEmpty(customId))
+		{
+			Custom custom = authService.getDefaultCustom(user);
+			if (custom != null)
+			{
+				customId = custom.getId();
+			}
+		}
+		if (StringUtils.isNotEmpty(customId))
+		{
+			if (!hasAttribute)
+			{
+				request.getSession().setAttribute(Custom.currentCustomId, customId);
+			}
+			if (User.ROOT.equals(user.getUsername()) || service.userHasCustom(user.getId(), customId))
+			{
+				return true;
+			}
+			else
+			{
+				request.getSession().removeAttribute(Custom.currentCustomId);
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	@Override
 	protected void doValidate(final ServletRequest req, final ServletResponse res, final FilterChain filterChain) throws IOException, ServletException
 	{
 		final HttpServletRequest request = (HttpServletRequest) req;
 		final HttpServletResponse response = (HttpServletResponse) res;
 		String url = UrlUtils.buildUrl(request);
-		if (authService.validation(request.getRemoteUser(), url))
+		User user = userService.getByUsername(request.getRemoteUser());
+		if (user != null && authService.validation(user, url, App.ROOT) && setCurrentCustomId(request, user))
 		{
-			filterChain.doFilter(req, res);
+			request.setAttribute(User.CurrentLoginUser, user);
+			filterChain.doFilter(request, response);
 		}
 		else
 		{

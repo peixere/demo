@@ -5,12 +5,15 @@ import java.util.List;
 import javax.persistence.Query;
 
 import cn.gotom.dao.jpa.GenericDaoJpa;
+import cn.gotom.pojos.Custom;
+import cn.gotom.pojos.CustomUser;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.User;
 import cn.gotom.service.UserService;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 
 @Singleton
 public class UserServiceImpl extends GenericDaoJpa<User, String> implements UserService
@@ -60,6 +63,32 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 		Query q = getEntityManager().createQuery(jpql.toString());
 		@SuppressWarnings("unchecked")
 		List<User> list = q.getResultList();
+		return list;
+	}
+
+	@Transactional
+	@Override
+	public void updateEmpty(Custom custom)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("update " + persistentClass.getSimpleName());
+		jpql.append(" set defaultCustomId = :customId where (defaultCustomId IS NULL OR defaultCustomId = '')");
+		Query q = this.getEntityManager().createQuery(jpql.toString());
+		q.setParameter("customId", custom.getId());
+		q.executeUpdate();
+
+	}
+
+	@Override
+	public List<Custom> findCustomByUserIdList(String userId)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p.custom from " + CustomUser.class.getSimpleName() + " p");
+		jpql.append(" where p.user.id = :userId");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("userId", userId);
+		@SuppressWarnings("unchecked")
+		List<Custom> list = q.getResultList();
 		return list;
 	}
 }
