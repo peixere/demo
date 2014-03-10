@@ -28,12 +28,18 @@ public class User extends SuperEntity implements Serializable
 	
 	public static final String CurrentLoginUser = "CurrentLoginUser";
 
+	/**
+	 * 姓名
+	 */
 	@Column(nullable = true, length = 50)
 	private String name;
 
 	@Column(nullable = false, length = 50)
 	private String password;
 
+	/**
+	 * 登录名
+	 */
 	@Column(unique = true, nullable = false, length = 100, updatable = true)
 	private String username;
 
