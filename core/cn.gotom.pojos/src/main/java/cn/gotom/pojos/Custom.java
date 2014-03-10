@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Custom extends SuperEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-
+	public static final String currentCustomId = "currentCustomId";
 	public static final String Default = "88888888-8888-8888-8888-888888888888";
 
 	@Column(nullable = true, length = 250)
