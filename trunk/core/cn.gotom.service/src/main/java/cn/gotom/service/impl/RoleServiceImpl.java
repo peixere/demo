@@ -17,7 +17,7 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 		super(Role.class);
 	}
 
-	@Override
+	// @Override
 	public List<Role> findAllAndChecked(List<Role> userRoles)
 	{
 		List<Role> roles = this.findAll();
@@ -35,10 +35,10 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	}
 
 	@Override
-	public List<TreeCheckedModel> findAndChecked(List<Role> userRoles)
+	public List<TreeCheckedModel> findAndChecked(String customId, List<Role> userRoles)
 	{
 		List<TreeCheckedModel> tree = new ArrayList<TreeCheckedModel>();
-		List<Role> roles = this.findAll();
+		List<Role> roles = this.findByCustomId(customId);
 		for (Role r : roles)
 		{
 			TreeCheckedModel m = new TreeCheckedModel();

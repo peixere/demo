@@ -12,9 +12,9 @@ import com.google.inject.ImplementedBy;
 public interface RoleService extends GenericService<Role, String>
 {
 
-	List<Role> findAllAndChecked(List<Role> userRoles);
+	//List<Role> findAllAndChecked(List<Role> userRoles);
 
-	List<TreeCheckedModel> findAndChecked(List<Role> userRoles);
+	List<TreeCheckedModel> findAndChecked(String customId, List<Role> userRoles);
 
-	List<Role> findByCustomId(String currentCustomId);
+	List<Role> findByCustomId(String customId);
 }
