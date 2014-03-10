@@ -1,5 +1,6 @@
 package cn.gotom.web.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
 import cn.gotom.service.model.RightChecked;
@@ -21,7 +24,7 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/role", results = { @Result(name = "success", type = "json") })
-public class RoleAction
+public class RoleAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -33,9 +36,12 @@ public class RoleAction
 
 	private String rightIds;
 
+	private String id;
+
 	@Inject
 	private RoleService roleService;
-
+	@Inject
+	private OrganizationService orgService;
 	@Inject
 	private RightService rightService;
 
@@ -49,6 +55,11 @@ public class RoleAction
 		{
 			role = new Role();
 		}
+		if (role.getOrganization() == null)
+		{
+			role.setOrganization(new Organization());
+			role.getOrganization().setId("");
+		}
 		return "success";
 	}
 
@@ -57,9 +68,9 @@ public class RoleAction
 		try
 		{
 			execute();
-			List<RightChecked> rightList = rightService.loadRoleCheckedTree(role.getRights());
+			List<RightChecked> rightList = rightService.loadCustomCheckedTree(getCurrentCustomId(), role.getRights());
 			this.setData(rightList);
-			ResponseUtils.toJSON(rightList);
+			toJSON(rightList);
 		}
 		catch (Exception ex)
 		{
@@ -67,9 +78,19 @@ public class RoleAction
 		}
 	}
 
+	public void orgTree() throws IOException
+	{
+
+		// List<Organization> orgList = orgService.loadTree(getCurrentCustomId());
+		List<Organization> orgList = orgService.findByParentId(getCurrentCustomId(), this.getId());
+		this.toJSON(orgList);
+
+		// CommonUtils.toJSON(ServletActionContext.getRequest(), ServletActionContext.getResponse(), orgList, null, new String[] { "custom" });
+	}
+
 	public String list()
 	{
-		List<Role> roleList = roleService.findAll();
+		List<Role> roleList = roleService.findByCustomId(this.getCurrentCustomId());
 		this.setData(roleList);
 		return "success";
 	}
@@ -98,6 +119,8 @@ public class RoleAction
 		{
 			role.setUsers(old.getUsers());
 		}
+		Organization org = orgService.get(role.getOrganizationId());
+		role.setOrganization(org);
 		role.setRights(roleRights);
 		roleService.save(role);
 		return "success";
@@ -160,6 +183,16 @@ public class RoleAction
 	public void setRightIds(String rightIds)
 	{
 		this.rightIds = rightIds;
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
 	}
 
 }

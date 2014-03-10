@@ -12,9 +12,12 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.Organization;
+import cn.gotom.service.CustomService;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.JsonResponse;
 
 import com.google.inject.Inject;
 
@@ -27,7 +30,7 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/organization", results = { @Result(name = "success", type = "json") })
-public class OrganizationAction
+public class OrganizationAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -38,14 +41,20 @@ public class OrganizationAction
 	private boolean success;
 
 	@Inject
-	private OrganizationService service;
+	private OrganizationService orgService;
+	@Inject
+	private CustomService customService;
 
 	public void execute() throws IOException
 	{
 		Organization e = null;
 		try
 		{
-			e = service.get(this.getId());
+			e = orgService.get(this.getId());
+			if (!e.getCustom().getId().equalsIgnoreCase(this.getCurrentCustomId()))
+			{
+				e = null;
+			}
 		}
 		catch (Exception ex)
 		{
@@ -54,29 +63,27 @@ public class OrganizationAction
 		if (e == null)
 		{
 			e = new Organization();
-			e.setParentId(this.getParentId());
+			Organization p = orgService.get(parentId);
+			if (p != null)
+			{
+				e.setParentId(p.getId());
+			}
 		}
-		ResponseUtils.toJSON(e);
+		toJSON(e);
 	}
 
 	public void tree() throws IOException
 	{
-		List<Organization> menuList = service.loadTree();
-		if (menuList.size() == 0)
-		{
-			Organization o = new Organization();
-			o.setText("国家能源委员会");
-			o.setCode("");
-			service.save(o);
-			menuList.add(o);
-		}
-		ResponseUtils.toJSON(menuList);
+		List<Organization> orgList = orgService.loadTree(getCurrentCustomId());
+		//List<Organization> orgList = orgService.findByParentId(getCurrentCustomId(), this.getId());
+		toJSON(orgList);
+		// CommonUtils.toJSON(ServletActionContext.getRequest(), ServletActionContext.getResponse(), orgList, null, new String[] { "custom" });
 	}
 
 	public void list() throws IOException
 	{
-		List<Organization> menuList = service.findAll();
-		ResponseUtils.toJSON(menuList);
+		List<Organization> menuList = orgService.findAllByParentId(getCurrentCustomId(), parentId);
+		toJSON(menuList);
 	}
 
 	public String remove()
@@ -88,9 +95,9 @@ public class OrganizationAction
 			this.setSuccess(true);
 			for (String id : idarray)
 			{
-				if (service.findByParentId(id).size() == 0)
+				if (!orgService.hasChildren(id))
 				{
-					service.removeById(id);
+					orgService.removeById(id);
 				}
 				else
 				{
@@ -101,26 +108,42 @@ public class OrganizationAction
 		return "success";
 	}
 
-	public String save()
+	public void save()
 	{
+		JsonResponse jr = new JsonResponse();
 		try
 		{
 			Organization o = new Organization();
 			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(o, params);
-			Organization old = service.get(o.getId());
+			Organization old = orgService.get(o.getId());
 			if (old != null)
 			{
-				o.setUsers(old.getUsers());
+				o.setCustom(old.getCustom());
+				if (old.getCustom() == null || !old.getCustom().getId().equalsIgnoreCase(this.getCurrentCustomId()))
+				{
+					jr.setSuccess(false);
+					// ServletActionContext.getResponse().setStatus(403);
+					jr.setData("数据访问权限不足");
+					return;
+				}
 			}
-			service.save(o);
-			this.setSuccess(true);
+			Custom custom = customService.get(getCurrentCustomId());
+			o.setCustom(custom);
+			orgService.save(o);
+			jr.setSuccess(true);
 		}
 		catch (Exception e)
 		{
+			jr.setSuccess(false);
+			jr.setData(e.getMessage());
 			log.error(e.getMessage(), e);
 		}
-		return "success";
+		finally
+		{
+			toJSON(jr);
+		}
+		// return "success";
 	}
 
 	public String getId()

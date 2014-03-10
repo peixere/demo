@@ -9,7 +9,7 @@ import org.apache.struts2.convention.annotation.Result;
 @ParentPackage("json-default")
 @Namespace(value = "")
 @Action(value = "/p", results = { @Result(name = "success", location = "/WEB-INF/view/index.jsp") })
-public class PortalAction
+public class PortalAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -17,6 +17,7 @@ public class PortalAction
 
 	public String execute()
 	{
+		log.debug(getCurrentCustomId());
 		return "success";
 	}
 

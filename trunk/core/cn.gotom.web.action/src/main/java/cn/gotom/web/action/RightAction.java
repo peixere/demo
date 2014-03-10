@@ -23,7 +23,7 @@ import com.google.inject.Inject;
 // @Namespaces(value = {@Namespace(value="/p")})
 @Namespace(value = "/p")
 @Action(value = "/right", results = { @Result(name = "success", type = "json") })
-public class RightAction
+public class RightAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 
@@ -41,13 +41,13 @@ public class RightAction
 		{
 			right = new Right();
 		}
-		ResponseUtils.toJSON(right);
+		toJSON(right);
 	}
 
 	public void fresh() throws IOException
 	{
 		Right right = new Right();
-		ResponseUtils.toJSON(right);
+		toJSON(right);
 	}
 
 	public void tree() throws IOException
@@ -60,7 +60,7 @@ public class RightAction
 			rightService.save(o);
 			menuList = rightService.loadTree();
 		}
-		ResponseUtils.toJSON(menuList);
+		toJSON(menuList);
 	}
 
 	public void list() throws IOException
@@ -70,7 +70,7 @@ public class RightAction
 		{
 			r.setRoles(null);
 		}
-		ResponseUtils.toJSON(list);
+		toJSON(list);
 	}
 
 	public String remove()
