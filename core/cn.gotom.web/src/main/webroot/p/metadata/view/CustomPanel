@@ -1,0 +1,756 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "gridPanel": "",
+        "border": false,
+        "height": null,
+        "width": null,
+        "designer|userClassName": "CustomPanel",
+        "layout": "border",
+        "title": null
+    },
+    "configAlternates": {
+        "centerPanel": "object",
+        "formPanel": "object",
+        "treePanel": "object"
+    },
+    "designerId": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "centerPanel",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "formPanel",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "gridPanel",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "treePanel",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "west",
+                "width": 250,
+                "title": "客户列表"
+            },
+            "designerId": "4297a0b3-82b9-4b38-b29d-55800143a2ec",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 249,
+                        "resizable": false,
+                        "sortable": false,
+                        "dataIndex": "name",
+                        "text": "客户名称"
+                    },
+                    "designerId": "8993eadd-5aef-4a54-8e4e-e3a8a11ef5ef"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "designerId": "7630c45f-fd69-40eb-9cf2-6a983ed64d8c",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onViewItemClick",
+                                "implHandler": [
+                                    "this.loadTree(record.data.id);\r",
+                                    "this.formPanel.getForm().setValues(record.data);"
+                                ],
+                                "name": "itemclick",
+                                "scope": "me"
+                            },
+                            "designerId": "f8a9bbea-e817-4ca3-bb0b-4ebb215f9276"
+                        }
+                    ]
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelAfterLayout",
+                        "implHandler": [
+                            "this.gridPanel = container;"
+                        ],
+                        "name": "afterlayout",
+                        "scope": "me"
+                    },
+                    "designerId": "a32caca0-57c6-47db-a1b9-eea08878a47a"
+                },
+                {
+                    "type": "Ext.selection.CheckboxModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.CheckboxModel",
+                    "designerId": "f9332d39-1e2f-44fa-8bd8-b65d64728dd6"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "border": false,
+                "layout": "border",
+                "title": null
+            },
+            "designerId": "ca33327a-5d0f-4733-8e58-43e6d138e440",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "north",
+                        "height": 152,
+                        "bodyPadding": 10,
+                        "title": "编辑信息"
+                    },
+                    "designerId": "f2e133cd-8df0-4ca7-b8cd-4303a19e47bf",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": null,
+                                "fieldLabel": "公司名称",
+                                "labelWidth": 60,
+                                "name": "name"
+                            },
+                            "designerId": "7082f57d-0296-493e-9cfa-806a046d011c"
+                        },
+                        {
+                            "type": "Ext.form.field.TextArea",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": null,
+                                "fieldLabel": "公司简介",
+                                "labelWidth": 60,
+                                "name": "description"
+                            },
+                            "designerId": "5f2253b9-74ff-49b2-99a5-7c5fcd3b7161"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onFormAfterLayout",
+                                "implHandler": [
+                                    "this.formPanel = container;"
+                                ],
+                                "single": true,
+                                "name": "afterlayout",
+                                "scope": "me"
+                            },
+                            "designerId": "78ce711b-b4ba-48de-9f1f-ba80c279ef2a"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": "",
+                                "fieldLabel": "Label",
+                                "name": "id"
+                            },
+                            "designerId": "aeb5a83d-3035-4ea7-ab0e-e6c479a029b7"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "fieldLabel": "Label",
+                                "name": "rightIds"
+                            },
+                            "designerId": "67dc057f-46eb-4788-a61b-430a95c06d72"
+                        }
+                    ]
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onPanelAfterLayout",
+                        "implHandler": [
+                            "this.centerPanel = container;"
+                        ],
+                        "single": true,
+                        "name": "afterlayout",
+                        "scope": "me"
+                    },
+                    "designerId": "c44e0127-62f9-4e92-bfc5-18fdb372490d"
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "layout": "border",
+                        "title": "角色可访问资源"
+                    },
+                    "designerId": "8e8c5e9b-df27-4fcb-8841-155ee8874152",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onPanelAfterLayout2",
+                                "implHandler": [
+                                    "this.treePanel = container;"
+                                ],
+                                "name": "afterlayout",
+                                "scope": "me"
+                            },
+                            "designerId": "171e5d90-1254-44a1-af83-8adfb326ab63"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "designerId": "6da1615a-d20e-4e31-8d86-6a759222e76a",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": null,
+                        "text": "新增"
+                    },
+                    "designerId": "36f2d551-cd28-44c0-b90c-69c771dec9e7",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onAddClick",
+                                "implHandler": [
+                                    "this.loadForm('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "1fd03264-b696-4931-94a7-8b77d0f351d8"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": "icon-del",
+                        "text": "删除"
+                    },
+                    "designerId": "d5995824-f4e5-4500-a2e4-f4e333c02d0b",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onDelClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "var selected = me.gridPanel.getSelectionModel().selected;\r",
+                                    "var selecteditems = selected.items;\r",
+                                    "if (selecteditems.length === 0)\r",
+                                    "{\r",
+                                    "    Ext.Msg.show(\r",
+                                    "    {\r",
+                                    "        title : \"操作提示\",\r",
+                                    "        msg : \"请选择要删除的节点!\",\r",
+                                    "        icon : Ext.Msg.WARNING\r",
+                                    "    });\r",
+                                    "    return;\r",
+                                    "}\r",
+                                    "var ids = [];\r",
+                                    "Ext.each(selecteditems, function()\r",
+                                    "{\r",
+                                    "    var nd = this;\r",
+                                    "    ids.push(nd.data.id);\r",
+                                    "});\r",
+                                    "Ext.Msg.confirm(\"警告\", \"确定要删除吗？\", function(button)\r",
+                                    "{\r",
+                                    "    if (button == \"yes\")\r",
+                                    "    {\r",
+                                    "        Ext.Msg.wait(\"正在执行......\", \"操作提示\");\r",
+                                    "        Ext.Ajax.request(\r",
+                                    "        {\r",
+                                    "            url : ctxp+'/p/custom!remove.do',\r",
+                                    "            method : 'POST',\r",
+                                    "            params :\r",
+                                    "            {\r",
+                                    "                'custom.id' : ids.join(\",\")\r",
+                                    "            },\r",
+                                    "            success : function(response, options)\r",
+                                    "            {\r",
+                                    "                Ext.Msg.alert(\"删除提示\", \"删除成功\");\r",
+                                    "        \t\tme.loadGrid();\r",
+                                    "\t\t\t\tme.onAddClick(button,e,eOpts);\r",
+                                    "            },\r",
+                                    "            failure : function(response, options)\r",
+                                    "            {\r",
+                                    "                Ext.Msg.alert(\"删除提示\", \"删除失败<br/>\"+response.responseText);\r",
+                                    "            }\r",
+                                    "        });\r",
+                                    "    }\r",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "0605f9d7-ff69-4764-96bb-062c6dc1ff82"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "65addcf9-1b20-4188-a31d-377c7bb4cc35",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onSaveClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "var form = me.formPanel;\r",
+                                    "try{\r",
+                                    "    var rightIds = [];\r",
+                                    "    var tree = me.treePanel.items.get(1);\r",
+                                    "    var items = tree.getSelectionModel().store.data.items;\r",
+                                    "    Ext.each(items, function()\r",
+                                    "    {\r",
+                                    "        var nd = this;\r",
+                                    "        if(nd.data.checked)\r",
+                                    "        {\r",
+                                    "            rightIds.push(nd.data.id);\r",
+                                    "        }\r",
+                                    "    });    \r",
+                                    "    form.getForm().findField('rightIds').setValue(rightIds);\r",
+                                    "    Common.formSubmit({  \r",
+                                    "        url : ctxp+'/p/custom!save.do',\r",
+                                    "        form:form,\r",
+                                    "        callback : function(result)\r",
+                                    "        {\r",
+                                    "            if(result.success)\r",
+                                    "            {\r",
+                                    "        \t\tme.loadGrid();\r",
+                                    "                me.onAddClick(button,e,eOpts);\r",
+                                    "            }else{\r",
+                                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                                    "            }\t\r",
+                                    "        }\r",
+                                    "    });\r",
+                                    "}catch(error){\r",
+                                    "    alert(error);\r",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "6382b04d-60f3-467c-96b9-65dfcfedafb1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPanelAfterLayout1",
+                "implHandler": [
+                    "this.loadGrid();\r",
+                    "this.loadTree('');\r",
+                    "this.loadForm('');"
+                ],
+                "single": true,
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "1bbfef8d-3157-4901-883b-4cc9f42bf4c0"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadGrid",
+                "implHandler": [
+                    "var me = this;\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p/custom!list.do',\r",
+                    "    callback : function(result) {\r",
+                    "        var myStore = Ext.create('Ext.data.Store', {\r",
+                    "            storeId:'roleStore',\r",
+                    "            fields: [\r",
+                    "            {\r",
+                    "                name: 'id'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'name'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'description'\r",
+                    "            }\r",
+                    "            ],\r",
+                    "            data : result.data,\r",
+                    "            proxy:\r",
+                    "            {\r",
+                    "                type: 'memory',\r",
+                    "                reader:{\r",
+                    "                    type: 'json'\r",
+                    "                }\r",
+                    "            }\r",
+                    "        });\r",
+                    "        me.gridPanel.bindStore(myStore); \r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "7807a7c3-6fbc-483b-b00b-bd923ed5850f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadForm",
+                "designer|params": [
+                    "customId"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p/custom.do?custom.id='+customId,\r",
+                    "    callback : function(result) {\r",
+                    "        me.loadTree(result.data.id);\r",
+                    "        me.formPanel.getForm().setValues(result.data);\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "ce575926-4802-417d-8439-a23d46f86e0d"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadTree",
+                "designer|params": [
+                    "customId"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p/custom!tree.do?custom.id='+customId,\r",
+                    "    callback : function(result) {\r",
+                    "        var myStore = Ext.create('Ext.data.TreeStore', {\r",
+                    "            defaultRootId : '',\r",
+                    "            clearOnLoad : true,\r",
+                    "            nodeParam : '',    \r",
+                    "            fields: [\r",
+                    "            {\r",
+                    "                name: 'id'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'parentId'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'text'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'component'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'resource'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'iconCls'\r",
+                    "            },\r",
+                    "            {\r",
+                    "                name: 'checked',\r",
+                    "                type: 'boolean'\r",
+                    "            }\r",
+                    "            ],\r",
+                    "            proxy:\r",
+                    "            {\r",
+                    "                type: 'memory',\r",
+                    "                data: result.data,\r",
+                    "                reader:{\r",
+                    "                    type: 'json'\r",
+                    "                }\r",
+                    "            }\r",
+                    "        });\r",
+                    "        me.bindTreeStore(me,myStore);\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "108d7b5a-c60a-40a6-a0ad-789b24ced117"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bindTreeStore",
+                "designer|params": [
+                    "me",
+                    "treeStore"
+                ],
+                "implHandler": [
+                    "var tree = Ext.create('Ext.tree.Panel',\r",
+                    "    {\r",
+                    "        region: 'center',\r",
+                    "        //title: '角色可访问资源',\r",
+                    "        animate : true,\r",
+                    "        border : false,\r",
+                    "        bodyborder : false,\r",
+                    "        lines : true,\r",
+                    "        split : true,\r",
+                    "        stateful : true,\r",
+                    "        collapsible : false,\r",
+                    "        frame : false,\r",
+                    "        enableDD : true,\r",
+                    "        autoScroll : true,\r",
+                    "        autoHeight : false,\r",
+                    "        rootVisible : false,\r",
+                    "        multiSelect : false,\r",
+                    "        store:treeStore,\r",
+                    "        root :\r",
+                    "        {\r",
+                    "            expanded : true\r",
+                    "        },\r",
+                    "        listeners: {\r",
+                    "            itemclick: \r",
+                    "            {\r",
+                    "                fn: me.onTreeItemClick,\r",
+                    "                scope: me\r",
+                    "            },\r",
+                    "            checkchange: \r",
+                    "            {\r",
+                    "                fn: Common.onTreePanelCheckChange,\r",
+                    "                scope: me\r",
+                    "            }\r",
+                    "        },        \r",
+                    "        columns : [\r",
+                    "        {\r",
+                    "            xtype : 'treecolumn',\r",
+                    "            dataIndex : 'text',\r",
+                    "            text : '菜单名称',\r",
+                    "            sortable : false,\r",
+                    "            flex : 1,\r",
+                    "            width:300,\r",
+                    "            menuDisabled : true\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'iconCls',\r",
+                    "            text : '使用样式'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'component',\r",
+                    "            width:200,\r",
+                    "            text : '控件或连接'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            xtype : 'gridcolumn',\r",
+                    "            dataIndex : 'resource',\r",
+                    "            width:200,\r",
+                    "            text : '数据资源'\r",
+                    "        }]\r",
+                    "    });\r",
+                    "//tree.expandAll();\r",
+                    "me.treePanel.remove(1);\r",
+                    "me.treePanel.add(tree);"
+                ]
+            },
+            "designerId": "cafcf4f1-3982-4a1d-bc2b-ea9db729f211"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onTreeItemClick",
+                "designer|params": [
+                    "dataview",
+                    "record",
+                    "item",
+                    "index",
+                    "e",
+                    "eOpts"
+                ],
+                "implHandler": [
+                    "if(record.data.checked)\r",
+                    "{\r",
+                    "    record.set('checked', false);\r",
+                    "    Common.onTreePanelCheckChange(record,false,eOpts);\r",
+                    "}\r",
+                    "else\r",
+                    "{\r",
+                    "    record.set('checked', true);\r",
+                    "    Common.onTreePanelCheckChange(record,true,eOpts);\r",
+                    "}"
+                ]
+            },
+            "designerId": "b0a202ac-8d77-4fbd-bc58-742908e287ab"
+        }
+    ]
+}

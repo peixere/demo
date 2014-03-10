@@ -360,8 +360,7 @@
                     "    }                      \r",
                     "});\r",
                     "store.reload();\r",
-                    "this.bindStore(store);\r",
-                    "this.expandAll();"
+                    "this.bindStore(store);"
                 ],
                 "single": true,
                 "name": "afterlayout",
@@ -379,7 +378,7 @@
             "userConfig": {
                 "fn": "onOrganizationTreeGridLoad",
                 "implHandler": [
-                    "this.expandAll();"
+                    "//this.expandAll();"
                 ],
                 "name": "load",
                 "scope": "me"

@@ -151,7 +151,7 @@ Ext.define('Gotom.view.RolePanel', {
                             xtype: 'form',
                             region: 'north',
                             border: false,
-                            height: 97,
+                            height: 123,
                             id: 'RoleForm',
                             bodyPadding: 10,
                             title: '编辑角色',
@@ -183,6 +183,29 @@ Ext.define('Gotom.view.RolePanel', {
                                     anchor: '100%',
                                     fieldLabel: '排列顺序',
                                     name: 'role.sort'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'role.organizationId'
+                                },
+                                {
+                                    xtype: 'panel',
+                                    border: false,
+                                    height: 29,
+                                    layout: {
+                                        type: 'anchor'
+                                    },
+                                    header: false,
+                                    title: '所属部门',
+                                    titleCollapse: false,
+                                    listeners: {
+                                        afterlayout: {
+                                            fn: me.onPanelAfterLayout,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -239,6 +262,10 @@ Ext.define('Gotom.view.RolePanel', {
         this.loadRoleGrid();
     },
 
+    onPanelAfterLayout: function(container, layout, eOpts) {
+        this.orgTreePanel = container;
+    },
+
     onRolePanelAfterLayout: function(container, layout, eOpts) {
         this.loadRoleGrid();
         this.loadFormData('');
@@ -284,6 +311,15 @@ Ext.define('Gotom.view.RolePanel', {
     loadFormData: function(roleId) {
         var me = this;
         var form = Ext.getCmp('RoleForm');
+        me.orgTreePanel.removeAll();
+        var treeComboBox = Ext.create('Gotom.view.RoleOrgTreeComboBox', {
+            url : ctxp+'/p/role!orgTree.do?role.id='+roleId,
+            anchor: '100%',
+            fieldLabel: '所在部门',
+            labelWidth: 100,
+            name: 'orgname'    
+        });
+        me.orgTreePanel.items.add(treeComboBox);
         try{
 
             Common.ajax({
@@ -298,7 +334,10 @@ Ext.define('Gotom.view.RolePanel', {
                         me.bindRightTree(result.role.id);
                         form.getForm().findField('role.id').setValue(result.role.id);
                         form.getForm().findField('role.name').setValue(result.role.name);                
-                        form.getForm().findField('role.sort').setValue(result.role.sort);  
+                        form.getForm().findField('role.sort').setValue(result.role.sort); 
+                        form.getForm().findField('role.organizationId').setValue(result.role.organization.id);
+                        treeComboBox.setValue(result.role.organization.text);  
+                        treeComboBox.selected = result.role.organization.id;
                     }
                     else
                     {
@@ -420,8 +459,13 @@ Ext.define('Gotom.view.RolePanel', {
     saveForm: function() {
         var me = this;
         var form = Ext.getCmp('RoleForm');
-
         try{
+            var selected = me.orgTreePanel.items.get(0).selected;
+            if(selected.length === 0){
+                Ext.Msg.alert('信息提示', '请选择所在部门！');
+                return;        
+            }
+            form.getForm().findField('role.organizationId').setValue(selected);
             var rightIds = [];
             var tree = Ext.getCmp('RoleRightTreePanel');
             var items = tree.getSelectionModel().store.data.items;

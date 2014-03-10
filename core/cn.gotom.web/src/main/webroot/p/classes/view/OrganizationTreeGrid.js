@@ -230,11 +230,10 @@ Ext.define('Gotom.view.OrganizationTreeGrid', {
         });
         store.reload();
         this.bindStore(store);
-        this.expandAll();
     },
 
     onOrganizationTreeGridLoad: function(treestore, node, records, successful, eOpts) {
-        this.expandAll();
+        //this.expandAll();
     },
 
     openWinForm: function(id, parentId) {

@@ -240,18 +240,6 @@ Ext.define('Gotom.view.UserPanel', {
                                     minLength: 2
                                 },
                                 {
-                                    xtype: 'panel',
-                                    border: false,
-                                    height: 30,
-                                    id: 'UserFormSelectedOrgs',
-                                    layout: {
-                                        type: 'anchor'
-                                    },
-                                    bodyPadding: 0,
-                                    header: false,
-                                    title: 'My Panel'
-                                },
-                                {
                                     xtype: 'checkboxgroup',
                                     id: 'UserRoleCheckboxGroup',
                                     fieldLabel: '用户角色',
@@ -431,16 +419,6 @@ Ext.define('Gotom.view.UserPanel', {
     loadFormData: function(id) {
         var me = this;
         var from = Ext.getCmp('UserForm');
-        var panel = Ext.getCmp('UserFormSelectedOrgs');
-        panel.removeAll();
-        var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {
-            url : ctxp+'/p/user!orgs.do?user.id='+id,
-            anchor: '100%',
-            fieldLabel: '所在部门',
-            labelWidth: 60,
-            name: 'orgname'    
-        });
-        panel.items.add(treeComboBox);
         Common.ajax({
             params:{'user.id':id},
             component : from,
@@ -450,9 +428,7 @@ Ext.define('Gotom.view.UserPanel', {
                 from.getForm().findField('user.id').setValue(result.user.id);
                 from.getForm().findField('user.name').setValue(result.user.name);                
                 from.getForm().findField('user.username').setValue(result.user.username); 
-                from.getForm().findField('orgIds').setValue(result.orgIds);  
-                treeComboBox.selected = result.orgIds;
-                treeComboBox.setValue(result.orgNames);    
+                from.getForm().findField('orgIds').setValue(result.orgIds);     
                 var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');
                 roleCheckbox.removeAll();
                 var items = result.data;
@@ -469,12 +445,6 @@ Ext.define('Gotom.view.UserPanel', {
         var me = this;
         try{
             var form = Ext.getCmp('UserForm');
-            var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;
-            if(selected.length === 0){
-                Ext.Msg.alert('信息提示', '请选择所在部门！');
-                return;        
-            }
-            form.getForm().findField('orgIds').setValue(selected);
             Common.formSubmit({  
                 url : ctxp+'/p/user!save.do',
                 form:form,

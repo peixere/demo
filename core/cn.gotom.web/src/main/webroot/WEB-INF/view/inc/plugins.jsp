@@ -4,8 +4,9 @@
     <!--//  
     Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');
    	Ext.require('Gotom.view.UserPanel');
-   	Ext.require('Gotom.view.UserOrgTreeComboBox');
-   	
+   	<%if(request.getParameter("p")!= null){%>
+   	Ext.require('<%=request.getParameter("p")%>');
+   	<%}%>
     Ext.onReady(function(){Ext.create('Gotom.view.PortalView');});
     	${plugins}
     //-->
