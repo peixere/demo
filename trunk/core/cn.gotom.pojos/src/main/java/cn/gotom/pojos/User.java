@@ -25,6 +25,8 @@ public class User extends SuperEntity implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	public static final String ROOT = "root";
+	
+	public static final String CurrentLoginUser = "CurrentLoginUser";
 
 	@Column(nullable = true, length = 50)
 	private String name;
@@ -45,12 +47,8 @@ public class User extends SuperEntity implements Serializable
 	@JoinTable(name = "core_user_role", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", nullable = false) })
 	private java.util.List<Role> roles;
 
-	@ManyToMany()
-	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "org_id", nullable = false) })
-	private java.util.List<Organization> organizations;
-	
-	@Column(name = "custom_id", nullable = false, columnDefinition = "char(36)", length = 36)
-	private String customId = Custom.Default;
+	@Column(name = "default_custom_id", nullable = false, columnDefinition = "char(36)", length = 36)
+	private String defaultCustomId = Custom.Default;
 
 	public User()
 	{
@@ -106,24 +104,14 @@ public class User extends SuperEntity implements Serializable
 		this.roles = roles;
 	}
 
-	public java.util.List<Organization> getOrganizations()
+	public String getDefaultCustomId()
 	{
-		return organizations;
+		return defaultCustomId;
 	}
 
-	public void setOrganizations(java.util.List<Organization> organizations)
+	public void setDefaultCustomId(String defaultCustomId)
 	{
-		this.organizations = organizations;
-	}
-
-	public String getCustomId()
-	{
-		return customId;
-	}
-
-	public void setCustomId(String customId)
-	{
-		this.customId = customId;
+		this.defaultCustomId = defaultCustomId;
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 
@@ -43,6 +44,9 @@ public class Role extends SuperEntity implements Serializable
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "organization_id", referencedColumnName = "id")
 	private Organization organization;
+
+	@Transient
+	private String organizationId;
 
 	public Role()
 	{
@@ -88,14 +92,24 @@ public class Role extends SuperEntity implements Serializable
 		this.users = users;
 	}
 
-	protected Organization getOrganization()
+	public Organization getOrganization()
 	{
 		return organization;
 	}
 
-	protected void setOrganization(Organization organization)
+	public void setOrganization(Organization organization)
 	{
 		this.organization = organization;
+	}
+
+	public String getOrganizationId()
+	{
+		return organizationId;
+	}
+
+	public void setOrganizationId(String organizationId)
+	{
+		this.organizationId = organizationId;
 	}
 
 }

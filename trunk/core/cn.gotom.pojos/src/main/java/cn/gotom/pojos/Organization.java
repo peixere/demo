@@ -6,8 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -42,12 +41,9 @@ public class Organization extends SuperEntity implements Serializable
 	@Column(name = "sort", nullable = false)
 	private int sort;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "core_org_user", joinColumns = { @JoinColumn(name = "org_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
-	private java.util.List<User> users;
-
-	@Column(name = "custom_id", nullable = false, columnDefinition = "char(36)", length = 36)
-	private String customId = Custom.Default;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "custom_id", referencedColumnName = "id")
+	private Custom custom;
 
 	@Transient
 	private java.util.List<Organization> children;
@@ -92,14 +88,14 @@ public class Organization extends SuperEntity implements Serializable
 		this.sort = sort;
 	}
 
-	public java.util.List<User> getUsers()
+	public Custom getCustom()
 	{
-		return users;
+		return custom;
 	}
 
-	public void setUsers(java.util.List<User> users)
+	public void setCustom(Custom custom)
 	{
-		this.users = users;
+		this.custom = custom;
 	}
 
 	public java.util.List<Organization> getChildren()
@@ -111,16 +107,5 @@ public class Organization extends SuperEntity implements Serializable
 	{
 		this.children = children;
 	}
-
-	public String getCustomId()
-	{
-		return customId;
-	}
-
-	public void setCustomId(String customId)
-	{
-		this.customId = customId;
-	}
-
 
 }
