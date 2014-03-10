@@ -339,6 +339,13 @@
                 "title": null
             },
             "designerId": "b1c1db0e-c42c-468c-a675-c7f5c537dd63",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "orgTreePanel",
+                    "type": "string"
+                }
+            ],
             "cn": [
                 {
                     "type": "Ext.form.Panel",
@@ -350,7 +357,7 @@
                     "userConfig": {
                         "layout|region": "north",
                         "border": false,
-                        "height": 97,
+                        "height": 123,
                         "id": "RoleForm",
                         "bodyPadding": 10,
                         "title": "编辑角色"
@@ -420,6 +427,56 @@
                                 "name": "role.sort"
                             },
                             "designerId": "5339b663-b5bc-447e-8f33-5bf984a2b33e"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "fieldLabel": "Label",
+                                "name": "role.organizationId"
+                            },
+                            "designerId": "21e3a181-dd70-4667-96c7-219fa6e3e173"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "border": false,
+                                "height": 29,
+                                "layout": "anchor",
+                                "header": false,
+                                "title": "所属部门",
+                                "titleCollapse": false
+                            },
+                            "designerId": "bf7416da-2ad5-4db3-83fd-863f76ea9d0a",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onPanelAfterLayout",
+                                        "implHandler": [
+                                            "this.orgTreePanel = container;"
+                                        ],
+                                        "name": "afterlayout",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "edf3f0b1-e8cf-4227-93f9-1901efeb8fc1"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -502,6 +559,15 @@
                 "implHandler": [
                     "var me = this;\r",
                     "var form = Ext.getCmp('RoleForm');\r",
+                    "me.orgTreePanel.removeAll();\r",
+                    "var treeComboBox = Ext.create('Gotom.view.RoleOrgTreeComboBox', {\r",
+                    "    url : ctxp+'/p/role!orgTree.do?role.id='+roleId,\r",
+                    "    anchor: '100%',\r",
+                    "    fieldLabel: '所在部门',\r",
+                    "    labelWidth: 100,\r",
+                    "    name: 'orgname'    \r",
+                    "});\r",
+                    "me.orgTreePanel.items.add(treeComboBox);\r",
                     "try{\r",
                     "\r",
                     "    Common.ajax({\r",
@@ -516,7 +582,10 @@
                     "                me.bindRightTree(result.role.id);\r",
                     "                form.getForm().findField('role.id').setValue(result.role.id);\r",
                     "                form.getForm().findField('role.name').setValue(result.role.name);                \r",
-                    "                form.getForm().findField('role.sort').setValue(result.role.sort);  \r",
+                    "                form.getForm().findField('role.sort').setValue(result.role.sort); \r",
+                    "\t\t\t\tform.getForm().findField('role.organizationId').setValue(result.role.organization.id);\r",
+                    "\t\t        treeComboBox.setValue(result.role.organization.text);  \r",
+                    "        \t\ttreeComboBox.selected = result.role.organization.id;\r",
                     "            }\r",
                     "            else\r",
                     "            {\r",
@@ -682,8 +751,13 @@
                 "implHandler": [
                     "var me = this;\r",
                     "var form = Ext.getCmp('RoleForm');\r",
-                    "\r",
                     "try{\r",
+                    "    var selected = me.orgTreePanel.items.get(0).selected;\r",
+                    "    if(selected.length === 0){\r",
+                    "        Ext.Msg.alert('信息提示', '请选择所在部门！');\r",
+                    "        return;        \r",
+                    "    }\r",
+                    "    form.getForm().findField('role.organizationId').setValue(selected);\r",
                     "    var rightIds = [];\r",
                     "    var tree = Ext.getCmp('RoleRightTreePanel');\r",
                     "    var items = tree.getSelectionModel().store.data.items;\r",

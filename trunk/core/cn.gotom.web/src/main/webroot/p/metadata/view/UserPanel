@@ -601,24 +601,6 @@
                             "designerId": "fd8b0694-83a6-4df7-8325-ece3e242a9ed"
                         },
                         {
-                            "type": "Ext.panel.Panel",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "border": false,
-                                "height": 30,
-                                "id": "UserFormSelectedOrgs",
-                                "layout": "anchor",
-                                "bodyPadding": 0,
-                                "header": false,
-                                "title": "My Panel"
-                            },
-                            "designerId": "40cb46cc-56a1-4bff-841e-3756703acd10"
-                        },
-                        {
                             "type": "Ext.form.CheckboxGroup",
                             "reference": {
                                 "name": "items",
@@ -765,16 +747,6 @@
                 "implHandler": [
                     "var me = this;\r",
                     "var from = Ext.getCmp('UserForm');\r",
-                    "var panel = Ext.getCmp('UserFormSelectedOrgs');\r",
-                    "panel.removeAll();\r",
-                    "var treeComboBox = Ext.create('Gotom.view.UserOrgTreeComboBox', {\r",
-                    "    url : ctxp+'/p/user!orgs.do?user.id='+id,\r",
-                    "    anchor: '100%',\r",
-                    "    fieldLabel: '所在部门',\r",
-                    "    labelWidth: 60,\r",
-                    "    name: 'orgname'    \r",
-                    "});\r",
-                    "panel.items.add(treeComboBox);\r",
                     "Common.ajax({\r",
                     "    params:{'user.id':id},\r",
                     "    component : from,\r",
@@ -784,9 +756,7 @@
                     "        from.getForm().findField('user.id').setValue(result.user.id);\r",
                     "        from.getForm().findField('user.name').setValue(result.user.name);                \r",
                     "        from.getForm().findField('user.username').setValue(result.user.username); \r",
-                    "    \tfrom.getForm().findField('orgIds').setValue(result.orgIds);  \r",
-                    "    \ttreeComboBox.selected = result.orgIds;\r",
-                    "    \ttreeComboBox.setValue(result.orgNames);    \r",
+                    "        from.getForm().findField('orgIds').setValue(result.orgIds);     \r",
                     "        var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');\r",
                     "        roleCheckbox.removeAll();\r",
                     "        var items = result.data;\r",
@@ -814,12 +784,6 @@
                     "var me = this;\r",
                     "try{\r",
                     "    var form = Ext.getCmp('UserForm');\r",
-                    "    var selected = Ext.getCmp('UserFormSelectedOrgs').items.get(0).selected;\r",
-                    "    if(selected.length === 0){\r",
-                    "        Ext.Msg.alert('信息提示', '请选择所在部门！');\r",
-                    "    \treturn;        \r",
-                    "    }\r",
-                    "    form.getForm().findField('orgIds').setValue(selected);\r",
                     "    Common.formSubmit({  \r",
                     "        url : ctxp+'/p/user!save.do',\r",
                     "        form:form,\r",
