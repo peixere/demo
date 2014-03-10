@@ -66,6 +66,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		final HttpServletResponse response = (HttpServletResponse) servletResponse;
 		String url = UrlUtils.buildUrl(request);
+		log.debug(url);
 		if (isIgnore(url))
 		{
 			filterChain.doFilter(request, response);

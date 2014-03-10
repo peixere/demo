@@ -429,10 +429,14 @@ public final class CommonUtils
 		log.debug(sb);
 	}
 
-	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat, String[] excludes)
 	{
 		JsonConfig config = new JsonConfig();
-		config.setIgnoreDefaultExcludes(false);
+		if (excludes != null && excludes.length > 0)
+		{
+			config.setExcludes(excludes);
+		}
+		// config.setIgnoreDefaultExcludes(false);
 		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
 		if (dateFormat != null && dateFormat.trim().length() > 0)
 		{
@@ -474,6 +478,11 @@ public final class CommonUtils
 	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value)
 	{
 		toJSON(request, response, value, null);
+	}
+
+	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
+	{
+		toJSON(request, response, value, dateFormat, null);
 	}
 
 	public static String formatXML(String inputXML)

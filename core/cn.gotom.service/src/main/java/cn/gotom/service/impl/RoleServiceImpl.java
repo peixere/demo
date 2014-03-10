@@ -3,6 +3,8 @@ package cn.gotom.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Role;
 import cn.gotom.service.RoleService;
@@ -56,5 +58,19 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 			tree.add(m);
 		}
 		return tree;
+	}
+
+	@Override
+	public List<Role> findByCustomId(String customId)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
+		jpql.append(" where p.organization.custom.id = :customId");
+		jpql.append(" order by sort");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("customId", customId);
+		@SuppressWarnings("unchecked")
+		List<Role> list = q.getResultList();
+		return list;
 	}
 }
