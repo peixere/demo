@@ -11,13 +11,12 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
 import cn.gotom.pojos.App;
-import cn.gotom.pojos.ResourceConfig;
-import cn.gotom.pojos.ResourceName;
+import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.RightType;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
-import cn.gotom.service.ResourceConfigService;
+import cn.gotom.service.CustomService;
 import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.util.PasswordEncoder;
@@ -30,17 +29,17 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/main", results = { @Result(name = "success", location = "/WEB-INF/view/index.jsp") })
-public class MainAction extends ServletAction
+public class MainAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	@Inject
 	protected UserService userService;
 	@Inject
+	protected CustomService customService;
+	@Inject
 	private AuthenticationService authService;
 	@Inject
 	private PasswordEncoder passwordEncoder;
-	@Inject
-	private ResourceConfigService configService;
 
 	private String id;
 
@@ -52,38 +51,23 @@ public class MainAction extends ServletAction
 	public void main() throws IOException
 	{
 		MainInfo mainInfo = new MainInfo();
-		mainInfo.setUsername(getUsername());
+		mainInfo.setUsername(getCurrentUsername());
 		User user = userService.getByUsername(mainInfo.getUsername());
 		if (user != null)
 		{
 			mainInfo.setUserFullname(user.getName());
 		}
-		ResourceConfig appTitle = configService.getByName(ResourceName.appliction_title);
-		if (appTitle == null)
-		{
-			appTitle = new ResourceConfig();
-			appTitle.setName(ResourceName.appliction_title);
-			appTitle.setValue("Gotom开发平台");
-			configService.save(appTitle);
-		}
-		mainInfo.setTitle(appTitle.getValue());
+		Custom custom = customService.get(getCurrentCustomId());
+		mainInfo.setTitle(custom.getName());
 		mainInfo.setLogoutUrl(AuthenticationFilter.getServerLogoutUrl());
-		ResponseUtils.toJSON(mainInfo);
+		toJSON(mainInfo);
 	}
 
 	public void menu() throws IOException
 	{
-		String username = getUsername();
+		String username = getCurrentUsername();
 		List<Right> menuList = null;
-		if (StringUtils.isNullOrEmpty(id))
-		{
-			menuList = authService.findRightList(username, id);
-		}
-		else
-		{
-			menuList = authService.findRightList(username, id);
-			// menuList = authService.loadTreeByParentId(username, id);
-		}
+		menuList = authService.findRightList(id, username, getCurrentCustomId());
 		String ctxp = ServletActionContext.getRequest().getContextPath();
 		for (Right menu : menuList)
 		{
@@ -100,7 +84,7 @@ public class MainAction extends ServletAction
 				}
 			}
 		}
-		ResponseUtils.toJSON(menuList);
+		toJSON(menuList);
 	}
 
 	public void password()
@@ -112,7 +96,7 @@ public class MainAction extends ServletAction
 		response.setSuccess(false);
 		if (newpass != null && newpass.length() > 0 && newpass.equals(newpassCheck))
 		{
-			User old = userService.getByUsername(this.getUsername());
+			User old = userService.getByUsername(this.getCurrentUsername());
 			if (old != null)
 			{
 				if (password != null && old.getPassword().equals(passwordEncoder.encode(password)))
@@ -135,7 +119,7 @@ public class MainAction extends ServletAction
 		{
 			response.setData("新密码和确认密码必须一样！");
 		}
-		ResponseUtils.toJSON(response);
+		toJSON(response);
 	}
 
 	public String getId()

@@ -1,21 +1,17 @@
 package cn.gotom.web.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cn.gotom.pojos.Organization;
-import cn.gotom.pojos.Role;
 import cn.gotom.pojos.Status;
 import cn.gotom.pojos.User;
-import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RoleService;
+import cn.gotom.service.Service;
 import cn.gotom.service.UserService;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
@@ -26,7 +22,7 @@ import com.google.inject.Inject;
 @ParentPackage("json-default")
 @Namespace(value = "/p")
 @Action(value = "/user", results = { @Result(name = "success", type = "json") })
-public class UserAction extends ServletAction
+public class UserAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	@Inject
@@ -35,8 +31,9 @@ public class UserAction extends ServletAction
 	private RoleService roleService;
 	@Inject
 	PasswordEncoder passwordEncoder;
+
 	@Inject
-	private OrganizationService orgService;
+	private Service service;
 
 	public String json()
 	{
@@ -53,22 +50,22 @@ public class UserAction extends ServletAction
 		{
 			user = new User();
 		}
-		if (user.getOrganizations() != null)
-		{
-			for (Organization o : user.getOrganizations())
-			{
-				this.orgIds += o.getId() + ",";
-				this.orgNames += o.getText() + ",";
-			}
-			if (orgIds.length() > 1)
-			{
-				orgIds = orgIds.substring(0, orgIds.length() - 1);
-			}
-			if (orgNames.length() > 1)
-			{
-				orgNames = orgNames.substring(0, orgNames.length() - 1);
-			}
-		}
+		// if (user.getOrganizations() != null)
+		// {
+		// for (Organization o : user.getOrganizations())
+		// {
+		// this.orgIds += o.getId() + ",";
+		// this.orgNames += o.getText() + ",";
+		// }
+		// if (orgIds.length() > 1)
+		// {
+		// orgIds = orgIds.substring(0, orgIds.length() - 1);
+		// }
+		// if (orgNames.length() > 1)
+		// {
+		// orgNames = orgNames.substring(0, orgNames.length() - 1);
+		// }
+		// }
 		List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
 		this.setData(roleList);
 		return "success";
@@ -78,7 +75,14 @@ public class UserAction extends ServletAction
 	{
 		try
 		{
-			execute();
+			if (user != null)
+			{
+				user = userService.get(user.getId());
+			}
+			if (user == null)
+			{
+				user = new User();
+			}
 			List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
 			if (User.ROOT.equals(user.getUsername()))
 			{
@@ -88,7 +92,7 @@ public class UserAction extends ServletAction
 				}
 			}
 			this.setData(roleList);
-			ResponseUtils.toJSON(roleList);
+			toJSON(roleList);
 		}
 		catch (Exception ex)
 		{
@@ -98,132 +102,22 @@ public class UserAction extends ServletAction
 
 	public String list()
 	{
-		User login = userService.getByUsername(getUsername());
-		List<Organization> orgList = new ArrayList<Organization>();
-		List<User> list = new ArrayList<User>();
-		if (login.getUsername().equals(User.ROOT))
-		{
-			list = userService.findAll();
-		}
-		else
-		{
-			orgList = orgService.findAllByUser(login);
-			list = userService.findAllByOrg(orgList);
-		}
-		for (User u : list)
-		{
-			if (u.getUsername().equals(User.ROOT))
-			{
-				list.remove(u);
-				break;
-			}
-		}
+		List<User> list = service.findUserByCustomId(getCurrentCustomId(), getCurrentUsername());
 		this.setData(list);
 		return "success";
 	}
 
-	public void orgs()
-	{
-		// TreeModel
-		// List<Role> roleList = roleService.f
-		String parentId = ServletActionContext.getRequest().getParameter("id");
-		if (user != null)
-		{
-			user = userService.get(user.getId());
-		}
-		User login = userService.getByUsername(getUsername());
-		List<Organization> orgList = new ArrayList<Organization>();
-		if (User.ROOT.equals(login.getUsername()))
-		{
-			orgList = orgService.findByParentId(parentId);
-		}
-		else
-		{
-			orgList = login.getOrganizations();
-		}
-		if (StringUtils.isNotEmpty(parentId))
-		{
-			orgList = orgService.findByParentId(parentId);
-		}
-		List<TreeCheckedModel> tree = new ArrayList<TreeCheckedModel>();
-		List<Organization> selectOrgs = new ArrayList<Organization>();
-		if (user != null)
-		{
-			if (user.getOrganizations() == null)
-			{
-				user.setOrganizations(orgService.findSelectedByUser(user));
-			}
-			selectOrgs = user.getOrganizations();
-		}
-		for (Organization o : orgList)
-		{
-			TreeCheckedModel e = new TreeCheckedModel();
-			for (Organization check : selectOrgs)
-			{
-				if (o.getId().equals(check.getId()))
-				{
-					e.setChecked(true);
-					break;
-				}
-			}
-			e.setId(o.getId());
-			e.setSort(o.getSort());
-			e.setText(o.getText());
-			tree.add(e);
-		}
-		ResponseUtils.toJSON(tree);
-	}
-
 	public String save()
 	{
-		User old = userService.getByUsername(user.getUsername());
-		if (old != null && !old.getId().equals(user.getId()))
+		String[] roleIdArray = new String[0];
+		if (StringUtils.isNotEmpty(roleIds))
+		{
+			roleIdArray = roleIds.split(",");
+		}
+		if (!service.saveUser(getCurrentUsername(),this.getCurrentCustomId(), user, roleIdArray))
 		{
 			this.setSuccess(false);
 			this.setData(user.getUsername() + " 登录帐号已经被占用！");
-		}
-		else
-		{
-			List<Organization> oldOrgs = new ArrayList<Organization>();
-			if (old != null)
-			{
-				user.setPassword(old.getPassword());
-				oldOrgs = old.getOrganizations();
-			}
-			else
-			{
-				user.setPassword(passwordEncoder.encode("123456"));
-			}
-			List<Role> userRoles = new ArrayList<Role>();
-			if (StringUtils.isNotEmpty(roleIds))
-			{
-				String[] roleIdArray = roleIds.split(",");
-				List<Role> roleList = roleService.findAll();
-				for (Role o : roleList)
-				{
-					for (String roleId : roleIdArray)
-					{
-						if (o.getId().equals(roleId.trim()))
-						{
-							userRoles.add(o);
-							break;
-						}
-					}
-				}
-			}
-			User login = userService.getByUsername(getUsername());
-			// login.getOrganizations()
-			oldOrgs = orgService.removeInUser(login, oldOrgs);
-			List<Organization> userOrgs = new ArrayList<Organization>();
-			if (StringUtils.isNotEmpty(orgIds))
-			{
-				String[] orgIdArray = orgIds.split(",");
-				userOrgs = orgService.findByIds(Organization.class, orgIdArray);
-			}
-			userOrgs.addAll(oldOrgs);
-			user.setOrganizations(userOrgs);
-			user.setRoles(userRoles);
-			userService.save(user);
 		}
 		return "success";
 	}
