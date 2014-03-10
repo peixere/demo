@@ -50,54 +50,9 @@ public class UserAction extends AbsPortalAction
 		{
 			user = new User();
 		}
-		// if (user.getOrganizations() != null)
-		// {
-		// for (Organization o : user.getOrganizations())
-		// {
-		// this.orgIds += o.getId() + ",";
-		// this.orgNames += o.getText() + ",";
-		// }
-		// if (orgIds.length() > 1)
-		// {
-		// orgIds = orgIds.substring(0, orgIds.length() - 1);
-		// }
-		// if (orgNames.length() > 1)
-		// {
-		// orgNames = orgNames.substring(0, orgNames.length() - 1);
-		// }
-		// }
-		List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
+		List<TreeCheckedModel> roleList = roleService.findAndChecked(getCurrentCustomId(), user.getRoles());
 		this.setData(roleList);
 		return "success";
-	}
-
-	public void tree()
-	{
-		try
-		{
-			if (user != null)
-			{
-				user = userService.get(user.getId());
-			}
-			if (user == null)
-			{
-				user = new User();
-			}
-			List<TreeCheckedModel> roleList = roleService.findAndChecked(user.getRoles());
-			if (User.ROOT.equals(user.getUsername()))
-			{
-				for (TreeCheckedModel m : roleList)
-				{
-					m.setChecked(true);
-				}
-			}
-			this.setData(roleList);
-			toJSON(roleList);
-		}
-		catch (Exception ex)
-		{
-			log.error(ex.getMessage(), ex);
-		}
 	}
 
 	public String list()
@@ -114,7 +69,7 @@ public class UserAction extends AbsPortalAction
 		{
 			roleIdArray = roleIds.split(",");
 		}
-		if (!service.saveUser(getCurrentUsername(),this.getCurrentCustomId(), user, roleIdArray))
+		if (!service.saveUser(getCurrentUsername(), this.getCurrentCustomId(), user, roleIdArray))
 		{
 			this.setSuccess(false);
 			this.setData(user.getUsername() + " 登录帐号已经被占用！");
