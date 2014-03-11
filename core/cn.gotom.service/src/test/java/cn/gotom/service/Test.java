@@ -1,7 +1,6 @@
 package cn.gotom.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,14 +9,13 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
-
 import org.hibernate.ejb.packaging.JarVisitorFactory;
 
 import cn.gotom.pojos.Right;
 import cn.gotom.util.Converter;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Test
 {
@@ -59,12 +57,14 @@ public class Test
 		System.out.println(new Date()+"今天  :" + dateformat.format(new Date()));
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("DefaultData", Locale.ROOT);
-		String rightString = bundle.getString("Right");
-		JSON json = JSONSerializer.toJSON(rightString);
-		JsonConfig jsonConfig = new JsonConfig();
-		List<Right> rights = new ArrayList<Right>();
-		jsonConfig.setRootClass(Right.class);
-		rights = (List<Right>) JSONSerializer.toJava(json, jsonConfig);
+		String rightString = bundle.getString("cn.gotom.pojos.Right");
+		Gson gson = new Gson();
+		List<Right> rights = (List<Right>) gson.fromJson(rightString, new TypeToken<List<Right>>(){}.getType());		
+//		JSON json = JSONSerializer.toJSON(rightString);
+//		JsonConfig jsonConfig = new JsonConfig();
+//		List<Right> rights = new ArrayList<Right>();
+//		jsonConfig.setRootClass(Right.class);
+//		rights = (List<Right>) JSONSerializer.toJava(json, jsonConfig);
 		System.out.println(rights);
 		// JSONArray.toc(json, Right.class);
 		// System.out.println(JSONArray.fromObject(resList).toString());

@@ -16,6 +16,7 @@ import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.sso.util.GsonUtils;
 import cn.gotom.sso.util.PasswordEncoder;
 import cn.gotom.sso.util.PasswordEncoderMessageDigest;
 import cn.gotom.sso.util.UrlUtils;
@@ -207,7 +208,8 @@ public class ServerFilter extends AbstractCommonFilter
 		if (TicketMap.instance.containsKey(ticketName))
 		{
 			Ticket ticket = TicketMap.instance.get(ticketName);
-			CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+			// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+			GsonUtils.writer(req, res, GsonUtils.toJson(ticket, Ticket.DateFromat));
 		}
 	}
 

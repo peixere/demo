@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
-
 import org.apache.log4j.Logger;
 
 import cn.gotom.pojos.Custom;
@@ -18,6 +14,8 @@ import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
 import cn.gotom.util.PasswordEncoder;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 
 public class ServiceImpl implements Service
@@ -96,13 +94,17 @@ public class ServiceImpl implements Service
 				try
 				{
 					Class<?> clazz = Class.forName(key);
-					if (universalService.findAll(clazz).size() == 0)
+					List<?> olist = universalService.findAll(clazz);
+					if (olist.size() == 0)
 					{
-						String rightString = bundle.getString(key);
-						JSON json = JSONSerializer.toJSON(rightString);
-						JsonConfig jsonConfig = new JsonConfig();
-						jsonConfig.setRootClass(clazz);
-						List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
+						Gson gson = new Gson();
+						String json = bundle.getString(key);
+						List<?> list = (List<?>) gson.fromJson(json, TypeToken.get(olist.getClass()).getType());
+						log.debug(list);
+						// JSON json = JSONSerializer.toJSON(rightString);
+						// JsonConfig jsonConfig = new JsonConfig();
+						// jsonConfig.setRootClass(clazz);
+						// List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
 						universalService.saveAll(list);
 					}
 				}
