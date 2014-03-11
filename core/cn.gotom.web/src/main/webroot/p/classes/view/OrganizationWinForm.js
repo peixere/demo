@@ -169,7 +169,7 @@ Ext.define('Gotom.view.OrganizationWinForm', {
         {
             this.getForm().submit(
             {
-                url : '../p/organization!save.do',
+                url : ctxp+'/p/organization!save.do',
                 method : 'POST',
                 waitMsg : '正在保存数据，稍后...',
                 success : function(f, action)

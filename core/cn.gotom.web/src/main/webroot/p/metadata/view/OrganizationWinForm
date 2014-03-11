@@ -180,7 +180,7 @@
                                             "{\r",
                                             "    this.getForm().submit(\r",
                                             "    {\r",
-                                            "        url : '../p/organization!save.do',\r",
+                                            "        url : ctxp+'/p/organization!save.do',\r",
                                             "        method : 'POST',\r",
                                             "        waitMsg : '正在保存数据，稍后...',\r",
                                             "        success : function(f, action)\r",
