@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/servlet-api.jar" sourcepath="F:/m2/repository/org/apache/tomcat/tomcat-servlet-api/7.0.27/tomcat-servlet-api-7.0.27-sources.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/httpmime-4.3.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/catalina.jar" sourcepath="F:/m2/repository/org/apache/tomcat/tomcat-catalina/7.0.40/tomcat-catalina-7.0.40-sources.jar"/>
@@ -13,5 +12,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/jstl-1.2.1.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/jstl-api-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

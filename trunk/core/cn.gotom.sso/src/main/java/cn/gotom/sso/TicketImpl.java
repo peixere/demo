@@ -3,13 +3,11 @@ package cn.gotom.sso;
 import java.util.Date;
 import java.util.Map;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
-
 import org.apache.log4j.Logger;
 
 import cn.gotom.sso.util.CommonUtils;
+
+import com.google.gson.Gson;
 
 public class TicketImpl implements Ticket
 {
@@ -49,10 +47,12 @@ public class TicketImpl implements Ticket
 		{
 			if (CommonUtils.isNotEmpty(jsonString))
 			{
-				JSON json = JSONSerializer.toJSON(jsonString);
-				JsonConfig jsonConfig = new JsonConfig();
-				jsonConfig.setRootClass(TicketImpl.class);
-				return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
+				Gson gson = new Gson();
+				return gson.fromJson(jsonString, TicketImpl.class);
+//				JSON json = JSONSerializer.toJSON(jsonString);
+//				JsonConfig jsonConfig = new JsonConfig();
+//				jsonConfig.setRootClass(TicketImpl.class);
+//				return (TicketImpl) JSONSerializer.toJava(json, jsonConfig);
 			}
 			return null;
 		}
@@ -66,7 +66,9 @@ public class TicketImpl implements Ticket
 	@Override
 	public String toJSON()
 	{
-		return JSONSerializer.toJSON(this).toString();
+		Gson gson = new Gson();
+		return gson.toJson(this);
+		//return JSONSerializer.toJSON(this).toString();
 	}
 
 	public boolean equals(final Object o)

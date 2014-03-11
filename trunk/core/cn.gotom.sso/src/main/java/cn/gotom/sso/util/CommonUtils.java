@@ -26,11 +26,6 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSON;
-import net.sf.json.JsonConfig;
-import net.sf.json.processors.JsonValueProcessor;
-import net.sf.json.util.CycleDetectionStrategy;
-
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
@@ -428,62 +423,99 @@ public final class CommonUtils
 		}
 		log.debug(sb);
 	}
-
-	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat, String[] excludes)
-	{
-		JsonConfig config = new JsonConfig();
-		if (excludes != null && excludes.length > 0)
-		{
-			config.setExcludes(excludes);
-		}
-		// config.setIgnoreDefaultExcludes(false);
-		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
-		if (dateFormat != null && dateFormat.trim().length() > 0)
-		{
-			JsonValueProcessor dateValueProcessor = new JsonDateValueProcessor();
-			config.registerJsonValueProcessor(java.sql.Timestamp.class, dateValueProcessor);
-			config.registerJsonValueProcessor(java.util.Date.class, dateValueProcessor);
-		}
-		JSON json = net.sf.json.JSONSerializer.toJSON(value, config);
-		String encoing = request.getCharacterEncoding();
-		if (CommonUtils.isEmpty(encoing))
-		{
-			encoing = "utf-8";
-		}
-		// response.setContentType("text/html;charset=" + encoing);
-		response.setContentType("application/json;charset=" + encoing);
-		try
-		{
-			response.getWriter().println(json.toString());
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			log.error("输出JSON异常 " + value);
-		}
-		finally
-		{
-			try
-			{
-				response.getWriter().flush();
-				response.getWriter().close();
-			}
-			catch (IOException e)
-			{
-				log.error("输出JSON异常 " + value);
-			}
-		}
-	}
-
-	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value)
-	{
-		toJSON(request, response, value, null);
-	}
-
-	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
-	{
-		toJSON(request, response, value, dateFormat, null);
-	}
+//
+//	class JsonDateValueProcessor implements JsonValueProcessor
+//	{
+//
+//		private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//
+//		public JsonDateValueProcessor()
+//		{
+//		}
+//
+//		public JsonDateValueProcessor(String dateFormat)
+//		{
+//			this.dateFormat = new SimpleDateFormat(dateFormat);
+//		}
+//
+//		@Override
+//		public Object processArrayValue(Object value, JsonConfig jsonConfig)
+//		{
+//			return null;
+//		}
+//
+//		@Override
+//		public Object processObjectValue(String key, Object value, JsonConfig jsonConfig)
+//		{
+//			if (value == null)
+//			{
+//				return "";
+//			}
+//			if (value instanceof java.sql.Timestamp || value instanceof java.util.Date)
+//			{
+//				String str = dateFormat.format((java.util.Date) value);
+//				return str;
+//			}
+//			return value;
+//		}
+//
+//	}
+//
+//	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat, String[] excludes)
+//	{
+//		JsonConfig config = new JsonConfig();
+//		if (excludes != null && excludes.length > 0)
+//		{
+//			config.setExcludes(excludes);
+//		}
+//		// config.setIgnoreDefaultExcludes(false);
+//		config.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+//		if (dateFormat != null && dateFormat.trim().length() > 0)
+//		{
+//			JsonValueProcessor dateValueProcessor = new JsonDateValueProcessor();
+//			config.registerJsonValueProcessor(java.sql.Timestamp.class, dateValueProcessor);
+//			config.registerJsonValueProcessor(java.util.Date.class, dateValueProcessor);
+//		}
+//		JSON json = net.sf.json.JSONSerializer.toJSON(value, config);
+//		String encoing = request.getCharacterEncoding();
+//		if (CommonUtils.isEmpty(encoing))
+//		{
+//			encoing = "utf-8";
+//		}
+//		// response.setContentType("text/html;charset=" + encoing);
+//		response.setContentType("application/json;charset=" + encoing);
+//		try
+//		{
+//			response.getWriter().println(json.toString());
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//			log.error("输出JSON异常 " + value);
+//		}
+//		finally
+//		{
+//			try
+//			{
+//				response.getWriter().flush();
+//				response.getWriter().close();
+//			}
+//			catch (IOException e)
+//			{
+//				log.error("输出JSON异常 " + value);
+//			}
+//		}
+//	}
+//
+//	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value)
+//	{
+//		toJSON(request, response, value, null);
+//	}
+//
+//	public static void toJSON(HttpServletRequest request, HttpServletResponse response, Object value, String dateFormat)
+//	{
+//		toJSON(request, response, value, dateFormat, null);
+//	}
 
 	public static String formatXML(String inputXML)
 	{
