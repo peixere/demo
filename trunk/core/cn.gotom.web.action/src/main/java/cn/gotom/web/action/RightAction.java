@@ -20,7 +20,6 @@ import cn.gotom.util.StringUtils;
 import com.google.inject.Inject;
 
 @ParentPackage("json-default")
-// @Namespaces(value = {@Namespace(value="/p")})
 @Namespace(value = "/p")
 @Action(value = "/right", results = { @Result(name = "success", type = "json") })
 public class RightAction extends AbsPortalAction
@@ -41,7 +40,7 @@ public class RightAction extends AbsPortalAction
 		{
 			right = new Right();
 		}
-		toJSON(right);
+		toJSON(right, "roles");
 	}
 
 	public void fresh() throws IOException
