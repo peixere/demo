@@ -14,6 +14,7 @@ public class Parameters
 	private int stopbits;
 	private int parity;
 	private int localPort;
+	protected String localAddres;
 	private String BluePort = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB").toString();
 	private int soTimeout = 100;
 	private int hidVID;
@@ -171,6 +172,16 @@ public class Parameters
 		this.localPort = localPort;
 	}
 
+	public String getLocalAddres()
+	{
+		return localAddres;
+	}
+
+	public void setLocalAddres(String localAddres)
+	{
+		this.localAddres = localAddres;
+	}
+
 	public String getBluePort()
 	{
 		return BluePort;
@@ -237,6 +248,8 @@ public class Parameters
 				return BluePort;
 			case HID:
 				return "vid=" + hidVID + ";pid=" + hidPID;
+			case UDPMulticast:
+				return address + ":" + port + ";" + localAddres + ":" + localPort;
 		}
 		return super.toString();
 	}
@@ -257,32 +270,39 @@ public class Parameters
 				return toBlueString();
 			case HID:
 				return this.toHidString();
+			case UDPMulticast:
+				return this.toUdpMString();
 		}
 		return super.toString();
 	}
 
-	public String toBlueString()
+	private String toBlueString()
 	{
-		return "Bluetooth{" + BluePort + "}";
+		return "Bluetooth{" + getId() + "}";
 	}
 
-	public String toTcpString()
+	private String toTcpString()
 	{
-		return "tcp{" + address + ":" + port + "}";
+		return "tcp{" + getId() + "}";
 	}
 
-	public String toHidString()
+	private String toHidString()
 	{
-		return "hid{vid=" + hidVID + ";pid=" + hidPID + "}";
+		return "hid{vid=" + getId() + "}";
 	}
 
-	public String toSerialString()
+	private String toSerialString()
 	{
-		return "SerialPort{" + this.portName + ":" + this.baudRate + "}";
+		return "SerialPort{" + getId() + "}";
 	}
 
-	public String toUdpString()
+	private String toUdpString()
 	{
-		return "udp{" + address + ":" + port + ";local:" + localPort + "}";
+		return "udp{" + getId() + "}";
+	}
+
+	private String toUdpMString()
+	{
+		return "UDPMulticast{" + this.getId() + "}";
 	}
 }
