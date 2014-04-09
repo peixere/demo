@@ -181,6 +181,19 @@ public class ClassLoaderUtils
 	}
 
 	/**
+	 * 从iClazz所在jar中取出iClazz的子类
+	 * 
+	 * @param iClazz
+	 * @param fs
+	 * @return
+	 */
+	public static <T> List<Class<T>> classLoader(Class<T> iClazz) throws Exception
+	{
+		String jarPath = getPath(iClazz);
+		return classLoader(iClazz, new JarFile(jarPath));
+	}
+
+	/**
 	 * 从jar中取出iClazz的子类
 	 * 
 	 * @param iClazz
