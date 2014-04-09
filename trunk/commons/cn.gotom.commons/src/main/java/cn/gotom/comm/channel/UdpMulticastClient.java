@@ -13,10 +13,10 @@ import cn.gotom.annotation.Description;
 
 @Description("UDP(组播)")
 @ChannelType(ChannelTypeEnum.UDPMulticast)
-public class MulticastClient extends ChannelImpl
+public class UdpMulticastClient extends ChannelImpl
 {
 	private static final long serialVersionUID = 1L;
-	private final static Logger log = Logger.getLogger(MulticastClient.class.getName());
+	private final static Logger log = Logger.getLogger(UdpMulticastClient.class.getName());
 	private MulticastSocket socket;
 	private int sendPort; // 目标端口
 	private int receivePort; // 接收端口
@@ -24,12 +24,12 @@ public class MulticastClient extends ChannelImpl
 	InetAddress localAddress;
 	boolean isJoin = false;
 
-	public MulticastClient() throws SocketException
+	public UdpMulticastClient() throws SocketException
 	{
 		super();
 	}
 
-	public MulticastClient(String groupAddress, String localAddress, int port, int localPort) throws UnknownHostException
+	public UdpMulticastClient(String groupAddress, String localAddress, int port, int localPort) throws UnknownHostException
 	{
 		super();
 		this.sendPort = port;
@@ -38,7 +38,7 @@ public class MulticastClient extends ChannelImpl
 		this.localAddress = InetAddress.getByName(localAddress);
 	}
 
-	public MulticastClient(Parameters parameters)
+	public UdpMulticastClient(Parameters parameters)
 	{
 		setParameters(parameters);
 	}
