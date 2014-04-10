@@ -2,6 +2,7 @@ package cn.gotom.util;
 
 import java.io.File;
 import java.io.FilePermission;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author peixere@qq.com
@@ -20,7 +23,7 @@ import java.util.jar.JarFile;
  */
 public class ClassLoaderUtils
 {
-
+	private static final Logger log = Logger.getLogger(ClassLoaderUtils.class);
 	private static final Method addURL = initAddMethod();
 
 	private static final URLClassLoader classloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
@@ -187,10 +190,18 @@ public class ClassLoaderUtils
 	 * @param fs
 	 * @return
 	 */
-	public static <T> List<Class<T>> classLoader(Class<T> iClazz) throws Exception
+	public static <T> List<Class<T>> classLoader(Class<T> iClazz)
 	{
 		String jarPath = getPath(iClazz);
-		return classLoader(iClazz, new JarFile(jarPath));
+		try
+		{
+			return classLoader(iClazz, new JarFile(jarPath));
+		}
+		catch (IOException e)
+		{
+			log.error(e.getMessage(), e);
+			return new ArrayList<Class<T>>();
+		}
 	}
 
 	/**
@@ -201,7 +212,7 @@ public class ClassLoaderUtils
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> List<Class<T>> classLoader(Class<T> iClazz, JarFile... jfs) throws Exception
+	public static <T> List<Class<T>> classLoader(Class<T> iClazz, JarFile... jfs)
 	{
 		List<Class<T>> clazzList = new ArrayList<Class<T>>();
 
@@ -217,11 +228,19 @@ public class ClassLoaderUtils
 					if (!isNullOrEmpty(className) && className.endsWith(".class") && className.indexOf("$") == -1)
 					{
 						className = className.substring(0, className.lastIndexOf(".class")).replaceAll("/", ".");
-						Class<?> clazz = Class.forName(className);
-						if (!Modifier.isAbstract(clazz.getModifiers()) && isAssignableFrom(clazz, iClazz))
+						try
 						{
-							clazzList.add((Class<T>) clazz);
+							Class<?> clazz = Class.forName(className);
+							if (!Modifier.isAbstract(clazz.getModifiers()) && isAssignableFrom(clazz, iClazz))
+							{
+								clazzList.add((Class<T>) clazz);
+							}
 						}
+						catch (ClassNotFoundException e)
+						{
+							log.error(e.getMessage(), e);
+						}
+
 					}
 				}
 			}
@@ -265,11 +284,12 @@ public class ClassLoaderUtils
 	}
 
 	/**
-	 * 从jar中取出iClazz的子类
+	 * 从dir目录中取出iClazz的子类
 	 * 
 	 * @param iClazz
 	 * @param fs
 	 * @return
+	 * @throws Exception 
 	 */
 	public static <T> List<Class<T>> classLoader(Class<T> iClazz, String dir) throws Exception
 	{
