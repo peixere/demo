@@ -2,7 +2,6 @@ package cn.gotom.util;
 
 import java.io.File;
 import java.io.FilePermission;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
@@ -15,6 +14,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.apache.log4j.Logger;
+
+import cn.gotom.annotation.Description;
 
 /**
  * 
@@ -197,7 +198,7 @@ public class ClassLoaderUtils
 		{
 			return classLoader(iClazz, new JarFile(jarPath));
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			log.error(e.getMessage(), e);
 			return new ArrayList<Class<T>>();
@@ -236,7 +237,11 @@ public class ClassLoaderUtils
 								clazzList.add((Class<T>) clazz);
 							}
 						}
-						catch (ClassNotFoundException e)
+						catch (Exception ex)
+						{
+							log.error(ex.getMessage(), ex);
+						}
+						catch (Error e)
 						{
 							log.error(e.getMessage(), e);
 						}
@@ -289,12 +294,19 @@ public class ClassLoaderUtils
 	 * @param iClazz
 	 * @param fs
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public static <T> List<Class<T>> classLoader(Class<T> iClazz, String dir) throws Exception
+	public static <T> List<Class<T>> classLoader(Class<T> iClazz, String dir)
 	{
 		List<Class<T>> clazzList = new ArrayList<Class<T>>();
-		classLoader(clazzList, iClazz, new File(dir));
+		try
+		{
+			classLoader(clazzList, iClazz, new File(dir));
+		}
+		catch (Exception e)
+		{
+			log.error(e.getMessage(), e);
+		}
 		return clazzList;
 	}
 
@@ -327,12 +339,14 @@ public class ClassLoaderUtils
 		}
 	}
 
+	@Description("实例化类，异常返回空")
 	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(Class<T> clazz)
 	{
 		return (T) newInstance(clazz.getName());
 	}
 
+	@Description("实例化类，异常返回空")
 	public static Object newInstance(String clazzName)
 	{
 		try
