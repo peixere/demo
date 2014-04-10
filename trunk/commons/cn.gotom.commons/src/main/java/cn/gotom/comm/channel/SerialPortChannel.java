@@ -38,7 +38,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		String tofile = null;
 		fromfile = ClassLoaderUtils.getPath(SerialPort.class);
 		tofile = javaHome + "/lib/ext/jssc.jar";
-		FileUtils.cover(fromfile, tofile);
+		FileUtils.copy(fromfile, tofile);
 		log.info("load Native Jssc Library");
 	}
 
