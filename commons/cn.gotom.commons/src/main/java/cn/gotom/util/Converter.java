@@ -3,7 +3,10 @@ package cn.gotom.util;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -419,5 +422,28 @@ public abstract class Converter
 		{
 			return 0;
 		}
+	}
+	
+	public static String throwableToString(Throwable tr)
+	{
+		if (tr == null)
+		{
+			return "";
+		}
+		// tr.printStackTrace();
+		Throwable t = tr;
+		while (t != null)
+		{
+			if (t instanceof UnknownHostException)
+			{
+				return "";
+			}
+			t = t.getCause();
+		}
+
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		tr.printStackTrace(pw);
+		return sw.toString();
 	}
 }
