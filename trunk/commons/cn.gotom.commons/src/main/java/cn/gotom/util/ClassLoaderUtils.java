@@ -42,7 +42,7 @@ public class ClassLoaderUtils
 			add.setAccessible(true);
 			return add;
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -131,7 +131,7 @@ public class ClassLoaderUtils
 		{
 			addURL.invoke(classloader, new Object[] { file.toURI().toURL() });
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
 			e.printStackTrace();
 		}
@@ -237,15 +237,14 @@ public class ClassLoaderUtils
 								clazzList.add((Class<T>) clazz);
 							}
 						}
-						catch (Exception ex)
+						catch (NoClassDefFoundError e)
+						{
+							log.warn(e.getClass().getName() + ": " + e.getMessage());
+						}
+						catch (Throwable ex)
 						{
 							log.error(ex.getMessage(), ex);
 						}
-						catch (Error e)
-						{
-							log.error(e.getMessage(), e);
-						}
-
 					}
 				}
 			}
@@ -303,7 +302,7 @@ public class ClassLoaderUtils
 		{
 			classLoader(clazzList, iClazz, new File(dir));
 		}
-		catch (Exception e)
+		catch (Throwable e)
 		{
 			log.error(e.getMessage(), e);
 		}
@@ -353,9 +352,9 @@ public class ClassLoaderUtils
 		{
 			return Class.forName(clazzName).newInstance();
 		}
-		catch (Exception ex)
+		catch (Throwable ex)
 		{
-			ex.printStackTrace();
+			log.error(null, ex);
 			return null;
 		}
 	}
