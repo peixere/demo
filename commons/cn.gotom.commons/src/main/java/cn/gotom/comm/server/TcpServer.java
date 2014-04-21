@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +18,7 @@ import cn.gotom.comm.channel.ChannelType;
 import cn.gotom.comm.channel.ChannelTypeEnum;
 import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.State;
+import cn.gotom.util.GList;
 
 @Description("TCP服务端")
 @ChannelType(ChannelTypeEnum.TCPServer)
@@ -32,10 +32,15 @@ public class TcpServer extends ChannelBase implements Server
 	private ServerSocket socket;
 
 	private Timer terminalTimer;
-	private List<Terminal> terminalList = new ArrayList<Terminal>();
+	private GList<Terminal> terminalList = new GList<Terminal>();
 	public static final ThreadLocal<Channel> terminalPool = new ThreadLocal<Channel>();
 
 	private int maxTerminalSize = 1024;
+
+	public TcpServer()
+	{
+		this("0.0.0.0", 40000);
+	}
 
 	public TcpServer(int port)
 	{
@@ -84,7 +89,7 @@ public class TcpServer extends ChannelBase implements Server
 		{
 			this.close();
 			this.onState(State.Fail);
-			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]启动异常：" + ex.getMessage(), ex);
+			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]启动异常：" + ex.getClass().getName() + ": " + ex.getMessage());
 			throw ex;
 		}
 	}
@@ -165,11 +170,25 @@ public class TcpServer extends ChannelBase implements Server
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		Channel terminal = terminalPool.get();
-		if (terminal != null)
+		// Channel terminal = terminalPool.get();
+		// if (terminal != null)
+		// {
+		// terminal.write(bytes);
+		// }
+		//List<Channel> channelList = getClientList();
+		//for (Channel c : channelList)
+		for (Channel c : this.terminalList)
 		{
-			terminal.write(bytes);
+			try
+			{
+				c.write(bytes);
+			}
+			catch (Throwable e)
+			{
+				log.error(e.getClass().getName() + ": " + e.getMessage(), e);
+			}
 		}
+		// while(this.terminalList.get(location))
 	}
 
 	@Override
@@ -199,7 +218,9 @@ public class TcpServer extends ChannelBase implements Server
 	@Override
 	public List<Channel> getClientList()
 	{
-		return new ArrayList<Channel>(terminalList);
+		GList<Channel> terminalList = new GList<Channel>();
+		terminalList.AddRange(terminalList.asArray());
+		return terminalList;
 	}
 
 	class Terminal extends ChannelImpl
@@ -236,9 +257,9 @@ public class TcpServer extends ChannelBase implements Server
 					TcpServer.this.stateListeners.post(this, State.Connected);
 				}
 			}
-			catch (IOException e)
+			catch (Throwable e)
 			{
-				e.printStackTrace();
+				log.error(e.getClass().getName() + ": " + e.getMessage());
 			}
 		}
 
