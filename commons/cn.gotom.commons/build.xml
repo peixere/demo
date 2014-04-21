@@ -17,10 +17,12 @@
 		<property name="outputjar" value="../build/cn.gotom.commons.jar" />
 		<mkdir dir="${targetdir}" />
 	</target>
+
 	<target name="compile" depends="init">
 		<mkdir dir="${targetdir}" />
-		<javac classpathref="lib" encoding="UTF-8" optimize="off" debug="on" failonerror="false" destdir="${targetdir}"
-			includeantruntime="on" srcdir="${src}" />
+		<javac classpathref="lib" debug="on" destdir="${targetdir}" encoding="UTF-8" failonerror="false" includeantruntime="on" optimize="off" srcdir="${src}">
+			<compilerarg line="-encoding UTF-8 " />
+		</javac>
 	</target>
 
 	<target name="jar">
@@ -30,7 +32,8 @@
 	</target>
 
 	<target name="clean" depends="init">
-	    <delete dir="${targetdir}" />
+		<delete dir="${targetdir}" />
 		<delete dir="${outputjar}" />
 	</target>
+
 </project>
