@@ -41,6 +41,8 @@ class CommDemo extends JFrame
 	{
 		try
 		{
+			short s = (short)Integer.parseInt("FFE1",16);
+			System.out.println(Converter.toHexString(Converter.GetBytes(s)));
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
 			{
 				if ("Nimbus".equals(info.getName()))
