@@ -241,6 +241,10 @@ public class ClassLoaderUtils
 						{
 							log.warn(e.getClass().getName() + ": " + e.getMessage());
 						}
+						catch (UnsatisfiedLinkError e)
+						{
+							log.warn(e.getClass().getName() + ": " + e.getMessage());
+						}						
 						catch (Throwable ex)
 						{
 							log.error(ex.getMessage(), ex);
