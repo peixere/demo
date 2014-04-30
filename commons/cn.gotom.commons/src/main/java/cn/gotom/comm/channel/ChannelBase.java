@@ -90,7 +90,7 @@ public abstract class ChannelBase implements Channel
 		}
 		catch (SocketTimeoutException ex)
 		{
-			if ((System.currentTimeMillis() - lastTimeMillis) / 1000 > 3)
+			if ((System.currentTimeMillis() - lastTimeMillis) / 1000 > 4)
 			{
 				log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
 				lastTimeMillis = System.currentTimeMillis();
