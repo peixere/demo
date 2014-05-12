@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import cn.gotom.pojos.Custom;
@@ -82,6 +84,7 @@ public class ServiceImpl implements Service
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void defalutData()
 	{
 		try
@@ -99,13 +102,20 @@ public class ServiceImpl implements Service
 					{
 						Gson gson = new Gson();
 						String json = bundle.getString(key);
-						List<?> list = (List<?>) gson.fromJson(json, TypeToken.get(olist.getClass()).getType());
-						log.debug(list);
+						List<Map<String, ?>> list = (List<Map<String, ?>>) gson.fromJson(json, new TypeToken<List<?>>()
+						{
+						}.getType());
+						for (Map<String, ?> m : list)
+						{
+							Object o = clazz.newInstance();
+							BeanUtils.populate(o, m);
+							universalService.persist(o);
+						}
 						// JSON json = JSONSerializer.toJSON(rightString);
 						// JsonConfig jsonConfig = new JsonConfig();
 						// jsonConfig.setRootClass(clazz);
 						// List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
-						universalService.saveAll(list);
+						//universalService.saveAll(olist);
 					}
 				}
 				catch (Exception ex)
