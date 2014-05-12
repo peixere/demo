@@ -83,7 +83,7 @@ var ctxp = '';
     //var prefix = path + "/ext/4.2.1"
     if (includeCSS) {
 	document.write('<link rel="stylesheet" type="text/css" href="' + path + '/resources/portal.css"/>');
-        document.write('<link rel="stylesheet" type="text/css" href="' + prefix + '/resources/css/ext-all' + suffix + '-debug.css"/>');
+        document.write('<link rel="stylesheet" type="text/css" href="' + prefix + '/resources/css/ext-all' + suffix + '.css"/>');
     }
     document.write('<script type="text/javascript" src="' + prefix + '/ext-all' + (rtl ? '-rtl' : '') + '.js"></script>');
     document.write('<script type="text/javascript" src="' + path + '/ext4/shared/Common.js"></script>');
