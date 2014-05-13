@@ -139,9 +139,10 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		else
 		{
+			errorMsg = "用户名或密码不正确！";
 			if (!noScript)
 			{
-				errorMsg = "请开启浏览器的Javascript功能";
+				//errorMsg = "请开启浏览器的Javascript功能";
 			}
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
