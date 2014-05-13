@@ -3,6 +3,8 @@ package cn.gotom.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.gotom.annotation.Description;
+
 /**
  * 
  * 分页类(从第一页开始)
@@ -10,47 +12,26 @@ import java.util.List;
  * @author <a href="mailto:pqixere@qq.com">裴绍国</a>
  * @version 2013-11-17
  */
+@Description("分页类(从第一页开始)")
 public class Pagination<T> extends JsonResponse
 {
 
-	/**
-	 * 页号
-	 */
+	@Description("页号,从1开始")
 	private int pageNum = 1;
-
-	/**
-	 * 每页行数
-	 */
-	private int rowSize = 25;
-
-	/**
-	 * 总行数
-	 */
-	private int rowCount;
-
-	/**
-	 * 当前页数据
-	 */
+	@Description("每页行数")
+	private int pageSize = 25;
+	@Description("总行数")
+	private int total;
+	@Description("当前页数据")
 	private List<T> list;
-
-	/**
-	 * 总页数
-	 */
+	@Description("总页数")
 	private int size;
-
-	/**
-	 * 是否有下一页
-	 */
+	@Description("是否有下一页")
 	private boolean next;
-
-	/**
-	 * 是否有上一页
-	 */
+	@Description("是否有上一页")
 	private boolean prev;
 
-	/**
-	 * 分页类
-	 */
+	@Description("分页")
 	public Pagination()
 	{
 		list = new ArrayList<T>();
@@ -58,23 +39,23 @@ public class Pagination<T> extends JsonResponse
 
 	/**
 	 * 分页实例化
-	 * @param rowCount 总行数
+	 * @param total 总行数
 	 * @param list 当前页数据
-	 * @param rowSize 每页行数
+	 * @param pageSize 每页行数
 	 * @param pageNum 当前页码
 	 */
-	public Pagination(int rowCount, List<T> list, int rowSize, int pageNum)
+	public Pagination(int total, List<T> list, int pageSize, int pageNum)
 	{
-		this.rowCount = rowCount;
-		this.rowSize = rowSize;
+		this.total = total;
+		this.pageSize = pageSize;
 		this.list = list;
 		this.pageNum = pageNum;
 	}
 
 	public int size()
 	{
-		int totalSize = rowCount / rowSize;
-		return rowCount % rowSize > 0 ? totalSize + 1 : totalSize;
+		int totalSize = total / pageSize;
+		return total % pageSize > 0 ? totalSize + 1 : totalSize;
 	}
 
 	public boolean getNext()
@@ -100,14 +81,14 @@ public class Pagination<T> extends JsonResponse
 		return pageNum;
 	}
 
-	public int getRowSize()
+	public int getPageSize()
 	{
-		return rowSize;
+		return pageSize;
 	}
 
-	public int getRowCount()
+	public int getTotal()
 	{
-		return rowCount;
+		return total;
 	}
 
 	public List<T> getList()
@@ -120,14 +101,14 @@ public class Pagination<T> extends JsonResponse
 		this.pageNum = pageNum;
 	}
 
-	public void setRowSize(int rowSize)
+	public void setPageSize(int rowSize)
 	{
-		this.rowSize = rowSize;
+		this.pageSize = rowSize;
 	}
 
-	public void setRowCount(int rowCount)
+	public void setTotal(int total)
 	{
-		this.rowCount = rowCount;
+		this.total = total;
 	}
 
 	public void setList(List<T> list)
