@@ -84,11 +84,11 @@ public class Pagination<T> extends JsonResponse
 
 	private void init()
 	{
-		size();
+		getSize();
 		getPrev();
 		getNext();
 		this.start = (pageNum - 1) * pageSize + 1;
-		this.start = pageNum * pageSize;
+		this.limit = pageNum * pageSize;
 	}
 
 	private int size()
