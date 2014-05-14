@@ -3,6 +3,8 @@ package cn.gotom.service;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.gotom.vo.Pagination;
+
 /**
  * GenericDao to CRUD POJOs
  * 
@@ -31,4 +33,6 @@ public interface GenericService<T, PK extends Serializable> extends UniversalSer
 	void removeAll();
 
 	T save(T value);
+
+	Pagination<T> findPagination(int pageIndex, int pageSize);
 }

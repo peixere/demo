@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import cn.gotom.dao.GenericDao;
 import cn.gotom.service.Parameter;
+import cn.gotom.vo.Pagination;
 
 import com.google.inject.persist.Transactional;
 
@@ -134,5 +135,11 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 	public List<T> find(int maxResults, int firstResult)
 	{
 		return find(persistentClass, maxResults, firstResult);
+	}
+
+	@Override
+	public Pagination<T> findPagination(int pageIndex, int pageSize)
+	{
+		return this.findPagination(persistentClass, pageIndex, pageSize);
 	}
 }

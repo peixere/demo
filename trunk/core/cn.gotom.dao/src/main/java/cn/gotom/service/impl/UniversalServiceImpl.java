@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.dao.UniversalDao;
 import cn.gotom.service.UniversalService;
+import cn.gotom.vo.Pagination;
 
 import com.google.inject.Inject;
 
@@ -103,6 +104,12 @@ public class UniversalServiceImpl implements UniversalService
 	@Override
 	public <T> List<T> findByIds(Class<T> clazz, Serializable[] ids)
 	{
-		return dao.findByIds(clazz,ids);
+		return dao.findByIds(clazz, ids);
+	}
+
+	@Override
+	public <T> Pagination<T> findPagination(Class<T> clazz, int pageIndex, int pageSize)
+	{
+		return dao.findPagination(clazz, pageIndex, pageSize);
 	}
 }
