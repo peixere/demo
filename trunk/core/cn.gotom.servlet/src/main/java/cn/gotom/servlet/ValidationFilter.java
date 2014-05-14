@@ -17,7 +17,7 @@ import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.Service;
 import cn.gotom.service.UserService;
-import cn.gotom.sso.client.AuthenticationFilter;
+import cn.gotom.sso.client.LicenseFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 import cn.gotom.util.PasswordEncoder;
@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ValidationFilter extends AuthenticationFilter
+public class ValidationFilter extends LicenseFilter
 {
 
 	@Inject
