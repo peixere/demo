@@ -57,11 +57,7 @@ public class Pagination<T> extends JsonResponse
 		this.pageSize = pageSize;
 		this.list = list;
 		this.pageNum = pageNum;
-		size();
-		getPrev();
-		getNext();
-		this.start = (pageNum - 1) * pageSize;
-		this.start = pageNum * pageSize;
+		init();
 	}
 
 	/**
@@ -83,10 +79,15 @@ public class Pagination<T> extends JsonResponse
 		this.list = list;
 		this.pageNum = (limit < total) ? limit / pageSize : (total / limit);
 		this.pageNum = this.pageNum + 1;
+		init();
+	}
+
+	private void init()
+	{
 		size();
 		getPrev();
 		getNext();
-		this.start = (pageNum - 1) * pageSize;
+		this.start = (pageNum - 1) * pageSize + 1;
 		this.start = pageNum * pageSize;
 	}
 
