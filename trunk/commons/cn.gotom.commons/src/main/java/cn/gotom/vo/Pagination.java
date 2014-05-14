@@ -30,6 +30,8 @@ public class Pagination<T> extends JsonResponse
 	private boolean next;
 	@Description("是否有上一页")
 	private boolean prev;
+	private int start;
+	private int limit;
 
 	@Description("分页")
 	public Pagination()
@@ -39,10 +41,15 @@ public class Pagination<T> extends JsonResponse
 
 	/**
 	 * 分页实例化
-	 * @param total 总行数
-	 * @param list 当前页数据
-	 * @param pageSize 每页行数
-	 * @param pageNum 当前页码
+	 * 
+	 * @param total
+	 *            总行数
+	 * @param list
+	 *            当前页数据
+	 * @param pageSize
+	 *            每页行数
+	 * @param pageNum
+	 *            当前页码
 	 */
 	public Pagination(int total, List<T> list, int pageSize, int pageNum)
 	{
@@ -50,9 +57,40 @@ public class Pagination<T> extends JsonResponse
 		this.pageSize = pageSize;
 		this.list = list;
 		this.pageNum = pageNum;
+		size();
+		getPrev();
+		getNext();
+		this.start = (pageNum - 1) * pageSize;
+		this.start = pageNum * pageSize;
 	}
 
-	public int size()
+	/**
+	 * 分页实例化
+	 * 
+	 * @param list
+	 *            当前页数据
+	 * @param total
+	 *            总行数
+	 * @param start
+	 *            开始行 从0开始
+	 * @param limit
+	 *            结束行
+	 */
+	public Pagination(List<T> list, int total, int start, int limit)
+	{
+		this.total = total;
+		this.pageSize = (limit - start) + 1;
+		this.list = list;
+		this.pageNum = (limit < total) ? limit / pageSize : (total / limit);
+		this.pageNum = this.pageNum + 1;
+		size();
+		getPrev();
+		getNext();
+		this.start = (pageNum - 1) * pageSize;
+		this.start = pageNum * pageSize;
+	}
+
+	private int size()
 	{
 		int totalSize = total / pageSize;
 		return total % pageSize > 0 ? totalSize + 1 : totalSize;
@@ -76,6 +114,16 @@ public class Pagination<T> extends JsonResponse
 		return prev;
 	}
 
+	public int getStart()
+	{
+		return start;
+	}
+
+	public int getLimit()
+	{
+		return limit;
+	}
+
 	public int getPageNum()
 	{
 		return pageNum;
@@ -94,26 +142,6 @@ public class Pagination<T> extends JsonResponse
 	public List<T> getList()
 	{
 		return list;
-	}
-
-	public void setPageNum(int pageNum)
-	{
-		this.pageNum = pageNum;
-	}
-
-	public void setPageSize(int rowSize)
-	{
-		this.pageSize = rowSize;
-	}
-
-	public void setTotal(int total)
-	{
-		this.total = total;
-	}
-
-	public void setList(List<T> list)
-	{
-		this.list = list;
 	}
 
 }
