@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.gotom.dao.GenericDao;
 import cn.gotom.service.GenericService;
+import cn.gotom.vo.Pagination;
 
 public class GenericServiceImpl<T, PK extends Serializable> extends UniversalServiceImpl implements GenericService<T, PK>
 {
@@ -69,5 +70,11 @@ public class GenericServiceImpl<T, PK extends Serializable> extends UniversalSer
 	public T save(T value)
 	{
 		return dao.save(value);
+	}
+
+	@Override
+	public Pagination<T> findPagination(int pageIndex, int pageSize)
+	{
+		return dao.findPagination(pageIndex, pageSize);
 	}
 }

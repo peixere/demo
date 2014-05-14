@@ -16,6 +16,7 @@ import org.hibernate.transform.Transformers;
 import cn.gotom.dao.JdbcUtils;
 import cn.gotom.dao.UniversalDao;
 import cn.gotom.service.Parameter;
+import cn.gotom.vo.Pagination;
 
 import com.google.inject.persist.Transactional;
 
@@ -267,5 +268,25 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public <T> Pagination<T> findPagination(Class<T> clazz, int pageIndex, int pageSize)
+	{
+		if (pageIndex < 1)
+		{
+			pageIndex = 1;
+		}
+		long count = this.getCount(clazz);
+		int first = (pageIndex - 1) * pageSize;
+		List<T> list = this.find(clazz, pageSize > 1 ? pageSize : 20, first > 0 ? first : 0);
+		if (list.size() == 0)
+		{
+			return findPagination(clazz, pageIndex - 1, pageSize);
+		}
+		else
+		{
+			return new Pagination<T>((int) count, list, pageSize, pageIndex);
+		}
 	}
 }

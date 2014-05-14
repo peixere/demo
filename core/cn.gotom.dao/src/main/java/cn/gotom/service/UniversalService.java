@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import cn.gotom.service.impl.UniversalServiceImpl;
+import cn.gotom.vo.Pagination;
 
 import com.google.inject.ImplementedBy;
 
@@ -45,4 +46,5 @@ public interface UniversalService
 
 	int executeUpdate(String sql);
 
+	<T> Pagination<T> findPagination(Class<T> clazz,int pageIndex, int pageSize);
 }
