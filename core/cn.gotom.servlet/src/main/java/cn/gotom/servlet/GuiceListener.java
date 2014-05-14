@@ -13,6 +13,7 @@ import cn.gotom.service.ServiceModule;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
 import cn.gotom.sso.server.JDBCManager;
+import cn.gotom.sso.server.ServerAuthFilter;
 import cn.gotom.sso.server.ServerFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.websocket.WebSocketServer;
