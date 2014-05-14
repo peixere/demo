@@ -1,4 +1,4 @@
-package cn.gotom.sso.server;
+package cn.gotom.sso.client;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -9,11 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class ServerAuthFilter extends ServerFilter
+public class LicenseFilter extends AuthenticationFilter
 {
-	// request.getRequestDispatcher("/WEB-INF/view/error/500.jsp").forward(request, response);
 	@Override
-	public final void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
+	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain) throws IOException, ServletException
 	{
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2015, 1, 1, 1, 1, 1);
