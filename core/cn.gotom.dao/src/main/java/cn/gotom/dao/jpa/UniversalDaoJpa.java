@@ -280,11 +280,11 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		long count = this.getCount(clazz);
 		int first = (pageIndex - 1) * pageSize;
 		List<T> list = this.find(clazz, pageSize > 1 ? pageSize : 20, first > 0 ? first : 0);
-		if (list.size() == 0)
-		{
-			return findPagination(clazz, pageIndex - 1, pageSize);
-		}
-		else
+//		if (list.size() == 0 && pageIndex > 1)
+//		{
+//			return findPagination(clazz, pageIndex - 1, pageSize);
+//		}
+//		else
 		{
 			return new Pagination<T>((int) count, list, pageSize, pageIndex);
 		}
