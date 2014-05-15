@@ -10,6 +10,14 @@ Ext.define('Common', {
                     component.close();
                 }
             }
+            Common.onException(response);
+        },
+
+        onProxyException: function(proxy, response, operation, eOpts) {
+        	Common.onException(response);
+        },
+        
+        onException: function(response) {
             if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
@@ -24,19 +32,6 @@ Ext.define('Common', {
                 Ext.Msg.alert('操作异常 '+response.status, response.responseText);
             }
         },
-
-        onProxyException: function(proxy, response, operation, eOpts) {
-            if(response.status === 200)
-            {
-                var result = Ext.JSON.decode(response.responseText);
-                Ext.Msg.alert('操作异常 '+response.status, result.data);
-            }
-            else
-            {
-                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
-            }
-        },
-
         ajax: function(config) {
             if(config.component)
             {
