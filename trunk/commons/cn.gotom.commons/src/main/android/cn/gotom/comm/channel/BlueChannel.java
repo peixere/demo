@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.Build;
 import cn.gotom.annotation.Description;
 
 @Description("蓝牙通道实现")
@@ -23,7 +24,7 @@ public class BlueChannel extends ChannelImpl
 	 */
 	private static final long serialVersionUID = 1L;
 	protected static final Logger log = Logger.getLogger(BlueChannel.class);
-
+	public final static int sdk = Integer.parseInt(Build.VERSION.SDK);
 	public final static UUID SerialPort = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	public static final int REQUEST_CONNECT_DEVICE = 1;
 	public static final int REQUEST_ENABLE = 2;
@@ -59,7 +60,14 @@ public class BlueChannel extends ChannelImpl
 			if (connected())
 				return;
 			// setPin("1234");
-			this.socket = device.createRfcommSocketToServiceRecord(SerialPort);
+			if (sdk >= 10)
+			{
+				socket = device.createInsecureRfcommSocketToServiceRecord(SerialPort);
+			}
+			else
+			{
+				socket = device.createRfcommSocketToServiceRecord(SerialPort);
+			}
 			// log.debug("[" + blueAddress + "]正在连接蓝牙...");
 			this.onState(State.Connecting);
 			this.socket.connect();
