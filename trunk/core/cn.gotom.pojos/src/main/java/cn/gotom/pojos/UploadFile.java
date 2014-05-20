@@ -39,8 +39,11 @@ public class UploadFile extends SuperEntity implements Serializable
 	@Column(name = "file_stream", length = 10000000)
 	private byte[] fileStream;
 
-	@Column(name = "description", length = 255)
-	private String description;
+	@Column(name = "fk_id", nullable = false, columnDefinition = "char(36)", length = 36)
+	private String fkId;
+
+	@Column(name = "fk_table")
+	private String fkTable;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -86,14 +89,24 @@ public class UploadFile extends SuperEntity implements Serializable
 		this.fileStream = fileStream;
 	}
 
-	public String getDescription()
+	public String getFkId()
 	{
-		return description;
+		return fkId;
 	}
 
-	public void setDescription(String description)
+	public void setFkId(String fkId)
 	{
-		this.description = description;
+		this.fkId = fkId;
+	}
+
+	public String getFkTable()
+	{
+		return fkTable;
+	}
+
+	public void setFkTable(String fkTable)
+	{
+		this.fkTable = fkTable;
 	}
 
 	public User getUser()
@@ -105,6 +118,5 @@ public class UploadFile extends SuperEntity implements Serializable
 	{
 		this.user = user;
 	}
-
 
 }
