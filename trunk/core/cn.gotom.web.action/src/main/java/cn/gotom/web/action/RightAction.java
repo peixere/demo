@@ -12,7 +12,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import cn.gotom.pojos.Custom;
+import cn.gotom.pojos.CustomRight;
 import cn.gotom.pojos.Right;
+import cn.gotom.service.CustomService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.model.RightTree;
 import cn.gotom.util.StringUtils;
@@ -32,6 +35,8 @@ public class RightAction extends AbsPortalAction
 
 	@Inject
 	private RightService rightService;
+	@Inject
+	private CustomService customService;
 
 	public void execute() throws IOException
 	{
@@ -84,6 +89,9 @@ public class RightAction extends AbsPortalAction
 				String id = idarray[i].trim();
 				if (rightService.findByParentId(id).size() == 0)
 				{
+					CustomRight cr = customService.getCustomRight(id, this.getCurrentCustomId());
+					if (cr != null)
+						customService.remove(cr);
 					rightService.removeById(id);
 				}
 				else
@@ -109,6 +117,15 @@ public class RightAction extends AbsPortalAction
 				right.setRoles(old.getRoles());
 			}
 			rightService.save(right);
+			CustomRight cr = customService.getCustomRight(right.getId(), this.getCurrentCustomId());
+			if (cr == null)
+			{
+				cr = new CustomRight();
+				cr.setCustom(new Custom());
+				cr.getCustom().setId(this.getCurrentCustomId());
+				cr.setRight(right);
+				customService.persist(cr);
+			}
 		}
 		catch (Exception e)
 		{
