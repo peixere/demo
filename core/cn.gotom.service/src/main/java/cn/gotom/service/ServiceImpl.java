@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.CustomUser;
+import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
 import cn.gotom.util.PasswordEncoder;
@@ -29,6 +30,8 @@ public class ServiceImpl implements Service
 	@Inject
 	protected UserService userService;
 	@Inject
+	protected RightService rightService;	
+	@Inject
 	private RoleService roleService;
 	@Inject
 	PasswordEncoder passwordEncoder;
@@ -43,6 +46,7 @@ public class ServiceImpl implements Service
 		defaultCustom();
 		initUser();
 		defalutData();
+		defaultCustomRight();
 	}
 
 	private void initUser()
@@ -115,7 +119,7 @@ public class ServiceImpl implements Service
 						// JsonConfig jsonConfig = new JsonConfig();
 						// jsonConfig.setRootClass(clazz);
 						// List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
-						//universalService.saveAll(olist);
+						// universalService.saveAll(olist);
 					}
 				}
 				catch (Exception ex)
@@ -130,6 +134,24 @@ public class ServiceImpl implements Service
 		catch (Exception ex)
 		{
 			log.error("初始化数据异常", ex);
+		}
+	}
+
+	private void defaultCustomRight()
+	{
+		try
+		{
+			List<Right> rightList = customService.findRights(Custom.Default);
+			if (rightList.size() == 0)
+			{
+				rightList = rightService.findAll();
+				Custom custom = customService.get(Custom.Default);
+				customService.saveAndRight(custom, rightList);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("", ex);
 		}
 	}
 

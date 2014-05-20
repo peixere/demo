@@ -125,7 +125,8 @@ public class CustomAction extends AbsPortalAction
 		JsonResponse jr = new JsonResponse();
 		try
 		{
-			String[] ids = custom.getId().split(",");
+			String idstr = custom.getId().replaceAll(Custom.Default, "");
+			String[] ids = idstr.split(",");
 			customService.removeByIds(ids);
 			jr.setSuccess(true);
 		}
