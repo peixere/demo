@@ -262,8 +262,16 @@ Ext.define('Gotom.view.Portal', {
         header.setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
+        if(!Ext.isEmpty(data.topbgUrl))
+        {
+            image = ctxp+data.topbgUrl;
+        }
         header.setBodyStyle('background-image','url('+image+')');
         var imlogo = ctxp+'/resources/icons/logo.png';
+        if(!Ext.isEmpty(data.logoUrl))
+        {
+            imlogo = ctxp+data.logoUrl;
+        }
         document.title = data.title;
         var style = 'color: red;';
         if(!Ext.isEmpty(data.fontStyle))

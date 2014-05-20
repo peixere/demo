@@ -92,8 +92,9 @@
                             "userConfig": {
                                 "fn": "onViewItemClick",
                                 "implHandler": [
-                                    "this.loadTree(record.data.id);\r",
-                                    "this.formPanel.getForm().setValues(record.data);"
+                                    "this.loadForm(record.data.id);\r",
+                                    "//this.loadTree(record.data.id);\r",
+                                    "//this.formPanel.getForm().setValues(record.data);"
                                 ],
                                 "name": "itemclick",
                                 "scope": "me"
@@ -140,6 +141,7 @@
             "userConfig": {
                 "layout|region": "center",
                 "border": false,
+                "autoScroll": true,
                 "layout": "border",
                 "title": null
             },
@@ -154,7 +156,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "north",
-                        "height": 152,
+                        "height": 237,
                         "bodyPadding": 10,
                         "title": "编辑信息"
                     },
@@ -177,6 +179,70 @@
                             "designerId": "7082f57d-0296-493e-9cfa-806a046d011c"
                         },
                         {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": null,
+                                "fieldLabel": "首页标题",
+                                "labelWidth": 60,
+                                "name": "titlename"
+                            },
+                            "designerId": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": null,
+                                "fieldLabel": "标题样式",
+                                "labelWidth": 60,
+                                "name": "fontStyle"
+                            },
+                            "designerId": "94eab0fe-4152-4cbf-a987-e9e61fbdc978"
+                        },
+                        {
+                            "type": "Ext.form.field.File",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "width": 208,
+                                "fieldLabel": "标题背景",
+                                "labelWidth": 60,
+                                "name": "topbg"
+                            },
+                            "designerId": "05d363b3-b173-4c78-8006-021d162454ca"
+                        },
+                        {
+                            "type": "Ext.form.field.File",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "width": 208,
+                                "fieldLabel": "公司图标",
+                                "labelWidth": 60,
+                                "name": "logo"
+                            },
+                            "designerId": "f6d865b5-72e7-48b1-bf1a-38659f8605b2"
+                        },
+                        {
                             "type": "Ext.form.field.TextArea",
                             "reference": {
                                 "name": "items",
@@ -185,6 +251,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|anchor": "100%",
+                                "height": 58,
                                 "designer|displayName": null,
                                 "fieldLabel": "公司简介",
                                 "labelWidth": 60,
@@ -456,13 +523,13 @@
                                     "    });    \r",
                                     "    form.getForm().findField('rightIds').setValue(rightIds);\r",
                                     "    Common.formSubmit({  \r",
-                                    "        url : ctxp+'/p/custom!save.do',\r",
+                                    "        url : ctxp+'/p/customSave.do',\r",
                                     "        form:form,\r",
                                     "        callback : function(result)\r",
                                     "        {\r",
                                     "            if(result.success)\r",
                                     "            {\r",
-                                    "        \t\tme.loadGrid();\r",
+                                    "                me.loadGrid();\r",
                                     "                me.onAddClick(button,e,eOpts);\r",
                                     "            }else{\r",
                                     "                Ext.Msg.alert('信息提示', result.data);\r",
