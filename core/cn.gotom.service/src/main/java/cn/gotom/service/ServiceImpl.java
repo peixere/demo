@@ -30,7 +30,7 @@ public class ServiceImpl implements Service
 	@Inject
 	protected UserService userService;
 	@Inject
-	protected RightService rightService;	
+	protected RightService rightService;
 	@Inject
 	private RoleService roleService;
 	@Inject
@@ -88,7 +88,6 @@ public class ServiceImpl implements Service
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void defalutData()
 	{
 		try
@@ -101,25 +100,24 @@ public class ServiceImpl implements Service
 				try
 				{
 					Class<?> clazz = Class.forName(key);
-					List<?> olist = universalService.findAll(clazz);
-					if (olist.size() == 0)
+					if (clazz.equals(Right.class))
 					{
-						Gson gson = new Gson();
 						String json = bundle.getString(key);
-						List<Map<String, ?>> list = (List<Map<String, ?>>) gson.fromJson(json, new TypeToken<List<?>>()
+						defalutDataSave(clazz, json);
+					}
+					else
+					{
+						List<?> olist = universalService.findAll(clazz);
+						if (olist.size() == 0)
 						{
-						}.getType());
-						for (Map<String, ?> m : list)
-						{
-							Object o = clazz.newInstance();
-							BeanUtils.populate(o, m);
-							universalService.persist(o);
+							String json = bundle.getString(key);
+							defalutDataSave(clazz, json);
+							// JSON json = JSONSerializer.toJSON(rightString);
+							// JsonConfig jsonConfig = new JsonConfig();
+							// jsonConfig.setRootClass(clazz);
+							// List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
+							// universalService.saveAll(olist);
 						}
-						// JSON json = JSONSerializer.toJSON(rightString);
-						// JsonConfig jsonConfig = new JsonConfig();
-						// jsonConfig.setRootClass(clazz);
-						// List<?> list = (List<?>) JSONSerializer.toJava(json, jsonConfig);
-						// universalService.saveAll(olist);
 					}
 				}
 				catch (Exception ex)
@@ -134,6 +132,31 @@ public class ServiceImpl implements Service
 		catch (Exception ex)
 		{
 			log.error("初始化数据异常", ex);
+		}
+	}
+
+	private void defalutDataSave(Class<?> clazz, String json)
+	{
+		try
+		{
+			Gson gson = new Gson();
+			@SuppressWarnings("unchecked")
+			List<Map<String, ?>> list = (List<Map<String, ?>>) gson.fromJson(json, new TypeToken<List<?>>()
+			{
+			}.getType());
+			if (list != null)
+			{
+				for (Map<String, ?> m : list)
+				{
+					Object o = clazz.newInstance();
+					BeanUtils.populate(o, m);
+					universalService.persist(o);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("初始化数据异常 " + clazz.getName(), ex);
 		}
 	}
 
