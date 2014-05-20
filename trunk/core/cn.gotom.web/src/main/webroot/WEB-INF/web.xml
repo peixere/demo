@@ -1,68 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0" metadata-complete="true">
-	<display-name>core</display-name>
-	<description>core</description>
-
-	<context-param>
-		<param-name>encoding</param-name>
-		<param-value>utf-8</param-value>
-	</context-param>
-	<context-param>
-		<param-name>forceEncoding</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-	    <description>无须登陆可访问资源</description>
-		<param-name>authenticationNone</param-name>
-		<param-value>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" metadata-complete="true" version="3.0">
+  <display-name>core</display-name>
+  <description>core</description>
+  <context-param>
+    <param-name>encoding</param-name>
+    <param-value>utf-8</param-value>
+  </context-param>
+  <context-param>
+    <param-name>forceEncoding</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>无须登陆可访问资源</description>
+    <param-name>authenticationNone</param-name>
+    <param-value>
 		    /ext4/**,
 		    /resources/**,
-		    /**/**.js
+		    /**/**.js,
+		    /websocket.js
 		</param-value>
-	</context-param>
-	<context-param>
-	    <description>ext 插件工程目录 {工程名/classes}</description>
-		<param-name>pluginsPath</param-name>
-		<param-value>/plugins</param-value>
-	</context-param>	
-	<context-param>
-		<param-name>serverLoginUrl</param-name>
-		<param-value>${this}/login.do</param-value>
-	</context-param>	
-	<listener>
-		<listener-class>cn.gotom.sso.server.TicketHttpSessionListener</listener-class>
-	</listener>		
-	<listener>
-		<listener-class>cn.gotom.servlet.GuiceListener</listener-class>
-	</listener>	
-	<filter>
-		<filter-name>GuiceFilter</filter-name>
-		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GuiceFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<session-config>  
-         <session-timeout>30</session-timeout>  
-   	</session-config>
-	<!-- Default page to serve -->
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
-	
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/view/error/404.jsp</location>
-	</error-page>
-	
-	<!-- 
-	<error-page>
-		<error-code>500</error-code>
-		<location>/final/500.jsp</location>
-	</error-page>	
- 	-->	
+  </context-param>
+  <context-param>
+    <description>ext 插件工程目录 {工程名/classes}</description>
+    <param-name>pluginsPath</param-name>
+    <param-value>/plugins</param-value>
+  </context-param>
+  <context-param>
+    <param-name>serverLoginUrl</param-name>
+    <param-value>${this}/login.do</param-value>
+  </context-param>
+  <listener>
+    <listener-class>cn.gotom.sso.server.TicketHttpSessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>cn.gotom.servlet.GuiceListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>GuiceFilter</filter-name>
+    <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>GuiceFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/view/error/404.jsp</location>
+  </error-page>
 </web-app>
