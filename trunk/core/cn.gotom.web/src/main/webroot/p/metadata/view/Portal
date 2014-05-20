@@ -358,7 +358,7 @@
                     "    url : ctxp+'/p/main!main.do',\r",
                     "    callback : me.callbackHeader\r",
                     "});\r",
-                    "//Ext.defer(function(){me.setHeader();}, 1000);"
+                    "Ext.defer(function(){me.setHeader();}, 3000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
@@ -381,16 +381,22 @@
                     "Ext.getCmp('app-viewport').setLoading(false);\r",
                     "var image = ctxp+'/resources/icons/fam/topbg.jpg';\r",
                     "header.setBodyStyle('background-image','url('+image+')');\r",
+                    "var imlogo = ctxp+'/resources/icons/logo.png';\r",
                     "document.title = data.title;\r",
+                    "var style = 'color: red;';\r",
+                    "if(!Ext.isEmpty(data.fontStyle))\r",
+                    "{\r",
+                    "\tstyle = data.fontStyle;\r",
+                    "}\r",
                     "var htmlStr = '';\r",
-                    "htmlStr += '<div class=\"logoPanel\">　' + data.title + '</div>';\r",
+                    "htmlStr += '<div class=\"logoPanel\"><img src=\"'+imlogo+'\" border=\"0\"/></div>';\r",
+                    "htmlStr += '<div class=\"titlePanel\"><font style=\"'+style+'\">' + data.title + '</font></div>';\r",
                     "htmlStr += '<div class=\"userPanel\">';\r",
-                    "htmlStr += '欢迎您：<a href=\"#\">' + data.userFullname + '</a>　';\r",
-                    "htmlStr += '<a href=\"javascript:Ext.getCmp(\\'app-viewport\\').settingPassword();\">修改密码</a>　';\r",
-                    "htmlStr += '<a href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
+                    "htmlStr += '欢迎您：<a href=\"#\" style=\"'+style+'\">' + data.userFullname + '</a>　';\r",
+                    "htmlStr += '<a style=\"'+style+'\" href=\"javascript:Ext.getCmp(\\'app-viewport\\').settingPassword();\">修改密码</a>　';\r",
+                    "htmlStr += '<a style=\"'+style+'\" href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
                     "htmlStr += '</div>';\r",
-                    "header.update(htmlStr);\r",
-                    ""
+                    "header.update(htmlStr);"
                 ]
             },
             "designerId": "484b5059-8015-4655-aeec-1c8c0f005f8d"

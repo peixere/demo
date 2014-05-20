@@ -254,7 +254,7 @@ Ext.define('Gotom.view.Portal', {
             url : ctxp+'/p/main!main.do',
             callback : me.callbackHeader
         });
-        //Ext.defer(function(){me.setHeader();}, 1000);
+        Ext.defer(function(){me.setHeader();}, 3000);
     },
 
     callbackHeader: function(data) {
@@ -263,16 +263,22 @@ Ext.define('Gotom.view.Portal', {
         Ext.getCmp('app-viewport').setLoading(false);
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
         header.setBodyStyle('background-image','url('+image+')');
+        var imlogo = ctxp+'/resources/icons/logo.png';
         document.title = data.title;
+        var style = 'color: red;';
+        if(!Ext.isEmpty(data.fontStyle))
+        {
+            style = data.fontStyle;
+        }
         var htmlStr = '';
-        htmlStr += '<div class="logoPanel">　' + data.title + '</div>';
+        htmlStr += '<div class="logoPanel"><img src="'+imlogo+'" border="0"/></div>';
+        htmlStr += '<div class="titlePanel"><font style="'+style+'">' + data.title + '</font></div>';
         htmlStr += '<div class="userPanel">';
-        htmlStr += '欢迎您：<a href="#">' + data.userFullname + '</a>　';
-        htmlStr += '<a href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
-        htmlStr += '<a href="' + data.logoutUrl + '">注销登录</a>';
+        htmlStr += '欢迎您：<a href="#" style="'+style+'">' + data.userFullname + '</a>　';
+        htmlStr += '<a style="'+style+'" href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
+        htmlStr += '<a style="'+style+'" href="' + data.logoutUrl + '">注销登录</a>';
         htmlStr += '</div>';
         header.update(htmlStr);
-
     },
 
     setOptions: function() {
