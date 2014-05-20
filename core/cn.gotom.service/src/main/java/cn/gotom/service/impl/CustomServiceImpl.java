@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.persistence.Table;
 
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Custom;
@@ -95,22 +94,17 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		q.setParameter("customId", customIds);
 		q.executeUpdate();
 	}
-	private void removeCustomRightByRightId(List<String> rightIds)
-	{
-		String table = CustomRight.class.getAnnotation(Table.class).name();
-		StringBuffer jpql = new StringBuffer();
-		jpql.append("delete from " + table);
-		jpql.append(" where right_id in (:rightId)");
-		Query q = getEntityManager().createNativeQuery(jpql.toString());
-		q.setParameter("rightId", rightIds);
-		q.executeUpdate();
-	}
+	@Transactional
 	@Override
 	public void removeCustomRight(String rightId)
 	{
-		List<String> rights = new ArrayList<String>();
-		rights.add(rightId);
-		removeCustomRightByRightId(rights);
+		String table = CustomRight.class.getSimpleName();
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("delete from " + table);
+		jpql.append(" where right_id = :rightId");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("rightId", rightId);
+		q.executeUpdate();
 	}
 
 	@Override
