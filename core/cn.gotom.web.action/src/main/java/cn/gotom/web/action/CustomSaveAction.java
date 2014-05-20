@@ -111,6 +111,7 @@ public class CustomSaveAction extends AbsPortalAction
 				uploadFile.setFileCharset(FileCharset.getCharset(logo));
 				uploadFileService.save(uploadFile);
 				custom.setLogoUrl(uploadFile.getId());
+				logo.deleteOnExit();
 			}
 		}
 		catch (Exception ex)
@@ -129,7 +130,8 @@ public class CustomSaveAction extends AbsPortalAction
 				uploadFile.setContentType(this.topbgContentType);
 				uploadFile.setFileCharset(FileCharset.getCharset(topbg));
 				uploadFileService.save(uploadFile);
-				custom.setTopbgUrl(uploadFile.getId());				
+				custom.setTopbgUrl(uploadFile.getId());		
+				topbg.deleteOnExit();
 			}
 		}
 		catch (Exception ex)
