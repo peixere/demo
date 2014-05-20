@@ -358,7 +358,7 @@
                     "    url : ctxp+'/p/main!main.do',\r",
                     "    callback : me.callbackHeader\r",
                     "});\r",
-                    "Ext.defer(function(){me.setHeader();}, 3000);"
+                    "Ext.defer(function(){me.setHeader();}, 60000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
