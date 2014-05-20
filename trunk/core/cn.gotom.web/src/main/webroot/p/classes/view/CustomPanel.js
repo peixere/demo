@@ -81,14 +81,18 @@ Ext.define('Gotom.view.CustomPanel', {
                                     anchor: '100%',
                                     fieldLabel: '公司名称',
                                     labelWidth: 60,
-                                    name: 'name'
+                                    name: 'name',
+                                    allowBlank: false,
+                                    blankText: '必填项'
                                 },
                                 {
                                     xtype: 'textfield',
                                     anchor: '100%',
                                     fieldLabel: '首页标题',
                                     labelWidth: 60,
-                                    name: 'titlename'
+                                    name: 'titlename',
+                                    allowBlank: false,
+                                    blankText: '必填项'
                                 },
                                 {
                                     xtype: 'textfield',
@@ -185,6 +189,7 @@ Ext.define('Gotom.view.CustomPanel', {
                     items: [
                         {
                             xtype: 'button',
+                            iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
                                 click: {
@@ -381,6 +386,7 @@ Ext.define('Gotom.view.CustomPanel', {
 
     loadForm: function(customId) {
         var me = this;
+        me.formPanel.getForm().reset();
         Common.ajax({
             component : me,
             message : '正在加载......',    

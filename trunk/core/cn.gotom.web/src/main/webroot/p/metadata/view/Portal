@@ -397,7 +397,7 @@
                     "    style = data.fontStyle;\r",
                     "}\r",
                     "var htmlStr = '';\r",
-                    "htmlStr += '<div class=\"logoPanel\"><img src=\"'+imlogo+'\" border=\"0\"/></div>';\r",
+                    "htmlStr += '<div class=\"logoPanel\"><img onclick=\"Ext.defer(function(){Ext.getCmp(\\'app-viewport\\').setHeader();}, 100);\" src=\"'+imlogo+'\" border=\"0\"/></div>';\r",
                     "htmlStr += '<div class=\"titlePanel\"><font style=\"'+style+'\">' + data.title + '</font></div>';\r",
                     "htmlStr += '<div class=\"userPanel\">';\r",
                     "htmlStr += '<font style=\"'+style+'\">欢迎您：</font><a href=\"#\" style=\"'+style+'\">' + data.userFullname + '</a>　';\r",

@@ -175,7 +175,9 @@
                                 "designer|displayName": null,
                                 "fieldLabel": "公司名称",
                                 "labelWidth": 60,
-                                "name": "name"
+                                "name": "name",
+                                "allowBlank": false,
+                                "blankText": "必填项"
                             },
                             "designerId": "7082f57d-0296-493e-9cfa-806a046d011c"
                         },
@@ -191,7 +193,9 @@
                                 "designer|displayName": null,
                                 "fieldLabel": "首页标题",
                                 "labelWidth": 60,
-                                "name": "titlename"
+                                "name": "titlename",
+                                "allowBlank": false,
+                                "blankText": "必填项"
                             },
                             "designerId": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
                         },
@@ -413,7 +417,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "iconCls": null,
+                        "iconCls": "icon-add",
                         "text": "新增"
                     },
                     "designerId": "36f2d551-cd28-44c0-b90c-69c771dec9e7",
@@ -659,6 +663,7 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
+                    "me.formPanel.getForm().reset();\r",
                     "Common.ajax({\r",
                     "    component : me,\r",
                     "    message : '正在加载......',    \r",

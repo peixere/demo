@@ -279,7 +279,7 @@ Ext.define('Gotom.view.Portal', {
             style = data.fontStyle;
         }
         var htmlStr = '';
-        htmlStr += '<div class="logoPanel"><img src="'+imlogo+'" border="0"/></div>';
+        htmlStr += '<div class="logoPanel"><img onclick="Ext.defer(function(){Ext.getCmp(\'app-viewport\').setHeader();}, 100);" src="'+imlogo+'" border="0"/></div>';
         htmlStr += '<div class="titlePanel"><font style="'+style+'">' + data.title + '</font></div>';
         htmlStr += '<div class="userPanel">';
         htmlStr += '<font style="'+style+'">欢迎您：</font><a href="#" style="'+style+'">' + data.userFullname + '</a>　';
