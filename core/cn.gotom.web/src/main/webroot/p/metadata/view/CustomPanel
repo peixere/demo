@@ -319,7 +319,7 @@
                                 "layout|anchor": "100%",
                                 "designer|displayName": "",
                                 "fieldLabel": "Label",
-                                "name": "topUrl"
+                                "name": "topbgUrl"
                             },
                             "designerId": "f42157c2-2b74-41fb-b66b-7689c9107611"
                         },

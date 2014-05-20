@@ -29,5 +29,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.sso"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/hibernate-core-4.0.0.CR7.jar" sourcepath="F:/m2/repository/org/hibernate/hibernate-core/4.0.0.CR7/hibernate-core-4.0.0.CR7-sources.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/chardet-1.0.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/cpdetector_1.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

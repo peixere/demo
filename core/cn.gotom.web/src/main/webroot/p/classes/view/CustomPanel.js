@@ -137,7 +137,7 @@ Ext.define('Gotom.view.CustomPanel', {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
                                     fieldLabel: 'Label',
-                                    name: 'topUrl'
+                                    name: 'topbgUrl'
                                 },
                                 {
                                     xtype: 'hiddenfield',
