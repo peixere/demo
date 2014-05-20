@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
     <!-- 
 	<constant name="struts.devMode" value="false" />
@@ -10,6 +10,8 @@
 		value="rest-default" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	 -->
+<!-- 指定允许上传的文件最大字节数,默认值是2097152(2M),使用struts常量扩大默认上传文件大小 -->
+	<constant name="struts.multipart.maxSize" value="102457600"></constant>	 
 	<constant name="struts.action.extension" value="do" />
 	<!-- 结果资源的路径 -->
 	<constant name="struts.convention.result.path" value="/" />
