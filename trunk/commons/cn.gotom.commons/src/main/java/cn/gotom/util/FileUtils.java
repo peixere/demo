@@ -27,6 +27,18 @@ public class FileUtils
 		try
 		{
 			File fromFile = new File(from);
+			save(fromFile, to);
+		}
+		catch (Exception ex)
+		{
+			log.error("copy " + from + " to " + to, ex);
+		}
+	}
+
+	public static void save(File fromFile, String to)
+	{
+		try
+		{
 			if (fromFile.exists() && fromFile.isFile())
 			{
 				File toFile = new File(to);
@@ -43,7 +55,7 @@ public class FileUtils
 						toFile.deleteOnExit();
 					}
 				}
-				log.info("copy " + from + " to " + to);
+				log.info("copy " + fromFile.getPath() + " to " + to);
 				InputStream in = new BufferedInputStream(new FileInputStream(fromFile));
 				OutputStream out = new BufferedOutputStream(new FileOutputStream(to));
 				for (int b = in.read(); b != -1; b = in.read())
@@ -55,12 +67,12 @@ public class FileUtils
 			}
 			else
 			{
-				log.warn(" not exists file : " + from);
+				log.warn(" not exists file : " + fromFile.getPath());
 			}
 		}
 		catch (Exception ex)
 		{
-			log.error("copy " + from + " to " + to, ex);
+			log.error("copy file to " + to, ex);
 		}
 	}
 
