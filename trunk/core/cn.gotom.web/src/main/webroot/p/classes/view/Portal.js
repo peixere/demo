@@ -254,7 +254,7 @@ Ext.define('Gotom.view.Portal', {
             url : ctxp+'/p/main!main.do',
             callback : me.callbackHeader
         });
-        Ext.defer(function(){me.setHeader();}, 3000);
+        Ext.defer(function(){me.setHeader();}, 60000);
     },
 
     callbackHeader: function(data) {
