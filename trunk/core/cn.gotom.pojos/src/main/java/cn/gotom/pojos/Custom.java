@@ -25,9 +25,16 @@ public class Custom extends SuperEntity implements Serializable
 
 	@Column(nullable = true, length = 250)
 	private String name;
-
+	@Column(length = 250)
+	private String titlename;
 	@Column(length = 250)
 	private String description;
+	@Column(length = 250)
+	private String fontStyle;
+	@Column(length = 250)
+	private String logoUrl;
+	@Column(length = 250)
+	private String topbgUrl;
 
 	public String getName()
 	{
@@ -39,6 +46,36 @@ public class Custom extends SuperEntity implements Serializable
 		this.name = name;
 	}
 
+	public String getFontStyle()
+	{
+		return fontStyle;
+	}
+
+	public void setFontStyle(String fontStyle)
+	{
+		this.fontStyle = fontStyle;
+	}
+
+	public String getLogoUrl()
+	{
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl)
+	{
+		this.logoUrl = logoUrl;
+	}
+
+	public String getTopbgUrl()
+	{
+		return topbgUrl;
+	}
+
+	public void setTopbgUrl(String topbgUrl)
+	{
+		this.topbgUrl = topbgUrl;
+	}
+
 	public String getDescription()
 	{
 		return description;
@@ -47,6 +84,16 @@ public class Custom extends SuperEntity implements Serializable
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	public String getTitlename()
+	{
+		return titlename;
+	}
+
+	public void setTitlename(String titlename)
+	{
+		this.titlename = titlename;
 	}
 
 }
