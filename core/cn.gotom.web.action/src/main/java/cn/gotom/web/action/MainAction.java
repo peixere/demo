@@ -58,7 +58,7 @@ public class MainAction extends AbsPortalAction
 			mainInfo.setUserFullname(user.getName());
 		}
 		Custom custom = customService.get(getCurrentCustomId());
-		mainInfo.setTitle(custom.getTitle());
+		mainInfo.setTitle(custom.getTitlename());
 		if (StringUtils.isNullOrEmpty(mainInfo.getTitle()))
 		{
 			mainInfo.setTitle(custom.getName());

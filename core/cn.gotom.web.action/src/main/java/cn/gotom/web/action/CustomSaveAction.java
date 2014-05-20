@@ -17,6 +17,7 @@ import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.Right;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.RightService;
+import cn.gotom.util.FileUtils;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.JsonResponse;
 
@@ -55,6 +56,7 @@ public class CustomSaveAction extends AbsPortalAction
 			custom = new Custom();
 			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(custom, params);
+			upload(custom);
 			List<Right> roleRights = new ArrayList<Right>();
 			if (StringUtils.isNotEmpty(rightIds))
 			{
@@ -82,6 +84,37 @@ public class CustomSaveAction extends AbsPortalAction
 			log.error(ex.getMessage(), ex);
 		}
 		toJSON(jr);
+	}
+
+	private void upload(Custom custom)
+	{
+		@SuppressWarnings("deprecation")
+		String realPath = this.getRequest().getRealPath("");
+		String upload = "/uploads/";
+		try
+		{
+			if (logo != null && logo.length() > 0)
+			{
+				FileUtils.save(logo, realPath + upload + logoFileName);
+				custom.setLogoUrl(upload + logoFileName);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getMessage(), ex);
+		}
+		try
+		{
+			if (topbg != null && topbg.length() > 0)
+			{
+				FileUtils.save(topbg, realPath + upload + topbgFileName);
+				custom.setTopbgUrl(upload + topbgFileName);
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getMessage(), ex);
+		}
 	}
 
 	public Custom getCustom()
