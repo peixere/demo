@@ -400,7 +400,7 @@
                     "htmlStr += '<div class=\"logoPanel\"><img src=\"'+imlogo+'\" border=\"0\"/></div>';\r",
                     "htmlStr += '<div class=\"titlePanel\"><font style=\"'+style+'\">' + data.title + '</font></div>';\r",
                     "htmlStr += '<div class=\"userPanel\">';\r",
-                    "htmlStr += '欢迎您：<a href=\"#\" style=\"'+style+'\">' + data.userFullname + '</a>　';\r",
+                    "htmlStr += '<font style=\"'+style+'\">欢迎您：</font><a href=\"#\" style=\"'+style+'\">' + data.userFullname + '</a>　';\r",
                     "htmlStr += '<a style=\"'+style+'\" href=\"javascript:Ext.getCmp(\\'app-viewport\\').settingPassword();\">修改密码</a>　';\r",
                     "htmlStr += '<a style=\"'+style+'\" href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
                     "htmlStr += '</div>';\r",
