@@ -12,7 +12,6 @@
         ],
         "views": [
             "Common",
-            "RoleView",
             "UserView",
             "OrganizationCRUB",
             "Portal",

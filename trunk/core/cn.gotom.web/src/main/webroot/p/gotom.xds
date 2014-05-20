@@ -55,14 +55,6 @@
             ],
             "className": "RolePanel"
         },
-        "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9": {
-            "paths": [
-                "metadata/view/RoleView",
-                "classes/view/override/RoleView.js",
-                "classes/view/RoleView.js"
-            ],
-            "className": "RoleView"
-        },
         "25240bf5-9608-4384-b28c-a04aef16f309": {
             "paths": [
                 "metadata/resource/Library"
@@ -162,7 +154,6 @@
     "viewOrderMap": {
         "view": [
             "184faed7-af51-4017-bfa9-4850c8a4ddb7",
-            "cf5bccb9-bd7f-420a-aef4-8b087e59ccf9",
             "0d1f1a7d-8fd1-4479-b5f0-c0defd4e3d0d",
             "ee84831a-2c22-4592-bbd2-38ec9f977f09",
             "76ef0cd3-fd7a-4149-8d01-9fb97e23ba89",
