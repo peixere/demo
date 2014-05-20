@@ -25,7 +25,6 @@ Ext.application({
     ],
     views: [
         'Common',
-        'RoleView',
         'UserView',
         'OrganizationCRUB',
         'Portal',
