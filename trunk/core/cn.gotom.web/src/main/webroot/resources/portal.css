@@ -296,10 +296,13 @@
 
 .logoPanel{
 	float:left;
+	padding-left:10px;
+	padding-right:10px;
 }
 .titlePanel{
 	float:left;
-	padding:10px;
+	padding-left:10px;
+	padding-top:20px;
 	font-size:28px;
 }
 .userPanel{

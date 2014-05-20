@@ -15,8 +15,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.Right;
+import cn.gotom.pojos.UploadFile;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.RightService;
+import cn.gotom.service.UploadFileService;
 import cn.gotom.util.FileUtils;
 import cn.gotom.util.StringUtils;
 import cn.gotom.vo.JsonResponse;
@@ -33,8 +35,10 @@ public class CustomSaveAction extends AbsPortalAction
 	private Custom custom;
 	private File topbg;
 	private String topbgFileName;
+	private String topbgContentType;
 	private File logo;
 	private String logoFileName;
+	private String logoContentType;
 	private String rightIds;
 
 	@Inject
@@ -42,6 +46,9 @@ public class CustomSaveAction extends AbsPortalAction
 
 	@Inject
 	private RightService rightService;
+
+	@Inject
+	private UploadFileService uploadFileService;
 
 	public void execute()
 	{
@@ -88,15 +95,22 @@ public class CustomSaveAction extends AbsPortalAction
 
 	private void upload(Custom custom)
 	{
-		@SuppressWarnings("deprecation")
-		String realPath = this.getRequest().getRealPath("");
-		String upload = "/uploads/";
+		// @SuppressWarnings("deprecation")
+		// String realPath = this.getRequest().getRealPath("");
+		// String upload = "/uploads/";
 		try
 		{
 			if (logo != null && logo.length() > 0)
 			{
-				FileUtils.save(logo, realPath + upload + logoFileName);
-				custom.setLogoUrl(upload + logoFileName);
+				UploadFile uploadFile = new UploadFile();
+				uploadFile.setFileStream(FileUtils.read(logo));
+				uploadFile.setFkId(custom.getId());
+				uploadFile.setFkTable(custom.getClass().getName());
+				uploadFile.setFileName(logoFileName);
+				uploadFile.setContentType(logoContentType);
+				uploadFile.setFileCharset(FileCharset.getCharset(logo));
+				uploadFileService.save(uploadFile);
+				custom.setLogoUrl(uploadFile.getId());
 			}
 		}
 		catch (Exception ex)
@@ -107,8 +121,15 @@ public class CustomSaveAction extends AbsPortalAction
 		{
 			if (topbg != null && topbg.length() > 0)
 			{
-				FileUtils.save(topbg, realPath + upload + topbgFileName);
-				custom.setTopbgUrl(upload + topbgFileName);
+				UploadFile uploadFile = new UploadFile();
+				uploadFile.setFileStream(FileUtils.read(topbg));
+				uploadFile.setFkId(custom.getId());
+				uploadFile.setFkTable(custom.getClass().getName());
+				uploadFile.setFileName(topbgFileName);
+				uploadFile.setContentType(this.topbgContentType);
+				uploadFile.setFileCharset(FileCharset.getCharset(topbg));
+				uploadFileService.save(uploadFile);
+				custom.setTopbgUrl(uploadFile.getId());				
 			}
 		}
 		catch (Exception ex)
@@ -175,6 +196,26 @@ public class CustomSaveAction extends AbsPortalAction
 	public void setRightIds(String rightIds)
 	{
 		this.rightIds = rightIds;
+	}
+
+	public String getTopbgContentType()
+	{
+		return topbgContentType;
+	}
+
+	public void setTopbgContentType(String topbgContentType)
+	{
+		this.topbgContentType = topbgContentType;
+	}
+
+	public String getLogoContentType()
+	{
+		return logoContentType;
+	}
+
+	public void setLogoContentType(String logoContentType)
+	{
+		this.logoContentType = logoContentType;
 	}
 
 }

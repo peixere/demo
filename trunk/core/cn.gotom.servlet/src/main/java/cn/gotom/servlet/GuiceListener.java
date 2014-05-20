@@ -67,37 +67,19 @@ public class GuiceListener extends GuiceServletContextListener
 
 	protected List<Module> createModules()
 	{
-		ServletModule servletModule = new ServletModule()
-		{
-			@Override
-			protected void configureServlets()
-			{
-				bind(WebSocketServer.class).in(Singleton.class);
-				serve("/websocket.ws").with(WebSocketServer.class);
-
-				bind(CharacterFilter.class).in(Singleton.class);
-				filter("/*").through(CharacterFilter.class);
-
-				bind(GZIPFilter.class).in(Singleton.class);
-				filter("*.js").through(GZIPFilter.class);
-
-				// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
-				filter("/*").through(GuicePersistFilter.class);
-
-				// bind(AuthenticationServiceFilter.class).in(Singleton.class);
-				// filter("/authService").through(AuthenticationServiceFilter.class);
-
-				bind(ServerFilter.class).in(Singleton.class);
-				filter(serverLoginUrl).through(ServerFilter.class);
-				bind(ValidationFilter.class).in(Singleton.class);
-				filter("/*").through(ValidationFilter.class);
-
-				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-				filter("/*").through(StrutsPrepareAndExecuteFilter.class);
-
-			}
-		};
+		ServletModule servletModule = createServletModule();
 		List<Module> moduleList = new ArrayList<Module>();
+		JpaPersistModule jpm = createJPAModule();
+		moduleList.add(jpm);
+		// moduleList.add(new CorePersistModule());
+		moduleList.add(new ServiceModule());
+		moduleList.add(servletModule);
+		moduleList.add(new Struts2GuicePluginModule());
+		return moduleList;
+	}
+
+	protected JpaPersistModule createJPAModule()
+	{
 		JpaPersistModule jpm = new JpaPersistModule("AppEntityManager");
 		try
 		{
@@ -121,18 +103,51 @@ public class GuiceListener extends GuiceServletContextListener
 				{
 					properties.put("hibernate.connection.password", properties.get(JDBCManager.jdbc_password));
 				}
-			}			
+			}
 			jpm.properties(properties);
 		}
 		catch (Exception ex)
 		{
 			log.error("", ex);
 		}
-		moduleList.add(jpm);
-		// moduleList.add(new CorePersistModule());
-		moduleList.add(new ServiceModule());
-		moduleList.add(servletModule);
-		moduleList.add(new Struts2GuicePluginModule());
-		return moduleList;
+		return jpm;
+	}
+
+	protected ServletModule createServletModule()
+	{
+		ServletModule servletModule = new ServletModule()
+		{
+			@Override
+			protected void configureServlets()
+			{
+				bind(WebSocketServer.class).in(Singleton.class);
+				serve("/websocket.ws").with(WebSocketServer.class);
+
+				bind(DownloadServlet.class).in(Singleton.class);
+				serve("/download").with(DownloadServlet.class);
+
+				bind(CharacterFilter.class).in(Singleton.class);
+				filter("/*").through(CharacterFilter.class);
+
+				bind(GZIPFilter.class).in(Singleton.class);
+				filter("*.js").through(GZIPFilter.class);
+
+				// filter("/*").through(GuicePersistMultiModulesFilter.class);//私有多多 Multiple Modules
+				filter("/*").through(GuicePersistFilter.class);
+
+				// bind(AuthenticationServiceFilter.class).in(Singleton.class);
+				// filter("/authService").through(AuthenticationServiceFilter.class);
+
+				bind(ServerFilter.class).in(Singleton.class);
+				filter(serverLoginUrl).through(ServerFilter.class);
+				bind(ValidationFilter.class).in(Singleton.class);
+				filter("/*").through(ValidationFilter.class);
+
+				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
+				filter("/*").through(StrutsPrepareAndExecuteFilter.class);
+
+			}
+		};
+		return servletModule;
 	}
 }

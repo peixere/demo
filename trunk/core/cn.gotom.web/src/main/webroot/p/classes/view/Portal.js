@@ -264,13 +264,13 @@ Ext.define('Gotom.view.Portal', {
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
         if(!Ext.isEmpty(data.topbgUrl))
         {
-            image = ctxp+data.topbgUrl;
+            image = ctxp+'/download?id='+data.topbgUrl;
         }
         header.setBodyStyle('background-image','url('+image+')');
         var imlogo = ctxp+'/resources/icons/logo.png';
         if(!Ext.isEmpty(data.logoUrl))
         {
-            imlogo = ctxp+data.logoUrl;
+            imlogo = ctxp+'/download?id='+data.logoUrl;
         }
         document.title = data.title;
         var style = 'color: red;';
