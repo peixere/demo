@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.Table;
 
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Custom;
@@ -86,12 +87,30 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 
 	private void removeCustomRight(List<String> customIds)
 	{
+		String table = CustomRight.class.getSimpleName();
 		StringBuffer jpql = new StringBuffer();
-		jpql.append("delete from " + CustomRight.class.getSimpleName() + " p");
-		jpql.append(" where p.custom.id in (:customId)");
+		jpql.append("delete from " + table);
+		jpql.append(" where custom_id in (:customId)");
 		Query q = getEntityManager().createQuery(jpql.toString());
 		q.setParameter("customId", customIds);
 		q.executeUpdate();
+	}
+	private void removeCustomRightByRightId(List<String> rightIds)
+	{
+		String table = CustomRight.class.getAnnotation(Table.class).name();
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("delete from " + table);
+		jpql.append(" where right_id in (:rightId)");
+		Query q = getEntityManager().createNativeQuery(jpql.toString());
+		q.setParameter("rightId", rightIds);
+		q.executeUpdate();
+	}
+	@Override
+	public void removeCustomRight(String rightId)
+	{
+		List<String> rights = new ArrayList<String>();
+		rights.add(rightId);
+		removeCustomRightByRightId(rights);
 	}
 
 	@Override
@@ -107,6 +126,26 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		q.setMaxResults(1);
 		@SuppressWarnings("unchecked")
 		List<CustomUser> list = q.getResultList();
+		if (list.size() > 0)
+		{
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public CustomRight getCustomRight(String rightId, String customId)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("Select p from " + CustomRight.class.getSimpleName() + " p");
+		jpql.append(" where p.custom.id = :customId");
+		jpql.append(" and p.right.id = :rightId");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("customId", customId);
+		q.setParameter("rightId", rightId);
+		q.setMaxResults(1);
+		@SuppressWarnings("unchecked")
+		List<CustomRight> list = q.getResultList();
 		if (list.size() > 0)
 		{
 			return list.get(0);

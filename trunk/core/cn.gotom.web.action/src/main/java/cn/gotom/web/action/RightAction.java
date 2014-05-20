@@ -89,9 +89,7 @@ public class RightAction extends AbsPortalAction
 				String id = idarray[i].trim();
 				if (rightService.findByParentId(id).size() == 0)
 				{
-					CustomRight cr = customService.getCustomRight(id, this.getCurrentCustomId());
-					if (cr != null)
-						customService.remove(cr);
+					customService.removeCustomRight(id);
 					rightService.removeById(id);
 				}
 				else
