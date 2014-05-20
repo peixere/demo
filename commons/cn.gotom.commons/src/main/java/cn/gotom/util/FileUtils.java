@@ -2,6 +2,7 @@ package cn.gotom.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -73,6 +74,46 @@ public class FileUtils
 		catch (Exception ex)
 		{
 			log.error("copy file to " + to, ex);
+		}
+	}
+
+	public byte[] read(File file)
+	{
+		FileInputStream fis = null;
+		ByteArrayOutputStream baos = null;
+		try
+		{
+			baos = new ByteArrayOutputStream();
+			fis = new FileInputStream(file);
+			int bytesRead = 0;
+			int offSet = 0;
+			byte[] buffer = new byte[1024];
+			while ((bytesRead = fis.read(buffer, offSet, buffer.length)) > 0)
+			{
+				baos.write(buffer, 0, bytesRead);
+			}
+			buffer = baos.toByteArray();
+			return buffer;
+		}
+		catch (Throwable ex)
+		{
+			log.error("read file ", ex);
+			return null;
+		}
+		finally
+		{
+			try
+			{
+				if (fis != null)
+					fis.close();
+				if (baos != null)
+					baos.close();
+			}
+			catch (Throwable ex)
+			{
+				log.error("read file ", ex);
+			}
+			System.gc();
 		}
 	}
 
