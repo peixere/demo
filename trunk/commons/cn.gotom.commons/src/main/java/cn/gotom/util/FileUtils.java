@@ -12,6 +12,8 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
+import android.annotation.SuppressLint;
+
 public class FileUtils
 {
 	protected static final Logger log = Logger.getLogger(FileUtils.class);
@@ -77,7 +79,7 @@ public class FileUtils
 		}
 	}
 
-	public byte[] read(File file)
+	public static byte[] read(File file)
 	{
 		FileInputStream fis = null;
 		ByteArrayOutputStream baos = null;
@@ -156,5 +158,35 @@ public class FileUtils
 		{
 			log.error("cover " + from + " to " + to, ex);
 		}
+	}
+
+	/**
+	 * 判断文件是否为图片<br>
+	 * <br>
+	 * 
+	 * @param pInput
+	 *            文件名<br>
+	 * @param pImgeFlag
+	 *            判断具体文件类型<br>
+	 * @return 检查后的结果<br>
+	 * @throws Exception
+	 */
+	@SuppressLint("DefaultLocale")
+	public static boolean isImage(String filename) throws Exception
+	{
+		if (StringUtils.isNullOrEmpty(filename))
+		{
+			return false;
+		}
+		String tmpName = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+		String imgeArray[] = { "bmp", "dib", "gif", "jfif", "jpe", "jpeg", "jpg", "png", "tif", "tiff", "ico", "pcx" };
+		for (int i = 0; i < imgeArray.length; i++)
+		{
+			if (imgeArray[i].equals(tmpName.toLowerCase()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
