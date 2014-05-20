@@ -141,6 +141,7 @@
             "userConfig": {
                 "layout|region": "center",
                 "border": false,
+                "designer|displayName": "FormPanel",
                 "autoScroll": true,
                 "layout": "border",
                 "title": null
@@ -291,6 +292,36 @@
                                 "name": "id"
                             },
                             "designerId": "aeb5a83d-3035-4ea7-ab0e-e6c479a029b7"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": "",
+                                "fieldLabel": "Label",
+                                "name": "logoUrl"
+                            },
+                            "designerId": "9d2eee61-fab0-4dc4-b4cf-6f18c5dd4fff"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": "",
+                                "fieldLabel": "Label",
+                                "name": "topUrl"
+                            },
+                            "designerId": "f42157c2-2b74-41fb-b66b-7689c9107611"
                         },
                         {
                             "type": "Ext.form.field.Hidden",

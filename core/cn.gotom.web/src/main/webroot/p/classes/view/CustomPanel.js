@@ -131,6 +131,18 @@ Ext.define('Gotom.view.CustomPanel', {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
                                     fieldLabel: 'Label',
+                                    name: 'logoUrl'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
+                                    name: 'topUrl'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    anchor: '100%',
+                                    fieldLabel: 'Label',
                                     name: 'rightIds'
                                 }
                             ],
