@@ -86,7 +86,14 @@ public class MainAction extends AbsPortalAction
 			{
 				if (StringUtils.isNullOrEmpty(menu.getAppCode()) || App.ROOT.equalsIgnoreCase(menu.getAppCode()))
 				{
-					menu.setComponent(ctxp + menu.getComponent());
+					if (StringUtils.isNotEmpty(menu.getComponent()) && (menu.getComponent().startsWith("http://") || menu.getComponent().startsWith("https://")))
+					{
+						menu.setComponent(menu.getComponent());
+					}
+					else
+					{
+						menu.setComponent(ctxp + menu.getComponent());
+					}
 				}
 				else
 				{
