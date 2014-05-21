@@ -32,8 +32,7 @@ Ext.application({
         'OrganizationPanel',
         'RightPanel',
         'RightWindow',
-        'UserPassowrd',
-        'IndexPanel'
+        'UserPassowrd'
     ],
     appFolder: 'classes',
     appProperty: 'classes',
