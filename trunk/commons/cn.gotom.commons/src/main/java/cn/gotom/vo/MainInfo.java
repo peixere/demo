@@ -10,6 +10,7 @@ public class MainInfo
 	private String topbgId;
 	private String title;
 	private String fontStyle;
+	private String desktopPanel;
 
 	public String getId()
 	{
@@ -89,6 +90,16 @@ public class MainInfo
 	public void setFontStyle(String fontStyle)
 	{
 		this.fontStyle = fontStyle;
+	}
+
+	public String getDesktopPanel()
+	{
+		return desktopPanel;
+	}
+
+	public void setDesktopPanel(String desktopPanel)
+	{
+		this.desktopPanel = desktopPanel;
 	}
 
 }
