@@ -17,10 +17,6 @@ Ext.define('Gotom.view.Portal', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.Portal',
 
-    requires: [
-        'Gotom.view.*'
-    ],
-
     passWin: '',
     border: false,
     id: 'app-viewport',
@@ -156,82 +152,85 @@ Ext.define('Gotom.view.Portal', {
         me.tabPanel = Ext.getCmp('tabPanel');
         me.loadHeader();
         me.loadOptions();
-        me.onLoadIndex('');
+        //me.onLoadIndex('');
+        Ext.defer(function(){me.onLoadIndex('');}, 100);
         me.footerPanel.setHeight(0);
     },
 
     onLoadIndex: function(data) {
         var me = this;
-        var portalPanel = Ext.create("Gotom.view.PortalPanel",
-            {
-                id : 'app-portal',
-                region : 'center',
-                title : "我的桌面",
-                layout : 'column'
-            });
-        var portalcolumn = Ext.create('Gotom.view.PortalColumn',
-            {
-                columnWidth : 0.7,
-                items : [
+        try{
+            var portalPanel = Ext.create("Gotom.view.PortalPanel",
                 {
-                    title : '最新通知',
-                    height : 150,
-                    tools : me.createTools(),
-                    listeners :
-                    {
-                        'close' : Ext.bind(me.onPortletClose, this)
-                    }
-                },
+                    id : 'app-portal',
+                    region : 'center',
+                    title : "我的桌面",
+                    layout : 'column'
+                });
+            var portalcolumn = Ext.create('Gotom.view.PortalColumn',
                 {
-                    title : '业绩报表',
-                    height : 250,
-                    tools : me.createTools(),
-                    items : Ext.create('Gotom.view.ChartPortlet'),
-                    listeners :
+                    columnWidth : 0.7,
+                    items : [
                     {
-                        //'close' : Ext.bind(me.onPortletClose, this)
+                        title : '最新通知',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
+                    {
+                        title : '业绩报表',
+                        height : 250,
+                        tools : me.createTools(),
+                        items : Ext.create('Gotom.view.ChartPortlet'),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
                     }
-                }
-                ]
-            });
-        portalPanel.add(portalcolumn);
-        var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',
-            {
-                columnWidth : 0.3,
-                items : [
+                    ]
+                });
+            portalPanel.add(portalcolumn);
+            var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',
                 {
-                    title : '功能链接',
-                    height : 150,
-                    tools : me.createTools(),
-                    listeners :
+                    columnWidth : 0.3,
+                    items : [
                     {
-                        'close' : Ext.bind(me.onPortletClose, this)
-                    }
-                },
-                {
-                    title : '待办事项',
-                    height : 150,
-                    tools : me.createTools(),
-                    listeners :
+                        title : '功能链接',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
                     {
-                        'close' : Ext.bind(me.onPortletClose, this)
-                    }
-                },
-                {
-                    title : '业绩报表',
-                    height : 250,
-                    tools : me.createTools(),
-                    items : Ext.create('Gotom.view.ChartPortlet'),
-                    listeners :
+                        title : '待办事项',
+                        height : 150,
+                        tools : me.createTools(),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
+                    },
                     {
-                        'close' : Ext.bind(me.onPortletClose, this)
+                        title : '业绩报表',
+                        height : 250,
+                        tools : me.createTools(),
+                        items : Ext.create('Gotom.view.ChartPortlet'),
+                        listeners :
+                        {
+                            'close' : Ext.bind(me.onPortletClose, this)
+                        }
                     }
-                }
-                ]
-            });
-        portalPanel.add(portalcolumn2);
-        me.tabPanel.add(portalPanel);
-        me.tabPanel.setActiveTab(portalPanel);
+                    ]
+                });
+            portalPanel.add(portalcolumn2);    
+            me.tabPanel.add(portalPanel);
+            me.tabPanel.setActiveTab(portalPanel);    
+        }catch(error){Ext.Msg.alert('操作提示',error);}
     },
 
     loadHeader: function() {

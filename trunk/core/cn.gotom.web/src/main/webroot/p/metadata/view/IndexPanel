@@ -1,0 +1,47 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "width": null,
+        "designer|userClassName": "IndexPanel",
+        "designer|userAlias": "IndexPanel",
+        "requires": [
+            "Gotom.view.PortalPanel",
+            "Gotom.view.PortalColumn"
+        ],
+        "title": null
+    },
+    "designerId": "c12b3d34-d8fe-4654-86dd-0ac9c7aeed85",
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPanelAfterLayout",
+                "implHandler": [
+                    "var portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
+                    "    {\r",
+                    "        id : 'app-portal',\r",
+                    "        region : 'center',\r",
+                    "        title : \"我的桌面\",\r",
+                    "        layout : 'column'\r",
+                    "    });\r",
+                    "\r",
+                    "this.add(portalPanel);"
+                ],
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "ed384d66-d2ba-4e7c-bab1-ecee18200788"
+        }
+    ]
+}
