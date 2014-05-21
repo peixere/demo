@@ -102,15 +102,16 @@ public class CustomSaveAction extends AbsPortalAction
 		{
 			if (logo != null && logo.length() > 0)
 			{
-				UploadFile uploadFile = new UploadFile();
-				uploadFile.setFileStream(FileUtils.read(logo));
-				uploadFile.setFkId(custom.getId());
-				uploadFile.setFkTable(custom.getClass().getName());
-				uploadFile.setFileName(logoFileName);
-				uploadFile.setContentType(logoContentType);
-				uploadFile.setFileCharset(FileCharset.getCharset(logo));
-				uploadFileService.save(uploadFile);
-				custom.setLogoUrl(uploadFile.getId());
+				UploadFile uf = new UploadFile();
+				uf.setFileStream(FileUtils.read(logo));
+				uf.setFkId(custom.getId());
+				uf.setFkTable(custom.getClass().getName());
+				uf.setFileName(logoFileName);
+				uf.setContentType(logoContentType);
+				uf.setFileCharset(FileCharset.getCharset(logo));
+				uf.setUser(getCurrentUser());
+				uploadFileService.save(uf);
+				custom.setLogoUrl(uf.getId());
 				logo.deleteOnExit();
 			}
 		}
@@ -122,15 +123,16 @@ public class CustomSaveAction extends AbsPortalAction
 		{
 			if (topbg != null && topbg.length() > 0)
 			{
-				UploadFile uploadFile = new UploadFile();
-				uploadFile.setFileStream(FileUtils.read(topbg));
-				uploadFile.setFkId(custom.getId());
-				uploadFile.setFkTable(custom.getClass().getName());
-				uploadFile.setFileName(topbgFileName);
-				uploadFile.setContentType(this.topbgContentType);
-				uploadFile.setFileCharset(FileCharset.getCharset(topbg));
-				uploadFileService.save(uploadFile);
-				custom.setTopbgUrl(uploadFile.getId());		
+				UploadFile uf = new UploadFile();
+				uf.setFileStream(FileUtils.read(topbg));
+				uf.setFkId(custom.getId());
+				uf.setFkTable(custom.getClass().getName());
+				uf.setFileName(topbgFileName);
+				uf.setContentType(this.topbgContentType);
+				uf.setFileCharset(FileCharset.getCharset(topbg));
+				uploadFileService.save(uf);
+				custom.setTopbgUrl(uf.getId());		
+				uf.setUser(getCurrentUser());
 				topbg.deleteOnExit();
 			}
 		}
