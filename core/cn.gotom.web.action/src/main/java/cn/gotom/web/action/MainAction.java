@@ -50,6 +50,7 @@ public class MainAction extends AbsPortalAction
 
 	public void main() throws IOException
 	{
+		JsonResponse response = new JsonResponse();
 		MainInfo mainInfo = new MainInfo();
 		mainInfo.setUsername(getCurrentUsername());
 		User user = userService.getByUsername(mainInfo.getUsername());
@@ -65,9 +66,11 @@ public class MainAction extends AbsPortalAction
 		}
 		mainInfo.setLogoutUrl(AuthenticationFilter.getServerLogoutUrl());
 		mainInfo.setFontStyle(custom.getFontStyle());
-		mainInfo.setLogoUrl(custom.getLogoUrl());
-		mainInfo.setTopbgUrl(custom.getTopbgUrl());
-		toJSON(mainInfo);
+		mainInfo.setLogoId(custom.getLogoId());
+		mainInfo.setTopbgId(custom.getTopbgId());
+		response.setData(mainInfo);
+		response.setSuccess(true);
+		toJSON(response);
 	}
 
 	public void menu() throws IOException

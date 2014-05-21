@@ -373,22 +373,23 @@
             "userConfig": {
                 "fn": "callbackHeader",
                 "designer|params": [
-                    "data"
+                    "result"
                 ],
                 "implHandler": [
                     "var header = Ext.getCmp('app-header');\r",
+                    "var data = result.data;\r",
                     "header.setLoading(false);\r",
                     "Ext.getCmp('app-viewport').setLoading(false);\r",
                     "var image = ctxp+'/resources/icons/fam/topbg.jpg';\r",
-                    "if(!Ext.isEmpty(data.topbgUrl))\r",
+                    "if(!Ext.isEmpty(data.topbgId))\r",
                     "{\r",
-                    "    image = ctxp+'/download?id='+data.topbgUrl;\r",
+                    "    image = ctxp+'/download?id='+data.topbgId;\r",
                     "}\r",
                     "header.setBodyStyle('background-image','url('+image+')');\r",
                     "var imlogo = ctxp+'/resources/icons/logo.png';\r",
-                    "if(!Ext.isEmpty(data.logoUrl))\r",
+                    "if(!Ext.isEmpty(data.logoId))\r",
                     "{\r",
-                    "    imlogo = ctxp+'/download?id='+data.logoUrl;\r",
+                    "    imlogo = ctxp+'/download?id='+data.logoId;\r",
                     "}\r",
                     "document.title = data.title;\r",
                     "var style = 'color: red;';\r",

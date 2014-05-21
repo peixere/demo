@@ -257,20 +257,21 @@ Ext.define('Gotom.view.Portal', {
         Ext.defer(function(){me.setHeader();}, 60000);
     },
 
-    callbackHeader: function(data) {
+    callbackHeader: function(result) {
         var header = Ext.getCmp('app-header');
+        var data = result.data;
         header.setLoading(false);
         Ext.getCmp('app-viewport').setLoading(false);
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
-        if(!Ext.isEmpty(data.topbgUrl))
+        if(!Ext.isEmpty(data.topbgId))
         {
-            image = ctxp+'/download?id='+data.topbgUrl;
+            image = ctxp+'/download?id='+data.topbgId;
         }
         header.setBodyStyle('background-image','url('+image+')');
         var imlogo = ctxp+'/resources/icons/logo.png';
-        if(!Ext.isEmpty(data.logoUrl))
+        if(!Ext.isEmpty(data.logoId))
         {
-            imlogo = ctxp+'/download?id='+data.logoUrl;
+            imlogo = ctxp+'/download?id='+data.logoId;
         }
         document.title = data.title;
         var style = 'color: red;';

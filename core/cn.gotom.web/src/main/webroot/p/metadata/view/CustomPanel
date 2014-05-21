@@ -308,7 +308,7 @@
                                 "layout|anchor": "100%",
                                 "designer|displayName": "",
                                 "fieldLabel": "Label",
-                                "name": "logoUrl"
+                                "name": "logoId"
                             },
                             "designerId": "9d2eee61-fab0-4dc4-b4cf-6f18c5dd4fff"
                         },
@@ -323,7 +323,7 @@
                                 "layout|anchor": "100%",
                                 "designer|displayName": "",
                                 "fieldLabel": "Label",
-                                "name": "topbgUrl"
+                                "name": "topbgId"
                             },
                             "designerId": "f42157c2-2b74-41fb-b66b-7689c9107611"
                         },

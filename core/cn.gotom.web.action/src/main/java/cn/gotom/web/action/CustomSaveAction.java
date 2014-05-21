@@ -111,7 +111,7 @@ public class CustomSaveAction extends AbsPortalAction
 				uf.setFileCharset(FileCharset.getCharset(logo));
 				uf.setUser(getCurrentUser());
 				uploadFileService.save(uf);
-				custom.setLogoUrl(uf.getId());
+				custom.setLogoId(uf.getId());
 				logo.deleteOnExit();
 			}
 		}
@@ -131,7 +131,7 @@ public class CustomSaveAction extends AbsPortalAction
 				uf.setContentType(this.topbgContentType);
 				uf.setFileCharset(FileCharset.getCharset(topbg));
 				uploadFileService.save(uf);
-				custom.setTopbgUrl(uf.getId());		
+				custom.setTopbgId(uf.getId());		
 				uf.setUser(getCurrentUser());
 				topbg.deleteOnExit();
 			}
