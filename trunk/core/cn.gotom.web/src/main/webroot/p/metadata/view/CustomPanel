@@ -157,7 +157,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|region": "north",
-                        "height": 237,
+                        "height": 244,
                         "bodyPadding": 10,
                         "title": "编辑信息"
                     },
@@ -195,9 +195,29 @@
                                 "labelWidth": 60,
                                 "name": "titlename",
                                 "allowBlank": false,
-                                "blankText": "必填项"
+                                "blankText": "必填项",
+                                "maxLength": 200,
+                                "minLength": 2
                             },
                             "designerId": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "designer|displayName": null,
+                                "fieldLabel": "首页面板",
+                                "labelWidth": 60,
+                                "name": "desktopPanel",
+                                "allowBlank": false,
+                                "blankText": null
+                            },
+                            "designerId": "a78b9670-8df1-4b2d-aaa8-9f7b1dcc358f"
                         },
                         {
                             "type": "Ext.form.field.Text",
@@ -256,7 +276,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|anchor": "100%",
-                                "height": 58,
+                                "height": 38,
                                 "designer|displayName": null,
                                 "fieldLabel": "公司简介",
                                 "labelWidth": 60,

@@ -3,6 +3,7 @@ package cn.gotom.web.action;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
@@ -48,26 +49,25 @@ public class MainAction extends AbsPortalAction
 		return "success";
 	}
 
-	public void main() throws IOException
+	public void main() throws Exception
 	{
 		JsonResponse response = new JsonResponse();
 		MainInfo mainInfo = new MainInfo();
+		Custom custom = customService.get(getCurrentCustomId());
+		BeanUtils.copyProperties(mainInfo, custom);
 		mainInfo.setUsername(getCurrentUsername());
 		User user = userService.getByUsername(mainInfo.getUsername());
 		if (user != null)
 		{
+			mainInfo.setId(user.getId());
 			mainInfo.setUserFullname(user.getName());
 		}
-		Custom custom = customService.get(getCurrentCustomId());
 		mainInfo.setTitle(custom.getTitlename());
 		if (StringUtils.isNullOrEmpty(mainInfo.getTitle()))
 		{
 			mainInfo.setTitle(custom.getName());
 		}
 		mainInfo.setLogoutUrl(AuthenticationFilter.getServerLogoutUrl());
-		mainInfo.setFontStyle(custom.getFontStyle());
-		mainInfo.setLogoId(custom.getLogoId());
-		mainInfo.setTopbgId(custom.getTopbgId());
 		response.setData(mainInfo);
 		response.setSuccess(true);
 		toJSON(response);

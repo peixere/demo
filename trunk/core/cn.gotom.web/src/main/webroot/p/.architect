@@ -638,11 +638,9 @@
         },
         "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b": {
             "id": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
-            "expanded": false,
             "cn": [
                 {
                     "id": "4297a0b3-82b9-4b38-b29d-55800143a2ec",
-                    "expanded": false,
                     "cn": [
                         {
                             "id": "8993eadd-5aef-4a54-8e4e-e3a8a11ef5ef"
@@ -674,6 +672,9 @@
                                 },
                                 {
                                     "id": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
+                                },
+                                {
+                                    "id": "a78b9670-8df1-4b2d-aaa8-9f7b1dcc358f"
                                 },
                                 {
                                     "id": "94eab0fe-4152-4cbf-a987-e9e61fbdc978"
@@ -768,6 +769,7 @@
         },
         "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1": {
             "id": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
+            "expanded": false,
             "cn": [
                 {
                     "id": "e00e39b8-36ef-4721-b97d-05d3b0ee0410"
@@ -916,20 +918,19 @@
     },
     "tabState": {
         "openTabs": [
-            "63ebff39-f474-4beb-9ecc-6968c0a41bb0",
-            "57e5dcd6-1e5d-4158-9476-a4053cdd9dc1",
-            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
+            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
+            "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b"
         ]
     },
     "canvasState": {
-        "topInstance": null
+        "topInstance": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b"
     },
     "inspectorState": {
-        "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-        "selectedInstance": "4c2b0b57-0974-488a-8f4e-573a4ad2a4f1"
+        "topInstance": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
+        "selectedInstance": "a78b9670-8df1-4b2d-aaa8-9f7b1dcc358f"
     },
     "codeState": {
         "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
     },
-    "editMode": "code"
+    "editMode": "design"
 }
