@@ -239,18 +239,10 @@
                     "var me = this;\r",
                     "me.headerPanel = Ext.getCmp('app-header');\r",
                     "me.footerPanel = Ext.getCmp('app-footer');\r",
-                    "me.portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
-                    "    {\r",
-                    "        id : 'app-portal',\r",
-                    "        region : 'center',\r",
-                    "        title : \"我的桌面\",\r",
-                    "        layout : 'column'\r",
-                    "    });\r",
+                    "me.options = Ext.getCmp('app-options');\r",
                     "me.tabPanel = Ext.getCmp('tabPanel');\r",
-                    "me.tabPanel.add(me.portalPanel);\r",
-                    "me.tabPanel.setActiveTab(me.portalPanel);\r",
-                    "me.setHeader();\r",
-                    "me.setOptions();\r",
+                    "me.loadHeader();\r",
+                    "me.loadOptions();\r",
                     "me.onLoadIndex('');\r",
                     "me.footerPanel.setHeight(0);"
                 ]
@@ -271,6 +263,15 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
+                    "me.portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
+                    "    {\r",
+                    "        id : 'app-portal',\r",
+                    "        region : 'center',\r",
+                    "        title : \"我的桌面\",\r",
+                    "        layout : 'column'\r",
+                    "    });\r",
+                    "me.tabPanel.add(me.portalPanel);\r",
+                    "me.tabPanel.setActiveTab(me.portalPanel);\r",
                     "var tabPanel = me.tabPanel;\r",
                     "var portalPanel =  me.portalPanel;\r",
                     "tabPanel.setLoading('加载数据...');\r",
@@ -351,16 +352,16 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "setHeader",
+                "fn": "loadHeader",
                 "implHandler": [
                     "me = this;\r",
                     "Common.ajax({\r",
                     "    //component : Ext.getCmp('app-header'),\r",
                     "    message : '加载头信息...',    \r",
                     "    url : ctxp+'/p/main!main.do',\r",
-                    "    callback : me.callbackHeader\r",
+                    "    callback : function(result){me.setHeader(result);}\r",
                     "});\r",
-                    "Ext.defer(function(){me.setHeader();}, 60000);"
+                    "Ext.defer(function(){me.loadHeader();}, 60000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
@@ -373,15 +374,16 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "callbackHeader",
+                "fn": "setHeader",
                 "designer|params": [
                     "result"
                 ],
                 "implHandler": [
-                    "var header = Ext.getCmp('app-header');\r",
+                    "var me = this;\r",
+                    "var header = me.headerPanel;\r",
                     "var data = result.data;\r",
                     "header.setLoading(false);\r",
-                    "Ext.getCmp('app-viewport').setLoading(false);\r",
+                    "me.setLoading(false);\r",
                     "var image = ctxp+'/resources/icons/fam/topbg.jpg';\r",
                     "if(!Ext.isEmpty(data.topbgId))\r",
                     "{\r",
@@ -420,21 +422,17 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "setOptions",
+                "fn": "loadOptions",
                 "implHandler": [
                     "var me = this;\r",
-                    "var options = Ext.getCmp('app-options');\r",
-                    "Ext.defer(function()\r",
-                    "{\r",
-                    "    Common.ajax(\r",
+                    "Common.ajax(\r",
                     "    {\r",
-                    "        component : options,\r",
+                    "        component : me.options,\r",
                     "        message : '加载菜单...',\r",
                     "        url : ctxp+'/p/main!menu.do',\r",
-                    "        callback : me.callbackOptions\r",
-                    "\r",
+                    "        callback : function(result){me.setOptions(result);}\r",
                     "    });\r",
-                    "}, 100);"
+                    "Ext.defer(function(){me.loadOptions();}, 60000);"
                 ]
             },
             "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
@@ -447,14 +445,14 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "callbackOptions",
+                "fn": "setOptions",
                 "designer|params": [
                     "data"
                 ],
                 "implHandler": [
-                    "var options = Ext.getCmp('app-options');\r",
+                    "var me = this;\r",
+                    "var options = me.options;\r",
                     "options.removeAll();\r",
-                    "var me = Ext.getCmp('app-viewport');\r",
                     "var URL = ctxp+'/p/main!menu.do';\r",
                     "for (var i = 0; i < data.length; i++)\r",
                     "{    \r",
@@ -500,8 +498,8 @@
                     "node"
                 ],
                 "implHandler": [
-                    "var me = Ext.getCmp('app-viewport');\r",
-                    "var tabPanel = Ext.getCmp('tabPanel');\r",
+                    "var me = this;\r",
+                    "var tabPanel = me.tabPanel;\r",
                     "var has = false;\r",
                     "for (var i = 0; i < tabPanel.items.length; i++)\r",
                     "{\r",
@@ -571,7 +569,7 @@
                     "eOpts"
                 ],
                 "implHandler": [
-                    "this.setOptions();"
+                    "this.loadOptions();"
                 ]
             },
             "designerId": "6ea19e75-7751-4120-bafc-59852c166866"

@@ -152,6 +152,16 @@ Ext.define('Gotom.view.Portal', {
         var me = this;
         me.headerPanel = Ext.getCmp('app-header');
         me.footerPanel = Ext.getCmp('app-footer');
+        me.options = Ext.getCmp('app-options');
+        me.tabPanel = Ext.getCmp('tabPanel');
+        me.loadHeader();
+        me.loadOptions();
+        me.onLoadIndex('');
+        me.footerPanel.setHeight(0);
+    },
+
+    onLoadIndex: function(data) {
+        var me = this;
         me.portalPanel = Ext.create("Gotom.view.PortalPanel",
         {
             id : 'app-portal',
@@ -159,17 +169,8 @@ Ext.define('Gotom.view.Portal', {
             title : "我的桌面",
             layout : 'column'
         });
-        me.tabPanel = Ext.getCmp('tabPanel');
         me.tabPanel.add(me.portalPanel);
         me.tabPanel.setActiveTab(me.portalPanel);
-        me.setHeader();
-        me.setOptions();
-        me.onLoadIndex('');
-        me.footerPanel.setHeight(0);
-    },
-
-    onLoadIndex: function(data) {
-        var me = this;
         var tabPanel = me.tabPanel;
         var portalPanel =  me.portalPanel;
         tabPanel.setLoading('加载数据...');
@@ -240,22 +241,23 @@ Ext.define('Gotom.view.Portal', {
         }, 100);
     },
 
-    setHeader: function() {
+    loadHeader: function() {
         me = this;
         Common.ajax({
             //component : Ext.getCmp('app-header'),
             message : '加载头信息...',    
             url : ctxp+'/p/main!main.do',
-            callback : me.callbackHeader
+            callback : function(result){me.setHeader(result);}
         });
-        Ext.defer(function(){me.setHeader();}, 60000);
+        Ext.defer(function(){me.loadHeader();}, 60000);
     },
 
-    callbackHeader: function(result) {
-        var header = Ext.getCmp('app-header');
+    setHeader: function(result) {
+        var me = this;
+        var header = me.headerPanel;
         var data = result.data;
         header.setLoading(false);
-        Ext.getCmp('app-viewport').setLoading(false);
+        me.setLoading(false);
         var image = ctxp+'/resources/icons/fam/topbg.jpg';
         if(!Ext.isEmpty(data.topbgId))
         {
@@ -284,26 +286,22 @@ Ext.define('Gotom.view.Portal', {
         header.update(htmlStr);
     },
 
-    setOptions: function() {
+    loadOptions: function() {
         var me = this;
-        var options = Ext.getCmp('app-options');
-        Ext.defer(function()
+        Common.ajax(
         {
-            Common.ajax(
-            {
-                component : options,
-                message : '加载菜单...',
-                url : ctxp+'/p/main!menu.do',
-                callback : me.callbackOptions
-
-            });
-        }, 100);
+            component : me.options,
+            message : '加载菜单...',
+            url : ctxp+'/p/main!menu.do',
+            callback : function(result){me.setOptions(result);}
+        });
+        Ext.defer(function(){me.loadOptions();}, 60000);
     },
 
-    callbackOptions: function(data) {
-        var options = Ext.getCmp('app-options');
+    setOptions: function(data) {
+        var me = this;
+        var options = me.options;
         options.removeAll();
-        var me = Ext.getCmp('app-viewport');
         var URL = ctxp+'/p/main!menu.do';
         for (var i = 0; i < data.length; i++)
         {    
@@ -334,8 +332,8 @@ Ext.define('Gotom.view.Portal', {
     },
 
     onOptionsItemClick: function(view, node) {
-        var me = Ext.getCmp('app-viewport');
-        var tabPanel = Ext.getCmp('tabPanel');
+        var me = this;
+        var tabPanel = me.tabPanel;
         var has = false;
         for (var i = 0; i < tabPanel.items.length; i++)
         {
@@ -389,7 +387,7 @@ Ext.define('Gotom.view.Portal', {
     },
 
     onOptionsToolClick: function(tool, e, eOpts) {
-        this.setOptions();
+        this.loadOptions();
     },
 
     settingPassword: function() {
