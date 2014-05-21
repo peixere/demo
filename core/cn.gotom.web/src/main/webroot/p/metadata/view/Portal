@@ -272,9 +272,7 @@
                     "    });\r",
                     "me.tabPanel.add(me.portalPanel);\r",
                     "me.tabPanel.setActiveTab(me.portalPanel);\r",
-                    "var tabPanel = me.tabPanel;\r",
-                    "var portalPanel =  me.portalPanel;\r",
-                    "tabPanel.setLoading('加载数据...');\r",
+                    "me.tabPanel.setLoading('加载数据...');\r",
                     "Ext.defer(function()\r",
                     "{\r",
                     "    var portalcolumn = Ext.create('Gotom.view.PortalColumn',\r",
@@ -302,7 +300,7 @@
                     "            }\r",
                     "            ]\r",
                     "        });\r",
-                    "    portalPanel.add(portalcolumn);\r",
+                    "    me.portalPanel.add(portalcolumn);\r",
                     "    var portalcolumn2 = Ext.create('Gotom.view.PortalColumn',\r",
                     "        {\r",
                     "            columnWidth : 0.3,\r",
@@ -337,8 +335,8 @@
                     "            }\r",
                     "            ]\r",
                     "        });\r",
-                    "    //portalPanel.add(portalcolumn2);\r",
-                    "    tabPanel.setLoading(false);\r",
+                    "    me.portalPanel.add(portalcolumn2);\r",
+                    "    me.tabPanel.setLoading(false);\r",
                     "}, 100);"
                 ]
             },
@@ -363,7 +361,7 @@
                     "        callback : function(result){me.setHeader(result);}\r",
                     "    });\r",
                     "}catch(error){Ext.Msg.alert('异常提示',error);}\r",
-                    "Ext.defer(function(){me.loadHeader();}, 1000);"
+                    "Ext.defer(function(){me.loadHeader();}, 60000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
