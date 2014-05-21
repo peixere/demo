@@ -130,9 +130,9 @@ public class CustomSaveAction extends AbsPortalAction
 				uf.setFileName(topbgFileName);
 				uf.setContentType(this.topbgContentType);
 				uf.setFileCharset(FileCharset.getCharset(topbg));
+				uf.setUser(getCurrentUser());
 				uploadFileService.save(uf);
 				custom.setTopbgId(uf.getId());		
-				uf.setUser(getCurrentUser());
 				topbg.deleteOnExit();
 			}
 		}
