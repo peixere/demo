@@ -12,8 +12,6 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
-import android.annotation.SuppressLint;
-
 public class FileUtils
 {
 	protected static final Logger log = Logger.getLogger(FileUtils.class);
@@ -171,7 +169,6 @@ public class FileUtils
 	 * @return 检查后的结果<br>
 	 * @throws Exception
 	 */
-	@SuppressLint("DefaultLocale")
 	public static boolean isImage(String filename) throws Exception
 	{
 		if (StringUtils.isNullOrEmpty(filename))
