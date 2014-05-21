@@ -101,8 +101,7 @@ Ext.define('Gotom.view.CustomPanel', {
                                     anchor: '100%',
                                     fieldLabel: '首页面板',
                                     labelWidth: 60,
-                                    name: 'desktopPanel',
-                                    allowBlank: false
+                                    name: 'desktopPanel'
                                 },
                                 {
                                     xtype: 'textfield',
