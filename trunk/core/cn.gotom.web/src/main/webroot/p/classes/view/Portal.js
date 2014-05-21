@@ -171,7 +171,7 @@ Ext.define('Gotom.view.Portal', {
                     me.tabPanel.add(desktop);
                 me.tabPanel.setActiveTab(desktop);    
             }
-        }catch(error){Ext.Msg.alert('操作提示',error);}
+        }catch(error){Ext.Msg.alert('操作提示','找不到控件：'+name);}
     },
 
     loadHeader: function() {
