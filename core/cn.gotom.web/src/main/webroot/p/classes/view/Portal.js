@@ -243,92 +243,100 @@ Ext.define('Gotom.view.Portal', {
 
     loadHeader: function() {
         me = this;
-        Common.ajax({
-            component : me.headerPanel,
-            message : '加载头信息...',    
-            url : ctxp+'/p/main!main.do',
-            callback : function(result){me.setHeader(result);}
-        });
-        Ext.defer(function(){me.loadHeader();}, 60000);
+        try{
+            Common.ajax({
+                component : me.headerPanel,
+                message : '加载头信息...',    
+                url : ctxp+'/p/main!main.do',
+                callback : function(result){me.setHeader(result);}
+            });
+        }catch(error){Ext.Msg.alert('异常提示',error);}
+            Ext.defer(function(){me.loadHeader();}, 1000);
     },
 
     setHeader: function(result) {
-        var me = this;
-        var header = me.headerPanel;
-        var data = result.data;
-        header.setLoading(false);
-        me.setLoading(false);
-        var image = ctxp+'/resources/icons/fam/topbg.jpg';
-        if(!Ext.isEmpty(data.topbgId))
-        {
-            image = ctxp+'/download?id='+data.topbgId;
-        }
-        header.setBodyStyle('background-image','url('+image+')');
-        var imlogo = ctxp+'/resources/icons/logo.png';
-        if(!Ext.isEmpty(data.logoId))
-        {
-            imlogo = ctxp+'/download?id='+data.logoId;
-        }
-        document.title = data.title;
-        var style = 'color: red;';
-        if(!Ext.isEmpty(data.fontStyle))
-        {
-            style = data.fontStyle;
-        }
-        var htmlStr = '';
-        htmlStr += '<div class="logoPanel"><img onclick="Ext.defer(function(){Ext.getCmp(\'app-viewport\').loadHeader();}, 100);" src="'+imlogo+'" border="0"/></div>';
-        htmlStr += '<div class="titlePanel"><font style="'+style+'">' + data.title + '</font></div>';
-        htmlStr += '<div class="userPanel">';
-        htmlStr += '<font style="'+style+'">欢迎您：</font><a href="#" style="'+style+'">' + data.userFullname + '</a>　';
-        htmlStr += '<a style="'+style+'" href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
-        htmlStr += '<a style="'+style+'" href="' + data.logoutUrl + '">注销登录</a>';
-        htmlStr += '</div>';
-        header.update(htmlStr);
+        try{
+            var me = this;
+            var header = me.headerPanel;
+            var data = result.data;
+            header.setLoading(false);
+            me.setLoading(false);
+            var image = ctxp+'/resources/icons/fam/topbg.jpg';
+            if(!Ext.isEmpty(data.topbgId))
+            {
+                image = ctxp+'/download?id='+data.topbgId;
+            }
+            header.setBodyStyle('background-image','url('+image+')');
+            var imlogo = ctxp+'/resources/icons/logo.png';
+            if(!Ext.isEmpty(data.logoId))
+            {
+                imlogo = ctxp+'/download?id='+data.logoId;
+            }
+            document.title = data.title;
+            var style = 'color: red;';
+            if(!Ext.isEmpty(data.fontStyle))
+            {
+                style = data.fontStyle;
+            }
+            var htmlStr = '';
+            htmlStr += '<div class="logoPanel"><img onclick="Ext.defer(function(){Ext.getCmp(\'app-viewport\').loadHeader();}, 100);" src="'+imlogo+'" border="0"/></div>';
+            htmlStr += '<div class="titlePanel"><font style="'+style+'">' + data.title + '</font></div>';
+            htmlStr += '<div class="userPanel">';
+            htmlStr += '<font style="'+style+'">欢迎您：</font><a href="#" style="'+style+'">' + data.userFullname + '</a>　';
+            htmlStr += '<a style="'+style+'" href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
+            htmlStr += '<a style="'+style+'" href="' + data.logoutUrl + '">注销登录</a>';
+            htmlStr += '</div>';
+            header.update(htmlStr);
+        }catch(error){Ext.Msg.alert('异常提示',error);}    
     },
 
     loadOptions: function() {
         var me = this;
-        Common.ajax(
-        {
-            component : me.options,
-            message : '加载菜单...',
-            url : ctxp+'/p/main!menu.do',
-            callback : function(result){me.setOptions(result);}
-        });
-        Ext.defer(function(){me.loadOptions();}, 60000);
+        try{
+            Common.ajax(
+            {
+                component : me.options,
+                message : '加载菜单...',
+                url : ctxp+'/p/main!menu.do',
+                callback : function(result){me.setOptions(result);}
+            });
+        }catch(error){Ext.Msg.alert('异常提示',error);}    
+            Ext.defer(function(){me.loadOptions();}, 60000);
     },
 
     setOptions: function(data) {
         var me = this;
-        var options = me.options;
-        options.removeAll();
-        var URL = ctxp+'/p/main!menu.do';
-        for (var i = 0; i < data.length; i++)
-        {    
-            var treeStore = Common.createTreeStore(URL, data[i].id);     
-            var tree = Ext.create("Ext.tree.Panel",
-                {
-                    id : data[i].id,
-                    title : data[i].text,
-                    iconCls : data[i].iconCls,
-                    // useArrows: true,
-                    autoScroll : true,
-                    rootVisible : false,
-                    viewConfig :
+        try{
+            var options = me.options;
+            options.removeAll();
+            var URL = ctxp+'/p/main!menu.do';
+            for (var i = 0; i < data.length; i++)
+            {    
+                var treeStore = Common.createTreeStore(URL, data[i].id);     
+                var tree = Ext.create("Ext.tree.Panel",
                     {
-                        loadingText : "正在加载..."
-                    },
-                    store : treeStore,
-                    listeners : {
-                        itemclick: {
-                            fn: me.onOptionsItemClick,
-                            scope: me
+                        id : data[i].id,
+                        title : data[i].text,
+                        iconCls : data[i].iconCls,
+                        // useArrows: true,
+                        autoScroll : true,
+                        rootVisible : false,
+                        viewConfig :
+                        {
+                            loadingText : "正在加载..."
+                        },
+                        store : treeStore,
+                        listeners : {
+                            itemclick: {
+                                fn: me.onOptionsItemClick,
+                                scope: me
+                            }
                         }
-                    }
-                });    
-                options.add(tree);
-        }
-        options.doLayout();
+                    });    
+                    options.add(tree);
+            }
+            options.doLayout();
+        }catch(error){Ext.Msg.alert('异常提示',error);}    
     },
 
     onOptionsItemClick: function(view, node) {
