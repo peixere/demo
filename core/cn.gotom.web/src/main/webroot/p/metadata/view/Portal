@@ -356,7 +356,7 @@
                 "implHandler": [
                     "me = this;\r",
                     "Common.ajax({\r",
-                    "    //component : Ext.getCmp('app-header'),\r",
+                    "    component : me.headerPanel,\r",
                     "    message : '加载头信息...',    \r",
                     "    url : ctxp+'/p/main!main.do',\r",
                     "    callback : function(result){me.setHeader(result);}\r",

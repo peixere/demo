@@ -244,7 +244,7 @@ Ext.define('Gotom.view.Portal', {
     loadHeader: function() {
         me = this;
         Common.ajax({
-            //component : Ext.getCmp('app-header'),
+            component : me.headerPanel,
             message : '加载头信息...',    
             url : ctxp+'/p/main!main.do',
             callback : function(result){me.setHeader(result);}
