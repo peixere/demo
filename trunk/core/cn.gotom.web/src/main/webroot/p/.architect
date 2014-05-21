@@ -667,7 +667,6 @@
                     "cn": [
                         {
                             "id": "f2e133cd-8df0-4ca7-b8cd-4303a19e47bf",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "7082f57d-0296-493e-9cfa-806a046d011c"
@@ -916,14 +915,14 @@
         ]
     },
     "canvasState": {
-        "topInstance": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b"
+        "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
-        "selectedInstance": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
+        "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
+        "selectedInstance": "484b5059-8015-4655-aeec-1c8c0f005f8d"
     },
     "codeState": {
-        "topInstance": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b"
+        "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
     },
-    "editMode": "design"
+    "editMode": "code"
 }
