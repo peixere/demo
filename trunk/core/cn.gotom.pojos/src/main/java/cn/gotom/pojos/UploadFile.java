@@ -39,7 +39,7 @@ public class UploadFile extends SuperEntity implements Serializable
 	@Column(name = "file_stream", length = 10000000)
 	private byte[] fileStream;
 
-	@Column(name = "fk_id", nullable = false, columnDefinition = "char(36)", length = 36)
+	@Column(name = "fk_id", columnDefinition = "char(36)", length = 36)
 	private String fkId;
 
 	@Column(name = "fk_table")
