@@ -84,6 +84,12 @@ Ext.define('Gotom.view.Portal', {
                                     }
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'tabpanel',
+                            region: 'center',
+                            split: true,
+                            id: 'tabPanel'
                         }
                     ]
                 },
@@ -144,41 +150,29 @@ Ext.define('Gotom.view.Portal', {
 
     onLoad: function() {
         var me = this;
-        this.setHeader();
-        var portal = Ext.getCmp('portal-container');
-        var portalPanel = Ext.create("Gotom.view.PortalPanel",
-            {
-                id : 'app-portal',
-                region : 'center',
-                title : "我的桌面",
-                layout : 'column'
-            });
-        //var tabPanel = Ext.getCmp('tabPanel');
-        var tabPanel = Ext.create('Ext.tab.Panel',
-            {
-                id : 'tabPanel',
-                region : 'center',
-                activeTab : 0,
-                enableTabScroll : true,
-                animScroll : true,
-                border : true,
-                autoScroll : true,
-                split : true,
-                items : [ portalPanel]
-            });
-        portal.add(tabPanel);
-        this.setOptions();
-        this.onLoadIndex('');
-        var footer = Ext.getCmp('app-footer');
-        footer.setHeight(0);
+        me.headerPanel = Ext.getCmp('app-header');
+        me.footerPanel = Ext.getCmp('app-footer');
+        me.portalPanel = Ext.create("Gotom.view.PortalPanel",
+        {
+            id : 'app-portal',
+            region : 'center',
+            title : "我的桌面",
+            layout : 'column'
+        });
+        me.tabPanel = Ext.getCmp('tabPanel');
+        me.tabPanel.add(me.portalPanel);
+        me.tabPanel.setActiveTab(me.portalPanel);
+        me.setHeader();
+        me.setOptions();
+        me.onLoadIndex('');
+        me.footerPanel.setHeight(0);
     },
 
     onLoadIndex: function(data) {
         var me = this;
-        var tabPanel = Ext.getCmp('tabPanel');
-        var portalPanel = Ext.getCmp('app-portal');
+        var tabPanel = me.tabPanel;
+        var portalPanel =  me.portalPanel;
         tabPanel.setLoading('加载数据...');
-        //tabPanel.add(portalPanel);
         Ext.defer(function()
         {
             var portalcolumn = Ext.create('Gotom.view.PortalColumn',
@@ -201,7 +195,7 @@ Ext.define('Gotom.view.Portal', {
                         items : Ext.create('Gotom.view.ChartPortlet'),
                         listeners :
                         {
-                            'close' : Ext.bind(me.onPortletClose, this)
+                            //'close' : Ext.bind(me.onPortletClose, this)
                         }
                     }
                     ]
@@ -241,7 +235,7 @@ Ext.define('Gotom.view.Portal', {
                     }
                     ]
                 });
-            portalPanel.add(portalcolumn2);
+            //portalPanel.add(portalcolumn2);
             tabPanel.setLoading(false);
         }, 100);
     },

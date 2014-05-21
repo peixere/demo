@@ -638,6 +638,7 @@
         },
         "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b": {
             "id": "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
+            "expanded": false,
             "cn": [
                 {
                     "id": "4297a0b3-82b9-4b38-b29d-55800143a2ec",
@@ -773,7 +774,6 @@
                 },
                 {
                     "id": "498ea698-28b7-4276-8b9e-66d6ab2a4e1e",
-                    "expanded": false,
                     "cn": [
                         {
                             "id": "f68aa190-4fea-4119-ad2c-5a2fdacb5edb",
@@ -788,6 +788,9 @@
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "id": "4c1e300e-ce36-4742-bb5d-895f87548bbe"
                         }
                     ]
                 },

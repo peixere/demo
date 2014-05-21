@@ -121,6 +121,20 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "type": "Ext.tab.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "layout|split": true,
+                        "id": "tabPanel"
+                    },
+                    "designerId": "4c1e300e-ce36-4742-bb5d-895f87548bbe"
                 }
             ]
         },
@@ -223,8 +237,8 @@
                 "fn": "onLoad",
                 "implHandler": [
                     "var me = this;\r",
-                    "this.setHeader();\r",
-                    "var portal = Ext.getCmp('portal-container');\r",
+                    "me.headerPanel = Ext.getCmp('app-header');\r",
+                    "me.footerPanel = Ext.getCmp('app-footer');\r",
                     "me.portalPanel = Ext.create(\"Gotom.view.PortalPanel\",\r",
                     "    {\r",
                     "        id : 'app-portal',\r",
@@ -232,24 +246,13 @@
                     "        title : \"我的桌面\",\r",
                     "        layout : 'column'\r",
                     "    });\r",
-                    "//var tabPanel = Ext.getCmp('tabPanel');\r",
-                    "me.tabPanel = Ext.create('Ext.tab.Panel',\r",
-                    "    {\r",
-                    "        id : 'tabPanel',\r",
-                    "        region : 'center',\r",
-                    "        activeTab : 0,\r",
-                    "        enableTabScroll : true,\r",
-                    "        animScroll : true,\r",
-                    "        border : true,\r",
-                    "        autoScroll : true,\r",
-                    "        split : true,\r",
-                    "        items : [me.portalPanel]\r",
-                    "    });\r",
-                    "portal.add(me.tabPanel);\r",
-                    "this.setOptions();\r",
-                    "this.onLoadIndex('');\r",
-                    "var footer = Ext.getCmp('app-footer');\r",
-                    "footer.setHeight(0);"
+                    "me.tabPanel = Ext.getCmp('tabPanel');\r",
+                    "me.tabPanel.add(me.portalPanel);\r",
+                    "me.tabPanel.setActiveTab(me.portalPanel);\r",
+                    "me.setHeader();\r",
+                    "me.setOptions();\r",
+                    "me.onLoadIndex('');\r",
+                    "me.footerPanel.setHeight(0);"
                 ]
             },
             "designerId": "4c2b0b57-0974-488a-8f4e-573a4ad2a4f1"
@@ -268,10 +271,9 @@
                 ],
                 "implHandler": [
                     "var me = this;\r",
-                    "var tabPanel = me.tabPanel;//Ext.getCmp('tabPanel');\r",
-                    "var portalPanel =  me.portalPanel;//Ext.getCmp('app-portal');\r",
+                    "var tabPanel = me.tabPanel;\r",
+                    "var portalPanel =  me.portalPanel;\r",
                     "tabPanel.setLoading('加载数据...');\r",
-                    "//tabPanel.add(portalPanel);\r",
                     "Ext.defer(function()\r",
                     "{\r",
                     "    var portalcolumn = Ext.create('Gotom.view.PortalColumn',\r",
