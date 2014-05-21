@@ -270,10 +270,10 @@
                     "                region : 'center',\r",
                     "                title : '我的桌面'\r",
                     "            });    \r",
-                    "        me.tabPanel.add(desktop);\r",
+                    "            me.tabPanel.add(desktop);\r",
                     "        me.tabPanel.setActiveTab(desktop);    \r",
                     "    }\r",
-                    "}catch(error){Ext.Msg.alert('操作提示',error);}"
+                    "}catch(error){Ext.Msg.alert('操作提示','找不到控件：'+name);}"
                 ]
             },
             "designerId": "50922d80-5cde-48f8-8ec3-eaf1d1a811c7"
