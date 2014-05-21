@@ -149,14 +149,6 @@
                 "classes/view/CustomPanel.js"
             ],
             "className": "CustomPanel"
-        },
-        "c12b3d34-d8fe-4654-86dd-0ac9c7aeed85": {
-            "paths": [
-                "metadata/view/IndexPanel",
-                "classes/view/override/IndexPanel.js",
-                "classes/view/IndexPanel.js"
-            ],
-            "className": "IndexPanel"
         }
     },
     "viewOrderMap": {
@@ -174,8 +166,7 @@
             "640e059b-b167-4e5b-a268-5d16d3e3b81a",
             "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b",
             "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-            "1cae1395-da53-4cfa-a03c-f801a914d496",
-            "c12b3d34-d8fe-4654-86dd-0ac9c7aeed85"
+            "1cae1395-da53-4cfa-a03c-f801a914d496"
         ],
         "store": [],
         "controller": [],
