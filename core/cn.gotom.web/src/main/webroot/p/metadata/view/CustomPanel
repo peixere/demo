@@ -214,7 +214,6 @@
                                 "fieldLabel": "首页面板",
                                 "labelWidth": 60,
                                 "name": "desktopPanel",
-                                "allowBlank": false,
                                 "blankText": null
                             },
                             "designerId": "a78b9670-8df1-4b2d-aaa8-9f7b1dcc358f"
