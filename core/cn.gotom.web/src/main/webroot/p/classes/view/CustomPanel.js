@@ -72,7 +72,7 @@ Ext.define('Gotom.view.CustomPanel', {
                         {
                             xtype: 'form',
                             region: 'north',
-                            height: 237,
+                            height: 244,
                             bodyPadding: 10,
                             title: '编辑信息',
                             items: [
@@ -92,7 +92,17 @@ Ext.define('Gotom.view.CustomPanel', {
                                     labelWidth: 60,
                                     name: 'titlename',
                                     allowBlank: false,
-                                    blankText: '必填项'
+                                    blankText: '必填项',
+                                    maxLength: 200,
+                                    minLength: 2
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    fieldLabel: '首页面板',
+                                    labelWidth: 60,
+                                    name: 'desktopPanel',
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'textfield',
@@ -120,7 +130,7 @@ Ext.define('Gotom.view.CustomPanel', {
                                 {
                                     xtype: 'textareafield',
                                     anchor: '100%',
-                                    height: 58,
+                                    height: 38,
                                     fieldLabel: '公司简介',
                                     labelWidth: 60,
                                     name: 'description'

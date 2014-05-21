@@ -152,7 +152,7 @@ Ext.define('Gotom.view.Portal', {
         me.tabPanel = Ext.getCmp('tabPanel');
         me.loadHeader();
         me.loadOptions();
-        me.loadDesktop('');
+        me.loadDesktop(desktopPanel);
         me.footerPanel.setHeight(0);
     },
 

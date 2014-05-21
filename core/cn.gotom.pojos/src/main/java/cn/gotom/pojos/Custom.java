@@ -35,53 +35,77 @@ public class Custom extends SuperEntity implements Serializable
 	private String logoId;
 	@Column(name = "topbg_id", columnDefinition = "char(36)", length = 36)
 	private String topbgId;
+	@Column(name = "desktop_panel")
+	private String desktopPanel;
+
 	public String getName()
 	{
 		return name;
 	}
+
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	public String getTitlename()
 	{
 		return titlename;
 	}
+
 	public void setTitlename(String titlename)
 	{
 		this.titlename = titlename;
 	}
+
 	public String getDescription()
 	{
 		return description;
 	}
+
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
+
 	public String getFontStyle()
 	{
 		return fontStyle;
 	}
+
 	public void setFontStyle(String fontStyle)
 	{
 		this.fontStyle = fontStyle;
 	}
+
 	public String getLogoId()
 	{
 		return logoId;
 	}
+
 	public void setLogoId(String logoId)
 	{
 		this.logoId = logoId;
 	}
+
 	public String getTopbgId()
 	{
 		return topbgId;
 	}
+
 	public void setTopbgId(String topbgId)
 	{
 		this.topbgId = topbgId;
+	}
+
+	public String getDesktopPanel()
+	{
+		return desktopPanel;
+	}
+
+	public void setDesktopPanel(String desktopPanel)
+	{
+		this.desktopPanel = desktopPanel;
 	}
 
 }
