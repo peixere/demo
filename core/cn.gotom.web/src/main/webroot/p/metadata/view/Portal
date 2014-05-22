@@ -364,15 +364,14 @@
                 "implHandler": [
                     "var me = this;\r",
                     "try{\r",
-                    "\tCommon.ajax(\r",
+                    "    Common.ajax(\r",
                     "    {\r",
                     "        component : me.options,\r",
                     "        message : '加载菜单...',\r",
                     "        url : ctxp+'/p/main!menu.do',\r",
                     "        callback : function(result){me.setOptions(result);}\r",
                     "    });\r",
-                    "}catch(error){Ext.Msg.alert('异常提示',error);}    \r",
-                    "Ext.defer(function(){me.loadOptions();}, 60000);"
+                    "}catch(error){Ext.Msg.alert('异常提示',error);}"
                 ]
             },
             "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"

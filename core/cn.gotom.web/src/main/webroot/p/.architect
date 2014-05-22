@@ -4,7 +4,7 @@
         "model": false,
         "component": true,
         "controller": true,
-        "resource": true,
+        "resource": false,
         "184faed7-af51-4017-bfa9-4850c8a4ddb7": {
             "id": "184faed7-af51-4017-bfa9-4850c8a4ddb7",
             "cn": [
@@ -917,17 +917,14 @@
         }
     },
     "tabState": {
-        "openTabs": [
-            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-            "27bc8ef0-8119-4f39-96f8-c8aab4bf2e6b"
-        ]
+        "openTabs": []
     },
     "canvasState": {
-        "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
+        "topInstance": null
     },
     "inspectorState": {
         "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-        "selectedInstance": "50922d80-5cde-48f8-8ec3-eaf1d1a811c7"
+        "selectedInstance": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
     },
     "codeState": {
         "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
