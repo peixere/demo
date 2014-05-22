@@ -233,8 +233,7 @@ Ext.define('Gotom.view.Portal', {
                 url : ctxp+'/p/main!menu.do',
                 callback : function(result){me.setOptions(result);}
             });
-        }catch(error){Ext.Msg.alert('异常提示',error);}    
-            Ext.defer(function(){me.loadOptions();}, 60000);
+        }catch(error){Ext.Msg.alert('异常提示',error);}
     },
 
     setOptions: function(data) {
