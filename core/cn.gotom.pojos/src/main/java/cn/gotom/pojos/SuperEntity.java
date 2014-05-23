@@ -1,6 +1,5 @@
 package cn.gotom.pojos;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -20,15 +19,20 @@ import javax.persistence.Transient;
  * 
  */
 @MappedSuperclass
-public abstract class SuperEntity implements Serializable
+public abstract class SuperEntity implements IdSerializable
 {
 	private static final long serialVersionUID = 1L;
 
 	public static final SimpleDateFormat millisecondformat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
+	public static String randomID()
+	{
+		return UUID.randomUUID().toString();
+	}
+
 	@Id()
 	@Column(name = "id", nullable = false, columnDefinition = "char(36)", length = 36)
-	private String id = UUID.randomUUID().toString();
+	private String id = randomID();
 
 	@Column(name = "version_nom")
 	private long versionNow;
