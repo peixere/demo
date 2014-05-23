@@ -270,7 +270,7 @@ public class ServerFilter extends AbstractCommonFilter
 		/** 设置合适的字体 */
 		int size = (int) (height * (2.0 / 3));
 		Font font = new Font("黑体", Font.PLAIN, size);
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			int x1 = random.nextInt(width);
 			int y1 = random.nextInt(height);
