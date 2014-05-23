@@ -96,7 +96,7 @@ defaultOptions.exporting = {
 	//enabled: true,
 	//filename: 'chart',
 	type: 'image/png',
-	url: '/highcharts/',
+	url: '/p/highcharts.do',
 	//width: undefined,
 	//scale: 2
 	buttons: {
@@ -106,33 +106,33 @@ defaultOptions.exporting = {
 			symbol: 'menu',
 			_titleKey: 'contextButtonTitle',
 			menuItems: [{
-				textKey: 'printChart',
+				textKey: '打印报表',
 				onclick: function () {
 					this.print();
 				}
 			}, {
 				separator: true
 			}, {
-				textKey: 'downloadPNG',
+				textKey: '导出PNG',
 				onclick: function () {
 					this.exportChart();
 				}
 			}, {
-				textKey: 'downloadJPEG',
+				textKey: '导出JPEG',
 				onclick: function () {
 					this.exportChart({
 						type: 'image/jpeg'
 					});
 				}
 			}, {
-				textKey: 'downloadPDF',
+				textKey: '导出PDF',
 				onclick: function () {
 					this.exportChart({
 						type: 'application/pdf'
 					});
 				}
 			}, {
-				textKey: 'downloadSVG',
+				textKey: '导出SVG',
 				onclick: function () {
 					this.exportChart({
 						type: 'image/svg+xml'
