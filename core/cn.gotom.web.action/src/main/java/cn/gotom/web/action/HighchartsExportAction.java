@@ -24,8 +24,8 @@ import org.apache.struts2.convention.annotation.Result;
  * @author <a href="mailto:peixere@qq.com">裴绍国</a>
  * @version 2013-12-03
  */
-@Namespace("/p")
-@Action(value = "/highcharts", results = { @Result(name = "success", type = "stream") })
+@Namespace("/")
+@Action(value = "pChartExport", results = { @Result(name = "success", type = "stream") })
 public class HighchartsExportAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
