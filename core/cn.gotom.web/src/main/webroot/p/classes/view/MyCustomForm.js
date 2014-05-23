@@ -97,18 +97,6 @@ Ext.define('Gotom.view.MyCustomForm', {
         var me = this;
         var form = me.formPanel;
         try{
-            var rightIds = [];
-            var tree = me.treePanel.items.get(1);
-            var items = tree.getSelectionModel().store.data.items;
-            Ext.each(items, function()
-            {
-                var nd = this;
-                if(nd.data.checked)
-                {
-                    rightIds.push(nd.data.id);
-                }
-            });    
-            form.getForm().findField('rightIds').setValue(rightIds);
             Common.formSubmit({  
                 url : ctxp+'/p/myCustomSave.do',
                 form:form,
@@ -116,8 +104,6 @@ Ext.define('Gotom.view.MyCustomForm', {
                 {
                     if(result.success)
                     {
-                        me.loadGrid();
-                        me.onAddClick(button,e,eOpts);
                     }else{
                         Ext.Msg.alert('信息提示', result.data);
                     }	
