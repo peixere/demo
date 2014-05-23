@@ -16,6 +16,10 @@
 Ext.define('Gotom.view.CustomPanel', {
     extend: 'Ext.panel.Panel',
 
+    requires: [
+        'Gotom.view.CustomForm'
+    ],
+
     gridPanel: '',
     border: false,
     layout: {
@@ -70,99 +74,11 @@ Ext.define('Gotom.view.CustomPanel', {
                     },
                     items: [
                         {
-                            xtype: 'form',
+                            xtype: 'CustomForm',
                             region: 'north',
-                            height: 244,
-                            bodyPadding: 10,
-                            title: '编辑信息',
-                            items: [
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '公司名称',
-                                    labelWidth: 60,
-                                    name: 'name',
-                                    allowBlank: false,
-                                    blankText: '必填项'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '首页标题',
-                                    labelWidth: 60,
-                                    name: 'titlename',
-                                    allowBlank: false,
-                                    blankText: '必填项',
-                                    maxLength: 200,
-                                    minLength: 2
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '首页面板',
-                                    labelWidth: 60,
-                                    name: 'desktopPanel'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '标题样式',
-                                    labelWidth: 60,
-                                    name: 'fontStyle'
-                                },
-                                {
-                                    xtype: 'filefield',
-                                    anchor: '100%',
-                                    width: 208,
-                                    fieldLabel: '标题背景',
-                                    labelWidth: 60,
-                                    name: 'topbg'
-                                },
-                                {
-                                    xtype: 'filefield',
-                                    anchor: '100%',
-                                    width: 208,
-                                    fieldLabel: '公司图标',
-                                    labelWidth: 60,
-                                    name: 'logo'
-                                },
-                                {
-                                    xtype: 'textareafield',
-                                    anchor: '100%',
-                                    height: 38,
-                                    fieldLabel: '公司简介',
-                                    labelWidth: 60,
-                                    name: 'description'
-                                },
-                                {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'id'
-                                },
-                                {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'logoId'
-                                },
-                                {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'topbgId'
-                                },
-                                {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'rightIds'
-                                }
-                            ],
                             listeners: {
                                 afterlayout: {
                                     fn: me.onFormAfterLayout,
-                                    single: true,
                                     scope: me
                                 }
                             }

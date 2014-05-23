@@ -1,0 +1,183 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "width": null,
+        "designer|userClassName": "MyCustomForm",
+        "designer|userAlias": "MyCustomForm",
+        "layout": "border",
+        "title": "公司信息"
+    },
+    "designerId": "254e9715-1ad4-4690-ab24-21d1b974238d",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadForm",
+                "designer|params": [
+                    "customId"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "me.formPanel.getForm().reset();\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p/custom.do?custom.id='+customId,\r",
+                    "    callback : function(result) {\r",
+                    "        me.formPanel.getForm().setValues(result.data);\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "9a01abe3-3614-4d2b-9d6e-d0f51718c940"
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "layout|region": "center"
+            },
+            "designerId": "14520729-71ae-4ccd-a9de-1d90a554d668",
+            "masterInstanceId": "d0d07ba2-f926-42f8-8d1b-5536f78cf918",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onFormAfterLayout",
+                        "implHandler": [
+                            "this.formPanel = container;"
+                        ],
+                        "name": "afterlayout",
+                        "scope": "me"
+                    },
+                    "designerId": "d2e222ab-c61e-41ab-8ca8-278520bae873"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPanelAfterLayout",
+                "implHandler": [
+                    "var me = this;\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p!context.do',\r",
+                    "    callback : function(result) {\r",
+                    "        me.loadForm(result.data.id);\r",
+                    "    }\r",
+                    "});"
+                ],
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "4e681d02-f129-4476-8f3a-987d9b55465f"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "container|pack": "end"
+            },
+            "designerId": "85ab0d75-468e-4e85-8edf-efa921d7b0a3",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "e3285112-a4a2-4b0c-9fce-88961c93f352",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "var form = me.formPanel;\r",
+                                    "try{\r",
+                                    "    var rightIds = [];\r",
+                                    "    var tree = me.treePanel.items.get(1);\r",
+                                    "    var items = tree.getSelectionModel().store.data.items;\r",
+                                    "    Ext.each(items, function()\r",
+                                    "    {\r",
+                                    "        var nd = this;\r",
+                                    "        if(nd.data.checked)\r",
+                                    "        {\r",
+                                    "            rightIds.push(nd.data.id);\r",
+                                    "        }\r",
+                                    "    });    \r",
+                                    "    form.getForm().findField('rightIds').setValue(rightIds);\r",
+                                    "    Common.formSubmit({  \r",
+                                    "        url : ctxp+'/p/myCustomSave.do',\r",
+                                    "        form:form,\r",
+                                    "        callback : function(result)\r",
+                                    "        {\r",
+                                    "            if(result.success)\r",
+                                    "            {\r",
+                                    "                me.loadGrid();\r",
+                                    "                me.onAddClick(button,e,eOpts);\r",
+                                    "            }else{\r",
+                                    "                Ext.Msg.alert('信息提示', result.data);\r",
+                                    "            }\t\r",
+                                    "        }\r",
+                                    "    });\r",
+                                    "}catch(error){\r",
+                                    "    alert(error);\r",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "5d81543a-a176-4b79-abc2-37f7ab66e804"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
