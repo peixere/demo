@@ -917,14 +917,16 @@
         }
     },
     "tabState": {
-        "openTabs": []
+        "openTabs": [
+            "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
+        ]
     },
     "canvasState": {
         "topInstance": null
     },
     "inspectorState": {
         "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-        "selectedInstance": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
+        "selectedInstance": "484b5059-8015-4655-aeec-1c8c0f005f8d"
     },
     "codeState": {
         "topInstance": "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1"
