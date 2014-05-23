@@ -1,7 +1,14 @@
 package cn.gotom.sso.server;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -9,6 +16,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
@@ -100,6 +108,10 @@ public class ServerFilter extends AbstractCommonFilter
 		{
 			doLogin(req, res);
 		}
+		else if (TicketValidator.Code.equalsIgnoreCase(method))
+		{
+			doCode(req, res);
+		}
 		else
 		{
 			Ticket ticket = TicketMap.instance.get(req.getSession().getId());
@@ -124,10 +136,24 @@ public class ServerFilter extends AbstractCommonFilter
 		boolean noScript = CommonUtils.parseBoolean(req.getParameter("noScript"));
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
+		String code = req.getParameter("code");
+		String codeVal = (String) req.getSession().getAttribute(TicketValidator.Code);
 		boolean passwordencoding = CommonUtils.parseBoolean(req.getParameter("passwordencoding"));
 		TicketImpl ticket = new TicketImpl(req.getSession().getId());
 		String serviceUrl = getServiceUrl(req);
-		if (login(username, password, passwordencoding))
+		Integer errorNum = (Integer) req.getSession().getAttribute(TicketValidator.Login);
+		if (errorNum == null)
+		{
+			errorNum = 0;
+		}
+		if (errorNum > 3)
+		{
+			if (code!= null && code.equalsIgnoreCase(codeVal))
+			{
+				errorNum = 0;
+			}
+		}
+		if (errorNum <= 3 && login(username, password, passwordencoding))
 		{
 			ticket.setSuccess(true);
 			ticket.setUser(username);
@@ -135,14 +161,24 @@ public class ServerFilter extends AbstractCommonFilter
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
 			req.getSession().setAttribute(ticket.getId(), ticket);
 			TicketMap.instance.put(ticket.getId(), ticket);
+			req.getSession().removeAttribute(TicketValidator.Login);
+			req.getSession().removeAttribute(TicketValidator.Code);
 			success(req, res, ticket.getRedirect());
 		}
 		else
 		{
-			errorMsg = "用户名或密码不正确！";
+			if (errorNum > 3)
+			{
+				errorMsg = "验证码不正确！";
+			}
+			else
+			{
+				errorMsg = "用户名或密码不正确！";
+			}
+			req.getSession().setAttribute(TicketValidator.Login, ++errorNum);
 			if (!noScript)
 			{
-				//errorMsg = "请开启浏览器的Javascript功能";
+				// errorMsg = "请开启浏览器的Javascript功能";
 			}
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
@@ -150,6 +186,134 @@ public class ServerFilter extends AbstractCommonFilter
 			req.getRequestDispatcher(loginPath).forward(req, res);
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
+	}
+
+	protected void doCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+	{
+		HttpSession session = request.getSession();
+		response.setContentType("image/jpeg");
+		OutputStream os = null;
+		try
+		{
+			/** 生成随机码 */
+			String code = "";
+			for (int i = 0; i < 5; ++i)
+			{
+				Random seedRan = new Random();
+				int seed = seedRan.nextInt();
+				Random ran = new Random(seed);
+				int num = Math.abs((ran.nextInt()) % 91);
+				if (65 <= num && num <= 90)
+				{
+					char c = (char) num;
+					code += c;
+				}
+				else
+				{
+					num = num % 10;
+					code += num;
+				}
+			}
+			/** 将验证码保存到会话中 */
+			session.setAttribute(TicketValidator.Code, code);
+			/** 生成验证图 */
+			BufferedImage image = createImage(80, 30, code);
+			/** 获取输出流 */
+			os = response.getOutputStream();
+			/** 将验证图写入输出流 */
+			ImageIO.write(image, "JPEG", os);
+			/** 刷新关闭 */
+			os.flush();
+			os.close();
+		}
+		catch (Exception ex)
+		{
+			log.error(ex.getClass() + " " + ex.getMessage());
+		}
+		finally
+		{
+			if (os != null)
+			{
+				try
+				{
+					os.close();
+				}
+				catch (IOException e)
+				{
+					log.error(e.getClass() + " " + e.getMessage());
+				}
+			}
+		}
+	}
+
+	/**
+	 * 根据给定尺寸及验证码生成验证图
+	 * 
+	 * @param width
+	 * @param height
+	 * @param code
+	 * @return
+	 */
+	private BufferedImage createImage(int width, int height, String code)
+	{
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Random random = new Random();
+		/** 获取图片上下文 */
+		Graphics graph = image.getGraphics();
+		/** 设置背景颜色 */
+		graph.setColor(createColor(200, 250));
+		/** 填充图片区域 */
+		graph.fillRect(0, 0, width, height);
+		/** 随机产生10条干扰线 */
+		/** 设置干扰线颜色 */
+		graph.setColor(createColor(160, 200));
+		/** 设置合适的字体 */
+		int size = (int) (height * (2.0 / 3));
+		Font font = new Font("黑体", Font.PLAIN, size);
+		for (int i = 0; i < 10; i++)
+		{
+			int x1 = random.nextInt(width);
+			int y1 = random.nextInt(height);
+			int x2 = random.nextInt(width / 2);
+			int y2 = random.nextInt(height / 2);
+			graph.drawLine(x1, y1, x1 + x2, y1 + y2);
+		}
+		/** 将随机码一个个的写到图片上 */
+		/** 根据图片高(宽)度以及验证码位数计算出随机码书写的XY坐标 */
+		int length = code.length();
+		int w = (int) ((width * 1.0) / (length + 1));
+		int h = (int) (height * (3.0 / 4));
+		graph.setFont(font);
+		String[] array = code.split("");
+		for (int i = 1; i < array.length; ++i)
+		{
+			graph.setColor(createColor(45, 60));
+			String str = array[i];
+			graph.drawString(str, w * i, h);
+		}
+		/** 释放图像上下文以及占用所有系统资源 */
+		graph.dispose();
+		return image;
+	}
+
+	/**
+	 * 生成给定范围内随机颜色
+	 * 
+	 * @param begin
+	 * @param end
+	 * @return
+	 */
+	private Color createColor(int begin, int end)
+	{
+		Random random = new Random();
+		if (begin > 255 || begin < 0)
+			begin = 255;
+		if (end > 255 || end < 0)
+			end = 255;
+		int r = begin + random.nextInt(end - begin);
+		int g = begin + random.nextInt(end - begin);
+		int b = begin + random.nextInt(end - begin);
+		return new Color(r, g, b);
 	}
 
 	private void success(HttpServletRequest req, HttpServletResponse res, String redirectUrl) throws IOException, ServletException
