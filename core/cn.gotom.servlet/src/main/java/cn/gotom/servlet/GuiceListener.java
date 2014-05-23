@@ -122,10 +122,7 @@ public class GuiceListener extends GuiceServletContextListener
 			{
 				bind(WebSocketServer.class).in(Singleton.class);
 				serve("/websocket.ws").with(WebSocketServer.class);
-
-				bind(DownloadServlet.class).in(Singleton.class);
-				serve("/download").with(DownloadServlet.class);
-
+				
 				bind(CharacterFilter.class).in(Singleton.class);
 				filter("/*").through(CharacterFilter.class);
 
