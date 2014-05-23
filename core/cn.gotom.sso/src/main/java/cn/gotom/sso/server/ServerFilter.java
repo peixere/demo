@@ -88,6 +88,7 @@ public class ServerFilter extends AbstractCommonFilter
 			}
 		}
 		String url = UrlUtils.buildUrl(req);
+		req.setAttribute("numCount", numCount);
 		req.setAttribute("serverLoginUrl", url);
 		req.setAttribute("serviceParameterName", getServiceParameterName());
 		String method = req.getHeader(TicketValidator.Method);
@@ -130,6 +131,8 @@ public class ServerFilter extends AbstractCommonFilter
 			}
 		}
 	}
+	
+	private int numCount = 2;
 
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
@@ -146,14 +149,14 @@ public class ServerFilter extends AbstractCommonFilter
 		{
 			errorNum = 0;
 		}
-		if (errorNum > 3)
+		if (errorNum > numCount)
 		{
 			if (code!= null && code.equalsIgnoreCase(codeVal))
 			{
 				errorNum = 0;
 			}
 		}
-		if (errorNum <= 3 && login(username, password, passwordencoding))
+		if (errorNum <= numCount && login(username, password, passwordencoding))
 		{
 			ticket.setSuccess(true);
 			ticket.setUser(username);
@@ -167,7 +170,7 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		else
 		{
-			if (errorNum > 3)
+			if (errorNum > numCount)
 			{
 				errorMsg = "验证码不正确！";
 			}
