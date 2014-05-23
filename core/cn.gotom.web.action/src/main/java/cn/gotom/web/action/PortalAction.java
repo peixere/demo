@@ -16,6 +16,7 @@ import cn.gotom.pojos.UploadFile;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.UploadFileService;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.JsonResponse;
 
 import com.google.inject.Inject;
 
@@ -39,6 +40,15 @@ public class PortalAction extends AbsPortalAction
 		return "success";
 	}
 
+	public void context()
+	{
+		custom = customService.get(getCurrentCustomId());
+		JsonResponse jr = new JsonResponse();
+		jr.setData(custom);
+		jr.setSuccess(true);
+		toJSON(jr);
+	}
+	
 	@Action(results = { @Result(name = "success", type = "stream") })
 	public void down()
 	{
