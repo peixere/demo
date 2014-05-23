@@ -42,11 +42,11 @@ var Chart = Highcharts.Chart,
 
 	// Add language
 	extend(defaultOptions.lang, {
-		printChart: 'Print chart',
-		downloadPNG: 'Download PNG image',
-		downloadJPEG: 'Download JPEG image',
-		downloadPDF: 'Download PDF document',
-		downloadSVG: 'Download SVG vector image',
+		printChart: '打印报表',
+		downloadPNG: '导出PNG',
+		downloadJPEG: '导出JPEG',
+		downloadPDF: '导出PDF',
+		downloadSVG: '导出SVG',
 		contextButtonTitle: 'Chart context menu'
 	});
 
@@ -96,7 +96,7 @@ defaultOptions.exporting = {
 	//enabled: true,
 	//filename: 'chart',
 	type: 'image/png',
-	url: '/p/highcharts.do',
+	url: '/pChartExport.do',
 	//width: undefined,
 	//scale: 2
 	buttons: {
