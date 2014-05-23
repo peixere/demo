@@ -18,10 +18,22 @@ Ext.define('Common', {
         },
         
         onException: function(response) {
-            if(response.status === 200)
+            if(response.status === 0)
+            {
+                Ext.MessageBox.show({
+                    title:'无法连接 ',
+                    msg:response,
+                    icon:Ext.MessageBox.ERROR 
+                });
+            }
+            else if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                Ext.Msg.alert('操作异常 '+response.status, result.data);
+                Ext.MessageBox.show({
+                    title:'操作异常',
+                    msg:result.data,
+                    icon:Ext.MessageBox.ERROR 
+                });
             }
             else if(response.status === 401)
             {
@@ -29,7 +41,11 @@ Ext.define('Common', {
             }
             else
             {
-                Ext.Msg.alert('操作异常 '+response.status, response.responseText);
+                Ext.MessageBox.show({
+                    title:'操作异常',
+                    msg:response.responseText,
+                    icon:Ext.MessageBox.ERROR 
+                });  
             }
         },
         ajax: function(config) {
