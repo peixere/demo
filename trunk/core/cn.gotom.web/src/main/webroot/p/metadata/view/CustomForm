@@ -1,0 +1,197 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 244,
+        "designer|userClassName": "CustomForm",
+        "designer|userAlias": "CustomForm",
+        "bodyPadding": 10,
+        "title": "编辑信息"
+    },
+    "designerId": "d0d07ba2-f926-42f8-8d1b-5536f78cf918",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": null,
+                "fieldLabel": "公司名称",
+                "labelWidth": 60,
+                "name": "name",
+                "allowBlank": false,
+                "blankText": "必填项"
+            },
+            "designerId": "7082f57d-0296-493e-9cfa-806a046d011c"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": null,
+                "fieldLabel": "首页标题",
+                "labelWidth": 60,
+                "name": "titlename",
+                "allowBlank": false,
+                "blankText": "必填项",
+                "maxLength": 200,
+                "minLength": 2
+            },
+            "designerId": "a8666ce0-69c6-4de2-a233-97ca6a81bb50"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": null,
+                "fieldLabel": "首页面板",
+                "labelWidth": 60,
+                "name": "desktopPanel",
+                "blankText": null
+            },
+            "designerId": "a78b9670-8df1-4b2d-aaa8-9f7b1dcc358f"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": null,
+                "fieldLabel": "标题样式",
+                "labelWidth": 60,
+                "name": "fontStyle"
+            },
+            "designerId": "94eab0fe-4152-4cbf-a987-e9e61fbdc978"
+        },
+        {
+            "type": "Ext.form.field.File",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "width": 208,
+                "fieldLabel": "标题背景",
+                "labelWidth": 60,
+                "name": "topbg"
+            },
+            "designerId": "05d363b3-b173-4c78-8006-021d162454ca"
+        },
+        {
+            "type": "Ext.form.field.File",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "width": 208,
+                "fieldLabel": "公司图标",
+                "labelWidth": 60,
+                "name": "logo"
+            },
+            "designerId": "f6d865b5-72e7-48b1-bf1a-38659f8605b2"
+        },
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "height": 38,
+                "designer|displayName": null,
+                "fieldLabel": "公司简介",
+                "labelWidth": 60,
+                "name": "description"
+            },
+            "designerId": "5f2253b9-74ff-49b2-99a5-7c5fcd3b7161"
+        },
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": "",
+                "fieldLabel": "Label",
+                "name": "id"
+            },
+            "designerId": "aeb5a83d-3035-4ea7-ab0e-e6c479a029b7"
+        },
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": "",
+                "fieldLabel": "Label",
+                "name": "logoId"
+            },
+            "designerId": "9d2eee61-fab0-4dc4-b4cf-6f18c5dd4fff"
+        },
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "designer|displayName": "",
+                "fieldLabel": "Label",
+                "name": "topbgId"
+            },
+            "designerId": "f42157c2-2b74-41fb-b66b-7689c9107611"
+        },
+        {
+            "type": "Ext.form.field.Hidden",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|anchor": "100%",
+                "fieldLabel": "Label",
+                "name": "rightIds"
+            },
+            "designerId": "67dc057f-46eb-4788-a61b-430a95c06d72"
+        }
+    ]
+}
