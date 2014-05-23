@@ -45,7 +45,7 @@ function image(){
 		<p>
 			登录密码: <br/><input type="password" name="passwordinput" id="passwordinput" style="width:260px;height:20px;"/>
 		</p>
-		<c:if test="${login > 3}">
+		<c:if test="${login > numCount}">
 		<p>
 			验证编码: <br/><input type="text" name="code" style="width:260px;height:20px;"/>
 			<img id="imageCode" onclick="javascript:image();" alt="load..." src="${ctxp}${serverLoginUrl}?method=code">
