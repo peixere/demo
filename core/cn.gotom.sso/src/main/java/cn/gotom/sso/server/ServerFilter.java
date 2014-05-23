@@ -149,14 +149,16 @@ public class ServerFilter extends AbstractCommonFilter
 		{
 			errorNum = 0;
 		}
+		boolean codeCheck = true;
 		if (errorNum > numCount)
 		{
+			codeCheck = false;
 			if (code!= null && code.equalsIgnoreCase(codeVal))
 			{
-				errorNum = 0;
+				codeCheck = true;
 			}
 		}
-		if (errorNum <= numCount && login(username, password, passwordencoding))
+		if (codeCheck && login(username, password, passwordencoding))
 		{
 			ticket.setSuccess(true);
 			ticket.setUser(username);
@@ -170,13 +172,13 @@ public class ServerFilter extends AbstractCommonFilter
 		}
 		else
 		{
-			if (errorNum > numCount)
+			if (codeCheck)
 			{
-				errorMsg = "验证码不正确！";
+				errorMsg = "用户名或密码不正确！";
 			}
 			else
 			{
-				errorMsg = "用户名或密码不正确！";
+				errorMsg = "验证码不正确！";
 			}
 			req.getSession().setAttribute(TicketValidator.Login, ++errorNum);
 			if (!noScript)
