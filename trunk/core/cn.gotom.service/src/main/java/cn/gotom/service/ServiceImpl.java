@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.CustomUser;
+import cn.gotom.pojos.IdSerializable;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
@@ -148,9 +149,12 @@ public class ServiceImpl implements Service
 			{
 				for (Map<String, ?> m : list)
 				{
-					Object o = clazz.newInstance();
+					IdSerializable o = (IdSerializable) clazz.newInstance();
 					BeanUtils.populate(o, m);
-					universalService.persist(o);
+					if (universalService.get(clazz, o.getId()) == null)
+					{
+						universalService.persist(o);
+					}
 				}
 			}
 		}
