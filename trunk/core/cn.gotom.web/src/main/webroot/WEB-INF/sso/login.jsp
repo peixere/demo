@@ -18,6 +18,11 @@ function passwordEncoding(){
     document.getElementById('password').value = hex_md5(document.getElementById('passwordinput').value);
     document.getElementById('passwordinput').value = '';
 }
+var num = 0;
+function image(){
+    num++;
+    document.getElementById('imageCode').src = '${ctxp}${serverLoginUrl}?method=code&'+num;
+}
 -->
 </script>
 </head>
@@ -40,6 +45,12 @@ function passwordEncoding(){
 		<p>
 			登录密码: <br/><input type="password" name="passwordinput" id="passwordinput" style="width:260px;height:20px;"/>
 		</p>
+		<c:if test="${login > 3}">
+		<p>
+			验证编码: <br/><input type="text" name="code" style="width:260px;height:20px;"/>
+			<img id="imageCode" onclick="javascript:image();" alt="load..." src="${ctxp}${serverLoginUrl}?method=code">
+		</p>	
+		</c:if>	
 		<hr/>
 		<div id="button"><input type="submit" value="" id="submit" style="background-image:url('resources/icons/login.gif');padding:0px"/></div>
 	</form>
