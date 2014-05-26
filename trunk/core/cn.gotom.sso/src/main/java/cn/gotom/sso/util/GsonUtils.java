@@ -20,7 +20,7 @@ public class GsonUtils
 
 	public static <T> String toJson(T value)
 	{
-		return toJson(value, dateFormat, null, null, null);
+		return toJson(value, null, null, null, null);
 	}
 
 	public static <T> String toJson(T value, String dateFormat)
@@ -35,15 +35,21 @@ public class GsonUtils
 	 * @param dateFormat
 	 *            日期格式
 	 * @param registerTypeAdapterFactorys
+	 *            注册适配置器类型
 	 * @param excludeFields
+	 *            排除字段
 	 * @param excludeClasses
+	 *            排除类型
 	 * @return
 	 */
 	public static <T> String toJson(T value, String dateFormat, TypeAdapterFactory[] registerTypeAdapterFactorys, String[] excludeFields, Class<?>[] excludeClasses)
 	{
 		GsonBuilder gb = new GsonBuilder();
-		gb.setDateFormat(dateFormat);
-		gb.registerTypeAdapter(Timestamp.class, new GsonTimestampTypeAdapter(dateFormat));
+		if (dateFormat != null && dateFormat.trim().length() > 0)
+		{
+			gb.setDateFormat(dateFormat);
+			gb.registerTypeAdapter(Timestamp.class, new GsonTimestampTypeAdapter(dateFormat));
+		}
 		if (registerTypeAdapterFactorys != null)
 		{
 			for (TypeAdapterFactory factory : registerTypeAdapterFactorys)
@@ -58,7 +64,9 @@ public class GsonUtils
 			gb.serializeNulls();
 		}
 		Gson gson = gb.create();
-		return gson.toJson(value);
+		String json = gson.toJson(value);
+		log.debug(json);
+		return json;
 	}
 
 	public static void writer(HttpServletRequest request, HttpServletResponse response, String jsonString)
