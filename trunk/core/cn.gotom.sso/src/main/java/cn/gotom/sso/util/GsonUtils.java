@@ -16,7 +16,7 @@ public class GsonUtils
 {
 	private static final Logger log = Logger.getLogger(GsonUtils.class);
 
-	public static final String dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
+	public static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
 	public static <T> String toJson(T value)
 	{
