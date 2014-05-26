@@ -7,6 +7,6 @@
 	<script type="text/javascript" src="${ctxp}/resources/highcharts/3.0.7/modules/exporting-src.js"></script>
 	<script type="text/javascript">  
     <!--//  
-    Highcharts.getOptions().exporting.url = '${ctxp}/p/highcharts.do';
+    Highcharts.getOptions().exporting.url = '${ctxp}/pChartExport.do';
     //-->
     </script>
