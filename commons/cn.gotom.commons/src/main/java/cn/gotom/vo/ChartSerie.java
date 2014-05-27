@@ -1,5 +1,6 @@
 package cn.gotom.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChartSerie
@@ -9,7 +10,7 @@ public class ChartSerie
 
 	public ChartSerie()
 	{
-		
+		data = new ArrayList<ChartSeriePoint>();
 	}
 
 	public String getName()
