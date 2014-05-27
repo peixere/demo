@@ -1,7 +1,9 @@
 package cn.gotom.vo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 报表对应类
@@ -25,11 +27,14 @@ public class Chart
 
 	private String yAxisText;
 
+	private Map<String, Object> params;
+
 	private List<ChartSerie> series;
 
 	public Chart()
 	{
 		series = new ArrayList<ChartSerie>();
+		params = new HashMap<String, Object>();
 	}
 
 	public String getTitle()
@@ -51,7 +56,6 @@ public class Chart
 	{
 		this.subtitle = subtitle;
 	}
-
 
 	public String getxAxisText()
 	{
@@ -81,6 +85,16 @@ public class Chart
 	public void setSeries(List<ChartSerie> series)
 	{
 		this.series = series;
+	}
+
+	public Map<String, Object> getParams()
+	{
+		return params;
+	}
+
+	public void setParams(Map<String, Object> params)
+	{
+		this.params = params;
 	}
 
 }
