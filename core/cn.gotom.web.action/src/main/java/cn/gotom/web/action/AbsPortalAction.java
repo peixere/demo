@@ -49,11 +49,21 @@ public abstract class AbsPortalAction
 
 	protected <T> void toJSON(T value, String... excludeFields)
 	{
+		this.toJSON(null, value, excludeFields);
+	}
+
+	protected <T> void toJSON(String dateFormat, T value, String... excludeFields)
+	{
 		TypeAdapterFactory[] factorys = new TypeAdapterFactory[] { HibernateProxyTypeAdapter.FACTORY };
-		String json = GsonUtils.toJson(value, GsonUtils.dateFormat, factorys, excludeFields, null);
+		String json = GsonUtils.toJson(value, dateFormat, factorys, excludeFields, null);
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		GsonUtils.writer(request, response, json);
+		writer(request, response, json);
+	}
+
+	protected void writer(HttpServletRequest request, HttpServletResponse response, String jsonString)
+	{
+		GsonUtils.writer(request, response, jsonString);
 	}
 
 	public String getCurrentUsername()
