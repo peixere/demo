@@ -42,11 +42,11 @@ var Chart = Highcharts.Chart,
 
 	// Add language
 	extend(defaultOptions.lang, {
-		printChart: '打印报表',
-		downloadPNG: '导出PNG',
-		downloadJPEG: '导出JPEG',
-		downloadPDF: '导出PDF',
-		downloadSVG: '导出SVG',
+		printChart: '打印图表',
+		downloadPNG: '保存为PNG',
+		downloadJPEG: '保存为JPEG',
+		downloadPDF: '保存为PDF',
+		downloadSVG: '保存为 SVG',
 		contextButtonTitle: 'Chart context menu'
 	});
 
@@ -96,7 +96,7 @@ defaultOptions.exporting = {
 	//enabled: true,
 	//filename: 'chart',
 	type: 'image/png',
-	url: '/pChartExport.do',
+	url: 'http://export.highcharts.com/',
 	//width: undefined,
 	//scale: 2
 	buttons: {
@@ -106,33 +106,33 @@ defaultOptions.exporting = {
 			symbol: 'menu',
 			_titleKey: 'contextButtonTitle',
 			menuItems: [{
-				textKey: '打印报表',
+				textKey: 'printChart',
 				onclick: function () {
 					this.print();
 				}
 			}, {
 				separator: true
 			}, {
-				textKey: '导出PNG',
+				textKey: 'downloadPNG',
 				onclick: function () {
 					this.exportChart();
 				}
 			}, {
-				textKey: '导出JPEG',
+				textKey: 'downloadJPEG',
 				onclick: function () {
 					this.exportChart({
 						type: 'image/jpeg'
 					});
 				}
 			}, {
-				textKey: '导出PDF',
+				textKey: 'downloadPDF',
 				onclick: function () {
 					this.exportChart({
 						type: 'application/pdf'
 					});
 				}
 			}, {
-				textKey: '导出SVG',
+				textKey: 'downloadSVG',
 				onclick: function () {
 					this.exportChart({
 						type: 'image/svg+xml'
