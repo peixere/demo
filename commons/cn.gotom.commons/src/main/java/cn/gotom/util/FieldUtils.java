@@ -1,6 +1,7 @@
 package cn.gotom.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public final class FieldUtils
 {
@@ -102,6 +103,34 @@ public final class FieldUtils
 		catch (Exception ex)
 		{
 			ReflectionUtils.handleReflectionException(ex);
+		}
+	}
+
+	public static String getFields(Class<?> clazz)
+	{
+		Field[] fields = clazz.getDeclaredFields();
+		StringBuffer sb = new StringBuffer();
+		for (Field f : fields)
+		{
+			if (!Modifier.isStatic(f.getModifiers()) && !Modifier.isFinal(f.getModifiers()))
+				sb.append("'" + f.getName() + "', ");
+		}
+		while ((clazz = clazz.getSuperclass()) != null)
+		{
+			fields = clazz.getDeclaredFields();
+			for (Field f : fields)
+			{
+				if (!Modifier.isStatic(f.getModifiers()) && !Modifier.isFinal(f.getModifiers()))
+					sb.append("'" + f.getName() + "', ");
+			}
+		}
+		if (sb.length() > 2)
+		{
+			return (sb.substring(0, sb.length() - 2));
+		}
+		else
+		{
+			return sb.toString();
 		}
 	}
 }
