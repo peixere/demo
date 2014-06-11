@@ -412,6 +412,19 @@ public abstract class Converter
 		return new SimpleDateFormat(format, Locale.getDefault()).format(date);
 	}
 
+	public static Date toDate(String date, String format)
+	{
+		try
+		{
+			return new SimpleDateFormat(format, Locale.getDefault()).parse(date);
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public static int parseInt(String text)
 	{
 		try
@@ -423,7 +436,7 @@ public abstract class Converter
 			return 0;
 		}
 	}
-	
+
 	public static String throwableToString(Throwable tr)
 	{
 		if (tr == null)
