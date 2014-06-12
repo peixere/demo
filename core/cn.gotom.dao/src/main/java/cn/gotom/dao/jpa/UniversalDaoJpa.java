@@ -111,7 +111,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		String jpql = "select p from " + clazz.getSimpleName() + " p where 1 = 1";
 		for (int i = 0; i < parameters.length; i++)
 		{
-			jpql += " and p." + parameters[i].getName() + " = " + ArgsPrefix + i;
+			jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i;
 		}
 		jpql += getDefaultOrderBy(clazz,"p.");
 		Query q = getEntityManager().createQuery(jpql);
