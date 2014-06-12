@@ -18,6 +18,8 @@ import com.google.inject.ImplementedBy;
 public interface UniversalService
 {
 
+	String getDefaultOrderBy(Class<?> clazz,String prefix);
+
 	boolean exist(Class<?> clazz, Serializable id);
 
 	<T> List<T> findByIds(Class<T> clazz, Serializable[] ids);

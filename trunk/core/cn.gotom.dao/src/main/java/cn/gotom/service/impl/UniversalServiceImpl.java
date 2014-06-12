@@ -24,6 +24,11 @@ public class UniversalServiceImpl implements UniversalService
 	}
 
 	@Override
+	public String getDefaultOrderBy(Class<?> clazz,String prefix)
+	{
+		return dao.getDefaultOrderBy(clazz, prefix);
+	}
+	@Override
 	public boolean exist(Class<?> clazz, Serializable id)
 	{
 		return dao.exist(clazz, id);

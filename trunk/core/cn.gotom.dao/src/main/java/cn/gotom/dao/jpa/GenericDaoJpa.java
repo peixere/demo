@@ -44,6 +44,7 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 
 	public List<T> find(Parameter<?>... parameters)
 	{
+		/*
 		String jpql = "select p from " + persistentClass.getSimpleName() + " p where 1 = 1";
 		for (int i = 0; i < parameters.length; i++)
 		{
@@ -57,6 +58,8 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 		@SuppressWarnings("unchecked")
 		List<T> list = q.getResultList();
 		return list;
+		*/
+		return find(persistentClass, parameters);
 	}
 
 	@Override

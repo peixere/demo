@@ -36,25 +36,35 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	{
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> List<T> find(Class<T> clazz, int maxResults, int firstResult)
+	@Override
+	public String getDefaultOrderBy(Class<?> clazz,String prefix)
 	{
-		String jpql = "select p from " + clazz.getSimpleName() + " p";
 		String orderby = " order by ";
 		Field sort = findField(clazz, "sort");
 		if (sort != null && sort.isAnnotationPresent(Column.class))
 		{
-			orderby = orderby + " p." + sort.getName() + " asc,";
+			orderby = orderby + prefix + sort.getName() + " asc,";
 		}
 		Field versionNow = findField(clazz, "versionNow");
 		if (versionNow != null && versionNow.isAnnotationPresent(Column.class))
 		{
-			orderby = orderby + " p." + versionNow.getName() + " desc,";
+			orderby = orderby + prefix + versionNow.getName() + " desc,";
 		}
 		if (orderby.endsWith(","))
 		{
-			jpql += orderby.substring(0, orderby.length() - 1);
+			return orderby.substring(0, orderby.length() - 1);
 		}
+		else
+		{
+			return "";	
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> List<T> find(Class<T> clazz, int maxResults, int firstResult)
+	{
+		String jpql = "select p from " + clazz.getSimpleName() + " p";
+		jpql += getDefaultOrderBy(clazz,"p.");
 		Query q = getEntityManager().createQuery(jpql);
 		if (maxResults > 0)
 		{
@@ -76,6 +86,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i;
 		}
+		jpql += getDefaultOrderBy(clazz,"p.");
 		Query q = getEntityManager().createQuery(jpql);
 		for (int i = 0; i < parameters.length; i++)
 		{
@@ -102,6 +113,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			jpql += " and p." + parameters[i].getName() + " = " + ArgsPrefix + i;
 		}
+		jpql += getDefaultOrderBy(clazz,"p.");
 		Query q = getEntityManager().createQuery(jpql);
 		for (int i = 0; i < parameters.length; i++)
 		{
