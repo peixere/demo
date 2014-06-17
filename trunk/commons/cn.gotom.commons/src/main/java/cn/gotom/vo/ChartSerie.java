@@ -6,6 +6,7 @@ import java.util.List;
 public class ChartSerie
 {
 	private String name;
+	private boolean dataLabelEnabled;
 	private List<ChartSeriePoint> data;
 
 	public ChartSerie()
@@ -31,6 +32,16 @@ public class ChartSerie
 	public void setData(List<ChartSeriePoint> data)
 	{
 		this.data = data;
+	}
+
+	public boolean isDataLabelEnabled()
+	{
+		return dataLabelEnabled;
+	}
+
+	public void setDataLabelEnabled(boolean dataLabelEnabled)
+	{
+		this.dataLabelEnabled = dataLabelEnabled;
 	}
 
 }
