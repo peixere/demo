@@ -7,9 +7,9 @@
     "codeClass": null,
     "userConfig": {
         "draggable": false,
-        "height": 250,
+        "height": 200,
         "padding": 2,
-        "width": 400,
+        "width": 300,
         "designer|userClassName": "NoticeWindow",
         "designer|userAlias": "NoticeWindow",
         "shadow": false,
@@ -26,9 +26,17 @@
     },
     "configAlternates": {
         "resizable": "boolean",
-        "autoHide": "number"
+        "autoHide": "number",
+        "parentPanel": "object"
     },
     "designerId": "057dd279-bcc8-46c2-a440-aa86365313b6",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "parentPanel",
+            "type": "string"
+        }
+    ],
     "cn": [
         {
             "type": "basiceventbinding",
@@ -42,7 +50,7 @@
                 "implHandler": [
                     "this.resetPosition();\r",
                     "Ext.EventManager.onWindowResize(this.resetPosition, this);\r",
-                    "this.loadNotice();"
+                    "//this.loadNotice('');"
                 ],
                 "single": true,
                 "name": "afterrender",
@@ -128,8 +136,8 @@
                 "implHandler": [
                     "var me = this;\r",
                     "me.resetPosition();\r",
-                    "var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"./resources/audiojs/audio.html\"></iframe>';\r",
-                    "me.noticePanel.update(html);\r",
+                    "//var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"./resources/audiojs/audio.html\"></iframe>';\r",
+                    "//me.noticePanel.update(html);\r",
                     "if(this.collapsed !== false)\r",
                     "{\r",
                     "    me.expand();\r",
@@ -142,42 +150,6 @@
                 ]
             },
             "designerId": "55117b72-f03c-44d9-a967-570259713a3a"
-        },
-        {
-            "type": "Ext.panel.Panel",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|region": "center",
-                "border": false,
-                "padding": null,
-                "bodyPadding": "5px",
-                "header": false,
-                "title": "消息内容"
-            },
-            "designerId": "44651098-8178-4011-aebd-e01af12d33e7",
-            "cn": [
-                {
-                    "type": "basiceventbinding",
-                    "reference": {
-                        "name": "listeners",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "onPanelRender",
-                        "implHandler": [
-                            "this.noticePanel = component;"
-                        ],
-                        "name": "render",
-                        "scope": "me"
-                    },
-                    "designerId": "2f937a4d-f42d-443d-aa9e-f9b63aaa26da"
-                }
-            ]
         }
     ]
 }

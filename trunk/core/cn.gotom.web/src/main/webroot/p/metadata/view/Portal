@@ -169,9 +169,12 @@
                 "fn": "onPortalVIewPanelAfterLayout",
                 "implHandler": [
                     "this.onLoad();\r",
-                    "this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
-                    "this.noticeWindow.parent = this;\r",
-                    "this.noticeWindow.show();"
+                    "//if(Ext.isEmpty(this.noticeWindow))\r",
+                    "//{\r",
+                    "//\tthis.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
+                    "//}\r",
+                    "//this.noticeWindow.parentPanel = this;\r",
+                    "//this.noticeWindow.show();"
                 ],
                 "single": true,
                 "name": "afterlayout",
