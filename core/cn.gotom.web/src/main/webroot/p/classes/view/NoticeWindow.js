@@ -18,9 +18,9 @@ Ext.define('Gotom.view.NoticeWindow', {
     alias: 'widget.NoticeWindow',
 
     draggable: false,
-    height: 250,
+    height: 200,
     padding: 2,
-    width: 400,
+    width: 300,
     shadow: false,
     resizable: false,
     layout: {
@@ -53,23 +53,7 @@ Ext.define('Gotom.view.NoticeWindow', {
                     fn: me.onWindowExpand,
                     scope: me
                 }
-            },
-            items: [
-                {
-                    xtype: 'panel',
-                    region: 'center',
-                    border: false,
-                    bodyPadding: '5px',
-                    header: false,
-                    title: '消息内容',
-                    listeners: {
-                        render: {
-                            fn: me.onPanelRender,
-                            scope: me
-                        }
-                    }
-                }
-            ]
+            }
         });
 
         me.callParent(arguments);
@@ -78,7 +62,7 @@ Ext.define('Gotom.view.NoticeWindow', {
     onWindowAfterRender: function(component, eOpts) {
         this.resetPosition();
         Ext.EventManager.onWindowResize(this.resetPosition, this);
-        this.loadNotice();
+        //this.loadNotice('');
     },
 
     onWindowCollapse: function(p, eOpts) {
@@ -87,10 +71,6 @@ Ext.define('Gotom.view.NoticeWindow', {
 
     onWindowExpand: function(p, eOpts) {
         this.resetPosition();
-    },
-
-    onPanelRender: function(component, eOpts) {
-        this.noticePanel = component;
     },
 
     resetPosition: function() {
@@ -117,8 +97,8 @@ Ext.define('Gotom.view.NoticeWindow', {
     loadNotice: function() {
         var me = this;
         me.resetPosition();
-        var html = '<iframe width="100%" height="100%" frameborder="0" src="./resources/audiojs/audio.html"></iframe>';
-        me.noticePanel.update(html);
+        //var html = '<iframe width="100%" height="100%" frameborder="0" src="./resources/audiojs/audio.html"></iframe>';
+        //me.noticePanel.update(html);
         if(this.collapsed !== false)
         {
             me.expand();
