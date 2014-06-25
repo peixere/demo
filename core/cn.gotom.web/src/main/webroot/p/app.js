@@ -34,7 +34,8 @@ Ext.application({
         'RightWindow',
         'UserPassowrd',
         'CustomForm',
-        'MyCustomForm'
+        'MyCustomForm',
+        'NoticeWindow'
     ],
     appFolder: 'classes',
     appProperty: 'classes',

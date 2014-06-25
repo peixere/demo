@@ -120,6 +120,9 @@ Ext.define('Gotom.view.Portal', {
 
     onPortalVIewPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
+        this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');
+        this.noticeWindow.parent = this;
+        this.noticeWindow.show();
     },
 
     createTools: function() {
