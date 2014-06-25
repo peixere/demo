@@ -1,0 +1,183 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "draggable": false,
+        "height": 250,
+        "padding": 2,
+        "width": 400,
+        "designer|userClassName": "NoticeWindow",
+        "designer|userAlias": "NoticeWindow",
+        "shadow": false,
+        "resizable": false,
+        "layout": "border",
+        "animCollapse": true,
+        "closeAction": "hide",
+        "collapseDirection": "bottom",
+        "collapsible": true,
+        "title": "消息通知",
+        "titleAlign": "center",
+        "titleCollapse": false,
+        "plain": true
+    },
+    "configAlternates": {
+        "resizable": "boolean",
+        "autoHide": "number"
+    },
+    "designerId": "057dd279-bcc8-46c2-a440-aa86365313b6",
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "this.resetPosition();\r",
+                    "Ext.EventManager.onWindowResize(this.resetPosition, this);\r",
+                    "this.loadNotice();"
+                ],
+                "single": true,
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "designerId": "76d9b30f-f2dd-48ed-aa62-6e0afef84c7d"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowCollapse",
+                "implHandler": [
+                    "this.resetPosition();"
+                ],
+                "name": "collapse",
+                "scope": "me"
+            },
+            "designerId": "88192ea5-80d0-445c-9c41-3b47561cdb86"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "resetPosition",
+                "implHandler": [
+                    "try{\r",
+                    "    var width = this.width;\r",
+                    "    var height = this.height;  \r",
+                    "    if(this.collapsed === 'bottom' || this.collapsed === 'top')\r",
+                    "    {\r",
+                    "        height = 25;\r",
+                    "    }\r",
+                    "    if(this.collapsed === 'right' || this.collapsed === 'left')\r",
+                    "    {\r",
+                    "        width = 25;\r",
+                    "    }    \r",
+                    "    var body = Ext.getBody();\r",
+                    "    var left = body.getWidth()-4-width;  \r",
+                    "    var top = body.getHeight()-4-height;  \r",
+                    "    this.setPosition(left, top);\r",
+                    "}catch(e){\r",
+                    "    Ext.Msg.alert('title',e);\r",
+                    "}"
+                ]
+            },
+            "designerId": "da0fac45-486b-46b4-817c-d1840212e833"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowExpand",
+                "implHandler": [
+                    "this.resetPosition();"
+                ],
+                "name": "expand",
+                "scope": "me"
+            },
+            "designerId": "b49dbe6a-60ec-4b19-9aa8-6e701443787a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadNotice",
+                "implHandler": [
+                    "var me = this;\r",
+                    "me.resetPosition();\r",
+                    "var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"./resources/audiojs/audio.html\"></iframe>';\r",
+                    "me.noticePanel.update(html);\r",
+                    "if(this.collapsed !== false)\r",
+                    "{\r",
+                    "    me.expand();\r",
+                    "}\r",
+                    "if(me.hidden)\r",
+                    "{\r",
+                    "    me.show();\r",
+                    "}\r",
+                    "//Ext.defer(function(){me.loadNotice();}, 1000);"
+                ]
+            },
+            "designerId": "55117b72-f03c-44d9-a967-570259713a3a"
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "border": false,
+                "padding": null,
+                "bodyPadding": "5px",
+                "header": false,
+                "title": "消息内容"
+            },
+            "designerId": "44651098-8178-4011-aebd-e01af12d33e7",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onPanelRender",
+                        "implHandler": [
+                            "this.noticePanel = component;"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "designerId": "2f937a4d-f42d-443d-aa9e-f9b63aaa26da"
+                }
+            ]
+        }
+    ]
+}

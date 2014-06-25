@@ -168,7 +168,10 @@
             "userConfig": {
                 "fn": "onPortalVIewPanelAfterLayout",
                 "implHandler": [
-                    "this.onLoad();"
+                    "this.onLoad();\r",
+                    "this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
+                    "this.noticeWindow.parent = this;\r",
+                    "this.noticeWindow.show();"
                 ],
                 "single": true,
                 "name": "afterlayout",

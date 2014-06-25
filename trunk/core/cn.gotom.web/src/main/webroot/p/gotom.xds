@@ -165,6 +165,14 @@
                 "classes/view/MyCustomForm.js"
             ],
             "className": "MyCustomForm"
+        },
+        "057dd279-bcc8-46c2-a440-aa86365313b6": {
+            "paths": [
+                "metadata/view/NoticeWindow",
+                "classes/view/override/NoticeWindow.js",
+                "classes/view/NoticeWindow.js"
+            ],
+            "className": "NoticeWindow"
         }
     },
     "viewOrderMap": {
@@ -184,7 +192,8 @@
             "d0d07ba2-f926-42f8-8d1b-5536f78cf918",
             "254e9715-1ad4-4690-ab24-21d1b974238d",
             "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
-            "1cae1395-da53-4cfa-a03c-f801a914d496"
+            "1cae1395-da53-4cfa-a03c-f801a914d496",
+            "057dd279-bcc8-46c2-a440-aa86365313b6"
         ],
         "store": [],
         "controller": [],
