@@ -297,13 +297,13 @@
                     "me = this;\r",
                     "try{\r",
                     "    Common.ajax({\r",
-                    "        component : me.headerPanel,\r",
+                    "        //component : me.headerPanel,\r",
                     "        message : '加载头信息...',    \r",
                     "        url : ctxp+'/p/main!main.do',\r",
                     "        callback : function(result){me.setHeader(result);}\r",
                     "    });\r",
                     "}catch(error){Ext.Msg.alert('异常提示',error);}\r",
-                    "Ext.defer(function(){me.loadHeader();}, 60000);"
+                    "    Ext.defer(function(){me.loadHeader();}, 120000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"

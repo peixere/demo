@@ -52,7 +52,7 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		super.init(filterConfig);
 		encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
-		loginPath = this.getInitParameter(filterConfig, "login", "/WEB-INF/sso/login.jsp");
+		loginPath = this.getInitParameter(filterConfig, "login", "/WEB-INF/login.jsp");
 		logoutPath = this.getInitParameter(filterConfig, "logout", loginPath);
 		successPath = this.getInitParameter(filterConfig, "success", null);
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
