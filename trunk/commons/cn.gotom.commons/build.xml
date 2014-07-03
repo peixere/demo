@@ -26,8 +26,20 @@
 	</target>
 
 	<target name="jar">
+		<tstamp>
+			<format property="datestamp" pattern="yyyy-MM-dd HH:mm" />
+			<format property="dateYear" pattern="yyyy" />
+			<format property="version" pattern="yyyy.MMdd" />
+		</tstamp>	    
 		<jar destfile="${outputjar}" filesetmanifest="mergewithoutmain">
 			<fileset dir="${targetdir}" />
+			<manifest>
+				<attribute name="Author" value="peixere@qq.com" />
+				<attribute name="Vendor" value="gotom.cn" />
+				<attribute name="Version" value="1.${version}" />
+				<attribute name="Date" value="${datestamp}" />
+				<attribute name="Copy" value="(C) gotom.cn ${dateYear}" />
+			</manifest>			
 		</jar>
 	</target>
 
