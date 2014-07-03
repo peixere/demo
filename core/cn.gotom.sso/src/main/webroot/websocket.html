@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+<title>WebSocket</title>
+<script type="text/javascript" src="resources/js/jcontext.js"></script>
+<script type="text/javascript">  
+var url = "ws://"+jcontext.domain+jcontext.ctxp+"/websocket.do";
+var ws = null;  
+function startWebSocket() {  
+    if ('WebSocket' in window)  
+        ws = new WebSocket(url);  
+    else if ('MozWebSocket' in window)  
+        ws = new MozWebSocket(url);  
+    else  
+        alert("not support");  
+    ws.onmessage = function(evt) {  
+    	document.getElementById('writeMsg').value = evt.data;  
+    };  
+      
+    ws.onclose = function(evt) {  
+        alert("close");  
+    };  
+      
+    ws.onopen = function(evt) {  
+        alert("open");  
+    };  
+}  
+  
+function sendMsg() {  
+    ws.send(document.getElementById('writeMsg').value);  
+}  
+</script>  
+</head>
+<body onload="startWebSocket();">  
+<input type="text" id="writeMsg" size="100"></input>  
+<input type="button" value="send" onclick="sendMsg()"></input>  
+</body>  
+</html>
