@@ -184,13 +184,13 @@ Ext.define('Gotom.view.Portal', {
         me = this;
         try{
             Common.ajax({
-                component : me.headerPanel,
+                //component : me.headerPanel,
                 message : '加载头信息...',    
                 url : ctxp+'/p/main!main.do',
                 callback : function(result){me.setHeader(result);}
             });
         }catch(error){Ext.Msg.alert('异常提示',error);}
-            Ext.defer(function(){me.loadHeader();}, 60000);
+            Ext.defer(function(){me.loadHeader();}, 120000);
     },
 
     setHeader: function(result) {

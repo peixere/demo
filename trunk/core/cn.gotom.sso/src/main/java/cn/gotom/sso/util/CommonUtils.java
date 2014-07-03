@@ -23,6 +23,7 @@ import java.util.TimeZone;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -346,6 +347,20 @@ public final class CommonUtils
 			casServerUrlPrefix = getServerName(r) + casServerUrlPrefix;
 		}
 		return casServerUrlPrefix;
+	}
+
+	public final String getInitParameter(final ServletContext servletContext, final String propertyName, final String defaultValue)
+	{
+		String value = servletContext.getInitParameter(propertyName);
+		if (isNotBlank(value))
+		{
+			return value;
+		}
+		if (isEmpty(value))
+		{
+			value = defaultValue;
+		}
+		return defaultValue;
 	}
 
 	public static String[] tokenizeToStringArray(String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens)

@@ -87,24 +87,24 @@ public class HighchartsExportAction
 		else
 		{
 			String ext = "";
-			Transcoder t = null;
+			Transcoder transcoder = null;
 
 			if (type.equals("image/png"))
 			{
 				ext = "png";
-				t = new PNGTranscoder();
+				transcoder = new PNGTranscoder();
 
 			}
 			else if (type.equals("image/jpeg"))
 			{
 				ext = "jpg";
-				t = new JPEGTranscoder();
+				transcoder = new JPEGTranscoder();
 
 			}
 			else if (type.equals("application/pdf"))
 			{
 				ext = "pdf";
-				t = new PDFTranscoder();
+				transcoder = new PDFTranscoder();
 			}
 			ServletOutputStream outputStream = null;
 			String encoing = ServletActionContext.getRequest().getCharacterEncoding();
@@ -116,13 +116,13 @@ public class HighchartsExportAction
 				{
 					ServletActionContext.getResponse().addHeader("Content-Disposition", "attachment;filename=" + java.net.URLEncoder.encode(this.getFilename(), "UTF-8") + "." + ext);
 					ServletActionContext.getResponse().setContentType(type + ";charset=" + encoing);
-					if (null != t)
+					if (null != transcoder)
 					{
 						TranscoderInput input = new TranscoderInput(new StringReader(svg));
 						TranscoderOutput output = new TranscoderOutput(outputStream);
 						try
 						{
-							t.transcode(input, output);
+							transcoder.transcode(input, output);
 						}
 						catch (TranscoderException e)
 						{
