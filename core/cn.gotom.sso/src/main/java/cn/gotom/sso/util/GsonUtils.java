@@ -2,11 +2,15 @@ package cn.gotom.sso.util;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+
+import cn.gotom.pojos.User;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,6 +22,23 @@ public class GsonUtils
 
 	public static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
+	public static void main(String[] agrs)
+	{
+		List<User> userList = new ArrayList<User>();
+		User user = new User();
+		user.setUsername("admin");
+		user.setPassword("abcde");
+		userList.add(user);
+		user = new User();
+		user.setUsername("test");
+		user.setPassword("test");
+		userList.add(user);
+		String json = GsonUtils.toJson(userList);
+		System.out.println(json);
+		User[] users = GsonUtils.toArray(User[].class, json);
+		System.out.println(users.length);
+	}
+
 	public static <T> String toJson(T value)
 	{
 		return toJson(value, null, null, null, null);
@@ -26,6 +47,58 @@ public class GsonUtils
 	public static <T> String toJson(T value, String dateFormat)
 	{
 		return toJson(value, dateFormat, null, null, null);
+	}
+
+	public static <T> T toObject(Class<T> classofT, String json)
+	{
+		try
+		{
+			Gson gson = new Gson();
+			return gson.fromJson(json, classofT);
+		}
+		catch (Exception ex)
+		{
+			log.warn(ex.getMessage());
+			log.debug(ex.getMessage(), ex);
+		}
+		return null;
+	}
+
+	public static <T> T[] toArray(Class<T[]> classofT, String json)
+	{
+		try
+		{
+			Gson gson = new Gson();
+			T[] array = gson.fromJson(json, classofT);
+			return array;
+		}
+		catch (Exception ex)
+		{
+			log.warn(ex.getMessage());
+			log.debug(ex.getMessage(), ex);
+		}
+		return null;
+	}
+
+	public static <T> List<T> toList(Class<T[]> classofT, String json)
+	{
+		List<T> list = new ArrayList<T>();
+		try
+		{
+			Gson gson = new Gson();
+			T[] array = gson.fromJson(json, classofT);
+			for (T o : array)
+			{
+				list.add(o);
+			}
+			return list;
+		}
+		catch (Exception ex)
+		{
+			log.warn(ex.getMessage());
+			log.debug(ex.getMessage(), ex);
+		}
+		return null;
 	}
 
 	/**
