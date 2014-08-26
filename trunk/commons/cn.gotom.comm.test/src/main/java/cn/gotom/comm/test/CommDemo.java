@@ -21,6 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -31,9 +32,13 @@ import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.SerialPortChannel;
 import cn.gotom.comm.channel.State;
 import cn.gotom.comm.channel.TcpChannel;
+import cn.gotom.comm.channel.UdpBroadcast;
 import cn.gotom.comm.channel.UdpChannel;
 import cn.gotom.commons.Listener;
+import cn.gotom.util.Base64;
 import cn.gotom.util.Converter;
+import cn.gotom.util.PasswordEncoder;
+import cn.gotom.util.PasswordEncoderMessageDigest;
 
 class CommDemo extends JFrame
 {
@@ -41,7 +46,10 @@ class CommDemo extends JFrame
 	{
 		try
 		{
-			short s = (short)Integer.parseInt("FFE1",16);
+			String base64 = Base64.encode("中国");
+			System.out.println(base64);
+			System.out.println(Base64.decode("gdyb21LQTT8229gxPtBV"));
+			short s = (short) Integer.parseInt("FFE1", 16);
 			System.out.println(Converter.toHexString(Converter.GetBytes(s)));
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
 			{
@@ -75,6 +83,8 @@ class CommDemo extends JFrame
 			}
 		});
 	}
+
+	private int udpType = 0;
 
 	public CommDemo()
 	{
@@ -142,7 +152,7 @@ class CommDemo extends JFrame
 		tabbedPane.addTab("TCP", null, panelTcp, null);
 
 		addressField = new JTextField();
-		addressField.setText("192.168.0.114");
+		addressField.setText("192.168.0.4");
 		addressField.setColumns(10);
 		addressField.setBounds(31, 10, 145, 32);
 		panelTcp.add(addressField);
@@ -166,7 +176,7 @@ class CommDemo extends JFrame
 		tabbedPane.addTab("UDP", null, panelUdp, null);
 
 		textUdpAddress = new JTextField();
-		textUdpAddress.setText("192.168.0.114");
+		textUdpAddress.setText("192.168.0.4");
 		textUdpAddress.setColumns(10);
 		textUdpAddress.setBounds(31, 10, 145, 32);
 		panelUdp.add(textUdpAddress);
@@ -194,6 +204,44 @@ class CommDemo extends JFrame
 		JLabel labelLocalPort = new JLabel("Local:");
 		labelLocalPort.setBounds(294, 18, 54, 15);
 		panelUdp.add(labelLocalPort);
+
+		radioButtonBC = new JRadioButton("广播");
+		radioButtonBC.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (radioButtonBC.isSelected())
+				{
+					udpType = 2;
+				}
+				else
+				{
+					udpType = 0;
+				}
+				radioButtonMS.setSelected(false);
+			}
+		});
+		radioButtonBC.setBounds(418, 14, 54, 23);
+		panelUdp.add(radioButtonBC);
+
+		radioButtonMS = new JRadioButton("组播");
+		radioButtonMS.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (radioButtonMS.isSelected())
+				{
+					udpType = 1;
+				}
+				else
+				{
+					udpType = 0;
+				}
+				radioButtonBC.setSelected(false);
+			}
+		});
+		radioButtonMS.setBounds(474, 14, 54, 23);
+		panelUdp.add(radioButtonMS);
 
 		textAreaIn = new JTextArea();
 		scrollPaneIn.setViewportView(textAreaIn);
@@ -242,7 +290,18 @@ class CommDemo extends JFrame
 				case 2:
 					int localPort = Integer.parseInt(this.textLocalPort.getText());
 					int udpport = Integer.parseInt(this.textUdpPort.getText());
-					channel = new UdpChannel(this.textUdpAddress.getText(), udpport, localPort);
+					if (udpType == 1)
+					{
+						// channel = new UdpMulticastClient(this.textUdpAddress.getText(), udpport, localPort);
+					}
+					else if (udpType == 2)
+					{
+						channel = new UdpBroadcast(this.textUdpAddress.getText(), udpport, localPort);
+					}
+					else
+					{
+						channel = new UdpChannel(this.textUdpAddress.getText(), udpport, localPort);
+					}
 					break;
 				default:
 					channel = new SerialPortChannel(config.getParameters());
@@ -264,7 +323,8 @@ class CommDemo extends JFrame
 					@Override
 					public void onListener(Object sender, State state)
 					{
-						if (state.ordinal() > 1)
+						System.out.println(state);
+						if (state == State.Connected)
 						{
 							btnConn.setText("Open");
 						}
@@ -312,6 +372,8 @@ class CommDemo extends JFrame
 	private JTextField textUdpAddress;
 	private JTextField textUdpPort;
 	private JTextField textLocalPort;
+	private JRadioButton radioButtonBC;
+	private JRadioButton radioButtonMS;
 
 	public JTextArea getTextAreaIn()
 	{
@@ -407,5 +469,10 @@ class CommDemo extends JFrame
 	protected JTabbedPane getTabbedPane()
 	{
 		return tabbedPane;
+	}
+
+	protected JRadioButton getRadioButton()
+	{
+		return radioButtonBC;
 	}
 }
