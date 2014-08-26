@@ -1,5 +1,8 @@
 package cn.gotom.util;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.UnknownHostException;
 
 public abstract class SystemProperty
 {
@@ -29,5 +32,38 @@ public abstract class SystemProperty
 		// {
 		// System.out.println(key + "=" + map.get(key));
 		// }
+	}
+
+	public static String getLocalMac() throws UnknownHostException
+	{
+		InetAddress ia = InetAddress.getLocalHost();
+		return getMacAddress(ia);
+	}
+
+	public static String getMacAddress(InetAddress ia)
+	{
+		String mac = "";
+		StringBuffer sb = new StringBuffer();
+		try
+		{
+			NetworkInterface ni = NetworkInterface.getByInetAddress(ia);
+			byte[] macs = ni.getHardwareAddress();
+			for (int i = 0; i < macs.length; i++)
+			{
+				mac = Integer.toHexString(macs[i] & 0xFF);
+				if (mac.length() == 1)
+				{
+					mac = '0' + mac;
+				}
+				sb.append(mac + "-");
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		mac = sb.toString();
+		mac = mac.substring(0, mac.length() - 1);
+		return mac;
 	}
 }

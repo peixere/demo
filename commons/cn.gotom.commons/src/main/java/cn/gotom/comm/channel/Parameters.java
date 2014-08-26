@@ -250,6 +250,8 @@ public class Parameters
 				return "vid=" + hidVID + ";pid=" + hidPID;
 			case UDPMulticast:
 				return address + ":" + port + ";" + localAddres + ":" + localPort;
+			case UDPBroadcast:
+				return address + ":" + port + ";" + localPort;
 		}
 		return super.toString();
 	}
@@ -272,6 +274,8 @@ public class Parameters
 				return this.toHidString();
 			case UDPMulticast:
 				return this.toUdpMString();
+			case UDPBroadcast:
+				return this.toUdpString();
 		}
 		return super.toString();
 	}
