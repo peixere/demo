@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/catalina.jar" sourcepath="F:/m2/repository/org/apache/tomcat/tomcat-catalina/7.0.40/tomcat-catalina-7.0.40-sources.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/jasper.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/tomcat-coyote.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.pojos"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

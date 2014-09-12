@@ -18,11 +18,14 @@ import com.google.gson.JsonSerializer;
 public class GsonTimestampTypeAdapter implements JsonSerializer<Timestamp>, JsonDeserializer<Timestamp>
 {
 
-	private final DateFormat dateFormat;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
 	public GsonTimestampTypeAdapter(String format)
 	{
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		if (format != null)
+		{
+			dateFormat = new SimpleDateFormat(format);
+		}
 	}
 
 	public JsonElement serialize(Timestamp ts, Type t, JsonSerializationContext jsc)
