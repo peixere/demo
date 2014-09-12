@@ -81,12 +81,12 @@ Ext.define('Gotom.view.Portal', {
                                 }
                             ]
                         },
-                        {
+                        me.processTabPanel({
                             xtype: 'tabpanel',
                             region: 'center',
                             split: true,
                             id: 'tabPanel'
-                        }
+                        })
                     ]
                 },
                 {
@@ -112,6 +112,11 @@ Ext.define('Gotom.view.Portal', {
         });
 
         me.callParent(arguments);
+    },
+
+    processTabPanel: function(config) {
+        config.plugins = Ext.create('Gotom.view.TabCloseMenu');
+        return config;
     },
 
     onToolClick: function(tool, e, eOpts) {
@@ -419,6 +424,38 @@ Ext.define('Gotom.view.Portal', {
             me.tabPanel.add(portalPanel);
             me.tabPanel.setActiveTab(portalPanel);    
         }catch(error){Ext.Msg.alert('操作提示',error);}
+    },
+
+    addTabPanel: function(xtype, id, title) {
+        try{
+            var me = this;
+            var panel = '';
+            var panelId = xtype+id;
+            var tabPanel = Ext.getCmp('tabPanel');
+            for (var i = 0; i < tabPanel.items.length; i++)
+            {
+                if (tabPanel.items.get(i).id === panelId)
+                {
+                    panel = tabPanel.items.get(i);
+                    break;
+                }
+            }
+            if(panel === ''){
+                panel = Ext.create(xtype,
+                {
+                    id : panelId,
+                    title : title,
+                    closable : true
+                });
+                tabPanel.add(panel);
+            }
+            tabPanel.setActiveTab(panel);        
+            panel.loadData(id);
+        }
+        catch(error)
+        {
+            Ext.Msg.alert('信息提示',error);
+        }
     }
 
 });

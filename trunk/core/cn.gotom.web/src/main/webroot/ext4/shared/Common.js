@@ -152,7 +152,21 @@ Ext.define('Common', {
                 });
             return store;
         },
-
+        storeToJson: function(jsondata){  
+            var listRecord;  
+            if(jsondata instanceof Ext.data.Store){  
+                listRecord = new Array();  
+	            jsondata.each(function(record){  
+	                listRecord.push(record.data);  
+	            });  
+            }else if(jsondata instanceof Array){  
+                listRecord = new Array();  
+                Ext.each(jsondata,function(record){  
+                    listRecord.push(record.data);  
+                });  
+            }  
+            return Ext.encode(listRecord);  
+        },
         getQueryParam: function(name) {
             var regex = RegExp('[?&]' + name + '=([^&]*)');
             var scriptEls = document.getElementsByTagName('script');
