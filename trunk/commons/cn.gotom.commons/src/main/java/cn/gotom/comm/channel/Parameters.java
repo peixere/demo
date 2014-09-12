@@ -275,7 +275,7 @@ public class Parameters
 			case UDPMulticast:
 				return this.toUdpMString();
 			case UDPBroadcast:
-				return this.toUdpString();
+				return this.toUDPBroadcastString();
 		}
 		return super.toString();
 	}
@@ -308,5 +308,10 @@ public class Parameters
 	private String toUdpMString()
 	{
 		return "UDPMulticast{" + this.getId() + "}";
+	}
+
+	private String toUDPBroadcastString()
+	{
+		return "UDPBroadcast{" + getId() + "}";
 	}
 }

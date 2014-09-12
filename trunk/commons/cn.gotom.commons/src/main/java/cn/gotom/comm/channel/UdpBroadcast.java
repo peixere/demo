@@ -55,6 +55,7 @@ public class UdpBroadcast extends ChannelImpl
 					// DatagramSocket dgSocket = new DatagramSocket(parameters.getPort());
 					broadcastSocket = new DatagramSocket(parameters.getLocalPort());
 				}
+				broadcastSocket.setBroadcast(true);
 				this.onState(State.Connecting);
 				// broadcastSocket.joinGroup(broadAddress);
 				log.info("连接成功[" + this.getId() + "]");
