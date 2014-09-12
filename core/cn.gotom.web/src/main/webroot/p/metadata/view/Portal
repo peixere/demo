@@ -131,7 +131,28 @@
                         "layout|split": true,
                         "id": "tabPanel"
                     },
-                    "designerId": "4c1e300e-ce36-4742-bb5d-895f87548bbe"
+                    "designerId": "4c1e300e-ce36-4742-bb5d-895f87548bbe",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "processTabPanel",
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "implHandler": [
+                                    "config.plugins = Ext.create('Gotom.view.TabCloseMenu');\r",
+                                    "return config;"
+                                ]
+                            },
+                            "designerId": "0d6b003f-e813-421d-aa61-388f8865acff"
+                        }
+                    ]
                 }
             ]
         },
@@ -627,6 +648,54 @@
                 ]
             },
             "designerId": "1432d738-87b3-4468-904b-255d724b2c8e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "addTabPanel",
+                "designer|params": [
+                    "xtype",
+                    "id",
+                    "title"
+                ],
+                "implHandler": [
+                    "try{\r",
+                    "    var me = this;\r",
+                    "    var panel = '';\r",
+                    "    var panelId = xtype+id;\r",
+                    "    var tabPanel = Ext.getCmp('tabPanel');\r",
+                    "    for (var i = 0; i < tabPanel.items.length; i++)\r",
+                    "    {\r",
+                    "        if (tabPanel.items.get(i).id === panelId)\r",
+                    "        {\r",
+                    "            panel = tabPanel.items.get(i);\r",
+                    "            break;\r",
+                    "        }\r",
+                    "    }\r",
+                    "    if(panel === ''){\r",
+                    "        panel = Ext.create(xtype,\r",
+                    "        {\r",
+                    "            id : panelId,\r",
+                    "            title : title,\r",
+                    "            closable : true\r",
+                    "        });\r",
+                    "        tabPanel.add(panel);\r",
+                    "    }\r",
+                    "    tabPanel.setActiveTab(panel);        \r",
+                    "    panel.loadData(id);\r",
+                    "}\r",
+                    "catch(error)\r",
+                    "{\r",
+                    "    Ext.Msg.alert('信息提示',error);\r",
+                    "}"
+                ]
+            },
+            "designerId": "d45d2970-9be0-4cd4-8ccb-dc0a1a339392"
         }
     ]
 }

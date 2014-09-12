@@ -224,7 +224,7 @@
 }
 
 .icon-cancel{
-	background-image: url(icons/fam/cancel.gif) !important;
+	background-image: url(icons/fam/cancel.png) !important;
 }
 
 .icon-close{
@@ -287,7 +287,12 @@
 .icon-workflow{
 	background-image: url(icons/fam/workflow.png) !important;
 }
-
+.icon-next{
+	background-image: url(icons/fam/next.png) !important;
+}
+.icon-priv{
+	background-image: url(icons/fam/priv.png) !important;
+}
 
 .x-message-box .icon-saving {
     background:transparent url(icons/fam/download.gif) no-repeat bottom left;
@@ -330,4 +335,37 @@
 }
 .tree-panel{
 	cursor:pointer;
+}
+
+.x-btn{
+	font-color: red;
+	font-size:16px;
+}
+
+body {
+    font-size: 12px;
+    font-family:Verdana,"宋体";
+}
+table.view {
+	width:100%;
+	font-family:Verdana,"宋体";
+    font-size: 12px;
+    border: 0px solid #000000; 
+	border-collapse:collapse; 
+	border-spacing:0,0;
+}
+
+table.view .th{
+    text-align:right;
+    background-color: #FFFFFF;
+    background-color: #e0ecfb;
+    border:  #a9bfd3 1px solid;  
+    padding: 5px;
+}
+
+table.view td{
+    text-align:left;
+    background-color: #FFFFFF;
+    border:  #a9bfd3 1px solid; 
+    padding: 5px;
 }
