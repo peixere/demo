@@ -78,7 +78,12 @@ public class AuthenticationServiceImpl implements AuthenticationService
 					{
 						if (StringUtils.isNotEmpty(right.getResource()) && appCode.equals(right.getAppCode()))
 						{
-							String[] resource = right.getResource().trim().replace("；", ";").split(";");
+							String tmp = right.getResource().trim().replace("；", ";");
+							tmp = tmp.replace(",", ";");
+							tmp = tmp.replace("，", ";");
+							tmp = tmp.replace("\n", ";");
+							tmp = tmp.replace(";;", ";");
+							String[] resource = tmp.split(";");
 							for (String pattern : resource)
 							{
 								if (urlMatcher.pathMatchesUrl(pattern, url))
