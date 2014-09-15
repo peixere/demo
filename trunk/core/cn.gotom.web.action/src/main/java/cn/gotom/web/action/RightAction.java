@@ -45,7 +45,7 @@ public class RightAction extends AbsPortalAction
 		{
 			right = new Right();
 		}
-		toJSON(right, "roles");
+		toJSON(right);
 	}
 
 	public void fresh() throws IOException
