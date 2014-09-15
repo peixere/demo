@@ -52,7 +52,7 @@ public abstract class AbsPortalAction
 		return this.toJSON(null, value, excludeFields);
 	}
 
-	protected <T> String toJSON(String dateFormat, T value, String... excludeFields)
+	public <T> String toJSON(String dateFormat, T value, String... excludeFields)
 	{
 		TypeAdapterFactory[] factorys = new TypeAdapterFactory[] { HibernateProxyTypeAdapter.FACTORY };
 		String json = GsonUtils.toJson(value, dateFormat, factorys, excludeFields, null);
