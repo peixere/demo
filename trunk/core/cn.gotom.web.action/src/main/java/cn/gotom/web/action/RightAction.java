@@ -70,10 +70,6 @@ public class RightAction extends AbsPortalAction
 	public void list() throws IOException
 	{
 		List<Right> list = rightService.findAll();
-		for (Right r : list)
-		{
-			r.setRoles(null);
-		}
 		toJSON(list);
 	}
 
@@ -109,11 +105,6 @@ public class RightAction extends AbsPortalAction
 			Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
 			BeanUtils.copyProperties(right, params);
 			this.setSuccess(true);
-			Right old = rightService.get(right.getId());
-			if (old != null)
-			{
-				right.setRoles(old.getRoles());
-			}
 			rightService.save(right);
 			CustomRight cr = customService.getCustomRight(right.getId(), this.getCurrentCustomId());
 			if (cr == null)
