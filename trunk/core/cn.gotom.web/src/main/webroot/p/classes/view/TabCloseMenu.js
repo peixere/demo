@@ -14,7 +14,7 @@ Ext.define('Gotom.view.TabCloseMenu', {
      * @cfg {String} closeTabText
      * The text for closing the current tab.
      */
-    closeTabText: '关闭',
+    closeTabText: '关闭当前标签',
 
     /**
      * @cfg {Boolean} showCloseOthers
@@ -26,7 +26,7 @@ Ext.define('Gotom.view.TabCloseMenu', {
      * @cfg {String} closeOthersTabsText
      * The text for closing all tabs except the current one.
      */
-    closeOthersTabsText: '关闭其它',
+    closeOthersTabsText: '关闭其它标签',
 
     /**
      * @cfg {Boolean} showCloseAll
@@ -38,7 +38,7 @@ Ext.define('Gotom.view.TabCloseMenu', {
      * @cfg {String} closeAllTabsText
      * The text for closing all tabs.
      */
-    closeAllTabsText: '关闭所有',
+    closeAllTabsText: '关闭所有标签',
 
     /**
      * @cfg {Array} extraItemsHead
