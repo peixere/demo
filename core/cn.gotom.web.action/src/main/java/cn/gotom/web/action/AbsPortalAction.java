@@ -47,6 +47,11 @@ public abstract class AbsPortalAction
 		return customId;
 	}
 
+	protected <T> String toJSON(T value)
+	{
+		return this.toJSON(null, value);
+	}
+
 	protected <T> String toJSON(T value, String... excludeFields)
 	{
 		return this.toJSON(null, value, excludeFields);
