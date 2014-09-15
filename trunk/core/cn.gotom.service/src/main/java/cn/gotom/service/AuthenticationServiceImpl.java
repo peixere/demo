@@ -181,6 +181,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 						}
 					}
 				}
+				rightList.addAll(map.values());
 			}
 		}
 		Collections.sort(rightList, new Comparator<Right>()
