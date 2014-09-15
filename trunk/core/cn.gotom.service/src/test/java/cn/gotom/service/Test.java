@@ -1,7 +1,10 @@
 package cn.gotom.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -60,7 +63,20 @@ public class Test
 		String rightString = bundle.getString("cn.gotom.pojos.Right");
 		Gson gson = new Gson();
 		List<Right> rights = (List<Right>) gson.fromJson(rightString, new TypeToken<List<Right>>(){}.getType());		
-//		JSON json = JSONSerializer.toJSON(rightString);
+		rights = new ArrayList<Right>();
+		rights.add(new Right());
+		rights.get(0).setSort(1000);
+		rights.add(new Right());
+		rights.get(1).setSort(900);
+		Collections.sort(rights, new Comparator<Right>()
+		{
+
+			public int compare(Right arg0, Right arg1)
+			{
+				return arg0.getSort() > arg1.getSort() ? 1 : 0;
+			}
+		});
+		//		JSON json = JSONSerializer.toJSON(rightString);
 //		JsonConfig jsonConfig = new JsonConfig();
 //		List<Right> rights = new ArrayList<Right>();
 //		jsonConfig.setRootClass(Right.class);

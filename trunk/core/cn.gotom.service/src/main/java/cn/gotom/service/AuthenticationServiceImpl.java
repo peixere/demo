@@ -1,7 +1,11 @@
 package cn.gotom.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -96,6 +100,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
 				}
 			}
 		}
+		log.debug(user.getUsername() + " 403 " + url);
 		return false;
 	}
 
@@ -146,6 +151,10 @@ public class AuthenticationServiceImpl implements AuthenticationService
 	@Override
 	public List<Right> findRightList(String parentId, String username, String customId)
 	{
+		if (parentId == null)
+		{
+			parentId = "";
+		}
 		List<Right> rightList = new ArrayList<Right>();
 		User user = userService.getByUsername(username);
 		if (user != null)
@@ -156,32 +165,37 @@ public class AuthenticationServiceImpl implements AuthenticationService
 			}
 			else
 			{
-				rightList = rightService.findByParentId(parentId, customId);
-			}
-			for (int i = rightList.size() - 1; i >= 0; i--)
-			{
-				boolean find = false;
-				if (User.ROOT.equalsIgnoreCase(user.getUsername()))
+				List<Role> roleList = roleService.findByCustomId(customId);
+				Map<String, Right> map = new HashMap<String, Right>();
+				for (Role role : roleList)
 				{
-					find = true;
-				}
-				else
-				{
-					for (Role role : user.getRoles())
+					for (Right right : role.getRights())
 					{
-						// role.getCompany()
-						if (rightList.get(i).getRoles().contains(role))
+						if (right.getParentId() == null || right.getParentId() == "0")
 						{
-							find = true;
+							right.setParentId("");
+						}
+						if (parentId.equalsIgnoreCase(right.getParentId()))
+						{
+							map.put(right.getId(), right);
 						}
 					}
 				}
-				if (!find)
-				{
-					rightList.remove(i);
-				}
 			}
 		}
+		Collections.sort(rightList, new Comparator<Right>()
+		{
+
+			public int compare(Right arg0, Right arg1)
+			{
+				if (arg0.getSort() == arg1.getSort())
+				{
+					return arg0.getVersionCreate() > arg1.getVersionCreate() ? 1 : 0;
+				}
+				return arg0.getSort() > arg1.getSort() ? 1 : 0;
+			}
+		});
+		// for(int i = rightList.si;)
 		return rightList;
 	}
 
