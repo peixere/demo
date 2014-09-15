@@ -47,12 +47,7 @@ public abstract class AbsPortalAction
 		return customId;
 	}
 
-	protected <T> String toJSON(T value)
-	{
-		return this.toJSON(null, value);
-	}
-
-	protected <T> String toJSON(T value, String... excludeFields)
+	public <T> String toJSON(T value, String... excludeFields)
 	{
 		return this.toJSON(null, value, excludeFields);
 	}
@@ -67,7 +62,7 @@ public abstract class AbsPortalAction
 		return json;
 	}
 
-	protected void writer(HttpServletRequest request, HttpServletResponse response, String jsonString)
+	public void writer(HttpServletRequest request, HttpServletResponse response, String jsonString)
 	{
 		GsonUtils.writer(request, response, jsonString);
 	}
