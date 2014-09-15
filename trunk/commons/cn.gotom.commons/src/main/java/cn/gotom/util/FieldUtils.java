@@ -1,7 +1,10 @@
 package cn.gotom.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class FieldUtils
 {
@@ -104,6 +107,66 @@ public final class FieldUtils
 		{
 			ReflectionUtils.handleReflectionException(ex);
 		}
+	}
+
+	public static String[] findFields(Class<?> clazz, Class<Annotation> annotationType)
+	{
+		Set<String> fieldSet = new HashSet<String>();
+		Field[] fields = clazz.getDeclaredFields();
+		for (Field f : fields)
+		{
+			if (!Modifier.isStatic(f.getModifiers()) && !Modifier.isFinal(f.getModifiers()))
+			{
+				if (annotationType == null)
+				{
+					fieldSet.add(f.getName());
+				}
+				else
+				{
+					if (f.getAnnotation(annotationType) != null)
+					{
+						fieldSet.add(f.getName());
+					}
+//					Annotation[] ans = f.getAnnotations();
+//					for (Annotation a : ans)
+//					{
+//						if (a.annotationType().equals(annotationType))
+//						{
+//							fieldSet.add(f.getName());
+//							break;
+//						}
+//					}
+				}
+			}
+		}
+		while ((clazz = clazz.getSuperclass()) != null)
+		{
+			fields = clazz.getDeclaredFields();
+			for (Field f : fields)
+			{
+				if (annotationType == null)
+				{
+					fieldSet.add(f.getName());
+				}
+				else
+				{
+					if (f.getAnnotation(annotationType) != null)
+					{
+						fieldSet.add(f.getName());
+					}
+					// Annotation[] ans = f.getAnnotations();
+					// for (Annotation a : ans)
+					// {
+					// if (a.annotationType().equals(annotationType))
+					// {
+					// fieldSet.add(f.getName());
+					// break;
+					// }
+					// }
+				}
+			}
+		}
+		return (String[]) fieldSet.toArray();
 	}
 
 	public static String getFields(Class<?> clazz)
