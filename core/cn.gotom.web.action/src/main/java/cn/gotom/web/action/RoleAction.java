@@ -67,7 +67,14 @@ public class RoleAction extends AbsPortalAction
 	{
 		try
 		{
-			execute();
+			if (role != null)
+			{
+				role = roleService.get(role.getId());
+			}
+			if (role == null)
+			{
+				role = new Role();
+			}
 			List<RightChecked> rightList = rightService.loadCustomCheckedTree(getCurrentCustomId(), role.getRights());
 			this.setData(rightList);
 			toJSON(rightList);
@@ -114,11 +121,11 @@ public class RoleAction extends AbsPortalAction
 				}
 			}
 		}
-		Role old = roleService.get(role.getId());
-		if (old != null)
-		{
-			role.setUsers(old.getUsers());
-		}
+		// Role old = roleService.get(role.getId());
+		// if (old != null)
+		// {
+		// role.setUsers(old.getUsers());
+		// }
 		Organization org = orgService.get(role.getOrganizationId());
 		role.setOrganization(org);
 		role.setRights(roleRights);

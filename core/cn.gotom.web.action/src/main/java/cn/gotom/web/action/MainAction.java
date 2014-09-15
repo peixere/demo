@@ -81,7 +81,7 @@ public class MainAction extends AbsPortalAction
 		String ctxp = ServletActionContext.getRequest().getContextPath();
 		for (Right menu : menuList)
 		{
-			menu.setRoles(null);
+			//menu.setRoles(null);
 			if (menu.getLeaf() && menu.getType().equalsIgnoreCase(RightType.URL))
 			{
 				if (StringUtils.isNullOrEmpty(menu.getAppCode()) || App.ROOT.equalsIgnoreCase(menu.getAppCode()))
