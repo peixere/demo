@@ -140,9 +140,7 @@ public class RoleAction extends AbsPortalAction
 			String[] ids = role.getId().split(",");
 			for (String id : ids)
 			{
-				Role role = roleService.get(id.trim());
-				if (role != null)
-					roleService.remove(role);
+				roleService.removeById(id.trim());
 			}
 		}
 		catch (Exception ex)
