@@ -39,6 +39,14 @@ Ext.define('Common', {
             {
                 window.location.href = ctxp;
             }
+            else if(response.status === 403)
+            {
+                Ext.MessageBox.show({
+                    title:'无操作权限',
+                    msg:response.responseText,
+                    icon:Ext.MessageBox.ERROR 
+                }); 
+            }
             else
             {
                 Ext.MessageBox.show({
