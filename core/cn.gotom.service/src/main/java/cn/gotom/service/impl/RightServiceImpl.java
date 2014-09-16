@@ -16,6 +16,7 @@ import cn.gotom.service.model.RightTree;
 import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 
 public class RightServiceImpl extends GenericDaoJpa<Right, String> implements RightService
 {
@@ -250,4 +251,16 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 		return checkedList;
 	}
 
+	@Transactional
+	@Override
+	public void removeById(String id)
+	{
+		this.nativeRemove("core_role_right", "right_id", id);
+		this.remove(CustomRight.class.getSimpleName(), "right_id", id);
+		Right entity = this.get(id);
+		if (entity != null)
+		{
+			getEntityManager().remove(getEntityManager().getReference(persistentClass, id));
+		}
+	}
 }
