@@ -10,6 +10,8 @@ import cn.gotom.pojos.Role;
 import cn.gotom.service.RoleService;
 import cn.gotom.vo.TreeCheckedModel;
 
+import com.google.inject.persist.Transactional;
+
 public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements RoleService
 {
 	public RoleServiceImpl()
@@ -72,5 +74,17 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 		@SuppressWarnings("unchecked")
 		List<Role> list = q.getResultList();
 		return list;
+	}
+
+	@Transactional
+	@Override
+	public void removeById(String id)
+	{
+		this.nativeRemove("core_user_role", "role_id", id);
+		Role entity = this.get(id);
+		if (entity != null)
+		{
+			getEntityManager().remove(getEntityManager().getReference(persistentClass, id));
+		}
 	}
 }
