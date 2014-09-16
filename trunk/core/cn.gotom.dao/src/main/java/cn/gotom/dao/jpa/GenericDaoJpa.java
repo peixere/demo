@@ -3,7 +3,6 @@ package cn.gotom.dao.jpa;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.Table;
 
 import cn.gotom.dao.GenericDao;

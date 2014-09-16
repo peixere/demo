@@ -180,4 +180,24 @@ abstract class AbsDaoJpa
 		String sql = fieldname + " between '" + begin + "' and '" + end + "'";
 		return sql;
 	}
+
+	protected void nativeRemove(String table, String where, String value)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("delete from " + table);
+		jpql.append(" where " + where + " = :" + where);
+		Query q = getEntityManager().createNativeQuery(jpql.toString());
+		q.setParameter(where, value);
+		q.executeUpdate();
+	}
+
+	protected void remove(String table, String where, String value)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("delete from " + table);
+		jpql.append(" where " + where + " = :" + where);
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter(where, value);
+		q.executeUpdate();
+	}
 }
