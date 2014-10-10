@@ -5,6 +5,7 @@
 <head>
 <title>Gotom.cn</title>
     <script type="text/javascript" src="${ctxp}/ext4/shared/include-ext.js"></script>
+    <%@ include file="/WEB-INF/view/inc/meta.jsp"%>
     <!-- 
 	<script type="text/javascript" src="${ctxp}/ext4/shared/options-toolbar.js"></script> 
      -->
@@ -19,7 +20,6 @@
    	<%}%>    	
     //-->
     </script>    
-    <%@ include file="/WEB-INF/view/inc/meta.jsp"%>
 </head>
 <body>
 </body>
