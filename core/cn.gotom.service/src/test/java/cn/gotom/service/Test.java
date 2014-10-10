@@ -45,6 +45,7 @@ public class Test
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
+		short a = (short)0xffe8;
 		String[] array = new String[]{"a","b"};
 		System.out.println(array.toString());
 		BCDToDateTime();

@@ -169,15 +169,21 @@ public class AuthenticationServiceImpl implements AuthenticationService
 				Map<String, Right> map = new HashMap<String, Right>();
 				for (Role role : roleList)
 				{
-					for (Right right : role.getRights())
+					for (Role r : user.getRoles())
 					{
-						if (right.getParentId() == null || right.getParentId() == "0")
+						if (r.getId().equals(role.getId()))
 						{
-							right.setParentId("");
-						}
-						if (parentId.equalsIgnoreCase(right.getParentId()))
-						{
-							map.put(right.getId(), right);
+							for (Right right : role.getRights())
+							{
+								if (right.getParentId() == null || right.getParentId() == "0")
+								{
+									right.setParentId("");
+								}
+								if (parentId.equalsIgnoreCase(right.getParentId()))
+								{
+									map.put(right.getId(), right);
+								}
+							}
 						}
 					}
 				}
