@@ -92,14 +92,10 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		final String filename = Environment.getExternalStorageDirectory() + File.separator + this.getPackageName() + ".log";
-		logConfigurator.setFileName(filename);
-		logConfigurator.setRootLevel(Level.DEBUG);
-		logConfigurator.setLevel("org.apache", Level.ERROR);
-		logConfigurator.configure();
+		logConfigure();
 		if (channel == null)
 		{
-			channel = new TcpChannel("192.168.0.110", 4001);
+			channel = new TcpChannel("192.168.0.120", 4001);
 			channel.addReceiveListener(receiveListener);
 			channel.addStateListener(stateListener);
 		}
@@ -128,6 +124,27 @@ public class MainActivity extends Activity
 		EditText sendTextView = (EditText) this.findViewById(R.id.editTextSend);
 		byte[] buffer = new byte[] { 0x01, 0x03, 0x02, 0x11, 0x00, 0x06, (byte) 0x94, 0x75 };
 		sendTextView.setText(Converter.toHexString(buffer));
+	}
+
+	private void logConfigure()
+	{
+		try
+		{
+			final String filename = Environment.getExternalStorageDirectory() + File.separator + this.getPackageName() + ".log";
+			logConfigurator.setFileName(filename);
+			logConfigurator.setRootLevel(Level.DEBUG);
+			logConfigurator.setLevel("org.apache", Level.ERROR);
+			logConfigurator.configure();
+		}
+		catch (Exception ex)
+		{
+			final String filename = getApplicationContext().getFilesDir().getAbsolutePath() + File.separator + this.getPackageName() + ".log";
+			logConfigurator.setFileName(filename);
+			logConfigurator.setRootLevel(Level.DEBUG);
+			logConfigurator.setLevel("org.apache", Level.ERROR);
+			logConfigurator.configure();
+			ex.printStackTrace();
+		}
 	}
 
 	@Override
@@ -175,7 +192,22 @@ public class MainActivity extends Activity
 				EditText portView = (EditText) this.findViewById(R.id.textPort);
 				int port = Integer.parseInt(portView.getText().toString());
 				channel.setParameters(new Parameters(address, port));
-				channel.connect();
+				new Thread(new Runnable()
+				{
+
+					@Override
+					public void run()
+					{
+						try
+						{
+							channel.connect();
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+					}
+				}).start();
 			}
 			else
 			{
@@ -199,10 +231,27 @@ public class MainActivity extends Activity
 			EditText sendTextView = (EditText) this.findViewById(R.id.editTextSend);
 			byte[] buffer = new byte[] { 0x01, 0x03, 0x02, 0x11, 0x00, 0x06, (byte) 0x94, 0x75 };
 			buffer = Converter.toBytes(sendTextView.getText().toString());
-			channel.write(buffer);
+			final byte[] sendBuffer = buffer;
+			new Thread(new Runnable()
+			{
+
+				@Override
+				public void run()
+				{
+					try
+					{
+						channel.write(sendBuffer);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}).start();
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			log.error(e.getMessage(), e);
 		}
 	}
