@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Gotom.cn</title>
+<title>Load...</title>
     <script type="text/javascript" src="${ctxp}/ext4/shared/include-ext.js"></script>
     <%@ include file="/WEB-INF/view/inc/meta.jsp"%>
     <!-- 
