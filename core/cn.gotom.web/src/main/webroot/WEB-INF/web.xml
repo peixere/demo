@@ -25,7 +25,15 @@
     <param-name>pluginsPath</param-name>
     <param-value>/plugins</param-value>
   </context-param>
+  <!-- 
   <context-param>
+    <description>单点验证服务器(公网)</description>
+    <param-name>serverName</param-name>
+    <param-value>http://www.gotom.cn</param-value>
+  </context-param>  
+  -->
+  <context-param>
+    <description>单点验证URL ${this}=contextPath</description>
     <param-name>serverLoginUrl</param-name>
     <param-value>${this}/login.do</param-value>
   </context-param>
