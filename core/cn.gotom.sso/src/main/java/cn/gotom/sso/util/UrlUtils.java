@@ -43,6 +43,11 @@ public final class UrlUtils
 		return url.toString();
 	}
 
+	public static String buildFullRequestURI(HttpServletRequest r)
+	{
+		return buildFullRequestUrl(r.getScheme(), r.getServerName(), r.getServerPort(), r.getRequestURI(), null);
+	}
+
 	public static String buildFullRequestUrl(HttpServletRequest r)
 	{
 		return buildFullRequestUrl(r.getScheme(), r.getServerName(), r.getServerPort(), r.getRequestURI(), r.getQueryString());

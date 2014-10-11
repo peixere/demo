@@ -2,9 +2,11 @@ package cn.gotom.sso.filter;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import cn.gotom.sso.util.PathMatcher;
 import cn.gotom.sso.util.PathMatcherAnt;
+import cn.gotom.sso.util.UrlUtils;
 
 public abstract class AuthenticationIgnoreFilter extends AbstractCommonFilter
 {
@@ -32,8 +34,22 @@ public abstract class AuthenticationIgnoreFilter extends AbstractCommonFilter
 		}
 	}
 
-	protected boolean isIgnore(String url)
+	protected boolean isIgnore(HttpServletRequest request)
 	{
+		String url = UrlUtils.buildUrl(request);
+
+		if (this.serverLoginUrl.equals(url))
+		{
+			return true;
+		}
+		else
+		{
+			String uri = UrlUtils.buildFullRequestURI(request);
+			if (this.serverLoginUrl.equals(uri))
+			{
+				return true;
+			}
+		}
 		if (authenticationNones != null)
 		{
 			for (String pattern : authenticationNones)

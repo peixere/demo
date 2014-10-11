@@ -23,7 +23,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 {
 
 	/**
-	 * 可选，接入服务器名，为空测从哪来回哪去
+	 * 可选，验证服务器
 	 */
 	private String serverName;
 	/**
@@ -46,9 +46,9 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		setService(getInitParameter(filterConfig, "service", null));
 		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
-		if (this.getServerLoginUrl().startsWith(contextPath))
+		if (this.getServerLoginUrl().startsWith(THIS))
 		{
-			setServerLoginUrl(filterConfig.getServletContext().getContextPath() + serverLoginUrl.substring(contextPath.length(), serverLoginUrl.length()));
+			setServerLoginUrl(filterConfig.getServletContext().getContextPath() + serverLoginUrl.substring(THIS.length(), serverLoginUrl.length()));
 			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
 		serverLogoutUrl = this.getServerLoginUrl() + (getServerLoginUrl().indexOf("?") == -1 ? "?" : "&") + TicketValidator.Method + "=" + TicketValidator.Logout;
@@ -65,8 +65,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	{
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		final HttpServletResponse response = (HttpServletResponse) servletResponse;
-		String url = UrlUtils.buildUrl(request);
-		if (isIgnore(url))
+		if (isIgnore(request))
 		{
 			filterChain.doFilter(request, response);
 			return;
@@ -81,7 +80,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		{
 			try
 			{
-				final String serverUrl = constructServerUrl(request, response);
+				final String serverUrl = constructValidateUrl(request, response);
 				ticket = validate(ticketId, serverUrl);
 				if (ticket != null)
 				{
@@ -111,7 +110,12 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		final String serviceUrl = constructServiceUrl(request, response);
 		log.debug("serviceUrl to \"" + serviceUrl + "\"");
 		final String serverUrl = constructServerUrl(request, response);
-		final String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, this.getServiceParameterName(), serviceUrl);
+		String urlToRedirectTo = CommonUtils.constructRedirectUrl(serverUrl, this.getServiceParameterName(), serviceUrl);
+		String uri = UrlUtils.buildFullRequestURI(request);
+		if (urlToRedirectTo.startsWith(uri))
+		{
+			urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
+		}
 		log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		response.sendRedirect(urlToRedirectTo);
 	}
@@ -156,7 +160,33 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 
 	protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response)
 	{
-		return CommonUtils.constructServiceUrl(request, response, this.getService(), this.getServerName(), this.getTicketParameterName(), this.getEncodeServiceUrl());
+		return CommonUtils.constructUrl(request, response, this.getService(), null, this.getTicketParameterName(), this.getEncodeServiceUrl());
+	}
+
+	protected final String constructValidateUrl(HttpServletRequest request, HttpServletResponse response)
+	{
+
+		String serverValidateUrl = this.getServerLoginUrl();
+		final StringBuilder buffer = new StringBuilder();
+		if (CommonUtils.isNotBlank(serverValidateUrl))
+		{
+			if (!serverValidateUrl.startsWith("https://") && !serverValidateUrl.startsWith("http://"))
+			{
+				buffer.append(constructServerName(request));
+			}
+		}
+		else
+		{
+			buffer.append(constructServerName(request));
+		}
+		buffer.append(serverValidateUrl);
+		serverValidateUrl = buffer.toString();
+		if (serverValidateUrl.startsWith(constructServerName(request)))
+		{
+			serverValidateUrl = serverValidateUrl.replace(request.getServerName(), "localhost");
+		}
+		log.debug(serverValidateUrl);
+		return serverValidateUrl;
 	}
 
 	protected final String constructServerUrl(HttpServletRequest request, HttpServletResponse response)
@@ -181,7 +211,6 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	protected final String constructServerName(HttpServletRequest request)
 	{
 		final StringBuilder buffer = new StringBuilder();
-		String serverName = this.getServerName();
 		if (CommonUtils.isNotBlank(serverName))
 		{
 			if (!serverName.startsWith("https://") && !serverName.startsWith("http://"))

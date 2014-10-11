@@ -11,7 +11,7 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	public static final String serverLoginUrlParameter = "serverLoginUrl";
-	public static final String contextPath = "${this}";
+	public static final String THIS = "${this}";
 
 	private String ticketParameterName = "ticket";
 

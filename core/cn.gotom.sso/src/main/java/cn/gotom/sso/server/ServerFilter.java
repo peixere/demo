@@ -57,9 +57,9 @@ public class ServerFilter extends AbstractCommonFilter
 		successPath = this.getInitParameter(filterConfig, "success", null);
 		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
-		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(contextPath))
+		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(THIS))
 		{
-			setServerLoginUrl(serverLoginUrl.substring(contextPath.length(), serverLoginUrl.length()));
+			setServerLoginUrl(serverLoginUrl.substring(THIS.length(), serverLoginUrl.length()));
 			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
 		CommonUtils.assertNotNull(this.getServerLoginUrl(), serverLoginUrlParameter + " cannot be null.");
