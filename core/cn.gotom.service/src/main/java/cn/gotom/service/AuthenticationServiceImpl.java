@@ -197,9 +197,9 @@ public class AuthenticationServiceImpl implements AuthenticationService
 			{
 				if (arg0.getSort() == arg1.getSort())
 				{
-					return arg0.getVersionCreate() > arg1.getVersionCreate() ? 1 : 0;
+					return arg0.getVersionCreate() > arg1.getVersionCreate() ? 1 : -1;
 				}
-				return arg0.getSort() > arg1.getSort() ? 1 : 0;
+				return arg0.getSort() > arg1.getSort() ? 1 : -1;
 			}
 		});
 		// for(int i = rightList.si;)
