@@ -43,13 +43,13 @@ public class GuiceListener extends GuiceServletContextListener
 	public void contextInitialized(ServletContextEvent servletContextEvent)
 	{
 		serverLoginUrl = servletContextEvent.getServletContext().getInitParameter(AbstractCommonFilter.serverLoginUrlParameter);
-		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(AbstractCommonFilter.contextPath))
+		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(AbstractCommonFilter.THIS))
 		{
-			serverLoginUrl = serverLoginUrl.substring(AbstractCommonFilter.contextPath.length(), serverLoginUrl.length());
+			serverLoginUrl = serverLoginUrl.substring(AbstractCommonFilter.THIS.length(), serverLoginUrl.length());
 		}
 		if (CommonUtils.isEmpty(serverLoginUrl))
 		{
-			serverLoginUrl = "/login.do";
+			// serverLoginUrl = "/login.do";
 		}
 		super.contextInitialized(servletContextEvent);
 		log.info("contextInitialized");
@@ -122,7 +122,7 @@ public class GuiceListener extends GuiceServletContextListener
 			{
 				bind(WebSocketServer.class).in(Singleton.class);
 				serve("/websocket.ws").with(WebSocketServer.class);
-				
+
 				bind(CharacterFilter.class).in(Singleton.class);
 				filter("/*").through(CharacterFilter.class);
 
@@ -134,9 +134,11 @@ public class GuiceListener extends GuiceServletContextListener
 
 				// bind(AuthenticationServiceFilter.class).in(Singleton.class);
 				// filter("/authService").through(AuthenticationServiceFilter.class);
-
-				bind(ServerFilter.class).in(Singleton.class);
-				filter(serverLoginUrl).through(ServerFilter.class);
+				if (!CommonUtils.isEmpty(serverLoginUrl))
+				{
+					bind(ServerFilter.class).in(Singleton.class);
+					filter(serverLoginUrl).through(ServerFilter.class);
+				}
 				bind(ValidationFilter.class).in(Singleton.class);
 				filter("/*").through(ValidationFilter.class);
 
