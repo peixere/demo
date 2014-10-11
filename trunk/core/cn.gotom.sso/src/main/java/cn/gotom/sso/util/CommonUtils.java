@@ -184,7 +184,7 @@ public final class CommonUtils
 		return url.toString();
 	}
 
-	public static String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response, final String service, final String serverName, final String ticketParameterName, final boolean encode)
+	public static String constructUrl(final HttpServletRequest request, final HttpServletResponse response, final String service, final String serverName, final String ticketParameterName, final boolean encode)
 	{
 		if (CommonUtils.isNotBlank(service))
 		{
@@ -290,7 +290,7 @@ public final class CommonUtils
 		}
 		catch (final Exception e)
 		{
-			log.error(e.getMessage(), e);
+			log.error(e.getMessage() + "  " + constructedUrl, e);
 			throw new RuntimeException(e);
 		}
 		finally
@@ -311,6 +311,7 @@ public final class CommonUtils
 		}
 		catch (final MalformedURLException e)
 		{
+			log.error(e.getMessage() + " url=" + url);
 			throw new IllegalArgumentException(e);
 		}
 	}
