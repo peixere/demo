@@ -37,7 +37,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	}
 
 	@Override
-	public String getDefaultOrderBy(Class<?> clazz,String prefix)
+	public String getDefaultOrderBy(Class<?> clazz, String prefix)
 	{
 		String orderby = " order by ";
 		Field sort = findField(clazz, "sort");
@@ -56,7 +56,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		}
 		else
 		{
-			return "";	
+			return "";
 		}
 	}
 
@@ -64,7 +64,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	public <T> List<T> find(Class<T> clazz, int maxResults, int firstResult)
 	{
 		String jpql = "select p from " + clazz.getSimpleName() + " p";
-		jpql += getDefaultOrderBy(clazz,"p.");
+		jpql += getDefaultOrderBy(clazz, "p.");
 		Query q = getEntityManager().createQuery(jpql);
 		if (maxResults > 0)
 		{
@@ -86,7 +86,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i;
 		}
-		jpql += getDefaultOrderBy(clazz,"p.");
+		jpql += getDefaultOrderBy(clazz, "p.");
 		Query q = getEntityManager().createQuery(jpql);
 		for (int i = 0; i < parameters.length; i++)
 		{
@@ -104,6 +104,20 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		}
 	}
 
+	@Override
+	public <T> T getLast(Class<T> clazz)
+	{
+		List<T> list = this.find(clazz, 1, 0);
+		if (list.size() == 1)
+		{
+			return list.get(0);
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> find(Class<T> clazz, Parameter<?>... parameters)
@@ -113,7 +127,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i;
 		}
-		jpql += getDefaultOrderBy(clazz,"p.");
+		jpql += getDefaultOrderBy(clazz, "p.");
 		Query q = getEntityManager().createQuery(jpql);
 		for (int i = 0; i < parameters.length; i++)
 		{
@@ -292,11 +306,11 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		long count = this.getCount(clazz);
 		int first = (pageIndex - 1) * pageSize;
 		List<T> list = this.find(clazz, pageSize > 1 ? pageSize : 20, first > 0 ? first : 0);
-//		if (list.size() == 0 && pageIndex > 1)
-//		{
-//			return findPagination(clazz, pageIndex - 1, pageSize);
-//		}
-//		else
+		// if (list.size() == 0 && pageIndex > 1)
+		// {
+		// return findPagination(clazz, pageIndex - 1, pageSize);
+		// }
+		// else
 		{
 			return new Pagination<T>((int) count, list, pageSize, pageIndex);
 		}

@@ -20,7 +20,7 @@ import com.google.inject.persist.Transactional;
  * @param <PK>
  *            the primary key for that type
  */
-public abstract class GenericDaoJpa<T, PK extends Serializable> extends UniversalDaoJpa implements GenericDao<T, PK>
+public class GenericDaoJpa<T, PK extends Serializable> extends UniversalDaoJpa implements GenericDao<T, PK>
 {
 	protected Class<T> persistentClass;
 
@@ -44,20 +44,11 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 	public List<T> find(Parameter<?>... parameters)
 	{
 		/*
-		String jpql = "select p from " + persistentClass.getSimpleName() + " p where 1 = 1";
-		for (int i = 0; i < parameters.length; i++)
-		{
-			jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i;
-		}
-		Query q = getEntityManager().createQuery(jpql);
-		for (int i = 0; i < parameters.length; i++)
-		{
-			q.setParameter(ArgsPrefix + i, parameters[i].getValue());
-		}
-		@SuppressWarnings("unchecked")
-		List<T> list = q.getResultList();
-		return list;
-		*/
+		 * String jpql = "select p from " + persistentClass.getSimpleName() + " p where 1 = 1"; for (int i = 0; i < parameters.length; i++) { jpql += " and p." + parameters[i].getName() + " = :" + ArgsPrefix + i; } Query q = getEntityManager().createQuery(jpql); for (int i = 0; i
+		 * < parameters.length; i++) { q.setParameter(ArgsPrefix + i, parameters[i].getValue()); }
+		 * 
+		 * @SuppressWarnings("unchecked") List<T> list = q.getResultList(); return list;
+		 */
 		return find(persistentClass, parameters);
 	}
 
@@ -143,5 +134,11 @@ public abstract class GenericDaoJpa<T, PK extends Serializable> extends Universa
 	public Pagination<T> findPagination(int pageIndex, int pageSize)
 	{
 		return this.findPagination(persistentClass, pageIndex, pageSize);
+	}
+
+	@Override
+	public T getLast()
+	{
+		return this.getLast(persistentClass);
 	}
 }
