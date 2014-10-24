@@ -130,7 +130,7 @@ abstract class AbsDaoJpa
 		}
 		int first = (pageIndex - 1) * pageSize;
 		ql.setFirstResult((first > 0 ? first : 0));
-		ql.setMaxResults((pageSize > 1 ? pageSize : 20));
+		ql.setMaxResults((pageSize > 0 ? pageSize : 20));
 		return new Pagination(count.intValue(), ql.getResultList(), pageSize, pageIndex);
 	}
 
@@ -150,7 +150,7 @@ abstract class AbsDaoJpa
 		}
 		int first = (pageIndex - 1) * pageSize;
 		q.setFirstResult((first > 0 ? first : 0));
-		q.setMaxResults((pageSize > 1 ? pageSize : 20));
+		q.setMaxResults((pageSize > 0 ? pageSize : 20));
 		return new Pagination(fullListSize.intValue(), q.getResultList(), pageSize, pageIndex);
 	}
 

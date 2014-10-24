@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import cn.gotom.service.impl.UniversalServiceImpl;
+import cn.gotom.dao.jpa.UniversalDaoJpa;
 import cn.gotom.vo.Pagination;
 
 import com.google.inject.ImplementedBy;
@@ -14,7 +14,7 @@ import com.google.inject.ImplementedBy;
  * 
  * @author <a href="mailto:peixere@qq.com">裴绍国</a>
  */
-@ImplementedBy(UniversalServiceImpl.class)
+@ImplementedBy(UniversalDaoJpa.class)
 public interface UniversalService
 {
 
@@ -31,6 +31,8 @@ public interface UniversalService
 	<T> T get(Class<T> clazz, String name, Object value);
 
 	<T> T get(Class<T> clazz, Serializable id);
+
+	<T> T getLast(Class<T> clazz);
 
 	long getCount(Class<?> clazz);
 
