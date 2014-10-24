@@ -7,7 +7,8 @@ import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import cn.gotom.annotation.Description;
 
@@ -92,7 +93,7 @@ public class UdpMulticastClient extends ChannelImpl
 		{
 			this.close();
 			this.onState(State.Fail);
-			log.info("连接失败[" + this.getId() + "]异常：" + ex.getMessage());
+			log.warn("连接失败[" + this.getId() + "]异常：" + ex.getMessage());
 			throw ex;
 		}
 	}
@@ -136,13 +137,9 @@ public class UdpMulticastClient extends ChannelImpl
 					log.info("closed[" + this.getId() + "]");
 			}
 		}
-		catch (UnknownHostException e)
+		catch (Throwable ex)
 		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			log.warn("clase[" + this.getId() + "]异常：" + ex.getMessage());
 		}
 		socket = null;
 		super.close();

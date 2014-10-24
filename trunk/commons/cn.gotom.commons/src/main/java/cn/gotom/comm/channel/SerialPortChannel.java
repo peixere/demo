@@ -30,7 +30,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 	{
 		if (SystemType.Android == SystemType.current())
 		{
-			log.error("Unsupported on " + System.getProperty("os.name"));
+			log.warn("Unsupported on " + System.getProperty("os.name"));
 			throw new UnsupportedOperationException("this os Unsupported");
 		}
 		String javaHome = System.getProperty("java.home");
@@ -67,7 +67,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		}
 		catch (SerialPortException e)
 		{
-			log.error("closed[" + getId() + "]" + e.getMessage());
+			log.warn("closed[" + getId() + "]" + e.getMessage());
 		}
 		sPort = null;
 		super.close();
@@ -93,11 +93,11 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 				this.onState(State.Connected);
 			}
 		}
-		catch (Exception ex)
+		catch (Throwable ex)
 		{
 			this.close();
 			this.onState(State.Fail);
-			log.error(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage(), ex);
+			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage());
 			throw new IOException(ex);
 		}
 	}
@@ -111,7 +111,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		}
 		catch (SerialPortException e)
 		{
-			log.error("通道[" + getId() + "]异常：" + e.getMessage());
+			log.warn("通道[" + getId() + "]异常：" + e.getMessage());
 		}
 	}
 
@@ -121,31 +121,6 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		super.setParameters(parameters);
 		this.parameters.setChannelType(ChannelTypeEnum.SerialPort);
 	}
-
-	// @Override
-	// public void setParameters(String... params)
-	// {
-	// String portName = params[0];
-	// int baudRate = Converter.parseInt(params[1]);
-	// int flowControlIn = Converter.parseInt(params[2]);
-	// int flowControlOut = Converter.parseInt(params[3]);
-	// int databits = Converter.parseInt(params[4]);
-	// int stopbits = Converter.parseInt(params[5]);
-	// int parity = Converter.parseInt(params[6]);
-	// parameters.setPortName(portName);
-	// if (baudRate > 0)
-	// parameters.setBaudRate(baudRate);
-	// if (flowControlIn > 0)
-	// parameters.setFlowControlIn(flowControlIn);
-	// if (flowControlOut > 0)
-	// parameters.setFlowControlOut(flowControlOut);
-	// if (flowControlOut > 0)
-	// parameters.setDatabits(databits);
-	// if (stopbits > 0)
-	// parameters.setStopbits(stopbits);
-	// if (parity > 0)
-	// parameters.setParity(parity);
-	// }
 
 	@Override
 	public String getId()
@@ -190,7 +165,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		}
 		catch (SerialPortException ex)
 		{
-			log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+			log.warn(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
 			this.close();
 			throw new IOException(ex.getMessage(), ex);
 		}
@@ -219,7 +194,7 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 				}
 				catch (SerialPortException e)
 				{
-					log.error(e.getMessage());
+					log.warn(e.getMessage());
 				}
 				throw new SerialPortException(getPortName(), "writeBytes()", SerialPortException.TYPE_PORT_NOT_FOUND);
 			}

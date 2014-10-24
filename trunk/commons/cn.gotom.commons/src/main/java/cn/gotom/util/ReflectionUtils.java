@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -795,4 +797,29 @@ public abstract class ReflectionUtils
 		}
 	};
 
+	@SuppressWarnings("unchecked")
+	public static <T> Class<T> getClassGenricType(final Class<?> clazz)
+	{
+		return (Class<T>) getClassGenricType(clazz, 0);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Class<?> getClassGenricType(final Class clazz, final int index)
+	{
+		Type genType = clazz.getGenericSuperclass();
+		if (!(genType instanceof ParameterizedType))
+		{
+			return Object.class;
+		}
+		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+		if (index >= params.length || index < 0)
+		{
+			return Object.class;
+		}
+		if (!(params[index] instanceof Class))
+		{
+			return Object.class;
+		}
+		return (Class) params[index];
+	}
 }
