@@ -101,7 +101,7 @@ public abstract class ChannelBase implements Channel
 			if (State.Close != this.getState())
 			{
 				if (!ex.getMessage().equalsIgnoreCase("Socket Closed"))
-					log.error(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
+					log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage());
 				close();
 			}
 		}
