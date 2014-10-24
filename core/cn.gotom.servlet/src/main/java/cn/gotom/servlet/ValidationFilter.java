@@ -18,7 +18,6 @@ import cn.gotom.service.AuthenticationService;
 import cn.gotom.service.Service;
 import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
-import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.StringUtils;
@@ -48,7 +47,7 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private String plugins;
 
-	private boolean debugScript;
+	private String debugModule = "";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
@@ -163,36 +162,58 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private void setPlugins(final HttpServletRequest request)
 	{
-		boolean debug = CommonUtils.parseBoolean(request.getParameter("debug"));
-		if (debugScript != debug)
+		String debug = request.getParameter("debug");
+		if (debug == null)
 		{
-			debugScript = debug;
+			debug = "";
+		}
+		if (!debug.equals(debugModule))
+		{
+			debugModule = debug;
 			plugins = null;
+			initPlugins();
 		}
 		if ((plugins == null && pluginsPaths != null))
 		{
-			plugins = "\n\t";
-			for (String name : pluginsPaths)
+			plugins = "...";
+			StringBuffer pluginsBf = new StringBuffer();
+			for (String module : pluginsPaths)
 			{
-				plugins += "Ext.Loader.setPath('" + name + "', '" + request.getContextPath() + pluginsPath + name + "/classes');\n\t";
-				if (debugScript)
+				String path = filterConfig.getServletContext().getRealPath(pluginsPath + module);
+				File moduleDir = new File(path);
+				if (moduleDir.exists() && moduleDir.isDirectory())
 				{
-					String path = filterConfig.getServletContext().getRealPath(pluginsPath + name + "/classes/view/");
-					File file = new File(path);
-					if (file.exists() && file.isDirectory())
+					File[] files = moduleDir.listFiles();
+					for (File file : files)
 					{
-						String[] views = file.list();
-						for (String view : views)
+						if (file.isDirectory() && !file.getName().equals("metadata"))
 						{
-							view = view.substring(0, view.length() - 3);
-							plugins += "Ext.require('" + name + ".view." + view + "');\n\t";
+							pluginsBf.append("\n\tExt.Loader.setPath('" + module + "', '" + request.getContextPath() + pluginsPath + module + "/" + file.getName() + "');");
+							if (module.equals(debugModule))
+							{
+								File[] lastDirs = file.listFiles();
+								for (File lastDir : lastDirs)
+								{
+									if (lastDir.isDirectory())
+									{
+										for (String jsName : lastDir.list())
+										{
+											if (jsName.toLowerCase().endsWith(".js"))
+											{
+												jsName = jsName.substring(0, jsName.length() - 3);
+												pluginsBf.append("\n\tExt.require('" + module + "." + lastDir.getName() + "." + jsName + "');");
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
 			}
+			plugins = pluginsBf.toString();
 			log.info("plugins: " + plugins);
 		}
 		request.setAttribute("plugins", plugins);
 	}
-
 }
