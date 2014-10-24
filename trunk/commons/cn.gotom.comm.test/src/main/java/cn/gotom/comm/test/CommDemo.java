@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -39,6 +41,8 @@ import cn.gotom.util.Base64;
 import cn.gotom.util.Converter;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.PasswordEncoderMessageDigest;
+
+import javax.swing.JCheckBox;
 
 class CommDemo extends JFrame
 {
@@ -128,13 +132,37 @@ class CommDemo extends JFrame
 		JScrollPane scrollPaneIn = new JScrollPane();
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+		checkBox = new JCheckBox("自动");
+		checkBox.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				autoSend();
+			}
+		});
+
+		textArea = new JTextArea();
+		textArea.setText("1000");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE).addComponent(scrollPaneIn, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE).addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(btnConn).addPreferredGap(ComponentPlacement.RELATED).addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE).addContainerGap(560, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(groupLayout
+				.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+				.addComponent(scrollPaneIn, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE).addContainerGap())
+				.addGroup(
+						groupLayout.createSequentialGroup().addContainerGap().addComponent(btnConn).addPreferredGap(ComponentPlacement.RELATED).addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(checkBox).addPreferredGap(ComponentPlacement.RELATED).addComponent(textArea, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE).addContainerGap(366, Short.MAX_VALUE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout.createSequentialGroup().addContainerGap().addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE).addGap(5).addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(btnSend).addComponent(btnConn))
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+						.addGap(5)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnSend).addComponent(checkBox).addComponent(textArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addComponent(btnConn))
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED).addComponent(scrollPaneIn, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 		config = new SerialConfigPanel();
 		config.addMouseListener(new MouseAdapter()
@@ -265,6 +293,41 @@ class CommDemo extends JFrame
 		}
 	}
 
+	private Timer autoTimer;
+
+	private void autoSend()
+	{
+		int second = Converter.parseInt(this.getTextArea().getText());
+		if (second == 0)
+			second = 1000;
+		if (autoTimer != null)
+		{
+			autoTimer.cancel();
+		}
+		if (checkBox.isSelected())
+		{
+			autoTimer = new Timer("autoTimer");
+			TimerTask task = new TimerTask()
+			{
+				@Override
+				public void run()
+				{
+					byte[] buffer = Converter.toBytes(textAreaOut.getText());
+					try
+					{
+						if (buffer.length > 0)
+							channel.write(buffer);
+					}
+					catch (Exception ex)
+					{
+						System.out.println(ex.getMessage());
+					}
+				}
+			};
+			autoTimer.schedule(task, 1000, second);
+		}
+	}
+
 	private void actionConn(ActionEvent e)
 	{
 		if (channel != null)
@@ -374,6 +437,8 @@ class CommDemo extends JFrame
 	private JTextField textLocalPort;
 	private JRadioButton radioButtonBC;
 	private JRadioButton radioButtonMS;
+	private JCheckBox checkBox;
+	private JTextArea textArea;
 
 	public JTextArea getTextAreaIn()
 	{
@@ -474,5 +539,15 @@ class CommDemo extends JFrame
 	protected JRadioButton getRadioButton()
 	{
 		return radioButtonBC;
+	}
+
+	public JCheckBox getCheckBox()
+	{
+		return checkBox;
+	}
+
+	public JTextArea getTextArea()
+	{
+		return textArea;
 	}
 }
