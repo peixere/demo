@@ -99,7 +99,7 @@ public class UdpBroadcast extends ChannelImpl
 		}
 		catch (Exception ex)
 		{
-			log.error(Thread.currentThread().getName() + " close[" + this.getId() + "]" + ex.getMessage());
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]" + ex.getMessage());
 		}
 	}
 

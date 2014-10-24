@@ -46,7 +46,7 @@ public class TcpChannel extends ChannelImpl
 		}
 		catch (java.net.SocketException ex)
 		{
-			log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+			log.warn(" 通道[" + getId() + "]发送异常：" + ex.getMessage());
 			this.close();
 			throw new IOException(ex.getMessage(), ex);
 		}
@@ -76,7 +76,7 @@ public class TcpChannel extends ChannelImpl
 		{
 			this.close();
 			this.onState(State.Fail);
-			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage(), ex);
+			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage());
 			throw ex;
 		}
 	}

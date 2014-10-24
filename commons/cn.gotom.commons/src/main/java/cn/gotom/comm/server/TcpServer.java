@@ -113,9 +113,29 @@ public class TcpServer extends ChannelBase implements Server
 			public void run()
 			{
 				receiveTerminal();
+				checkConnection();
 			}
+
 		};
 		terminalTimer.schedule(task, 1000, 1);
+	}
+
+	private void checkConnection()
+	{
+		try
+		{
+			for (int i = terminalList.size() - 1; i >= 0; i--)
+			{
+				Terminal terminal = terminalList.get(i);
+				if (!terminal.connected())
+				{
+					terminalList.remove(i);
+				}
+			}
+		}
+		catch (Throwable e)
+		{
+		}
 	}
 
 	private void receiveTerminal()
@@ -135,9 +155,8 @@ public class TcpServer extends ChannelBase implements Server
 				}
 				log.info("terminal count : " + terminalList.size());
 			}
-			catch (IOException e)
+			catch (Throwable e)
 			{
-
 			}
 		}
 	}
@@ -175,13 +194,14 @@ public class TcpServer extends ChannelBase implements Server
 		// {
 		// terminal.write(bytes);
 		// }
-		//List<Channel> channelList = getClientList();
-		//for (Channel c : channelList)
+		// List<Channel> channelList = getClientList();
+		// for (Channel c : channelList)
 		for (Channel c : this.terminalList)
 		{
 			try
 			{
-				c.write(bytes);
+				if (c.connected())
+					c.write(bytes);
 			}
 			catch (Throwable e)
 			{
@@ -218,9 +238,10 @@ public class TcpServer extends ChannelBase implements Server
 	@Override
 	public List<Channel> getClientList()
 	{
-		GList<Channel> terminalList = new GList<Channel>();
-		terminalList.AddRange(terminalList.asArray());
-		return terminalList;
+		GList<Channel> tmpList = new GList<Channel>();
+		if (terminalList.size() > 0)
+			tmpList.AddRange(terminalList.asArray());
+		return tmpList;
 	}
 
 	class Terminal extends ChannelImpl
@@ -270,26 +291,23 @@ public class TcpServer extends ChannelBase implements Server
 		}
 
 		@Override
-		protected int receive()
+		public void write(byte[] bytes) throws IOException
 		{
-			if (null == terminalPool.get())
+			try
 			{
-				terminalPool.set(this);
+				out.write(bytes);
+				onMessageListener(bytes, true);
 			}
-			int receiveCount = super.receive();
-			if (receiveCount == -1)
-			{// 发送心跳
-				try
-				{
-					this.write(new byte[] { (byte) 0xff, (byte) 0xff });
-				}
-				catch (IOException e)
-				{
-					log.error(e.getMessage());
-					this.close();
-				}
+			catch (java.net.SocketException ex)
+			{
+				log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+				this.close();
+				throw new IOException(ex.getMessage(), ex);
 			}
-			return receiveCount;
+			catch (Throwable ex)
+			{
+				log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
+			}
 		}
 
 		@Override
@@ -325,6 +343,7 @@ public class TcpServer extends ChannelBase implements Server
 		@Override
 		protected void onReceiveListener(byte[] buffer)
 		{
+			log.debug("接收客户端数据转给TCPServer处理");
 			TcpServer.this.onMessageListener(buffer, false);
 			if (TcpServer.this.receiveListener.size() > 0)
 			{

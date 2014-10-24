@@ -1,10 +1,10 @@
 package cn.gotom.util;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 
 import cn.gotom.annotation.Description;
-
 
 @Description("Generic")
 public class GList<E> extends ArrayList<E>
@@ -56,6 +56,7 @@ public class GList<E> extends ArrayList<E>
 			}
 			else
 			{
+				Class<?> clazz = ReflectionUtils.getClassGenricType(this.getClass());
 				return null;
 			}
 		}

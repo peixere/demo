@@ -53,7 +53,7 @@ public class UdpChannel extends ChannelImpl
 		{
 			this.close();
 			this.onState(State.Fail);
-			log.error(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage(), ex);
+			log.warn(Thread.currentThread().getName() + "通道[" + getId() + "]连接异常：" + ex.getMessage());
 			throw ex;
 		}
 	}
@@ -85,9 +85,9 @@ public class UdpChannel extends ChannelImpl
 			socket.send(dp);
 			onMessageListener(bytes, true);
 		}
-		catch (Exception ex)
+		catch (Throwable ex)
 		{
-			log.error(Thread.currentThread().getName() + " close[" + this.getId() + "]" + ex.getMessage());
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]" + ex.getMessage());
 		}
 	}
 
@@ -112,7 +112,7 @@ public class UdpChannel extends ChannelImpl
 		}
 		catch (Throwable ex)
 		{
-			log.error(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]");
 		}
 		super.close();
 	}
