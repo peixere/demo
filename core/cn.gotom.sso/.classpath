@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/jasper.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/tomcat-lib/tomcat-coyote.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.pojos"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cn.gotom.commons"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

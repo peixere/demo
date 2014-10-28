@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import org.apache.log4j.Logger;
 
 import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.util.PasswordEncoder;
+import cn.gotom.util.PasswordEncoderMessageDigest;
 
 public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 {
@@ -22,15 +24,19 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 	 * 必选，验证服务器URL
 	 */
 	protected String serverLoginUrl;
+	private String encodingAlgorithm;
+	protected PasswordEncoder passwordEncoder;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		initInternal(filterConfig);
+		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 	}
 
 	protected void initInternal(final FilterConfig filterConfig) throws ServletException
 	{
+		encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		setTicketParameterName(getInitParameter(filterConfig, "ticketParameterName", "ticket"));
 		setServiceParameterName(getInitParameter(filterConfig, "serviceParameterName", "service"));
 		setEncodeServiceUrl(CommonUtils.parseBoolean(getInitParameter(filterConfig, "encodeServiceUrl", "true")));

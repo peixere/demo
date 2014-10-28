@@ -4,8 +4,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import cn.gotom.sso.util.PathMatcher;
-import cn.gotom.sso.util.PathMatcherAnt;
+import cn.gotom.matcher.PathMatcher;
+import cn.gotom.matcher.PathMatcherAnt;
 import cn.gotom.sso.util.UrlUtils;
 
 public abstract class AuthenticationIgnoreFilter extends AbstractCommonFilter

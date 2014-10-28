@@ -27,15 +27,15 @@ public class ServiceImpl implements Service
 	protected final Logger log = Logger.getLogger(getClass());
 
 	@Inject
-	UniversalService universalService;
+	private UniversalService universalService;
 	@Inject
-	protected UserService userService;
+	private UserService userService;
 	@Inject
-	protected RightService rightService;
+	private RightService rightService;
 	@Inject
 	private RoleService roleService;
 	@Inject
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	@Inject
 	private OrganizationService orgService;
 	@Inject

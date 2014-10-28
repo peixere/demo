@@ -25,17 +25,13 @@ import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.GsonUtils;
-import cn.gotom.sso.util.PasswordEncoder;
-import cn.gotom.sso.util.PasswordEncoderMessageDigest;
 import cn.gotom.sso.util.UrlUtils;
 
 public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
 	protected SSOService ssoService;
-	protected PasswordEncoder passwordEncoder;
 	private String loginSQL;
-	private String encodingAlgorithm;
 	private String loginPath;
 	private String logoutPath;
 	private String successPath;
@@ -44,14 +40,12 @@ public class ServerFilter extends AbstractCommonFilter
 	protected void initService()
 	{
 		ssoService = new SSOServiceImpl();
-		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		super.init(filterConfig);
-		encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		loginPath = this.getInitParameter(filterConfig, "login", "/WEB-INF/login.jsp");
 		logoutPath = this.getInitParameter(filterConfig, "logout", loginPath);
 		successPath = this.getInitParameter(filterConfig, "success", null);
@@ -131,7 +125,7 @@ public class ServerFilter extends AbstractCommonFilter
 			}
 		}
 	}
-	
+
 	private int numCount = 2;
 
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
@@ -153,7 +147,7 @@ public class ServerFilter extends AbstractCommonFilter
 		if (errorNum > numCount)
 		{
 			codeCheck = false;
-			if (code!= null && code.equalsIgnoreCase(codeVal))
+			if (code != null && code.equalsIgnoreCase(codeVal))
 			{
 				codeCheck = true;
 			}
@@ -392,15 +386,4 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		this.loginSQL = loginSQL;
 	}
-
-	public String getEncodingAlgorithm()
-	{
-		return encodingAlgorithm;
-	}
-
-	public void setEncodingAlgorithm(String encodingAlgorithm)
-	{
-		this.encodingAlgorithm = encodingAlgorithm;
-	}
-
 }
