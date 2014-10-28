@@ -29,7 +29,7 @@ public class TcpChannel extends ChannelImpl
 		super();
 		this.parameters.setAddress(host);
 		this.parameters.setPort(port);
-		parameters.setChannelType(ChannelTypeEnum.UDP);
+		parameters.setChannelType(ChannelTypeEnum.TCP);
 	}
 
 	@Override

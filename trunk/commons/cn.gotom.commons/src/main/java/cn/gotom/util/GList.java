@@ -94,9 +94,10 @@ public class GList<E> extends ArrayList<E>
 	@Description("添加数据到集合中")
 	public synchronized void AddRange(E[] array)
 	{
-		for (int i = 0; i < array.length; i++)
-		{
-			this.add(array[i]);
-		}
+		if (array != null)
+			for (int i = 0; i < array.length; i++)
+			{
+				this.add(array[i]);
+			}
 	}
 }

@@ -300,7 +300,7 @@ public class TcpServer extends ChannelBase implements Server
 			}
 			catch (java.net.SocketException ex)
 			{
-				log.error(" 通道[" + getId() + "]发送异常：" + ex.getMessage(), ex);
+				log.warn(" 通道[" + getId() + "]发送异常：" + ex.getMessage());
 				this.close();
 				throw new IOException(ex.getMessage(), ex);
 			}
