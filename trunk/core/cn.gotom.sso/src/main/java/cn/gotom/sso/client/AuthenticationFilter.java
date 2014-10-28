@@ -114,7 +114,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		String uri = UrlUtils.buildFullRequestURI(request);
 		if (urlToRedirectTo.startsWith(uri))
 		{
-			urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
+			//urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
 		}
 		log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		response.sendRedirect(urlToRedirectTo);

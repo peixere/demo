@@ -15,12 +15,12 @@ import cn.gotom.pojos.App;
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
+import cn.gotom.service.InitializeService;
 import cn.gotom.service.Service;
 import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
+import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
-import cn.gotom.util.PasswordEncoder;
-import cn.gotom.util.StringUtils;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -28,9 +28,6 @@ import com.google.inject.Singleton;
 @Singleton
 public class ValidationFilter extends AuthenticationFilter
 {
-
-	@Inject
-	protected PasswordEncoder passwordEncoder;
 	@Inject
 	protected UserService userService;
 	@Inject
@@ -49,16 +46,44 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private String debugModule = "";
 
+	private String initializeService;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		this.filterConfig = filterConfig;
 		super.init(filterConfig);
-		String encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 		initPlugins();
-		passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
-		service.init();
-		log.debug("init");
+		initializeService();
+	}
+
+	private void initializeService()
+	{
+		initializeService = getInitParameter(filterConfig, "initializeService", null);
+		if (CommonUtils.isNotEmpty(initializeService))
+		{
+			String tmp = initializeService.trim().replace("；", ";");
+			tmp = tmp.replace(",", ";");
+			tmp = tmp.replace("，", ";");
+			tmp = tmp.replace("\n", ";");
+			tmp = tmp.replace(";;", ";");
+			String[] services = tmp.split(";");
+			for (String name : services)
+			{
+				try
+				{
+					Class<?> clazz = Class.forName(name);
+					InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
+					initService.init();
+					log.debug(name + ".init() souccess");
+				}
+				catch (Throwable e)
+				{
+					log.warn(name + " " + e.getMessage());
+				}
+			}
+			//
+		}
 	}
 
 	// protected boolean isIgnore(String url)
@@ -84,16 +109,16 @@ public class ValidationFilter extends AuthenticationFilter
 	{
 		String customId = (String) request.getSession().getAttribute(Custom.currentCustomId);
 		boolean hasAttribute = true;
-		if (StringUtils.isNullOrEmpty(customId))
+		if (CommonUtils.isEmpty(customId))
 		{
 			hasAttribute = false;
 			customId = (String) request.getParameter("customId");
 		}
-		if (StringUtils.isNullOrEmpty(customId))
+		if (CommonUtils.isEmpty(customId))
 		{
 			customId = user.getDefaultCustomId();
 		}
-		if (StringUtils.isNullOrEmpty(customId))
+		if (CommonUtils.isEmpty(customId))
 		{
 			Custom custom = authService.getDefaultCustom(user);
 			if (custom != null)
@@ -101,7 +126,7 @@ public class ValidationFilter extends AuthenticationFilter
 				customId = custom.getId();
 			}
 		}
-		if (StringUtils.isNotEmpty(customId))
+		if (CommonUtils.isNotEmpty(customId))
 		{
 			if (!hasAttribute)
 			{
