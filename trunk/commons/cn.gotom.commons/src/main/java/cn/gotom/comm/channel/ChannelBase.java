@@ -69,7 +69,7 @@ public abstract class ChannelBase implements Channel
 		}
 	}
 
-	private long lastTimeMillis = System.currentTimeMillis();
+	protected long lastTimeMillis = System.currentTimeMillis();
 
 	private int readByteCount = -1;
 
@@ -81,8 +81,18 @@ public abstract class ChannelBase implements Channel
 			if (connected() && state == State.Connected)
 			{
 				readByteCount = read(receiveBuffer);
+				if (readByteCount == 0)
+				{
+					this.close();
+				}
+				else if (readByteCount > 0)
+				{
+					byte[] buffer = new byte[readByteCount];
+					System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
+					onReceiveListener(buffer);
+					lastTimeMillis = System.currentTimeMillis();
+				}
 			}
-			lastTimeMillis = System.currentTimeMillis();
 		}
 		catch (PortUnreachableException ex)
 		{
@@ -90,40 +100,35 @@ public abstract class ChannelBase implements Channel
 		}
 		catch (SocketTimeoutException ex)
 		{
-			if ((System.currentTimeMillis() - lastTimeMillis) > 60000)
+			if ((System.currentTimeMillis() - lastTimeMillis) > 30000)
 			{
-				log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收：SocketTimeoutException " + ex.getMessage());
-				lastTimeMillis = System.currentTimeMillis();
+				try
+				{
+					lastTimeMillis = System.currentTimeMillis();
+					log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收超时：" + ex.getClass().getName() + " " + ex.getMessage());
+					this.write(new byte[] { -1, -1 });
+				}
+				catch (Throwable e)
+				{
+					log.debug(e.getMessage());
+				}
 			}
 		}
 		catch (java.net.SocketException ex)
 		{
+			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage());
 			if (State.Close != this.getState())
 			{
 				if (!ex.getMessage().equalsIgnoreCase("Socket Closed"))
-					log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage());
+				{
+
+				}
 				close();
 			}
 		}
 		catch (Throwable ex)
 		{
-			if (State.Close != this.getState())
-			{
-				log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage(), ex);
-			}
-		}
-		try
-		{
-			if (readByteCount > 0)
-			{
-				byte[] buffer = new byte[readByteCount];
-				System.arraycopy(receiveBuffer, 0, buffer, 0, buffer.length);
-				onReceiveListener(buffer);
-			}
-		}
-		catch (Throwable ex)
-		{
-			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]数据处理异常：" + ex.getMessage(), ex);
+			log.warn(Thread.currentThread().getName() + " 通道[" + getId() + "]接收异常：" + ex.getMessage());
 		}
 		return readByteCount;
 	}
