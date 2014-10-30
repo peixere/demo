@@ -27,14 +27,16 @@ public abstract class ChannelBase implements Channel
 
 	protected Parameters parameters;
 
-	@Description("接收数据监听器")
-	protected final ListenerManager<byte[]> receiveListener = new ListenerManager<byte[]>();
+	protected final ListenerManager<State> stateListeners = new ListenerManager<State>();
 
 	@Description("状态监听器")
-	protected final ListenerManager<State> stateListeners = new ListenerManager<State>();
+	protected Listener<State> stateListener;
 
 	@Description("报文监听器")
 	protected Listener<String> messageListener;
+
+	@Description("报文监听器")
+	protected Listener<byte[]> receiveListener;
 
 	protected State state = State.Close;
 
@@ -65,6 +67,7 @@ public abstract class ChannelBase implements Channel
 		}
 		else
 		{
+			log.debug(this.getId());
 			log.debug(hexString);
 		}
 	}
@@ -136,9 +139,13 @@ public abstract class ChannelBase implements Channel
 	protected void onReceiveListener(byte[] buffer)
 	{
 		onMessageListener(buffer, false);
-		if (receiveListener.size() > 0)
+		// if (receiveListener.size() > 0)
+		// {
+		// receiveListener.post(this, buffer);
+		// }
+		if (this.receiveListener != null)
 		{
-			receiveListener.post(this, buffer);
+			this.receiveListener.onListener(this, buffer);
 		}
 	}
 
@@ -157,41 +164,31 @@ public abstract class ChannelBase implements Channel
 	}
 
 	@Override
-	public void addStateListener(Listener<State> stateListener)
+	public void setStateListener(Listener<State> stateListener)
 	{
-		stateListeners.add(stateListener);
+		removeStateListener(this.stateListener);
+		this.stateListener = stateListener;
+		addStateListener(this.stateListener);
+
 	}
 
 	@Override
-	public void removeStateListener(Listener<State> stateListener)
+	public void addStateListener(Listener<State> l)
 	{
-		stateListeners.remove(stateListener);
+		stateListeners.add(l);
 	}
 
 	@Override
-	public void removeAllStateListener()
+	public void removeStateListener(Listener<State> l)
 	{
-		stateListeners.clear();
+		stateListeners.remove(l);
 	}
 
 	@Description("设置接收数据监听器")
 	@Override
-	public void addReceiveListener(Listener<byte[]> listener)
+	public void setReceiveListener(Listener<byte[]> listener)
 	{
-		receiveListener.add(listener);
-	}
-
-	@Description("删除接收数据监听器")
-	@Override
-	public void removeReceiveListener(Listener<byte[]> listener)
-	{
-		receiveListener.remove(listener);
-	}
-
-	@Override
-	public void removeAllReceiveListener()
-	{
-		receiveListener.clear();
+		receiveListener = listener;
 	}
 
 	@Override

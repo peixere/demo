@@ -29,14 +29,8 @@ public interface Channel extends java.io.Serializable
 	@Description("连接通道")
 	void connect() throws IOException;
 
-	@Description("+读数据监听器")
-	void addReceiveListener(Listener<byte[]> listener);
-
-	@Description("-读数据监听器")
-	void removeReceiveListener(Listener<byte[]> listener);
-
-	@Description("移除所有读数据监听器")
-	void removeAllReceiveListener();
+	@Description("设置读数据监听器")
+	void setReceiveListener(Listener<byte[]> listener);
 
 	@Description("写数据到通道")
 	void write(byte[] bytes) throws IOException;
@@ -44,14 +38,14 @@ public interface Channel extends java.io.Serializable
 	@Description("关闭")
 	void close();
 
-	@Description("添加通道事件")
+	@Description("设置通道事件")
+	void setStateListener(Listener<State> stateListener);
+
+	@Description("+通道事件")
 	void addStateListener(Listener<State> stateListener);
 
-	@Description("删除通道事件")
+	@Description("-通道事件")
 	void removeStateListener(Listener<State> stateListener);
-
-	@Description("删除通道事件")
-	void removeAllStateListener();
 
 	@Description("获取报文监听器")
 	Listener<String> getMessageListener();

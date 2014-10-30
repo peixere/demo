@@ -57,7 +57,7 @@ public class LogConfiguratorActivity extends Activity
 
 		// setContentView(R.layout.activity_main);
 		channel = new TcpChannel("192.168.0.110", 4001);
-		channel.addReceiveListener(receiveListener);
+		channel.setReceiveListener(receiveListener);
 	}
 
 	@Override
