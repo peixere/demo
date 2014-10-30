@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,6 +19,7 @@ import cn.gotom.comm.channel.ChannelType;
 import cn.gotom.comm.channel.ChannelTypeEnum;
 import cn.gotom.comm.channel.Parameters;
 import cn.gotom.comm.channel.State;
+import cn.gotom.commons.Listener;
 import cn.gotom.util.GList;
 
 @Description("TCP服务端")
@@ -78,9 +80,9 @@ public class TcpServer extends ChannelBase implements Server
 				this.onState(State.Connecting);
 				socket = new ServerSocket();
 				socket.bind(new InetSocketAddress(parameters.getAddress(), parameters.getPort()));
+				// socket.setSoTimeout(parameters.getSoTimeout());
 				log.info("启动成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
-				socket.setSoTimeout(parameters.getSoTimeout());
 				// super.connect();
 				terminalTimerStart();
 			}
@@ -127,7 +129,7 @@ public class TcpServer extends ChannelBase implements Server
 			for (int i = terminalList.size() - 1; i >= 0; i--)
 			{
 				Terminal terminal = terminalList.get(i);
-				//terminal.write(new byte[]{-1,-1});
+				// terminal.write(new byte[]{-1,-1});
 				if (!terminal.connected())
 				{
 					terminalList.remove(i);
@@ -138,6 +140,34 @@ public class TcpServer extends ChannelBase implements Server
 		{
 		}
 	}
+
+	private Listener<byte[]> terminalReceiveListener = new Listener<byte[]>()
+	{
+
+		@Override
+		public void onListener(Object sender, byte[] buffer)
+		{
+			onMessageListener(buffer, false);
+			if (receiveListener != null)
+			{
+				receiveListener.onListener(sender, buffer);
+			}
+		}
+
+	};
+	private Listener<State> terminalStateListener = new Listener<State>()
+	{
+
+		@Override
+		public void onListener(Object sender, State e)
+		{
+			if (stateListeners.size() > 0)
+			{
+				stateListeners.post(this, state);
+			}
+		}
+
+	};
 
 	private void receiveTerminal()
 	{
@@ -158,6 +188,7 @@ public class TcpServer extends ChannelBase implements Server
 			}
 			catch (Throwable e)
 			{
+				log.error(e);
 			}
 		}
 	}
@@ -261,11 +292,23 @@ public class TcpServer extends ChannelBase implements Server
 
 		public Terminal(Socket socket)
 		{
+			terminalPool.set(this);
 			this.socket = socket;
+			try
+			{
+				this.socket.setKeepAlive(true);
+			}
+			catch (SocketException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.parameters.setAddress(socket.getInetAddress().getHostAddress());
 			this.parameters.setPort(socket.getPort());
 			this.parameters.setLocalPort(socket.getLocalPort());
 			this.parameters.setChannelType(ChannelTypeEnum.TCPServer);
+			this.setReceiveListener(terminalReceiveListener);
+			this.setStateListener(terminalStateListener);
 			this.connect();
 		}
 
@@ -280,10 +323,10 @@ public class TcpServer extends ChannelBase implements Server
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				super.connect();
-				if (TcpServer.this.stateListeners.size() > 0)
-				{
-					TcpServer.this.stateListeners.post(this, State.Connected);
-				}
+				// if (TcpServer.this.stateListeners.size() > 0)
+				// {
+				// TcpServer.this.stateListeners.post(this, State.Connected);
+				// }
 			}
 			catch (Throwable e)
 			{
@@ -342,21 +385,29 @@ public class TcpServer extends ChannelBase implements Server
 				log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
 			}
 			super.close();
-			if (TcpServer.this.stateListeners.size() > 0)
-			{
-				TcpServer.this.stateListeners.post(this, State.Close);
-			}
+			// if (TcpServer.this.onReceiveListener(buffer);.size() > 0)
+			// {
+			// this.onReceiveListener(buffer);
+			// TcpServer.this.stateListeners.post(this, State.Close);
+			// }
 		}
 
-		@Override
-		protected void onReceiveListener(byte[] buffer)
-		{
-			TcpServer.this.onMessageListener(buffer, false);
-			if (TcpServer.this.receiveListener.size() > 0)
-			{
-				TcpServer.this.receiveListener.post(this, buffer);
-			}
-		}
+		// @Override
+		// protected void onReceiveListener(byte[] buffer)
+		// {
+		// try
+		// {
+		// onMessageListener(buffer, false);
+		// if (TcpServer.this.receiveListener.size() > 0)
+		// {
+		// TcpServer.this.receiveListener.post(this, buffer);
+		// }
+		// }
+		// catch (java.lang.Throwable ex)
+		// {
+		// log.error("", ex);
+		// }
+		// }
 
 		@Override
 		public void setParameters(Parameters parameters)

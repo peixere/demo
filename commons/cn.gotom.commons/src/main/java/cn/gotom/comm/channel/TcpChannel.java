@@ -62,7 +62,6 @@ public class TcpChannel extends ChannelImpl
 				socket.setKeepAlive(true);
 				this.onState(State.Connecting);
 				socket.connect(new InetSocketAddress(parameters.getAddress(), parameters.getPort()), 3000);
-				socket.setKeepAlive(true);
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				socket.setSoTimeout(parameters.getSoTimeout());
