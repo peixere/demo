@@ -127,6 +127,7 @@ public class TcpServer extends ChannelBase implements Server
 			for (int i = terminalList.size() - 1; i >= 0; i--)
 			{
 				Terminal terminal = terminalList.get(i);
+				//terminal.write(new byte[]{-1,-1});
 				if (!terminal.connected())
 				{
 					terminalList.remove(i);
@@ -178,6 +179,11 @@ public class TcpServer extends ChannelBase implements Server
 				socket.close();
 			}
 			socket = null;
+			for (int i = terminalList.size() - 1; i >= 0; i--)
+			{
+				Channel chennel = terminalList.get(i);
+				chennel.close();
+			}
 		}
 		catch (Throwable ex)
 		{
@@ -270,6 +276,7 @@ public class TcpServer extends ChannelBase implements Server
 			{
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
+				socket.setSoTimeout(1000);
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				super.connect();
@@ -295,8 +302,7 @@ public class TcpServer extends ChannelBase implements Server
 		{
 			try
 			{
-				out.write(bytes);
-				onMessageListener(bytes, true);
+				super.write(bytes);
 			}
 			catch (java.net.SocketException ex)
 			{
@@ -325,6 +331,8 @@ public class TcpServer extends ChannelBase implements Server
 				{
 					if (socket.isConnected())
 						log.info("closed[" + this.getId() + "]");
+					socket.shutdownInput();
+					socket.shutdownOutput();
 					socket.close();
 				}
 				socket = null;
@@ -343,7 +351,6 @@ public class TcpServer extends ChannelBase implements Server
 		@Override
 		protected void onReceiveListener(byte[] buffer)
 		{
-			log.debug("接收客户端数据转给TCPServer处理");
 			TcpServer.this.onMessageListener(buffer, false);
 			if (TcpServer.this.receiveListener.size() > 0)
 			{

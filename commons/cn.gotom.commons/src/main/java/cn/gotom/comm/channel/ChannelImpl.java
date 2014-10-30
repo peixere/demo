@@ -57,6 +57,7 @@ public abstract class ChannelImpl extends ChannelBase
 	public void write(byte[] bytes) throws IOException
 	{
 		out.write(bytes);
+		lastTimeMillis = System.currentTimeMillis();
 		onMessageListener(bytes, true);
 	}
 

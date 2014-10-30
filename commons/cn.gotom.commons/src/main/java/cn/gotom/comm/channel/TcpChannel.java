@@ -41,8 +41,7 @@ public class TcpChannel extends ChannelImpl
 			{
 				this.connect();
 			}
-			out.write(bytes);
-			onMessageListener(bytes, true);
+			super.write(bytes);
 		}
 		catch (java.net.SocketException ex)
 		{
@@ -96,6 +95,8 @@ public class TcpChannel extends ChannelImpl
 			{
 				if (socket.isConnected())
 					log.info("closed[" + this.getId() + "]");
+				socket.shutdownInput();
+				socket.shutdownOutput();
 				socket.close();
 			}
 			socket = null;
