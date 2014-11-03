@@ -37,16 +37,20 @@ abstract class AbsDaoJpa
 
 	protected Object getSingleResult(String jpql, Object... values)
 	{
-		Query q = getEntityManager().createQuery(jpql);
-		if (values != null)
+		List<?> list = findList(1, jpql, values);
+		if (!list.isEmpty())
 		{
-			for (int i = 0; i < values.length; i++)
-			{
-				q.setParameter(i + 1, values[i]);
-			}
+			return list.get(0);
 		}
-		q.setMaxResults(1);
-		List<?> list = q.getResultList();
+		else
+		{
+			return null;
+		}
+	}
+
+	protected Object getSingleResult(String jpql, Map<String, Object> params)
+	{
+		List<?> list = findList(jpql, params, 1);
 		if (!list.isEmpty())
 		{
 			return list.get(0);
