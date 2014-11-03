@@ -1,8 +1,11 @@
 package cn.gotom.web.action;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -64,6 +67,19 @@ public class UserAction extends AbsPortalAction
 
 	public String save()
 	{
+		if (user == null)
+		{
+			user = new User();
+		}
+		Map<String, String[]> params = ServletActionContext.getRequest().getParameterMap();
+		try
+		{
+			BeanUtils.copyProperties(user, params);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		String[] roleIdArray = new String[0];
 		if (StringUtils.isNotEmpty(roleIds))
 		{

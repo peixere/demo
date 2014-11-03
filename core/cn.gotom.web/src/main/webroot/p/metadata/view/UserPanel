@@ -540,7 +540,7 @@
                                 "layout|anchor": "100%",
                                 "id": null,
                                 "fieldLabel": "Label",
-                                "name": "user.id"
+                                "name": "id"
                             },
                             "designerId": "add902a0-f590-4188-b3fe-781398d476a7"
                         },
@@ -572,7 +572,7 @@
                                 "id": null,
                                 "fieldLabel": "登录帐号",
                                 "labelWidth": 60,
-                                "name": "user.username",
+                                "name": "username",
                                 "allowBlank": false,
                                 "enforceMaxLength": true,
                                 "maxLength": 50,
@@ -592,13 +592,73 @@
                                 "id": null,
                                 "fieldLabel": "用户名称",
                                 "labelWidth": 60,
-                                "name": "user.name",
+                                "name": "name",
                                 "allowBlank": false,
                                 "enforceMaxLength": false,
                                 "maxLength": 50,
                                 "minLength": 2
                             },
                             "designerId": "fd8b0694-83a6-4df7-8325-ece3e242a9ed"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": null,
+                                "fieldLabel": "手机号码",
+                                "labelWidth": 60,
+                                "name": "mobile",
+                                "allowBlank": false,
+                                "enforceMaxLength": false,
+                                "maxLength": 50,
+                                "minLength": 2
+                            },
+                            "designerId": "f35fc9c2-8583-421e-a72e-028f2cec6976"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": null,
+                                "fieldLabel": "工作卡号",
+                                "labelWidth": 60,
+                                "name": "cardRFID",
+                                "allowBlank": false,
+                                "enforceMaxLength": false,
+                                "maxLength": 50,
+                                "minLength": 2
+                            },
+                            "designerId": "5d8e6053-3fa0-4a43-96f7-da0e6eff650b"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|anchor": "100%",
+                                "id": null,
+                                "fieldLabel": "证件号码",
+                                "labelWidth": 60,
+                                "name": "cardId",
+                                "allowBlank": false,
+                                "enforceMaxLength": false,
+                                "maxLength": 50,
+                                "minLength": 2
+                            },
+                            "designerId": "35308036-fbca-4727-a4e4-659571e83f61"
                         },
                         {
                             "type": "Ext.form.CheckboxGroup",
@@ -753,9 +813,7 @@
                     "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/user.do',\r",
                     "    callback : function(result) {\r",
-                    "        from.getForm().findField('user.id').setValue(result.user.id);\r",
-                    "        from.getForm().findField('user.name').setValue(result.user.name);                \r",
-                    "        from.getForm().findField('user.username').setValue(result.user.username); \r",
+                    "        from.getForm().setValues(result.user);\r",
                     "        from.getForm().findField('orgIds').setValue(result.orgIds);     \r",
                     "        var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');\r",
                     "        roleCheckbox.removeAll();\r",

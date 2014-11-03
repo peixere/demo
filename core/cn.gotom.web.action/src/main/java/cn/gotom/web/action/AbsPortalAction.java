@@ -16,6 +16,49 @@ import com.google.gson.TypeAdapterFactory;
 public abstract class AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
+	private String id;
+	private int start;
+	private int limit;
+
+	protected int getPageNum()
+	{
+		int pageNum = start / getLimit() + 1;
+		return pageNum;
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
+	public int getStart()
+	{
+		return start;
+	}
+
+	public void setStart(int start)
+	{
+		this.start = start;
+	}
+
+	public int getLimit()
+	{
+		if (limit <= 0)
+		{
+			limit = 20;
+		}
+		return limit;
+	}
+
+	public void setLimit(int limit)
+	{
+		this.limit = limit;
+	}
 
 	public HttpServletRequest getRequest()
 	{

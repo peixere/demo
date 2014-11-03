@@ -209,7 +209,7 @@ Ext.define('Gotom.view.UserPanel', {
                                     xtype: 'hiddenfield',
                                     anchor: '100%',
                                     fieldLabel: 'Label',
-                                    name: 'user.id'
+                                    name: 'id'
                                 },
                                 {
                                     xtype: 'hiddenfield',
@@ -222,7 +222,7 @@ Ext.define('Gotom.view.UserPanel', {
                                     anchor: '100%',
                                     fieldLabel: '登录帐号',
                                     labelWidth: 60,
-                                    name: 'user.username',
+                                    name: 'username',
                                     allowBlank: false,
                                     enforceMaxLength: true,
                                     maxLength: 50,
@@ -233,7 +233,40 @@ Ext.define('Gotom.view.UserPanel', {
                                     anchor: '100%',
                                     fieldLabel: '用户名称',
                                     labelWidth: 60,
-                                    name: 'user.name',
+                                    name: 'name',
+                                    allowBlank: false,
+                                    enforceMaxLength: false,
+                                    maxLength: 50,
+                                    minLength: 2
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    fieldLabel: '手机号码',
+                                    labelWidth: 60,
+                                    name: 'mobile',
+                                    allowBlank: false,
+                                    enforceMaxLength: false,
+                                    maxLength: 50,
+                                    minLength: 2
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    fieldLabel: '工作卡号',
+                                    labelWidth: 60,
+                                    name: 'cardRFID',
+                                    allowBlank: false,
+                                    enforceMaxLength: false,
+                                    maxLength: 50,
+                                    minLength: 2
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    anchor: '100%',
+                                    fieldLabel: '证件号码',
+                                    labelWidth: 60,
+                                    name: 'cardId',
                                     allowBlank: false,
                                     enforceMaxLength: false,
                                     maxLength: 50,
@@ -425,9 +458,7 @@ Ext.define('Gotom.view.UserPanel', {
             message : '正在加载......',    
             url : ctxp+'/p/user.do',
             callback : function(result) {
-                from.getForm().findField('user.id').setValue(result.user.id);
-                from.getForm().findField('user.name').setValue(result.user.name);                
-                from.getForm().findField('user.username').setValue(result.user.username); 
+                from.getForm().setValues(result.user);
                 from.getForm().findField('orgIds').setValue(result.orgIds);     
                 var roleCheckbox = Ext.getCmp('UserRoleCheckboxGroup');
                 roleCheckbox.removeAll();

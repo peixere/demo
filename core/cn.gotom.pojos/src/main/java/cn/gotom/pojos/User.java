@@ -25,27 +25,33 @@ public class User extends SuperEntity implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	public static final String ROOT = "root";
-	
+
 	public static final String CurrentLoginUser = "CurrentLoginUser";
 
-	/**
-	 * 姓名
-	 */
+	@Note("姓名")
 	@Column(nullable = true, length = 50)
 	private String name;
 
 	@Column(nullable = false, length = 50)
 	private String password;
 
-	/**
-	 * 登录名
-	 */
+	@Note("登录名")
 	@Column(unique = true, nullable = false, length = 100, updatable = true)
 	private String username;
 
-	/**
-	 * 0:正常;1:挂起;2:删除
-	 */
+	@Note("手机号码")
+	@Column(unique = true, length = 20)
+	private String mobile;
+
+	@Note("工作卡号")
+	@Column(name = "card_rfid", length = 18)
+	private String cardRFID;
+
+	@Note("身份证号码")
+	@Column(name = "card_id", length = 18)
+	private String cardId;
+
+	@Note("0:正常;1:挂起;2:删除")
 	@Column(nullable = true, length = 11)
 	private Status status = Status.Normal;
 
@@ -62,7 +68,7 @@ public class User extends SuperEntity implements Serializable
 
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name)
@@ -72,7 +78,7 @@ public class User extends SuperEntity implements Serializable
 
 	public String getPassword()
 	{
-		return this.password;
+		return password;
 	}
 
 	public void setPassword(String password)
@@ -82,12 +88,42 @@ public class User extends SuperEntity implements Serializable
 
 	public String getUsername()
 	{
-		return this.username;
+		return username;
 	}
 
 	public void setUsername(String username)
 	{
 		this.username = username;
+	}
+
+	public String getMobile()
+	{
+		return mobile;
+	}
+
+	public void setMobile(String mobile)
+	{
+		this.mobile = mobile;
+	}
+
+	public String getCardRFID()
+	{
+		return cardRFID;
+	}
+
+	public void setCardRFID(String cardRFID)
+	{
+		this.cardRFID = cardRFID;
+	}
+
+	public String getCardId()
+	{
+		return cardId;
+	}
+
+	public void setCardId(String cardId)
+	{
+		this.cardId = cardId;
 	}
 
 	public Status getStatus()
@@ -102,7 +138,7 @@ public class User extends SuperEntity implements Serializable
 
 	public java.util.List<Role> getRoles()
 	{
-		return this.roles;
+		return roles;
 	}
 
 	public void setRoles(java.util.List<Role> roles)
