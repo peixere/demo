@@ -24,12 +24,12 @@ public abstract class AbstractCommonFilter extends AbstractConfigurationFilter
 	 * 必选，验证服务器URL
 	 */
 	protected String serverLoginUrl;
-	private String encodingAlgorithm;
 	protected PasswordEncoder passwordEncoder;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
+		super.init(filterConfig);
 		initInternal(filterConfig);
 		passwordEncoder = new PasswordEncoderMessageDigest(encodingAlgorithm);
 	}
