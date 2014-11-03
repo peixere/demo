@@ -14,7 +14,7 @@
 		<property name="dirs.base" value="${basedir}" />
 		<property name="targetdir" value="${dirs.base}/bin" />
 		<property name="src" value="${dirs.base}/src/main/java" />
-		<property name="outputjar" value="../build/cn.gotom.commons.jar" />
+		<property name="outputjar" value="./cn.gotom.commons.jar" />
 		<property name="obfuscatejar" value="../build/cn.gotom.commons.1.${version}.jar" />
 		<mkdir dir="${targetdir}" />
 	</target>

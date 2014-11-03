@@ -84,7 +84,15 @@ public abstract class ChannelBase implements Channel
 			if (connected() && state == State.Connected)
 			{
 				readByteCount = read(receiveBuffer);
-				if (readByteCount == 0)
+				if (readByteCount == -1)
+				{
+					if (checkPeriod > 0 && (System.currentTimeMillis() - lastTimeMillis) > checkPeriod)
+					{
+						this.write(new byte[] { -1 });
+						lastTimeMillis = System.currentTimeMillis();
+					}
+				}
+				else if (readByteCount == 0)
 				{
 					this.close();
 				}
@@ -103,13 +111,13 @@ public abstract class ChannelBase implements Channel
 		}
 		catch (SocketTimeoutException ex)
 		{
-			if ((System.currentTimeMillis() - lastTimeMillis) > 30000)
+			if (checkPeriod > 0 && (System.currentTimeMillis() - lastTimeMillis) > checkPeriod)
 			{
 				try
 				{
 					lastTimeMillis = System.currentTimeMillis();
 					log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收超时：" + ex.getClass().getName() + " " + ex.getMessage());
-					this.write(new byte[] { -1, -1 });
+					this.write(new byte[] { -1 });
 				}
 				catch (Throwable e)
 				{
@@ -201,6 +209,20 @@ public abstract class ChannelBase implements Channel
 	public void setParameters(Parameters parameters)
 	{
 		this.parameters = parameters;
+	}
+
+	private long checkPeriod = 10000;
+
+	@Description("获取通道检测周期（毫秒）")
+	public long getCheckPeriod()
+	{
+		return checkPeriod;
+	}
+
+	@Description("设置通道检测周期（毫秒）")
+	public void setCheckPeriod(long checkPeriod)
+	{
+		this.checkPeriod = checkPeriod;
 	}
 
 	@Override

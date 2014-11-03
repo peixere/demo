@@ -6,11 +6,9 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import cn.gotom.annotation.Description;
 import cn.gotom.comm.channel.Channel;
 import cn.gotom.comm.channel.ChannelBase;
@@ -32,8 +30,7 @@ public class TcpServer extends ChannelBase implements Server
 	private static final long serialVersionUID = 1L;
 
 	private ServerSocket socket;
-
-	private Timer terminalTimer;
+	private ScheduledExecutorService scheduExec;
 	private GList<Terminal> terminalList = new GList<Terminal>();
 	public static final ThreadLocal<Channel> terminalPool = new ThreadLocal<Channel>();
 
@@ -83,8 +80,7 @@ public class TcpServer extends ChannelBase implements Server
 				// socket.setSoTimeout(parameters.getSoTimeout());
 				log.info("启动成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
-				// super.connect();
-				terminalTimerStart();
+				accept();
 			}
 		}
 		catch (IOException ex)
@@ -102,43 +98,21 @@ public class TcpServer extends ChannelBase implements Server
 		return -1;
 	}
 
-	private void terminalTimerStart()
+	private void accept()
 	{
-		if (terminalTimer != null)
+		if (scheduExec == null || scheduExec.isShutdown())
 		{
-			terminalTimer.cancel();
+			scheduExec = Executors.newScheduledThreadPool(2);
 		}
-		terminalTimer = new Timer("Timer Terminal");
-		TimerTask task = new TimerTask()
+		scheduExec.execute(new Runnable()
 		{
+
 			@Override
 			public void run()
 			{
 				receiveTerminal();
-				checkConnection();
 			}
-
-		};
-		terminalTimer.schedule(task, 1000, 1);
-	}
-
-	private void checkConnection()
-	{
-		try
-		{
-			for (int i = terminalList.size() - 1; i >= 0; i--)
-			{
-				Terminal terminal = terminalList.get(i);
-				// terminal.write(new byte[]{-1,-1});
-				if (!terminal.connected())
-				{
-					terminalList.remove(i);
-				}
-			}
-		}
-		catch (Throwable e)
-		{
-		}
+		});
 	}
 
 	private Listener<byte[]> terminalReceiveListener = new Listener<byte[]>()
@@ -190,6 +164,7 @@ public class TcpServer extends ChannelBase implements Server
 			{
 				log.error(e);
 			}
+			receiveTerminal();
 		}
 	}
 
@@ -198,11 +173,11 @@ public class TcpServer extends ChannelBase implements Server
 	{
 		try
 		{
-			if (terminalTimer != null)
+			if (scheduExec != null)
 			{
-				terminalTimer.cancel();
+				scheduExec.shutdown();
 			}
-			terminalTimer = null;
+			scheduExec = null;
 			if (socket != null)
 			{
 				if (!socket.isClosed())
@@ -226,13 +201,6 @@ public class TcpServer extends ChannelBase implements Server
 	@Override
 	public void write(byte[] bytes) throws IOException
 	{
-		// Channel terminal = terminalPool.get();
-		// if (terminal != null)
-		// {
-		// terminal.write(bytes);
-		// }
-		// List<Channel> channelList = getClientList();
-		// for (Channel c : channelList)
 		for (Channel c : this.terminalList)
 		{
 			try
@@ -245,7 +213,6 @@ public class TcpServer extends ChannelBase implements Server
 				log.error(e.getClass().getName() + ": " + e.getMessage(), e);
 			}
 		}
-		// while(this.terminalList.get(location))
 	}
 
 	@Override
@@ -294,15 +261,6 @@ public class TcpServer extends ChannelBase implements Server
 		{
 			terminalPool.set(this);
 			this.socket = socket;
-			try
-			{
-				this.socket.setKeepAlive(true);
-			}
-			catch (SocketException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			this.parameters.setAddress(socket.getInetAddress().getHostAddress());
 			this.parameters.setPort(socket.getPort());
 			this.parameters.setLocalPort(socket.getLocalPort());
@@ -323,10 +281,6 @@ public class TcpServer extends ChannelBase implements Server
 				log.info("连接成功[" + this.getId() + "]SoTimeout=" + socket.getSoTimeout());
 				this.onState(State.Connected);
 				super.connect();
-				// if (TcpServer.this.stateListeners.size() > 0)
-				// {
-				// TcpServer.this.stateListeners.post(this, State.Connected);
-				// }
 			}
 			catch (Throwable e)
 			{
@@ -385,29 +339,7 @@ public class TcpServer extends ChannelBase implements Server
 				log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
 			}
 			super.close();
-			// if (TcpServer.this.onReceiveListener(buffer);.size() > 0)
-			// {
-			// this.onReceiveListener(buffer);
-			// TcpServer.this.stateListeners.post(this, State.Close);
-			// }
 		}
-
-		// @Override
-		// protected void onReceiveListener(byte[] buffer)
-		// {
-		// try
-		// {
-		// onMessageListener(buffer, false);
-		// if (TcpServer.this.receiveListener.size() > 0)
-		// {
-		// TcpServer.this.receiveListener.post(this, buffer);
-		// }
-		// }
-		// catch (java.lang.Throwable ex)
-		// {
-		// log.error("", ex);
-		// }
-		// }
 
 		@Override
 		public void setParameters(Parameters parameters)

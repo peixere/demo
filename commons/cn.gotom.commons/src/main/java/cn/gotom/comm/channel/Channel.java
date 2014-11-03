@@ -55,4 +55,9 @@ public interface Channel extends java.io.Serializable
 
 	State getState();
 
+	@Description("获取通道检测周期（毫秒）")
+	long getCheckPeriod();
+
+	@Description("设置通道检测周期（毫秒）")
+	void setCheckPeriod(long checkPeriod);
 }

@@ -35,16 +35,15 @@ public abstract class ChannelImpl extends ChannelBase
 		{
 			receiveTimer.cancel();
 		}
-		receiveTimer = new Timer("Timer Receive");
-		TimerTask task = new TimerTask()
+		receiveTimer = new Timer("TimerReceive");
+		receiveTimer.schedule(new TimerTask()
 		{
 			@Override
 			public void run()
 			{
 				receive();
 			}
-		};
-		receiveTimer.schedule(task, 1000, 1);
+		}, 1000, 10);
 	}
 
 	@Override
