@@ -245,7 +245,6 @@ Ext.define('Gotom.view.UserPanel', {
                                     fieldLabel: '手机号码',
                                     labelWidth: 60,
                                     name: 'mobile',
-                                    allowBlank: false,
                                     enforceMaxLength: false,
                                     maxLength: 50,
                                     minLength: 2
@@ -256,7 +255,6 @@ Ext.define('Gotom.view.UserPanel', {
                                     fieldLabel: '工作卡号',
                                     labelWidth: 60,
                                     name: 'cardRFID',
-                                    allowBlank: false,
                                     enforceMaxLength: false,
                                     maxLength: 50,
                                     minLength: 2
@@ -267,7 +265,6 @@ Ext.define('Gotom.view.UserPanel', {
                                     fieldLabel: '证件号码',
                                     labelWidth: 60,
                                     name: 'cardId',
-                                    allowBlank: false,
                                     enforceMaxLength: false,
                                     maxLength: 50,
                                     minLength: 2
