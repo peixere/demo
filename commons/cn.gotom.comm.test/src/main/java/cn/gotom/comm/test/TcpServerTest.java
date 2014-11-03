@@ -20,7 +20,7 @@ public class TcpServerTest
 		{
 			e1.printStackTrace();
 		}
-		server.addReceiveListener(new Listener<byte[]>()
+		server.setReceiveListener(new Listener<byte[]>()
 		{
 
 			@Override

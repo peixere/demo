@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,10 +40,6 @@ import cn.gotom.comm.channel.UdpChannel;
 import cn.gotom.commons.Listener;
 import cn.gotom.util.Base64;
 import cn.gotom.util.Converter;
-import cn.gotom.util.PasswordEncoder;
-import cn.gotom.util.PasswordEncoderMessageDigest;
-
-import javax.swing.JCheckBox;
 
 class CommDemo extends JFrame
 {
@@ -332,9 +329,6 @@ class CommDemo extends JFrame
 	{
 		if (channel != null)
 		{
-
-			channel.removeAllReceiveListener();
-			channel.removeAllStateListener();
 			channel.close();
 		}
 		if (!btnConn.getText().equalsIgnoreCase("Open"))
@@ -373,7 +367,7 @@ class CommDemo extends JFrame
 
 			try
 			{
-				channel.addReceiveListener(new Listener<byte[]>()
+				channel.setReceiveListener(new Listener<byte[]>()
 				{
 					@Override
 					public void onListener(Object sender, byte[] e)
