@@ -36,8 +36,8 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 	{
 		try
 		{
+			super.init(filterConfig);
 			this.manager.startService();
-			String encodingAlgorithm = this.getInitParameter(filterConfig, "encodingAlgorithm", "MD5");
 			passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
 			log.info("startService");
 		}

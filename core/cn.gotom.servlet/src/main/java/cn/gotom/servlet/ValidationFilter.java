@@ -36,8 +36,6 @@ public class ValidationFilter extends AuthenticationFilter
 	@Inject
 	protected Service service;
 
-	private FilterConfig filterConfig;
-
 	private String pluginsPath;
 
 	private String[] pluginsPaths;
@@ -51,7 +49,6 @@ public class ValidationFilter extends AuthenticationFilter
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
-		this.filterConfig = filterConfig;
 		super.init(filterConfig);
 		initPlugins();
 		initializeService();
