@@ -96,8 +96,8 @@ public class MainActivity extends Activity
 		if (channel == null)
 		{
 			channel = new TcpChannel("192.168.0.120", 4001);
-			channel.addReceiveListener(receiveListener);
-			channel.addStateListener(stateListener);
+			channel.setReceiveListener(receiveListener);
+			channel.setStateListener(stateListener);
 		}
 		// this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		log.debug("onCreate");
@@ -163,8 +163,6 @@ public class MainActivity extends Activity
 			log.debug("onDestroy");
 			if (channel != null)
 			{
-				channel.removeAllStateListener();
-				channel.removeAllReceiveListener();
 				channel.close();
 			}
 		}
