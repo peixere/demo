@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar" sourcepath="F:/m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final-sources.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/gson-2.2.4.jar"/>
