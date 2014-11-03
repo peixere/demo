@@ -41,6 +41,9 @@ public abstract class SuperEntity implements IdSerializable
 	private long versionCreate;
 
 	@Transient
+	private String displayName;
+	
+	@Transient
 	private boolean selected;
 
 	public SuperEntity()
@@ -93,6 +96,16 @@ public abstract class SuperEntity implements IdSerializable
 	public void setSelected(boolean selected)
 	{
 		this.selected = selected;
+	}
+
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName)
+	{
+		this.displayName = displayName;
 	}
 
 	/**
