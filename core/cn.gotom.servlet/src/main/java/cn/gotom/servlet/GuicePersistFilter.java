@@ -56,27 +56,27 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		String initializeService = getInitParameter(filterConfig, "initializeService", null);
 		if (CommonUtils.isNotEmpty(initializeService))
 		{
-			String tmp = initializeService.trim().replace("；", ";");
-			tmp = tmp.replace(",", ";");
-			tmp = tmp.replace("，", ";");
-			tmp = tmp.replace("\n", ";");
-			tmp = tmp.replace(";;", ";");
+			String tmp = initializeService.trim().replaceAll("；", ";");
+			tmp = tmp.replaceAll(",", ";");
+			tmp = tmp.replaceAll("，", ";");
+			tmp = tmp.replaceAll("\n", ";");
+			tmp = tmp.replaceAll(";;", ";");
+			tmp = tmp.replaceAll(" ", "").replaceAll("	", "");
 			initServices = tmp.split(";");
 			for (String name : initServices)
 			{
 				try
 				{
-					Class<?> clazz = Class.forName(name);
+					Class<?> clazz = Class.forName(name.trim());
 					InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
 					initService.init();
-					log.debug(name + ".init() souccess");
+					log.debug(name + ".init()");
 				}
 				catch (Throwable e)
 				{
 					log.warn(name + " " + e.getMessage());
 				}
 			}
-			log.info("initializeService");
 		}
 	}
 
@@ -86,17 +86,16 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		{
 			try
 			{
-				Class<?> clazz = Class.forName(name);
+				Class<?> clazz = Class.forName(name.trim());
 				InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
 				initService.destroy();
-				log.debug(name + ".destroy() souccess");
+				log.debug(name + ".destroy()");
 			}
 			catch (Throwable e)
 			{
 				log.warn(name + " " + e.getMessage());
 			}
 		}
-		log.info("destroyService");
 	}
 
 	public void destroy()
