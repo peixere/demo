@@ -1,6 +1,7 @@
 package cn.gotom.converter;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.beanutils.Converter;
 
@@ -8,7 +9,7 @@ public class DateFormatConverter implements Converter
 {
 	public static void main(String[] args)
 	{
-		
+
 	}
 
 	private String format;
@@ -29,6 +30,10 @@ public class DateFormatConverter implements Converter
 		else if (value instanceof String)
 		{
 			p = (String) value;
+		}
+		else if (value instanceof Date)
+		{
+			return value;
 		}
 		else if (value != null)
 		{
