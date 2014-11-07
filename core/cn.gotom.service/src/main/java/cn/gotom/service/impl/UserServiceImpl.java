@@ -27,6 +27,8 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	public User getByUsername(String username)
 	{
 		User user = this.get("username", username);
+		if (user == null)
+			user = this.get("mobile", username);
 		return user;
 	}
 
@@ -34,6 +36,8 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	public User getByMobile(String mobile)
 	{
 		User user = this.get("mobile", mobile);
+		if (user == null)
+			this.get("username", mobile);
 		return user;
 	}
 
