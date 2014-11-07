@@ -6,4 +6,6 @@ import cn.gotom.annotation.Description;
 public interface InitializeService
 {
 	void init();
+
+	void destroy();
 }
