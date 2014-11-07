@@ -116,7 +116,7 @@ public abstract class ChannelBase implements Channel
 				try
 				{
 					lastTimeMillis = System.currentTimeMillis();
-					log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收超时：" + ex.getClass().getName() + " " + ex.getMessage());
+					//log.debug(Thread.currentThread().getName() + " 通道[" + getId() + "]接收超时：" + ex.getClass().getName() + " " + ex.getMessage());
 					this.write(new byte[] { -1 });
 				}
 				catch (Throwable e)
