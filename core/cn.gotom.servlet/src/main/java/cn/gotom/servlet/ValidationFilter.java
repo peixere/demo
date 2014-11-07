@@ -15,7 +15,6 @@ import cn.gotom.pojos.App;
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.User;
 import cn.gotom.service.AuthenticationService;
-import cn.gotom.service.InitializeService;
 import cn.gotom.service.Service;
 import cn.gotom.service.UserService;
 import cn.gotom.sso.client.AuthenticationFilter;
@@ -44,56 +43,12 @@ public class ValidationFilter extends AuthenticationFilter
 
 	private String debugModule = "";
 
-	private String initializeService;
-
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{
 		super.init(filterConfig);
 		initPlugins();
-		initializeService();
 	}
-
-	private void initializeService()
-	{
-		initializeService = getInitParameter(filterConfig, "initializeService", null);
-		if (CommonUtils.isNotEmpty(initializeService))
-		{
-			String tmp = initializeService.trim().replace("；", ";");
-			tmp = tmp.replace(",", ";");
-			tmp = tmp.replace("，", ";");
-			tmp = tmp.replace("\n", ";");
-			tmp = tmp.replace(";;", ";");
-			String[] services = tmp.split(";");
-			for (String name : services)
-			{
-				try
-				{
-					Class<?> clazz = Class.forName(name);
-					InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
-					initService.init();
-					log.debug(name + ".init() souccess");
-				}
-				catch (Throwable e)
-				{
-					log.warn(name + " " + e.getMessage());
-				}
-			}
-			//
-		}
-	}
-
-	// protected boolean isIgnore(String url)
-	// {
-	// if (!super.isIgnore(url))
-	// {
-	// return authService.isIgnore(url);
-	// }
-	// else
-	// {
-	// return true;
-	// }
-	// }
 
 	@Override
 	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException

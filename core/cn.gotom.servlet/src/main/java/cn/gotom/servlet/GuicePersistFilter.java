@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.gotom.dao.PersistenceLifeCycle;
+import cn.gotom.service.InitializeService;
 import cn.gotom.sso.filter.AbstractConfigurationFilter;
+import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.util.UrlUtils;
 import cn.gotom.util.PasswordEncoder;
 
@@ -21,10 +23,11 @@ import com.google.inject.Singleton;
 @Singleton
 class GuicePersistFilter extends AbstractConfigurationFilter
 {
-	protected PersistenceLifeCycle manager;
-
 	@Inject
 	protected PasswordEncoder passwordEncoder;
+	protected PersistenceLifeCycle manager;
+
+	private String[] initServices = new String[0];
 
 	@Inject
 	public GuicePersistFilter(PersistenceLifeCycle manager)
@@ -40,6 +43,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			this.manager.startService();
 			passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
 			log.info("startService");
+			initializeService();
 		}
 		catch (Exception ex)
 		{
@@ -47,8 +51,57 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		}
 	}
 
+	private void initializeService()
+	{
+		String initializeService = getInitParameter(filterConfig, "initializeService", null);
+		if (CommonUtils.isNotEmpty(initializeService))
+		{
+			String tmp = initializeService.trim().replace("；", ";");
+			tmp = tmp.replace(",", ";");
+			tmp = tmp.replace("，", ";");
+			tmp = tmp.replace("\n", ";");
+			tmp = tmp.replace(";;", ";");
+			initServices = tmp.split(";");
+			for (String name : initServices)
+			{
+				try
+				{
+					Class<?> clazz = Class.forName(name);
+					InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
+					initService.init();
+					log.debug(name + ".init() souccess");
+				}
+				catch (Throwable e)
+				{
+					log.warn(name + " " + e.getMessage());
+				}
+			}
+			log.info("initializeService");
+		}
+	}
+
+	private void destroyService()
+	{
+		for (String name : initServices)
+		{
+			try
+			{
+				Class<?> clazz = Class.forName(name);
+				InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
+				initService.destroy();
+				log.debug(name + ".destroy() souccess");
+			}
+			catch (Throwable e)
+			{
+				log.warn(name + " " + e.getMessage());
+			}
+		}
+		log.info("destroyService");
+	}
+
 	public void destroy()
 	{
+		destroyService();
 		log.info("stopService");
 		this.manager.stopService();
 		log.info(this.getClass().getName());
