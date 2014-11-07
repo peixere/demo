@@ -85,7 +85,13 @@ public class UserAction extends AbsPortalAction
 		{
 			roleIdArray = roleIds.split(",");
 		}
-		if (!service.saveUser(getCurrentUsername(), this.getCurrentCustomId(), user, roleIdArray))
+		User muser = userService.getByMobile(user.getMobile());
+		if (muser != null && !muser.getId().equals(user.getId()))
+		{
+			this.setSuccess(false);
+			this.setData(user.getMobile() + " 手机号码已经被占用！");
+		}
+		else if (!service.saveUser(getCurrentUsername(), this.getCurrentCustomId(), user, roleIdArray))
 		{
 			this.setSuccess(false);
 			this.setData(user.getUsername() + " 登录帐号已经被占用！");
