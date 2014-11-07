@@ -624,7 +624,7 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "id": null,
-                        "fieldLabel": "用户名称",
+                        "fieldLabel": "用户姓名",
                         "labelWidth": 60,
                         "name": "name",
                         "allowBlank": false,

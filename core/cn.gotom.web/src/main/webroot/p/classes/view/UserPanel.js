@@ -242,7 +242,7 @@ Ext.define('Gotom.view.UserPanel', {
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: '用户名称',
+                            fieldLabel: '用户姓名',
                             labelWidth: 60,
                             name: 'name',
                             allowBlank: false,
