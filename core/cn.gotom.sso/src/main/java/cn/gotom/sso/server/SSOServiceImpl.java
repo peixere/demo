@@ -18,9 +18,17 @@ public class SSOServiceImpl implements SSOService
 		ResultSet rs = null;
 		try
 		{
+			int num = sql.split("\\?").length;
+			if (!sql.endsWith("\\?"))
+			{
+				num = num - 1;
+			}
 			Connection conn = manager.connection();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, username);
+			for (int i = 0; i < num;)
+			{
+				stmt.setString(++i, username);
+			}
 			rs = stmt.executeQuery();
 			if (rs.next())
 			{

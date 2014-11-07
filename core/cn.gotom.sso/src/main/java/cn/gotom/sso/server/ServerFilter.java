@@ -31,7 +31,7 @@ public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
 	protected SSOService ssoService;
-	private String loginSQL;
+	private String loginSQL = "select password from core_user where (username=? or mobile=?)";
 	private String loginPath;
 	private String logoutPath;
 	private String successPath;
@@ -49,7 +49,7 @@ public class ServerFilter extends AbstractCommonFilter
 		loginPath = this.getInitParameter(filterConfig, "login", "/WEB-INF/login.jsp");
 		logoutPath = this.getInitParameter(filterConfig, "logout", loginPath);
 		successPath = this.getInitParameter(filterConfig, "success", null);
-		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, "select password from core_user where username=?");
+		loginSQL = this.getInitParameter(filterConfig, sqlPropertyName, loginSQL);
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
 		if (CommonUtils.isNotEmpty(serverLoginUrl) && serverLoginUrl.startsWith(THIS))
 		{
