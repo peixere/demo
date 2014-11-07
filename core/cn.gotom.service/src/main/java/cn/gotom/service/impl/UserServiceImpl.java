@@ -31,6 +31,13 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	}
 
 	@Override
+	public User getByMobile(String mobile)
+	{
+		User user = this.get("mobile", mobile);
+		return user;
+	}
+
+	@Override
 	public List<User> findAllByOrg(List<Organization> orgList)
 	{
 		String orgIds = "";

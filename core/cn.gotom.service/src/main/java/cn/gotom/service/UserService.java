@@ -13,6 +13,8 @@ import com.google.inject.ImplementedBy;
 public interface UserService extends GenericService<User, String>
 {
 	public User getByUsername(String username);
+	
+	public User getByMobile(String mobile);
 
 	public List<User> findAllByOrg(List<Organization> orgList);
 
