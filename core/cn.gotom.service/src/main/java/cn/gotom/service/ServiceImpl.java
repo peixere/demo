@@ -293,4 +293,11 @@ public class ServiceImpl implements Service
 	{
 		return customService.findUserByCustomId(customId);
 	}
+
+	@Override
+	public void destroy()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
