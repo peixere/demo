@@ -30,7 +30,9 @@
 	<context-param>
 		<description>启动后直接执行的程序，继承cn.gotom.service.InitializeService接口，分号分隔多个接口</description>
 		<param-name>initializeService</param-name>
-		<param-value>cn.gotom.service.Service</param-value>
+		<param-value>
+		    cn.gotom.service.Service
+		</param-value>
 	</context-param>
 	<context-param>
 		<description>ext 插件工程目录 {工程名/classes}</description>
