@@ -137,11 +137,12 @@ Ext.define('Gotom.view.UserPanel', {
             items: [
                 {
                     xtype: 'gridpanel',
-                    region: 'west',
+                    region: 'center',
                     id: 'UserGridPanel',
-                    width: 326,
                     bodyBorder: false,
                     title: '用户列表',
+                    columnLines: true,
+                    forceFit: true,
                     columns: [
                         {
                             xtype: 'gridcolumn',
@@ -153,7 +154,25 @@ Ext.define('Gotom.view.UserPanel', {
                             xtype: 'gridcolumn',
                             sortable: false,
                             dataIndex: 'name',
-                            text: '用户名称'
+                            text: '用户姓名'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            sortable: false,
+                            dataIndex: 'mobile',
+                            text: '手机号码'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            sortable: false,
+                            dataIndex: 'cardId',
+                            text: '身份证号码'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            sortable: false,
+                            dataIndex: 'cardRFID',
+                            text: '工作卡号'
                         },
                         {
                             xtype: 'gridcolumn',
@@ -189,102 +208,92 @@ Ext.define('Gotom.view.UserPanel', {
                     ]
                 },
                 {
-                    xtype: 'panel',
-                    region: 'center',
-                    id: 'UserCenterPanel',
-                    layout: {
-                        type: 'border'
-                    },
+                    xtype: 'form',
+                    region: 'east',
+                    id: 'UserForm',
+                    width: 387,
+                    autoScroll: true,
+                    bodyPadding: 10,
+                    title: '编辑用户',
                     items: [
                         {
-                            xtype: 'form',
-                            region: 'center',
-                            border: false,
-                            id: 'UserForm',
-                            autoScroll: true,
-                            bodyPadding: 10,
-                            title: '编辑用户',
+                            xtype: 'hiddenfield',
+                            anchor: '100%',
+                            fieldLabel: 'Label',
+                            name: 'id'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            anchor: '100%',
+                            labelWidth: 60,
+                            name: 'orgIds'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '登录帐号',
+                            labelWidth: 60,
+                            name: 'username',
+                            allowBlank: false,
+                            enforceMaxLength: true,
+                            maxLength: 50,
+                            minLength: 3
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '用户名称',
+                            labelWidth: 60,
+                            name: 'name',
+                            allowBlank: false,
+                            enforceMaxLength: false,
+                            maxLength: 50,
+                            minLength: 2
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '手机号码',
+                            labelWidth: 60,
+                            name: 'mobile',
+                            enforceMaxLength: false,
+                            maxLength: 50,
+                            minLength: 2
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '工作卡号',
+                            labelWidth: 60,
+                            name: 'cardRFID',
+                            enforceMaxLength: false,
+                            maxLength: 50,
+                            minLength: 2
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '证件号码',
+                            labelWidth: 60,
+                            name: 'cardId',
+                            enforceMaxLength: false,
+                            maxLength: 50,
+                            minLength: 2
+                        },
+                        {
+                            xtype: 'checkboxgroup',
+                            id: 'UserRoleCheckboxGroup',
+                            fieldLabel: '用户角色',
+                            labelWidth: 60,
+                            columns: 2,
                             items: [
                                 {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    fieldLabel: 'Label',
-                                    name: 'id'
+                                    xtype: 'checkboxfield',
+                                    boxLabel: 'Box Label'
                                 },
                                 {
-                                    xtype: 'hiddenfield',
-                                    anchor: '100%',
-                                    labelWidth: 60,
-                                    name: 'orgIds'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '登录帐号',
-                                    labelWidth: 60,
-                                    name: 'username',
-                                    allowBlank: false,
-                                    enforceMaxLength: true,
-                                    maxLength: 50,
-                                    minLength: 3
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '用户名称',
-                                    labelWidth: 60,
-                                    name: 'name',
-                                    allowBlank: false,
-                                    enforceMaxLength: false,
-                                    maxLength: 50,
-                                    minLength: 2
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '手机号码',
-                                    labelWidth: 60,
-                                    name: 'mobile',
-                                    enforceMaxLength: false,
-                                    maxLength: 50,
-                                    minLength: 2
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '工作卡号',
-                                    labelWidth: 60,
-                                    name: 'cardRFID',
-                                    enforceMaxLength: false,
-                                    maxLength: 50,
-                                    minLength: 2
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    anchor: '100%',
-                                    fieldLabel: '证件号码',
-                                    labelWidth: 60,
-                                    name: 'cardId',
-                                    enforceMaxLength: false,
-                                    maxLength: 50,
-                                    minLength: 2
-                                },
-                                {
-                                    xtype: 'checkboxgroup',
-                                    id: 'UserRoleCheckboxGroup',
-                                    fieldLabel: '用户角色',
-                                    labelWidth: 60,
-                                    columns: 2,
-                                    items: [
-                                        {
-                                            xtype: 'checkboxfield',
-                                            boxLabel: 'Box Label'
-                                        },
-                                        {
-                                            xtype: 'checkboxfield',
-                                            boxLabel: 'Box Label'
-                                        }
-                                    ]
+                                    xtype: 'checkboxfield',
+                                    boxLabel: 'Box Label'
                                 }
                             ]
                         }
@@ -420,20 +429,7 @@ Ext.define('Gotom.view.UserPanel', {
         var me = this;
         var UserStore = Ext.create('Ext.data.Store', {
             storeId:'UserStore',
-            fields: [
-            {
-                name: 'id'
-            },
-            {
-                name: 'name'
-            },
-            {
-                name: 'username'
-            },
-            {
-                name: 'status'
-            }
-            ],
+            fields: ['id','name','username','mobile','status','cardRFID','cardId'],
             data : result.data,
             proxy:
             {
