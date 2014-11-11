@@ -430,7 +430,7 @@ Ext.define('Gotom.view.Portal', {
         try{
             var me = this;
             var panel = '';
-            var panelId = xtype+id;
+            var panelId = id;
             var tabPanel = Ext.getCmp('tabPanel');
             for (var i = 0; i < tabPanel.items.length; i++)
             {
