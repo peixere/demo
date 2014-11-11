@@ -1,25 +1,13 @@
 package cn.gotom.vo;
 
-public class TreeModel
+public class TreeModel extends Item
 {
-	private String id;
 	private String parentId;
 	private int sort;
-	private String text;
 	private String iconCls;
 	private boolean leaf;
 	private String type;
 	private boolean expand;
-
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
 
 	public int getSort()
 	{
@@ -29,16 +17,6 @@ public class TreeModel
 	public void setSort(int sort)
 	{
 		this.sort = sort;
-	}
-
-	public String getText()
-	{
-		return text;
-	}
-
-	public void setText(String text)
-	{
-		this.text = text;
 	}
 
 	public String getIconCls()
