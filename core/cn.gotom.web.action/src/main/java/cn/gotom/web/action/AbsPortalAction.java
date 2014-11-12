@@ -10,6 +10,7 @@ import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.User;
 import cn.gotom.sso.util.GsonUtils;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.JsonResponse;
 
 import com.google.gson.TypeAdapterFactory;
 
@@ -88,6 +89,23 @@ public abstract class AbsPortalAction
 			customId = user.getDefaultCustomId();
 		}
 		return customId;
+	}
+
+	public void writerToJson(Object value)
+	{
+		JsonResponse json = new JsonResponse();
+		try
+		{
+			json.setSuccess(true);
+			json.setData(value);
+		}
+		catch (Exception ex)
+		{
+			json.setSuccess(false);
+			json.setData(ex.getMessage());
+			log.warn(ex.getMessage());
+		}
+		toJSON(json);
 	}
 
 	public <T> String toJSON(T value, String... excludeFields)
