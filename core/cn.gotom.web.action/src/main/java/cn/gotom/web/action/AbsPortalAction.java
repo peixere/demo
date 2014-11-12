@@ -91,12 +91,12 @@ public abstract class AbsPortalAction
 		return customId;
 	}
 
-	public void toJsonResponse(Object value)
+	public void toJsonResponse(Object value, boolean success)
 	{
 		JsonResponse json = new JsonResponse();
 		try
 		{
-			json.setSuccess(true);
+			json.setSuccess(success);
 			json.setData(value);
 		}
 		catch (Exception ex)
@@ -106,6 +106,11 @@ public abstract class AbsPortalAction
 			log.warn(ex.getMessage());
 		}
 		toJSON(json);
+	}
+
+	public void toJsonResponse(Object value)
+	{
+		toJsonResponse(value, true);
 	}
 
 	public <T> String toJSON(T value, String... excludeFields)
