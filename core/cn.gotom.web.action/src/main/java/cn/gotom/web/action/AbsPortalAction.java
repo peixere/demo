@@ -91,7 +91,7 @@ public abstract class AbsPortalAction
 		return customId;
 	}
 
-	public void writerToJson(Object value)
+	public void toJsonResponse(Object value)
 	{
 		JsonResponse json = new JsonResponse();
 		try
