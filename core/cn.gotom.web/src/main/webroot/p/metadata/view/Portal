@@ -190,12 +190,7 @@
                 "fn": "onPortalVIewPanelAfterLayout",
                 "implHandler": [
                     "this.onLoad();\r",
-                    "//if(Ext.isEmpty(this.noticeWindow))\r",
-                    "//{\r",
-                    "//\tthis.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
-                    "//}\r",
-                    "//this.noticeWindow.parentPanel = this;\r",
-                    "//this.noticeWindow.show();"
+                    "this.showNotice('欢迎您的光临！','欢迎登录');"
                 ],
                 "single": true,
                 "name": "afterlayout",
@@ -696,6 +691,30 @@
                 ]
             },
             "designerId": "d45d2970-9be0-4cd4-8ccb-dc0a1a339392"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "showNotice",
+                "designer|params": [
+                    "html",
+                    "title"
+                ],
+                "implHandler": [
+                    "if(Ext.isEmpty(this.noticeWindow))\r",
+                    "{\r",
+                    "\tthis.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
+                    "}\r",
+                    "this.noticeWindow.parentPanel = this;\r",
+                    "this.noticeWindow.loadData(html,title);"
+                ]
+            },
+            "designerId": "e1dbc2e5-576e-4f9d-8f13-7c96fa971463"
         }
     ]
 }

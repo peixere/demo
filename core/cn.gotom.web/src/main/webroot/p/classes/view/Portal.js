@@ -125,12 +125,7 @@ Ext.define('Gotom.view.Portal', {
 
     onPortalVIewPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
-        //if(Ext.isEmpty(this.noticeWindow))
-        //{
-        //	this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');
-        //}
-        //this.noticeWindow.parentPanel = this;
-        //this.noticeWindow.show();
+        this.showNotice('欢迎您的光临！','欢迎登录');
     },
 
     createTools: function() {
@@ -456,6 +451,15 @@ Ext.define('Gotom.view.Portal', {
         {
             Ext.Msg.alert('信息提示',error);
         }
+    },
+
+    showNotice: function(html, title) {
+        if(Ext.isEmpty(this.noticeWindow))
+        {
+            this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');
+        }
+        this.noticeWindow.parentPanel = this;
+        this.noticeWindow.loadData(html,title);
     }
 
 });

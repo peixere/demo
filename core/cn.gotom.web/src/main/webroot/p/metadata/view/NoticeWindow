@@ -39,6 +39,41 @@
     ],
     "cn": [
         {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "center",
+                "margin": 0,
+                "padding": 0,
+                "header": false,
+                "title": "内容"
+            },
+            "designerId": "925908aa-180b-4f71-88b3-6a80f53ab4b5",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onPanelAfterRender",
+                        "implHandler": [
+                            "this.noticePanel = component;"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "designerId": "9fab45d2-370a-4e6f-830b-448bc5e02636"
+                }
+            ]
+        },
+        {
             "type": "basiceventbinding",
             "reference": {
                 "name": "listeners",
@@ -49,8 +84,7 @@
                 "fn": "onWindowAfterRender",
                 "implHandler": [
                     "this.resetPosition();\r",
-                    "Ext.EventManager.onWindowResize(this.resetPosition, this);\r",
-                    "//this.loadNotice('');"
+                    "Ext.EventManager.onWindowResize(this.resetPosition, this);"
                 ],
                 "single": true,
                 "name": "afterrender",
@@ -132,12 +166,13 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "loadNotice",
+                "fn": "loadData",
+                "designer|params": [
+                    "html",
+                    "title"
+                ],
                 "implHandler": [
                     "var me = this;\r",
-                    "me.resetPosition();\r",
-                    "//var html = '<iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"./resources/audiojs/audio.html\"></iframe>';\r",
-                    "//me.noticePanel.update(html);\r",
                     "if(this.collapsed !== false)\r",
                     "{\r",
                     "    me.expand();\r",
@@ -146,6 +181,9 @@
                     "{\r",
                     "    me.show();\r",
                     "}\r",
+                    "me.resetPosition();\r",
+                    "me.setTitle(title);\r",
+                    "me.noticePanel.update(html);\r",
                     "//Ext.defer(function(){me.loadNotice();}, 1000);"
                 ]
             },

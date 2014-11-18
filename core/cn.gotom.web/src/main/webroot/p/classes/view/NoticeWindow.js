@@ -39,6 +39,22 @@ Ext.define('Gotom.view.NoticeWindow', {
         var me = this;
 
         Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'panel',
+                    region: 'center',
+                    margin: 0,
+                    padding: 0,
+                    header: false,
+                    title: '内容',
+                    listeners: {
+                        afterrender: {
+                            fn: me.onPanelAfterRender,
+                            scope: me
+                        }
+                    }
+                }
+            ],
             listeners: {
                 afterrender: {
                     fn: me.onWindowAfterRender,
@@ -59,10 +75,13 @@ Ext.define('Gotom.view.NoticeWindow', {
         me.callParent(arguments);
     },
 
+    onPanelAfterRender: function(component, eOpts) {
+        this.noticePanel = component;
+    },
+
     onWindowAfterRender: function(component, eOpts) {
         this.resetPosition();
         Ext.EventManager.onWindowResize(this.resetPosition, this);
-        //this.loadNotice('');
     },
 
     onWindowCollapse: function(p, eOpts) {
@@ -94,11 +113,8 @@ Ext.define('Gotom.view.NoticeWindow', {
         }
     },
 
-    loadNotice: function() {
+    loadData: function(html, title) {
         var me = this;
-        me.resetPosition();
-        //var html = '<iframe width="100%" height="100%" frameborder="0" src="./resources/audiojs/audio.html"></iframe>';
-        //me.noticePanel.update(html);
         if(this.collapsed !== false)
         {
             me.expand();
@@ -107,6 +123,9 @@ Ext.define('Gotom.view.NoticeWindow', {
         {
             me.show();
         }
+        me.resetPosition();
+        me.setTitle(title);
+        me.noticePanel.update(html);
         //Ext.defer(function(){me.loadNotice();}, 1000);
     }
 
