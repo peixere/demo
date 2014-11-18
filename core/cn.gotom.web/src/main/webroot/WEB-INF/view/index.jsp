@@ -11,7 +11,11 @@
     var desktopPanel = '${custom.desktopPanel}';
     Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');    
     ${plugins}
-    Ext.onReady(function(){Ext.create('Gotom.view.PortalView');});  	
+	var portal = '';
+    Ext.onReady(function(){
+        var view = Ext.create('Gotom.view.PortalView');
+        portal = (view.items.get(0));
+    }); 	
     //-->
     </script>    
 </head>
