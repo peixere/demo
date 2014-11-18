@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Query;
+import javax.persistence.Transient;
 
 import org.hibernate.transform.Transformers;
 
@@ -41,12 +42,12 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	{
 		String orderby = " order by ";
 		Field sort = findField(clazz, "sort");
-		if (sort != null && sort.isAnnotationPresent(Column.class))
+		if (sort != null && !sort.isAnnotationPresent(Transient.class))
 		{
 			orderby = orderby + prefix + sort.getName() + " asc,";
 		}
 		Field versionNow = findField(clazz, "versionNow");
-		if (versionNow != null && versionNow.isAnnotationPresent(Column.class))
+		if (versionNow != null && !versionNow.isAnnotationPresent(Transient.class))
 		{
 			orderby = orderby + prefix + versionNow.getName() + " desc,";
 		}
