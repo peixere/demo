@@ -118,7 +118,7 @@ public class BlueChannel extends ChannelImpl
 		}
 		catch (IOException e)
 		{
-			log.debug("close[" + getId() + "]", e);
+			log.warn("close[" + getId() + "]" + e.getMessage());
 		}
 		super.close();
 	}
