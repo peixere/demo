@@ -103,7 +103,7 @@ public class HIDChannel extends ChannelImpl
 		}
 		catch (Throwable ex)
 		{
-			log.error(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "] " + ex.getMessage());
 		}
 		super.close();
 	}

@@ -113,7 +113,7 @@ public class UdpChannel extends ChannelImpl
 		}
 		catch (Throwable ex)
 		{
-			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]");
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "] " + ex.getMessage());
 		}
 		super.close();
 	}

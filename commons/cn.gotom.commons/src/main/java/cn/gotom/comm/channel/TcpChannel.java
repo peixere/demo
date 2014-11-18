@@ -102,7 +102,7 @@ public class TcpChannel extends ChannelImpl
 		}
 		catch (Throwable ex)
 		{
-			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "]", ex);
+			log.warn(Thread.currentThread().getName() + " close[" + this.getId() + "] " + ex.getMessage());
 		}
 		super.close();
 	}
