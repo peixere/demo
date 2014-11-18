@@ -18,10 +18,10 @@ public abstract class AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
 	protected String id;
-	protected int start;
-	protected int limit;
+	private int start;
+	private int limit;
 
-	protected int getPageNum()
+	public int getPageNum()
 	{
 		int pageNum = start / getLimit() + 1;
 		return pageNum;
