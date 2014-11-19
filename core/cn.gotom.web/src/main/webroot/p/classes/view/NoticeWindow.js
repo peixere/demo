@@ -22,7 +22,6 @@ Ext.define('Gotom.view.NoticeWindow', {
     padding: 2,
     width: 300,
     shadow: false,
-    resizable: false,
     layout: {
         type: 'border'
     },
@@ -45,6 +44,7 @@ Ext.define('Gotom.view.NoticeWindow', {
                     region: 'center',
                     margin: 0,
                     padding: 0,
+                    autoScroll: true,
                     header: false,
                     title: '内容',
                     listeners: {

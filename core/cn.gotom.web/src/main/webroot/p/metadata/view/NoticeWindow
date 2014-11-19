@@ -13,7 +13,6 @@
         "designer|userClassName": "NoticeWindow",
         "designer|userAlias": "NoticeWindow",
         "shadow": false,
-        "resizable": false,
         "layout": "border",
         "animCollapse": true,
         "closeAction": "hide",
@@ -49,6 +48,7 @@
                 "layout|region": "center",
                 "margin": 0,
                 "padding": 0,
+                "autoScroll": true,
                 "header": false,
                 "title": "内容"
             },

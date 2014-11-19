@@ -18,6 +18,7 @@ Ext.define('Common', {
         },
         
         onException: function(response) {
+        	portal.showNotice({title:'操作提示',html:response.responseText});
             if(response.status === 0)
             {
                 Ext.MessageBox.show({
@@ -29,11 +30,7 @@ Ext.define('Common', {
             else if(response.status === 200)
             {
                 var result = Ext.JSON.decode(response.responseText);
-                Ext.MessageBox.show({
-                    title:'操作异常',
-                    msg:result.data,
-                    icon:Ext.MessageBox.ERROR 
-                });
+                portal.showNotice({title:'操作异常',html:result.data});
             }
             else if(response.status === 401)
             {
@@ -41,21 +38,45 @@ Ext.define('Common', {
             }
             else if(response.status === 403)
             {
-                Ext.MessageBox.show({
-                    title:'无操作权限',
-                    msg:response.responseText,
-                    icon:Ext.MessageBox.ERROR 
-                }); 
+            	portal.showNotice({title:'无操作权限',html:response.responseText});
             }
             else
             {
-                Ext.MessageBox.show({
-                    title:'操作异常',
-                    msg:response.responseText,
-                    icon:Ext.MessageBox.ERROR 
-                });  
+            	portal.showNotice({title:'操作提示',html:response.responseText}); 
             }
         },
+        bindStore: function(config) {
+            var myStore = Ext.create("Ext.data.JsonStore", {
+			    autoLoad: true,
+			    model: config.model,
+			    proxy: {
+			        type: "ajax",
+			        actionMethods: 'post',
+			        url: config.url,
+			        reader: {
+			            type: 'json',
+			            root: 'data'
+			        },
+			        listeners: {
+			            exception: function(proxy, response, operation, eOpts) {
+			                Common.onAjaxException(response, me);
+			            }
+			        }
+			    },
+			    listeners: {
+			        beforeload: {
+			            fn: function() {
+			                mask.show();
+			            }
+			        }
+			    }
+			});
+			var mask = new Ext.LoadMask(config.component, {
+			    msg: config.message,
+			    store: myStore
+			});
+			config.component.bindStore(myStore);
+        },        
         ajax: function(config) {
             if(config.component)
             {

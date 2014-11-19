@@ -189,8 +189,7 @@
             "userConfig": {
                 "fn": "onPortalVIewPanelAfterLayout",
                 "implHandler": [
-                    "this.onLoad();\r",
-                    "this.showNotice('欢迎您的光临！','欢迎登录');"
+                    "this.onLoad();"
                 ],
                 "single": true,
                 "name": "afterlayout",
@@ -263,7 +262,8 @@
                     "me.loadHeader();\r",
                     "me.loadOptions();\r",
                     "me.loadDesktop(desktopPanel);\r",
-                    "me.footerPanel.setHeight(0);"
+                    "me.footerPanel.setHeight(0);\r",
+                    "me.showNotice({html:'欢迎光临',title:'登录提示'});"
                 ]
             },
             "designerId": "4c2b0b57-0974-488a-8f4e-573a4ad2a4f1"
@@ -295,7 +295,10 @@
                     "            me.tabPanel.add(desktop);\r",
                     "        me.tabPanel.setActiveTab(desktop);    \r",
                     "    }\r",
-                    "}catch(error){Ext.Msg.alert('操作提示','找不到控件：'+name);}"
+                    "}catch(error)\r",
+                    "{\r",
+                    "    me.showNotice({html:'找不到控件：'+name + error,title:'操作提示'});\r",
+                    "}"
                 ]
             },
             "designerId": "50922d80-5cde-48f8-8ec3-eaf1d1a811c7"
@@ -313,13 +316,15 @@
                     "me = this;\r",
                     "try{\r",
                     "    Common.ajax({\r",
-                    "        //component : me.headerPanel,\r",
                     "        message : '加载头信息...',    \r",
                     "        url : ctxp+'/p/main!main.do',\r",
                     "        callback : function(result){me.setHeader(result);}\r",
                     "    });\r",
-                    "}catch(error){Ext.Msg.alert('异常提示',error);}\r",
-                    "    Ext.defer(function(){me.loadHeader();}, 120000);"
+                    "}catch(error)\r",
+                    "{\r",
+                    "    me.showNotice({html:error,title:'异常提示'});\r",
+                    "}\r",
+                    "Ext.defer(function(){me.loadHeader();}, 3000);"
                 ]
             },
             "designerId": "a545040b-411c-4b66-9d63-7d46e88f125b"
@@ -337,8 +342,8 @@
                     "result"
                 ],
                 "implHandler": [
+                    "var me = this;\r",
                     "try{\r",
-                    "    var me = this;\r",
                     "    var header = me.headerPanel;\r",
                     "    var data = result.data;\r",
                     "    header.setLoading(false);\r",
@@ -369,7 +374,9 @@
                     "    htmlStr += '<a style=\"'+style+'\" href=\"' + data.logoutUrl + '\">注销登录</a>';\r",
                     "    htmlStr += '</div>';\r",
                     "    header.update(htmlStr);\r",
-                    "}catch(error){Ext.Msg.alert('异常提示',error);}    "
+                    "}catch(error){\r",
+                    "    me.showNotice({html:error,title:'异常提示'});\r",
+                    "}    "
                 ]
             },
             "designerId": "484b5059-8015-4655-aeec-1c8c0f005f8d"
@@ -393,7 +400,10 @@
                     "        url : ctxp+'/p/main!menu.do',\r",
                     "        callback : function(result){me.setOptions(result);}\r",
                     "    });\r",
-                    "}catch(error){Ext.Msg.alert('异常提示',error);}"
+                    "}catch(error)\r",
+                    "{\r",
+                    "    me.showNotice({html:error,title:'异常提示'});\r",
+                    "}"
                 ]
             },
             "designerId": "3ae2ff1d-31dd-4fd7-bf3e-499a07591811"
@@ -442,7 +452,10 @@
                     "            options.add(tree);\r",
                     "    }\r",
                     "    options.doLayout();\r",
-                    "}catch(error){Ext.Msg.alert('异常提示',error);}    "
+                    "}catch(error)\r",
+                    "{\r",
+                    "    me.showNotice({html:error,title:'异常提示'});\r",
+                    "}    "
                 ]
             },
             "designerId": "5601d7cb-fede-45b7-87af-96b04b7f27c4"
@@ -702,16 +715,15 @@
             "userConfig": {
                 "fn": "showNotice",
                 "designer|params": [
-                    "html",
-                    "title"
+                    "conf"
                 ],
                 "implHandler": [
                     "if(Ext.isEmpty(this.noticeWindow))\r",
                     "{\r",
-                    "\tthis.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
+                    "    this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');\r",
                     "}\r",
                     "this.noticeWindow.parentPanel = this;\r",
-                    "this.noticeWindow.loadData(html,title);"
+                    "this.noticeWindow.loadData(conf.html,conf.title);"
                 ]
             },
             "designerId": "e1dbc2e5-576e-4f9d-8f13-7c96fa971463"

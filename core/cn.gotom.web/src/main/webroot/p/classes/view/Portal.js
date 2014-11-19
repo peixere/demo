@@ -125,7 +125,6 @@ Ext.define('Gotom.view.Portal', {
 
     onPortalVIewPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
-        this.showNotice('欢迎您的光临！','欢迎登录');
     },
 
     createTools: function() {
@@ -160,6 +159,7 @@ Ext.define('Gotom.view.Portal', {
         me.loadOptions();
         me.loadDesktop(desktopPanel);
         me.footerPanel.setHeight(0);
+        me.showNotice({html:'欢迎光临',title:'登录提示'});
     },
 
     loadDesktop: function(name) {
@@ -177,25 +177,30 @@ Ext.define('Gotom.view.Portal', {
                     me.tabPanel.add(desktop);
                 me.tabPanel.setActiveTab(desktop);    
             }
-        }catch(error){Ext.Msg.alert('操作提示','找不到控件：'+name);}
+        }catch(error)
+        {
+            me.showNotice({html:'找不到控件：'+name + error,title:'操作提示'});
+        }
     },
 
     loadHeader: function() {
         me = this;
         try{
             Common.ajax({
-                //component : me.headerPanel,
                 message : '加载头信息...',    
                 url : ctxp+'/p/main!main.do',
                 callback : function(result){me.setHeader(result);}
             });
-        }catch(error){Ext.Msg.alert('异常提示',error);}
-            Ext.defer(function(){me.loadHeader();}, 120000);
+        }catch(error)
+        {
+            me.showNotice({html:error,title:'异常提示'});
+        }
+        Ext.defer(function(){me.loadHeader();}, 3000);
     },
 
     setHeader: function(result) {
+        var me = this;
         try{
-            var me = this;
             var header = me.headerPanel;
             var data = result.data;
             header.setLoading(false);
@@ -226,7 +231,9 @@ Ext.define('Gotom.view.Portal', {
             htmlStr += '<a style="'+style+'" href="' + data.logoutUrl + '">注销登录</a>';
             htmlStr += '</div>';
             header.update(htmlStr);
-        }catch(error){Ext.Msg.alert('异常提示',error);}    
+        }catch(error){
+            me.showNotice({html:error,title:'异常提示'});
+        }    
     },
 
     loadOptions: function() {
@@ -239,7 +246,10 @@ Ext.define('Gotom.view.Portal', {
                 url : ctxp+'/p/main!menu.do',
                 callback : function(result){me.setOptions(result);}
             });
-        }catch(error){Ext.Msg.alert('异常提示',error);}
+        }catch(error)
+        {
+            me.showNotice({html:error,title:'异常提示'});
+        }
     },
 
     setOptions: function(data) {
@@ -274,7 +284,10 @@ Ext.define('Gotom.view.Portal', {
                     options.add(tree);
             }
             options.doLayout();
-        }catch(error){Ext.Msg.alert('异常提示',error);}    
+        }catch(error)
+        {
+            me.showNotice({html:error,title:'异常提示'});
+        }    
     },
 
     onOptionsItemClick: function(view, node) {
@@ -453,13 +466,13 @@ Ext.define('Gotom.view.Portal', {
         }
     },
 
-    showNotice: function(html, title) {
+    showNotice: function(conf) {
         if(Ext.isEmpty(this.noticeWindow))
         {
             this.noticeWindow = Ext.create('Gotom.view.NoticeWindow');
         }
         this.noticeWindow.parentPanel = this;
-        this.noticeWindow.loadData(html,title);
+        this.noticeWindow.loadData(conf.html,conf.title);
     }
 
 });
