@@ -916,7 +916,6 @@
         },
         "057dd279-bcc8-46c2-a440-aa86365313b6": {
             "id": "057dd279-bcc8-46c2-a440-aa86365313b6",
-            "expanded": false,
             "cn": [
                 {
                     "id": "925908aa-180b-4f71-88b3-6a80f53ab4b5",
@@ -1019,11 +1018,11 @@
         ]
     },
     "canvasState": {
-        "topInstance": null
+        "topInstance": "057dd279-bcc8-46c2-a440-aa86365313b6"
     },
     "inspectorState": {
         "topInstance": "057dd279-bcc8-46c2-a440-aa86365313b6",
-        "selectedInstance": "057dd279-bcc8-46c2-a440-aa86365313b6"
+        "selectedInstance": "55117b72-f03c-44d9-a967-570259713a3a"
     },
     "codeState": {
         "topInstance": "057dd279-bcc8-46c2-a440-aa86365313b6"

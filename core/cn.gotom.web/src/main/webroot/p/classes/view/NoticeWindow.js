@@ -42,6 +42,7 @@ Ext.define('Gotom.view.NoticeWindow', {
                 {
                     xtype: 'panel',
                     region: 'center',
+                    border: false,
                     margin: 0,
                     padding: 0,
                     autoScroll: true,
@@ -126,7 +127,7 @@ Ext.define('Gotom.view.NoticeWindow', {
         me.resetPosition();
         me.setTitle(title);
         me.noticePanel.update(html);
-        //Ext.defer(function(){me.loadNotice();}, 1000);
+        Ext.defer(function(){me.collapse();}, 3000);
     }
 
 });

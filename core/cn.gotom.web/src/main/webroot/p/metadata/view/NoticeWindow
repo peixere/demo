@@ -46,6 +46,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|region": "center",
+                "border": false,
                 "margin": 0,
                 "padding": 0,
                 "autoScroll": true,
@@ -184,7 +185,7 @@
                     "me.resetPosition();\r",
                     "me.setTitle(title);\r",
                     "me.noticePanel.update(html);\r",
-                    "//Ext.defer(function(){me.loadNotice();}, 1000);"
+                    "Ext.defer(function(){me.collapse();}, 3000);"
                 ]
             },
             "designerId": "55117b72-f03c-44d9-a967-570259713a3a"
