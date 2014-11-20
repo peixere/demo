@@ -174,6 +174,16 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 
 	@Transactional
 	@Override
+	public void removeById(Class<?> clazz, Serializable[] ids)
+	{
+		for (Serializable id : ids)
+		{
+			getEntityManager().remove(getEntityManager().find(clazz, id));
+		}
+	}
+
+	@Transactional
+	@Override
 	public void removeAll(Class<?> clazz)
 	{
 		String jpql = "delete from " + clazz.getSimpleName();

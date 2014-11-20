@@ -18,7 +18,7 @@ import com.google.inject.ImplementedBy;
 public interface UniversalService
 {
 
-	String getDefaultOrderBy(Class<?> clazz,String prefix);
+	String getDefaultOrderBy(Class<?> clazz, String prefix);
 
 	boolean exist(Class<?> clazz, Serializable id);
 
@@ -38,6 +38,8 @@ public interface UniversalService
 
 	void remove(Class<?> clazz, Serializable id);
 
+	void removeById(Class<?> clazz, Serializable[] ids);
+
 	void remove(Object value);
 
 	void removeAll(Class<?> clazz);
@@ -50,5 +52,5 @@ public interface UniversalService
 
 	int executeUpdate(String sql);
 
-	<T> Pagination<T> findPagination(Class<T> clazz,int pageIndex, int pageSize);
+	<T> Pagination<T> findPagination(Class<T> clazz, int pageIndex, int pageSize);
 }

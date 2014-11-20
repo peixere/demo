@@ -89,6 +89,12 @@ public class GenericDaoJpa<T, PK extends Serializable> extends UniversalDaoJpa i
 		}
 	}
 
+	@Override
+	public void removeById(PK[] ids)
+	{
+		this.removeById(persistentClass, ids);
+	}
+
 	@Transactional
 	@Override
 	public void removeAll()
