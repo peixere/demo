@@ -93,9 +93,11 @@ public class TcpChannel extends ChannelImpl
 			if (socket != null)
 			{
 				if (socket.isConnected())
+				{
 					log.info("closed[" + this.getId() + "]");
-				socket.shutdownInput();
-				socket.shutdownOutput();
+					socket.shutdownInput();
+					socket.shutdownOutput();
+				}
 				socket.close();
 			}
 			socket = null;
