@@ -87,15 +87,16 @@ public class ServiceImpl implements Service
 			org.setParentId("");
 			orgService.save(org);
 		}
-		Role role = roleService.get("name", "超级管理员");
+		Role role = roleService.get(Custom.Default);
 		if (role == null)
 		{
 			role = new Role();
+			role.setId(Custom.Default);
 			role.setName("超级管理员");
 			role.setOrganization(org);
-			role.setRights(rightService.findAll());
-			roleService.save(role);
 		}
+		role.setRights(rightService.findAll());
+		roleService.save(role);
 		User user = userService.getByUsername("admin");
 		if (user == null)
 		{
