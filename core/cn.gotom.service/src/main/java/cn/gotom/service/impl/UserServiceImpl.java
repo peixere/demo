@@ -8,6 +8,7 @@ import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.CustomUser;
 import cn.gotom.pojos.Organization;
+import cn.gotom.pojos.UploadFile;
 import cn.gotom.pojos.User;
 import cn.gotom.service.UserService;
 import cn.gotom.util.StringUtils;
@@ -101,5 +102,14 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 		@SuppressWarnings("unchecked")
 		List<Custom> list = q.getResultList();
 		return list;
+	}
+
+	@Transactional
+	@Override
+	public void delete(User user)
+	{
+		remove(UploadFile.class.getSimpleName(), "user_id", user.getId());
+		remove(CustomUser.class.getSimpleName(), "user_id", user.getId());
+		getEntityManager().remove(getEntityManager().getReference(persistentClass, user.getId()));
 	}
 }

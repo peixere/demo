@@ -40,23 +40,25 @@ public interface OrganizationService extends GenericService<Organization, String
 
 	void updateEmpty(Custom custom);
 
-//
-//	/**
-//	 * 根据用户查询所有后代集合
-//	 * 
-//	 * @param user
-//	 * @return
-//	 */
-//	List<Organization> findAllByUser(User user);
-//
-//	List<Organization> findSelectedByUser(User user);
-//
-//	/**
-//	 * 删除用户可见的数据，
-//	 * 
-//	 * @param login
-//	 * @param oldOrgs
-//	 * @return 用户不可见的数据
-//	 */
-//	List<Organization> removeInUser(User user, List<Organization> oldOrgs);
+	Organization getTop(String customId);
+
+	//
+	// /**
+	// * 根据用户查询所有后代集合
+	// *
+	// * @param user
+	// * @return
+	// */
+	// List<Organization> findAllByUser(User user);
+	//
+	// List<Organization> findSelectedByUser(User user);
+	//
+	// /**
+	// * 删除用户可见的数据，
+	// *
+	// * @param login
+	// * @param oldOrgs
+	// * @return 用户不可见的数据
+	// */
+	// List<Organization> removeInUser(User user, List<Organization> oldOrgs);
 }

@@ -40,7 +40,7 @@ public class User extends SuperEntity implements Serializable
 	private String username;
 
 	@Note("手机号码")
-	@Column(unique = true, length = 20)
+	@Column(length = 20)
 	private String mobile;
 
 	@Note("工作卡号")

@@ -44,6 +44,26 @@ public class OrganizationServiceImpl extends GenericDaoJpa<Organization, String>
 	}
 
 	@Override
+	public Organization getTop(String customId)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p from " + persistentClass.getSimpleName() + " p");
+		jpql.append(" where p.custom.id = :customId");
+		jpql.append(" and (p.parentId IS NULL OR p.parentId = '' OR p.parentId = '0')");
+		jpql.append(" order by sort");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("customId", customId);
+		q.setMaxResults(1);
+		@SuppressWarnings("unchecked")
+		List<Organization> list = q.getResultList();
+		if (list.size() > 0)
+		{
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
 	public List<Organization> findByParentId(String customId, String parentId)
 	{
 		if (StringUtils.isNullOrEmpty(parentId))

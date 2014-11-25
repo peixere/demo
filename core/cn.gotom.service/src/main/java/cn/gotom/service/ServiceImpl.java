@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.CustomUser;
 import cn.gotom.pojos.IdSerializable;
+import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
 import cn.gotom.pojos.User;
@@ -63,10 +64,55 @@ public class ServiceImpl implements Service
 				user.setPassword(passwordEncoder.encode("888888"));
 				userService.save(user);
 			}
+			initAdmin();
+
 		}
 		catch (Exception ex)
 		{
 			log.error("", ex);
+		}
+	}
+
+	private void initAdmin()
+	{
+		Custom custom = universalService.get(Custom.class, Custom.Default);
+		Organization org = orgService.getTop(Custom.Default);
+		if (org == null)
+		{
+			org = new Organization();
+			org.setCode("000000");
+			org.setCustom(custom);
+			org.setSort(-10000);
+			org.setText(custom.getName());
+			org.setParentId("");
+			orgService.save(org);
+		}
+		Role role = roleService.get("name", "超级管理员");
+		if (role == null)
+		{
+			role = new Role();
+			role.setName("超级管理员");
+			role.setOrganization(org);
+			role.setRights(rightService.findAll());
+			roleService.save(role);
+		}
+		User user = userService.getByUsername("admin");
+		if (user == null)
+		{
+			user = new User();
+			user.setUsername("admin");
+			user.setName("管理员");
+			user.setPassword(passwordEncoder.encode("1"));
+			user.setRoles(new ArrayList<Role>());
+		}
+		user.getRoles().add(role);
+		userService.save(user);
+		if (!userHasCustom(user.getId(), Custom.Default))
+		{
+			CustomUser cu = new CustomUser();
+			cu.setCustom(custom);
+			cu.setUser(user);
+			universalService.persist(cu);
 		}
 	}
 
@@ -298,6 +344,6 @@ public class ServiceImpl implements Service
 	public void destroy()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

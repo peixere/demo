@@ -21,4 +21,6 @@ public interface UserService extends GenericService<User, String>
 	void updateEmpty(Custom custom);
 
 	public List<Custom> findCustomByUserIdList(String userId);
+	
+	public void delete(User user);
 }
