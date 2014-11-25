@@ -85,7 +85,12 @@ public class UserAction extends AbsPortalAction
 		{
 			roleIdArray = roleIds.split(",");
 		}
-		User muser = userService.getByMobile(user.getMobile());
+
+		User muser = null;
+		if (StringUtils.isNotEmpty(user.getMobile()))
+		{
+			muser = userService.getByMobile(user.getMobile());
+		}
 		if (muser != null && !muser.getId().equals(user.getId()))
 		{
 			this.setSuccess(false);
@@ -148,6 +153,17 @@ public class UserAction extends AbsPortalAction
 				{
 					user.setStatus(status);
 					userService.save(user);
+					if (status == Status.Delete)
+					{
+						try
+						{
+							userService.delete(user);
+						}
+						catch (java.lang.Throwable e)
+						{
+							log.warn(e.getMessage());
+						}
+					}
 				}
 			}
 		}

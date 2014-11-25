@@ -1,8 +1,11 @@
 package cn.gotom.web.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -15,10 +18,15 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Custom;
 import cn.gotom.pojos.CustomRight;
 import cn.gotom.pojos.Right;
+import cn.gotom.pojos.UploadFile;
 import cn.gotom.service.CustomService;
 import cn.gotom.service.RightService;
+import cn.gotom.service.UploadFileService;
 import cn.gotom.service.model.RightTree;
+import cn.gotom.sso.util.GsonUtils;
+import cn.gotom.util.FileUtils;
 import cn.gotom.util.StringUtils;
+import cn.gotom.vo.JsonResponse;
 
 import com.google.inject.Inject;
 
@@ -28,8 +36,6 @@ import com.google.inject.Inject;
 public class RightAction extends AbsPortalAction
 {
 	protected final Logger log = Logger.getLogger(getClass());
-
-	private String id;
 
 	private boolean success;
 
@@ -71,6 +77,64 @@ public class RightAction extends AbsPortalAction
 	{
 		List<Right> list = rightService.findAll();
 		toJSON(list);
+	}
+
+	public void down() throws IOException
+	{
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/x-msdownload");
+		response.setContentType("application/json");
+		response.setHeader("Content-Disposition", "attachment;filename=right.json");
+		List<Right> list = rightService.findAll();
+		String json = GsonUtils.toJson(list);
+		response.getWriter().println(json);
+	}
+
+	private File upload;
+	private String uploadFileName, uploadContentType;
+	@Inject
+	private UploadFileService uploadFileService;
+
+	public void up()
+	{
+		JsonResponse json = new JsonResponse();
+		try
+		{
+			UploadFile uf = new UploadFile();
+			uf.setFileStream(FileUtils.read(upload));
+			uf.setFkTable(Right.class.getName());
+			uf.setFileName(uploadFileName);
+			uf.setContentType(uploadContentType);
+			uf.setFileCharset(FileCharset.getCharset(upload));
+			uf.setUser(getCurrentUser());
+			String jsonStr = new String(uf.getFileStream());
+			List<Right> rights = GsonUtils.toList(Right[].class, jsonStr);
+			rightService.saveAll(rights);
+			for (Right right : rights)
+			{
+				CustomRight cr = customService.getCustomRight(right.getId(), this.getCurrentCustomId());
+				if (cr == null)
+				{
+					cr = new CustomRight();
+					cr.setCustom(new Custom());
+					cr.getCustom().setId(this.getCurrentCustomId());
+					cr.setRight(right);
+					customService.persist(cr);
+				}
+			}
+			json.setData("上传成功");
+			uploadFileService.save(uf);
+		}
+		catch (Throwable ex)
+		{
+			json.setData("上传失败：" + ex.getClass().getSimpleName() + " " + ex.getMessage());
+			log.debug("", ex);
+		}
+		finally
+		{
+			upload.deleteOnExit();
+		}
+		this.toJSON(json);
 	}
 
 	public String remove()
@@ -123,16 +187,6 @@ public class RightAction extends AbsPortalAction
 		return "success";
 	}
 
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-
 	public boolean isSuccess()
 	{
 		return success;
@@ -141,5 +195,35 @@ public class RightAction extends AbsPortalAction
 	public void setSuccess(boolean success)
 	{
 		this.success = success;
+	}
+
+	public File getUpload()
+	{
+		return upload;
+	}
+
+	public void setUpload(File upload)
+	{
+		this.upload = upload;
+	}
+
+	public String getUploadFileName()
+	{
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName)
+	{
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getUploadContentType()
+	{
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType)
+	{
+		this.uploadContentType = uploadContentType;
 	}
 }
