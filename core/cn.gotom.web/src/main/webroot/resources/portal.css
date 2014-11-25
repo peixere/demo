@@ -1,80 +1,67 @@
 #app-header {
-	font-size: 22px;
-	font-weight: 200;
-	text-shadow: 0 1px 0 #fff;
-	color: #596F8F;
+    font-size: 22px;
+    font-weight: 200;
 }
 
 .x-theme-neptune #app-header {
-	color: white;
-	text-shadow: none;
+    color: white;
+    text-shadow: none;
 }
 
 #app-msg {
-	background: #D1DDEF;
-	border: 1px solid #ACC3E4;
-	padding: 3px 15px;
-	font-weight: bold;
-	font-size: 13px;
-	position: absolute;
-	right: 0;
-	top: 0;
+    background: #D1DDEF;
+    border: 1px solid #ACC3E4;
+    padding: 3px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
-
 .x-panel-ghost {
-	z-index: 1;
+    z-index: 1;
 }
-
 .x-border-layout-ct {
-	background: #DFE8F6;
+    background: #DFE8F6;
 }
-
 .x-portal-body {
-	padding: 0 0 0 8px;
+    padding: 0 0 0 8px;
 }
-
 .x-portal .x-portal-column {
-	/* columns must have vertical padding to avoid losing dimensions when empty */
-	padding: 8px 8px 0 0;
+    /* columns must have vertical padding to avoid losing dimensions when empty */
+    padding: 8px 8px 0 0;
 }
-
 .x-portal .x-panel-dd-spacer {
-	border: 2px dashed #99bbe8;
-	background: #f6f6f6;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	margin-bottom: 10px;
+    border: 2px dashed #99bbe8;
+    background: #f6f6f6;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    margin-bottom: 10px;
 }
-
 .x-portlet {
-	margin-bottom: 10px;
-	padding: 1px;
+    margin-bottom:10px;
+    padding: 1px;
 }
-
 .x-portlet .x-panel-body {
-	background: #fff;
+    background: #fff;
 }
-
 .portlet-content {
-	padding: 10px;
-	font-size: 12px;
+    padding: 10px;
+    font-size: 12px;
 }
 
 #app-options .portlet-content {
-	padding: 5px;
-	font-size: 12px;
+    padding: 5px;
+    font-size: 12px;
 }
-
 .settings {
-	background-image: url(icons/fam/folder_wrench.png);
+    background-image:url(icons/fam/folder_wrench.png);
 }
-
 .nav {
-	background-image: url(icons/fam/folder_go.png);
+    background-image:url(icons/fam/folder_go.png);
 }
-
 .info {
-	background-image: url(icons/fam/information.png);
+    background-image:url(icons/fam/information.png);
 }
 
 .icon-nav {
@@ -100,7 +87,6 @@
 .icon-user {
 	background-image: url(icons/fam/man.gif) !important;
 }
-
 .icon-file {
 	background-image: url(icons/fam/download-file.png) !important;
 }
@@ -108,7 +94,6 @@
 .icon-add {
 	background-image: url(icons/fam/add.png) !important;
 }
-
 .icon-del {
 	background-image: url(icons/fam/delete.png) !important;
 }
@@ -116,7 +101,6 @@
 .icon-add-p {
 	background-image: url(icons/fam/add_p.png) !important;
 }
-
 .icon-del-p {
 	background-image: url(icons/fam/delete_p.png) !important;
 }
@@ -134,29 +118,24 @@
 }
 
 .icon-grid-list {
-	background-image: url(icons/fam/grid_list.png) !important;
+	background-image:url(icons/fam/grid_list.png) !important;
 }
 
-.icon-search-form {
+.icon-search-form{
 	background-image: url(icons/fam/search_form.png) !important;
 }
-
-.icon-form {
+.icon-form{
 	background-image: url(icons/fam/form.png) !important;
 }
-
 .icon-search {
 	background-image: url(icons/fam/search.png) !important;
 }
-
 .icon-save {
 	background-image: url(icons/fam/save.png) !important;
 }
-
-.icon-reset {
-	background-image: url(icons/fam/reset.png) !important;
+.icon-reset{
+	background-image:url(icons/fam/reset.png) !important;
 }
-
 .icon-chart {
 	background-image: url(icons/fam/chart.gif) !important;
 }
@@ -184,238 +163,206 @@
 .icon-excel {
 	background-image: url(icons/fam/excel.png) !important;
 }
-
 .icon-info {
 	background-image: url(icons/fam/info.gif) !important;
 }
-
 .icon-logout {
 	background-image: url(icons/fam/logout.png) !important;
 }
-
 .icon-style {
 	background-image: url(icons/fam/style.png) !important;
 }
-
 .icon-person-info {
 	background-image: url(icons/fam/person_info.png) !important;
 }
-
-.icon-person-info-edit {
+.icon-person-info-edit{
 	background-image: url(icons/fam/person_info_edit.png) !important;
 }
-
-.icon-key-edit {
+.icon-key-edit{
 	background-image: url(icons/fam/key_edit.png) !important;
 }
-
-.icon-version {
+.icon-version{
 	background-image: url(icons/fam/version.png) !important;
 }
-
-.icon-docs {
+.icon-docs{
 	background-image: url(icons/fam/docs.gif) !important;
 }
-
-.icon-help {
+.icon-help{
 	background-image: url(icons/fam/help.png) !important;
 }
-
-.icon-layout {
+.icon-layout{
 	background-image: url(icons/fam/layout.png) !important;
 }
-
-.icon-grant {
+.icon-grant{
 	background-image: url(icons/fam/grant.png) !important;
 }
 
-.icon-collapse-all {
+.icon-collapse-all{
 	background-image: url(icons/fam/collapse-all.gif) !important;
 }
 
-.icon-expand-all {
+.icon-expand-all{
 	background-image: url(icons/fam/expand-all.gif) !important;
 }
 
-.icon-load {
+.icon-load{
 	background-image: url(icons/fam/load.png) !important;
 }
 
-.icon-yes {
+.icon-yes{
 	background-image: url(icons/fam/yes.png) !important;
 }
 
-.icon-no {
+.icon-no{
 	background-image: url(icons/fam/no.png) !important;
 }
 
-.icon-ok {
+.icon-ok{
 	background-image: url(icons/fam/ok.png) !important;
 }
 
-.icon-cancel {
+.icon-cancel{
 	background-image: url(icons/fam/cancel.png) !important;
 }
 
-.icon-close {
+.icon-close{
 	background-image: url(icons/fam/cancel.gif) !important;
 }
 
-.icon-tip {
+.icon-tip{
 	background-image: url(icons/fam/tip.png) !important;
 }
 
-.icon-logout {
+.icon-logout{
 	background-image: url(icons/fam/logout.png) !important;
 }
-
-.icon-sys-config {
+.icon-sys-config{
 	background-image: url(icons/fam/sys_config.png) !important;
 }
-
-.icon-status-away {
+.icon-status-away{
 	background-image: url(icons/fam/status_away.png) !important;
 }
-
-.icon-status-busy {
+.icon-status-busy{
 	background-image: url(icons/fam/status_busy.png) !important;
 }
-
-.icon-status-offline {
+.icon-status-offline{
 	background-image: url(icons/fam/status_offline.png) !important;
 }
-
-.icon-status-online {
+.icon-status-online{
 	background-image: url(icons/fam/status_online.png) !important;
 }
-
-.icon-user-info {
+.icon-user-info{
 	background-image: url(icons/fam/user_info.png) !important;
 }
-
-.icon-email {
+.icon-email{
 	background-image: url(icons/fam/email.png) !important;
 }
-
-.icon-email-list {
+.icon-email-list{
 	background-image: url(icons/fam/email_list.png) !important;
 }
-
-.icon-im {
+.icon-im{
 	background-image: url(icons/fam/im.png) !important;
 }
-
-.icon-note {
+.icon-note{
 	background-image: url(icons/fam/note.png) !important;
 }
-
-.icon-link {
+.icon-link{
 	background-image: url(icons/fam/link.png) !important;
 }
-
-.icon-notice {
+.icon-notice{
 	background-image: url(icons/fam/notice.png) !important;
 }
-
-.icon-news {
+.icon-news{
 	background-image: url(icons/fam/news.png) !important;
 }
-
-.icon-user-set {
+.icon-user-set{
 	background-image: url(icons/fam/user_set.png) !important;
 }
-
-.icon-accordion {
+.icon-accordion{
 	background-image: url(icons/fam/accordion.gif) !important;
 }
 
-.icon-workflow {
+.icon-workflow{
 	background-image: url(icons/fam/workflow.png) !important;
 }
-
-.icon-next {
+.icon-next{
 	background-image: url(icons/fam/next.png) !important;
 }
-
-.icon-priv {
+.icon-priv{
 	background-image: url(icons/fam/priv.png) !important;
 }
 
 .x-message-box .icon-saving {
-	background: transparent url(icons/fam/download.gif) no-repeat bottom
-		left;
-	height: 46px;
+    background:transparent url(icons/fam/download.gif) no-repeat bottom left;
+    height:46px;
 }
 
-.logoPanel {
-	float: left;
-	padding-left: 10px;
-	padding-right: 10px;
+.logoPanel{
+	float:left;
+	padding-left:10px;
+	padding-right:10px;
 }
-
-.titlePanel {
-	float: left;
-	padding-top: 20px;
-	font-size: 28px;
-	text-shadow: 0 1px 0 #fff;
-	color: #596F8F;
+.titlePanel{
+	float:left;
+	padding-top:20px;
+	font-size:28px;
+    text-shadow: 0 1px 0 #fff;
+    color: #596F8F;	
 }
-
-.userPanel {
-	float: right;
-	width: 300px;
-	font-size: 12px;
-	padding-top: 36px;
-	padding-right: 20px;
+.userPanel{
+	float:right;
+	width:300px;	
+	font-size:12px;
+	padding-top:36px;
+	padding-right:20px;
 	text-align: right;
+	color: red;
 }
 
-.userPanel a {
-	text-decoration: none;
+.userPanel a{
+	text-decoration:none;
 }
 
-.userPanel a:active {
-	text-decoration: underline;
+.userPanel a:active{
+	text-decoration:underline;
 }
 
 .userPanel a:hover {
-	text-decoration: none;
+	text-decoration:none;
+}
+.tree-panel{
+	cursor:pointer;
 }
 
-.tree-panel {
-	cursor: pointer;
-}
-
-.x-btn {
+.x-btn{
 	font-color: red;
-	font-size: 16px;
+	font-size:16px;
 }
 
 body {
-	font-size: 12px;
-	font-family: Verdana, "宋体";
+    font-size: 12px;
+    font-family:Verdana,"宋体";
 }
-
 table.view {
-	width: 100%;
-	font-family: Verdana, "宋体";
-	font-size: 12px;
-	border: 0px solid #000000;
-	border-collapse: collapse;
-	border-spacing: 0, 0;
+	width:100%;
+	font-family:Verdana,"宋体";
+    font-size: 12px;
+    border: 0px solid #000000; 
+	border-collapse:collapse; 
+	border-spacing:0,0;
 }
 
-table.view .th {
-	text-align: right;
-	background-color: #FFFFFF;
-	background-color: #e0ecfb;
-	border: #a9bfd3 1px solid;
-	padding: 5px;
+table.view .th{
+    text-align:right;
+    background-color: #FFFFFF;
+    background-color: #e0ecfb;
+    border:  #a9bfd3 1px solid;  
+    padding: 5px;
 }
 
-table.view td {
-	text-align: left;
-	background-color: #FFFFFF;
-	border: #a9bfd3 1px solid;
-	padding: 5px;
+table.view td{
+    text-align:left;
+    background-color: #FFFFFF;
+    border:  #a9bfd3 1px solid; 
+    padding: 5px;
 }

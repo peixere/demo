@@ -272,11 +272,11 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onViewItemDblClick",
+                                "fn": "onViewItemClick",
                                 "implHandler": [
                                     "this.loadFormData(record.data.id);"
                                 ],
-                                "name": "itemdblclick",
+                                "name": "itemclick",
                                 "scope": "me"
                             },
                             "designerId": "2ca02e62-2e6a-42af-85a5-644d3dacea2b"

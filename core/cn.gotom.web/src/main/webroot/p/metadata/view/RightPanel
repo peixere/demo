@@ -289,6 +289,140 @@
                                     "designerId": "cd4aa2c4-8e5d-4f73-a314-cc2a88ba9e8c"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "iconCls": "icon-file",
+                                "text": "导出"
+                            },
+                            "designerId": "07d1ea18-5146-455c-9ee6-c0e844ae36c0",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onDownDelClick",
+                                        "implHandler": [
+                                            "window.open(ctxp + '/p/right!down.do');"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "5409c1f4-c531-4c3a-8d13-55e1a166ed68"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "designerId": "b1221bd4-3948-4345-adb6-fab9f654d5ae"
+                        },
+                        {
+                            "type": "Ext.form.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "border": false,
+                                "width": 180,
+                                "layout": "fit",
+                                "bodyPadding": null,
+                                "header": false,
+                                "title": "导入"
+                            },
+                            "designerId": "ad2909f9-0ca1-4857-84ac-22e9bba6ca66",
+                            "cn": [
+                                {
+                                    "type": "Ext.form.field.File",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|anchor": "100%",
+                                        "width": 176,
+                                        "fieldLabel": "文件",
+                                        "hideLabel": true,
+                                        "labelAlign": "right",
+                                        "name": "upload",
+                                        "buttonText": "导入"
+                                    },
+                                    "designerId": "c97d66a8-c630-43f5-b8fc-14b679fd7d97",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onFilefieldChange",
+                                                "implHandler": [
+                                                    "var me = this;\r",
+                                                    "try{\r",
+                                                    "    var form = me.upForm;\r",
+                                                    "    if(form.isValid()){\r",
+                                                    "        Common.formSubmit({  \r",
+                                                    "            url : ctxp+'p/right!up.do',\r",
+                                                    "            form:form,\r",
+                                                    "            callback : function(result)\r",
+                                                    "            {\r",
+                                                    "                Ext.Msg.alert('信息提示', result.data);\t\r",
+                                                    "            }\r",
+                                                    "        });\r",
+                                                    "    }\r",
+                                                    "}catch(error){\r",
+                                                    "    Ext.Msg.alert('信息提示', error);\r",
+                                                    "}"
+                                                ],
+                                                "name": "change",
+                                                "scope": "me"
+                                            },
+                                            "designerId": "4808bacd-d46b-4f84-9bba-569a39bddad1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onFormBeforeRender",
+                                        "implHandler": [
+                                            "this.upForm = component;"
+                                        ],
+                                        "name": "beforerender",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "f6c118d6-37bb-460d-9042-ad7dbbc92dc8"
+                                }
+                            ]
                         }
                     ]
                 },

@@ -117,8 +117,8 @@ Ext.define('Gotom.view.RolePanel', {
                     ],
                     viewConfig: {
                         listeners: {
-                            itemdblclick: {
-                                fn: me.onViewItemDblClick,
+                            itemclick: {
+                                fn: me.onViewItemClick,
                                 scope: me
                             }
                         }
@@ -254,7 +254,7 @@ Ext.define('Gotom.view.RolePanel', {
         this.loadFormData('');
     },
 
-    onViewItemDblClick: function(dataview, record, item, index, e, eOpts) {
+    onViewItemClick: function(dataview, record, item, index, e, eOpts) {
         this.loadFormData(record.data.id);
     },
 

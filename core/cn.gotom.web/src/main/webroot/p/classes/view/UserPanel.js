@@ -184,8 +184,8 @@ Ext.define('Gotom.view.UserPanel', {
                     viewConfig: {
                         id: 'UserGridView',
                         listeners: {
-                            itemdblclick: {
-                                fn: me.onViewItemDblClick,
+                            itemclick: {
+                                fn: me.onViewItemlClick,
                                 scope: me
                             }
                         }
@@ -398,7 +398,7 @@ Ext.define('Gotom.view.UserPanel', {
         this.loadFormData('');
     },
 
-    onViewItemDblClick: function(dataview, record, item, index, e, eOpts) {
+    onViewItemlClick: function(dataview, record, item, index, e, eOpts) {
         this.loadFormData(record.data.id);
     },
 

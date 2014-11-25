@@ -100,6 +100,54 @@ Ext.define('Gotom.view.RightPanel', {
                                             scope: me
                                         }
                                     }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'icon-file',
+                                    text: '导出',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onDownDelClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'form',
+                                    border: false,
+                                    width: 180,
+                                    layout: {
+                                        type: 'fit'
+                                    },
+                                    header: false,
+                                    title: '导入',
+                                    items: [
+                                        {
+                                            xtype: 'filefield',
+                                            anchor: '100%',
+                                            width: 176,
+                                            fieldLabel: '文件',
+                                            hideLabel: true,
+                                            labelAlign: 'right',
+                                            name: 'upload',
+                                            buttonText: '导入',
+                                            listeners: {
+                                                change: {
+                                                    fn: me.onFilefieldChange,
+                                                    scope: me
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    listeners: {
+                                        beforerender: {
+                                            fn: me.onFormBeforeRender,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -249,6 +297,33 @@ Ext.define('Gotom.view.RightPanel', {
                 });
             }
         });
+    },
+
+    onDownDelClick: function(button, e, eOpts) {
+        window.open(ctxp + '/p/right!down.do');
+    },
+
+    onFilefieldChange: function(filefield, value, eOpts) {
+        var me = this;
+        try{
+            var form = me.upForm;
+            if(form.isValid()){
+                Common.formSubmit({  
+                    url : ctxp+'p/right!up.do',
+                    form:form,
+                    callback : function(result)
+                    {
+                        Ext.Msg.alert('信息提示', result.data);	
+                    }
+                });
+            }
+        }catch(error){
+            Ext.Msg.alert('信息提示', error);
+        }
+    },
+
+    onFormBeforeRender: function(component, eOpts) {
+        this.upForm = component;
     },
 
     onRightTreePanelAfterLayout: function(container, layout, eOpts) {
