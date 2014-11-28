@@ -84,6 +84,7 @@ public class Pagination<T> extends JsonResponse
 
 	private void init()
 	{
+		setData(list);
 		getSize();
 		getPrev();
 		getNext();
