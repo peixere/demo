@@ -19,7 +19,7 @@ Ext.define('Common', {
 				addTabPanel : function(conf) {
 					var p = Ext.getCmp('app-viewport');
 					if (!Ext.isEmpty(p)) {
-						p.addTabPanel(conf);
+						p.addTabPanel(conf.component,conf.id,conf.title);
 					} else {
 						Ext.MessageBox.show({
 									title : '操作提示',
@@ -231,7 +231,12 @@ Ext.define('Common', {
 						if (config.message) {
 							config.component.setLoading(config.message);
 						} else {
-							config.component.setLoading('正在下载...');
+							var lock = true;
+							if (!Ext.isEmpty(config.lock)) {
+								lock = config.lock;
+							}
+							if (lock)
+								config.component.setLoading('正在下载...');
 						}
 					}
 					Ext.Ajax.request({
