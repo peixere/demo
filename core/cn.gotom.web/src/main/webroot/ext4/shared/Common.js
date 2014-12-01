@@ -103,7 +103,7 @@ Ext.define('Common', {
 					var url = conf.url;
 					var pageSize = conf.pageSize;
 					var params = conf.params;
-					var root = 'list';
+					var root = 'data';
 					if (!Ext.isEmpty(conf.root)) {
 						root = conf.root;
 					}
