@@ -22,8 +22,6 @@ public class Pagination<T> extends JsonResponse
 	private int pageSize = 25;
 	@Description("总行数")
 	private int total;
-	@Description("当前页数据")
-	private List<T> list;
 	@Description("总页数")
 	private int size;
 	@Description("是否有下一页")
@@ -36,7 +34,7 @@ public class Pagination<T> extends JsonResponse
 	@Description("分页")
 	public Pagination()
 	{
-		list = new ArrayList<T>();
+		this.setData(new ArrayList<T>());
 	}
 
 	/**
@@ -55,7 +53,7 @@ public class Pagination<T> extends JsonResponse
 	{
 		this.total = total;
 		this.pageSize = pageSize;
-		this.list = list;
+		setData(list);
 		this.pageNum = pageNum;
 		init();
 	}
@@ -76,7 +74,7 @@ public class Pagination<T> extends JsonResponse
 	{
 		this.total = total;
 		this.pageSize = (limit - start) + 1;
-		this.list = list;
+		setData(list);
 		this.pageNum = (limit < total) ? limit / pageSize : (total / limit);
 		this.pageNum = this.pageNum + 1;
 		init();
@@ -84,7 +82,6 @@ public class Pagination<T> extends JsonResponse
 
 	private void init()
 	{
-		setData(list);
 		getSize();
 		getPrev();
 		getNext();
@@ -141,9 +138,10 @@ public class Pagination<T> extends JsonResponse
 		return total;
 	}
 
-	public List<T> getList()
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getData()
 	{
-		return list;
+		return (List<T>) super.getData();
 	}
-
 }
