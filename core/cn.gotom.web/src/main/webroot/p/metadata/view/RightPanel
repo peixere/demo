@@ -361,7 +361,6 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "layout|anchor": "100%",
                                         "width": 176,
                                         "fieldLabel": "文件",
                                         "hideLabel": true,
@@ -386,7 +385,7 @@
                                                     "    var form = me.upForm;\r",
                                                     "    if(form.isValid()){\r",
                                                     "        Common.formSubmit({  \r",
-                                                    "            url : ctxp+'p/right!up.do',\r",
+                                                    "            url : ctxp+'/p/right!up.do',\r",
                                                     "            form:form,\r",
                                                     "            callback : function(result)\r",
                                                     "            {\r",

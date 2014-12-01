@@ -127,7 +127,6 @@ Ext.define('Gotom.view.RightPanel', {
                                     items: [
                                         {
                                             xtype: 'filefield',
-                                            anchor: '100%',
                                             width: 176,
                                             fieldLabel: '文件',
                                             hideLabel: true,
@@ -309,7 +308,7 @@ Ext.define('Gotom.view.RightPanel', {
             var form = me.upForm;
             if(form.isValid()){
                 Common.formSubmit({  
-                    url : ctxp+'p/right!up.do',
+                    url : ctxp+'/p/right!up.do',
                     form:form,
                     callback : function(result)
                     {
