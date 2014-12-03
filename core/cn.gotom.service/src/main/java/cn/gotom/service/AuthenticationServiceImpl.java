@@ -72,28 +72,22 @@ public class AuthenticationServiceImpl implements AuthenticationService
 		{
 			for (Role role : user.getRoles())
 			{
-				if (role.getRights() == null || role.getRights().size() == 0)
+				List<Right> rights = roleService.findRight(role.getId());
+				for (Right right : rights)
 				{
-					role = roleService.get(role.getId());
-				}
-				if (role.getRights() != null)
-				{
-					for (Right right : role.getRights())
+					if (StringUtils.isNotEmpty(right.getResource()) && appCode.equals(right.getAppCode()))
 					{
-						if (StringUtils.isNotEmpty(right.getResource()) && appCode.equals(right.getAppCode()))
+						String tmp = right.getResource().trim().replace("；", ";");
+						tmp = tmp.replace(",", ";");
+						tmp = tmp.replace("，", ";");
+						tmp = tmp.replace("\n", ";");
+						tmp = tmp.replace(";;", ";");
+						String[] resource = tmp.split(";");
+						for (String pattern : resource)
 						{
-							String tmp = right.getResource().trim().replace("；", ";");
-							tmp = tmp.replace(",", ";");
-							tmp = tmp.replace("，", ";");
-							tmp = tmp.replace("\n", ";");
-							tmp = tmp.replace(";;", ";");
-							String[] resource = tmp.split(";");
-							for (String pattern : resource)
+							if (urlMatcher.pathMatchesUrl(pattern, url))
 							{
-								if (urlMatcher.pathMatchesUrl(pattern, url))
-								{
-									return true;
-								}
+								return true;
 							}
 						}
 					}
@@ -173,7 +167,8 @@ public class AuthenticationServiceImpl implements AuthenticationService
 					{
 						if (r.getId().equals(role.getId()))
 						{
-							for (Right right : role.getRights())
+							List<Right> roleRights = roleService.findRight(role.getId());
+							for (Right right : roleRights)
 							{
 								if (right.getParentId() == null || right.getParentId() == "0")
 								{

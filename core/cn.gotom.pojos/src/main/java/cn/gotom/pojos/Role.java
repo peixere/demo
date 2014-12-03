@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -32,14 +30,6 @@ public class Role extends SuperEntity implements Serializable
 
 	@Column(nullable = false)
 	private int sort;
-
-	@ManyToMany
-	@JoinTable(name = "core_role_right", joinColumns = { @JoinColumn(name = "role_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "right_id", nullable = false) })
-	private java.util.List<Right> rights;
-
-//	@ManyToMany
-//	@JoinTable(name = "core_user_role", joinColumns = { @JoinColumn(name = "role_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false) })
-//	private java.util.List<User> users;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "organization_id", referencedColumnName = "id")
@@ -71,26 +61,6 @@ public class Role extends SuperEntity implements Serializable
 	{
 		this.sort = sort;
 	}
-
-	public java.util.List<Right> getRights()
-	{
-		return this.rights;
-	}
-
-	public void setRights(java.util.List<Right> rights)
-	{
-		this.rights = rights;
-	}
-//
-//	public java.util.List<User> getUsers()
-//	{
-//		return this.users;
-//	}
-//
-//	public void setUsers(java.util.List<User> users)
-//	{
-//		this.users = users;
-//	}
 
 	public Organization getOrganization()
 	{

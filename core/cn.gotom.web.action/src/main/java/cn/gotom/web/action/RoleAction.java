@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.pojos.RoleRight;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
@@ -75,7 +76,7 @@ public class RoleAction extends AbsPortalAction
 			{
 				role = new Role();
 			}
-			List<RightChecked> rightList = rightService.loadCustomCheckedTree(getCurrentCustomId(), role.getRights());
+			List<RightChecked> rightList = rightService.loadCustomCheckedTree(getCurrentCustomId(), roleService.findRight(role.getId()));
 			this.setData(rightList);
 			toJSON(rightList);
 		}
@@ -121,15 +122,25 @@ public class RoleAction extends AbsPortalAction
 				}
 			}
 		}
-		// Role old = roleService.get(role.getId());
-		// if (old != null)
-		// {
-		// role.setUsers(old.getUsers());
-		// }
 		Organization org = orgService.get(role.getOrganizationId());
 		role.setOrganization(org);
-		role.setRights(roleRights);
 		roleService.save(role);
+		List<Right> oldRights = roleService.findRight(role.getId());
+		for (Right right : roleRights)
+		{
+			if (!oldRights.contains(right))
+			{
+				RoleRight rr = new RoleRight();
+				rr.setRight(right);
+				rr.setRole(role);
+				roleService.persist(rr);
+			}
+			else
+			{
+				oldRights.remove(right);
+			}
+		}
+		roleService.removeRoleRight(oldRights);
 		return "success";
 	}
 

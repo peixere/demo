@@ -20,7 +20,7 @@ public interface RightService extends GenericService<Right, String>
 
 	List<RightChecked> loadCheckedTree(List<Right> rights);
 	
-	List<RightChecked> loadCustomCheckedTree(String customId,List<Right> rights);
+	List<RightChecked> loadCustomCheckedTree(String customId, List<Right> rights);
 
 	List<Right> findByParentId(String parentId, String customId);
 }

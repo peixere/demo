@@ -6,7 +6,9 @@ import java.util.List;
 import javax.persistence.Query;
 
 import cn.gotom.dao.jpa.GenericDaoJpa;
+import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.pojos.RoleRight;
 import cn.gotom.service.RoleService;
 import cn.gotom.vo.TreeCheckedModel;
 
@@ -86,5 +88,26 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 		{
 			getEntityManager().remove(getEntityManager().getReference(persistentClass, id));
 		}
+	}
+
+	@Override
+	public List<Right> findRight(String roleId)
+	{
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p.right from " + RoleRight.class.getSimpleName() + " p");
+		jpql.append(" where p.role.id = :roleId");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("roleId", roleId);
+		@SuppressWarnings("unchecked")
+		List<Right> list = q.getResultList();
+		return list;
+	}
+
+	@Transactional
+	@Override
+	public void removeRoleRight(List<Right> oldRights)
+	{
+		for (Right right : oldRights)
+			this.remove(RoleRight.class.getSimpleName(), "right_id", right.getId());
 	}
 }

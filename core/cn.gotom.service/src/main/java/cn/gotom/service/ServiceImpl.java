@@ -16,6 +16,7 @@ import cn.gotom.pojos.IdSerializable;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.pojos.RoleRight;
 import cn.gotom.pojos.User;
 import cn.gotom.util.PasswordEncoder;
 
@@ -95,7 +96,27 @@ public class ServiceImpl implements Service
 			role.setName("超级管理员");
 			role.setOrganization(org);
 		}
-		role.setRights(rightService.findAll());
+		List<Right> rights = roleService.findRight(role.getId());
+		List<Right> rightList = rightService.findAll();
+		for (Right right : rightList)
+		{
+			boolean find = false;
+			for (Right r : rights)
+			{
+				if (right.getId().equals(r.getId()))
+				{
+					find = true;
+					break;
+				}
+			}
+			if (!find)
+			{
+				RoleRight rr = new RoleRight();
+				rr.setRight(right);
+				rr.setRole(role);
+				roleService.persist(rr);
+			}
+		}
 		roleService.save(role);
 		User user = userService.getByUsername("admin");
 		if (user == null)
