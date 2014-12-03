@@ -71,26 +71,17 @@ Ext.define('Gotom.view.RightWindow', {
 
     onButtonSaveClick: function(button, e, eOpts) {
         var me = this;
-        if (me.form.isValid())
-        {
-            me.form.submit(
-            {
-                url : ctxp + '/p/right!save.do',
-                method : 'POST',
-                waitMsg : '正在保存数据，稍后...',
-                success : function(f, action)
+        try{
+            Common.formSubmit({  
+                url : ctxp+'/p/right!save.do',
+                form:me.form,
+                callback : function(result)
                 {
-                    Ext.Msg.alert('信息提示', '保存成功');
                     me.close();
-                    var tree = Ext.getCmp('RightTreePanel');
-                    tree.getStore().reload();            
-                    Ext.defer(function(){tree.expandAll();},100);
-                },
-                failure : function(f, action)
-                {
-                    Ext.Msg.alert('信息提示', '保存失败！');
                 }
             });
+        }catch(error){
+            Ext.Msg.alert('信息提示', error);
         }
     },
 

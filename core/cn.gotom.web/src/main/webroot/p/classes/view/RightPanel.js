@@ -243,7 +243,7 @@ Ext.define('Gotom.view.RightPanel', {
 
     onButtonEditClick: function(button, e, eOpts) {
         var me = this;
-        var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;
+        var selected = me.treePanel.getSelectionModel().selected;
         var record = selected.items[0];
         if(!Ext.isEmpty(record))
         {
@@ -264,7 +264,7 @@ Ext.define('Gotom.view.RightPanel', {
 
     onButtonDelClick: function(button, e, eOpts) {
         var ids = [];
-        var tree = Ext.getCmp('RightTreePanel');
+        var tree = this.treePanel;
         var items = tree.getSelectionModel().store.data.items;
         Ext.each(items, function()
         {
@@ -320,17 +320,14 @@ Ext.define('Gotom.view.RightPanel', {
     onFilefieldChange: function(filefield, value, eOpts) {
         var me = this;
         try{
-            var form = me.upForm;
-            if(form.isValid()){
-                Common.formSubmit({  
-                    url : ctxp+'/p/right!up.do',
-                    form:form,
-                    callback : function(result)
-                    {
-                        Ext.Msg.alert('信息提示', result.data);	
-                    }
-                });
-            }
+            Common.submit({  
+                url : ctxp+'/p/right!up.do',
+                form:me.upForm,
+                callback : function(result)
+                {
+                    Ext.Msg.alert('信息提示', result.data);	
+                }
+            });
         }catch(error){
             Ext.Msg.alert('信息提示', error);
         }
@@ -347,7 +344,7 @@ Ext.define('Gotom.view.RightPanel', {
 
     onBtnAddClick: function(leaf) {
         var me = this;
-        var selected = Ext.getCmp('RightTreePanel').getSelectionModel().selected;
+        var selected = me.treePanel.getSelectionModel().selected;
         var p = selected.items[0];
         var parentId = '';
         if (!Ext.isEmpty(p, false))
@@ -381,9 +378,14 @@ Ext.define('Gotom.view.RightPanel', {
     },
 
     showform: function(record) {
+        var me = this;
         if (record !== null && record !== '')
         {
             var formwin = Ext.create('Gotom.view.RightWindow');
+            formwin.addListener('close', function(panel,opts)
+            {
+                me.loadRight();
+            });
             formwin.show();
             formwin.form.getForm().reset();
             formwin.form.loadRecord(record);

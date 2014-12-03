@@ -289,12 +289,14 @@
         },
         "298abba3-7f63-41ab-a4cf-57724f883002": {
             "id": "298abba3-7f63-41ab-a4cf-57724f883002",
+            "expanded": false,
             "cn": [
                 {
                     "id": "efab0064-76b1-4a32-a08a-2fd9732cf75e",
                     "cn": [
                         {
                             "id": "0d351dea-a786-4f54-9726-2a0c45ec74eb",
+                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "b16a7611-d678-4d37-9dd9-15ac415a7f22"
@@ -523,14 +525,13 @@
         },
         "f94f3f13-627f-4409-9b48-5cb8ade0c788": {
             "id": "f94f3f13-627f-4409-9b48-5cb8ade0c788",
-            "expanded": false,
             "cn": [
                 {
                     "id": "4e78dfc3-8427-4709-a2e1-11e11fb474d5",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "da82dc3e-d805-49af-9646-6090ee533a3d",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "889e5bf3-ec8e-45e3-ab5b-2bf9f337e22c"
@@ -645,7 +646,6 @@
         },
         "59eec288-8265-4b46-a272-a9076495f8e6": {
             "id": "59eec288-8265-4b46-a272-a9076495f8e6",
-            "expanded": false,
             "cn": [
                 {
                     "id": "09c228c5-241a-4eb6-9c36-d5ef4599ee22",
@@ -1071,18 +1071,19 @@
             "f94f3f13-627f-4409-9b48-5cb8ade0c788",
             "c1f5ea0d-0d45-414f-b1c7-1c201bcafef1",
             "184faed7-af51-4017-bfa9-4850c8a4ddb7",
-            "298abba3-7f63-41ab-a4cf-57724f883002"
+            "298abba3-7f63-41ab-a4cf-57724f883002",
+            "59eec288-8265-4b46-a272-a9076495f8e6"
         ]
     },
     "canvasState": {
-        "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002"
+        "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "298abba3-7f63-41ab-a4cf-57724f883002",
-        "selectedInstance": "c68f6138-a21d-471d-a95c-7d054a03dda8"
+        "topInstance": "f94f3f13-627f-4409-9b48-5cb8ade0c788",
+        "selectedInstance": "baabcfff-c44f-42d9-b8f2-0b2ab36ee27b"
     },
     "codeState": {
-        "topInstance": "184faed7-af51-4017-bfa9-4850c8a4ddb7"
+        "topInstance": "f94f3f13-627f-4409-9b48-5cb8ade0c788"
     },
-    "editMode": "design"
+    "editMode": "code"
 }
