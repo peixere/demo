@@ -439,7 +439,7 @@ Ext.define('Gotom.view.Portal', {
             var me = this;
             var panel = '';
             var panelId = id;
-            var tabPanel = Ext.getCmp('tabPanel');
+            var tabPanel = me.tabPanel;
             for (var i = 0; i < tabPanel.items.length; i++)
             {
                 if (tabPanel.items.get(i).id === panelId)

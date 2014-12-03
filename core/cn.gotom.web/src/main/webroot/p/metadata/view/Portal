@@ -676,7 +676,7 @@
                     "    var me = this;\r",
                     "    var panel = '';\r",
                     "    var panelId = id;\r",
-                    "    var tabPanel = Ext.getCmp('tabPanel');\r",
+                    "    var tabPanel = me.tabPanel;\r",
                     "    for (var i = 0; i < tabPanel.items.length; i++)\r",
                     "    {\r",
                     "        if (tabPanel.items.get(i).id === panelId)\r",
