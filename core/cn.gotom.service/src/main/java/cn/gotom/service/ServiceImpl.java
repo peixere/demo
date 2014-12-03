@@ -46,9 +46,9 @@ public class ServiceImpl implements Service
 	public void init()
 	{
 		defaultCustom();
-		initUser();
 		defalutData();
 		defaultCustomRight();
+		initUser();
 	}
 
 	private void initUser()
