@@ -103,10 +103,43 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
+                                "iconCls": "icon-refresh",
+                                "text": "刷新"
+                            },
+                            "designerId": "66f9419a-ea55-4565-9485-737503f6becd",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRefClick",
+                                        "implHandler": [
+                                            "this.loadRight();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "designerId": "00c346e3-b5fc-407d-901a-ddd4d6d50208"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
                                 "iconCls": "icon-add",
                                 "text": "添加目录"
                             },
-                            "designerId": "66f9419a-ea55-4565-9485-737503f6becd",
+                            "designerId": "737c9d67-fdb0-40b1-b4ce-f4097215b04b",
                             "cn": [
                                 {
                                     "type": "basiceventbinding",
@@ -123,7 +156,7 @@
                                         "name": "click",
                                         "scope": "me"
                                     },
-                                    "designerId": "00c346e3-b5fc-407d-901a-ddd4d6d50208"
+                                    "designerId": "7b734b6e-1696-49ce-925e-4ab039fd0b38"
                                 }
                             ]
                         },
@@ -508,38 +541,13 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "onRightTreePanelAfterLayout",
+                        "fn": "onRightTreePanelAfterRender",
                         "implHandler": [
-                            "var me = this;\r",
-                            "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
-                            "    {\r",
-                            "        defaultRootId : '',\r",
-                            "        clearOnLoad : true,\r",
-                            "        nodeParam : 'id',\r",
-                            "        model : 'Gotom.model.RightTreeCheckModel',\r",
-                            "        proxy :\r",
-                            "        {\r",
-                            "            type : \"ajax\",\r",
-                            "            url : ctxp+'/p/right!tree.do',\r",
-                            "            listeners: {\r",
-                            "                exception: function(proxy, response, operation, eOpts)\r",
-                            "                {\r",
-                            "                    Common.onAjaxException(response,me);\r",
-                            "            }\r",
-                            "        }            \r",
-                            "    }    \r",
-                            "});\r",
-                            "var tree = Ext.getCmp('RightTreePanel');\r",
-                            "tree.bindStore(myStore);\r",
-                            "myStore.reload();\r",
-                            "tree.expandAll();\r",
-                            "Ext.defer(function()\r",
-                            "{\r",
-                            "    Ext.getCmp('RightTreePanel').expandAll();\r",
-                            "}, 1000);"
+                            "this.treePanel = component;\r",
+                            "this.loadRight();"
                         ],
                         "single": true,
-                        "name": "afterlayout",
+                        "name": "afterrender",
                         "scope": "me"
                     },
                     "designerId": "22213db6-b997-4158-a545-dad3b9856af7"
@@ -637,6 +645,46 @@
                 ]
             },
             "designerId": "baabcfff-c44f-42d9-b8f2-0b2ab36ee27b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadRight",
+                "implHandler": [
+                    "var me = this;\r",
+                    "var myStore = Ext.create(\"Ext.data.TreeStore\",\r",
+                    "    {\r",
+                    "        defaultRootId : '',\r",
+                    "        clearOnLoad : true,\r",
+                    "        nodeParam : 'id',\r",
+                    "        model : 'Gotom.model.RightTreeCheckModel',\r",
+                    "        proxy :\r",
+                    "        {\r",
+                    "            type : \"ajax\",\r",
+                    "            url : ctxp+'/p/right!tree.do',\r",
+                    "            listeners: {\r",
+                    "                exception: function(proxy, response, operation, eOpts)\r",
+                    "                {\r",
+                    "                    Common.onAjaxException(response,me);\r",
+                    "            }\r",
+                    "        }            \r",
+                    "    }    \r",
+                    "});\r",
+                    "me.treePanel.bindStore(myStore);\r",
+                    "myStore.reload();\r",
+                    "me.treePanel.expandAll();\r",
+                    "Ext.defer(function()\r",
+                    "{\r",
+                    "    me.treePanel.expandAll();\r",
+                    "}, 1000);"
+                ]
+            },
+            "designerId": "b5a7190a-1a46-4120-97f7-cf78d169f91c"
         }
     ]
 }

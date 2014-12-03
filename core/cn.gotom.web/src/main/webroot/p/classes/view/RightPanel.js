@@ -59,6 +59,17 @@ Ext.define('Gotom.view.RightPanel', {
                             items: [
                                 {
                                     xtype: 'button',
+                                    iconCls: 'icon-refresh',
+                                    text: '刷新',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onRefClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
                                     iconCls: 'icon-add',
                                     text: '添加目录',
                                     listeners: {
@@ -188,8 +199,8 @@ Ext.define('Gotom.view.RightPanel', {
                         }
                     ],
                     listeners: {
-                        afterlayout: {
-                            fn: me.onRightTreePanelAfterLayout,
+                        afterrender: {
+                            fn: me.onRightTreePanelAfterRender,
                             single: true,
                             scope: me
                         }
@@ -216,6 +227,10 @@ Ext.define('Gotom.view.RightPanel', {
             record.set('checked', true);
         }
         Common.onTreeChildNodesChecked(record,record.data.checked);
+    },
+
+    onRefClick: function(button, e, eOpts) {
+        this.loadRight();
     },
 
     onButtonAddClick: function(button, e, eOpts) {
@@ -325,34 +340,9 @@ Ext.define('Gotom.view.RightPanel', {
         this.upForm = component;
     },
 
-    onRightTreePanelAfterLayout: function(container, layout, eOpts) {
-        var me = this;
-        var myStore = Ext.create("Ext.data.TreeStore",
-            {
-                defaultRootId : '',
-                clearOnLoad : true,
-                nodeParam : 'id',
-                model : 'Gotom.model.RightTreeCheckModel',
-                proxy :
-                {
-                    type : "ajax",
-                    url : ctxp+'/p/right!tree.do',
-                    listeners: {
-                        exception: function(proxy, response, operation, eOpts)
-                        {
-                            Common.onAjaxException(response,me);
-                    }
-                }            
-            }    
-        });
-        var tree = Ext.getCmp('RightTreePanel');
-        tree.bindStore(myStore);
-        myStore.reload();
-        tree.expandAll();
-        Ext.defer(function()
-        {
-            Ext.getCmp('RightTreePanel').expandAll();
-        }, 1000);
+    onRightTreePanelAfterRender: function(component, eOpts) {
+        this.treePanel = component;
+        this.loadRight();
     },
 
     onBtnAddClick: function(leaf) {
@@ -408,6 +398,35 @@ Ext.define('Gotom.view.RightPanel', {
                 icon : Ext.Msg.WARNING
             });
         }
+    },
+
+    loadRight: function() {
+        var me = this;
+        var myStore = Ext.create("Ext.data.TreeStore",
+            {
+                defaultRootId : '',
+                clearOnLoad : true,
+                nodeParam : 'id',
+                model : 'Gotom.model.RightTreeCheckModel',
+                proxy :
+                {
+                    type : "ajax",
+                    url : ctxp+'/p/right!tree.do',
+                    listeners: {
+                        exception: function(proxy, response, operation, eOpts)
+                        {
+                            Common.onAjaxException(response,me);
+                    }
+                }            
+            }    
+        });
+        me.treePanel.bindStore(myStore);
+        myStore.reload();
+        me.treePanel.expandAll();
+        Ext.defer(function()
+        {
+            me.treePanel.expandAll();
+        }, 1000);
     }
 
 });

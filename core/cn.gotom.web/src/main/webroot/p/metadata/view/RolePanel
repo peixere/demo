@@ -37,6 +37,41 @@
                     "userConfig": {
                         "layout|flex": null,
                         "id": null,
+                        "iconCls": "icon-refresh",
+                        "text": "刷新"
+                    },
+                    "designerId": "817d84ca-7c42-4585-af57-b62876ff40b5",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnRefClick",
+                                "implHandler": [
+                                    "this.loadRoleGrid();\r",
+                                    "this.loadFormData('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "e2f8ced6-3f6a-4d9b-8188-8d79db5be200"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": null,
                         "iconCls": "icon-add",
                         "text": "新增"
                     },
@@ -169,41 +204,6 @@
                                 "scope": "me"
                             },
                             "designerId": "e654e973-1617-49fe-bcf8-db66f7e2a659"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "id": null,
-                        "iconCls": "icon-refresh",
-                        "text": "刷新"
-                    },
-                    "designerId": "817d84ca-7c42-4585-af57-b62876ff40b5",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onBtnRefClick",
-                                "implHandler": [
-                                    "this.loadRoleGrid();\r",
-                                    "this.loadFormData('');"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "designerId": "e2f8ced6-3f6a-4d9b-8188-8d79db5be200"
                         }
                     ]
                 }

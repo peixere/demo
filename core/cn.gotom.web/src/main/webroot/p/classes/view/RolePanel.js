@@ -35,6 +35,17 @@ Ext.define('Gotom.view.RolePanel', {
                     items: [
                         {
                             xtype: 'button',
+                            iconCls: 'icon-refresh',
+                            text: '刷新',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnRefClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
                             iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
@@ -73,17 +84,6 @@ Ext.define('Gotom.view.RolePanel', {
                             listeners: {
                                 click: {
                                     fn: me.onBtnSaveClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            iconCls: 'icon-refresh',
-                            text: '刷新',
-                            listeners: {
-                                click: {
-                                    fn: me.onBtnRefClick,
                                     scope: me
                                 }
                             }
@@ -224,6 +224,11 @@ Ext.define('Gotom.view.RolePanel', {
         me.callParent(arguments);
     },
 
+    onBtnRefClick: function(button, e, eOpts) {
+        this.loadRoleGrid();
+        this.loadFormData('');
+    },
+
     onBtnNewClick: function(button, e, eOpts) {
         this.loadFormData('');
     },
@@ -247,11 +252,6 @@ Ext.define('Gotom.view.RolePanel', {
 
     onBtnSaveClick: function(button, e, eOpts) {
         this.saveForm();
-    },
-
-    onBtnRefClick: function(button, e, eOpts) {
-        this.loadRoleGrid();
-        this.loadFormData('');
     },
 
     onViewItemClick: function(dataview, record, item, index, e, eOpts) {

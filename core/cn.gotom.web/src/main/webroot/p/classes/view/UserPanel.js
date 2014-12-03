@@ -37,7 +37,17 @@ Ext.define('Gotom.view.UserPanel', {
                     items: [
                         {
                             xtype: 'button',
-                            id: 'btnNew2',
+                            iconCls: 'icon-refresh',
+                            text: '刷新',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnRefClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
                             iconCls: 'icon-add',
                             text: '新增',
                             listeners: {
@@ -49,7 +59,7 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnEdit2',
+                            hidden: true,
                             iconCls: 'icon-edit',
                             text: '修改',
                             listeners: {
@@ -61,7 +71,6 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnNormal',
                             iconCls: 'icon-status-online',
                             text: '恢复',
                             listeners: {
@@ -85,7 +94,6 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnBanned',
                             iconCls: 'icon-status-offline',
                             text: '挂起',
                             listeners: {
@@ -97,7 +105,6 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnDel2',
                             iconCls: 'icon-del',
                             text: '删除',
                             listeners: {
@@ -109,24 +116,11 @@ Ext.define('Gotom.view.UserPanel', {
                         },
                         {
                             xtype: 'button',
-                            id: 'btnSave2',
                             iconCls: 'icon-save',
                             text: '保存',
                             listeners: {
                                 click: {
                                     fn: me.onBtnSaveClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            id: 'btnRef2',
-                            iconCls: 'icon-refresh',
-                            text: '刷新',
-                            listeners: {
-                                click: {
-                                    fn: me.onBtnRefClick,
                                     scope: me
                                 }
                             }
@@ -312,6 +306,11 @@ Ext.define('Gotom.view.UserPanel', {
         me.callParent(arguments);
     },
 
+    onBtnRefClick: function(button, e, eOpts) {
+        this.loadGrid();
+        this.loadFormData('');
+    },
+
     onBtnNewClick: function(button, e, eOpts) {
         this.loadFormData('');
     },
@@ -391,11 +390,6 @@ Ext.define('Gotom.view.UserPanel', {
 
     onBtnSaveClick: function(button, e, eOpts) {
         this.saveForm();
-    },
-
-    onBtnRefClick: function(button, e, eOpts) {
-        this.loadGrid();
-        this.loadFormData('');
     },
 
     onViewItemlClick: function(dataview, record, item, index, e, eOpts) {
