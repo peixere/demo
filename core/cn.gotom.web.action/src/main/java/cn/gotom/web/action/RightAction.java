@@ -107,7 +107,7 @@ public class RightAction extends AbsPortalAction
 			uf.setContentType(uploadContentType);
 			uf.setFileCharset(FileCharset.getCharset(upload));
 			uf.setUser(getCurrentUser());
-			String jsonStr = new String(uf.getFileStream());
+			String jsonStr = new String(uf.getFileStream(), uf.getFileCharset());
 			List<Right> rights = GsonUtils.toList(Right[].class, jsonStr);
 			rightService.saveAll(rights);
 			for (Right right : rights)
