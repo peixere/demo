@@ -19,7 +19,7 @@ Ext.define('Common', {
 				addTabPanel : function(conf) {
 					var p = Ext.getCmp('app-viewport');
 					if (!Ext.isEmpty(p)) {
-						p.addTabPanel(conf.component,conf.id,conf.title);
+						p.addTabPanel(conf.component, conf.id, conf.title);
 					} else {
 						Ext.MessageBox.show({
 									title : '操作提示',
@@ -266,19 +266,19 @@ Ext.define('Common', {
 							});
 				},
 
-				formSubmit : function(config) {
-					if (config.form.isValid()) {
+				submit : function(conf) {
+					if (conf.form.isValid()) {
 						var msg = '正在保存数据，稍后...';
-						if (config.msg) {
-							msg = config.msg;
+						if (conf.msg) {
+							msg = conf.msg;
 						}
-						config.form.submit({
-									url : config.url,
+						conf.form.submit({
+									url : conf.url,
 									method : 'POST',
 									waitMsg : msg,
 									success : function(f, action) {
 										if (action.result.success) {
-											config.callback(action.result);// 调用回调函数
+											conf.callback(action.result);// 调用回调函数
 										} else {
 											Common.onAjaxException(action.response);
 										}
@@ -288,6 +288,14 @@ Ext.define('Common', {
 									}
 								});
 					}
+				},
+
+				formSubmit : function(conf) {
+					Ext.Msg.confirm("确认提示", "确认要提交数据吗？", function(button) {
+								if (button == "yes") {
+									Common.submit(conf);
+								}
+							});
 				},
 
 				createTreeStore : function(URL, pid) {
