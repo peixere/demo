@@ -466,6 +466,17 @@ Ext.define('Gotom.view.Portal', {
         }
     },
 
+    removeTab: function(tabPanel) {
+        try
+        {
+            me.tabPanel.remove(tabPanel);
+        }
+        catch(error)
+        {
+            Ext.Msg.alert('信息提示',error);
+        }
+    },
+
     showNotice: function(conf) {
         if(Ext.isEmpty(this.noticeWindow))
         {

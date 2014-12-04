@@ -185,7 +185,7 @@
                     "me.resetPosition();\r",
                     "me.setTitle(title);\r",
                     "me.noticePanel.update(html);\r",
-                    "Ext.defer(function(){me.collapse();}, 3000);"
+                    "Ext.defer(function(){me.collapse();}, 6000);"
                 ]
             },
             "designerId": "55117b72-f03c-44d9-a967-570259713a3a"

@@ -127,7 +127,7 @@ Ext.define('Gotom.view.NoticeWindow', {
         me.resetPosition();
         me.setTitle(title);
         me.noticePanel.update(html);
-        Ext.defer(function(){me.collapse();}, 3000);
+        Ext.defer(function(){me.collapse();}, 6000);
     }
 
 });

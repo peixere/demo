@@ -713,6 +713,31 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "removeTab",
+                "designer|params": [
+                    "tabPanel"
+                ],
+                "implHandler": [
+                    "try\r",
+                    "{\r",
+                    "    me.tabPanel.remove(tabPanel);\r",
+                    "}\r",
+                    "catch(error)\r",
+                    "{\r",
+                    "    Ext.Msg.alert('信息提示',error);\r",
+                    "}"
+                ]
+            },
+            "designerId": "73756c4a-d6fc-4205-aa0f-ce7938161aef"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "showNotice",
                 "designer|params": [
                     "conf"
