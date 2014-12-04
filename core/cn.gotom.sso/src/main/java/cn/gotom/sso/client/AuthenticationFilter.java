@@ -32,6 +32,8 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	 */
 	private String service;
 
+	private boolean localValidate;
+
 	private static String serverLogoutUrl;
 
 	public static String getServerLogoutUrl()
@@ -49,6 +51,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		setServerLoginUrl(getInitParameter(filterConfig, serverLoginUrlParameter, null));
 		if (this.getServerLoginUrl().startsWith(THIS))
 		{
+			localValidate = true;
 			setServerLoginUrl(filterConfig.getServletContext().getContextPath() + serverLoginUrl.substring(THIS.length(), serverLoginUrl.length()));
 			log.info("Property [serverLoginUrl] value [" + serverLoginUrl + "]");
 		}
@@ -133,19 +136,27 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	@Override
 	public Ticket validate(String ticketId, String serverLoginUrl) throws SSOException
 	{
-		if (TicketMap.instance.containsKey(ticketId))
+		if (localValidate)
 		{
-			return TicketMap.instance.get(ticketId);
+			if (TicketMap.instance.containsKey(ticketId))
+			{
+				return TicketMap.instance.get(ticketId);
+			}
+			else
+				return null;
 		}
-		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
-		String url = serverLoginUrl + (serverLoginUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
-		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8", ticketId);
-		Ticket ticket = TicketImpl.parseFromJSON(jsonString);
-		if (ticket == null)
+		else
 		{
-			log.debug(" validateUrl: " + url);
+			String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
+			String url = serverLoginUrl + (serverLoginUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
+			String jsonString = CommonUtils.getResponseFromServer(url, "utf-8", ticketId);
+			Ticket ticket = TicketImpl.parseFromJSON(jsonString);
+			if (ticket == null)
+			{
+				log.debug(" validateUrl: " + url);
+			}
+			return ticket;
 		}
-		return ticket;
 	}
 
 	protected Ticket getTicket(final HttpServletRequest request)
