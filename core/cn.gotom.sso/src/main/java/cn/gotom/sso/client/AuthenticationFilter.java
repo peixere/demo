@@ -90,7 +90,10 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 			}
 			catch (SSOException e)
 			{
-				log.error("validate ticket [" + ticketId + "] error", e);
+				final HttpSession session = request.getSession();
+				session.removeAttribute(getTicketParameterName());
+				ticket = null;
+				log.warn("validate ticket [" + ticketId + "] error " + e.getMessage());
 			}
 		}
 		if (ticket != null)
