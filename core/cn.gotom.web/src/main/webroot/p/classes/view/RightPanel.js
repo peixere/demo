@@ -165,11 +165,24 @@ Ext.define('Gotom.view.RightPanel', {
                     columns: [
                         {
                             xtype: 'treecolumn',
-                            width: 200,
+                            width: 120,
                             sortable: false,
                             dataIndex: 'text',
                             menuDisabled: true,
                             text: '菜单名称',
+                            flex: 1
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            width: 240,
+                            dataIndex: 'component',
+                            text: '控件或连接'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            sortable: false,
+                            dataIndex: 'resource',
+                            text: '数据资源',
                             flex: 1
                         },
                         {
@@ -179,21 +192,8 @@ Ext.define('Gotom.view.RightPanel', {
                         },
                         {
                             xtype: 'gridcolumn',
-                            width: 200,
-                            defaultWidth: 160,
-                            dataIndex: 'component',
-                            text: '控件或连接'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            defaultWidth: 200,
-                            sortable: false,
-                            dataIndex: 'resource',
-                            text: '数据资源',
-                            flex: 1
-                        },
-                        {
-                            xtype: 'gridcolumn',
+                            width: 60,
+                            align: 'right',
                             dataIndex: 'sort',
                             text: '排列顺序'
                         }

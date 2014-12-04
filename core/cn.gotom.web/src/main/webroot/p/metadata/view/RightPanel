@@ -463,7 +463,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 200,
+                        "width": 120,
                         "defaultWidth": null,
                         "sortable": false,
                         "dataIndex": "text",
@@ -472,6 +472,38 @@
                         "flex": 1
                     },
                     "designerId": "625e3dfe-565d-4c29-a8a0-712fb4e4f5d6"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 240,
+                        "defaultWidth": null,
+                        "dataIndex": "component",
+                        "text": "控件或连接"
+                    },
+                    "designerId": "94274c82-527c-4224-af82-6cf9e0740a51"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": null,
+                        "defaultWidth": null,
+                        "sortable": false,
+                        "dataIndex": "resource",
+                        "text": "数据资源",
+                        "flex": 1
+                    },
+                    "designerId": "ebcf332f-9fc4-40b7-81dc-cc7682b2e415"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -494,37 +526,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 200,
-                        "defaultWidth": 160,
-                        "dataIndex": "component",
-                        "text": "控件或连接"
-                    },
-                    "designerId": "94274c82-527c-4224-af82-6cf9e0740a51"
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "defaultWidth": 200,
-                        "sortable": false,
-                        "dataIndex": "resource",
-                        "text": "数据资源",
-                        "flex": 1
-                    },
-                    "designerId": "ebcf332f-9fc4-40b7-81dc-cc7682b2e415"
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
+                        "width": 60,
+                        "align": "right",
                         "dataIndex": "sort",
                         "text": "排列顺序"
                     },
