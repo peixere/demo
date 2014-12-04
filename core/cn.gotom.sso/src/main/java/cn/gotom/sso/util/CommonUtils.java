@@ -7,7 +7,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -27,11 +26,17 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+
+import cn.gotom.sso.SSOException;
+import cn.gotom.util.StringUtils;
 
 /**
  * Common utilities so that we don't need to include log4j
@@ -251,11 +256,6 @@ public final class CommonUtils
 		return request.getQueryString() == null || request.getQueryString().indexOf(parameter) == -1 ? null : request.getParameter(parameter);
 	}
 
-	public static String getResponseFromServer(final URL constructedUrl, final String encoding, final String sessionId)
-	{
-		return getResponseFromServer(constructedUrl, HttpsURLConnection.getDefaultHostnameVerifier(), encoding, sessionId);
-	}
-
 	public static String getResponseFromServer(final URL constructedUrl, final HostnameVerifier hostnameVerifier, final String encoding, final String sessionId)
 	{
 		URLConnection conn = null;
@@ -303,16 +303,35 @@ public final class CommonUtils
 
 	}
 
-	public static String getResponseFromServer(final String url, String encoding, final String sessionId)
+	public static String getResponseFromServer(final String url, String encoding, final String sessionId) throws SSOException
 	{
 		try
 		{
-			return getResponseFromServer(new URL(url), encoding, sessionId);
+			return getResponse(url, encoding, sessionId);
+			// return getResponseFromServer(new URL(url), HttpsURLConnection.getDefaultHostnameVerifier(), encoding, sessionId);
 		}
-		catch (final MalformedURLException e)
+		catch (final Exception e)
 		{
 			log.error(e.getMessage() + " url=" + url);
-			throw new IllegalArgumentException(e);
+			throw new SSOException(e);
+		}
+	}
+
+	private static String getResponse(final String url, String encoding, final String sessionId) throws ClientProtocolException, IOException, Exception
+	{
+		HttpGet httpget = new HttpGet(url);
+		try
+		{
+			if (StringUtils.isNotEmpty(sessionId))
+			{
+				httpget.setHeader("Cookie", sessionId);
+			}
+			HttpResponse response = HttpHelper.getClient().execute(httpget);
+			return HttpHelper.getContent(response, encoding);
+		}
+		finally
+		{
+			httpget.releaseConnection();
 		}
 	}
 
@@ -485,5 +504,11 @@ public final class CommonUtils
 			}
 		}
 		return inputXML;
+	}
+
+	public static void main(String[] args) throws ClientProtocolException, IOException, Exception
+	{
+		String response = CommonUtils.getResponse("https://localhost:8443", "utf-8", "");
+		System.out.println(response);
 	}
 }
