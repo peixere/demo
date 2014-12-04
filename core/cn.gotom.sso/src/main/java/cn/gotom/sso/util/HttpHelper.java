@@ -18,10 +18,24 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import cn.gotom.util.ClassLoaderUtils;
+
 public class HttpHelper
 {
 	public static void main(String[] args) throws Exception
 	{
+
+		HttpGet httpget = new HttpGet("https://localhost:8443/");
+		try
+		{
+			String store = ClassLoaderUtils.getPath(HttpHelper.class) + "keystore/server.keystore";
+			HttpResponse response = HttpHelper.getClient(store).execute(httpget);
+			System.out.println(HttpHelper.getContent(response, "utf-8"));
+		}
+		finally
+		{
+			httpget.releaseConnection();
+		}
 
 		String s = getResponse("https://localhost:8443/", "utf-8");
 		System.out.println(s);
@@ -90,7 +104,7 @@ public class HttpHelper
 			if (keyStore != null && keyStore.trim().length() > 0)
 			{
 				instream = new FileInputStream(new File(keyStore));
-				trustStore.load(instream, "nopassword".toCharArray());
+				trustStore.load(instream, "888888".toCharArray());
 			}
 		}
 		catch (Exception e)

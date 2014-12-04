@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import cn.gotom.sso.SSOException;
 import cn.gotom.sso.Ticket;
 import cn.gotom.sso.TicketImpl;
+import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.filter.AuthenticationIgnoreFilter;
 import cn.gotom.sso.util.CommonUtils;
@@ -114,7 +115,7 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		String uri = UrlUtils.buildFullRequestURI(request);
 		if (urlToRedirectTo.startsWith(uri))
 		{
-			//urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
+			// urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
 		}
 		log.debug("redirecting to \"" + urlToRedirectTo + "\"");
 		response.sendRedirect(urlToRedirectTo);
@@ -129,6 +130,10 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 	@Override
 	public Ticket validate(String ticketId, String serverLoginUrl) throws SSOException
 	{
+		if (TicketMap.instance.containsKey(ticketId))
+		{
+			return TicketMap.instance.get(ticketId);
+		}
 		String queryString = TicketValidator.Method + "=" + TicketValidator.Validate + "&" + this.getTicketParameterName() + "=" + ticketId;
 		String url = serverLoginUrl + (serverLoginUrl.indexOf("?") >= 0 ? "&" : "?") + queryString;
 		String jsonString = CommonUtils.getResponseFromServer(url, "utf-8", ticketId);
