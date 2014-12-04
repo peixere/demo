@@ -8,14 +8,14 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyStore;
 
-import javax.net.ssl.SSLContext;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 
 import cn.gotom.util.ClassLoaderUtils;
@@ -28,7 +28,9 @@ public class HttpHelper
 		HttpGet httpget = new HttpGet("https://localhost:8443/");
 		try
 		{
-			String store = ClassLoaderUtils.getPath(HttpHelper.class) + "keystore/server.keystore";
+			String s = getResponse("https://localhost/", "utf-8");
+			System.out.println(s);
+			String store = ClassLoaderUtils.getPath(HttpHelper.class) + "keystore/gotom.key.p12";
 			HttpResponse response = HttpHelper.getClient(store).execute(httpget);
 			System.out.println(HttpHelper.getContent(response, "utf-8"));
 		}
@@ -36,12 +38,7 @@ public class HttpHelper
 		{
 			httpget.releaseConnection();
 		}
-
-		String s = getResponse("https://localhost:8443/", "utf-8");
-		System.out.println(s);
 	}
-
-	private static CloseableHttpClient httpClient;
 
 	private HttpHelper()
 	{
@@ -91,20 +88,22 @@ public class HttpHelper
 		return getClient(null);
 	}
 
-	public static synchronized CloseableHttpClient getClient(String keyStore) throws Exception
+	public static synchronized CloseableHttpClient getClient(String keyStoreFile) throws Exception
 	{
-		if (httpClient != null)
-		{
-			return httpClient;
-		}
 		KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		SSLContextBuilder sslContextBuilder = SSLContexts.custom();
+		sslContextBuilder.useTLS();
+		sslContextBuilder.loadTrustMaterial(trustStore, new TrustSelfSignedStrategy());
+
 		FileInputStream instream = null;
 		try
 		{
-			if (keyStore != null && keyStore.trim().length() > 0)
+			if (keyStoreFile != null && keyStoreFile.trim().length() > 0)
 			{
-				instream = new FileInputStream(new File(keyStore));
-				trustStore.load(instream, "888888".toCharArray());
+				KeyStore keyStore = KeyStore.getInstance("PKCS12");
+				instream = new FileInputStream(new File(keyStoreFile));
+				keyStore.load(instream, "888888".toCharArray());
+				sslContextBuilder.loadKeyMaterial(keyStore, "888888".toCharArray());
 			}
 		}
 		catch (Exception e)
@@ -116,12 +115,12 @@ public class HttpHelper
 			if (instream != null)
 				instream.close();
 		}
-		SSLContext sslcontext = SSLContexts.custom().useTLS().loadTrustMaterial(trustStore, new TrustSelfSignedStrategy()).build();
-		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext);
-		// Allow TLSv1 protocol only
-		// SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1", }, null, SSLConnectionSocketFactory.STRICT_HOSTNAME_VERIFIER);
-		httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
-		return httpClient;
+		// new String[] { "TLSv1", }
+		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContextBuilder.build(), SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		HttpClientBuilder builder = HttpClients.custom();
+		builder.setHostnameVerifier(SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		builder.setSSLSocketFactory(sslsf);
+		return builder.build();
 	}
 
 }
