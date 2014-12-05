@@ -151,6 +151,8 @@ public class RoleAction extends AbsPortalAction
 			String[] ids = role.getId().split(",");
 			for (String id : ids)
 			{
+				List<Right> oldRights = roleService.findRight(id);
+				roleService.removeRoleRight(oldRights);
 				roleService.removeById(id.trim());
 			}
 		}
