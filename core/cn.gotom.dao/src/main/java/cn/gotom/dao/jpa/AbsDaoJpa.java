@@ -1,5 +1,6 @@
 package cn.gotom.dao.jpa;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -195,13 +196,18 @@ abstract class AbsDaoJpa
 		q.executeUpdate();
 	}
 
-	protected void remove(String table, String where, String value)
+	protected void remove(Class<?> clazz, String where, String value)
 	{
 		StringBuffer jpql = new StringBuffer();
-		jpql.append("delete from " + table);
+		jpql.append("delete from " + clazz.getSimpleName());
 		jpql.append(" where " + where + " = :" + where);
 		Query q = getEntityManager().createQuery(jpql.toString());
 		q.setParameter(where, value);
 		q.executeUpdate();
+	}
+
+	protected void delete(Class<?> clazz, Serializable id)
+	{
+		getEntityManager().remove(getEntityManager().find(clazz, id));
 	}
 }

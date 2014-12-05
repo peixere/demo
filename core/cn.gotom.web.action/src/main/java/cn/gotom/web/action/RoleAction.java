@@ -13,7 +13,6 @@ import org.apache.struts2.convention.annotation.Result;
 import cn.gotom.pojos.Organization;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
-import cn.gotom.pojos.RoleRight;
 import cn.gotom.service.OrganizationService;
 import cn.gotom.service.RightService;
 import cn.gotom.service.RoleService;
@@ -105,7 +104,7 @@ public class RoleAction extends AbsPortalAction
 
 	public String save()
 	{
-		List<Right> roleRights = new ArrayList<Right>();
+		List<Right> selectedRights = new ArrayList<Right>();
 		if (StringUtils.isNotEmpty(rightIds))
 		{
 			String[] rightIdArray = rightIds.split(",");
@@ -116,7 +115,7 @@ public class RoleAction extends AbsPortalAction
 				{
 					if (right.getId().equals(rightId.trim()))
 					{
-						roleRights.add(right);
+						selectedRights.add(right);
 						break;
 					}
 				}
@@ -124,23 +123,7 @@ public class RoleAction extends AbsPortalAction
 		}
 		Organization org = orgService.get(role.getOrganizationId());
 		role.setOrganization(org);
-		roleService.save(role);
-		List<Right> oldRights = roleService.findRight(role.getId());
-		for (Right right : roleRights)
-		{
-			if (!oldRights.contains(right))
-			{
-				RoleRight rr = new RoleRight();
-				rr.setRight(right);
-				rr.setRole(role);
-				roleService.persist(rr);
-			}
-			else
-			{
-				oldRights.remove(right);
-			}
-		}
-		roleService.removeRoleRight(oldRights);
+		roleService.save(role, selectedRights);
 		return "success";
 	}
 
@@ -151,8 +134,6 @@ public class RoleAction extends AbsPortalAction
 			String[] ids = role.getId().split(",");
 			for (String id : ids)
 			{
-				List<Right> oldRights = roleService.findRight(id);
-				roleService.removeRoleRight(oldRights);
 				roleService.removeById(id.trim());
 			}
 		}

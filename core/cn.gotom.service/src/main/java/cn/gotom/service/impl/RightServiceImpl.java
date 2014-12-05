@@ -256,7 +256,7 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 	public void removeById(String id)
 	{
 		this.nativeRemove("core_role_right", "right_id", id);
-		this.remove(CustomRight.class.getSimpleName(), "right_id", id);
+		this.remove(CustomRight.class, "right_id", id);
 		Right entity = this.get(id);
 		if (entity != null)
 		{

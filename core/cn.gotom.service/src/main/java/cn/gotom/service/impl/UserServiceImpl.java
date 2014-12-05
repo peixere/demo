@@ -108,8 +108,8 @@ public class UserServiceImpl extends GenericDaoJpa<User, String> implements User
 	@Override
 	public void delete(User user)
 	{
-		remove(UploadFile.class.getSimpleName(), "user_id", user.getId());
-		remove(CustomUser.class.getSimpleName(), "user_id", user.getId());
+		remove(UploadFile.class, "user_id", user.getId());
+		remove(CustomUser.class, "user_id", user.getId());
 		getEntityManager().remove(getEntityManager().getReference(persistentClass, user.getId()));
 	}
 }

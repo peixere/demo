@@ -83,6 +83,7 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	public void removeById(String id)
 	{
 		this.nativeRemove("core_user_role", "role_id", id);
+		this.remove(RoleRight.class, "role_id", id);
 		Role entity = this.get(id);
 		if (entity != null)
 		{
@@ -105,9 +106,41 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 
 	@Transactional
 	@Override
-	public void removeRoleRight(List<Right> oldRights)
+	public List<RoleRight> findRoleRight(String roleId)
 	{
-		for (Right right : oldRights)
-			this.remove(RoleRight.class.getSimpleName(), "right_id", right.getId());
+		StringBuffer jpql = new StringBuffer();
+		jpql.append("select p from " + RoleRight.class.getSimpleName() + " p");
+		jpql.append(" where p.role.id = :roleId");
+		Query q = getEntityManager().createQuery(jpql.toString());
+		q.setParameter("roleId", roleId);
+		@SuppressWarnings("unchecked")
+		List<RoleRight> list = q.getResultList();
+		return list;
+	}
+
+	@Transactional
+	@Override
+	public void save(Role role, List<Right> roleRights)
+	{
+		getEntityManager().persist(role);
+		List<RoleRight> oldList = findRoleRight(role.getId());
+		for (RoleRight o : oldList)
+		{
+			if (roleRights.contains(o.getRight()))
+			{
+				roleRights.remove(o.getRight());
+			}
+			else
+			{
+				getEntityManager().remove(o.getRight());
+			}
+		}
+		for (Right o : roleRights)
+		{
+			RoleRight rr = new RoleRight();
+			rr.setRight(o);
+			rr.setRole(role);
+			getEntityManager().persist(rr);
+		}
 	}
 }

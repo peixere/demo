@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.Role;
+import cn.gotom.pojos.RoleRight;
 import cn.gotom.service.impl.RoleServiceImpl;
 import cn.gotom.vo.TreeCheckedModel;
 
@@ -21,5 +22,7 @@ public interface RoleService extends GenericService<Role, String>
 
 	List<Right> findRight(String roleId);
 
-	void removeRoleRight(List<Right> oldRights);
+	List<RoleRight> findRoleRight(String roleId);
+
+	void save(Role role, List<Right> roleRights);
 }
