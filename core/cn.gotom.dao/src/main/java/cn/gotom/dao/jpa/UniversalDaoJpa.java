@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.OrderBy;
 import javax.persistence.Query;
 import javax.persistence.Transient;
 
@@ -43,7 +44,11 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		Field sort = findField(clazz, "sort");
 		if (sort != null && !sort.isAnnotationPresent(Transient.class))
 		{
-			orderby = orderby + prefix + sort.getName() + " asc,";
+			orderby = orderby + prefix + sort.getName();
+			OrderBy orderBy = sort.getAnnotation(OrderBy.class);
+			if (orderBy != null)
+				orderby = orderby + " " + orderBy.value();
+			orderby = orderby + ",";
 		}
 		Field versionNow = findField(clazz, "versionNow");
 		if (versionNow != null && !versionNow.isAnnotationPresent(Transient.class))
