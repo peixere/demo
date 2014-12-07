@@ -122,7 +122,7 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 	@Override
 	public void save(Role role, List<Right> roleRights)
 	{
-		getEntityManager().persist(role);
+		getEntityManager().merge(role);
 		List<RoleRight> oldList = findRoleRight(role.getId());
 		for (RoleRight o : oldList)
 		{
@@ -132,7 +132,7 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 			}
 			else
 			{
-				getEntityManager().remove(o.getRight());
+				getEntityManager().remove(o);
 			}
 		}
 		for (Right o : roleRights)
