@@ -97,7 +97,7 @@ Ext.define('Gotom.view.UserGridPanel', {
         var me = this;
         Common.ajax({
             component : me,
-            params:{'name':query},
+            params:{'query':query},
             message : '正在加载......',    
             url : ctxp+'/p/user!list.do',
             callback : function(result)
