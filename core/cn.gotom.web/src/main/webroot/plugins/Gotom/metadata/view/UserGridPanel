@@ -180,6 +180,7 @@
                     "var me = this;\r",
                     "Common.ajax({\r",
                     "    component : me,\r",
+                    "    params:{'name':query},\r",
                     "    message : '正在加载......',    \r",
                     "    url : ctxp+'/p/user!list.do',\r",
                     "    callback : function(result)\r",
