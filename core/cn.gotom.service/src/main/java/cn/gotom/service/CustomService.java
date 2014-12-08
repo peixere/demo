@@ -27,4 +27,6 @@ public interface CustomService extends GenericService<Custom, String>
 	public CustomUser getCustomUser(String id, String customId);
 
 	public CustomRight getCustomRight(String rightId, String customId);
+
+	List<User> findUserByCustomId(String customId);
 }

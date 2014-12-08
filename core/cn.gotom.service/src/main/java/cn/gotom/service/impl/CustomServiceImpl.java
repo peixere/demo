@@ -47,6 +47,12 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		return list;
 	}
 
+	@Override
+	public List<User> findUserByCustomId(String customId)
+	{
+		return findUserByCustomId(customId, null);
+	}
+
 	@Transactional
 	@Override
 	public void saveAndRight(Custom custom, List<Right> rights)
