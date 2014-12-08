@@ -20,6 +20,7 @@ public abstract class AbsPortalAction
 	protected String id;
 	private int start;
 	private int limit;
+	protected String query;
 
 	public int getPageNum()
 	{
@@ -59,6 +60,16 @@ public abstract class AbsPortalAction
 	public void setLimit(int limit)
 	{
 		this.limit = limit;
+	}
+
+	public String getQuery()
+	{
+		return query;
+	}
+
+	public void setQuery(String query)
+	{
+		this.query = query;
 	}
 
 	public HttpServletRequest getRequest()
