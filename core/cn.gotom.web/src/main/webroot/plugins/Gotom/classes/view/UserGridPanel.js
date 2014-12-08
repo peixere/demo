@@ -91,6 +91,31 @@ Ext.define('Gotom.view.UserGridPanel', {
 
     onToolClick: function(tool, e, eOpts) {
         this.loadGrid();
+    },
+
+    loadData: function(query) {
+        var me = this;
+        Common.ajax({
+            component : me,
+            message : '正在加载......',    
+            url : ctxp+'/p/user!list.do',
+            callback : function(result)
+            {
+                var UserStore = Ext.create('Ext.data.Store', {
+                    storeId:'UserStore',
+                    fields: ['id','name','username','mobile','status','cardRFID','cardId'],
+                    data : result.data,
+                    proxy:
+                    {
+                        type: 'memory',
+                        reader:{
+                            type: 'json'
+                        }
+                    }
+                });
+                me.bindStore(UserStore);     
+            }
+        });
     }
 
 });

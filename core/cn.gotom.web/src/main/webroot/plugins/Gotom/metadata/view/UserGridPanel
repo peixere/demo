@@ -163,6 +163,45 @@
                     "designerId": "34b1941f-5595-4bda-9ae2-296ab69154a7"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadData",
+                "designer|params": [
+                    "query"
+                ],
+                "implHandler": [
+                    "var me = this;\r",
+                    "Common.ajax({\r",
+                    "    component : me,\r",
+                    "    message : '正在加载......',    \r",
+                    "    url : ctxp+'/p/user!list.do',\r",
+                    "    callback : function(result)\r",
+                    "    {\r",
+                    "        var UserStore = Ext.create('Ext.data.Store', {\r",
+                    "            storeId:'UserStore',\r",
+                    "            fields: ['id','name','username','mobile','status','cardRFID','cardId'],\r",
+                    "            data : result.data,\r",
+                    "            proxy:\r",
+                    "            {\r",
+                    "                type: 'memory',\r",
+                    "                reader:{\r",
+                    "                    type: 'json'\r",
+                    "                }\r",
+                    "            }\r",
+                    "        });\r",
+                    "        me.bindStore(UserStore);     \r",
+                    "\t}\r",
+                    "});"
+                ]
+            },
+            "designerId": "617bc3c0-b87d-44a3-94a7-ac875ebc61dd"
         }
     ]
 }

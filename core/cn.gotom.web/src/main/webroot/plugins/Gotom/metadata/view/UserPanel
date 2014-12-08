@@ -30,6 +30,75 @@
             "designerId": "efab0064-76b1-4a32-a08a-2fd9732cf75e",
             "cn": [
                 {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "fieldLabel": "用户姓名",
+                        "labelAlign": "right",
+                        "labelWidth": 60,
+                        "name": "query"
+                    },
+                    "designerId": "54f3fa35-5a9b-45d3-8930-a7f6aec9255e",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldBeforeRender",
+                                "implHandler": [
+                                    "this.query = component;"
+                                ],
+                                "name": "beforerender",
+                                "scope": "me"
+                            },
+                            "designerId": "8c29df23-74b3-4bef-a7a4-f0db0f36b3b0"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "id": null,
+                        "iconCls": "icon-search",
+                        "text": "查询"
+                    },
+                    "designerId": "c78828f0-3993-4814-832a-42fda03bf191",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onBtnSoClick",
+                                "implHandler": [
+                                    "this.loadGrid();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "44431f64-2081-4b2b-9bfc-4eeef46df3d9"
+                        }
+                    ]
+                },
+                {
                     "type": "Ext.button.Button",
                     "reference": {
                         "name": "items",
@@ -390,6 +459,23 @@
                         "scope": "me"
                     },
                     "designerId": "c09cfa53-b619-4f7e-b6da-e2a268cd4566"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onUserGridPanelItemClick",
+                        "implHandler": [
+                            "this.loadFormData(record.data.id);"
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "designerId": "35948122-1b38-4507-9028-457cb92adfa7"
                 }
             ]
         },
@@ -614,46 +700,10 @@
                 "fn": "loadGrid",
                 "implHandler": [
                     "var me = this;\r",
-                    "Common.ajax({\r",
-                    "    component : me,\r",
-                    "    message : '正在加载......',    \r",
-                    "    url : ctxp+'/p/user!list.do',\r",
-                    "    callback : me.bindGrid\r",
-                    "});"
+                    "me.userGridPanel.loadData(me.query.getValue());"
                 ]
             },
             "designerId": "bab4a028-00b5-4884-9d8c-939a52bda64d"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "bindGrid",
-                "designer|params": [
-                    "result"
-                ],
-                "implHandler": [
-                    "var me = this;\r",
-                    "var UserStore = Ext.create('Ext.data.Store', {\r",
-                    "    storeId:'UserStore',\r",
-                    "    fields: ['id','name','username','mobile','status','cardRFID','cardId'],\r",
-                    "    data : result.data,\r",
-                    "    proxy:\r",
-                    "    {\r",
-                    "        type: 'memory',\r",
-                    "        reader:{\r",
-                    "            type: 'json'\r",
-                    "        }\r",
-                    "    }\r",
-                    "});\r",
-                    "me.userGridPanel.bindStore(UserStore); "
-                ]
-            },
-            "designerId": "ae70c0c8-1886-4ee2-bdda-5fc185f18f06"
         },
         {
             "type": "basicfunction",

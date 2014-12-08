@@ -40,6 +40,30 @@ Ext.define('Gotom.view.UserPanel', {
                     border: false,
                     items: [
                         {
+                            xtype: 'textfield',
+                            fieldLabel: '用户姓名',
+                            labelAlign: 'right',
+                            labelWidth: 60,
+                            name: 'query',
+                            listeners: {
+                                beforerender: {
+                                    fn: me.onTextfieldBeforeRender,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            iconCls: 'icon-search',
+                            text: '查询',
+                            listeners: {
+                                click: {
+                                    fn: me.onBtnSoClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
                             xtype: 'button',
                             iconCls: 'icon-refresh',
                             text: '刷新',
@@ -139,6 +163,10 @@ Ext.define('Gotom.view.UserPanel', {
                     listeners: {
                         beforerender: {
                             fn: me.onUserGridPanelBeforeRender,
+                            scope: me
+                        },
+                        itemclick: {
+                            fn: me.onUserGridPanelItemClick,
                             scope: me
                         }
                     }
@@ -248,6 +276,14 @@ Ext.define('Gotom.view.UserPanel', {
         me.callParent(arguments);
     },
 
+    onTextfieldBeforeRender: function(component, eOpts) {
+        this.query = component;
+    },
+
+    onBtnSoClick: function(button, e, eOpts) {
+        this.loadGrid();
+    },
+
     onBtnRefClick: function(button, e, eOpts) {
         this.loadGrid();
         this.loadFormData('');
@@ -338,6 +374,10 @@ Ext.define('Gotom.view.UserPanel', {
         this.userGridPanel = component;
     },
 
+    onUserGridPanelItemClick: function(dataview, record, item, index, e, eOpts) {
+        this.loadFormData(record.data.id);
+    },
+
     onPanelAfterLayout: function(container, layout, eOpts) {
         this.onLoad();
     },
@@ -349,29 +389,7 @@ Ext.define('Gotom.view.UserPanel', {
 
     loadGrid: function() {
         var me = this;
-        Common.ajax({
-            component : me,
-            message : '正在加载......',    
-            url : ctxp+'/p/user!list.do',
-            callback : me.bindGrid
-        });
-    },
-
-    bindGrid: function(result) {
-        var me = this;
-        var UserStore = Ext.create('Ext.data.Store', {
-            storeId:'UserStore',
-            fields: ['id','name','username','mobile','status','cardRFID','cardId'],
-            data : result.data,
-            proxy:
-            {
-                type: 'memory',
-                reader:{
-                    type: 'json'
-                }
-            }
-        });
-        me.userGridPanel.bindStore(UserStore); 
+        me.userGridPanel.loadData(me.query.getValue());
     },
 
     loadFormData: function(id) {
