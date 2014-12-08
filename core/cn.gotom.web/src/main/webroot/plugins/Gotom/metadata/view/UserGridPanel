@@ -1,0 +1,168 @@
+{
+    "type": "Ext.grid.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "UserGridPanel",
+        "designer|userClassName": "UserGridPanel",
+        "designer|userAlias": "UserGridPanel",
+        "bodyBorder": false,
+        "title": "用户列表",
+        "columnLines": true,
+        "forceFit": true
+    },
+    "designerId": "2b0d2038-9f92-4693-b99f-f8fb80ad574c",
+    "cn": [
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "width": null,
+                "designer|displayName": "",
+                "sortable": false,
+                "dataIndex": "username",
+                "text": "登录帐号"
+            },
+            "designerId": "4e976787-d1fd-4788-971f-0482d1ff0499"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": null,
+                "width": null,
+                "sortable": false,
+                "dataIndex": "name",
+                "text": "用户姓名"
+            },
+            "designerId": "c7c2d7d0-6e20-4c77-a639-8fe276b3c292"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": null,
+                "width": null,
+                "sortable": false,
+                "dataIndex": "mobile",
+                "text": "手机号码"
+            },
+            "designerId": "184c9231-62ec-49b9-832c-f51402229838"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": null,
+                "width": null,
+                "sortable": false,
+                "dataIndex": "cardId",
+                "text": "身份证号码"
+            },
+            "designerId": "4c59d379-3916-4ffe-80f7-8c47ea845246"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": null,
+                "width": null,
+                "sortable": false,
+                "dataIndex": "cardRFID",
+                "text": "工作卡号"
+            },
+            "designerId": "36044c3b-5567-420b-9200-138b58c9e235"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "width": null,
+                "defaultWidth": 40,
+                "dataIndex": "status",
+                "text": "状态"
+            },
+            "designerId": "7171beb8-4964-43ef-a12c-2036facf6c97"
+        },
+        {
+            "type": "Ext.grid.View",
+            "reference": {
+                "name": "viewConfig",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "UserGridView"
+            },
+            "designerId": "82122e2a-813c-4518-a3e1-8f43fbf7d5a6"
+        },
+        {
+            "type": "Ext.selection.CheckboxModel",
+            "reference": {
+                "name": "selModel",
+                "type": "object"
+            },
+            "codeClass": "Ext.selection.CheckboxModel",
+            "designerId": "f2779192-8678-4f54-8edd-f8941d16319b"
+        },
+        {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "UserTool",
+                "type": "refresh"
+            },
+            "designerId": "24dbd28a-7e2d-4af3-8bdb-10e0da759d10",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onToolClick",
+                        "implHandler": [
+                            "this.loadGrid();"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "designerId": "34b1941f-5595-4bda-9ae2-296ab69154a7"
+                }
+            ]
+        }
+    ]
+}

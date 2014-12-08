@@ -1,0 +1,34 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "OrganizationModel",
+            "RightTreeCheckModel"
+        ],
+        "views": [
+            "Common",
+            "UserView",
+            "OrganizationCRUB",
+            "Portal",
+            "PortalView",
+            "OrganizationPanel",
+            "RightPanel",
+            "RightWindow",
+            "UserPassowrd",
+            "CustomForm",
+            "MyCustomForm",
+            "NoticeWindow",
+            "UserGridPanel"
+        ],
+        "appFolder": "classes",
+        "appProperty": "classes",
+        "autoCreateViewport": true,
+        "name": "Gotom"
+    },
+    "designerId": "application"
+}

@@ -1,0 +1,204 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "form": "",
+        "height": 350,
+        "maxWidth": 400,
+        "minHeight": 350,
+        "minWidth": 400,
+        "width": 400,
+        "designer|userClassName": "RightWindow",
+        "layout": "border",
+        "bodyPadding": null,
+        "manageHeight": false,
+        "title": "菜单编辑",
+        "titleCollapse": false,
+        "modal": true
+    },
+    "designerId": "59eec288-8265-4b46-a272-a9076495f8e6",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "form",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "container|pack": "end"
+            },
+            "designerId": "09c228c5-241a-4eb6-9c36-d5ef4599ee22",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "iconCls": "icon-save",
+                        "text": "保存"
+                    },
+                    "designerId": "23107865-0325-4e13-a987-042d13b77c90",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonSaveClick",
+                                "implHandler": [
+                                    "var me = this;\r",
+                                    "try{\r",
+                                    "    Common.formSubmit({  \r",
+                                    "        url : ctxp+'/p/right!save.do',\r",
+                                    "        form:me.form,\r",
+                                    "        callback : function(result)\r",
+                                    "        {\r",
+                                    "        \tme.close();\r",
+                                    "    \t}\r",
+                                    "\t});\r",
+                                    "}catch(error){\r",
+                                    "    Ext.Msg.alert('信息提示', error);\r",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "designerId": "65d6c8ec-8546-4920-a131-a82644bf9b8e"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterLayout",
+                "implHandler": [
+                    "var me = this;\r",
+                    "me.form = Ext.create('Ext.form.Panel',\r",
+                    "{\r",
+                    "    region : 'center',\r",
+                    "    bodyPadding : 20,\r",
+                    "    defaults :\r",
+                    "    {\r",
+                    "        labelAlign : 'right',\r",
+                    "        anchor : '100%',\r",
+                    "        labelWidth : 100\r",
+                    "    },\r",
+                    "    items : [\r",
+                    "    {\r",
+                    "        xtype : 'hiddenfield',\r",
+                    "        anchor : '100%',\r",
+                    "        fieldLabel : '未节点',\r",
+                    "        name : 'leaf'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'hiddenfield',\r",
+                    "        anchor : '100%',\r",
+                    "        fieldLabel : '菜单标识',\r",
+                    "        name : 'id'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'hiddenfield',\r",
+                    "        anchor : '100%',\r",
+                    "        fieldLabel : '父节点标识',\r",
+                    "        name : 'parentId'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'hiddenfield',\r",
+                    "        anchor : '100%',\r",
+                    "        fieldLabel : '所属应用',\r",
+                    "        name : 'appCode'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'textfield',\r",
+                    "        anchor : '100%',\r",
+                    "        allowBlank : false,\r",
+                    "        msgTarget : 'side',\r",
+                    "        name : 'text',\r",
+                    "        fieldLabel : '菜单名称'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'textfield',\r",
+                    "        anchor : '100%',\r",
+                    "        name : 'iconCls',\r",
+                    "        fieldLabel : '图标样式'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'radiogroup',\r",
+                    "        fieldLabel : '资源类型',\r",
+                    "        columns : 3,\r",
+                    "        defaults :\r",
+                    "        {\r",
+                    "            name : 'type'\r",
+                    "        },\r",
+                    "        items : [\r",
+                    "        {\r",
+                    "            inputValue : 'DIR',\r",
+                    "            boxLabel : '目录'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            inputValue : 'URL',\r",
+                    "            boxLabel : '连接'\r",
+                    "        },\r",
+                    "        {\r",
+                    "            inputValue : 'COMPONENT',\r",
+                    "            boxLabel : '控件'\r",
+                    "        }\r",
+                    "        ]\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'textfield',\r",
+                    "        anchor : '100%',\r",
+                    "        name : 'component',\r",
+                    "        fieldLabel : '连接或控件'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'numberfield',\r",
+                    "        anchor : '100%',\r",
+                    "        fieldLabel : '排列顺序',\r",
+                    "        name : 'sort'\r",
+                    "    },\r",
+                    "    {\r",
+                    "        xtype : 'textareafield',\r",
+                    "        anchor : '100%',\r",
+                    "        name : 'resource',\r",
+                    "        fieldLabel : '菜单资源'\r",
+                    "    }\r",
+                    "    ]\r",
+                    "});\r",
+                    "me.add(me.form);"
+                ],
+                "single": true,
+                "name": "afterlayout",
+                "scope": "me"
+            },
+            "designerId": "40cd3931-5ec8-4352-9a17-ce4b7d13b15d"
+        }
+    ]
+}
