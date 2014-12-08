@@ -24,13 +24,17 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 	}
 
 	@Override
-	public List<User> findUserByCustomId(String customId)
+	public List<User> findUserByCustomId(String customId, String username)
 	{
 		StringBuffer jpql = new StringBuffer();
 		jpql.append("Select p.user from " + CustomUser.class.getSimpleName() + " p");
 		jpql.append(" where p.custom.id = :customId");
+		jpql.append(" and (p.user.username like :username");
+		jpql.append(" or p.user.name like :name)");
 		Query q = getEntityManager().createQuery(jpql.toString());
 		q.setParameter("customId", customId);
+		q.setParameter("username", "%" + username + "%");
+		q.setParameter("name", "%" + name + "%");
 		@SuppressWarnings("unchecked")
 		List<User> list = q.getResultList();
 		return list;
@@ -94,6 +98,7 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		q.setParameter("customId", customIds);
 		q.executeUpdate();
 	}
+
 	@Transactional
 	@Override
 	public void removeCustomRight(String rightId)

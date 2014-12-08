@@ -46,10 +46,22 @@ public class ServiceImpl implements Service
 	@Override
 	public void init()
 	{
+		update();
 		defaultCustom();
 		defalutData();
 		defaultCustomRight();
 		initUser();
+	}
+
+	private void update()
+	{
+		RoleRight e = new RoleRight();
+		String sql = "update core_role_right set id = '" + RoleRight.randomID() + "' where id = '' or id is null";
+		universalService.executeUpdate(sql);
+		sql = "update core_role_right set version_nom = '" + e.getVersionNow() + "' where version_nom = '' or version_nom is null";
+		universalService.executeUpdate(sql);
+		sql = "update core_role_right set version_create = '" + e.getVersionCreate() + "' where version_create = '' or version_create is null";
+		universalService.executeUpdate(sql);
 	}
 
 	private void initUser()
@@ -96,6 +108,7 @@ public class ServiceImpl implements Service
 			role.setName("超级管理员");
 			role.setOrganization(org);
 		}
+		roleService.save(role);
 		List<Right> rights = roleService.findRight(role.getId());
 		List<Right> rightList = rightService.findAll();
 		for (Right right : rightList)
@@ -117,7 +130,6 @@ public class ServiceImpl implements Service
 				roleService.persist(rr);
 			}
 		}
-		roleService.save(role);
 		User user = userService.getByUsername("admin");
 		if (user == null)
 		{
@@ -359,7 +371,7 @@ public class ServiceImpl implements Service
 	@Override
 	public List<User> findUserByCustomId(String customId, String username)
 	{
-		return customService.findUserByCustomId(customId);
+		return customService.findUserByCustomId(customId, username);
 	}
 
 	@Override

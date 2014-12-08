@@ -14,17 +14,17 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(CustomServiceImpl.class)
 public interface CustomService extends GenericService<Custom, String>
 {
-	public List<User> findUserByCustomId(String customId);
+	public List<User> findUserByCustomId(String customId, String username);
 
 	public void saveAndRight(Custom custom, List<Right> rights);
 
 	public List<Right> findRights(String customId);
-	
+
 	public void removeCustomRight(String rightId);
-	
+
 	public void removeByIds(String[] ids);
 
 	public CustomUser getCustomUser(String id, String customId);
-	
+
 	public CustomRight getCustomRight(String rightId, String customId);
 }
