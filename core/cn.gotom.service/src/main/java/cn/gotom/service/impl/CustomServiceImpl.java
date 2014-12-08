@@ -12,6 +12,7 @@ import cn.gotom.pojos.CustomUser;
 import cn.gotom.pojos.Right;
 import cn.gotom.pojos.User;
 import cn.gotom.service.CustomService;
+import cn.gotom.util.StringUtils;
 
 import com.google.inject.persist.Transactional;
 
@@ -29,12 +30,18 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		StringBuffer jpql = new StringBuffer();
 		jpql.append("Select p.user from " + CustomUser.class.getSimpleName() + " p");
 		jpql.append(" where p.custom.id = :customId");
-		jpql.append(" and (p.user.username like :username");
-		jpql.append(" or p.user.name like :name)");
+		if (StringUtils.isNotEmpty(username))
+		{
+			jpql.append(" and (p.user.username like :username");
+			jpql.append(" or p.user.name like :name)");
+		}
 		Query q = getEntityManager().createQuery(jpql.toString());
 		q.setParameter("customId", customId);
-		q.setParameter("username", "%" + username + "%");
-		q.setParameter("name", "%" + name + "%");
+		if (StringUtils.isNotEmpty(username))
+		{
+			q.setParameter("username", "%" + username + "%");
+			q.setParameter("name", "%" + username + "%");
+		}
 		@SuppressWarnings("unchecked")
 		List<User> list = q.getResultList();
 		return list;
