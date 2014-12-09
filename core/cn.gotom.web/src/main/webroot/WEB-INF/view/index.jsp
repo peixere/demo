@@ -9,7 +9,7 @@
     <script type="text/javascript">  
     <!--//  
     var desktopPanel = '${custom.desktopPanel}';
-    Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');    
+    //Ext.Loader.setPath('Gotom', '${ctxp}/p/classes');    
     ${plugins}
 	var portal = '';
     Ext.onReady(function(){
