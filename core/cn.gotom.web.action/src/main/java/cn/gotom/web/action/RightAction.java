@@ -73,6 +73,12 @@ public class RightAction extends AbsPortalAction
 		toJSON(menuList);
 	}
 
+	public void dirTree() throws IOException
+	{
+		List<Right> list = rightService.loadDirByParentId(id, getCurrentCustomId());
+		toJSON(list);
+	}
+
 	public void list() throws IOException
 	{
 		List<Right> list = rightService.findAll();
