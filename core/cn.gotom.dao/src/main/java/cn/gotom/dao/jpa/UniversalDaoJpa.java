@@ -209,7 +209,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		for (Object v : entitys)
 		{
 			oList.add(v);
-			if (oList.size() >= 10)
+			if (oList.size() >= 30)
 			{
 				this.saveOrUpdateAll(oList);
 				oList.clear();
@@ -217,13 +217,12 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		}
 		if (oList.size() > 0)
 		{
-			this.saveAll(oList);
-			oList.clear();
+			this.saveOrUpdateAll(oList);
 		}
 	}
 
 	@Transactional
-	private void saveOrUpdateAll(Collection<?> entitys)
+	protected void saveOrUpdateAll(Collection<?> entitys)
 	{
 		for (Object v : entitys)
 		{
