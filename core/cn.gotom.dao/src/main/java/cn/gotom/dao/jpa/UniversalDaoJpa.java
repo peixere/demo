@@ -202,18 +202,8 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		return getEntityManager().merge(value);
 	}
 
-	@Transactional
 	@Override
 	public void saveAll(Collection<?> entitys)
-	{
-		for (Object v : entitys)
-		{
-			getEntityManager().merge(v);
-		}
-	}
-
-	@Override
-	public void saveOrUpdateAll(Collection<?> entitys)
 	{
 		List<Object> oList = new ArrayList<Object>();
 		for (Object v : entitys)
@@ -221,7 +211,7 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 			oList.add(v);
 			if (oList.size() >= 10)
 			{
-				this.saveAll(oList);
+				this.saveOrUpdateAll(oList);
 				oList.clear();
 			}
 		}
@@ -229,6 +219,15 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		{
 			this.saveAll(oList);
 			oList.clear();
+		}
+	}
+
+	@Transactional
+	private void saveOrUpdateAll(Collection<?> entitys)
+	{
+		for (Object v : entitys)
+		{
+			getEntityManager().merge(v);
 		}
 	}
 
