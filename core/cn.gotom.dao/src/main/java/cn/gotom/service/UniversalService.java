@@ -48,9 +48,12 @@ public interface UniversalService
 
 	void saveAll(Collection<?> entitys);
 
+	void saveOrUpdateAll(Collection<?> entitys);
+
 	<T> List<T> query(Class<T> clazz, String sql);
 
 	int executeUpdate(String sql);
 
 	<T> Pagination<T> findPagination(Class<T> clazz, int pageIndex, int pageSize);
+
 }

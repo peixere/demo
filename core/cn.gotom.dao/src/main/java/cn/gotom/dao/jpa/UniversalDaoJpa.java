@@ -213,6 +213,26 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 	}
 
 	@Override
+	public void saveOrUpdateAll(Collection<?> entitys)
+	{
+		List<Object> oList = new ArrayList<Object>();
+		for (Object v : entitys)
+		{
+			oList.add(v);
+			if (oList.size() >= 10)
+			{
+				this.saveAll(oList);
+				oList.clear();
+			}
+		}
+		if (oList.size() > 0)
+		{
+			this.saveAll(oList);
+			oList.clear();
+		}
+	}
+
+	@Override
 	public boolean exist(Class<?> clazz, Serializable id)
 	{
 		Object entity = this.get(clazz, id);
