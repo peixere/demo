@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.persistence.Table;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
@@ -53,14 +55,18 @@ public class ServiceImpl implements Service
 		initUser();
 	}
 
+	/**
+	 * pojo更新要做的数据升级
+	 */
 	private void update()
 	{
 		RoleRight e = new RoleRight();
-		String sql = "update core_role_right set id = '" + RoleRight.randomID() + "' where id = '' or id is null";
+		String table = RoleRight.class.getAnnotation(Table.class).name();
+		String sql = "update " + table + " set version_nom = '" + e.getVersionNow() + "' where version_nom = '' or version_nom is null";
 		universalService.executeUpdate(sql);
-		sql = "update core_role_right set version_nom = '" + e.getVersionNow() + "' where version_nom = '' or version_nom is null";
+		sql = "update " + table + " set version_create = '" + e.getVersionCreate() + "' where version_create = '' or version_create is null";
 		universalService.executeUpdate(sql);
-		sql = "update core_role_right set version_create = '" + e.getVersionCreate() + "' where version_create = '' or version_create is null";
+		sql = "update " + table + " set id = '" + RoleRight.randomID() + "' where id = '' or id is null";
 		universalService.executeUpdate(sql);
 	}
 
