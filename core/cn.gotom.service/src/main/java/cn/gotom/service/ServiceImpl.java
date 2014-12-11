@@ -108,6 +108,8 @@ public class ServiceImpl implements Service
 		}
 		Role role = roleService.get(Custom.Default);
 		if (role == null)
+			role = roleService.get("name", "超级管理员");
+		if (role == null)
 		{
 			role = new Role();
 			role.setId(Custom.Default);
