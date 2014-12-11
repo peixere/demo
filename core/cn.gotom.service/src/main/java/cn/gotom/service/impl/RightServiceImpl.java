@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import cn.gotom.dao.jpa.GenericDaoJpa;
 import cn.gotom.pojos.CustomRight;
 import cn.gotom.pojos.Right;
+import cn.gotom.pojos.RightType;
 import cn.gotom.service.RightService;
 import cn.gotom.service.model.RightChecked;
 import cn.gotom.service.model.RightTree;
@@ -262,5 +263,20 @@ public class RightServiceImpl extends GenericDaoJpa<Right, String> implements Ri
 		{
 			getEntityManager().remove(getEntityManager().getReference(persistentClass, id));
 		}
+	}
+
+	@Override
+	public List<Right> loadDirByParentId(String parentId, String customId)
+	{
+		List<Right> list = this.findByParentId(parentId, customId);
+		List<Right> dirList = new ArrayList<Right>();
+		for (Right e : list)
+		{
+			if (RightType.DIR.equals(e.getType()))
+			{
+				dirList.add(e);
+			}
+		}
+		return dirList;
 	}
 }

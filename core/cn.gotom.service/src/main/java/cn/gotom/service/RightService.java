@@ -14,13 +14,16 @@ public interface RightService extends GenericService<Right, String>
 {
 	List<Right> findByParentId(String parentId);
 
+	List<Right> findByParentId(String parentId, String customId);
+
+	List<Right> loadDirByParentId(String parentId, String customId);
+
 	List<RightTree> loadTree();
 
-	//List<Right> loadTreeByParentId(String parentId);
+	// List<Right> loadTreeByParentId(String parentId);
 
 	List<RightChecked> loadCheckedTree(List<Right> rights);
-	
+
 	List<RightChecked> loadCustomCheckedTree(String customId, List<Right> rights);
 
-	List<Right> findByParentId(String parentId, String customId);
 }
