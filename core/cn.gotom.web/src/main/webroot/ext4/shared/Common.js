@@ -12,6 +12,38 @@ var Common = {
 		}
 	},
 
+	addTabURL : function(conf) {
+		var p = Ext.getCmp('app-viewport');
+		if (!Ext.isEmpty(p)) {
+			var panel = '';
+			var tabPanel = p.tabPanel;
+			for (var i = 0; i < tabPanel.items.length; i++) {
+				if (tabPanel.items.get(i).id === conf.id) {
+					panel = tabPanel.items.get(i);
+					break;
+				}
+			}
+			if (panel === '') {
+				panel = Ext.create('Ext.panel.Panel', {
+					id : conf.id,
+					title : conf.title,
+					closable : true,
+					// iconCls : 'icon-activity',
+					html : '<iframe width="100%" height="100%" frameborder="0" src="'
+							+ conf.url + '"></iframe>'
+				});
+				tabPanel.add(panel);
+			}
+			tabPanel.setActiveTab(panel);
+		} else {
+			Ext.MessageBox.show({
+						title : '操作提示',
+						msg : '找不到控件：app-viewport',
+						icon : Ext.MessageBox.ERROR
+					});
+		}
+	},
+
 	addTabPanel : function(conf) {
 		var p = Ext.getCmp('app-viewport');
 		if (!Ext.isEmpty(p)) {
@@ -133,7 +165,8 @@ var Common = {
 							root : root
 						},
 						listeners : {
-							exception : function(proxy, response, operation, eOpts) {
+							exception : function(proxy, response, operation,
+									eOpts) {
 								loadMask.hide();
 								Common.onAjaxException(response, comp);
 							}
@@ -143,7 +176,8 @@ var Common = {
 						load : {
 							fn : function() {
 								if (!Ext.isEmpty(comp.pagingToolbar)) {
-									var pageData = comp.pagingToolbar.getPageData();
+									var pageData = comp.pagingToolbar
+											.getPageData();
 									if (pageData.currentPage > pageData.pageCount) {
 										comp.pagingToolbar.moveLast();
 									}
@@ -204,8 +238,10 @@ var Common = {
 										message : '正在删除选中的数据...',
 										url : url,
 										callback : function(result) {
-											if (!Ext.isEmpty(gridPanel.pagingToolbar))
-												gridPanel.pagingToolbar.getStore().reload();
+											if (!Ext
+													.isEmpty(gridPanel.pagingToolbar))
+												gridPanel.pagingToolbar
+														.getStore().reload();
 											var msg = result.msg + result.data;
 											if (Ext.isEmpty(msg))
 												msg = '删除成功';
@@ -254,12 +290,15 @@ var Common = {
 							var json = Ext.JSON.decode(response.responseText);
 							if (!Ext.isEmpty(json.success)) {
 								if (json.success) {
-									config.callback(json, options, success, response);
+									config.callback(json, options, success,
+											response);
 								} else {
-									Common.onAjaxException(response, config.component);
+									Common.onAjaxException(response,
+											config.component);
 								}
 							} else {
-								config.callback(json, options, success, response);
+								config.callback(json, options, success,
+										response);
 							}
 
 						} else {
