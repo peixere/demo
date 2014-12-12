@@ -140,7 +140,7 @@ public class RoleServiceImpl extends GenericDaoJpa<Role, String> implements Role
 			RoleRight rr = new RoleRight();
 			rr.setRight(o);
 			rr.setRole(role);
-			getEntityManager().persist(rr);
+			getEntityManager().merge(rr);
 		}
 	}
 }
