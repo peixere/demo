@@ -230,7 +230,9 @@ Ext.define('Gotom.view.Portal', {
             htmlStr += '<a style="'+style+'" href="javascript:Ext.getCmp(\'app-viewport\').settingPassword();">修改密码</a>　';
             htmlStr += '<a style="'+style+'" href="' + data.logoutUrl + '">注销登录</a>';
             htmlStr += '</div>';
+            if(me.headerHtml != htmlStr)
             header.update(htmlStr);
+            me.headerHtml = htmlStr;
         }catch(error){
             me.showNotice({html:error,title:'异常提示'});
         }    
