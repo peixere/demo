@@ -147,7 +147,8 @@ public class ServiceImpl implements Service
 			user.setPassword(passwordEncoder.encode("1"));
 			user.setRoles(new ArrayList<Role>());
 		}
-		user.getRoles().add(role);
+		if (!user.getRoles().contains(role))
+			user.getRoles().add(role);
 		userService.save(user);
 		if (!userHasCustom(user.getId(), Custom.Default))
 		{
