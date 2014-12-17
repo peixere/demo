@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/view/inc/meta.jsp"%>
 </head>
 <body>
-	<p><img src="${ctxp}/resources/icons/fam/logo.png" alt="错误"/></p>
+	<p><img src="${ctxp}/resources/icons/logo.png" alt="错误"/></p>
 	<p>500您要访问的页面出现异常</p>
 	<p>${pageContext.request.scheme}://${header.host}${url}</p>
 <p>

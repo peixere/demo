@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/view/inc/meta.jsp"%>
 </head>
 <body>
-	<p><img src="${ctxp}/resources/icons/fam/logo.png" alt="错误"/></p>
+	<p><img src="${ctxp}/resources/icons/logo.png" alt="错误"/></p>
 	<p>你的权限不足，访问受限，如有疑问请与系统管理员联系</p>
 	<p>${pageContext.request.scheme}://${header.host}${url}</p>
 	<p style="text-align: center; margin-top: 20px">

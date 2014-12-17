@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/view/inc/meta.jsp"%>
 </head>
 <body>
-	<p><img src="${ctxp}/resources/icons/fam/logo.png" alt="错误"/></p>
+	<p><img src="${ctxp}/resources/icons/logo.png" alt="错误"/></p>
 	<p>404您要访问的页面不存在!</p>
 	<p>
 	${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}
