@@ -25,13 +25,12 @@ var Common = {
 			}
 			if (panel === '') {
 				panel = Ext.create('Ext.panel.Panel', {
-					id : conf.id,
-					title : conf.title,
-					closable : true,
-					// iconCls : 'icon-activity',
-					html : '<iframe width="100%" height="100%" frameborder="0" src="'
-							+ conf.url + '"></iframe>'
-				});
+							id : conf.id,
+							title : conf.title,
+							closable : true,
+							// iconCls : 'icon-activity',
+							html : '<iframe width="100%" height="100%" frameborder="0" src="' + conf.url + '"></iframe>'
+						});
 				tabPanel.add(panel);
 			}
 			tabPanel.setActiveTab(panel);
@@ -165,8 +164,7 @@ var Common = {
 							root : root
 						},
 						listeners : {
-							exception : function(proxy, response, operation,
-									eOpts) {
+							exception : function(proxy, response, operation, eOpts) {
 								loadMask.hide();
 								Common.onAjaxException(response, comp);
 							}
@@ -176,8 +174,7 @@ var Common = {
 						load : {
 							fn : function() {
 								if (!Ext.isEmpty(comp.pagingToolbar)) {
-									var pageData = comp.pagingToolbar
-											.getPageData();
+									var pageData = comp.pagingToolbar.getPageData();
 									if (pageData.currentPage > pageData.pageCount) {
 										comp.pagingToolbar.moveLast();
 									}
@@ -238,10 +235,8 @@ var Common = {
 										message : '正在删除选中的数据...',
 										url : url,
 										callback : function(result) {
-											if (!Ext
-													.isEmpty(gridPanel.pagingToolbar))
-												gridPanel.pagingToolbar
-														.getStore().reload();
+											if (!Ext.isEmpty(gridPanel.pagingToolbar))
+												gridPanel.pagingToolbar.getStore().reload();
 											var msg = result.msg + result.data;
 											if (Ext.isEmpty(msg))
 												msg = '删除成功';
@@ -290,15 +285,12 @@ var Common = {
 							var json = Ext.JSON.decode(response.responseText);
 							if (!Ext.isEmpty(json.success)) {
 								if (json.success) {
-									config.callback(json, options, success,
-											response);
+									config.callback(json, options, success, response);
 								} else {
-									Common.onAjaxException(response,
-											config.component);
+									Common.onAjaxException(response, config.component);
 								}
 							} else {
-								config.callback(json, options, success,
-										response);
+								config.callback(json, options, success, response);
 							}
 
 						} else {
@@ -329,15 +321,20 @@ var Common = {
 							Common.onAjaxException(action.response);
 						}
 					});
+			return true;
+		} else {
+			return false;
 		}
 	},
 
 	formSubmit : function(conf) {
+		var isValid = false;
 		Ext.Msg.confirm("确认提示", "确认要提交数据吗？", function(button) {
 					if (button == "yes") {
-						Common.submit(conf);
+						isValid = Common.submit(conf);
 					}
 				});
+		return isValid;
 	},
 
 	createTreeStore : function(URL, pid) {
@@ -412,9 +409,10 @@ var Common = {
 
 	onTreeParentNodeChecked : function(node, checked) {
 		if (node.parentNode !== null) {
-			if (node.parentNode.childNodes.length > 0) {
+			var childNodes = node.parentNode.childNodes;
+			if (childNodes.length > 0) {
 				var parentCheck = false;
-				Ext.each(node.parentNode.childNodes, function(childNode) {
+				Ext.each(childNodes, function(childNode) {
 							if (childNode.data.checked) {
 								parentCheck = true;
 							}
