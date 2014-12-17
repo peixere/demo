@@ -205,7 +205,7 @@ Ext.define('Gotom.view.Portal', {
             var data = result.data;
             header.setLoading(false);
             me.setLoading(false);
-            var image = ctxp+'/resources/icons/fam/topbg.jpg';
+            var image = ctxp+'/resources/icons/logo.jpg';
             if(!Ext.isEmpty(data.topbgId))
             {
                 image = ctxp+'/p!down.do?id='+data.topbgId;

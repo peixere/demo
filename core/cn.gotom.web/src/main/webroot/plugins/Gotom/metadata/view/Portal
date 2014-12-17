@@ -348,7 +348,7 @@
                     "    var data = result.data;\r",
                     "    header.setLoading(false);\r",
                     "    me.setLoading(false);\r",
-                    "    var image = ctxp+'/resources/icons/fam/topbg.jpg';\r",
+                    "    var image = ctxp+'/resources/icons/logo.jpg';\r",
                     "    if(!Ext.isEmpty(data.topbgId))\r",
                     "    {\r",
                     "        image = ctxp+'/p!down.do?id='+data.topbgId;\r",
