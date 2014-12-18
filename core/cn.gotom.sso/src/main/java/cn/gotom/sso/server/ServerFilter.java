@@ -31,7 +31,7 @@ public class ServerFilter extends AbstractCommonFilter
 {
 	private static final String sqlPropertyName = "loginsql";
 	protected SSOService ssoService;
-	private String loginSQL = "select password from core_user where (username=? or mobile=?)";
+	private String loginSQL = "select password from core_user where status = 0 and (username=? or mobile=?)";
 	private String loginPath;
 	private String logoutPath;
 	private String successPath;
