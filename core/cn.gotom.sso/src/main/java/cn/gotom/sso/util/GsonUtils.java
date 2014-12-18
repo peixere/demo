@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import cn.gotom.pojos.User;
-import cn.gotom.sso.TicketImpl;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
@@ -22,18 +19,6 @@ public class GsonUtils
 
 	public static final String dateFormat = "yyyy年MM月dd日 HH时mm分ss秒";
 
-	public static void main(String[] agrs)
-	{
-		List<TicketImpl> userList = new ArrayList<TicketImpl>();
-		TicketImpl user = new TicketImpl("");
-		userList.add(user);
-		user = new TicketImpl("");
-		userList.add(user);
-		String json = GsonUtils.toJson(userList, dateFormat);
-		System.out.println(json);
-		User[] users = GsonUtils.toArray(User[].class, json);
-		System.out.println(users.length);
-	}
 
 	public static <T> String toJson(T value)
 	{
