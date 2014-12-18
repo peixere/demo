@@ -369,16 +369,18 @@ public final class CommonUtils
 		return casServerUrlPrefix;
 	}
 
-	public final String getInitParameter(final ServletContext servletContext, final String propertyName, final String defaultValue)
+	public static String getInitParameter(final ServletContext servletContext, final String propertyName, final String defaultValue)
 	{
 		String value = servletContext.getInitParameter(propertyName);
 		if (isNotBlank(value))
 		{
+			log.info("Property [" + propertyName + "] loaded from ServletContext.getInitParameter with value [" + value + "]");
 			return value;
 		}
 		if (isEmpty(value))
 		{
 			value = defaultValue;
+			log.info("Property [" + propertyName + "] not found.  Using default value [" + defaultValue + "]");
 		}
 		return defaultValue;
 	}

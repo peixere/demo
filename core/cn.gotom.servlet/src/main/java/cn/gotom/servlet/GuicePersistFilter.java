@@ -68,7 +68,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 				try
 				{
 					Class<?> clazz = Class.forName(name.trim());
-					InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
+					InitializeService initService = (InitializeService) AuthenticationListener.injector.getInstance(clazz);
 					initService.init();
 					log.debug(name + ".init()");
 				}
@@ -87,7 +87,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			try
 			{
 				Class<?> clazz = Class.forName(name.trim());
-				InitializeService initService = (InitializeService) GuiceListener.injector.getInstance(clazz);
+				InitializeService initService = (InitializeService) AuthenticationListener.injector.getInstance(clazz);
 				initService.destroy();
 				log.debug(name + ".destroy()");
 			}

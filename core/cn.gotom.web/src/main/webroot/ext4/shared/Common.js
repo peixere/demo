@@ -410,8 +410,8 @@ var Common = {
 	onTreeParentNodeChecked : function(node, checked) {
 		if (node.parentNode !== null) {
 			var childNodes = node.parentNode.childNodes;
+			var parentCheck = false;
 			if (childNodes.length > 0) {
-				var parentCheck = false;
 				Ext.each(childNodes, function(childNode) {
 							if (childNode.data.checked) {
 								parentCheck = true;

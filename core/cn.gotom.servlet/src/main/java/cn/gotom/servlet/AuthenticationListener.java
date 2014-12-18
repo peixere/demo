@@ -9,14 +9,19 @@ import javax.servlet.ServletContextEvent;
 import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter;
 
-import cn.gotom.service.ServiceModule;
+import cn.gotom.matcher.UrlMatcher;
+import cn.gotom.matcher.UrlMatcherAnt;
+import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
 import cn.gotom.sso.server.JDBCManager;
 import cn.gotom.sso.server.ServerFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.websocket.WebSocketServer;
+import cn.gotom.util.PasswordEncoder;
+import cn.gotom.util.PasswordEncoderMessageDigest;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -31,13 +36,13 @@ import com.google.inject.struts2.Struts2GuicePluginModule;
  * 
  * @author peixere@qq.com
  */
-public class GuiceListener extends GuiceServletContextListener
+public class AuthenticationListener extends GuiceServletContextListener
 {
 	protected final Logger log = Logger.getLogger(this.getClass());
 
 	protected static Injector injector;
 
-	private String serverLoginUrl;
+	protected String serverLoginUrl;
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent)
@@ -72,7 +77,17 @@ public class GuiceListener extends GuiceServletContextListener
 		JpaPersistModule jpm = createJPAModule();
 		moduleList.add(jpm);
 		// moduleList.add(new CorePersistModule());
-		moduleList.add(new ServiceModule());
+		moduleList.add(new AbstractModule()
+		{
+
+			@Override
+			protected void configure()
+			{
+				bind(UrlMatcher.class).to(UrlMatcherAnt.class).asEagerSingleton();
+				bind(PasswordEncoder.class).to(PasswordEncoderMessageDigest.class).asEagerSingleton();
+			}
+
+		});
 		moduleList.add(servletModule);
 		moduleList.add(new Struts2GuicePluginModule());
 		return moduleList;
@@ -139,8 +154,8 @@ public class GuiceListener extends GuiceServletContextListener
 					bind(ServerFilter.class).in(Singleton.class);
 					filter(serverLoginUrl).through(ServerFilter.class);
 				}
-				bind(ValidationFilter.class).in(Singleton.class);
-				filter("/*").through(ValidationFilter.class);
+				bind(AuthenticationFilter.class).in(Singleton.class);
+				filter("/*").through(AuthenticationFilter.class);
 
 				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
 				filter("/*").through(StrutsPrepareAndExecuteFilter.class);

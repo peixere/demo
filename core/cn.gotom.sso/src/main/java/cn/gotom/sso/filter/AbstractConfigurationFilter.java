@@ -29,17 +29,6 @@ public abstract class AbstractConfigurationFilter implements Filter
 			log.info("Property [" + propertyName + "] loaded from FilterConfig.getInitParameter with value [" + value + "]");
 			return value;
 		}
-		value = filterConfig.getServletContext().getInitParameter(propertyName);
-		if (CommonUtils.isNotBlank(value))
-		{
-			log.info("Property [" + propertyName + "] loaded from ServletContext.getInitParameter with value [" + value + "]");
-			return value;
-		}
-		if (CommonUtils.isEmpty(value))
-		{
-			value = defaultValue;
-		}
-		log.info("Property [" + propertyName + "] not found.  Using default value [" + defaultValue + "]");
-		return defaultValue;
+		return CommonUtils.getInitParameter(filterConfig.getServletContext(), propertyName, defaultValue);
 	}
 }
