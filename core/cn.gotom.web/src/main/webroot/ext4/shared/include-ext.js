@@ -33,7 +33,7 @@ var ctxp = '';
     var scriptEls = document.getElementsByTagName('script');
     var path = scriptEls[scriptEls.length - 1].src,
         rtl = getQueryParam('rtl'),
-        theme = getQueryParam('theme') || 'neptune',
+        theme = getQueryParam('theme') || 'classic',
         includeCSS = !hasOption('nocss', path),
         neptune = (theme === 'neptune'),
         repoDevMode = getCookieValue('ExtRepoDevMode'),
