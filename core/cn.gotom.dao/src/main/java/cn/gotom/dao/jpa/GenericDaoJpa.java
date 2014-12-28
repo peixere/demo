@@ -67,7 +67,7 @@ public class GenericDaoJpa<T, PK extends Serializable> extends UniversalDaoJpa i
 		}
 		catch (Exception ex)
 		{
-			log.warn(ex.getMessage() + " " + persistentClass.getName() + " " + id);
+			log.debug(ex.getMessage() + " " + persistentClass.getName() + " " + id);
 			return null;
 		}
 	}
