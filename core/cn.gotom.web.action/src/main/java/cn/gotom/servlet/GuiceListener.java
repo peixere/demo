@@ -51,7 +51,7 @@ public class GuiceListener extends AuthenticationListener
 				bind(ValidationFilter.class).in(Singleton.class);
 				filter("/*").through(ValidationFilter.class);
 				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-				filter("/*").through(StrutsPrepareAndExecuteFilter.class);
+				filter("*.do").through(StrutsPrepareAndExecuteFilter.class);
 			}
 		};
 		return servletModule;

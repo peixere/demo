@@ -10,6 +10,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.ClientAbortException;
+
 import cn.gotom.dao.PersistenceLifeCycle;
 import cn.gotom.service.InitializeService;
 import cn.gotom.sso.filter.AbstractConfigurationFilter;
@@ -119,6 +121,10 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 			{
 				forwardError(request, response, e);
 			}
+		}
+		catch (ClientAbortException ex)
+		{
+			log.debug("", ex);
 		}
 		catch (Error ex)
 		{

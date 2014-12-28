@@ -30,6 +30,7 @@ public class CustomServiceImpl extends GenericDaoJpa<Custom, String> implements 
 		StringBuffer jpql = new StringBuffer();
 		jpql.append("Select p.user from " + CustomUser.class.getSimpleName() + " p");
 		jpql.append(" where p.custom.id = :customId");
+		jpql.append(" and p.user.username != 'root'");
 		if (StringUtils.isNotEmpty(username))
 		{
 			jpql.append(" and (p.user.username like :username");
