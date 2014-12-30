@@ -186,10 +186,14 @@ Ext.define('Gotom.view.Portal', {
     loadHeader: function() {
         me = this;
         try{
-            Common.ajax({
-                message : '加载头信息...',    
+            Ext.Ajax.request({
                 url : ctxp+'/p/main!main.do',
-                callback : function(result){me.setHeader(result);}
+                method : 'post',
+                callback : function(options, success, response) {
+                    if (success) {
+                        me.setHeader(Ext.JSON.decode(response.responseText));
+                    }
+                }
             });
         }catch(error)
         {
