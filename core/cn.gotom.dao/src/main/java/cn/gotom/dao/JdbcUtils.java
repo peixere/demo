@@ -181,7 +181,30 @@ public class JdbcUtils
 		try
 		{
 			Class<?> type = PropertyUtils.getPropertyType(entity, column);
-			if (type.equals(Boolean.class) || type.equals(boolean.class))
+			if (value instanceof Number)
+			{
+				if (type.equals(Integer.class) || type.equals(int.class))
+				{
+					pd.getWriteMethod().invoke(entity, ((Number) value).intValue());
+				}
+				else if (type.equals(Short.class) || type.equals(short.class))
+				{
+					pd.getWriteMethod().invoke(entity, ((Number) value).shortValue());
+				}
+				else if (type.equals(Long.class) || type.equals(long.class))
+				{
+					pd.getWriteMethod().invoke(entity, ((Number) value).longValue());
+				}
+				else if (type.equals(Float.class) || type.equals(float.class))
+				{
+					pd.getWriteMethod().invoke(entity, ((Number) value).floatValue());
+				}
+				else if (type.equals(Double.class) || type.equals(double.class))
+				{
+					pd.getWriteMethod().invoke(entity, ((Number) value).doubleValue());
+				}
+			}
+			else if (type.equals(Boolean.class) || type.equals(boolean.class))
 			{
 				pd.getWriteMethod().invoke(entity, Boolean.parseBoolean(value.toString()));
 			}
