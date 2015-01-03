@@ -21,6 +21,7 @@
 		<description>无须登陆可访问资源</description>
 		<param-name>authenticationNone</param-name>
 		<param-value>
+			*.ico,
 		    /ext4/**,
 		    /resources/**,
 		    /**/**.js,
