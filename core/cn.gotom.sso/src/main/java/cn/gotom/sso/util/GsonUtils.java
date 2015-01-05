@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import cn.gotom.annotation.Description;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
@@ -18,7 +20,6 @@ public class GsonUtils
 	private static final Logger log = Logger.getLogger(GsonUtils.class);
 
 	public static final String dateFormat = "yyyy年MM月dd日 HH时mm分ss秒";
-
 
 	public static <T> String toJson(T value)
 	{
@@ -61,12 +62,24 @@ public class GsonUtils
 		return null;
 	}
 
+	@Description("参数：类型，json")
 	public static <T> List<T> toList(Class<T[]> classofT, String json)
+	{
+		return toList(classofT, json, null);
+	}
+
+	@Description("参数：类型，json,时间格式")
+	public static <T> List<T> toList(Class<T[]> classofT, String json, String dateFormat)
 	{
 		List<T> list = new ArrayList<T>();
 		try
 		{
-			Gson gson = new Gson();
+			GsonBuilder gb = new GsonBuilder();
+			if (dateFormat != null && dateFormat.trim().length() > 0)
+			{
+				gb.setDateFormat(dateFormat);
+			}
+			Gson gson = gb.create();
 			T[] array = gson.fromJson(json, classofT);
 			for (T o : array)
 			{
@@ -102,7 +115,7 @@ public class GsonUtils
 		if (dateFormat != null && dateFormat.trim().length() > 0)
 		{
 			gb.setDateFormat(dateFormat);
-			//gb.registerTypeAdapter(Timestamp.class, new GsonTimestampTypeAdapter(dateFormat));
+			// gb.registerTypeAdapter(Timestamp.class, new GsonTimestampTypeAdapter(dateFormat));
 		}
 		if (registerTypeAdapterFactorys != null)
 		{
