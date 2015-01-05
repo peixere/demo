@@ -1,6 +1,7 @@
 package cn.gotom.dao;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -11,6 +12,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
+import org.apache.log4j.Logger;
 import org.hibernate.ejb.packaging.NativeScanner;
 import org.hibernate.ejb.packaging.Scanner;
 
@@ -25,19 +27,20 @@ import com.google.inject.persist.UnitOfWork;
 @Singleton
 public class Persistence implements PersistenceLifeCycle
 {
-
+	private final static Logger log = Logger.getLogger(Persistence.class);
 	private final UnitOfWork unitOfWork;
 	private final PersistService persistService;
 	private String pattern = "*.pojos.*";
 
 	private final UrlMatcher urlMatcher = new UrlMatcherAnt();
-	
+
 	@Inject
 	public Persistence(UnitOfWork unitOfWork, PersistService persistService)
 	{
 		this.unitOfWork = unitOfWork;
 		this.persistService = persistService;
 	}
+
 	@Override
 	public void startService()
 	{
@@ -48,7 +51,7 @@ public class Persistence implements PersistenceLifeCycle
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			log.error("", ex);
 		}
 		this.persistService.start();
 	}
@@ -56,6 +59,7 @@ public class Persistence implements PersistenceLifeCycle
 	private Set<Class<?>> scanPersistentClass()
 	{
 		String path = getJarPath();
+		log.info(path);
 		Set<Class<?>> matchingClasses = new HashSet<Class<?>>();
 		try
 		{
@@ -78,13 +82,13 @@ public class Persistence implements PersistenceLifeCycle
 				}
 				catch (MalformedURLException e)
 				{
-					e.printStackTrace();
+					log.error(path, e);
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+			log.error(path, ex);
 		}
 		return matchingClasses;
 	}
@@ -92,6 +96,14 @@ public class Persistence implements PersistenceLifeCycle
 	private String getJarPath()
 	{
 		String domainPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+		try
+		{
+			domainPath = java.net.URLDecoder.decode(domainPath, "utf-8");
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			log.error(domainPath, e);
+		}
 		File file = new File(domainPath);
 		if (!file.isDirectory())
 		{
@@ -99,31 +111,35 @@ public class Persistence implements PersistenceLifeCycle
 		}
 		return domainPath;
 	}
+
 	@Override
 	public void stopService()
 	{
 		this.persistService.stop();
 	}
+
 	@Override
 	public void beginUnitOfWork()
 	{
 		this.unitOfWork.begin();
 	}
+
 	@Override
 	public void endUnitOfWork()
 	{
 		this.unitOfWork.end();
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return pattern;
 	}
+
 	@Override
 	public void setPattern(String pattern)
 	{
 		this.pattern = pattern;
 	}
-	
-	
+
 }
