@@ -205,14 +205,15 @@ public class SerialPortChannel extends ChannelBase implements SerialPortEventLis
 		{
 			if (this.isOpened())
 			{
-				String[] portNames = SerialPortList.getPortNames();
-				for (int i = 0; i < portNames.length; i++)
-				{
-					if (portNames[i].equalsIgnoreCase(portName))
-					{
-						return true;
-					}
-				}
+				return true;
+//				String[] portNames = SerialPortList.getPortNames();
+//				for (int i = 0; i < portNames.length; i++)
+//				{
+//					if (portNames[i].equalsIgnoreCase(portName))
+//					{
+//						return true;
+//					}
+//				}
 			}
 			return false;
 		}
