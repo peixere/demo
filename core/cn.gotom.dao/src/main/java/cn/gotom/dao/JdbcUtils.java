@@ -104,16 +104,16 @@ public class JdbcUtils
 		return map;
 	}
 
-	public static <T> List<T> toList(Class<T> cls, List<Map<String, Object>> mapList) throws SQLException
+	public static List<?> toList(Class<?> cls, List<Map<String, Object>> mapList) throws SQLException
 	{
-		List<T> eList = new ArrayList<T>();
+		List<Object> eList = new ArrayList<Object>();
 		if (mapList == null)
 		{
 			return eList;
 		}
 		for (Map<String, Object> map : mapList)
 		{
-			T entity = toEntity(cls, map);
+			Object entity = toEntity(cls, map);
 			if (entity != null)
 			{
 				eList.add(entity);
@@ -122,9 +122,9 @@ public class JdbcUtils
 		return eList;
 	}
 
-	public static <T> T toEntity(Class<T> cls, Map<String, Object> map) throws SQLException
+	public static Object toEntity(Class<?> cls, Map<String, Object> map) throws SQLException
 	{
-		T entity = null;
+		Object entity = null;
 		try
 		{
 			entity = cls.newInstance();
@@ -221,9 +221,9 @@ public class JdbcUtils
 		}
 	}
 
-	public static <T> List<T> toList(Class<T> cls, ResultSet rs) throws SQLException
+	public static List<?> toList(Class<?> cls, ResultSet rs) throws SQLException
 	{
-		List<T> eList = new ArrayList<T>();
+		List<Object> eList = new ArrayList<Object>();
 		if (rs == null)
 		{
 			return eList;
@@ -240,7 +240,7 @@ public class JdbcUtils
 		}
 		while (rs.next())
 		{
-			T entity = null;
+			Object entity = null;
 			try
 			{
 				entity = cls.newInstance();

@@ -269,13 +269,14 @@ public class UniversalDaoJpa extends AbsDaoJpa implements UniversalDao
 		return field;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> query(Class<T> clazz, String sql)
 	{
 		List<T> eList = null;
 		try
 		{
-			eList = JdbcUtils.toList(clazz, query(sql));
+			eList = (List<T>) JdbcUtils.toList(clazz, query(sql));
 		}
 		catch (SQLException ex)
 		{
