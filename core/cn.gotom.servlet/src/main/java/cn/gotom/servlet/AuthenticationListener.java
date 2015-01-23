@@ -158,7 +158,7 @@ public class AuthenticationListener extends GuiceServletContextListener
 				filter("/*").through(AuthenticationFilter.class);
 
 				bind(StrutsPrepareAndExecuteFilter.class).in(Singleton.class);
-				filter("*.do").through(StrutsPrepareAndExecuteFilter.class);
+				filter("/*").through(StrutsPrepareAndExecuteFilter.class);
 
 			}
 		};
