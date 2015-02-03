@@ -82,6 +82,16 @@ public abstract class BaseAction
 
 	public void toJsonResponse(Object value, boolean success)
 	{
+		toJsonResponse(value, success, null);
+	}
+
+	public void toJsonResponse(Object value, String... excludeFields)
+	{
+		toJsonResponse(value, true, null, excludeFields);
+	}
+
+	public void toJsonResponse(Object value, boolean success, String dateFormat, String... excludeFields)
+	{
 		JsonResponse json = new JsonResponse();
 		try
 		{
@@ -94,7 +104,7 @@ public abstract class BaseAction
 			json.setData(ex.getMessage());
 			log.warn(ex.getMessage());
 		}
-		toJSON(json);
+		toJSON(dateFormat, json, excludeFields);
 	}
 
 	public void toJsonResponse(Object value)
