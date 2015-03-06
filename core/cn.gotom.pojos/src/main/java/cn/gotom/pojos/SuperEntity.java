@@ -75,7 +75,7 @@ public abstract class SuperEntity implements IdSerializable
 
 	public long getVersionNow()
 	{
-		return versionNow;
+		return versionNow = now();
 	}
 
 	public void setVersionNow(long versionNow)
