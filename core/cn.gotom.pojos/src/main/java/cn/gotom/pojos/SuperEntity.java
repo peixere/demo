@@ -25,6 +25,11 @@ public abstract class SuperEntity implements IdSerializable
 
 	public static final SimpleDateFormat millisecondformat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
+	public static long now()
+	{
+		return Long.parseLong(millisecondformat.format(new Date()));
+	}
+
 	public static String randomID()
 	{
 		return UUID.randomUUID().toString();
@@ -42,7 +47,7 @@ public abstract class SuperEntity implements IdSerializable
 
 	@Transient
 	private String displayName;
-	
+
 	@Transient
 	private boolean selected;
 
@@ -50,7 +55,7 @@ public abstract class SuperEntity implements IdSerializable
 	{
 		try
 		{
-			versionCreate = versionNow = Long.parseLong(millisecondformat.format(new Date()));
+			versionCreate = versionNow = now();
 		}
 		catch (Exception ex)
 		{
