@@ -131,6 +131,7 @@ public class ServerFilter extends AbstractCommonFilter
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
 		boolean noScript = CommonUtils.parseBoolean(req.getParameter("noScript"));
+		boolean client = CommonUtils.parseBoolean(req.getParameter("client"));
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String code = req.getParameter("code");
@@ -162,7 +163,14 @@ public class ServerFilter extends AbstractCommonFilter
 			TicketMap.instance.put(ticket.getId(), ticket);
 			req.getSession().removeAttribute(TicketValidator.Login);
 			req.getSession().removeAttribute(TicketValidator.Code);
-			success(req, res, ticket.getRedirect());
+			if (client)
+			{
+				GsonUtils.writer(req, res, ticket.toJSON());
+			}
+			else
+			{
+				success(req, res, ticket.getRedirect());
+			}
 		}
 		else
 		{
@@ -182,7 +190,14 @@ public class ServerFilter extends AbstractCommonFilter
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
 			req.setAttribute("errorMsg", errorMsg);
-			req.getRequestDispatcher(loginPath).forward(req, res);
+			if (client)
+			{
+				GsonUtils.writer(req, res, ticket.toJSON());
+			}
+			else
+			{
+				req.getRequestDispatcher(loginPath).forward(req, res);
+			}
 		}
 		// CommonUtils.toJSON(req, res, ticket, Ticket.DateFromat);
 	}
