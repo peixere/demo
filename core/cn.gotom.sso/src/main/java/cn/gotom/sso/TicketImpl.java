@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.sso.util.GsonUtils;
 
 import com.google.gson.Gson;
 
@@ -66,8 +67,7 @@ public class TicketImpl implements Ticket
 	@Override
 	public String toJSON()
 	{
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return GsonUtils.toJson(this,Ticket.DateFromat);
 		//return JSONSerializer.toJSON(this).toString();
 	}
 
