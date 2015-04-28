@@ -45,9 +45,8 @@ public class JdbcManager
 		}
 		catch (SQLException ex)
 		{
-			// throw new RuntimeException("Configuration problem : " +
-			// ex.getMessage());
 			log.error("打开数据库连接失败！" + ex.getMessage());
+			conn = null;
 		}
 		return conn;
 	}
@@ -71,6 +70,20 @@ public class JdbcManager
 				log.error(ex.getMessage(), ex);
 			}
 		}
+	}
+
+	public static synchronized Connection connection() throws SQLException
+	{
+		try
+		{
+			log.debug(config.getDriver());
+			Class.forName(config.getDriver());
+		}
+		catch (Exception e)
+		{
+			throw new SQLException(e.getMessage(), e.getCause());
+		}
+		return DriverManager.getConnection(config.getUrl(), config.getUsername(), config.getPassword());
 	}
 
 	public static synchronized Connection createConnection(JdbcConfig JdbcConfig) throws SQLException
@@ -122,4 +135,16 @@ public class JdbcManager
 			JdbcManager.closeCurrent();
 		}
 	}
+
+	public static JdbcConfig getConfig()
+	{
+		return config;
+	}
+
+	public static void setConfig(JdbcConfig config)
+	{
+		JdbcManager.config = config;
+	}
+	
+	
 }
