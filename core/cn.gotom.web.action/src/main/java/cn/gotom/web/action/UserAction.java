@@ -64,7 +64,12 @@ public class UserAction extends AbsPortalAction
 		this.setData(list);
 		return "success";
 	}
-
+	
+	public void l()
+	{
+		List<User> list = service.findUserByCustomId(getCurrentCustomId(), query);
+		this.toJsonResponse(list);
+	}
 	public String save()
 	{
 		if (user == null)

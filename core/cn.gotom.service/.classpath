@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/commons-beanutils-bean-collections-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="/cn.gotom.web/src/main/webroot/WEB-INF/lib/activemq-all-5.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

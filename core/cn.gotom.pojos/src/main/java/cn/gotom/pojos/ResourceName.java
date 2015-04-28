@@ -16,5 +16,7 @@ public abstract class ResourceName
 	 * 配置应用名称
 	 */
 	public static final String appliction_title = "appliction_title";
+	
+	//public static final String 
 
 }

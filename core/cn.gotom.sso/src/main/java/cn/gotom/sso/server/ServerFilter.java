@@ -131,7 +131,8 @@ public class ServerFilter extends AbstractCommonFilter
 	protected void doLogin(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
 	{
 		boolean noScript = CommonUtils.parseBoolean(req.getParameter("noScript"));
-		boolean client = CommonUtils.parseBoolean(req.getParameter("client"));
+		String accept = req.getHeader("accept");
+		boolean jsonType = accept.indexOf(acceptJSON) >= 0;
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String code = req.getParameter("code");
@@ -153,17 +154,17 @@ public class ServerFilter extends AbstractCommonFilter
 				codeCheck = true;
 			}
 		}
+		ticket.setUser(username);
 		if (codeCheck && login(username, password, passwordencoding))
 		{
 			ticket.setSuccess(true);
-			ticket.setUser(username);
 			ticket.setServiceUrl(serviceUrl);
 			ticket.setRedirect(serviceUrl + (serviceUrl.indexOf("?") >= 0 ? "&" : "?") + this.getTicketParameterName() + "=" + ticket.getId());
 			req.getSession().setAttribute(ticket.getId(), ticket);
 			TicketMap.instance.put(ticket.getId(), ticket);
 			req.getSession().removeAttribute(TicketValidator.Login);
 			req.getSession().removeAttribute(TicketValidator.Code);
-			if (client)
+			if (jsonType)
 			{
 				GsonUtils.writer(req, res, ticket.toJSON());
 			}
@@ -189,8 +190,9 @@ public class ServerFilter extends AbstractCommonFilter
 			}
 			req.setAttribute(getServiceParameterName(), serviceUrl);
 			ticket.setSuccess(false);
+			ticket.setMessage(errorMsg);
 			req.setAttribute("errorMsg", errorMsg);
-			if (client)
+			if (jsonType)
 			{
 				GsonUtils.writer(req, res, ticket.toJSON());
 			}
@@ -375,10 +377,19 @@ public class ServerFilter extends AbstractCommonFilter
 	{
 		req.getSession().removeAttribute(req.getSession().getId());
 		TicketMap.instance.remove(req.getSession().getId());
-		String serviceUrl = getServiceUrl(req);
-		req.setAttribute(getServiceParameterName(), serviceUrl);
-		req.setAttribute("errorMsg", "注消成功！");
-		req.getRequestDispatcher(logoutPath).forward(req, res);
+		String accept = req.getHeader("accept");
+		boolean jsonType = accept.indexOf(acceptJSON) >= 0;
+		if (jsonType)
+		{
+			GsonUtils.writer(req, res, "注消成功！");
+		}
+		else
+		{
+			String serviceUrl = getServiceUrl(req);
+			req.setAttribute(getServiceParameterName(), serviceUrl);
+			req.setAttribute("errorMsg", "注消成功！");
+			req.getRequestDispatcher(logoutPath).forward(req, res);
+		}
 	}
 
 	protected void doValidate(HttpServletRequest req, HttpServletResponse res)

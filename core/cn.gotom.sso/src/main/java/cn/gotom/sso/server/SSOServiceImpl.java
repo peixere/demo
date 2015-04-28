@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import cn.gotom.sso.SSOException;
+import cn.gotom.util.JdbcManager;
 
 public class SSOServiceImpl implements SSOService
 {
-	private static final JDBCManager manager = JDBCManager.single;
 
 	@Override
 	public boolean login(String username, String password, String sql) throws SSOException
@@ -23,7 +23,7 @@ public class SSOServiceImpl implements SSOService
 			{
 				num = num - 1;
 			}
-			Connection conn = manager.connection();
+			Connection conn = JdbcManager.currentConnection();
 			stmt = conn.prepareStatement(sql);
 			for (int i = 0; i < num;)
 			{
@@ -55,7 +55,7 @@ public class SSOServiceImpl implements SSOService
 			{
 				e.printStackTrace();
 			}
-			manager.close();
+			JdbcManager.closeCurrent();
 		}
 		return false;
 	}

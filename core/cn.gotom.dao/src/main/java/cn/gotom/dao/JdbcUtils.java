@@ -3,7 +3,6 @@ package cn.gotom.dao;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -19,70 +18,12 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
-public class JdbcUtils
+import cn.gotom.util.JdbcManager;
+
+public class JdbcUtils extends JdbcManager
 {
 
 	protected final static Logger log = Logger.getLogger(JdbcUtils.class);
-	public static final ThreadLocal<Connection> connectionPool = new ThreadLocal<Connection>();
-	protected static JdbcConfig config;
-	static
-	{
-		try
-		{
-			config = new JdbcConfig("META-INF/jdbc");
-		}
-		catch (Exception ex)
-		{
-			log.warn(ex.getMessage());
-		}
-	}
-
-	/**
-	 * 创建当前线程连接
-	 * 
-	 * @return
-	 */
-	public static Connection currentConnection()
-	{
-		Connection conn = connectionPool.get();
-		try
-		{
-			if (null == conn || conn.isClosed())
-			{
-				conn = createConnection(config);
-				connectionPool.set(conn);
-				log.debug("[" + Thread.currentThread().getName() + "]Open：" + conn);
-			}
-		}
-		catch (SQLException ex)
-		{
-			// throw new RuntimeException("Configuration problem : " +
-			// ex.getMessage());
-			log.error("打开数据库连接失败！" + ex.getMessage());
-		}
-		return conn;
-	}
-
-	/**
-	 * 关闭当前线程连接
-	 */
-	public static void closeCurrent()
-	{
-		Connection conn = connectionPool.get();
-		if (null != conn)
-		{
-			connectionPool.set(null);
-			try
-			{
-				log.debug("[" + Thread.currentThread().getName() + "]Close：" + conn);
-				conn.close();
-			}
-			catch (SQLException ex)
-			{
-				log.error(ex.getMessage(), ex);
-			}
-		}
-	}
 
 	public static Map<String, Vector<String>> toMap(ResultSet rs) throws SQLException
 	{
@@ -311,20 +252,6 @@ public class JdbcUtils
 			log.error("{" + column + "=" + value + "} Exception： " + e.getMessage());
 			e.printStackTrace();
 		}
-	}
-
-	public static synchronized Connection createConnection(JdbcConfig JdbcConfig) throws SQLException
-	{
-		try
-		{
-			log.debug(JdbcConfig.getDriver());
-			Class.forName(JdbcConfig.getDriver());
-		}
-		catch (Exception e)
-		{
-			throw new SQLException(e.getMessage(), e.getCause());
-		}
-		return DriverManager.getConnection(JdbcConfig.getUrl(), JdbcConfig.getUsername(), JdbcConfig.getPassword());
 	}
 
 	/**

@@ -26,5 +26,9 @@ public interface Ticket extends Serializable
 
 	boolean getSuccess();
 
+	String getMessage();
+
+	void setMessage(String message);
+
 	String toJSON();
 }

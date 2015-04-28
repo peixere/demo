@@ -11,9 +11,10 @@ import cn.gotom.sso.util.CommonUtils;
 public abstract class AbstractConfigurationFilter implements Filter
 {
 	protected final Logger log = Logger.getLogger(getClass());
+	protected String acceptJSON = "text/json";
 	protected String encodingAlgorithm;
 	protected FilterConfig filterConfig;
-
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException
 	{

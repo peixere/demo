@@ -18,7 +18,9 @@ import cn.gotom.sso.TicketMap;
 import cn.gotom.sso.TicketValidator;
 import cn.gotom.sso.filter.AuthenticationIgnoreFilter;
 import cn.gotom.sso.util.CommonUtils;
+import cn.gotom.sso.util.GsonUtils;
 import cn.gotom.sso.util.UrlUtils;
+import cn.gotom.vo.JsonResponse;
 
 public class AuthenticationFilter extends AuthenticationIgnoreFilter implements TicketValidator
 {
@@ -80,6 +82,11 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		{
 			ticketId = ticket.getId();
 		}
+		final HttpSession session = request.getSession();
+		if (CommonUtils.isEmpty(ticketId))
+		{
+			ticketId = session.getId();
+		}
 		if (!CommonUtils.isEmpty(ticketId))
 		{
 			try
@@ -93,7 +100,6 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 			}
 			catch (SSOException e)
 			{
-				final HttpSession session = request.getSession();
 				session.removeAttribute(getTicketParameterName());
 				ticket = null;
 				log.warn("validate ticket [" + ticketId + "] error " + e.getMessage());
@@ -124,7 +130,19 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 			// urlToRedirectTo = urlToRedirectTo.substring(uri.length() - 1);
 		}
 		log.debug("redirecting to \"" + urlToRedirectTo + "\"");
-		response.sendRedirect(urlToRedirectTo);
+		String accept = request.getHeader("accept");
+		boolean jsonType = accept.indexOf(acceptJSON) >= 0;
+		if (jsonType)
+		{
+			JsonResponse json = new JsonResponse();
+			json.setSuccess(false);
+			json.setMsg("用户未登录");
+			GsonUtils.writer(request, response, GsonUtils.toJson(json));
+		}
+		else
+		{
+			response.sendRedirect(urlToRedirectTo);
+		}
 	}
 
 	@Override
@@ -204,7 +222,6 @@ public class AuthenticationFilter extends AuthenticationIgnoreFilter implements 
 		{
 			serverValidateUrl = serverValidateUrl.replace(request.getServerName(), "localhost");
 		}
-		log.debug(serverValidateUrl);
 		return serverValidateUrl;
 	}
 

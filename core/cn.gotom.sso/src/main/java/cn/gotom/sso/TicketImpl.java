@@ -25,6 +25,7 @@ public class TicketImpl implements Ticket
 	private Date validFromDate = new Date();
 	private Date validUntilDate = new Date();
 	private boolean success;
+	private String message;
 
 	protected TicketImpl()
 	{
@@ -184,6 +185,18 @@ public class TicketImpl implements Ticket
 	public String getRedirect()
 	{
 		return this.redirect;
+	}
+
+	@Override
+	public String getMessage()
+	{
+		return message;
+	}
+
+	@Override
+	public void setMessage(String message)
+	{
+		this.message = message;
 	}
 
 }

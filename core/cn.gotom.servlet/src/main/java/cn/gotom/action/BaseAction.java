@@ -101,7 +101,7 @@ public abstract class BaseAction
 		catch (Exception ex)
 		{
 			json.setSuccess(false);
-			json.setData(ex.getMessage());
+			json.setMsg(ex.getMessage());
 			log.warn(ex.getMessage());
 		}
 		toJSON(dateFormat, json, excludeFields);

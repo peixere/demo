@@ -14,10 +14,10 @@ import cn.gotom.matcher.UrlMatcherAnt;
 import cn.gotom.sso.client.AuthenticationFilter;
 import cn.gotom.sso.filter.AbstractCommonFilter;
 import cn.gotom.sso.filter.CharacterFilter;
-import cn.gotom.sso.server.JDBCManager;
 import cn.gotom.sso.server.ServerFilter;
 import cn.gotom.sso.util.CommonUtils;
 import cn.gotom.sso.websocket.WebSocketServer;
+import cn.gotom.util.JdbcConfig;
 import cn.gotom.util.PasswordEncoder;
 import cn.gotom.util.PasswordEncoderMessageDigest;
 
@@ -102,21 +102,21 @@ public class AuthenticationListener extends GuiceServletContextListener
 			properties.load(this.getClass().getResourceAsStream("/jdbc.properties"));
 			if (properties != null)
 			{
-				if (properties.containsKey(JDBCManager.jdbc_driver))
+				if (properties.containsKey(JdbcConfig.jdbc_driver))
 				{
-					properties.put("hibernate.connection.driver_class", properties.get(JDBCManager.jdbc_driver));
+					properties.put("hibernate.connection.driver_class", properties.get(JdbcConfig.jdbc_driver));
 				}
-				if (properties.containsKey(JDBCManager.jdbc_url))
+				if (properties.containsKey(JdbcConfig.jdbc_url))
 				{
-					properties.put("hibernate.connection.url", properties.get(JDBCManager.jdbc_url));
+					properties.put("hibernate.connection.url", properties.get(JdbcConfig.jdbc_url));
 				}
-				if (properties.containsKey(JDBCManager.jdbc_username))
+				if (properties.containsKey(JdbcConfig.jdbc_username))
 				{
-					properties.put("hibernate.connection.username", properties.get(JDBCManager.jdbc_username));
+					properties.put("hibernate.connection.username", properties.get(JdbcConfig.jdbc_username));
 				}
-				if (properties.containsKey(JDBCManager.jdbc_password))
+				if (properties.containsKey(JdbcConfig.jdbc_password))
 				{
-					properties.put("hibernate.connection.password", properties.get(JDBCManager.jdbc_password));
+					properties.put("hibernate.connection.password", properties.get(JdbcConfig.jdbc_password));
 				}
 			}
 			jpm.properties(properties);
