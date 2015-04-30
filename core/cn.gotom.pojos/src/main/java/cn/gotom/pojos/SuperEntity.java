@@ -40,7 +40,7 @@ public abstract class SuperEntity implements IdSerializable
 	private String id = randomID();
 
 	@Column(name = "version_now")
-	private long versionNow;
+	private Long versionNow;
 
 	@Column(name = "version_create", updatable = false)
 	private long versionCreate;
@@ -75,7 +75,7 @@ public abstract class SuperEntity implements IdSerializable
 
 	public long getVersionNow()
 	{
-		return versionNow;
+		return versionNow != null ? versionNow : 0L;
 	}
 
 	public void setVersionNow(long versionNow)
