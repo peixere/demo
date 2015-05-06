@@ -62,8 +62,8 @@ public class ServiceImpl implements Service
 	{
 		RoleRight e = new RoleRight();
 		String table = RoleRight.class.getAnnotation(Table.class).name();
-		String sql = "update " + table + " set version_nom = '" + e.getVersionNow() + "' where version_nom = '' or version_nom is null";
-		universalService.executeUpdate(sql);
+		String sql = "";//"update " + table + " set version_nom = '" + e.getVersionNow() + "' where version_nom = '' or version_nom is null";
+		//universalService.executeUpdate(sql);
 		sql = "update " + table + " set version_create = '" + e.getVersionCreate() + "' where version_create = '' or version_create is null";
 		universalService.executeUpdate(sql);
 		sql = "update " + table + " set id = '" + RoleRight.randomID() + "' where id = '' or id is null";
