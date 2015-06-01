@@ -8,7 +8,7 @@
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
-			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.max_fetch_depth" value="5" />
@@ -19,14 +19,6 @@
 			<property name="hibernate.c3p0.max_statements" value="50" />
 			<property name="hibernate.c3p0.idle_test_period" value="3000" />
 			<property name="hibernate.c3p0.testConnectionOnCheckout" value="true" />
-						
-<!-- sql server
-			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
--->
-<!-- mysql  -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-
-
 		</properties>
 	</persistence-unit>
 </persistence>
