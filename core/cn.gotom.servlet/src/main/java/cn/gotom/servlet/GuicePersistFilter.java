@@ -42,6 +42,7 @@ class GuicePersistFilter extends AbstractConfigurationFilter
 		try
 		{
 			super.init(filterConfig);
+			manager.setPattern(getInitParameter(filterConfig, "persistencePattern", "*.pojos.*"));
 			this.manager.startService();
 			passwordEncoder.setEncodingAlgorithm(encodingAlgorithm);
 			log.info("startService");
