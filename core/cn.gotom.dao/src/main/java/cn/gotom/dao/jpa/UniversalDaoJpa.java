@@ -24,7 +24,7 @@ import com.google.inject.persist.Transactional;
 /**
  * CRUD
  * 
- * @author <a href="mailto:bwnoll@qq.com">裴绍国</a>
+ * @author <a href="mailto:peixere@qq.com">裴绍国</a>
  * @param <T>
  *            a type variable
  * @param <PK>
