@@ -350,7 +350,7 @@ public class ServerFilter extends AbstractCommonFilter
 		String serviceUrl = req.getParameter(getServiceParameterName());
 		if (CommonUtils.isEmpty(serviceUrl))
 		{
-			serviceUrl = req.getContextPath();
+			serviceUrl = req.getContextPath() + "/";
 		}
 		return serviceUrl;
 	}
